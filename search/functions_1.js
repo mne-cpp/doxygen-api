@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['backgroundcolorchanged',['backgroundColorChanged',['../a00110.html#a298505bab4703dfd487f9edcbea8948d',1,'DISPLIB::FiffRawViewSettings']]],
+  ['badchannelschanged',['badChannelsChanged',['../a00303.html#a554872f1fbe97ce66a39bef420646df8',1,'DISP3DLIB::RtSensorDataController']]],
+  ['bar',['Bar',['../a00027.html#ad307b6d3e660573ccf2c42488f203d3a',1,'DISPLIB::Bar']]],
+  ['baselinechanged',['baselineChanged',['../a00076.html#a712c966a18ef6797c051306c16e1c6f3',1,'DISPLIB::DipoleFitView']]],
+  ['bemsurfacetreeitem',['BemSurfaceTreeItem',['../a00029.html#ad49a49ead5408d5083ac26c6a1ffda85',1,'DISP3DLIB::BemSurfaceTreeItem']]],
+  ['bemtreeitem',['BemTreeItem',['../a00030.html#a862f0c0021fc8c9437dcc2757ab9ea0f',1,'DISP3DLIB::BemTreeItem']]],
+  ['bidsview',['BidsView',['../a00032.html#a2de33846baac849966059423db3f1d96',1,'DISPLIB::BidsView']]],
+  ['bidsviewmodel',['BidsViewModel',['../a00033.html#a84fc2a94761763c7801ee8cc9f4bfa07',1,'DISPLIB::BidsViewModel']]],
+  ['boneb',['boneB',['../a00042.html#abb251bb7603ba90d567f8c2d44d06745',1,'DISPLIB::ColorMap']]],
+  ['boneg',['boneG',['../a00042.html#ad15b6e9517fecd18bc6c6654662f3cb2',1,'DISPLIB::ColorMap']]],
+  ['boner',['boneR',['../a00042.html#a476f9ed39c73ad05a556cd3860b1af90',1,'DISPLIB::ColorMap']]],
+  ['borderchanged',['borderChanged',['../a00330.html#aa19885797924b4e214dcffd2883bb017',1,'DISPLIB::Spline']]],
+  ['boundingrect',['boundingRect',['../a00024.html#ad483ef9652609455f07a0ac34a859790',1,'DISPLIB::AverageSceneItem::boundingRect()'],['../a00313.html#ac2a3e677fa7b3469a7c23250749c8c25',1,'DISPLIB::SelectionSceneItem::boundingRect()']]],
+  ['build_5fnamed_5fmatrix',['build_named_matrix',['../a00219.html#acd7c3fbeec9a547dd33b22b3e03b58cd',1,'MNELIB::MneNamedMatrix']]],
+  ['buildinterpolationmatrixbuffer',['buildInterpolationMatrixBuffer',['../a00150.html#a4de54c51b7a58d3975e926dd5ee459f8',1,'DISP3DLIB::GpuInterpolationItem']]],
+  ['buildzerobuffer',['buildZeroBuffer',['../a00150.html#a828212769de1158338222ffee0327cd2',1,'DISP3DLIB::GpuInterpolationItem']]],
+  ['butterflyview',['ButterflyView',['../a00034.html#adabcc8eefc5e9133689879fae4e1858f',1,'DISPLIB::ButterflyView']]]
+];
