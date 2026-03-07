@@ -1,0 +1,315 @@
+<!-- HTML header for doxygen 1.16.1 — MNE-CPP 2.0.0 -->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MNE-CPP: src/libraries/disp3D_rhi/renderable/dipoleobject.cpp File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="clipboard.js"></script>
+    <script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-custom.css" rel="stylesheet" type="text/css"/>
+    <!-- Doxygen Awesome Extensions -->
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+        DoxygenAwesomeTabs.init()
+        /*
+         * MNE-CPP navbar customisation
+         * 1. Creates version badge + GitHub link elements
+         * 2. Overrides Doxygen's 768px breakpoint -> 996px
+         * 3. On DESKTOP: badge + GitHub + dark-toggle live in
+         *    #searchBoxPos2 (inside #main-menu).
+         * 4. On MOBILE:  badge + GitHub + dark-toggle move to
+         *    the hamburger wrapper row (div.sm.sm-dox inside #top)
+         *    so they stay visible next to the logo even when the
+         *    hamburger menu is collapsed.
+         */
+        $(function () {
+            /* -- Create elements once -------------------------------- */
+            var gh = document.createElement('a');
+            gh.href = 'https://github.com/mne-tools/mne-cpp';
+            gh.target = '_blank';
+            gh.rel = 'noopener noreferrer';
+            gh.className = 'github-link';
+            gh.title = 'GitHub';
+            gh.innerHTML =
+                '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 ' +
+                '8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04' +
+                '-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 ' +
+                '3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 ' +
+                '1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776' +
+                '.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31' +
+                '.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 ' +
+                '1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 ' +
+                '2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 ' +
+                '1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 ' +
+                '4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 ' +
+                '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
+                '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
+            var pn = document.getElementById('projectnumber');
+            var badge = document.createElement('span');
+            badge.className = 'version-badge';
+            badge.textContent = pn ? pn.textContent.trim() : '';
+            var darkToggle = null;
+            /* -- Helpers --------------------------------------------- */
+            /* Find the hamburger wrapper: div.sm.sm-dox that is a
+               direct child of #top (contains checkbox + hamburger btn) */
+            function getHamburgerWrapper() {
+                return document.querySelector('#top > div.sm.sm-dox');
+            }
+            /* Inject badge + GitHub + dark toggle into a target container */
+            function injectInto(container) {
+                if (!container) return;
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                /* Move nodes (appendChild/insertBefore moves if already in DOM) */
+                if (badge.parentNode !== container) {
+                    /* On desktop (sp2): insert at start.
+                       On mobile (hamburger wrapper): insert before hamburger btn. */
+                    container.insertBefore(badge, container.firstChild);
+                }
+                if (gh.parentNode !== container) {
+                    container.insertBefore(gh, badge.nextSibling);
+                }
+                if (darkToggle && darkToggle.parentNode !== container) {
+                    container.insertBefore(darkToggle, gh.nextSibling);
+                }
+            }
+            /* -- Breakpoint override: 768px -> 996px ----------------- */
+            var MNE_BP = 997;
+            var prevW = 0;
+            function mneResetNav() {
+                var w = $(window).outerWidth();
+                if (w === prevW) return;
+                prevW = w;
+                var $menu = $('#main-menu');
+                var $state = $('#main-menu-state');
+                /* Grab dark toggle before anything is emptied */
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                if (darkToggle && darkToggle.parentNode) {
+                    darkToggle.parentNode.removeChild(darkToggle);
+                }
+                if (w < MNE_BP) {
+                    /* -- MOBILE -- */
+                    if (!$state.prop('checked')) {
+                        $menu.hide();
+                    }
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in the
+                       hamburger wrapper (always visible in #top) */
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    /* -- DESKTOP -- */
+                    $menu.css('display', 'flex');
+                    $state.prop('checked', false);
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in searchBoxPos2 */
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                if (typeof searchBox !== 'undefined') {
+                    searchBox.CloseResultsWindow();
+                }
+            }
+            /* Run after Doxygen's own initMenu has finished */
+            setTimeout(function () {
+                /* Initial inject for whatever size we start at */
+                var w = $(window).outerWidth();
+                if (w < MNE_BP) {
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                $(window).on('resize', mneResetNav);
+                mneResetNav();
+            }, 150);
+        });
+    </script>
+</head>
+<body>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div id="titlearea">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr id="projectrow">
+                            <td id="projectlogo"><a href="https://mne-cpp.github.io/">
+                                    <img alt="Logo" class="logo-light" src="MNE-CPP_Logo.svg"  />
+                                    <img alt="Logo" class="logo-dark" src="MNE-CPP_Logo_Dark.svg"  />
+                                </a></td>
+                            <td id="projectalign">
+                                <div id="projectname"><span
+                                        id="projectnumber">v2.0.0</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_ceb91b0558e305478f9a6f250cbf6c42.html">disp3D_rhi</a></li><li class="navelem"><a href="dir_5e98c40a3bbad6795da3bb5e148728e5.html">renderable</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">dipoleobject.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><a class="el" href="a02262.html" title="Renderable dipole arrow set with instanced GPU rendering for QRhi.">DipoleObject</a> class definition.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="a00737_source.html">dipoleobject.h</a>&quot;</code><br />
+<code>#include &lt;rhi/qrhi.h&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;QQuaternion&gt;</code><br />
+<code>#include &lt;QRandomGenerator&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for dipoleobject.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00744.png" border="0" usemap="#asrc_2libraries_2disp3_d__rhi_2renderable_2dipoleobject_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d__rhi_2renderable_2dipoleobject_8cpp" id="asrc_2libraries_2disp3_d__rhi_2renderable_2dipoleobject_8cpp">
+<area shape="rect" title="DipoleObject class definition." alt="" coords="350,5,581,45"/>
+<area shape="rect" href="a00737.html" title="DipoleObject class declaration." alt="" coords="239,93,353,119"/>
+<area shape="poly" title=" " alt="" coords="426,48,335,90,332,85,424,43"/>
+<area shape="rect" title=" " alt="" coords="5,328,80,353"/>
+<area shape="poly" title=" " alt="" coords="350,31,269,43,185,66,144,84,106,107,73,135,45,168,36,186,30,204,26,244,30,283,37,315,32,316,25,284,21,244,25,203,31,183,40,165,69,131,103,103,142,80,183,61,268,37,349,26"/>
+<area shape="rect" title=" " alt="" coords="377,93,457,119"/>
+<area shape="poly" title=" " alt="" coords="456,47,434,83,429,80,451,44"/>
+<area shape="rect" title=" " alt="" coords="482,93,545,119"/>
+<area shape="poly" title=" " alt="" coords="479,44,501,80,497,83,475,47"/>
+<area shape="rect" title=" " alt="" coords="569,93,673,119"/>
+<area shape="poly" title=" " alt="" coords="504,43,587,85,585,89,502,48"/>
+<area shape="rect" title=" " alt="" coords="698,93,849,119"/>
+<area shape="poly" title=" " alt="" coords="540,43,716,87,714,92,538,48"/>
+<area shape="rect" href="a00644.html" title="disp3D_rhi library export/import macros." alt="" coords="577,328,740,353"/>
+<area shape="poly" title=" " alt="" coords="354,115,453,137,498,150,529,164,570,199,605,240,631,281,650,315,645,317,627,284,600,243,567,203,527,169,496,155,451,142,353,120"/>
+<area shape="rect" title=" " alt="" coords="591,174,689,199"/>
+<area shape="poly" title=" " alt="" coords="354,116,573,164,587,168,586,173,571,169,353,121"/>
+<area shape="rect" title=" " alt="" coords="55,174,145,199"/>
+<area shape="poly" title=" " alt="" coords="268,121,142,171,140,166,267,116"/>
+<area shape="rect" title=" " alt="" coords="170,174,233,199"/>
+<area shape="poly" title=" " alt="" coords="284,121,228,167,224,163,280,117"/>
+<area shape="rect" title=" " alt="" coords="257,174,335,199"/>
+<area shape="poly" title=" " alt="" coords="299,119,299,160,293,160,293,119"/>
+<area shape="rect" href="a01733.html" title="FiffDigPointSet class declaration." alt="" coords="359,167,516,207"/>
+<area shape="poly" title=" " alt="" coords="318,117,393,158,390,162,316,121"/>
+<area shape="rect" title=" " alt="" coords="429,401,560,427"/>
+<area shape="poly" title=" " alt="" coords="633,356,535,398,533,393,631,351"/>
+<area shape="rect" href="a01010.html" title="build information utils" alt="" coords="591,401,713,427"/>
+<area shape="poly" title=" " alt="" coords="660,354,657,388,652,388,655,353"/>
+<area shape="rect" title=" " alt="" coords="619,475,685,500"/>
+<area shape="poly" title=" " alt="" coords="655,427,655,461,649,461,649,427"/>
+<area shape="rect" href="a01775.html" title="inverse library export/import macros." alt="" coords="412,328,553,353"/>
+<area shape="poly" title=" " alt="" coords="455,206,469,228,480,254,486,285,487,314,482,314,480,285,475,255,464,230,450,209"/>
+<area shape="rect" href="a01763.html" title="Electric Current Dipole (ECD) class declaration." alt="" coords="277,255,334,280"/>
+<area shape="poly" title=" " alt="" coords="407,209,338,250,336,245,404,204"/>
+<area shape="rect" title=" " alt="" coords="265,328,388,353"/>
+<area shape="poly" title=" " alt="" coords="425,209,345,318,341,315,421,206"/>
+<area shape="rect" title=" " alt="" coords="410,255,465,280"/>
+<area shape="poly" title=" " alt="" coords="440,207,440,241,435,241,435,207"/>
+<area shape="rect" title=" " alt="" coords="182,255,253,280"/>
+<area shape="poly" title=" " alt="" coords="386,209,264,252,262,247,384,204"/>
+<area shape="poly" title=" " alt="" coords="487,353,493,387,488,388,482,354"/>
+<area shape="poly" title=" " alt="" coords="511,351,613,393,611,398,509,356"/>
+<area shape="poly" title=" " alt="" coords="335,278,442,320,440,325,333,282"/>
+<area shape="rect" title=" " alt="" coords="149,328,241,353"/>
+<area shape="poly" title=" " alt="" coords="289,282,226,323,223,318,286,278"/>
+<area shape="poly" title=" " alt="" coords="311,280,322,314,317,316,306,281"/>
+<area shape="poly" title=" " alt="" coords="277,279,265,283,94,328,93,323,263,277,276,274"/>
+</map>
+</div>
+</div>
+<p><a href="a00743_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:DipoleObject_3A_3AGpuBuffers" id="r_DipoleObject_3A_3AGpuBuffers"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02258.html">DipoleObject::GpuBuffers</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a02262.html" title="Renderable dipole arrow set with instanced GPU rendering for QRhi.">DipoleObject</a> class definition. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
+LICENSE</h1>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<p class="definition">Definition in file <a class="el" href="a00743_source.html">dipoleobject.cpp</a>.</p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

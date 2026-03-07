@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['bem_5fsol_5fsuffix_0',['BEM_SOL_SUFFIX',['../a01622.html#a68ab4bfa359263aebbc71d55c08d853b',1,'fwd_bem_model.cpp']]],
+  ['bem_5fsuffix_1',['BEM_SUFFIX',['../a01622.html#a8782cfee781f9c71a7be3b9b5313937d',1,'fwd_bem_model.cpp']]],
+  ['beta_2',['BETA',['../a01736.html#a1b996515309fc3c03449912bb33046e3',1,'BETA:&#160;dipole_fit_data.cpp'],['../a01736.html#a477ffea085df90fc9b220b27de30991c',1,'BETA:&#160;dipole_fit_data.cpp'],['../a01013.html#a1b996515309fc3c03449912bb33046e3',1,'BETA:&#160;simplex_algorithm.h']]],
+  ['bids_5fanatomicaldata_3',['BIDS_ANATOMICALDATA',['../a00350.html#a8f3e96923ea70fc458a499ed0711cb32',1,'bidsviewmodel.h']]],
+  ['bids_5faverage_4',['BIDS_AVERAGE',['../a00350.html#a771f0fb9e4645dc428fcaeaed0d5c60f',1,'bidsviewmodel.h']]],
+  ['bids_5fbehavioraldata_5',['BIDS_BEHAVIORALDATA',['../a00350.html#a4ec98963e51e21539be4187d7c0d3598',1,'bidsviewmodel.h']]],
+  ['bids_5fdipole_6',['BIDS_DIPOLE',['../a00350.html#ae80fb13cc367ac32454f171ecf749394',1,'bidsviewmodel.h']]],
+  ['bids_5fevent_7',['BIDS_EVENT',['../a00350.html#af7f65317825ba46de57d9b4864da0d28',1,'bidsviewmodel.h']]],
+  ['bids_5ffolder_8',['BIDS_FOLDER',['../a00350.html#a41f54d123f58836af93a935fd7c6ea47',1,'bidsviewmodel.h']]],
+  ['bids_5ffunctionaldata_9',['BIDS_FUNCTIONALDATA',['../a00350.html#a5ce2d23ab2b435afb929adc8db1c8d85',1,'bidsviewmodel.h']]],
+  ['bids_5fitem_5fsession_10',['BIDS_ITEM_SESSION',['../a00350.html#a1beab803c7c03de5b66582f97d82fd94',1,'bidsviewmodel.h']]],
+  ['bids_5fitem_5fsubject_11',['BIDS_ITEM_SUBJECT',['../a00350.html#a2a58761c21f797632bec4c6a43235452',1,'bidsviewmodel.h']]],
+  ['bids_5fitem_5ftype_12',['BIDS_ITEM_TYPE',['../a00350.html#a3e3f1564e36d10749de94cc82f3539e5',1,'bidsviewmodel.h']]],
+  ['bids_5fsession_13',['BIDS_SESSION',['../a00350.html#a72aa6e4cae6cbd154aa4aceac6b47a92',1,'bidsviewmodel.h']]],
+  ['bids_5fsubject_14',['BIDS_SUBJECT',['../a00350.html#a60e2591a1b7628870bebf6901c3cf876',1,'bidsviewmodel.h']]],
+  ['bids_5funknown_15',['BIDS_UNKNOWN',['../a00350.html#abde145b2a87d4e777ce5eb7b87cd597d',1,'bidsviewmodel.h']]],
+  ['big_16',['BIG',['../a01610.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'BIG:&#160;fwd_coil_set.cpp'],['../a00065.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'BIG:&#160;parksmcclellan.cpp']]],
+  ['big_5ftime_17',['BIG_TIME',['../a01766.html#a9b7eb62aa0860447484765b33902ea95',1,'BIG_TIME:&#160;dipole_fit.cpp'],['../a01748.html#a9b7eb62aa0860447484765b33902ea95',1,'BIG_TIME:&#160;dipole_fit_settings.h']]]
+];

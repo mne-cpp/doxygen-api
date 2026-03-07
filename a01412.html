@@ -1,0 +1,917 @@
+<!-- HTML header for doxygen 1.16.1 — MNE-CPP 2.0.0 -->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MNE-CPP: src/libraries/mne/mne_ctf_comp_data_set.cpp File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="clipboard.js"></script>
+    <script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-custom.css" rel="stylesheet" type="text/css"/>
+    <!-- Doxygen Awesome Extensions -->
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+        DoxygenAwesomeTabs.init()
+        /*
+         * MNE-CPP navbar customisation
+         * 1. Creates version badge + GitHub link elements
+         * 2. Overrides Doxygen's 768px breakpoint -> 996px
+         * 3. On DESKTOP: badge + GitHub + dark-toggle live in
+         *    #searchBoxPos2 (inside #main-menu).
+         * 4. On MOBILE:  badge + GitHub + dark-toggle move to
+         *    the hamburger wrapper row (div.sm.sm-dox inside #top)
+         *    so they stay visible next to the logo even when the
+         *    hamburger menu is collapsed.
+         */
+        $(function () {
+            /* -- Create elements once -------------------------------- */
+            var gh = document.createElement('a');
+            gh.href = 'https://github.com/mne-tools/mne-cpp';
+            gh.target = '_blank';
+            gh.rel = 'noopener noreferrer';
+            gh.className = 'github-link';
+            gh.title = 'GitHub';
+            gh.innerHTML =
+                '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 ' +
+                '8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04' +
+                '-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 ' +
+                '3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 ' +
+                '1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776' +
+                '.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31' +
+                '.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 ' +
+                '1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 ' +
+                '2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 ' +
+                '1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 ' +
+                '4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 ' +
+                '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
+                '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
+            var pn = document.getElementById('projectnumber');
+            var badge = document.createElement('span');
+            badge.className = 'version-badge';
+            badge.textContent = pn ? pn.textContent.trim() : '';
+            var darkToggle = null;
+            /* -- Helpers --------------------------------------------- */
+            /* Find the hamburger wrapper: div.sm.sm-dox that is a
+               direct child of #top (contains checkbox + hamburger btn) */
+            function getHamburgerWrapper() {
+                return document.querySelector('#top > div.sm.sm-dox');
+            }
+            /* Inject badge + GitHub + dark toggle into a target container */
+            function injectInto(container) {
+                if (!container) return;
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                /* Move nodes (appendChild/insertBefore moves if already in DOM) */
+                if (badge.parentNode !== container) {
+                    /* On desktop (sp2): insert at start.
+                       On mobile (hamburger wrapper): insert before hamburger btn. */
+                    container.insertBefore(badge, container.firstChild);
+                }
+                if (gh.parentNode !== container) {
+                    container.insertBefore(gh, badge.nextSibling);
+                }
+                if (darkToggle && darkToggle.parentNode !== container) {
+                    container.insertBefore(darkToggle, gh.nextSibling);
+                }
+            }
+            /* -- Breakpoint override: 768px -> 996px ----------------- */
+            var MNE_BP = 997;
+            var prevW = 0;
+            function mneResetNav() {
+                var w = $(window).outerWidth();
+                if (w === prevW) return;
+                prevW = w;
+                var $menu = $('#main-menu');
+                var $state = $('#main-menu-state');
+                /* Grab dark toggle before anything is emptied */
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                if (darkToggle && darkToggle.parentNode) {
+                    darkToggle.parentNode.removeChild(darkToggle);
+                }
+                if (w < MNE_BP) {
+                    /* -- MOBILE -- */
+                    if (!$state.prop('checked')) {
+                        $menu.hide();
+                    }
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in the
+                       hamburger wrapper (always visible in #top) */
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    /* -- DESKTOP -- */
+                    $menu.css('display', 'flex');
+                    $state.prop('checked', false);
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in searchBoxPos2 */
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                if (typeof searchBox !== 'undefined') {
+                    searchBox.CloseResultsWindow();
+                }
+            }
+            /* Run after Doxygen's own initMenu has finished */
+            setTimeout(function () {
+                /* Initial inject for whatever size we start at */
+                var w = $(window).outerWidth();
+                if (w < MNE_BP) {
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                $(window).on('resize', mneResetNav);
+                mneResetNav();
+            }, 150);
+        });
+    </script>
+</head>
+<body>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div id="titlearea">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr id="projectrow">
+                            <td id="projectlogo"><a href="https://mne-cpp.github.io/">
+                                    <img alt="Logo" class="logo-light" src="MNE-CPP_Logo.svg"  />
+                                    <img alt="Logo" class="logo-dark" src="MNE-CPP_Logo_Dark.svg"  />
+                                </a></td>
+                            <td id="projectalign">
+                                <div id="projectname"><span
+                                        id="projectnumber">v2.0.0</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_aaeba049e8bbc472f18d1508b9ef9ec0.html">mne</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">mne_ctf_comp_data_set.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Definition of the <a class="el" href="a02882.html" title="Collection of CTF third-order gradient compensation operators.">MneCTFCompDataSet</a> Class.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="a01130_source.html">mne_ctf_comp_data_set.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01232_source.html">mne_ctf_comp_data.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01223_source.html">mne_types.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a00614_source.html">fiff/fiff_coord_trans.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00608_source.html">fiff/fiff_types.h</a>&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &lt;QFile&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for mne_ctf_comp_data_set.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01413.png" border="0" usemap="#asrc_2libraries_2mne_2mne__ctf__comp__data__set_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2mne_2mne__ctf__comp__data__set_8cpp" id="asrc_2libraries_2mne_2mne__ctf__comp__data__set_8cpp">
+<area shape="rect" title="Definition of the MneCTFCompDataSet Class." alt="" coords="3149,5,3328,45"/>
+<area shape="rect" href="a01130.html" title="MneCTFCompDataSet class declaration." alt="" coords="4011,167,4205,192"/>
+<area shape="poly" title=" " alt="" coords="3328,40,4030,162,4029,167,3328,45"/>
+<area shape="rect" title=" " alt="" coords="3233,753,3325,779"/>
+<area shape="poly" title=" " alt="" coords="3329,23,3693,26,3931,32,4176,44,4405,63,4507,75,4597,90,4671,107,4728,127,4765,150,4775,164,4779,178,4779,621,4776,644,4767,662,4753,675,4735,684,4692,696,4643,708,4561,722,4421,733,4036,751,3629,761,3338,767,3338,761,3629,756,4036,745,4420,728,4560,716,4642,703,4691,691,4733,679,4750,671,4762,659,4770,643,4773,620,4773,178,4770,166,4762,154,4726,132,4670,112,4596,95,4506,80,4404,68,4175,49,3931,38,3693,31,3329,29"/>
+<area shape="rect" href="a00608.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="642,680,737,705"/>
+<area shape="poly" title=" " alt="" coords="3149,31,2438,48,1382,80,863,101,423,125,251,138,119,151,36,166,14,173,8,179,8,254,14,332,31,398,60,454,99,501,148,540,206,574,275,603,351,629,425,649,500,665,629,683,628,688,499,670,424,655,350,635,273,608,204,578,145,544,95,504,55,457,26,400,9,333,3,254,3,177,11,168,34,161,119,146,251,132,423,119,863,95,1382,74,2438,42,3149,26"/>
+<area shape="rect" href="a00614.html" title="FiffCoordTrans class declaration." alt="" coords="441,387,575,412"/>
+<area shape="poly" title=" " alt="" coords="3149,30,2831,36,2355,55,2080,73,1793,97,1503,129,1220,169,1039,192,896,208,829,221,759,241,683,272,596,316,557,345,527,377,523,373,554,341,593,311,681,267,757,236,828,216,895,203,1038,187,1220,164,1503,124,1793,92,2080,68,2354,50,2831,30,3149,24"/>
+<area shape="rect" href="a01232.html" title="MneCTFCompData class declaration." alt="" coords="1233,167,1399,192"/>
+<area shape="poly" title=" " alt="" coords="3149,35,2434,85,1932,125,1419,169,1413,170,1412,165,1418,164,1932,119,2433,80,3149,30"/>
+<area shape="rect" href="a01223.html" title="Legacy MNE&#45;C constants and common typedefs." alt="" coords="3185,93,3292,119"/>
+<area shape="poly" title=" " alt="" coords="3241,46,3241,79,3236,79,3236,46"/>
+<area shape="rect" title=" " alt="" coords="4814,93,4869,119"/>
+<area shape="poly" title=" " alt="" coords="3329,26,3638,32,4062,45,4485,64,4662,76,4795,91,4801,92,4800,97,4794,96,4661,82,4485,69,4062,50,3638,38,3328,31"/>
+<area shape="rect" href="a01142.html" title="mne library export/import macros." alt="" coords="3310,533,3421,559"/>
+<area shape="poly" title=" " alt="" coords="4178,189,4234,206,4290,232,4313,250,4332,271,4345,296,4349,324,4349,401,4344,433,4328,456,4303,472,4272,488,4222,501,4137,512,3900,529,3639,540,3435,546,3435,540,3639,534,3899,523,4136,506,4221,495,4270,483,4300,468,4324,452,4339,431,4344,400,4344,325,4340,298,4328,274,4310,254,4287,237,4232,211,4176,195"/>
+<area shape="rect" href="a01310.html" title="MneNamedMatrix class declaration." alt="" coords="2757,460,2923,485"/>
+<area shape="poly" title=" " alt="" coords="4059,195,3529,316,2904,459,2902,454,3527,311,4058,189"/>
+<area shape="poly" title=" " alt="" coords="4205,183,4466,204,4581,219,4621,228,4644,238,4673,263,4694,288,4709,313,4719,339,4727,398,4728,471,4728,621,4724,648,4713,668,4695,681,4673,689,4619,697,4559,708,4448,728,4300,744,4128,755,3943,762,3589,768,3338,768,3338,763,3589,763,3943,756,4127,749,4300,738,4447,723,4558,703,4618,692,4671,684,4693,676,4709,664,4719,646,4723,620,4723,471,4722,399,4714,341,4704,315,4690,291,4669,267,4641,242,4619,233,4580,224,4465,209,4205,189"/>
+<area shape="rect" title=" " alt="" coords="2437,533,2515,559"/>
+<area shape="poly" title=" " alt="" coords="4070,195,3811,268,3376,389,3184,437,2935,488,2709,523,2529,543,2528,537,2708,517,2934,483,3183,431,3374,384,3810,263,4069,189"/>
+<area shape="rect" title=" " alt="" coords="2083,680,2205,705"/>
+<area shape="poly" title=" " alt="" coords="4205,188,4321,206,4441,233,4494,251,4536,272,4565,296,4573,310,4576,324,4576,401,4575,449,4567,468,4550,487,4525,504,4495,517,4421,536,4333,548,4238,554,4049,556,3903,561,3531,601,3159,635,2621,670,2220,691,2219,685,2621,665,3158,629,3531,596,3902,556,4048,551,4238,548,4333,543,4420,531,4493,512,4523,499,4546,483,4562,466,4569,448,4571,401,4571,325,4568,312,4561,299,4533,276,4492,256,4440,238,4320,211,4205,194"/>
+<area shape="rect" href="a00611.html" title="FiffSparseMatrix class declaration." alt="" coords="1930,240,2102,265"/>
+<area shape="poly" title=" " alt="" coords="4011,187,2116,251,2116,245,4011,181"/>
+<area shape="rect" title=" " alt="" coords="1229,753,1283,779"/>
+<area shape="poly" title=" " alt="" coords="4205,185,4334,200,4471,227,4532,245,4581,267,4614,293,4623,308,4627,324,4627,401,4622,443,4610,478,4590,506,4565,528,4534,545,4500,557,4424,570,4346,571,4273,567,4214,562,4177,561,3760,617,3435,652,3108,679,2688,708,2263,733,1850,750,1297,766,1297,761,1850,745,2263,728,2688,703,3108,673,3434,647,3760,612,4177,556,4215,557,4274,562,4346,566,4424,565,4498,552,4532,540,4561,524,4586,503,4605,475,4617,442,4621,401,4621,325,4618,310,4610,296,4578,271,4530,250,4470,232,4333,206,4205,191"/>
+<area shape="rect" title=" " alt="" coords="3528,900,3659,925"/>
+<area shape="poly" title=" " alt="" coords="3421,551,3527,570,3574,585,3591,594,3603,605,3624,639,3635,678,3639,718,3637,758,3624,832,3606,888,3601,886,3618,831,3632,757,3634,718,3630,679,3619,642,3599,608,3588,599,3572,590,3526,575,3420,556"/>
+<area shape="rect" href="a01010.html" title="build information utils" alt="" coords="2148,900,2271,925"/>
+<area shape="poly" title=" " alt="" coords="3421,550,3454,556,3489,567,3523,583,3552,605,3570,624,3580,643,3584,665,3585,691,3585,768,3582,780,3573,793,3540,814,3488,832,3421,848,3248,873,3041,891,2822,903,2609,910,2285,914,2284,909,2608,904,2821,898,3041,886,3247,868,3420,843,3487,827,3537,809,3569,789,3577,778,3580,767,3580,691,3579,665,3575,645,3566,627,3549,609,3520,587,3487,572,3453,561,3420,555"/>
+<area shape="poly" title=" " alt="" coords="2924,483,3297,533,3296,538,2923,488"/>
+<area shape="poly" title=" " alt="" coords="2923,481,3047,501,3102,515,3140,531,3168,552,3192,578,3231,635,3258,693,3274,739,3269,741,3253,695,3226,638,3188,581,3164,556,3137,536,3100,520,3045,506,2923,486"/>
+<area shape="poly" title=" " alt="" coords="2782,488,2528,537,2527,532,2781,483"/>
+<area shape="poly" title=" " alt="" coords="2815,488,2650,555,2537,597,2419,635,2315,661,2220,681,2218,676,2314,656,2418,629,2535,592,2648,550,2813,483"/>
+<area shape="rect" title=" " alt="" coords="2196,753,2289,779"/>
+<area shape="poly" title=" " alt="" coords="2820,488,2644,582,2388,708,2286,751,2284,746,2386,703,2641,577,2818,483"/>
+<area shape="poly" title=" " alt="" coords="2029,264,2093,326,2200,424,2336,532,2410,584,2487,630,2544,659,2590,676,2702,703,2846,728,2991,745,3120,755,3219,760,3219,766,3120,761,2990,751,2845,734,2701,708,2589,681,2542,663,2484,634,2408,588,2333,537,2196,428,2089,330,2025,268"/>
+<area shape="poly" title=" " alt="" coords="2017,266,2014,295,2015,333,2023,374,2032,393,2043,410,2070,431,2109,451,2213,486,2328,514,2424,533,2423,538,2327,519,2212,491,2107,456,2067,436,2039,414,2027,396,2018,376,2010,334,2009,294,2011,265"/>
+<area shape="poly" title=" " alt="" coords="2016,266,2010,299,2009,339,2012,376,2024,411,2033,425,2044,434,2055,444,2066,459,2094,514,2115,572,2141,665,2136,667,2110,573,2089,516,2062,461,2051,448,2040,438,2029,429,2019,413,2007,377,2004,339,2005,298,2011,265"/>
+<area shape="rect" href="a00470.html" title="Fiff library export/import macros." alt="" coords="787,827,885,852"/>
+<area shape="poly" title=" " alt="" coords="2015,266,2004,314,2004,339,2005,375,2009,411,2020,449,2033,477,2043,506,2048,545,2048,694,2045,706,2037,717,2007,736,1962,753,1902,768,1748,792,1566,810,1371,824,1183,832,899,840,899,835,1183,827,1371,818,1565,805,1748,787,1901,762,1960,748,2005,731,2033,713,2040,704,2043,694,2043,545,2038,507,2028,479,2015,451,2004,413,2000,376,1999,339,1999,313,2010,265"/>
+<area shape="poly" title=" " alt="" coords="1930,260,1623,274,1219,300,1022,317,850,338,719,362,675,375,647,389,608,425,594,444,585,463,580,484,580,506,591,558,606,591,626,621,668,669,664,672,622,624,601,593,585,560,574,507,575,483,580,461,590,441,604,422,644,384,673,370,718,357,849,333,1021,312,1219,294,1623,269,1930,254"/>
+<area shape="rect" href="a00464.html" title="FiffTag class declaration, which provides fiff tag I/O and processing methods." alt="" coords="1622,313,1701,339"/>
+<area shape="poly" title=" " alt="" coords="1960,268,1715,317,1714,311,1958,263"/>
+<area shape="rect" title=" " alt="" coords="2053,387,2128,412"/>
+<area shape="poly" title=" " alt="" coords="2024,265,2081,373,2076,375,2020,267"/>
+<area shape="poly" title=" " alt="" coords="886,839,3514,907,3514,912,886,845"/>
+<area shape="poly" title=" " alt="" coords="886,841,2135,905,2134,910,886,846"/>
+<area shape="poly" title=" " alt="" coords="737,693,969,703,2331,741,3219,761,3219,766,2331,746,969,708,737,699"/>
+<area shape="poly" title=" " alt="" coords="737,694,919,703,2182,759,2182,765,919,708,737,699"/>
+<area shape="rect" href="a00485.html" title="Fiff constants." alt="" coords="246,753,367,779"/>
+<area shape="poly" title=" " alt="" coords="642,705,382,754,381,748,641,700"/>
+<area shape="rect" href="a00596.html" title="FiffTime class declaration." alt="" coords="392,753,480,779"/>
+<area shape="poly" title=" " alt="" coords="649,708,491,752,490,747,648,703"/>
+<area shape="rect" href="a00482.html" title="FiffDataRef class declaration." alt="" coords="505,753,615,779"/>
+<area shape="poly" title=" " alt="" coords="670,708,595,749,592,744,667,703"/>
+<area shape="poly" title=" " alt="" coords="737,697,1215,757,1215,762,736,703"/>
+<area shape="rect" title=" " alt="" coords="743,753,799,779"/>
+<area shape="poly" title=" " alt="" coords="704,703,749,742,745,746,701,707"/>
+<area shape="rect" title=" " alt="" coords="639,753,718,779"/>
+<area shape="poly" title=" " alt="" coords="690,706,685,740,680,739,685,705"/>
+<area shape="poly" title=" " alt="" coords="481,774,492,776,774,825,773,830,492,781,480,779"/>
+<area shape="rect" title=" " alt="" coords="459,827,538,852"/>
+<area shape="poly" title=" " alt="" coords="448,777,481,814,477,818,444,781"/>
+<area shape="poly" title=" " alt="" coords="605,776,779,821,777,826,604,781"/>
+<area shape="poly" title=" " alt="" coords="552,781,520,818,516,814,548,777"/>
+<area shape="poly" title=" " alt="" coords="1690,336,1734,357,1783,384,1881,450,1919,484,1965,532,1984,557,1996,581,2012,627,2020,648,2032,667,2048,686,2072,703,2098,713,2140,722,2260,737,2417,747,2596,755,2957,761,3219,762,3219,768,2957,767,2596,760,2417,753,2260,742,2139,727,2097,718,2069,708,2044,690,2027,670,2016,650,2007,628,1991,583,1979,560,1961,535,1916,487,1877,454,1780,389,1732,362,1687,341"/>
+<area shape="poly" title=" " alt="" coords="1702,334,1765,354,1833,384,1883,416,1931,453,2017,533,2085,610,2130,667,2126,670,2081,613,2013,537,1928,457,1880,420,1831,389,1763,359,1700,339"/>
+<area shape="poly" title=" " alt="" coords="1682,337,1712,358,1746,385,1783,415,1819,440,1883,484,1909,507,1929,536,1942,572,1947,618,1947,694,1944,705,1937,715,1910,733,1869,749,1814,763,1676,787,1510,805,1333,819,1162,829,899,839,899,834,1161,824,1333,814,1509,800,1675,781,1813,758,1867,743,1908,728,1933,711,1939,703,1941,694,1941,618,1937,573,1924,539,1905,511,1880,488,1816,445,1780,419,1742,389,1709,362,1679,341"/>
+<area shape="poly" title=" " alt="" coords="1668,338,1739,533,1742,547,1738,560,1718,575,1684,588,1585,611,1452,632,1299,650,985,676,750,691,750,686,985,671,1298,645,1451,627,1584,606,1683,583,1715,570,1734,557,1737,547,1733,534,1663,340"/>
+<area shape="poly" title=" " alt="" coords="1622,330,1452,338,1329,349,1190,366,1041,392,887,427,734,475,660,504,589,536,548,558,507,585,433,643,372,700,329,744,325,741,368,696,430,639,504,580,545,554,587,531,658,499,732,470,885,422,1040,386,1189,361,1329,343,1451,333,1622,325"/>
+<area shape="poly" title=" " alt="" coords="1675,337,1711,375,1750,432,1765,464,1774,497,1773,529,1760,560,1738,589,1713,615,1656,659,1592,693,1526,720,1459,739,1397,752,1298,765,1297,760,1396,747,1458,734,1524,715,1590,688,1653,654,1709,611,1734,585,1755,557,1767,528,1768,497,1760,466,1746,434,1707,379,1671,341"/>
+<area shape="rect" href="a00557.html" title="FiffId class declaration." alt="" coords="958,607,1029,632"/>
+<area shape="poly" title=" " alt="" coords="1622,336,1479,361,1287,403,1191,431,1105,462,1038,497,1013,516,996,535,989,548,987,563,989,593,984,594,981,563,984,547,991,532,1009,512,1035,493,1103,457,1189,426,1285,398,1478,355,1621,331"/>
+<area shape="poly" title=" " alt="" coords="1622,332,1225,353,646,389,589,394,588,388,645,384,1225,348,1621,327"/>
+<area shape="rect" href="a00506.html" title="FiffDirEntry class declaration." alt="" coords="1053,607,1168,632"/>
+<area shape="poly" title=" " alt="" coords="1658,340,1647,372,1644,392,1645,412,1655,449,1674,484,1685,497,1697,506,1708,516,1717,532,1722,547,1717,560,1704,569,1684,576,1624,586,1458,599,1187,609,1182,610,1181,605,1186,604,1458,594,1623,581,1682,570,1702,564,1713,557,1716,547,1712,534,1704,520,1693,510,1682,501,1670,487,1650,451,1640,412,1639,392,1642,371,1653,338"/>
+<area shape="rect" title=" " alt="" coords="1445,533,1581,559"/>
+<area shape="poly" title=" " alt="" coords="1642,341,1612,361,1583,388,1562,422,1544,458,1522,521,1517,519,1539,455,1557,419,1579,385,1609,357,1639,337"/>
+<area shape="rect" title=" " alt="" coords="1606,533,1703,559"/>
+<area shape="poly" title=" " alt="" coords="1642,341,1615,360,1594,388,1589,405,1588,423,1598,460,1616,494,1636,521,1632,524,1612,496,1593,462,1583,424,1584,404,1590,385,1612,357,1638,337"/>
+<area shape="poly" title=" " alt="" coords="1701,331,2040,387,2039,392,1701,336"/>
+<area shape="poly" title=" " alt="" coords="1029,627,1042,629,1189,648,1339,662,1632,680,1887,688,2069,689,2069,695,1887,693,1632,685,1339,667,1188,653,1041,635,1028,632"/>
+<area shape="poly" title=" " alt="" coords="959,631,912,649,889,663,870,682,852,714,842,749,838,784,837,813,832,813,833,783,837,748,847,712,866,678,886,659,909,644,957,626"/>
+<area shape="poly" title=" " alt="" coords="958,632,751,680,750,675,957,626"/>
+<area shape="poly" title=" " alt="" coords="511,412,514,442,522,481,539,522,551,541,566,557,600,582,631,599,661,609,691,615,756,620,838,629,1064,658,1366,683,1715,705,2085,723,2776,748,3219,761,3219,766,2776,754,2085,728,1715,710,1365,689,1063,663,837,635,756,626,690,621,659,615,629,604,597,587,562,561,547,544,534,525,517,483,509,443,506,413"/>
+<area shape="poly" title=" " alt="" coords="576,403,1320,457,2424,538,2424,543,1320,463,575,408"/>
+<area shape="poly" title=" " alt="" coords="515,411,548,489,569,531,590,557,621,577,650,589,678,595,705,597,765,596,799,598,838,604,892,618,946,629,1107,649,1272,664,1594,682,1873,689,2069,690,2069,695,1873,695,1594,688,1272,669,1107,654,945,635,890,623,837,609,798,603,764,601,705,602,677,600,649,594,619,582,586,561,565,534,543,492,510,413"/>
+<area shape="poly" title=" " alt="" coords="479,414,439,434,398,462,301,540,255,578,217,616,189,654,181,673,177,693,178,713,183,734,194,755,211,776,233,784,284,792,440,808,773,832,773,837,440,813,283,797,232,789,208,781,190,758,178,735,172,714,172,693,176,672,185,652,213,612,252,574,297,536,394,458,436,430,477,410"/>
+<area shape="poly" title=" " alt="" coords="489,414,452,440,412,476,397,495,388,516,386,537,394,557,416,585,443,608,472,628,504,644,569,668,629,681,627,686,568,673,502,649,470,632,439,612,412,588,390,560,381,537,383,515,393,493,408,472,448,436,486,410"/>
+<area shape="rect" href="a00494.html" title="FiffStream class declaration." alt="" coords="1204,460,1308,485"/>
+<area shape="poly" title=" " alt="" coords="576,404,1191,462,1190,468,575,410"/>
+<area shape="rect" href="a00542.html" title="FiffDirNode class declaration, which provides fiff dir tree processing methods." alt="" coords="816,533,931,559"/>
+<area shape="poly" title=" " alt="" coords="538,410,833,526,831,531,536,415"/>
+<area shape="rect" title=" " alt="" coords="600,533,691,559"/>
+<area shape="poly" title=" " alt="" coords="526,410,583,458,632,520,628,523,579,462,523,414"/>
+<area shape="poly" title=" " alt="" coords="1271,483,1316,519,1377,556,1439,584,1488,601,1606,629,1790,674,1871,689,1976,703,2159,722,2345,736,2706,754,3013,762,3219,762,3219,768,3013,767,2706,760,2345,742,2158,727,1976,708,1870,694,1789,679,1605,635,1487,606,1437,589,1375,561,1313,523,1268,487"/>
+<area shape="poly" title=" " alt="" coords="1280,483,1434,556,1521,582,1610,605,1787,641,1946,666,2069,681,2069,686,1945,671,1786,646,1609,610,1519,587,1432,561,1278,488"/>
+<area shape="poly" title=" " alt="" coords="1263,484,1285,528,1322,589,1347,622,1375,653,1406,680,1441,703,1484,715,1559,725,1770,742,2001,754,2182,760,2182,766,2001,759,1769,748,1558,731,1483,720,1439,708,1403,685,1371,657,1343,625,1318,592,1280,530,1259,487"/>
+<area shape="poly" title=" " alt="" coords="1204,477,1118,481,1006,491,882,508,758,536,731,548,704,561,636,580,577,590,474,600,426,607,377,621,326,644,270,682,238,713,221,754,217,767,221,777,242,784,292,792,445,808,773,832,772,837,445,813,291,797,241,789,217,781,212,767,216,752,234,710,266,678,323,640,375,616,424,602,473,594,576,584,635,574,702,556,729,543,756,531,881,503,1005,486,1118,476,1204,472"/>
+<area shape="poly" title=" " alt="" coords="1204,480,992,498,882,515,838,525,805,536,778,550,758,564,724,608,708,638,698,667,693,665,703,636,719,605,755,561,775,545,803,531,836,519,881,509,991,493,1204,474"/>
+<area shape="poly" title=" " alt="" coords="1259,485,1259,739,1253,739,1253,485"/>
+<area shape="poly" title=" " alt="" coords="1242,488,1193,522,1129,561,1037,604,1034,599,1127,556,1190,518,1239,483"/>
+<area shape="poly" title=" " alt="" coords="1204,486,945,534,944,529,1204,481"/>
+<area shape="poly" title=" " alt="" coords="1247,488,1175,561,1135,599,1132,595,1171,557,1243,484"/>
+<area shape="poly" title=" " alt="" coords="1298,483,1459,527,1458,532,1297,488"/>
+<area shape="poly" title=" " alt="" coords="1308,480,1593,531,1592,536,1308,486"/>
+<area shape="rect" title=" " alt="" coords="1006,533,1117,559"/>
+<area shape="poly" title=" " alt="" coords="1226,488,1107,531,1105,526,1224,483"/>
+<area shape="poly" title=" " alt="" coords="1204,481,988,502,710,536,705,537,704,531,709,531,988,497,1204,476"/>
+<area shape="rect" title=" " alt="" coords="3819,533,3890,559"/>
+<area shape="poly" title=" " alt="" coords="1309,473,3806,541,3805,546,1308,478"/>
+<area shape="poly" title=" " alt="" coords="931,555,1154,590,1440,629,1792,663,2069,684,2069,689,1792,669,1440,635,1153,595,930,560"/>
+<area shape="poly" title=" " alt="" coords="882,557,907,594,925,613,947,630,993,655,1034,672,1072,682,1109,688,1188,694,1288,703,1548,731,1805,748,2026,758,2182,761,2182,767,2026,763,1804,754,1548,736,1288,708,1188,699,1109,693,1071,687,1033,677,991,660,944,634,922,617,903,597,877,560"/>
+<area shape="poly" title=" " alt="" coords="816,560,641,594,534,619,429,647,336,678,266,712,243,728,230,745,227,761,235,777,256,784,304,792,454,807,773,831,773,837,453,813,304,797,255,789,232,781,221,762,225,743,239,724,263,707,334,673,428,642,533,614,640,589,815,555"/>
+<area shape="poly" title=" " alt="" coords="839,561,795,580,751,609,724,638,704,669,700,666,720,635,748,605,792,576,837,556"/>
+<area shape="poly" title=" " alt="" coords="845,561,350,751,348,746,843,556"/>
+<area shape="poly" title=" " alt="" coords="876,559,876,589,882,628,896,669,906,687,920,703,942,716,973,727,1053,744,1141,755,1215,760,1215,765,1140,760,1052,750,971,733,939,721,917,707,902,691,891,671,877,629,871,589,870,559"/>
+<area shape="poly" title=" " alt="" coords="894,556,963,597,960,602,891,561"/>
+<area shape="poly" title=" " alt="" coords="912,556,1060,600,1058,605,911,561"/>
+<area shape="poly" title=" " alt="" coords="1168,622,2069,684,2068,689,1168,627"/>
+<area shape="poly" title=" " alt="" coords="1098,634,863,820,860,816,1095,630"/>
+<area shape="poly" title=" " alt="" coords="1053,633,751,684,750,678,1053,628"/>
+<area shape="poly" title=" " alt="" coords="1399,180,1858,191,2499,217,2809,236,3069,260,3171,273,3249,288,3298,305,3312,314,3317,324,3317,401,3321,434,3330,466,3354,520,3349,522,3325,468,3316,435,3312,401,3312,325,3308,317,3296,309,3247,293,3170,279,3068,265,2808,241,2499,222,1858,197,1399,185"/>
+<area shape="poly" title=" " alt="" coords="1400,179,1611,185,1908,205,2076,222,2249,244,2423,274,2593,311,2656,323,2707,331,2754,348,2778,363,2805,385,2826,414,2837,445,2832,447,2821,417,2801,388,2775,367,2751,353,2705,336,2655,328,2591,316,2422,279,2249,250,2075,227,1908,210,1611,191,1399,184"/>
+<area shape="poly" title=" " alt="" coords="1233,186,838,205,627,221,540,231,474,243,436,249,398,251,329,255,301,261,280,273,266,293,261,325,261,401,264,440,272,474,284,502,301,525,322,544,346,560,405,582,475,596,553,606,635,616,719,629,879,660,1004,678,1292,703,1475,714,1717,724,2293,741,3219,761,3219,766,2293,747,1716,729,1474,719,1292,708,1003,683,878,665,718,635,634,621,552,611,474,602,404,588,344,565,319,549,297,529,280,504,267,475,259,441,256,401,256,324,261,292,276,269,299,256,328,250,397,246,435,243,473,237,539,226,626,216,838,199,1232,181"/>
+<area shape="poly" title=" " alt="" coords="1233,187,998,202,709,229,575,247,464,270,421,283,389,296,369,310,363,325,363,473,367,484,380,495,430,520,501,545,584,570,745,611,832,629,945,643,1093,654,1450,671,2069,687,2069,693,1450,676,1093,659,944,648,832,635,743,616,583,575,500,550,428,525,377,499,363,487,357,475,357,324,365,307,387,292,420,278,463,265,574,242,709,223,998,196,1232,182"/>
+<area shape="poly" title=" " alt="" coords="1400,186,1917,239,1916,244,1399,192"/>
+<area shape="poly" title=" " alt="" coords="1233,184,989,187,679,196,529,203,398,213,298,226,263,234,241,242,199,269,168,298,144,328,128,360,116,397,107,437,91,534,90,559,98,577,112,591,131,601,183,615,241,629,381,669,527,701,672,724,812,740,1055,758,1215,762,1215,767,1054,763,811,746,671,729,526,706,380,675,239,635,181,620,129,606,109,595,93,580,85,560,85,533,101,436,110,395,123,358,140,325,164,294,196,265,239,238,262,229,297,221,398,208,529,198,679,191,989,182,1233,178"/>
+<area shape="poly" title=" " alt="" coords="3292,109,3992,164,3998,164,3997,170,3992,169,3292,114"/>
+<area shape="poly" title=" " alt="" coords="3203,121,3159,140,3114,167,3094,185,3078,204,3068,227,3064,252,3064,327,3062,375,3054,394,3038,414,3017,427,2986,440,2913,460,2911,454,2985,435,3015,423,3034,410,3049,391,3056,373,3059,327,3059,251,3063,225,3074,202,3090,181,3111,163,3157,135,3201,116"/>
+<area shape="poly" title=" " alt="" coords="3185,110,2632,111,1753,118,1299,126,891,136,572,151,460,159,386,169,309,186,237,204,173,227,117,256,71,293,53,315,37,340,25,367,16,398,10,433,8,471,8,547,13,562,28,577,53,591,85,605,169,630,268,652,477,684,630,703,775,715,967,726,1426,743,2182,761,2182,766,1426,748,967,731,774,720,629,708,476,690,267,657,167,635,83,610,50,596,25,581,9,565,3,548,3,471,5,432,10,397,20,366,33,337,49,312,68,289,114,251,171,222,236,199,307,180,385,164,459,154,572,145,891,131,1299,120,1753,113,2632,106,3185,105"/>
+<area shape="poly" title=" " alt="" coords="3185,109,3033,110,2813,116,2558,135,2427,150,2299,169,2233,184,2167,202,2059,238,2058,233,2166,197,2231,179,2298,164,2426,144,2557,129,2813,111,3033,104,3185,104"/>
+<area shape="poly" title=" " alt="" coords="3185,111,2408,125,1824,143,1220,169,1075,171,950,163,735,142,634,140,582,144,529,152,474,166,415,185,353,210,287,242,233,272,193,303,179,321,169,342,162,367,160,398,160,474,164,492,174,509,191,526,213,542,271,574,341,602,419,626,496,647,629,677,628,682,495,653,417,632,340,607,268,578,210,547,187,530,170,512,159,494,155,474,155,398,157,367,164,340,174,318,189,299,230,267,284,238,351,205,413,180,472,161,528,147,581,139,633,135,735,136,951,158,1076,166,1220,164,1823,137,2408,120,3185,105"/>
+<area shape="poly" title=" " alt="" coords="3185,111,2786,124,2199,152,1912,171,1669,195,1573,208,1501,222,1455,237,1443,245,1440,252,1440,328,1437,352,1427,374,1412,394,1394,411,1351,438,1308,458,1306,453,1349,434,1391,407,1408,390,1422,371,1431,350,1435,327,1435,251,1440,241,1453,233,1500,217,1573,203,1668,190,1911,166,2199,147,2786,119,3185,106"/>
+<area shape="poly" title=" " alt="" coords="3185,110,2914,113,2481,122,1958,139,1686,153,1419,169,1413,170,1413,164,1418,164,1686,147,1958,134,2481,116,2914,108,3185,105"/>
+<area shape="rect" href="a01400.html" title="MNE SSS Data (MneSssData) class declaration." alt="" coords="3099,313,3226,339"/>
+<area shape="poly" title=" " alt="" coords="3237,120,3174,301,3169,299,3232,118"/>
+<area shape="rect" href="a01385.html" title=" " alt="" coords="2311,167,2526,192"/>
+<area shape="poly" title=" " alt="" coords="3185,115,2548,169,2540,170,2539,165,2548,164,3185,109"/>
+<area shape="rect" href="a01136.html" title=" " alt="" coords="3659,460,3821,485"/>
+<area shape="poly" title=" " alt="" coords="3292,107,3352,112,3424,122,3501,139,3576,164,3633,192,3655,211,3677,239,3705,292,3724,350,3735,403,3741,446,3736,446,3730,404,3719,351,3701,294,3672,241,3651,214,3630,197,3574,169,3500,144,3423,127,3351,117,3292,112"/>
+<area shape="rect" href="a01307.html" title="MNE Derivation Set (MneDerivSet) class declaration." alt="" coords="3504,460,3635,485"/>
+<area shape="poly" title=" " alt="" coords="3293,111,3400,129,3461,144,3521,164,3594,189,3621,206,3646,238,3654,248,3662,254,3670,261,3675,271,3675,288,3668,315,3626,413,3613,435,3596,453,3592,449,3608,431,3622,411,3663,314,3670,288,3670,272,3666,264,3659,258,3650,252,3642,242,3618,210,3591,194,3519,169,3460,150,3399,134,3292,116"/>
+<area shape="rect" href="a01166.html" title="MNEProjItem class declaration." alt="" coords="2659,387,2791,412"/>
+<area shape="poly" title=" " alt="" coords="3186,121,3117,140,3044,169,2954,221,2870,280,2799,337,2749,380,2746,376,2796,332,2866,276,2951,217,3042,164,3115,135,3185,116"/>
+<area shape="rect" href="a01139.html" title="MNEProjOp class declaration." alt="" coords="2462,313,2581,339"/>
+<area shape="poly" title=" " alt="" coords="3185,113,2958,133,2840,149,2756,169,2692,199,2633,236,2583,274,2546,306,2542,302,2580,270,2630,232,2690,194,2754,164,2839,144,2958,128,3185,108"/>
+<area shape="rect" href="a01112.html" title="MneCovMatrix class declaration." alt="" coords="2590,460,2733,485"/>
+<area shape="poly" title=" " alt="" coords="3186,118,3096,137,3046,151,2997,169,2884,211,2792,246,2753,268,2717,297,2682,336,2649,388,2644,402,2644,417,2652,446,2647,448,2639,417,2639,401,2644,386,2678,332,2713,293,2750,263,2790,241,2882,206,2995,164,3044,146,3094,132,3184,113"/>
+<area shape="rect" href="a01346.html" title=" " alt="" coords="4115,460,4259,485"/>
+<area shape="poly" title=" " alt="" coords="3292,105,3447,113,3543,121,3640,134,3729,152,3804,177,3833,192,3855,209,3870,229,3875,251,3875,327,3881,346,3900,365,3930,384,3966,401,4048,432,4127,454,4125,459,4047,437,3964,406,3927,389,3897,370,3877,349,3869,328,3869,252,3865,231,3851,213,3830,197,3802,182,3728,157,3639,139,3542,126,3447,118,3292,111"/>
+<area shape="rect" href="a01205.html" title=" " alt="" coords="4077,387,4187,412"/>
+<area shape="poly" title=" " alt="" coords="3292,105,3428,108,3603,117,3772,135,3841,148,3892,164,3930,185,3967,211,4032,269,4084,327,4119,374,4115,377,4080,331,4028,273,3964,215,3928,190,3890,169,3839,153,3771,140,3603,122,3428,113,3292,110"/>
+<area shape="rect" href="a01286.html" title=" " alt="" coords="4385,460,4535,485"/>
+<area shape="poly" title=" " alt="" coords="3292,105,3595,113,4027,133,4242,150,4429,173,4507,186,4570,202,4617,219,4645,238,4655,254,4660,269,4659,301,4645,333,4621,363,4590,391,4557,416,4495,455,4492,451,4554,412,4587,387,4617,359,4640,330,4654,300,4655,270,4650,256,4641,242,4614,224,4569,207,4506,192,4429,178,4241,156,4027,139,3595,118,3292,111"/>
+<area shape="rect" href="a01409.html" title=" " alt="" coords="3845,460,3952,485"/>
+<area shape="poly" title=" " alt="" coords="3293,107,3436,116,3524,126,3611,139,3693,158,3760,182,3786,196,3806,213,3819,231,3824,251,3824,327,3830,362,3844,395,3862,425,3880,448,3876,451,3858,428,3839,398,3824,364,3819,328,3819,252,3815,233,3803,216,3783,201,3758,187,3691,163,3610,145,3523,131,3436,122,3292,112"/>
+<area shape="rect" href="a01370.html" title=" " alt="" coords="3454,387,3589,412"/>
+<area shape="poly" title=" " alt="" coords="3252,117,3502,375,3499,378,3248,121"/>
+<area shape="rect" href="a01403.html" title=" " alt="" coords="3505,240,3631,265"/>
+<area shape="poly" title=" " alt="" coords="3293,109,3386,126,3438,142,3487,164,3525,194,3554,227,3550,230,3521,198,3484,169,3436,147,3385,131,3292,114"/>
+<area shape="poly" title=" " alt="" coords="3174,337,3224,401,3298,483,3342,523,3338,527,3294,487,3220,405,3169,341"/>
+<area shape="poly" title=" " alt="" coords="3170,338,3238,501,3276,603,3297,680,3297,712,3290,741,3285,740,3292,711,3292,680,3271,604,3233,503,3165,340"/>
+<area shape="poly" title=" " alt="" coords="3152,341,3115,375,3066,414,3003,455,2936,488,2810,540,2710,574,2608,602,2477,635,2341,663,2220,683,2219,678,2340,658,2475,629,2607,597,2709,569,2809,535,2934,483,3000,451,3062,410,3111,371,3149,337"/>
+<area shape="poly" title=" " alt="" coords="3099,334,2142,397,2141,392,3099,329"/>
+<area shape="rect" title=" " alt="" coords="2917,387,3024,412"/>
+<area shape="poly" title=" " alt="" coords="3133,341,3016,384,3014,379,3131,336"/>
+<area shape="poly" title=" " alt="" coords="2526,179,2740,182,2992,191,3110,199,3213,209,3290,221,3317,229,3335,238,3354,256,3364,275,3368,298,3368,325,3368,401,3368,520,3363,520,3363,401,3363,325,3362,298,3359,277,3350,259,3332,242,3315,234,3289,227,3212,214,3110,204,2991,196,2740,187,2526,184"/>
+<area shape="poly" title=" " alt="" coords="2423,192,2475,519,2469,520,2418,193"/>
+<area shape="poly" title=" " alt="" coords="2418,193,2253,740,2248,739,2413,192"/>
+<area shape="poly" title=" " alt="" coords="2354,195,2095,240,2094,235,2354,189"/>
+<area shape="poly" title=" " alt="" coords="3680,488,3435,534,3434,529,3679,483"/>
+<area shape="poly" title=" " alt="" coords="3738,487,3719,529,3686,590,3638,654,3609,683,3577,708,3518,737,3454,755,3392,764,3338,768,3338,763,3392,759,3453,750,3516,732,3575,703,3606,679,3634,650,3681,587,3714,527,3733,484"/>
+<area shape="poly" title=" " alt="" coords="3713,488,3529,561,3423,607,3341,645,3257,678,3146,708,3070,720,2971,731,2730,748,2303,766,2303,760,2729,743,2970,726,3070,715,3145,703,3255,673,3339,640,3421,602,3527,556,3711,483"/>
+<area shape="poly" title=" " alt="" coords="3537,488,3412,531,3410,526,3536,483"/>
+<area shape="poly" title=" " alt="" coords="3575,485,3584,526,3589,585,3588,617,3582,649,3571,680,3553,707,3538,719,3517,729,3462,744,3398,755,3339,762,3338,757,3398,750,3460,739,3515,724,3535,714,3549,704,3566,678,3577,648,3582,617,3584,585,3579,527,3570,486"/>
+<area shape="poly" title=" " alt="" coords="3557,488,3505,524,3471,544,3434,561,3386,577,3327,591,3183,617,3014,638,2833,656,2479,680,2219,691,2219,686,2479,674,2832,650,3014,633,3182,612,3326,586,3385,572,3432,556,3468,540,3502,520,3554,483"/>
+<area shape="poly" title=" " alt="" coords="3562,488,3527,524,3504,544,3477,561,3393,598,3323,615,3159,635,2875,673,2584,703,2298,726,2026,743,1569,761,1297,767,1297,762,1569,756,2026,737,2297,721,2584,698,2874,668,3158,629,3322,610,3392,593,3475,556,3500,540,3524,520,3558,484"/>
+<area shape="poly" title=" " alt="" coords="2790,409,3030,457,3311,527,3309,532,3029,463,2788,415"/>
+<area shape="poly" title=" " alt="" coords="2745,410,2811,450,2808,455,2742,414"/>
+<area shape="poly" title=" " alt="" coords="2767,409,3004,477,3118,511,3175,531,3216,562,3244,593,3262,630,3277,679,3282,710,3283,739,3278,739,3277,711,3272,681,3257,632,3239,596,3213,566,3172,536,3116,516,3002,482,2765,415"/>
+<area shape="poly" title=" " alt="" coords="2660,412,2596,430,2564,444,2535,462,2508,491,2489,522,2484,519,2504,487,2532,458,2562,439,2594,425,2658,407"/>
+<area shape="poly" title=" " alt="" coords="2660,413,2584,431,2544,445,2507,462,2474,483,2450,504,2413,547,2376,590,2351,612,2319,634,2264,661,2208,679,2207,674,2262,656,2316,630,2348,608,2372,587,2409,543,2446,500,2471,479,2504,458,2542,440,2583,426,2659,407"/>
+<area shape="poly" title=" " alt="" coords="2579,336,2803,384,2906,409,3004,432,3101,457,3320,526,3318,531,3099,463,3002,438,2905,415,2802,389,2577,341"/>
+<area shape="poly" title=" " alt="" coords="2537,337,2584,372,2648,410,2713,435,2776,454,2775,459,2711,440,2645,414,2581,376,2534,341"/>
+<area shape="poly" title=" " alt="" coords="2516,341,2486,387,2450,452,2425,515,2422,540,2428,557,2450,580,2482,601,2521,620,2567,639,2674,671,2793,698,2916,720,3034,736,3219,757,3218,762,3034,742,2916,725,2792,703,2673,676,2565,644,2519,625,2479,605,2447,584,2423,560,2417,541,2420,514,2446,450,2481,385,2511,338"/>
+<area shape="poly" title=" " alt="" coords="2511,341,2383,462,2168,672,2164,668,2379,458,2507,337"/>
+<area shape="poly" title=" " alt="" coords="2490,341,2276,415,2069,484,1908,541,1746,589,1648,612,1532,635,1421,652,1308,666,1085,684,891,692,750,694,750,689,891,687,1085,679,1307,661,1421,647,1532,629,1647,607,1744,584,1907,536,2067,479,2274,409,2489,336"/>
+<area shape="poly" title=" " alt="" coords="2468,341,2249,389,2195,403,2140,415,1971,432,1738,449,1322,471,1322,466,1738,443,1970,427,2140,409,2194,398,2247,384,2467,336"/>
+<area shape="poly" title=" " alt="" coords="2478,341,2299,389,2257,403,2214,415,1669,470,944,540,944,535,1669,465,2213,409,2256,398,2298,384,2477,336"/>
+<area shape="poly" title=" " alt="" coords="2581,334,2904,385,2903,390,2581,339"/>
+<area shape="poly" title=" " alt="" coords="2555,336,2680,380,2679,385,2553,341"/>
+<area shape="poly" title=" " alt="" coords="2733,481,2746,483,3053,514,3297,536,3296,542,3053,520,2745,488,2732,486"/>
+<area shape="poly" title=" " alt="" coords="2687,483,3243,745,3241,750,2684,488"/>
+<area shape="poly" title=" " alt="" coords="2633,488,2520,531,2518,526,2631,483"/>
+<area shape="poly" title=" " alt="" coords="2646,488,2594,522,2528,561,2450,602,2369,635,2288,660,2211,679,2210,674,2286,655,2367,629,2448,597,2525,556,2591,517,2643,483"/>
+<area shape="poly" title=" " alt="" coords="2652,488,2616,522,2570,561,2489,618,2407,671,2276,749,2274,744,2404,667,2486,614,2566,557,2612,518,2648,484"/>
+<area shape="poly" title=" " alt="" coords="4115,486,4096,488,3723,521,3435,543,3434,537,3723,516,4096,483,4114,481"/>
+<area shape="poly" title=" " alt="" coords="4134,488,3904,537,3903,532,4133,483"/>
+<area shape="poly" title=" " alt="" coords="4127,414,4099,452,4078,472,4053,488,4001,505,3932,519,3760,537,3580,545,3435,548,3435,542,3580,540,3760,532,3931,514,4000,500,4051,483,4074,468,4095,448,4123,411"/>
+<area shape="poly" title=" " alt="" coords="4188,401,4322,413,4403,423,4484,437,4558,456,4619,479,4643,493,4661,508,4673,526,4677,544,4677,621,4674,634,4664,647,4629,668,4575,687,4504,703,4322,729,4107,747,3878,758,3660,764,3338,768,3338,762,3659,759,3878,753,4106,741,4322,724,4503,698,4573,682,4627,664,4661,643,4669,632,4672,620,4672,545,4668,528,4657,512,4640,497,4617,484,4556,461,4482,443,4402,428,4322,418,4187,406"/>
+<area shape="poly" title=" " alt="" coords="4185,409,4225,422,4259,438,4272,449,4280,460,4280,473,4273,487,4244,507,4204,519,4154,526,4100,530,3992,531,3910,536,3905,537,3904,532,3909,531,3992,526,4100,524,4154,521,4202,514,4242,502,4269,484,4275,472,4275,462,4268,452,4257,443,4223,427,4183,415"/>
+<area shape="poly" title=" " alt="" coords="4143,411,4172,448,4167,451,4139,414"/>
+<area shape="rect" title=" " alt="" coords="3977,460,4039,485"/>
+<area shape="poly" title=" " alt="" coords="4113,414,4041,455,4039,451,4111,410"/>
+<area shape="poly" title=" " alt="" coords="4385,486,4366,488,4096,509,3830,526,3434,545,3434,539,3830,520,4095,504,4365,483,4384,481"/>
+<area shape="poly" title=" " alt="" coords="4423,488,4091,585,3854,648,3610,708,3464,737,3339,758,3338,753,3463,732,3609,703,3853,643,4090,579,4422,483"/>
+<area shape="poly" title=" " alt="" coords="4404,488,3820,603,3471,667,3214,708,2948,734,2688,752,2303,766,2303,761,2687,746,2948,729,3213,703,3470,662,3819,598,4403,483"/>
+<area shape="poly" title=" " alt="" coords="4385,486,4366,488,4137,509,4037,518,3910,536,3905,537,3904,532,3909,531,4037,513,4137,503,4365,483,4384,480"/>
+<area shape="poly" title=" " alt="" coords="3846,486,3834,488,3615,518,3435,540,3434,534,3615,512,3833,483,3845,481"/>
+<area shape="poly" title=" " alt="" coords="3894,487,3871,523,3867,520,3889,484"/>
+<area shape="poly" title=" " alt="" coords="3507,414,3450,462,3387,525,3383,522,3446,458,3504,410"/>
+<area shape="poly" title=" " alt="" coords="3454,405,2970,424,2720,441,2630,451,2578,463,2554,475,2532,491,2496,525,2492,521,2528,487,2551,470,2576,457,2629,446,2720,436,2970,419,3454,400"/>
+<area shape="poly" title=" " alt="" coords="3589,405,3755,424,3964,458,3963,463,3755,429,3589,410"/>
+<area shape="poly" title=" " alt="" coords="3582,409,3832,456,3831,461,3581,415"/>
+<area shape="poly" title=" " alt="" coords="3578,264,3594,292,3609,330,3616,373,3612,394,3604,413,3592,428,3580,437,3554,446,3525,451,3493,462,3439,495,3393,527,3390,523,3436,491,3491,458,3524,445,3553,441,3577,432,3588,424,3599,411,3607,392,3610,373,3604,332,3589,294,3573,267"/>
+</map>
+</div>
+</div>
+<p><a href="a01412_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa8cecfc5c5c054d2875c03e77b7be15d" id="r_aa8cecfc5c5c054d2875c03e77b7be15d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:aa93f0eb578d23995850d61f7d61c55c1" id="r_aa93f0eb578d23995850d61f7d61c55c1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:abb508ea8227673f419e9fe3a86c30d8e" id="r_abb508ea8227673f419e9fe3a86c30d8e"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abb508ea8227673f419e9fe3a86c30d8e">FAIL</a>&#160;&#160;&#160;-1</td></tr>
+<tr class="memitem:aba51915c87d64af47fb1cc59348961c9" id="r_aba51915c87d64af47fb1cc59348961c9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aba51915c87d64af47fb1cc59348961c9">OK</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:a9ef9d35be3ea32836ffd7e68c9daaffb" id="r_a9ef9d35be3ea32836ffd7e68c9daaffb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9ef9d35be3ea32836ffd7e68c9daaffb">MNE_CTFV_COMP_UNKNOWN</a>&#160;&#160;&#160;-1</td></tr>
+<tr class="memitem:a94b52349aa1276b5db8d983587ddee44" id="r_a94b52349aa1276b5db8d983587ddee44"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a94b52349aa1276b5db8d983587ddee44">MNE_CTFV_COMP_NONE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memitem:ac43e58239f805a957ce16b7fa68655fb" id="r_ac43e58239f805a957ce16b7fa68655fb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac43e58239f805a957ce16b7fa68655fb">MNE_CTFV_COMP_G1BR</a>&#160;&#160;&#160;0x47314252</td></tr>
+<tr class="memitem:a0f1036400d54b56a0ce4544304b531fb" id="r_a0f1036400d54b56a0ce4544304b531fb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0f1036400d54b56a0ce4544304b531fb">MNE_CTFV_COMP_G2BR</a>&#160;&#160;&#160;0x47324252</td></tr>
+<tr class="memitem:aa0e9222782c427587415a2441858fc4a" id="r_aa0e9222782c427587415a2441858fc4a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa0e9222782c427587415a2441858fc4a">MNE_CTFV_COMP_G3BR</a>&#160;&#160;&#160;0x47334252</td></tr>
+<tr class="memitem:a071585141e9ca9214b5ebc29850b6aba" id="r_a071585141e9ca9214b5ebc29850b6aba"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a071585141e9ca9214b5ebc29850b6aba">MNE_CTFV_COMP_G2OI</a>&#160;&#160;&#160;0x47324f49</td></tr>
+<tr class="memitem:a10c925b3850dd5eed4ad8e144e13b6c4" id="r_a10c925b3850dd5eed4ad8e144e13b6c4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a10c925b3850dd5eed4ad8e144e13b6c4">MNE_CTFV_COMP_G3OI</a>&#160;&#160;&#160;0x47334f49</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:afeb57bed07715efd733cd3d7956a46f3" id="r_afeb57bed07715efd733cd3d7956a46f3"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#afeb57bed07715efd733cd3d7956a46f3">mne_read_meg_comp_eeg_ch_info_32</a> (const QString &amp;name, QList&lt; <a class="el" href="a02394.html">FIFFLIB::FiffChInfo</a> &gt; &amp;megp, int *nmegp, QList&lt; <a class="el" href="a02394.html">FIFFLIB::FiffChInfo</a> &gt; &amp;meg_compp, int *nmeg_compp, QList&lt; <a class="el" href="a02394.html">FIFFLIB::FiffChInfo</a> &gt; &amp;eegp, int *neegp, <a class="el" href="a03434.html">FiffCoordTrans</a> *meg_head_t, <a class="el" href="a01786.html#a5baad7406c5c973b6c527ca77df9c4c2">fiffId</a> *idp)</td></tr>
+<tr class="memitem:aa6eed582ba0cd97f363b227b80d073b4" id="r_aa6eed582ba0cd97f363b227b80d073b4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aa6eed582ba0cd97f363b227b80d073b4">mne_unmap_ctf_comp_kind</a> (int <a class="el" href="#ae7815c89d2887c1b6b261544c9de3e3e">ctf_comp</a>)</td></tr>
+<tr class="memitem:a7049bd4ffd6dd14a50e78e528a5f8f90" id="r_a7049bd4ffd6dd14a50e78e528a5f8f90"><td class="memItemLeft"><a class="el" href="a02506.html">FiffSparseMatrix</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a7049bd4ffd6dd14a50e78e528a5f8f90">mne_convert_to_sparse</a> (const Eigen::MatrixXf &amp;dense, int stor_type, float small)</td></tr>
+<tr class="memitem:ac3354c4d154cc3f4b4b9cac50dc7ebb2" id="r_ac3354c4d154cc3f4b4b9cac50dc7ebb2"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ac3354c4d154cc3f4b4b9cac50dc7ebb2">mne_sparse_vec_mult2_32</a> (<a class="el" href="a02506.html">FiffSparseMatrix</a> *mat, float *vector, float *res)</td></tr>
+<tr class="memitem:a02d2b8f35cc94b83777d81e97eb06a78" id="r_a02d2b8f35cc94b83777d81e97eb06a78"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#a02d2b8f35cc94b83777d81e97eb06a78">mne_dot_vectors_32</a> (float *v1, float *v2, int nn)</td></tr>
+<tr class="memitem:a3422989d9555b97c6c66fb4fb675bf21" id="r_a3422989d9555b97c6c66fb4fb675bf21"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3422989d9555b97c6c66fb4fb675bf21">mne_mat_vec_mult2_32</a> (float **m, float *v, float *result, int d1, int d2)</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Definition of the <a class="el" href="a02882.html" title="Collection of CTF third-order gradient compensation operators.">MneCTFCompDataSet</a> Class. </p>
+<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>January, 2017</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
+LICENSE</h1>
+<p>Copyright (C) 2017, Lorenz Esch, Matti Hamalainen, Christoph Dinh. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<p class="definition">Definition in file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="abb508ea8227673f419e9fe3a86c30d8e" name="abb508ea8227673f419e9fe3a86c30d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb508ea8227673f419e9fe3a86c30d8e">&#9670;&#160;</a></span>FAIL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FAIL&#160;&#160;&#160;-1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00067">67</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa93f0eb578d23995850d61f7d61c55c1" name="aa93f0eb578d23995850d61f7d61c55c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa93f0eb578d23995850d61f7d61c55c1">&#9670;&#160;</a></span>FALSE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FALSE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00063">63</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac43e58239f805a957ce16b7fa68655fb" name="ac43e58239f805a957ce16b7fa68655fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac43e58239f805a957ce16b7fa68655fb">&#9670;&#160;</a></span>MNE_CTFV_COMP_G1BR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MNE_CTFV_COMP_G1BR&#160;&#160;&#160;0x47314252</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00247">247</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f1036400d54b56a0ce4544304b531fb" name="a0f1036400d54b56a0ce4544304b531fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f1036400d54b56a0ce4544304b531fb">&#9670;&#160;</a></span>MNE_CTFV_COMP_G2BR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MNE_CTFV_COMP_G2BR&#160;&#160;&#160;0x47324252</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00248">248</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a071585141e9ca9214b5ebc29850b6aba" name="a071585141e9ca9214b5ebc29850b6aba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a071585141e9ca9214b5ebc29850b6aba">&#9670;&#160;</a></span>MNE_CTFV_COMP_G2OI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MNE_CTFV_COMP_G2OI&#160;&#160;&#160;0x47324f49</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00250">250</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa0e9222782c427587415a2441858fc4a" name="aa0e9222782c427587415a2441858fc4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0e9222782c427587415a2441858fc4a">&#9670;&#160;</a></span>MNE_CTFV_COMP_G3BR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MNE_CTFV_COMP_G3BR&#160;&#160;&#160;0x47334252</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00249">249</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a10c925b3850dd5eed4ad8e144e13b6c4" name="a10c925b3850dd5eed4ad8e144e13b6c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c925b3850dd5eed4ad8e144e13b6c4">&#9670;&#160;</a></span>MNE_CTFV_COMP_G3OI</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MNE_CTFV_COMP_G3OI&#160;&#160;&#160;0x47334f49</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00251">251</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a94b52349aa1276b5db8d983587ddee44" name="a94b52349aa1276b5db8d983587ddee44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b52349aa1276b5db8d983587ddee44">&#9670;&#160;</a></span>MNE_CTFV_COMP_NONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MNE_CTFV_COMP_NONE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00246">246</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ef9d35be3ea32836ffd7e68c9daaffb" name="a9ef9d35be3ea32836ffd7e68c9daaffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ef9d35be3ea32836ffd7e68c9daaffb">&#9670;&#160;</a></span>MNE_CTFV_COMP_UNKNOWN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MNE_CTFV_COMP_UNKNOWN&#160;&#160;&#160;-1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00245">245</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aba51915c87d64af47fb1cc59348961c9" name="aba51915c87d64af47fb1cc59348961c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba51915c87d64af47fb1cc59348961c9">&#9670;&#160;</a></span>OK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OK&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00071">71</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa8cecfc5c5c054d2875c03e77b7be15d" name="aa8cecfc5c5c054d2875c03e77b7be15d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8cecfc5c5c054d2875c03e77b7be15d">&#9670;&#160;</a></span>TRUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRUE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00059">59</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a7049bd4ffd6dd14a50e78e528a5f8f90" name="a7049bd4ffd6dd14a50e78e528a5f8f90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7049bd4ffd6dd14a50e78e528a5f8f90">&#9670;&#160;</a></span>mne_convert_to_sparse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02506.html">FiffSparseMatrix</a> * mne_convert_to_sparse </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixXf &amp;</td>          <td class="paramname"><span class="paramname"><em>dense</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>stor_type</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float</td>          <td class="paramname"><span class="paramname"><em>small</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00274">274</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a02d2b8f35cc94b83777d81e97eb06a78" name="a02d2b8f35cc94b83777d81e97eb06a78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02d2b8f35cc94b83777d81e97eb06a78">&#9670;&#160;</a></span>mne_dot_vectors_32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float mne_dot_vectors_32 </td>
+          <td>(</td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>v1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>v2</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>nn</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00389">389</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3422989d9555b97c6c66fb4fb675bf21" name="a3422989d9555b97c6c66fb4fb675bf21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3422989d9555b97c6c66fb4fb675bf21">&#9670;&#160;</a></span>mne_mat_vec_mult2_32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mne_mat_vec_mult2_32 </td>
+          <td>(</td>
+          <td class="paramtype">float **</td>          <td class="paramname"><span class="paramname"><em>m</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>v</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>result</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>d1</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>d2</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00408">408</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afeb57bed07715efd733cd3d7956a46f3" name="afeb57bed07715efd733cd3d7956a46f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afeb57bed07715efd733cd3d7956a46f3">&#9670;&#160;</a></span>mne_read_meg_comp_eeg_ch_info_32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mne_read_meg_comp_eeg_ch_info_32 </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QList&lt; <a class="el" href="a02394.html">FIFFLIB::FiffChInfo</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>megp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>nmegp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QList&lt; <a class="el" href="a02394.html">FIFFLIB::FiffChInfo</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>meg_compp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>nmeg_compp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QList&lt; <a class="el" href="a02394.html">FIFFLIB::FiffChInfo</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>eegp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *</td>          <td class="paramname"><span class="paramname"><em>neegp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03434.html">FiffCoordTrans</a> *</td>          <td class="paramname"><span class="paramname"><em>meg_head_t</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01786.html#a5baad7406c5c973b6c527ca77df9c4c2">fiffId</a> *</td>          <td class="paramname"><span class="paramname"><em>idp</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00086">86</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac3354c4d154cc3f4b4b9cac50dc7ebb2" name="ac3354c4d154cc3f4b4b9cac50dc7ebb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3354c4d154cc3f4b4b9cac50dc7ebb2">&#9670;&#160;</a></span>mne_sparse_vec_mult2_32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mne_sparse_vec_mult2_32 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02506.html">FiffSparseMatrix</a> *</td>          <td class="paramname"><span class="paramname"><em>mat</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>vector</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *</td>          <td class="paramname"><span class="paramname"><em>res</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00358">358</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa6eed582ba0cd97f363b227b80d073b4" name="aa6eed582ba0cd97f363b227b80d073b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6eed582ba0cd97f363b227b80d073b4">&#9670;&#160;</a></span>mne_unmap_ctf_comp_kind()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mne_unmap_ctf_comp_kind </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ctf_comp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00263">263</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="ae7815c89d2887c1b6b261544c9de3e3e" name="ae7815c89d2887c1b6b261544c9de3e3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7815c89d2887c1b6b261544c9de3e3e">&#9670;&#160;</a></span>ctf_comp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ctf_comp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00255">255</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a07b1203222ba80fb8ee8f05c0237a377" name="a07b1203222ba80fb8ee8f05c0237a377"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b1203222ba80fb8ee8f05c0237a377">&#9670;&#160;</a></span>grad_comp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int grad_comp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00254">254</a> of file <a class="el" href="a01412_source.html">mne_ctf_comp_data_set.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
