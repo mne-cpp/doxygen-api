@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eventsinternal_3a_3aeventsharedmemmanager_0',['EventSharedMemManager',['../a02379.html#aa8f306c5cd64991c24da5156e507e352',1,'EVENTSLIB::EventManager']]]
+  ['eventsinternal_3a_3aeventsharedmemmanager_0',['EventSharedMemManager',['../a02376.html#aa8f306c5cd64991c24da5156e507e352',1,'EVENTSLIB::EventManager']]]
 ];

@@ -14,6 +14,6 @@ var searchData=
   ['projectorsview_2eh_11',['projectorsview.h',['../a00152.html',1,'']]],
   ['projectsettingsview_2ecpp_12',['projectsettingsview.cpp',['../a00170.html',1,'']]],
   ['projectsettingsview_2eh_13',['projectsettingsview.h',['../a00254.html',1,'']]],
-  ['pwlrapmusic_2ecpp_14',['pwlrapmusic.cpp',['../a01706.html',1,'']]],
-  ['pwlrapmusic_2eh_15',['pwlrapmusic.h',['../a01694.html',1,'']]]
+  ['pwl_5frap_5fmusic_2ecpp_14',['pwl_rap_music.cpp',['../a01634.html',1,'']]],
+  ['pwl_5frap_5fmusic_2eh_15',['pwl_rap_music.h',['../a01646.html',1,'']]]
 ];
