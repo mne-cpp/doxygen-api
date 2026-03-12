@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['eps_0',['EPS',['../a01604.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'EPS:&#160;fwd_bem_model.cpp'],['../a01571.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'EPS:&#160;fwd_eeg_sphere_model.cpp'],['../a01004.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'EPS:&#160;layoutmaker.cpp']]],
+  ['eps_0',['EPS',['../a01604.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'EPS:&#160;fwd_bem_model.cpp'],['../a01583.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'EPS:&#160;fwd_eeg_sphere_model.cpp'],['../a01004.html#a6ebf6899d6c1c8b7b9d09be872c05aae',1,'EPS:&#160;layoutmaker.cpp']]],
   ['eps_5f3_1',['EPS_3',['../a01661.html#a8db0aaf50ca9691198e81e76a1296e6b',1,'dipole_fit_data.cpp']]],
   ['eps_5fvalues_2',['EPS_VALUES',['../a01691.html#a2dc63e91b69b713d6115cbbdfbd4bde0',1,'dipole_fit.cpp']]],
   ['estimate_5fdspm_3',['ESTIMATE_dSPM',['../a01685.html#a9d096b910eb1b77959d687b0e94c09c0',1,'analyze_types.h']]],

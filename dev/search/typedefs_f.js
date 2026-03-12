@@ -1,5 +1,5 @@
 var searchData=
 [
   ['uchar_0',['uchar',['../a01499.html#ae48ac2456c5ad6c956fef86e7bef3a21',1,'eventgroup.h']]],
-  ['uptr_1',['UPtr',['../a02400.html#a5f73d24c67c29d2a593dab69b13e1f88',1,'FIFFLIB::FiffCoordTrans::UPtr'],['../a02504.html#a37fdf0ad5b1f62a192319033ffdd00c5',1,'FIFFLIB::FiffSparseMatrix::UPtr'],['../a03424.html#a5f73d24c67c29d2a593dab69b13e1f88',1,'FiffCoordTrans::UPtr']]]
+  ['uptr_1',['UPtr',['../a02401.html#a5f73d24c67c29d2a593dab69b13e1f88',1,'FIFFLIB::FiffCoordTrans::UPtr'],['../a02505.html#a37fdf0ad5b1f62a192319033ffdd00c5',1,'FIFFLIB::FiffSparseMatrix::UPtr'],['../a03425.html#a5f73d24c67c29d2a593dab69b13e1f88',1,'FiffCoordTrans::UPtr']]]
 ];

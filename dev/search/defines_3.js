@@ -12,9 +12,8 @@ var searchData=
   ['column_5fnorm_5fnone_9',['COLUMN_NORM_NONE',['../a01694.html#ab24010e22d3840fe8bbbab61a33e7394',1,'dipole_fit_data.h']]],
   ['communicationshared_5fexport_10',['COMMUNICATIONSHARED_EXPORT',['../a01445.html#af9739468c6037067c9e91971ae777637',1,'communication_global.h']]],
   ['connectivityshared_5fexport_11',['CONNECTIVITYSHARED_EXPORT',['../a00863.html#a3a491e12b5757009f1a9e5a75eb763c7',1,'connectivity_global.h']]],
-  ['cross_5fproduct_5f1_12',['CROSS_PRODUCT_1',['../a01571.html#a7df803feda5e45ccc9feada8010e7dd9',1,'fwd_eeg_sphere_model.cpp']]],
-  ['cross_5fproduct_5f17_13',['CROSS_PRODUCT_17',['../a01253.html#a51c4f06dc2ba865d69fa7148f0f36f9e',1,'CROSS_PRODUCT_17:&#160;mne_msh_display_surface.cpp'],['../a01169.html#a51c4f06dc2ba865d69fa7148f0f36f9e',1,'CROSS_PRODUCT_17:&#160;mne_surface_or_volume.cpp']]],
+  ['cross_5fproduct_5f1_12',['CROSS_PRODUCT_1',['../a01583.html#a7df803feda5e45ccc9feada8010e7dd9',1,'fwd_eeg_sphere_model.cpp']]],
+  ['cross_5fproduct_5f17_13',['CROSS_PRODUCT_17',['../a01250.html#a51c4f06dc2ba865d69fa7148f0f36f9e',1,'CROSS_PRODUCT_17:&#160;mne_msh_display_surface.cpp'],['../a01169.html#a51c4f06dc2ba865d69fa7148f0f36f9e',1,'CROSS_PRODUCT_17:&#160;mne_surface_or_volume.cpp']]],
   ['cross_5fproduct_5f3_14',['CROSS_PRODUCT_3',['../a01661.html#a2bb786470720c808ac903fcfe0e864e2',1,'dipole_fit_data.cpp']]],
-  ['cross_5fproduct_5f40_15',['CROSS_PRODUCT_40',['../a01604.html#ab49f08c27a6bfac122205466e38622f4',1,'fwd_bem_model.cpp']]],
-  ['curvature_5ffile_5fmagic_5fnumber_16',['CURVATURE_FILE_MAGIC_NUMBER',['../a01364.html#a54d0aaa59a75f23556a253b15ff50738',1,'CURVATURE_FILE_MAGIC_NUMBER:&#160;mne_source_space.cpp'],['../a01169.html#a54d0aaa59a75f23556a253b15ff50738',1,'CURVATURE_FILE_MAGIC_NUMBER:&#160;mne_surface_or_volume.cpp']]]
+  ['curvature_5ffile_5fmagic_5fnumber_15',['CURVATURE_FILE_MAGIC_NUMBER',['../a01364.html#a54d0aaa59a75f23556a253b15ff50738',1,'CURVATURE_FILE_MAGIC_NUMBER:&#160;mne_source_space.cpp'],['../a01169.html#a54d0aaa59a75f23556a253b15ff50738',1,'CURVATURE_FILE_MAGIC_NUMBER:&#160;mne_surface_or_volume.cpp']]]
 ];

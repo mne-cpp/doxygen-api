@@ -51,11 +51,7 @@ var searchData=
   ['stream_5finlet_2eh_48',['stream_inlet.h',['../a01520.html',1,'']]],
   ['stream_5foutlet_2ecpp_49',['stream_outlet.cpp',['../a01547.html',1,'']]],
   ['stream_5foutlet_2eh_50',['stream_outlet.h',['../a01544.html',1,'']]],
-  ['surface_2ecpp_51',['surface.cpp',['../a01406.html',1,'']]],
-  ['surface_2eh_52',['surface.h',['../a01433.html',1,'']]],
-  ['surfacekeys_2eh_53',['surfacekeys.h',['../a00797.html',1,'']]],
-  ['surfaceset_2ecpp_54',['surfaceset.cpp',['../a01421.html',1,'']]],
-  ['surfaceset_2eh_55',['surfaceset.h',['../a01436.html',1,'']]],
-  ['surfacetreeitem_2ecpp_56',['surfacetreeitem.cpp',['../a00824.html',1,'']]],
-  ['surfacetreeitem_2eh_57',['surfacetreeitem.h',['../a00809.html',1,'']]]
+  ['surfacekeys_2eh_51',['surfacekeys.h',['../a00797.html',1,'']]],
+  ['surfacetreeitem_2ecpp_52',['surfacetreeitem.cpp',['../a00824.html',1,'']]],
+  ['surfacetreeitem_2eh_53',['surfacetreeitem.h',['../a00809.html',1,'']]]
 ];

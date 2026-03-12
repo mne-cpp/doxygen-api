@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['matrix6t_0',['Matrix6T',['../a02828.html#a09ff67c88a29959be3a8993813edcdfb',1,'INVERSELIB::RapMusic']]],
-  ['matrix6xt_1',['Matrix6XT',['../a02828.html#aa49db16068c475f461fe3c5a40310e0e',1,'INVERSELIB::RapMusic']]],
+  ['matrix6t_0',['Matrix6T',['../a02829.html#a09ff67c88a29959be3a8993813edcdfb',1,'INVERSELIB::RapMusic']]],
+  ['matrix6xt_1',['Matrix6XT',['../a02829.html#aa49db16068c475f461fe3c5a40310e0e',1,'INVERSELIB::RapMusic']]],
   ['matrixdau16_2',['MatrixDau16',['../a01783.html#a67219b17cf8c0ed2c6af8012f2e81c4d',1,'FIFFLIB']]],
   ['matrixshort_3',['MatrixShort',['../a01783.html#af44351ffdedcaa116f51d6d9b3d36517',1,'FIFFLIB']]],
-  ['matrixx6t_4',['MatrixX6T',['../a02828.html#a1164b219770c9a58d162e572221dde90',1,'INVERSELIB::RapMusic']]],
+  ['matrixx6t_4',['MatrixX6T',['../a02829.html#a1164b219770c9a58d162e572221dde90',1,'INVERSELIB::RapMusic']]],
   ['matrixxdr_5',['MatrixXdR',['../a01784.html#aa92ebf45614e24145966232d70b942bd',1,'DISPLIB']]],
-  ['matrixxt_6',['MatrixXT',['../a02828.html#a12b6d8f3b23f86dab1609a8783c2c38f',1,'INVERSELIB::RapMusic']]],
+  ['matrixxt_6',['MatrixXT',['../a02829.html#a12b6d8f3b23f86dab1609a8783c2c38f',1,'INVERSELIB::RapMusic']]],
   ['mnechselection_7',['mneChSelection',['../a01781.html#a173c1c01ff29bc214944238e35413788',1,'MNELIB']]],
   ['mnechselectionrec_8',['mneChSelectionRec',['../a01781.html#a093c408b9e25b1adc81a95c498ff1156',1,'MNELIB']]],
   ['mnelayoutport_9',['mneLayoutPort',['../a01781.html#ac0f1faef2bcbd15cb6f41fd45bc410ef',1,'MNELIB']]],
