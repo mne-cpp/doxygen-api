@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['bem_5fsol_5fsuffix_0',['BEM_SOL_SUFFIX',['../a01604.html#a68ab4bfa359263aebbc71d55c08d853b',1,'fwd_bem_model.cpp']]],
-  ['bem_5fsuffix_1',['BEM_SUFFIX',['../a01604.html#a8782cfee781f9c71a7be3b9b5313937d',1,'fwd_bem_model.cpp']]],
-  ['beta_2',['BETA',['../a01661.html#a1b996515309fc3c03449912bb33046e3',1,'BETA:&#160;dipole_fit_data.cpp'],['../a01661.html#a477ffea085df90fc9b220b27de30991c',1,'BETA:&#160;dipole_fit_data.cpp'],['../a01013.html#a1b996515309fc3c03449912bb33046e3',1,'BETA:&#160;simplex_algorithm.h']]],
+  ['bem_5fsol_5fsuffix_0',['BEM_SOL_SUFFIX',['../a01601.html#a68ab4bfa359263aebbc71d55c08d853b',1,'fwd_bem_model.cpp']]],
+  ['bem_5fsuffix_1',['BEM_SUFFIX',['../a01601.html#a8782cfee781f9c71a7be3b9b5313937d',1,'fwd_bem_model.cpp']]],
+  ['beta_2',['BETA',['../a01664.html#a1b996515309fc3c03449912bb33046e3',1,'BETA:&#160;dipole_fit_data.cpp'],['../a01664.html#a477ffea085df90fc9b220b27de30991c',1,'BETA:&#160;dipole_fit_data.cpp'],['../a01013.html#a1b996515309fc3c03449912bb33046e3',1,'BETA:&#160;simplex_algorithm.h']]],
   ['bids_5fanatomicaldata_3',['BIDS_ANATOMICALDATA',['../a00350.html#a8f3e96923ea70fc458a499ed0711cb32',1,'bidsviewmodel.h']]],
   ['bids_5faverage_4',['BIDS_AVERAGE',['../a00350.html#a771f0fb9e4645dc428fcaeaed0d5c60f',1,'bidsviewmodel.h']]],
   ['bids_5fbehavioraldata_5',['BIDS_BEHAVIORALDATA',['../a00350.html#a4ec98963e51e21539be4187d7c0d3598',1,'bidsviewmodel.h']]],
@@ -16,6 +16,6 @@ var searchData=
   ['bids_5fsession_13',['BIDS_SESSION',['../a00350.html#a72aa6e4cae6cbd154aa4aceac6b47a92',1,'bidsviewmodel.h']]],
   ['bids_5fsubject_14',['BIDS_SUBJECT',['../a00350.html#a60e2591a1b7628870bebf6901c3cf876',1,'bidsviewmodel.h']]],
   ['bids_5funknown_15',['BIDS_UNKNOWN',['../a00350.html#abde145b2a87d4e777ce5eb7b87cd597d',1,'bidsviewmodel.h']]],
-  ['big_16',['BIG',['../a01592.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'BIG:&#160;fwd_coil_set.cpp'],['../a00065.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'BIG:&#160;parksmcclellan.cpp']]],
-  ['big_5ftime_17',['BIG_TIME',['../a01691.html#a9b7eb62aa0860447484765b33902ea95',1,'BIG_TIME:&#160;dipole_fit.cpp'],['../a01673.html#a9b7eb62aa0860447484765b33902ea95',1,'BIG_TIME:&#160;dipole_fit_settings.h']]]
+  ['big_16',['BIG',['../a01589.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'BIG:&#160;fwd_coil_set.cpp'],['../a00065.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'BIG:&#160;parksmcclellan.cpp']]],
+  ['big_5ftime_17',['BIG_TIME',['../a01694.html#a9b7eb62aa0860447484765b33902ea95',1,'BIG_TIME:&#160;dipole_fit.cpp'],['../a01676.html#a9b7eb62aa0860447484765b33902ea95',1,'BIG_TIME:&#160;dipole_fit_settings.h']]]
 ];
