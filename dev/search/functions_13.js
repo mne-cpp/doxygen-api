@@ -41,7 +41,7 @@ var searchData=
   ['tointmatrix_38',['toIntMatrix',['../a02516.html#a4f9054f9655448eabb68c0215b661a89',1,'FIFFLIB::FiffTag']]],
   ['tojsonobject_39',['toJsonObject',['../a01832.html#a0d6ffe7da98a63c56f2817fd6a7870d8',1,'COMMUNICATIONLIB::Command']]],
   ['tojulian_40',['toJulian',['../a02516.html#a3863685593986e8a8a726b4efbede77e',1,'FIFFLIB::FiffTag']]],
-  ['tolabels_41',['toLabels',['../a02524.html#a45523875095b3a8c43a64b49aaf53d8a',1,'FSLIB::Annotation::toLabels()'],['../a02528.html#aed1362c6fe6fae2dcfbb8c380b652468',1,'FSLIB::AnnotationSet::toLabels()']]],
+  ['tolabels_41',['toLabels',['../a02524.html#afaaae6f62c4db116942d0fadf81fb6df',1,'FSLIB::FsAnnotation::toLabels()'],['../a02528.html#a69becc3c5dbb4cf4c38e5513d4189437',1,'FSLIB::FsAnnotationSet::toLabels()']]],
   ['tomachidstring_42',['toMachidString',['../a02476.html#a5247bc2bc176a624078d0962812198cb',1,'FIFFLIB::FiffId']]],
   ['topmargin_43',['topMargin',['../a01948.html#a4d9678c94051c03229ed54d43289ef4c',1,'DISPLIB::Spline']]],
   ['toqmatrix4x4_44',['toQMatrix4x4',['../a01792.html#ae1ce5e7eec898de3dd72ae5d2ccab6df',1,'SURFACEKEYS']]],
@@ -74,7 +74,7 @@ var searchData=
   ['triggerinfochanged_71',['triggerInfoChanged',['../a02080.html#ad6db0941849828241ac107077ef66f3b',1,'DISPLIB::RtFiffRawViewModel::triggerInfoChanged()'],['../a02136.html#ab4617bded7e7f5da86b347a7dfee28bf',1,'DISPLIB::RtFiffRawView::triggerInfoChanged()'],['../a02160.html#acd7219a4a1b91b18b0c9dc501ae24416',1,'DISPLIB::TriggerDetectionView::triggerInfoChanged()']]],
   ['triggertypechanged_72',['triggerTypeChanged',['../a01996.html#a92e2000dbc49672559da4cac834b452d',1,'DISPLIB::ConnectivitySettingsView::triggerTypeChanged()'],['../a02104.html#acd3f3a0d68038b57449ed589d2bf1556',1,'DISPLIB::MinimumNormSettingsView::triggerTypeChanged()']]],
   ['tripletselection_73',['tripletSelection',['../a02628.html#a3fbbc250463bd353a69cd63847ef4bcc',1,'FWDLIB::FwdForwardSolution']]],
-  ['tris_74',['tris',['../a02540.html#aed65a677b04b03976df0394ae7b81a17',1,'FSLIB::Surface']]],
+  ['tris_74',['tris',['../a02540.html#a5fc38cb2d21d26277ad5b15b6aa64cd9',1,'FSLIB::FsSurface']]],
   ['tstep_75',['tstep',['../a02292.html#a1e395a9874514581072d02bba77f992c',1,'SourceEstimateOverlay::tstep()'],['../a02304.html#ac7b19ae592264dec5ea887fc4817ca24',1,'SourceEstimateManager::tstep()']]],
   ['type_76',['type',['../a02212.html#acbbbfb4e8f4ff73c347cb98af2d37942',1,'AbstractTreeItem::type()'],['../a02852.html#a2ff7893a6811b5e68284812c5ded7efe',1,'LSLLIB::stream_info::type()']]]
 ];

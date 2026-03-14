@@ -1,7 +1,7 @@
 var searchData=
 [
   ['t_0',['t',['../a02692.html#a08215c97c4ec21a4cd3b504015a87f0f',1,'INVERSELIB::contHpiData']]],
-  ['table_1',['table',['../a02532.html#af5010cc827ac9405728b4a502669e76b',1,'FSLIB::Colortable']]],
+  ['table_1',['table',['../a02532.html#aa0662b820bf476478573f2fd0bcdd80b',1,'FSLIB::FsColortable']]],
   ['tag_2',['tag',['../a02960.html#a711866edc47ba1309ad7a4557706c990',1,'MNELIB::MNEMghTag']]],
   ['tags_3',['tags',['../a02964.html#a711b4b9f0edd981ddc8ef007bb8763cc',1,'MNELIB::MNEMghTagGroup']]],
   ['talairachxfmpath_4',['talairachXfmPath',['../a03132.html#a35afc6602e3648b74463ad3d6fb89961',1,'MRILIB::MriVolData']]],

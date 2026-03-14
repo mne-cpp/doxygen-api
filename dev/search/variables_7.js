@@ -12,7 +12,7 @@ var searchData=
   ['head_5fsurface_5fmeg_5fmap_9',['head_surface_meg_map',['../a02640.html#a2326e78e39e0720aefca6e56024e8203',1,'INVERSELIB::fieldMappingPref']]],
   ['height_10',['height',['../a03112.html#ab1b5854366ba8e82645bcd9e248742a2',1,'MNELIB::MNEVolGeom::height'],['../a03128.html#acd27e2abd8966d272f303899152a3262',1,'MRILIB::MriSlice::height'],['../a03132.html#a853d5d47a3b4e64088cc606b07181090',1,'MRILIB::MriVolData::height']]],
   ['helmetsurface_11',['helmetSurface',['../a02168.html#a67e7c3a364e4199d1565c00531f496d0',1,'DataLoader::SensorLoadResult']]],
-  ['hemi_12',['hemi',['../a02536.html#a846b65c0b3a8ce5a56a944cca3d95378',1,'FSLIB::Label::hemi'],['../a02648.html#ab45a13b7c5f2f01497f53471d6215344',1,'INVERSELIB::mshLabel::hemi']]],
+  ['hemi_12',['hemi',['../a02536.html#a55f6140beed0ff3243af315deb47ddbe',1,'FSLIB::FsLabel::hemi'],['../a02648.html#ab45a13b7c5f2f01497f53471d6215344',1,'INVERSELIB::mshLabel::hemi']]],
   ['highpass_13',['highpass',['../a02480.html#a19c7faa33c199e6606b7c3f48a613d32',1,'FIFFLIB::FiffInfo::highpass'],['../a02820.html#ab71c128de68b6ff6b02c7c0fad7e83a4',1,'INVERSELIB::MNEMeasData::highpass'],['../a02944.html#a714930e61ec01f527942f67dea36a103',1,'MNELIB::MNEFilterDef::highpass'],['../a03028.html#a719647d1b6b9251925f2006d16d39ef8',1,'MNELIB::FilterSettings::highpass'],['../a03072.html#a42e1dd6ea06cbee6af4fc231c50deb70',1,'MNELIB::MNERawInfo::highpass']]],
   ['highpass_5fwidth_14',['highpass_width',['../a02944.html#a36938ed7916628b5b04c9a4382501959',1,'MNELIB::MNEFilterDef']]],
   ['highpasswidth_15',['highpassWidth',['../a03028.html#ae4ed93900b6772e3e39da15c4f2403aa',1,'MNELIB::FilterSettings']]],

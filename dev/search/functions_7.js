@@ -13,7 +13,7 @@ var searchData=
   ['have_5fconsumers_10',['have_consumers',['../a02868.html#a843e4d0160cfeb201ba65c8f0ef14433',1,'LSLLIB::stream_outlet']]],
   ['haveconsumers_11',['haveConsumers',['../a02864.html#a42c64930b29a82f9f471d9d49416f03a',1,'LSLLIB::StreamOutletPrivate']]],
   ['headerdata_12',['headerData',['../a02044.html#aa3d814092c42076b3dbc254160c21de4',1,'DISPLIB::ChannelInfoModel::headerData()'],['../a02052.html#ab9f09099921f754f1bf20c7c36ad5eeb',1,'DISPLIB::EvokedSetModel::headerData()'],['../a02064.html#ad8b2ddb91e4194b3b8ba578ddf845de4',1,'DISPLIB::FrequencySpectrumModel::headerData()'],['../a02080.html#aa5ec2999baf393642e132249828dc5ff',1,'DISPLIB::RtFiffRawViewModel::headerData()']]],
-  ['hemi_13',['hemi',['../a02256.html#a988055d3d7a12e5e0cd73f4f835ca9a6',1,'BrainSurface::hemi()'],['../a02524.html#af1879f8a9ce80f31d1184b252b656c63',1,'FSLIB::Annotation::hemi()'],['../a02540.html#aca824ec2ee08de20cba9f3422da23aee',1,'FSLIB::Surface::hemi()']]],
+  ['hemi_13',['hemi',['../a02256.html#a988055d3d7a12e5e0cd73f4f835ca9a6',1,'BrainSurface::hemi()'],['../a02524.html#a10bcad371fa995eefed769211165796f',1,'FSLIB::FsAnnotation::hemi()'],['../a02540.html#a38c5f2b2375bd25cede442a9d4022d31',1,'FSLIB::FsSurface::hemi()']]],
   ['hemisphereat_14',['hemisphereAt',['../a03080.html#a6ada5381d573e466983e57554ca38678',1,'MNELIB::MNESourceSpaces::hemisphereAt(qint32 idx)'],['../a03080.html#a8e60c212dde57228df30ef28a4b1cf9e',1,'MNELIB::MNESourceSpaces::hemisphereAt(qint32 idx) const']]],
   ['hidebadchannels_15',['hideBadChannels',['../a02136.html#aa09cc33df180cf33f488b55392a6cb48',1,'DISPLIB::RtFiffRawView']]],
   ['hidefilenameui_16',['hideFileNameUi',['../a02128.html#a38e2537c5df75c6ce82df82269133647',1,'DISPLIB::ProjectSettingsView']]],

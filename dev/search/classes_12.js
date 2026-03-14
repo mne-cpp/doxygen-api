@@ -33,7 +33,5 @@ var searchData=
   ['streamoutletprivate_30',['StreamOutletPrivate',['../a02864.html',1,'LSLLIB']]],
   ['subject_31',['Subject',['../a03232.html',1,'UTILSLIB']]],
   ['subview_32',['SubView',['../a02176.html',1,'']]],
-  ['surface_33',['Surface',['../a02540.html',1,'FSLIB']]],
-  ['surfaceset_34',['SurfaceSet',['../a02544.html',1,'FSLIB']]],
-  ['surfacetreeitem_35',['SurfaceTreeItem',['../a02244.html',1,'']]]
+  ['surfacetreeitem_33',['SurfaceTreeItem',['../a02244.html',1,'']]]
 ];

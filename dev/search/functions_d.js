@@ -48,7 +48,7 @@ var searchData=
   ['nlight_45',['nlight',['../a02996.html#a53490c8a8fd21fffb16b8a4fbee27085',1,'MNELIB::MNEMshLightSet']]],
   ['nmatch_46',['nmatch',['../a02952.html#a8e2db7c6cc495fa8eb956c9a6b4c8ca9',1,'MNELIB::MNELayout']]],
   ['nmodel_47',['nmodel',['../a02608.html#af8f4dea039e015cb2aece1f53dea4790',1,'FWDLIB::FwdEegSphereModelSet']]],
-  ['nn_48',['nn',['../a02540.html#a06f31c0415489a9453daa3427c594856',1,'FSLIB::Surface']]],
+  ['nn_48',['nn',['../a02540.html#a12687f93096e51e82ec8677a56d2abd2',1,'FSLIB::FsSurface']]],
   ['nodeindexbuffer_49',['nodeIndexBuffer',['../a02280.html#a03d89c36a35188a66a990e62ae1e39e9',1,'NetworkObject']]],
   ['nodeindexcount_50',['nodeIndexCount',['../a02280.html#ab453b4fe713087df82863e0b7ce2ec85',1,'NetworkObject']]],
   ['nodeinstancebuffer_51',['nodeInstanceBuffer',['../a02280.html#a747eb928c7f82e56246dd30068ae0c53',1,'NetworkObject']]],

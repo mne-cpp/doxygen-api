@@ -25,7 +25,7 @@ var searchData=
   ['points_22',['points',['../a02432.html#a13fdd076d3f33940d1a23c527993465c',1,'FIFFLIB::FiffDigitizerData']]],
   ['portno_23',['portno',['../a02956.html#aa3c3a52f7fba06065f57a10a616e0e2a',1,'MNELIB::MNELayoutPort']]],
   ['ports_24',['ports',['../a02952.html#ae4a4df33c07a0ce8154f493cc8307a3b',1,'MNELIB::MNELayout']]],
-  ['pos_25',['pos',['../a02252.html#a69f5663da32e39036e76bc1c431d0e0a',1,'VertexData::pos'],['../a02436.html#a9f8411b582913d9fc965d8e07d0a6152',1,'FIFFLIB::FiffDirEntry::pos'],['../a02536.html#aaa5a4f6b007a8251e6b26a527f08bbd1',1,'FSLIB::Label::pos'],['../a02752.html#a9abaa48bec6b7139870f0e6e8a695062',1,'INVERSELIB::CoilParam::pos'],['../a02992.html#aa958fb91391c4712d525b584db994aa5',1,'MNELIB::MNEMshLight::pos']]],
+  ['pos_25',['pos',['../a02252.html#a69f5663da32e39036e76bc1c431d0e0a',1,'VertexData::pos'],['../a02436.html#a9f8411b582913d9fc965d8e07d0a6152',1,'FIFFLIB::FiffDirEntry::pos'],['../a02536.html#aa4a7df310e9e77bd5015f8ad22962dc1',1,'FSLIB::FsLabel::pos'],['../a02752.html#a9abaa48bec6b7139870f0e6e8a695062',1,'INVERSELIB::CoilParam::pos'],['../a02992.html#aa958fb91391c4712d525b584db994aa5',1,'MNELIB::MNEMshLight::pos']]],
   ['pos_5fcurv_5fcolor_26',['POS_CURV_COLOR',['../a01247.html#a781264ba867623a9df51723e02dbd8e4',1,'mne_msh_display_surface.cpp']]],
   ['postsel_27',['postsel',['../a02900.html#a336985d87c7a83799d9ca98f196ed692',1,'MNELIB::MNECTFCompData']]],
   ['postsel_5fdata_28',['postsel_data',['../a02900.html#aaf2890176223b485215081f8b7575674',1,'MNELIB::MNECTFCompData']]],

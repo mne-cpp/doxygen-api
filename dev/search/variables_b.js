@@ -1,7 +1,7 @@
 var searchData=
 [
   ['label_0',['label',['../a02676.html#a038d87114f5258d95b7ee519e38e2009',1,'INVERSELIB::timecourseData']]],
-  ['label_5fid_1',['label_id',['../a02536.html#a24103edab5af2b181f49cfa6e870345b',1,'FSLIB::Label']]],
+  ['label_5fid_1',['label_id',['../a02536.html#a9b7c260900e14576435c9eb2b816a4e4',1,'FSLIB::FsLabel']]],
   ['label_5ftask_2',['label_task',['../a02676.html#abf220b08068031c8e3acfd8dc573f041',1,'INVERSELIB::timecourseData']]],
   ['labels_3',['labels',['../a02552.html#aa045eae2ea6cf6dae7aa9c9cfb391967',1,'FWDLIB::ComputeFwdSettings::labels'],['../a02652.html#af2dc6ebb5a71b283a88b39a10c3913dd',1,'INVERSELIB::mshLabelSet::labels']]],
   ['lambda_4',['lambda',['../a02596.html#abf2b09f7a5046672e8be80d9d142e99e',1,'FWDLIB::bergSchergParRec::lambda'],['../a02604.html#a9ecc12eaca41e553ff64b56e07f1a5ca',1,'FWDLIB::FwdEegSphereModel::lambda'],['../a02896.html#a16e6400d530b0268484037dc720d3eee',1,'MNELIB::MNECovMatrix::lambda']]],

@@ -94,7 +94,7 @@ var searchData=
   ['stim14_91',['stim14',['../a02824.html#ac431c3c8f3d17eaf5d571e24beb43b8c',1,'INVERSELIB::MNEMeasDataSet']]],
   ['stimignore_92',['stimIgnore',['../a02452.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'FIFFLIB::RejectionParams::stimIgnore'],['../a03420.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'MNELIB::RejectionParams::stimIgnore']]],
   ['stream_93',['stream',['../a03068.html#aceab2140ababd8e3935e57f02fc4ae42',1,'MNELIB::MNERawData']]],
-  ['struct_5fnames_94',['struct_names',['../a02532.html#ab7804162918de82c37e9bac3943ff98e',1,'FSLIB::Colortable']]],
+  ['struct_5fnames_94',['struct_names',['../a02532.html#a18c9e7fec718c0738cc6ae31ed618213',1,'FSLIB::FsColortable']]],
   ['subj_95',['subj',['../a02980.html#aaa6869e796573f3891587df3813213a1',1,'MNELIB::MNEMshDisplaySurface::subj'],['../a02984.html#a28ff3da8607d6e9bb9c0910173511dba',1,'MNELIB::MNEMshDisplaySurfaceSet::subj']]],
   ['subject_96',['subject',['../a03100.html#a4be5eb1f8e64b039e1ccc7b9957353fa',1,'MNELIB::MNESurfaceOrVolume']]],
   ['sumd_97',['sumd',['../a02620.html#aba9c8f8742f5139004e9d3620cfb1230',1,'FWDLIB::RegionDataOut::sumd'],['../a02800.html#a15af6a7d2599c1c70f106036cec62f5e',1,'INVERSELIB::RegionMTOut::sumd']]],

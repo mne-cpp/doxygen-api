@@ -11,7 +11,7 @@ var searchData=
   ['op_8',['op',['../a02820.html#a44f03f47c4628d700429802c6e25ef34',1,'INVERSELIB::MNEMeasData']]],
   ['order_9',['order',['../a02372.html#ad2e4469b86d669f6f5af673855e736e0',1,'EVENTSLIB::EventGroup']]],
   ['orient_5fprior_10',['orient_prior',['../a02808.html#a3d98ca5008f6c729c366a8467508b2e0',1,'INVERSELIB::MNEInverseOperator']]],
-  ['orig_5ftab_11',['orig_tab',['../a02532.html#ae7d2dbfa6a4f02c75165e2f58c5f38e2',1,'FSLIB::Colortable']]],
+  ['orig_5ftab_11',['orig_tab',['../a02532.html#a3803511f79b5bcb5307d963313bd634d',1,'FSLIB::FsColortable']]],
   ['origin_12',['origin',['../a02664.html#adc24ce2a21de5998e144adcc452a8728',1,'INVERSELIB::fieldMappingData::origin'],['../a03092.html#aea50ee7d8581f91b79516fb5039dd815',1,'MNELIB::MNESssData::origin']]],
   ['out_5fnuse_13',['out_nuse',['../a03092.html#a1babdac902521e8fc689a8269de7f51d',1,'MNELIB::MNESssData']]],
   ['out_5forder_14',['out_order',['../a03092.html#a7c9cacf473bb763baa12f3a5efb2cda8',1,'MNELIB::MNESssData']]],
