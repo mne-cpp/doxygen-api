@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['fieldmap_0',['FieldMap',['../a01793.html#a4ac23db700ddbd30e29d0ad5a81b0c92',1,'DISP3DRHILIB::FieldMap'],['../a01802.html#a4c4584e8f76549b86ea7d0e89e258150',1,'FWDLIB::FieldMap']]],
+  ['fieldmap_0',['FieldMap',['../a01793.html#a4ac23db700ddbd30e29d0ad5a81b0c92',1,'DISP3DRHILIB::FieldMap'],['../a01784.html#a4c4584e8f76549b86ea7d0e89e258150',1,'FWDLIB::FieldMap']]],
   ['fieldmappingdatarec_1',['fieldMappingDataRec',['../a01795.html#a7d83f49339f9df338881d32a2a5d6d3e',1,'INVERSELIB']]],
   ['fieldmappingprefrec_2',['fieldMappingPrefRec',['../a01795.html#a0839f58a6be8c5978398041b85c9233f',1,'INVERSELIB']]],
   ['fiff_5fbyte_5ft_3',['fiff_byte_t',['../a01786.html#aa91e6803a8c99b6e89fee10691b9794a',1,'FIFFLIB']]],
@@ -27,11 +27,10 @@ var searchData=
   ['fiffdirentryrec_24',['fiffDirEntryRec',['../a01786.html#a316cff73b37dfbb42754dd037edd282d',1,'FIFFLIB']]],
   ['fiffid_25',['fiffId',['../a01786.html#a5baad7406c5c973b6c527ca77df9c4c2',1,'FIFFLIB']]],
   ['fiffidrec_26',['fiffIdRec',['../a01786.html#a82a459379ab8122666b53bbec5e154ad',1,'FIFFLIB']]],
-  ['fitsphereuserrec_27',['fitSphereUserRec',['../a01784.html#aa96ff88f65875cb1cc815de658a5aaad',1,'MNELIB']]],
-  ['fituserrec_28',['fitUserRec',['../a01802.html#aaf97aeb22c754a1e588253d728131e03',1,'FWDLIB::fitUserRec'],['../a01810.html#a239e6ddabfee2d7b31b4de25df393b70',1,'UTILSLIB::fitUserRec']]],
-  ['fituserrecnew_29',['fitUserRecNew',['../a01810.html#a61efdc05ae84bcbe3b5787ec80ed1b04',1,'UTILSLIB']]],
-  ['fwdfieldfunc_30',['fwdFieldFunc',['../a01580.html#a27c9c727a59f4c3404f2845edaf16f0b',1,'fwd_types.h']]],
-  ['fwdfieldgradfunc_31',['fwdFieldGradFunc',['../a01580.html#ac7a95536ca7fd28b75a564fefc4ea680',1,'fwd_types.h']]],
-  ['fwduserfreefunc_32',['fwdUserFreeFunc',['../a01631.html#a03fb5adee0c6ce625dbd53c46d4d94ef',1,'fwdUserFreeFunc:&#160;fwd_coil_set.h'],['../a01580.html#a03fb5adee0c6ce625dbd53c46d4d94ef',1,'fwdUserFreeFunc:&#160;fwd_types.h']]],
-  ['fwdvecfieldfunc_33',['fwdVecFieldFunc',['../a01580.html#a5d81c4d2cba3d212f682874e6b96bd79',1,'fwd_types.h']]]
+  ['fitsphereuserrec_27',['fitSphereUserRec',['../a01803.html#aa96ff88f65875cb1cc815de658a5aaad',1,'MNELIB']]],
+  ['fituserrec_28',['fitUserRec',['../a01784.html#aaf97aeb22c754a1e588253d728131e03',1,'FWDLIB::fitUserRec'],['../a01811.html#a239e6ddabfee2d7b31b4de25df393b70',1,'UTILSLIB::fitUserRec']]],
+  ['fituserrecnew_29',['fitUserRecNew',['../a01811.html#a61efdc05ae84bcbe3b5787ec80ed1b04',1,'UTILSLIB']]],
+  ['fwdfieldfunc_30',['fwdFieldFunc',['../a01556.html#a5fb5471114ecaf67b01fc7be07302e10',1,'fwd_types.h']]],
+  ['fwdfieldgradfunc_31',['fwdFieldGradFunc',['../a01556.html#a17658065a0045ff4ee39345f06974c3b',1,'fwd_types.h']]],
+  ['fwdvecfieldfunc_32',['fwdVecFieldFunc',['../a01556.html#ae066755b217ec315d0ade852f1f55740',1,'fwd_types.h']]]
 ];
