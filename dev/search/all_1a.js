@@ -1,7 +1,7 @@
 var searchData=
 [
   ['y_0',['Y',['../a01664.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;inv_dipole_fit_settings.cpp'],['../a01676.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;inv_ecd_set.cpp'],['../a01160.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;mne_sss_data.cpp'],['../a01577.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a01610.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;fwd_forward_solution.cpp']]],
-  ['y_1',['y',['../a02603.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y'],['../a02835.html#a4b51eefb343052dc164c2456b37af20c',1,'INVLIB::Dipole::y()'],['../a02835.html#aa189761dc91950a616c806dfcfd4fb37',1,'INVLIB::Dipole::y() const']]],
+  ['y_1',['y',['../a02603.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y'],['../a02835.html#a6a2b7f6f1221352c915eb6f7436095c1',1,'INVLIB::InvDipole::y()'],['../a02835.html#acc3f7f01ff801a33c468d20d09a28ecd',1,'INVLIB::InvDipole::y() const']]],
   ['y_5f16_2',['Y_16',['../a01667.html#afab828c9760002b1e77065412b5f3c49',1,'inv_guess_data.cpp']]],
   ['y_5f17_3',['Y_17',['../a01247.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_msh_display_surface.cpp'],['../a01358.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_source_space.cpp'],['../a01250.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface.cpp'],['../a01166.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface_or_volume.cpp']]],
   ['y_5f3_4',['Y_3',['../a01661.html#a46d17da94868b6c4a2d8f6e278af2f5f',1,'inv_dipole_fit_data.cpp']]],

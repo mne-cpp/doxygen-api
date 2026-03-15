@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['hpidataupdater_0',['HpiDataUpdater',['../a02751.html',1,'INVLIB']]],
-  ['hpifit_1',['HPIFit',['../a02763.html',1,'INVLIB']]],
-  ['hpifitdata_2',['HPIFitData',['../a02775.html',1,'INVLIB']]],
-  ['hpifitresult_3',['HpiFitResult',['../a02759.html',1,'INVLIB']]],
-  ['hpimodelparameters_4',['HpiModelParameters',['../a02779.html',1,'INVLIB']]],
-  ['hpiresultdata_5',['hpiResultData',['../a02675.html',1,'INVLIB']]],
-  ['hpisettingsview_6',['HpiSettingsView',['../a02103.html',1,'DISPLIB']]],
-  ['hpisortstruct_7',['HPISortStruct',['../a02771.html',1,'INVLIB']]]
+  ['hpifitresult_0',['HpiFitResult',['../a02759.html',1,'INVLIB']]],
+  ['hpiresultdata_1',['hpiResultData',['../a02675.html',1,'INVLIB']]],
+  ['hpisettingsview_2',['HpiSettingsView',['../a02103.html',1,'DISPLIB']]],
+  ['hpisortstruct_3',['HPISortStruct',['../a02771.html',1,'INVLIB']]]
 ];

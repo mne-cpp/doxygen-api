@@ -28,11 +28,11 @@ var searchData=
   ['updateprojection_25',['updateProjection',['../a02055.html#a8b32b2bda0ce384a5ff2384562b6b871',1,'DISPLIB::EvokedSetModel::updateProjection()'],['../a02083.html#ae499ebd483a0bfb64fd1bc64e408b6cf',1,'DISPLIB::RtFiffRawViewModel::updateProjection()'],['../a02139.html#ae43d8cb14e6dd97d97831feccfceb797',1,'DISPLIB::RtFiffRawView::updateProjection()']]],
   ['updatescene_26',['updateScene',['../a02035.html#a87e3fbf7153764d1c7b14582aa97ff7d',1,'DISPLIB::AverageScene']]],
   ['updatesceneuniforms_27',['updateSceneUniforms',['../a02315.html#aa829180cc2bc149b20713cae47b94d7d',1,'BrainRenderer']]],
-  ['updatesensorset_28',['updateSensorSet',['../a02787.html#afcd4be65031ecb7e79cbf42c24e78ced',1,'INVLIB::SensorSetCreator']]],
+  ['updatesensorset_28',['updateSensorSet',['../a02787.html#ae96d4ca354abe69fb02fef7728f1d3c7',1,'INVLIB::InvSensorSetCreator']]],
   ['updatespharaactivation_29',['updateSpharaActivation',['../a02083.html#a05e8374b8b8edf48bf73f5101066e1de',1,'DISPLIB::RtFiffRawViewModel::updateSpharaActivation()'],['../a02139.html#aa964e440d1a58217243100854b9aa91c',1,'DISPLIB::RtFiffRawView::updateSpharaActivation()']]],
   ['updatespharaoptions_30',['updateSpharaOptions',['../a02083.html#a6f3fcaabb4d1c340ac21e3a973cd1a4d',1,'DISPLIB::RtFiffRawViewModel::updateSpharaOptions()'],['../a02139.html#a556e2a223a2356a68a827d2664f81e5d',1,'DISPLIB::RtFiffRawView::updateSpharaOptions()']]],
   ['updatethresholdsfromdata_31',['updateThresholdsFromData',['../a02295.html#aea304d99821fd29ae97fb1bf7e667242',1,'SourceEstimateOverlay']]],
   ['updatevalue_32',['updateValue',['../a02147.html#a81fd96a50e20d91991942dc45af36d72',1,'DISPLIB::SpectrumSettingsView']]],
   ['updateview_33',['updateView',['../a01987.html#ae70d4af2b2f79684a01739d07754c5e3',1,'DISPLIB::ButterflyView']]],
-  ['usefullrank_34',['useFullRank',['../a02851.html#ab91b4e0bcdbc7c21e2d116907b4926a2',1,'INVLIB::RapMusic']]]
+  ['usefullrank_34',['useFullRank',['../a02851.html#a92d14534b5e186cebc50e462feccc221',1,'INVLIB::InvRapMusic']]]
 ];

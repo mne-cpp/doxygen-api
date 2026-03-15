@@ -3,7 +3,7 @@ var searchData=
   ['backgroundcolorchanged_0',['backgroundColorChanged',['../a02019.html#a298505bab4703dfd487f9edcbea8948d',1,'DISPLIB::FiffRawViewSettings']]],
   ['bar_1',['Bar',['../a01927.html#a843a8aa2dc8a20221e58892830ba2690',1,'DISPLIB::Bar']]],
   ['baselinechanged_2',['baselineChanged',['../a02015.html#a712c966a18ef6797c051306c16e1c6f3',1,'DISPLIB::DipoleFitView']]],
-  ['bbasic_3',['bBasic',['../a02779.html#a5d174e6a1415a52ebf83559e63cc23e0',1,'INVLIB::HpiModelParameters']]],
+  ['bbasic_3',['bBasic',['../a02779.html#ae8ad9ebd90edcd190123753b01809056',1,'INVLIB::InvHpiModelParameters']]],
   ['beginframe_4',['beginFrame',['../a02315.html#a9cc784a8a3d49c6fcda4088a69e7b1c1',1,'BrainRenderer']]],
   ['bemshadermodefortarget_5',['bemShaderModeForTarget',['../a02323.html#a5152ba27b8617e1a4068f965ef7216b9',1,'BrainView']]],
   ['bemsurfacedata_6',['bemSurfaceData',['../a02219.html#a0b873d4ef768dad3be522c1035567375',1,'BemTreeItem']]],

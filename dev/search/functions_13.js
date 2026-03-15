@@ -52,7 +52,7 @@ var searchData=
   ['totalpointcount_49',['totalPointCount',['../a02223.html#af5ed66a2aa8f02ddeeec9e8e6e6dfe8f',1,'DigitizerSetTreeItem']]],
   ['tounsignedint_50',['toUnsignedInt',['../a02519.html#a277ab695e180a84af0d8050c27953d81',1,'FIFFLIB::FiffTag']]],
   ['tounsignedshort_51',['toUnsignedShort',['../a02519.html#a62860f1f28b273931a88743faf93d223',1,'FIFFLIB::FiffTag']]],
-  ['tra_52',['tra',['../a02783.html#a5210d51b5b3509dc7c150b4403d70bc0',1,'INVLIB::SensorSet::tra(int iSensor) const'],['../a02783.html#a714f588a444546947111ce0918578ffd',1,'INVLIB::SensorSet::tra() const']]],
+  ['tra_52',['tra',['../a02783.html#ad2df8b39abb94597ec74fce430b3f6d7',1,'INVLIB::InvSensorSet::tra(int iSensor) const'],['../a02783.html#a71a940f66bdfff4f7a495d814ce46356',1,'INVLIB::InvSensorSet::tra() const']]],
   ['tracequantity_53',['traceQuantity',['../a03263.html#a8d1430aa57c1f036c50c7c82981e3759',1,'UTILSLIB::MNETracer']]],
   ['transform_54',['transform',['../a02215.html#aa57dfb9b03e286c2194ee1783ad4d1ac',1,'AbstractTreeItem::transform()'],['../a02259.html#a6b9e52d08bb941a30d1b65775e47b014',1,'BrainSurface::transform()'],['../a02883.html#a4fe2c49b27283f6fdcf9fbf0933b9a16',1,'MNELIB::MNEBem::transform()']]],
   ['transform_5fhemisphere_5fto_55',['transform_hemisphere_to',['../a02951.html#ab0af9ce470d965279617aeb704e459af',1,'MNELIB::MNEHemisphere']]],

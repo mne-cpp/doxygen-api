@@ -3,7 +3,7 @@ var searchData=
   ['a_0',['a',['../a02371.html#ae8ddb22ecad9b194a248401371dc517e',1,'EVENTSLIB::RgbColor::a'],['../a03039.html#ae6328ede35d89addc0304820b6334dcb',1,'MNELIB::MNEProjData::a']]],
   ['abs_5fpicked_5ftime_1',['abs_picked_time',['../a02691.html#a2a6ccdd030c3a9389392b14db1f44ffd',1,'INVLIB::mshMegEegData']]],
   ['accuracy_2',['accuracy',['../a02583.html#a8e2fc3e7eeae6e5eab5550b091c2f3a4',1,'FWDLIB::FwdCoil']]],
-  ['accurate_3',['accurate',['../a02555.html#a5072f23b1e36019122a09d771ec756f9',1,'FWDLIB::ComputeFwdSettings::accurate'],['../a02727.html#a1cbacd704d8d1882294bc4e083945616',1,'INVLIB::DipoleFitSettings::accurate']]],
+  ['accurate_3',['accurate',['../a02555.html#a5072f23b1e36019122a09d771ec756f9',1,'FWDLIB::ComputeFwdSettings::accurate'],['../a02727.html#a301a27e1b799899807889e9a906d3996',1,'INVLIB::InvDipoleFitSettings::accurate']]],
   ['acq_5fpars_4',['acq_pars',['../a02483.html#ac5441674648831c0e691f4022360755e',1,'FIFFLIB::FiffInfo']]],
   ['acq_5fstim_5',['acq_stim',['../a02483.html#a40a96f92d6d21fbd0678c1f6d0abcee0',1,'FIFFLIB::FiffInfo']]],
   ['act_6',['act',['../a03039.html#acd22cda6db9a55222ab15caf1dc048c5',1,'MNELIB::MNEProjData']]],

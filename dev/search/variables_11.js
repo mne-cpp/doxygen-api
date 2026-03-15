@@ -1,7 +1,7 @@
 var searchData=
 [
   ['r_0',['r',['../a02371.html#a6faeb2c3de6a0d6be2dea94cea748836',1,'EVENTSLIB::RgbColor::r'],['../a02427.html#a64b69cce614706909a1def619cc150aa',1,'FIFFLIB::FiffDigPoint::r']]],
-  ['r0_1',['r0',['../a02403.html#a4338daef3663ce5eeea7a37fcded5f3e',1,'FIFFLIB::FiffChPos::r0'],['../a02555.html#a74171a17122b7dde7320827fc2d7fed5',1,'FWDLIB::ComputeFwdSettings::r0'],['../a02583.html#ad28ef98171575cc3cddd1ed0d7a1ffd9',1,'FWDLIB::FwdCoil::r0'],['../a02607.html#aaf903941a5c3d00b34d7e4a625bdf7aa',1,'FWDLIB::FwdEegSphereModel::r0'],['../a02723.html#a58d6ff135fa6a1ea4b3a6260a966cb10',1,'INVLIB::DipoleFitData::r0'],['../a02727.html#a33a86d45d8f977c272607341917b4efd',1,'INVLIB::DipoleFitSettings::r0'],['../a02739.html#a612f3440941dc8a64a8b0f68060bc298',1,'INVLIB::bdipEcd::r0']]],
+  ['r0_1',['r0',['../a02403.html#a4338daef3663ce5eeea7a37fcded5f3e',1,'FIFFLIB::FiffChPos::r0'],['../a02555.html#a74171a17122b7dde7320827fc2d7fed5',1,'FWDLIB::ComputeFwdSettings::r0'],['../a02583.html#ad28ef98171575cc3cddd1ed0d7a1ffd9',1,'FWDLIB::FwdCoil::r0'],['../a02607.html#aaf903941a5c3d00b34d7e4a625bdf7aa',1,'FWDLIB::FwdEegSphereModel::r0'],['../a02723.html#afb19616368bd1382b0d9bfa7a3b32aec',1,'INVLIB::InvDipoleFitData::r0'],['../a02727.html#a99905f9fce272f42b9c43f4dc9fc7ea0',1,'INVLIB::InvDipoleFitSettings::r0'],['../a02739.html#a612f3440941dc8a64a8b0f68060bc298',1,'INVLIB::bdipEcd::r0']]],
   ['r1_2',['r1',['../a03111.html#a99be28185ba41676c1960f8d57c6d3c3',1,'MNELIB::MNETriangle']]],
   ['r12_3',['r12',['../a03111.html#ab31ee46db87f326929ae6b8a6e6aff42',1,'MNELIB::MNETriangle']]],
   ['r13_4',['r13',['../a03111.html#a5fcd08838c93745b6c96cd6faa930f96',1,'MNELIB::MNETriangle']]],
@@ -11,17 +11,17 @@ var searchData=
   ['range_8',['range',['../a02399.html#a95f239a4d95eeef9912fbc22fbd365fb',1,'FIFFLIB::FiffChInfo']]],
   ['ras_5fmni_5ftal_5ft_9',['RAS_MNI_tal_t',['../a02411.html#aed85f5c2c31e8213179b96ad6d1937e4',1,'FIFFLIB::FiffCoordTransSet']]],
   ['rasgood_10',['rasGood',['../a03135.html#a334f37f517811e26667b1066950baf4d',1,'MRILIB::MriVolData']]],
-  ['raw_11',['raw',['../a02819.html#a742bf32a274448f5a62bca5d928b88ac',1,'INVLIB::MNEMeasData']]],
+  ['raw_11',['raw',['../a02819.html#a5a593761d21eb55e453940214daad20d',1,'INVLIB::InvMeasData']]],
   ['raw_5ftmax_12',['raw_tmax',['../a02691.html#ab8a3812c6413212a46e52534bd04d8f2',1,'INVLIB::mshMegEegData']]],
   ['raw_5ftmin_13',['raw_tmin',['../a02691.html#a22a338ff76cc48afb6bb451c907d8b9f',1,'INVLIB::mshMegEegData']]],
   ['rawdir_14',['rawDir',['../a03075.html#a29e34045ffe0bbe6f3155f3b0dd114df',1,'MNELIB::MNERawInfo']]],
   ['rawdir_15',['rawdir',['../a02503.html#aa907af5de89694ca190356aec73a796e',1,'FIFFLIB::FiffRawData']]],
   ['rawfiles_16',['rawFiles',['../a03035.html#a8a1f7e5dc6ff3df9427f5bdf8070380e',1,'MNELIB::ProcessingSettings']]],
-  ['rd_17',['rd',['../a02731.html#a0ea4ec235a74a84d2835487441a58c43',1,'INVLIB::DipoleForward::rd'],['../a02735.html#ae838069c4bb3558d80eeb93d164532ef',1,'INVLIB::ECD::rd'],['../a02739.html#ac97f47cd00fc485a601d54c166d0f72d',1,'INVLIB::bdipEcd::rd']]],
+  ['rd_17',['rd',['../a02731.html#ad17438a8023345216eff696b2235631c',1,'INVLIB::InvDipoleForward::rd'],['../a02735.html#a1e6ef44b7011b4e957e852201742d801',1,'INVLIB::InvEcd::rd'],['../a02739.html#ac97f47cd00fc485a601d54c166d0f72d',1,'INVLIB::bdipEcd::rd']]],
   ['readmutex_18',['ReadMutex',['../a03211.html#a7fd15de72d6bbd2879eeedc4c39eefba',1,'RTPROCESSINGLIB::RtNoise']]],
   ['reg_5fmethod_19',['reg_method',['../a02647.html#acd2a0b34b1df82511e662a293785941a',1,'INVLIB::mnePref']]],
   ['reg_5fsnr_20',['reg_SNR',['../a02647.html#af36158d90c3a6a18e6e87095ef9a6e9c',1,'INVLIB::mnePref']]],
-  ['reginv_21',['reginv',['../a02807.html#a9bc9600fc2abd6afa637df1b68e2647e',1,'INVLIB::MNEInverseOperator']]],
+  ['reginv_21',['reginv',['../a02807.html#a1b2cf14143fc3bdc881b9f80038dd133',1,'INVLIB::InvInverseOperator']]],
   ['regionid_22',['regionId',['../a02203.html#ae87d4392258dd5a5e4a23259a1578a31',1,'PickResult']]],
   ['regionname_23',['regionName',['../a02203.html#a9dc93a733530a4a226c8f35341c1b8a2',1,'PickResult']]],
   ['rej_24',['rej',['../a02463.html#a7e54be6751d262c6ed290e04bb19d40d',1,'FIFFLIB::AverageDescription::rej'],['../a03027.html#af8313636eebd4740bf85892c72e43fee',1,'MNELIB::CovDescription::rej'],['../a03431.html#a7e54be6751d262c6ed290e04bb19d40d',1,'MNELIB::AverageDescription::rej']]],
@@ -46,5 +46,5 @@ var searchData=
   ['row_5fnames_43',['row_names',['../a02495.html#ae3e205f52a45955739f2d6c711a52150',1,'FIFFLIB::FiffNamedMatrix']]],
   ['rowcals_44',['rowcals',['../a02419.html#a21bf8cd43bee78ee5ef5a494a4fa1191',1,'FIFFLIB::FiffCtfComp']]],
   ['rowlist_45',['rowlist',['../a03007.html#a896f85880835db146d939c29e84d9778',1,'MNELIB::MNENamedMatrix::rowlist'],['../a03087.html#afa9920bb21f700e48152b1e40a3566dd',1,'MNELIB::MNESparseNamedMatrix::rowlist']]],
-  ['rr_46',['rr',['../a02679.html#a00967f8fc327683df930529bcd98217e',1,'INVLIB::timecourseData::rr'],['../a02707.html#ad2587916efc0eccce6de2bcaf0c5074c',1,'MNELIB::fitSphereUser::rr'],['../a02747.html#a9aa69bbfa77da91d6e9314a4d2d61121',1,'INVLIB::GuessData::rr'],['../a03103.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a03251.html#abe84a54eccb98f09876e7ff7c4e50de9',1,'UTILSLIB::fitUser::rr'],['../a03291.html#a6a1784657e200af36d900fb4c935bb34',1,'UTILSLIB::fitUserNew::rr']]]
+  ['rr_46',['rr',['../a02679.html#a00967f8fc327683df930529bcd98217e',1,'INVLIB::timecourseData::rr'],['../a02707.html#ad2587916efc0eccce6de2bcaf0c5074c',1,'MNELIB::fitSphereUser::rr'],['../a02747.html#a4e84275f6f7a2e70cfe0f1d435b6c471',1,'INVLIB::InvGuessData::rr'],['../a03103.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a03251.html#abe84a54eccb98f09876e7ff7c4e50de9',1,'UTILSLIB::fitUser::rr'],['../a03291.html#a6a1784657e200af36d900fb4c935bb34',1,'UTILSLIB::fitUserNew::rr']]]
 ];

@@ -9,6 +9,5 @@ var searchData=
   ['processingsettings_6',['ProcessingSettings',['../a03035.html',1,'MNELIB']]],
   ['progressview_7',['ProgressView',['../a02123.html',1,'DISPLIB']]],
   ['projectorsview_8',['ProjectorsView',['../a02127.html',1,'DISPLIB']]],
-  ['projectsettingsview_9',['ProjectSettingsView',['../a02131.html',1,'DISPLIB']]],
-  ['pwlrapmusic_10',['PwlRapMusic',['../a02843.html',1,'INVLIB']]]
+  ['projectsettingsview_9',['ProjectSettingsView',['../a02131.html',1,'DISPLIB']]]
 ];

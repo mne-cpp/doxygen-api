@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['handleresults_0',['handleResults',['../a03171.html#a85489fa1fbbf486e3199ed0e0642de84',1,'RTPROCESSINGLIB::RtAveraging::handleResults()'],['../a03195.html#acabe050fa7c5016708178d9a47a15d6b',1,'RTPROCESSINGLIB::RtHpi::handleResults()'],['../a03207.html#a166d1e75cad22db8b44496dfc4f64065',1,'RTPROCESSINGLIB::RtInvOp::handleResults()']]],
+  ['handleresults_0',['handleResults',['../a03171.html#a85489fa1fbbf486e3199ed0e0642de84',1,'RTPROCESSINGLIB::RtAveraging::handleResults()'],['../a03195.html#acabe050fa7c5016708178d9a47a15d6b',1,'RTPROCESSINGLIB::RtHpi::handleResults()'],['../a03207.html#af7e989e47d90468efbbeabea00c931c5',1,'RTPROCESSINGLIB::RtInvOp::handleResults()']]],
   ['hanning_1',['hanning',['../a03211.html#a89c4d6672314888fc0767800b2bf530b',1,'RTPROCESSINGLIB::RtNoise']]],
   ['has_5feeg_2',['has_eeg',['../a03043.html#a1d1d1bceeabe506c4af09aa760af8e68',1,'MNELIB::MNEProjItem']]],
   ['has_5fkind_3',['has_kind',['../a02443.html#ac77f8f15613e6cb97cfd590beec1cfe6',1,'FIFFLIB::FiffDirNode']]],
@@ -35,7 +35,7 @@ var searchData=
   ['hideselection_32',['hideSelection',['../a02139.html#a7bd07a32b683e131007ac1dce3e19ad8',1,'DISPLIB::RtFiffRawView']]],
   ['high_33',['high',['../a01795.html#a33f916f606e1c83b3d92c14df8a5d2dda8d966b2253a917086c8604959e152243',1,'INVLIB']]],
   ['highlightchannels_34',['highlightChannels',['../a01991.html#ab3731532bf6154205187673e86028c3b',1,'DISPLIB::ChannelSelectionView']]],
-  ['highpass_35',['highpass',['../a02483.html#a19c7faa33c199e6606b7c3f48a613d32',1,'FIFFLIB::FiffInfo::highpass'],['../a02819.html#ae893cc69ae8f3bc47ddd83c2d4b9cc94',1,'INVLIB::MNEMeasData::highpass'],['../a02947.html#a714930e61ec01f527942f67dea36a103',1,'MNELIB::MNEFilterDef::highpass'],['../a03031.html#a719647d1b6b9251925f2006d16d39ef8',1,'MNELIB::FilterSettings::highpass'],['../a03075.html#a42e1dd6ea06cbee6af4fc231c50deb70',1,'MNELIB::MNERawInfo::highpass']]],
+  ['highpass_35',['highpass',['../a02483.html#a19c7faa33c199e6606b7c3f48a613d32',1,'FIFFLIB::FiffInfo::highpass'],['../a02819.html#a0816560e3f718db1a6614ef68e84d2ff',1,'INVLIB::InvMeasData::highpass'],['../a02947.html#a714930e61ec01f527942f67dea36a103',1,'MNELIB::MNEFilterDef::highpass'],['../a03031.html#a719647d1b6b9251925f2006d16d39ef8',1,'MNELIB::FilterSettings::highpass'],['../a03075.html#a42e1dd6ea06cbee6af4fc231c50deb70',1,'MNELIB::MNERawInfo::highpass']]],
   ['highpass_5fwidth_36',['highpass_width',['../a02947.html#a36938ed7916628b5b04c9a4382501959',1,'MNELIB::MNEFilterDef']]],
   ['highpasswidth_37',['highpassWidth',['../a03031.html#ae4ed93900b6772e3e39da15c4f2403aa',1,'MNELIB::FilterSettings']]],
   ['hist_38',['hist',['../a02659.html#a61dd5a9856b38ff537794e5aba890222',1,'INVLIB::mneOverlay']]],
@@ -64,16 +64,12 @@ var searchData=
   ['hpi_61',['HPI',['../a02227.html#a440916d47e7eb32391128b4641666ab8a3d9c8e45731f1f534d83d8a76ca92543',1,'DigitizerTreeItem']]],
   ['hpi_62',['hpi',['../a02699.html#aed98ea7c5188c4e685fc839455ef8f79',1,'INVLIB::contHpiDataSet']]],
   ['hpi_5fcoils_63',['hpi_coils',['../a02675.html#aa4cc1c2878946fec5c9697b80823d1a9',1,'INVLIB::hpiResultData']]],
-  ['hpidataupdater_64',['HpiDataUpdater',['../a02751.html',1,'INVLIB::HpiDataUpdater'],['../a02751.html#aff91d6067d6cbf7a062be65ef837b0fe',1,'INVLIB::HpiDataUpdater::HpiDataUpdater()']]],
-  ['hpifit_65',['HPIFit',['../a02763.html',1,'INVLIB::HPIFit'],['../a02763.html#a5d481c11331b6983f6d8098ef3b7bfb6',1,'INVLIB::HPIFit::HPIFit()'],['../a02763.html#aa4c79644cd3e11c196bb87ba20c00fcd',1,'INVLIB::HPIFit::HPIFit(const SensorSet &amp;sensorSet)']]],
-  ['hpifitdata_66',['HPIFitData',['../a02775.html',1,'INVLIB::HPIFitData'],['../a02775.html#a945690cc7f479236d6d62fe596bf36d9',1,'INVLIB::HPIFitData::HPIFitData()']]],
-  ['hpifitresult_67',['HpiFitResult',['../a02759.html',1,'INVLIB']]],
-  ['hpifreqs_68',['hpiFreqs',['../a02759.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
-  ['hpimodelparameters_69',['HpiModelParameters',['../a02779.html',1,'INVLIB::HpiModelParameters'],['../a02779.html#a56c9dd2acdc804c984e3f916ebdc68c9',1,'INVLIB::HpiModelParameters::HpiModelParameters()=default'],['../a02779.html#a546e0e1a430a30b3d25b3dc8b00587c9',1,'INVLIB::HpiModelParameters::HpiModelParameters(const QVector&lt; int &gt; vecHpiFreqs, const int iSampleFreq, const int iLineFreq, const bool bBasic)'],['../a02779.html#aec8e39b7f3344e2646ced612b09c76d5',1,'INVLIB::HpiModelParameters::HpiModelParameters(const HpiModelParameters &amp;hpiModelParameter)']]],
-  ['hpiresultdata_70',['hpiResultData',['../a02675.html',1,'INVLIB']]],
-  ['hpiresultdatarec_71',['hpiResultDataRec',['../a01795.html#af2881df6fb026bbe30a68c44cc2083e9',1,'INVLIB']]],
-  ['hpisettingsview_72',['HpiSettingsView',['../a02103.html',1,'DISPLIB::HpiSettingsView'],['../a02103.html#ac41ac5d39a70eb635f4a7f6bf64b0119',1,'DISPLIB::HpiSettingsView::HpiSettingsView()']]],
-  ['hpisettingsview_2ecpp_73',['hpisettingsview.cpp',['../a00233.html',1,'']]],
-  ['hpisettingsview_2eh_74',['hpisettingsview.h',['../a00176.html',1,'']]],
-  ['hpisortstruct_75',['HPISortStruct',['../a02771.html',1,'INVLIB']]]
+  ['hpifitresult_64',['HpiFitResult',['../a02759.html',1,'INVLIB']]],
+  ['hpifreqs_65',['hpiFreqs',['../a02759.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
+  ['hpiresultdata_66',['hpiResultData',['../a02675.html',1,'INVLIB']]],
+  ['hpiresultdatarec_67',['hpiResultDataRec',['../a01795.html#af2881df6fb026bbe30a68c44cc2083e9',1,'INVLIB']]],
+  ['hpisettingsview_68',['HpiSettingsView',['../a02103.html',1,'DISPLIB::HpiSettingsView'],['../a02103.html#ac41ac5d39a70eb635f4a7f6bf64b0119',1,'DISPLIB::HpiSettingsView::HpiSettingsView()']]],
+  ['hpisettingsview_2ecpp_69',['hpisettingsview.cpp',['../a00233.html',1,'']]],
+  ['hpisettingsview_2eh_70',['hpisettingsview.h',['../a00176.html',1,'']]],
+  ['hpisortstruct_71',['HPISortStruct',['../a02771.html',1,'INVLIB']]]
 ];

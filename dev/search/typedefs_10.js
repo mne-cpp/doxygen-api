@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['vector6t_0',['Vector6T',['../a02851.html#a6478da583fa0227634c5d818a9d2ca29',1,'INVLIB::RapMusic']]],
-  ['vectorxt_1',['VectorXT',['../a02851.html#afe45747cd79368f9ef893a7ba042cf01',1,'INVLIB::RapMusic']]],
+  ['vector6t_0',['Vector6T',['../a02851.html#a004a7553c74f2589388e8f1bed49bd79',1,'INVLIB::InvRapMusic']]],
+  ['vectorxt_1',['VectorXT',['../a02851.html#a4df742705ad40b36e568b76e22280dd4',1,'INVLIB::InvRapMusic']]],
   ['visualizationmode_2',['VisualizationMode',['../a02259.html#a75930ecc45037311a171d32d25f3bfda',1,'BrainSurface']]]
 ];

@@ -2,7 +2,7 @@ var searchData=
 [
   ['v0_0',['v0',['../a02575.html#af508a3ac07b113e4617d4a05ca33f6c5',1,'FWDLIB::FwdBemModel']]],
   ['val_1',['val',['../a03103.html#afe5479b6f7e7bc5cee309b3598cd07d0',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['valid_2',['valid',['../a02735.html#a76f4e81b8c65e8c6da517c2b37f06856',1,'INVLIB::ECD::valid'],['../a02915.html#a0e9145b7e3cf6478b2c688f3e9d16677',1,'MNELIB::MNEDeriv::valid'],['../a03055.html#a3d368a33d7d4d675b3027cad0865cdfd',1,'MNELIB::MNERawBufDef::valid'],['../a03115.html#aacb89a3eb5f7330fec2eb07458cc4c3f',1,'MNELIB::MNEVolGeom::valid']]],
+  ['valid_2',['valid',['../a02735.html#af60bfd7de826f5d339d604b8c77f9692',1,'INVLIB::InvEcd::valid'],['../a02915.html#a0e9145b7e3cf6478b2c688f3e9d16677',1,'MNELIB::MNEDeriv::valid'],['../a03055.html#a3d368a33d7d4d675b3027cad0865cdfd',1,'MNELIB::MNERawBufDef::valid'],['../a03115.html#aacb89a3eb5f7330fec2eb07458cc4c3f',1,'MNELIB::MNEVolGeom::valid']]],
   ['vals_3',['vals',['../a03055.html#aabfb43174b1ad0f7bfb3d7ab869cc9b9',1,'MNELIB::MNERawBufDef']]],
   ['value_4',['value',['../a02087.html#a4a3ef6914f7cd5241caf6c57aebb9d54',1,'DISPLIB::ScaleControl']]],
   ['valuechanged_5',['valueChanged',['../a02087.html#aecb48e5eb0919ff52d254d8599f4bfaa',1,'DISPLIB::ScaleControl']]],
@@ -34,7 +34,7 @@ var searchData=
   ['vec_5fwork_31',['vec_work',['../a02591.html#a68cb9e5383d1e10b909dcb84e7a74008',1,'FWDLIB::FwdCompData']]],
   ['vecdata_32',['vecData',['../a03139.html#a6113192eb631a21e5039760b5bae2393',1,'RTPROCESSINGLIB::FilterObject::vecData'],['../a03275.html#abea48b6f3ef2f670a412b2af4241915b',1,'UTILSLIB::TaperedSpectraInputData::vecData']]],
   ['vecdefaultweigths_33',['vecDefaultWeigths',['../a01791.html#ac1d8d2ecad5b1201ae1a3b813a29f523',1,'RTPROCESSINGLIB']]],
-  ['vechpifreqs_34',['vecHpiFreqs',['../a02779.html#af14127009fc5a7b4a1111c013581817a',1,'INVLIB::HpiModelParameters']]],
+  ['vechpifreqs_34',['vecHpiFreqs',['../a02779.html#a0ed4cf88f6be42a21d78e4d93de8f9a6',1,'INVLIB::InvHpiModelParameters']]],
   ['vecinputdata_35',['vecInputData',['../a03283.html#aad77295479c408ffac91d85a20d1a324',1,'UTILSLIB::SpectogramInputData']]],
   ['vecpaircsd_36',['vecPairCsd',['../a01859.html#afed16e42eb662a98ae4a0849bcc370f1',1,'CONNECTIVITYLIB::ConnectivitySettings::IntermediateTrialData']]],
   ['vecpaircsdimagabs_37',['vecPairCsdImagAbs',['../a01859.html#a6a35ac048a5a7c2e158b981cc7bfddf2',1,'CONNECTIVITYLIB::ConnectivitySettings::IntermediateTrialData']]],
@@ -48,9 +48,9 @@ var searchData=
   ['vecpaircsdsum_45',['vecPairCsdSum',['../a01863.html#ad87fcf8e70d85f1d30544a11468384cb',1,'CONNECTIVITYLIB::ConnectivitySettings::IntermediateSumData']]],
   ['vecs_46',['vecs',['../a03043.html#a4c74039241b5c5048eba95ca3f18df35',1,'MNELIB::MNEProjItem']]],
   ['vectapspectra_47',['vecTapSpectra',['../a01859.html#af55615b0b52f572c59108681dc618b25',1,'CONNECTIVITYLIB::ConnectivitySettings::IntermediateTrialData']]],
-  ['vector6t_48',['Vector6T',['../a02851.html#a6478da583fa0227634c5d818a9d2ca29',1,'INVLIB::RapMusic']]],
-  ['vectorxt_49',['VectorXT',['../a02851.html#afe45747cd79368f9ef893a7ba042cf01',1,'INVLIB::RapMusic']]],
-  ['verbose_50',['verbose',['../a02727.html#afb954744cda38a4d4af1b481ba749dcb',1,'INVLIB::DipoleFitSettings']]],
+  ['vector6t_48',['Vector6T',['../a02851.html#a004a7553c74f2589388e8f1bed49bd79',1,'INVLIB::InvRapMusic']]],
+  ['vectorxt_49',['VectorXT',['../a02851.html#a4df742705ad40b36e568b76e22280dd4',1,'INVLIB::InvRapMusic']]],
+  ['verbose_50',['verbose',['../a02727.html#a388d133652ac3d39de9ba2976ca4bdfc',1,'INVLIB::InvDipoleFitSettings']]],
   ['version_51',['version',['../a02479.html#ace3ce06929c786230382642f8ef596d3',1,'FIFFLIB::FiffId::version'],['../a03135.html#ac74ab8461cc1dd4830e837322fc7850f',1,'MRILIB::MriVolData::version']]],
   ['vert_52',['vert',['../a03003.html#aec0e860333ec73c053fa49ff583961f6',1,'MNELIB::MNEMshPicked::vert'],['../a03015.html#a33a4e59d42bebcf85f2c90982c8b5155',1,'MNELIB::MNENearest::vert'],['../a03019.html#aec7de5921bd268a8582a86505b94506d',1,'MNELIB::MNEPatchInfo::vert'],['../a03107.html#a08e157773cd26878fc86d49e66652104',1,'MNELIB::MNESurfacePatch::vert'],['../a03111.html#a5293f73ea0d4099a21c9e24ece0577b5',1,'MNELIB::MNETriangle::vert']]],
   ['vert_5fdist_53',['vert_dist',['../a03103.html#af62af8c3b133ee9d4ef085ed4feb9275',1,'MNELIB::MNESurfaceOrVolume']]],
@@ -62,7 +62,7 @@ var searchData=
   ['vertexnormals_59',['vertexNormals',['../a02259.html#a4e95641b89f520bf9cc0b5d85e9fbe2c',1,'BrainSurface']]],
   ['vertexpositions_60',['vertexPositions',['../a02259.html#ad29387da7209358eb1966339b0f42b5b',1,'BrainSurface']]],
   ['vertical_61',['Vertical',['../a00773.html#aa760f37b1c504a57961771013387fcf9a06ce2a25e5d12c166a36f654dbea6012',1,'multiviewlayout.h']]],
-  ['vertices_62',['vertices',['../a02539.html#aea268ba38bc582801cd37098e17af73b',1,'FSLIB::FsLabel::vertices'],['../a02827.html#a4d347f76cf7d06085ad078862a895ad9',1,'INVLIB::MNESourceEstimate::vertices']]],
+  ['vertices_62',['vertices',['../a02539.html#aea268ba38bc582801cd37098e17af73b',1,'FSLIB::FsLabel::vertices'],['../a02827.html#aaa4751a06dc2c46750ab2575d5a87064',1,'INVLIB::InvSourceEstimate::vertices']]],
   ['verticesasmatrix_63',['verticesAsMatrix',['../a02259.html#aee52125406de87e54011cfc9d09c837c',1,'BrainSurface']]],
   ['vertno_64',['vertno',['../a03103.html#aaef50928364ec609addd42095a8ae0ab',1,'MNELIB::MNESurfaceOrVolume']]],
   ['view_65',['view',['../a02195.html#a2fc7da9d4ed159b0b447ce4e681d82c8',1,'CameraResult']]],
@@ -93,5 +93,5 @@ var searchData=
   ['voxel_5fsize_90',['voxel_size',['../a03103.html#a75ad70a4705c461780c42ab19c3020ed',1,'MNELIB::MNESurfaceOrVolume']]],
   ['voxel_5fsurf_5fras_5ft_91',['voxel_surf_RAS_t',['../a03103.html#af46bc559ce53b982738bf714baac4bfd',1,'MNELIB::MNESurfaceOrVolume']]],
   ['voxelsurfrast_92',['voxelSurfRasT',['../a03135.html#a0cb896a1f7fc368c268bd88591e9db8d',1,'MRILIB::MriVolData']]],
-  ['vv_93',['vv',['../a02603.html#a49bf93b1001c6627a6b60291d1b99a43',1,'FWDLIB::fitUserRec::vv'],['../a02731.html#a10228d17d86ec10f4c074011a1f8785b',1,'INVLIB::DipoleForward::vv']]]
+  ['vv_93',['vv',['../a02603.html#a49bf93b1001c6627a6b60291d1b99a43',1,'FWDLIB::fitUserRec::vv'],['../a02731.html#ab22bc49d2feebbc1467252bbb8920f29',1,'INVLIB::InvDipoleForward::vv']]]
 ];

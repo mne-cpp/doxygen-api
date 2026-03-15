@@ -1,7 +1,7 @@
 var searchData=
 [
   ['z_0',['Z',['../a01664.html#a51591cf51bdd6c1f6015532422e7770e',1,'Z:&#160;inv_dipole_fit_settings.cpp'],['../a01676.html#a51591cf51bdd6c1f6015532422e7770e',1,'Z:&#160;inv_ecd_set.cpp'],['../a01160.html#a51591cf51bdd6c1f6015532422e7770e',1,'Z:&#160;mne_sss_data.cpp'],['../a01577.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a01610.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;fwd_forward_solution.cpp']]],
-  ['z_1',['z',['../a02835.html#a33cd52ff404019e66dd2aee8e5516151',1,'INVLIB::Dipole::z()'],['../a02835.html#a561f94a41b253f1c1479ef1bc90ab829',1,'INVLIB::Dipole::z() const']]],
+  ['z_1',['z',['../a02835.html#a0acac84082bf48e4392f88ff21d01da1',1,'INVLIB::InvDipole::z()'],['../a02835.html#aabd08175add3fe60133cce184cf3fe0f',1,'INVLIB::InvDipole::z() const']]],
   ['z_5f16_2',['Z_16',['../a01667.html#a87fa759f6ff7b3f1f857df5a11185d30',1,'inv_guess_data.cpp']]],
   ['z_5f17_3',['Z_17',['../a01247.html#a1c98cb816f5af90233a852253399c4d0',1,'Z_17:&#160;mne_msh_display_surface.cpp'],['../a01358.html#a1c98cb816f5af90233a852253399c4d0',1,'Z_17:&#160;mne_source_space.cpp'],['../a01250.html#a1c98cb816f5af90233a852253399c4d0',1,'Z_17:&#160;mne_surface.cpp'],['../a01166.html#a1c98cb816f5af90233a852253399c4d0',1,'Z_17:&#160;mne_surface_or_volume.cpp']]],
   ['z_5f3_4',['Z_3',['../a01661.html#a842656538bd6a4417253ef39ae13ee58',1,'inv_dipole_fit_data.cpp']]],
