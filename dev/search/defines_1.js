@@ -1,19 +1,19 @@
 var searchData=
 [
-  ['alloc_5fcmatrix_0',['ALLOC_CMATRIX',['../a01694.html#ac52c655abdb96f9a2c8ab4276e473810',1,'dipole_fit.cpp']]],
-  ['alloc_5fcmatrix_5f16_1',['ALLOC_CMATRIX_16',['../a01700.html#a20c62f0479e181256489b13d8c44e778',1,'guess_data.cpp']]],
+  ['alloc_5fcmatrix_0',['ALLOC_CMATRIX',['../a01694.html#ac52c655abdb96f9a2c8ab4276e473810',1,'inv_dipole_fit.cpp']]],
+  ['alloc_5fcmatrix_5f16_1',['ALLOC_CMATRIX_16',['../a01667.html#a20c62f0479e181256489b13d8c44e778',1,'inv_guess_data.cpp']]],
   ['alloc_5fcmatrix_5f17_2',['ALLOC_CMATRIX_17',['../a01247.html#ad4594b69f5389d8003480371f9e10146',1,'ALLOC_CMATRIX_17:&#160;mne_msh_display_surface.cpp'],['../a01358.html#ad4594b69f5389d8003480371f9e10146',1,'ALLOC_CMATRIX_17:&#160;mne_source_space.cpp'],['../a01166.html#ad4594b69f5389d8003480371f9e10146',1,'ALLOC_CMATRIX_17:&#160;mne_surface_or_volume.cpp']]],
   ['alloc_5fcmatrix_5f23_3',['ALLOC_CMATRIX_23',['../a01202.html#a49a9736b631ddb32e18cc109249b03b3',1,'mne_proj_op.cpp']]],
-  ['alloc_5fcmatrix_5f3_4',['ALLOC_CMATRIX_3',['../a01664.html#a5bec91dfeb1a57940502320e3862f6ec',1,'dipole_fit_data.cpp']]],
+  ['alloc_5fcmatrix_5f3_4',['ALLOC_CMATRIX_3',['../a01661.html#a5bec91dfeb1a57940502320e3862f6ec',1,'inv_dipole_fit_data.cpp']]],
   ['alloc_5fcmatrix_5f36_5',['ALLOC_CMATRIX_36',['../a01313.html#aebbd473dbda046d901b4394a513d4fe9',1,'mne_raw_data.cpp']]],
   ['alloc_5fcmatrix_5f51_6',['ALLOC_CMATRIX_51',['../a01358.html#a3363a42a78509e977e9c0269fda3c0ad',1,'mne_source_space.cpp']]],
-  ['alloc_5fcmatrix_5f9_7',['ALLOC_CMATRIX_9',['../a01769.html#aad1096969acabdaf85a57e79f7f09b7f',1,'mne_meas_data.cpp']]],
-  ['alloc_5fdcmatrix_5f3_8',['ALLOC_DCMATRIX_3',['../a01664.html#a856c86cb45acf52ec9479804e5c89ddf',1,'dipole_fit_data.cpp']]],
-  ['alloc_5ffloat_5f3_9',['ALLOC_FLOAT_3',['../a01664.html#a8ef5315ded1f07628410f1f2f1b6afed',1,'dipole_fit_data.cpp']]],
+  ['alloc_5fcmatrix_5f9_7',['ALLOC_CMATRIX_9',['../a01754.html#aad1096969acabdaf85a57e79f7f09b7f',1,'inv_meas_data.cpp']]],
+  ['alloc_5fdcmatrix_5f3_8',['ALLOC_DCMATRIX_3',['../a01661.html#a856c86cb45acf52ec9479804e5c89ddf',1,'inv_dipole_fit_data.cpp']]],
+  ['alloc_5ffloat_5f3_9',['ALLOC_FLOAT_3',['../a01661.html#a8ef5315ded1f07628410f1f2f1b6afed',1,'inv_dipole_fit_data.cpp']]],
   ['alloc_5ficmatrix_5f17_10',['ALLOC_ICMATRIX_17',['../a01358.html#a405e6a097b07239e79cf9e0efa75ad04',1,'ALLOC_ICMATRIX_17:&#160;mne_source_space.cpp'],['../a01166.html#a405e6a097b07239e79cf9e0efa75ad04',1,'ALLOC_ICMATRIX_17:&#160;mne_surface_or_volume.cpp']]],
   ['alloc_5fint_5f17_11',['ALLOC_INT_17',['../a01166.html#a94eae3e96e09f0eb1b66a008627686d7',1,'mne_surface_or_volume.cpp']]],
   ['alloc_5fint_5f51_12',['ALLOC_INT_51',['../a01358.html#a7f2da76449a953f4f7b8c0bb03625782',1,'mne_source_space.cpp']]],
-  ['alpha_13',['ALPHA',['../a01664.html#af5abd28c44c29b7397c84f1fec4b1d84',1,'ALPHA:&#160;dipole_fit_data.cpp'],['../a01664.html#afc067f034e03986bc56d9d534a0b1f80',1,'ALPHA:&#160;dipole_fit_data.cpp'],['../a01013.html#af5abd28c44c29b7397c84f1fec4b1d84',1,'ALPHA:&#160;simplex_algorithm.h']]],
-  ['alt_5fsurfaces_14',['ALT_SURFACES',['../a01688.html#ad1490b95d6283b918b558a7b5ef59894',1,'analyze_types.h']]],
+  ['alpha_13',['ALPHA',['../a01661.html#af5abd28c44c29b7397c84f1fec4b1d84',1,'ALPHA:&#160;inv_dipole_fit_data.cpp'],['../a01661.html#afc067f034e03986bc56d9d534a0b1f80',1,'ALPHA:&#160;inv_dipole_fit_data.cpp'],['../a01013.html#af5abd28c44c29b7397c84f1fec4b1d84',1,'ALPHA:&#160;simplex_algorithm.h']]],
+  ['alt_5fsurfaces_14',['ALT_SURFACES',['../a01697.html#ad1490b95d6283b918b558a7b5ef59894',1,'inv_analyze_types.h']]],
   ['approx_5fring_5fbuf_5fsize_15',['APPROX_RING_BUF_SIZE',['../a01313.html#a7a900d5938105f52f3d00950893ecb67',1,'mne_raw_data.cpp']]]
 ];

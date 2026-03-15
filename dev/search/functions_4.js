@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['ecd_0',['ECD',['../a02735.html#a6e16d4e37e1c9d67b95d0e45369624aa',1,'INVERSELIB::ECD::ECD()'],['../a02735.html#a6f70c76a7ea6731ab87f003223cc54b2',1,'INVERSELIB::ECD::ECD(const ECD &amp;p_ECD)']]],
-  ['ecdset_1',['ECDSet',['../a02743.html#a6cbd5700ed2a8d5909888d56da9f02dd',1,'INVERSELIB::ECDSet::ECDSet()'],['../a02743.html#a7c16daddcccbe50102d8252a1376adea',1,'INVERSELIB::ECDSet::ECDSet(const ECDSet &amp;p_ECDSet)']]],
-  ['ecdset_2',['ecdSet',['../a02231.html#a0644b96d684d1b233bac2f67cc530e3c',1,'DipoleTreeItem']]],
+  ['ecd_0',['ECD',['../a02735.html#a6e16d4e37e1c9d67b95d0e45369624aa',1,'INVLIB::ECD::ECD()'],['../a02735.html#a6f70c76a7ea6731ab87f003223cc54b2',1,'INVLIB::ECD::ECD(const ECD &amp;p_ECD)']]],
+  ['ecdset_1',['ECDSet',['../a02743.html#a6cbd5700ed2a8d5909888d56da9f02dd',1,'INVLIB::ECDSet::ECDSet()'],['../a02743.html#a7c16daddcccbe50102d8252a1376adea',1,'INVLIB::ECDSet::ECDSet(const ECDSet &amp;p_ECDSet)']]],
+  ['ecdset_2',['ecdSet',['../a02231.html#a3e23f1523d229966e12634d1baeb2b8e',1,'DipoleTreeItem']]],
   ['edgeindexbuffer_3',['edgeIndexBuffer',['../a02283.html#a57114a7c2d083407c8d31b6b93b10db0',1,'NetworkObject']]],
   ['edgeindexcount_4',['edgeIndexCount',['../a02283.html#a0de448223b81623b4573ba83e9ae6782',1,'NetworkObject']]],
   ['edgeinstancebuffer_5',['edgeInstanceBuffer',['../a02283.html#af4126901e47b990cd424c19c4b55581d',1,'NetworkObject']]],
@@ -41,5 +41,5 @@ var searchData=
   ['explain_38',['explain',['../a02443.html#a4df5bad924cde5590d8c3530c0b9870a',1,'FIFFLIB::FiffDirNode']]],
   ['explain_5fblock_39',['explain_block',['../a02443.html#a90e0b3e6965cd3c0fea4923de1e7f244',1,'FIFFLIB::FiffDirNode']]],
   ['explain_5fcomp_40',['explain_comp',['../a02911.html#a62e8dffa481a8f35c45cbb1dd254fc27',1,'MNELIB::MNECTFCompDataSet']]],
-  ['ez_41',['ez',['../a02783.html#ab96e3089a3ed4aa69c3d1b71fd6bbf8d',1,'INVERSELIB::SensorSet::ez(int iSensor) const'],['../a02783.html#aabae249deb10af3ca3978b62f64d3d2d',1,'INVERSELIB::SensorSet::ez() const']]]
+  ['ez_41',['ez',['../a02783.html#a82ef10cf5b263fc17b1722a3095178fb',1,'INVLIB::SensorSet::ez(int iSensor) const'],['../a02783.html#ae7ffdd7f1a7d4f941eed616f29458542',1,'INVLIB::SensorSet::ez() const']]]
 ];

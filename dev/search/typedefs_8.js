@@ -1,22 +1,22 @@
 var searchData=
 [
-  ['matrix6t_0',['Matrix6T',['../a02851.html#a09ff67c88a29959be3a8993813edcdfb',1,'INVERSELIB::RapMusic']]],
-  ['matrix6xt_1',['Matrix6XT',['../a02851.html#aa49db16068c475f461fe3c5a40310e0e',1,'INVERSELIB::RapMusic']]],
+  ['matrix6t_0',['Matrix6T',['../a02851.html#a857876b7ee5c5f5d6d24b6d9fa4847f2',1,'INVLIB::RapMusic']]],
+  ['matrix6xt_1',['Matrix6XT',['../a02851.html#a31bf65520ef75ac86830be62f1bf4756',1,'INVLIB::RapMusic']]],
   ['matrixdau16_2',['MatrixDau16',['../a01786.html#a67219b17cf8c0ed2c6af8012f2e81c4d',1,'FIFFLIB']]],
   ['matrixshort_3',['MatrixShort',['../a01786.html#af44351ffdedcaa116f51d6d9b3d36517',1,'FIFFLIB']]],
-  ['matrixx6t_4',['MatrixX6T',['../a02851.html#a1164b219770c9a58d162e572221dde90',1,'INVERSELIB::RapMusic']]],
+  ['matrixx6t_4',['MatrixX6T',['../a02851.html#a600b3a7cc697d17a7c1be8a2a7a6106f',1,'INVLIB::RapMusic']]],
   ['matrixxdr_5',['MatrixXdR',['../a01787.html#aa92ebf45614e24145966232d70b942bd',1,'DISPLIB']]],
-  ['matrixxt_6',['MatrixXT',['../a02851.html#a12b6d8f3b23f86dab1609a8783c2c38f',1,'INVERSELIB::RapMusic']]],
+  ['matrixxt_6',['MatrixXT',['../a02851.html#a5d001e56925732835a06db8af05dd814',1,'INVLIB::RapMusic']]],
   ['mnechselection_7',['mneChSelection',['../a01803.html#a173c1c01ff29bc214944238e35413788',1,'MNELIB']]],
   ['mnechselectionrec_8',['mneChSelectionRec',['../a01803.html#a093c408b9e25b1adc81a95c498ff1156',1,'MNELIB']]],
   ['mnelayoutport_9',['mneLayoutPort',['../a01803.html#ac0f1faef2bcbd15cb6f41fd45bc410ef',1,'MNELIB']]],
   ['mnelayoutportrec_10',['mneLayoutPortRec',['../a01803.html#a5f2fc2dfabb9112dea601cb9839e9e04',1,'MNELIB']]],
-  ['mneoverlayrec_11',['mneOverlayRec',['../a01795.html#afa9b45e0d23185220828f9ec91eb4fa8',1,'INVERSELIB']]],
-  ['mneprefrec_12',['mnePrefRec',['../a01795.html#a8c147ce04e75bbb6246e2a08b2d0383e',1,'INVERSELIB']]],
+  ['mneoverlayrec_11',['mneOverlayRec',['../a01795.html#a331beb800a819d0884ef0be2fa24e3a0',1,'INVLIB']]],
+  ['mneprefrec_12',['mnePrefRec',['../a01795.html#a78878f1dd19d7ec7c3da3ae99ffb20ba',1,'INVLIB']]],
   ['mneuserfreefunc_13',['mneUserFreeFunc',['../a01803.html#a227ebaa07cd2de5e00062a0a33d24dfe',1,'MNELIB']]],
-  ['mneuserfreefunctmp_5f1_14',['mneUserFreeFuncTmp_1',['../a01706.html#a7178333c23449c9580576b53ae2bde5c',1,'mne_meas_data_set.h']]],
-  ['mshlabelrec_15',['mshLabelRec',['../a01795.html#a98065a8ccd7755d20a6ae6f37d56a0c2',1,'INVERSELIB']]],
-  ['mshlabelsetrec_16',['mshLabelSetRec',['../a01795.html#a44f2cfe3991d5ed560d8572363e477af',1,'INVERSELIB']]],
-  ['mshmegeegdatarec_17',['mshMegEegDataRec',['../a01795.html#ad12f89760bc1648a739e54caa8fad676',1,'INVERSELIB']]],
-  ['mshscalesrec_18',['mshScalesRec',['../a01795.html#a1c98e2c9e7372df6b5935aaec0cccad5',1,'INVERSELIB']]]
+  ['mneuserfreefunctmp_5f1_14',['mneUserFreeFuncTmp_1',['../a01757.html#a7178333c23449c9580576b53ae2bde5c',1,'inv_meas_data_set.h']]],
+  ['mshlabelrec_15',['mshLabelRec',['../a01795.html#a167a846679f76cf7dd1c656137bdc309',1,'INVLIB']]],
+  ['mshlabelsetrec_16',['mshLabelSetRec',['../a01795.html#aebcbb1a8098532dc9c02e4d566e1fa84',1,'INVLIB']]],
+  ['mshmegeegdatarec_17',['mshMegEegDataRec',['../a01795.html#a63ab090ed409583d4801ad3c69a68736',1,'INVLIB']]],
+  ['mshscalesrec_18',['mshScalesRec',['../a01795.html#ae83c494e0323dc433dc1eb22fddd2e1c',1,'INVLIB']]]
 ];

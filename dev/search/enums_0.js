@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['accuracy_0',['Accuracy',['../a01795.html#a53633b86460765d85ff64b33fb68fb99',1,'INVERSELIB']]]
+  ['accuracy_0',['Accuracy',['../a01795.html#a33f916f606e1c83b3d92c14df8a5d2dd',1,'INVLIB']]]
 ];

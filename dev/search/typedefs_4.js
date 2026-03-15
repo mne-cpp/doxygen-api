@@ -1,8 +1,8 @@
 var searchData=
 [
   ['fieldmap_0',['FieldMap',['../a01793.html#a4ac23db700ddbd30e29d0ad5a81b0c92',1,'DISP3DRHILIB']]],
-  ['fieldmappingdatarec_1',['fieldMappingDataRec',['../a01795.html#a7d83f49339f9df338881d32a2a5d6d3e',1,'INVERSELIB']]],
-  ['fieldmappingprefrec_2',['fieldMappingPrefRec',['../a01795.html#a0839f58a6be8c5978398041b85c9233f',1,'INVERSELIB']]],
+  ['fieldmappingdatarec_1',['fieldMappingDataRec',['../a01795.html#a34e03b2754a55e6dda567438c194b07a',1,'INVLIB']]],
+  ['fieldmappingprefrec_2',['fieldMappingPrefRec',['../a01795.html#af85a68e12be00b0254d5f9e39cef8f92',1,'INVLIB']]],
   ['fiff_5fbyte_5ft_3',['fiff_byte_t',['../a01786.html#aa91e6803a8c99b6e89fee10691b9794a',1,'FIFFLIB']]],
   ['fiff_5fchar_5ft_4',['fiff_char_t',['../a01786.html#a34aafb5fe6015ea2c4c5d364dd80c461',1,'FIFFLIB']]],
   ['fiff_5fdata_5ft_5',['fiff_data_t',['../a01786.html#a48c481b5ad86e657491210703e6aabbe',1,'FIFFLIB']]],

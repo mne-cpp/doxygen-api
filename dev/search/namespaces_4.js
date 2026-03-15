@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inverselib_0',['INVERSELIB',['../a01795.html',1,'']]]
+  ['invlib_0',['INVLIB',['../a01795.html',1,'']]]
 ];

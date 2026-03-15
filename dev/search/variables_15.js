@@ -2,7 +2,7 @@ var searchData=
 [
   ['v0_0',['v0',['../a02575.html#af508a3ac07b113e4617d4a05ca33f6c5',1,'FWDLIB::FwdBemModel']]],
   ['val_1',['val',['../a03103.html#afe5479b6f7e7bc5cee309b3598cd07d0',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['valid_2',['valid',['../a02735.html#a7d390afd83ea93e6bbb78c9f9eba052c',1,'INVERSELIB::ECD::valid'],['../a02915.html#a0e9145b7e3cf6478b2c688f3e9d16677',1,'MNELIB::MNEDeriv::valid'],['../a03055.html#a3d368a33d7d4d675b3027cad0865cdfd',1,'MNELIB::MNERawBufDef::valid'],['../a03115.html#aacb89a3eb5f7330fec2eb07458cc4c3f',1,'MNELIB::MNEVolGeom::valid']]],
+  ['valid_2',['valid',['../a02735.html#a76f4e81b8c65e8c6da517c2b37f06856',1,'INVLIB::ECD::valid'],['../a02915.html#a0e9145b7e3cf6478b2c688f3e9d16677',1,'MNELIB::MNEDeriv::valid'],['../a03055.html#a3d368a33d7d4d675b3027cad0865cdfd',1,'MNELIB::MNERawBufDef::valid'],['../a03115.html#aacb89a3eb5f7330fec2eb07458cc4c3f',1,'MNELIB::MNEVolGeom::valid']]],
   ['vals_3',['vals',['../a03055.html#aabfb43174b1ad0f7bfb3d7ab869cc9b9',1,'MNELIB::MNERawBufDef']]],
   ['values_4',['values',['../a02539.html#a133aa181c57f947f5c2c2c364591be6b',1,'FSLIB::FsLabel']]],
   ['vec_5ffield_5',['vec_field',['../a02591.html#a3bade4afcfed37a8751fb23d520d7077',1,'FWDLIB::FwdCompData']]],
@@ -23,14 +23,14 @@ var searchData=
   ['vecpaircsdsum_20',['vecPairCsdSum',['../a01863.html#ad87fcf8e70d85f1d30544a11468384cb',1,'CONNECTIVITYLIB::ConnectivitySettings::IntermediateSumData']]],
   ['vecs_21',['vecs',['../a03043.html#a4c74039241b5c5048eba95ca3f18df35',1,'MNELIB::MNEProjItem']]],
   ['vectapspectra_22',['vecTapSpectra',['../a01859.html#af55615b0b52f572c59108681dc618b25',1,'CONNECTIVITYLIB::ConnectivitySettings::IntermediateTrialData']]],
-  ['verbose_23',['verbose',['../a02727.html#aa599c880fbea84f5b640348045053fca',1,'INVERSELIB::DipoleFitSettings']]],
+  ['verbose_23',['verbose',['../a02727.html#afb954744cda38a4d4af1b481ba749dcb',1,'INVLIB::DipoleFitSettings']]],
   ['version_24',['version',['../a02479.html#ace3ce06929c786230382642f8ef596d3',1,'FIFFLIB::FiffId::version'],['../a03135.html#ac74ab8461cc1dd4830e837322fc7850f',1,'MRILIB::MriVolData::version']]],
   ['vert_25',['vert',['../a03003.html#aec0e860333ec73c053fa49ff583961f6',1,'MNELIB::MNEMshPicked::vert'],['../a03015.html#a33a4e59d42bebcf85f2c90982c8b5155',1,'MNELIB::MNENearest::vert'],['../a03019.html#aec7de5921bd268a8582a86505b94506d',1,'MNELIB::MNEPatchInfo::vert'],['../a03107.html#a08e157773cd26878fc86d49e66652104',1,'MNELIB::MNESurfacePatch::vert'],['../a03111.html#a5293f73ea0d4099a21c9e24ece0577b5',1,'MNELIB::MNETriangle::vert']]],
   ['vert_5fdist_26',['vert_dist',['../a03103.html#af62af8c3b133ee9d4ef085ed4feb9275',1,'MNELIB::MNESurfaceOrVolume']]],
   ['vertex_5fcolors_27',['vertex_colors',['../a02983.html#ad07e4363788b12b2909935d3719764c9',1,'MNELIB::MNEMshDisplaySurface']]],
   ['vertexbuffer_28',['vertexBuffer',['../a02251.html#a89765b83e9acddf2474f2f55390b320a',1,'BrainSurface::GpuBuffers::vertexBuffer'],['../a02263.html#a1f88f443c8ec254420319dbc82ae6921',1,'DipoleObject::GpuBuffers::vertexBuffer']]],
   ['vertexindex_29',['vertexIndex',['../a02203.html#a171fa9a905765cf2cc8215bda6b83327',1,'PickResult']]],
-  ['vertices_30',['vertices',['../a02539.html#aea268ba38bc582801cd37098e17af73b',1,'FSLIB::FsLabel::vertices'],['../a02831.html#ac3931b76fc41c7b1a23530c5c08ee3ac',1,'INVERSELIB::MNESourceEstimate::vertices']]],
+  ['vertices_30',['vertices',['../a02539.html#aea268ba38bc582801cd37098e17af73b',1,'FSLIB::FsLabel::vertices'],['../a02827.html#a4d347f76cf7d06085ad078862a895ad9',1,'INVLIB::MNESourceEstimate::vertices']]],
   ['vertno_31',['vertno',['../a03103.html#aaef50928364ec609addd42095a8ae0ab',1,'MNELIB::MNESurfaceOrVolume']]],
   ['view_32',['view',['../a02195.html#a2fc7da9d4ed159b0b447ce4e681d82c8',1,'CameraResult']]],
   ['viewporth_33',['viewportH',['../a02319.html#a67ee3178b235488e48af2c76dcb37ada',1,'BrainRenderer::SceneData']]],
@@ -43,5 +43,5 @@ var searchData=
   ['voxel_5fsize_40',['voxel_size',['../a03103.html#a75ad70a4705c461780c42ab19c3020ed',1,'MNELIB::MNESurfaceOrVolume']]],
   ['voxel_5fsurf_5fras_5ft_41',['voxel_surf_RAS_t',['../a03103.html#af46bc559ce53b982738bf714baac4bfd',1,'MNELIB::MNESurfaceOrVolume']]],
   ['voxelsurfrast_42',['voxelSurfRasT',['../a03135.html#a0cb896a1f7fc368c268bd88591e9db8d',1,'MRILIB::MriVolData']]],
-  ['vv_43',['vv',['../a02603.html#a49bf93b1001c6627a6b60291d1b99a43',1,'FWDLIB::fitUserRec::vv'],['../a02731.html#a04bf72c8adf445b6c33d070a34be9110',1,'INVERSELIB::DipoleForward::vv']]]
+  ['vv_43',['vv',['../a02603.html#a49bf93b1001c6627a6b60291d1b99a43',1,'FWDLIB::fitUserRec::vv'],['../a02731.html#a10228d17d86ec10f4c074011a1f8785b',1,'INVLIB::DipoleForward::vv']]]
 ];

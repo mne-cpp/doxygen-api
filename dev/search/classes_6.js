@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['fieldmappingdata_0',['fieldMappingData',['../a02667.html',1,'INVERSELIB']]],
-  ['fieldmappingpref_1',['fieldMappingPref',['../a02643.html',1,'INVERSELIB']]],
+  ['fieldmappingdata_0',['fieldMappingData',['../a02667.html',1,'INVLIB']]],
+  ['fieldmappingpref_1',['fieldMappingPref',['../a02643.html',1,'INVLIB']]],
   ['fiff_2',['Fiff',['../a02395.html',1,'FIFFLIB']]],
   ['fiffchinfo_3',['FiffChInfo',['../a02399.html',1,'FIFFLIB']]],
   ['fiffchpos_4',['FiffChPos',['../a02403.html',1,'FIFFLIB']]],
@@ -44,7 +44,7 @@ var searchData=
   ['filtersettings_41',['FilterSettings',['../a03031.html',1,'MNELIB']]],
   ['filtersettingsview_42',['FilterSettingsView',['../a02027.html',1,'DISPLIB']]],
   ['filterthreadarg_43',['FilterThreadArg',['../a02875.html',1,'MNELIB']]],
-  ['fitdipuserrec_44',['FitDipUserRec',['../a02719.html',1,'INVERSELIB']]],
+  ['fitdipuserrec_44',['FitDipUserRec',['../a02719.html',1,'INVLIB']]],
   ['fitsphereuser_45',['fitSphereUser',['../a02707.html',1,'MNELIB']]],
   ['fituser_46',['fitUser',['../a03251.html',1,'UTILSLIB']]],
   ['fitusernew_47',['fitUserNew',['../a03291.html',1,'UTILSLIB']]],

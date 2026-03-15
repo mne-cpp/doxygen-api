@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['x_0',['X',['../a01667.html#a207fd5507206d307cd63f95374fcd00d',1,'X:&#160;dipole_fit_settings.cpp'],['../a01682.html#a207fd5507206d307cd63f95374fcd00d',1,'X:&#160;ecd_set.cpp'],['../a01160.html#a207fd5507206d307cd63f95374fcd00d',1,'X:&#160;mne_sss_data.cpp'],['../a01577.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01610.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;fwd_forward_solution.cpp']]],
-  ['x_1',['x',['../a02835.html#a4f8aa1f33711db226f1eb823557f8f54',1,'INVERSELIB::Dipole::x()'],['../a02835.html#a8133e65519152ff50a49c281cd682cdf',1,'INVERSELIB::Dipole::x() const']]],
-  ['x1_2',['x1',['../a02847.html#aebddc056b9761d1647ae282fb8b20e88',1,'INVERSELIB::Pair']]],
-  ['x2_3',['x2',['../a02847.html#a5e72c38d49abd45201ce7f9459400adf',1,'INVERSELIB::Pair']]],
-  ['x_5f16_4',['X_16',['../a01700.html#a5c779c87c8ac487abc07197fcfef6400',1,'guess_data.cpp']]],
+  ['x_0',['X',['../a01664.html#a207fd5507206d307cd63f95374fcd00d',1,'X:&#160;inv_dipole_fit_settings.cpp'],['../a01676.html#a207fd5507206d307cd63f95374fcd00d',1,'X:&#160;inv_ecd_set.cpp'],['../a01160.html#a207fd5507206d307cd63f95374fcd00d',1,'X:&#160;mne_sss_data.cpp'],['../a01577.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01610.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;fwd_forward_solution.cpp']]],
+  ['x_1',['x',['../a02835.html#af3e12f64a7b9a04eeaed3f934222c044',1,'INVLIB::Dipole::x()'],['../a02835.html#a6cd1d65719cf64f23092433014cca75b',1,'INVLIB::Dipole::x() const']]],
+  ['x1_2',['x1',['../a02847.html#accc2647ae98b82f7dd45dbea0e039cc2',1,'INVLIB::Pair']]],
+  ['x2_3',['x2',['../a02847.html#a3c608ee980958d3d008cff84dd09f83e',1,'INVLIB::Pair']]],
+  ['x_5f16_4',['X_16',['../a01667.html#a5c779c87c8ac487abc07197fcfef6400',1,'inv_guess_data.cpp']]],
   ['x_5f17_5',['X_17',['../a01247.html#a4e7d82b987cbf0343504b8c43da69875',1,'X_17:&#160;mne_msh_display_surface.cpp'],['../a01358.html#a4e7d82b987cbf0343504b8c43da69875',1,'X_17:&#160;mne_source_space.cpp'],['../a01250.html#a4e7d82b987cbf0343504b8c43da69875',1,'X_17:&#160;mne_surface.cpp'],['../a01166.html#a4e7d82b987cbf0343504b8c43da69875',1,'X_17:&#160;mne_surface_or_volume.cpp']]],
-  ['x_5f3_6',['X_3',['../a01664.html#a510aba3dd017e2f0b60801b88c96aa3f',1,'dipole_fit_data.cpp']]],
+  ['x_5f3_6',['X_3',['../a01661.html#a510aba3dd017e2f0b60801b88c96aa3f',1,'inv_dipole_fit_data.cpp']]],
   ['x_5f43_7',['X_43',['../a01244.html#a823231424fc0c6e8403653dd1b5061ea',1,'mne_patch_info.cpp']]],
   ['x_5f46_8',['X_46',['../a01343.html#a5ca049c909b2fe7327569aa2a7ac468e',1,'mne_proj_data.cpp']]],
   ['x_5f51_9',['X_51',['../a01358.html#a403defaf1975a3c5e759e6f7e9716640',1,'mne_source_space.cpp']]],

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['w_0',['w',['../a02583.html#aea32c1a20ef908743d046932f66184bd',1,'FWDLIB::FwdCoil::w'],['../a02603.html#af554d8534ff5fb8ac39d19c13e8d2e7e',1,'FWDLIB::fitUserRec::w']]],
-  ['whitener_1',['whitener',['../a02811.html#aa03e5e299aa6e587bec6bc553cd910ec',1,'INVERSELIB::MNEInverseOperator']]],
+  ['whitener_1',['whitener',['../a02807.html#a966cd7d068a5b2c455c39a2f3730bf00',1,'INVLIB::MNEInverseOperator']]],
   ['width_2',['width',['../a03115.html#a353b3afc027f68f17fa54d72a2322514',1,'MNELIB::MNEVolGeom::width'],['../a03131.html#a2ea97e3d9744f96ef4aea0a3d1b9e691',1,'MRILIB::MriSlice::width'],['../a03135.html#a7bb0982a7b24b4cbccc66b5a93366645',1,'MRILIB::MriVolData::width']]],
   ['window_5fsize_3',['window_size',['../a03283.html#ac725cf99878ad59462cc3caa1ec2c709',1,'UTILSLIB::SpectogramInputData']]],
   ['work_4',['work',['../a02591.html#afeb66c8f80d75234a57f1d434c9e4c4b',1,'FWDLIB::FwdCompData']]],
