@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['tissuetype_0',['TissueType',['../a02256.html#a7a35e381402ddbce8531f24014867df8',1,'BrainSurface']]],
-  ['tpasstype_1',['TPassType',['../a03144.html#a1d87d4a47e4f36efab262e49af1066a5',1,'RTPROCESSINGLIB::CosineFilter::TPassType'],['../a03160.html#aabcd2c24495dc8ecdacc41cd1dc9ecfc',1,'RTPROCESSINGLIB::ParksMcClellan::TPassType']]]
+  ['tissuetype_0',['TissueType',['../a02259.html#a7a35e381402ddbce8531f24014867df8',1,'BrainSurface']]],
+  ['tpasstype_1',['TPassType',['../a03147.html#a1d87d4a47e4f36efab262e49af1066a5',1,'RTPROCESSINGLIB::CosineFilter::TPassType'],['../a03163.html#aabcd2c24495dc8ecdacc41cd1dc9ecfc',1,'RTPROCESSINGLIB::ParksMcClellan::TPassType']]]
 ];
