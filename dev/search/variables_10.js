@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['q_0',['Q',['../a02735.html#a1e3af7a0b02ed12a9e821b29574ae81a',1,'INVLIB::InvEcd::Q'],['../a02739.html#a897c2f3fec24ba02290f30cd432784ad',1,'INVLIB::bdipEcd::Q']]],
-  ['quantity_1',['quantity',['../a02679.html#aae0442418ded2dc5eb81afd1f1085cba',1,'INVLIB::timecourseData']]],
-  ['quater_2',['quater',['../a02695.html#a189dbd533c06c1d650ba1bbed905f661',1,'INVLIB::contHpiData']]]
+  ['q_0',['Q',['../a02760.html#a1e3af7a0b02ed12a9e821b29574ae81a',1,'INVLIB::InvEcd::Q'],['../a02764.html#a897c2f3fec24ba02290f30cd432784ad',1,'INVLIB::bdipEcd::Q']]],
+  ['quantity_1',['quantity',['../a02704.html#aae0442418ded2dc5eb81afd1f1085cba',1,'INVLIB::timecourseData']]],
+  ['quater_2',['quater',['../a02720.html#a189dbd533c06c1d650ba1bbed905f661',1,'INVLIB::contHpiData']]]
 ];

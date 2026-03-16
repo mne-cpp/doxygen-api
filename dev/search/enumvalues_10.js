@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['sensoritem_0',['SensorItem',['../a02215.html#a7804788c78ce642387ab26f50d3dda68a71763a759a309d47115344912eac51fa',1,'AbstractTreeItem']]],
-  ['shadermoderole_1',['ShaderModeRole',['../a02247.html#a4428acbaaf56d9874c19e82819f3baa8aba408734b138da92ad05177f043d9be9',1,'SurfaceTreeItem']]],
-  ['shownormals_2',['ShowNormals',['../a00794.html#a9a65336a07fa3c9b4b13e6d52e3a612caee33357d890bdafe66ce0ac3dfe0bbc9',1,'rendertypes.h']]],
-  ['singleview_3',['SingleView',['../a02323.html#aa3d141044493fd3001bf21b70c9dbfe4ad3ffb81dca285cc917e96c84cf7617e8',1,'BrainView']]],
-  ['sourcespaceitem_4',['SourceSpaceItem',['../a02215.html#a7804788c78ce642387ab26f50d3dda68a4033c0bb8d2fda6213b54e2229f02645',1,'AbstractTreeItem']]],
-  ['standard_5',['Standard',['../a00794.html#a9a65336a07fa3c9b4b13e6d52e3a612ca57f9bf199e30a749a03be1dac2f5f624',1,'rendertypes.h']]],
-  ['surfacedatarole_6',['SurfaceDataRole',['../a02247.html#a4428acbaaf56d9874c19e82819f3baa8a8237f17c932261c40d73d311e83b3b6c',1,'SurfaceTreeItem']]],
-  ['surfaceitem_7',['SurfaceItem',['../a02215.html#a7804788c78ce642387ab26f50d3dda68a06fc0c50075752b58051f54bd6a234d9',1,'AbstractTreeItem']]]
+  ['rapmusic_0',['RapMusic',['../a01819.html#a29bb5b206858a4db67919400558e5a99a3336250dc4ea25401607ed4808c7ce37',1,'INVLIB']]],
+  ['read_1',['READ',['../a01823.html#a025e9a81ba277a75a48caa6acd5cebffa21f5980667446949003773e18b0ffa2c',1,'EVENTSLIB']]],
+  ['readwrite_2',['READWRITE',['../a01823.html#a025e9a81ba277a75a48caa6acd5cebffa55c5c8b01d5fcb0f611c09877eab395b',1,'EVENTSLIB']]],
+  ['realtime_3',['RealTime',['../a01984.html#ac60b3fec00fc454e4e14c344855222a4a871b3feb04cc70dadcd9fdb904623c15',1,'DISPLIB::AbstractView']]],
+  ['redblue_4',['RedBlue',['../a01811.html#a53c600771742063d0826523495db22f3a8e23b4fdd9152664065d1adb48337db1',1,'DISPLIB']]],
+  ['research_5',['Research',['../a01984.html#a4758d14e067b1f8207526dca12903cf6ac25569748c3b7a7ffdacf9fd73659f9b',1,'DISPLIB::AbstractView']]]
 ];
