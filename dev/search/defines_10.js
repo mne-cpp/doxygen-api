@@ -1,17 +1,16 @@
 var searchData=
 [
-  ['seg_5flen_0',['SEG_LEN',['../a01703.html#acc0d3a717c456c65cc6abc296bf24deb',1,'inv_dipole_fit.cpp']]],
-  ['show_5fcurvature_5fnone_1',['SHOW_CURVATURE_NONE',['../a01706.html#a5238335f68da0d713482b2c6e5c19f85',1,'inv_analyze_types.h']]],
-  ['show_5fcurvature_5foverlay_2',['SHOW_CURVATURE_OVERLAY',['../a01706.html#ad85aa2b40310468e01664d24f4a73dd0',1,'inv_analyze_types.h']]],
-  ['show_5foverlay_5fheat_3',['SHOW_OVERLAY_HEAT',['../a01706.html#af54c9ad5b7f99755368ee4ee6ebc7c31',1,'inv_analyze_types.h']]],
-  ['show_5foverlay_5fnegpos_4',['SHOW_OVERLAY_NEGPOS',['../a01706.html#ade1aca63e881c7ee5b4730a11d84f75c',1,'inv_analyze_types.h']]],
-  ['show_5foverlay_5fnone_5',['SHOW_OVERLAY_NONE',['../a01706.html#a533503f85e9c75d2ff50a622f75ead16',1,'inv_analyze_types.h']]],
-  ['small_6',['SMALL',['../a00065.html#a09c78d2f8feb311dd9fc969a0bf84979',1,'parksmcclellan.cpp']]],
-  ['small_5fvalue_7',['SMALL_VALUE',['../a01670.html#a2f6b5f5e913a139d1a4c7b76147e9d18',1,'inv_dipole_fit_data.cpp']]],
-  ['surf_5fboth_5fhemis_8',['SURF_BOTH_HEMIS',['../a01706.html#acb5e0f8238b9fad83712580b5e1d0fbf',1,'inv_analyze_types.h']]],
-  ['surf_5fleft_5fhemi_9',['SURF_LEFT_HEMI',['../a01706.html#aa2c4e6a167a5918346c02af822c6eda4',1,'inv_analyze_types.h']]],
-  ['surf_5fleft_5fmorph_5fhemi_10',['SURF_LEFT_MORPH_HEMI',['../a01706.html#ae74dc93708e0565574fa91faa192938a',1,'inv_analyze_types.h']]],
-  ['surf_5fright_5fhemi_11',['SURF_RIGHT_HEMI',['../a01706.html#a5ee30c72cad93c359ee0916a3b98f144',1,'inv_analyze_types.h']]],
-  ['surf_5fright_5fmorph_5fhemi_12',['SURF_RIGHT_MORPH_HEMI',['../a01706.html#ac9d721ae86d5e9f7872055e27d3691fa',1,'inv_analyze_types.h']]],
-  ['surf_5funknown_13',['SURF_UNKNOWN',['../a01706.html#a3a8187c39f07cabcd65c49f5798fa284',1,'inv_analyze_types.h']]]
+  ['tag_5fcolortable_0',['TAG_COLORTABLE',['../a01169.html#a41c68a53cdcd70db38518c8a2e8a30b0',1,'mne_surface_or_volume.cpp']]],
+  ['tag_5fmgh_5fxform_1',['TAG_MGH_XFORM',['../a01169.html#af57a992a706912b37970dedf1d6334e6',1,'mne_surface_or_volume.cpp']]],
+  ['tag_5fold_5fcolortable_2',['TAG_OLD_COLORTABLE',['../a01364.html#a43dfc21aadf6af57c245e4f355e84e8c',1,'TAG_OLD_COLORTABLE:&#160;mne_source_space.cpp'],['../a01169.html#a43dfc21aadf6af57c245e4f355e84e8c',1,'TAG_OLD_COLORTABLE:&#160;mne_surface_or_volume.cpp']]],
+  ['tag_5fold_5fmgh_5fxform_3',['TAG_OLD_MGH_XFORM',['../a01364.html#a26d52fd1ca6c941f4486b2747ff54a74',1,'TAG_OLD_MGH_XFORM:&#160;mne_source_space.cpp'],['../a01169.html#a26d52fd1ca6c941f4486b2747ff54a74',1,'TAG_OLD_MGH_XFORM:&#160;mne_surface_or_volume.cpp']]],
+  ['tag_5fold_5fsurf_5fgeom_4',['TAG_OLD_SURF_GEOM',['../a01379.html#adff7c2ea61595d5623ae4055ce0d1f7f',1,'mne_surface_or_volume.h']]],
+  ['tag_5fold_5fuserealras_5',['TAG_OLD_USEREALRAS',['../a01364.html#a205a406c18c580ea2eb1628be6efdf2c',1,'TAG_OLD_USEREALRAS:&#160;mne_source_space.cpp'],['../a01169.html#a205a406c18c580ea2eb1628be6efdf2c',1,'TAG_OLD_USEREALRAS:&#160;mne_surface_or_volume.cpp']]],
+  ['tag_5fsurf_5fgeom_6',['TAG_SURF_GEOM',['../a01169.html#ab92a0265473c50c5a8a8cababa2cf757',1,'mne_surface_or_volume.cpp']]],
+  ['tag_5fuserealras_7',['TAG_USEREALRAS',['../a01364.html#a2bc93df607c911209e33cb0403668b01',1,'TAG_USEREALRAS:&#160;mne_source_space.cpp'],['../a01169.html#a2bc93df607c911209e33cb0403668b01',1,'TAG_USEREALRAS:&#160;mne_surface_or_volume.cpp']]],
+  ['timecourse_5fsource_5fdata_8',['TIMECOURSE_SOURCE_DATA',['../a01709.html#af7d062394f3d55636e8c2965b70c3b98',1,'inv_analyze_types.h']]],
+  ['timecourse_5fsource_5foverlay_9',['TIMECOURSE_SOURCE_OVERLAY',['../a01709.html#ad7ac91dbed786033d55b4c098d861c33',1,'inv_analyze_types.h']]],
+  ['timecourse_5fsource_5funknown_10',['TIMECOURSE_SOURCE_UNKNOWN',['../a01709.html#a5bfc771fc6d1317c6d1ff7a9b945219e',1,'inv_analyze_types.h']]],
+  ['triangle_5ffile_5fmagic_5fnumber_11',['TRIANGLE_FILE_MAGIC_NUMBER',['../a01379.html#afe35c7ba1ccb6ca15d87ac2cbfb3fc57',1,'mne_surface_or_volume.h']]],
+  ['true_12',['TRUE',['../a01679.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;inv_guess_data.cpp'],['../a01772.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;inv_meas_data.cpp'],['../a01118.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_ctf_comp_data.cpp'],['../a01400.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_ctf_comp_data_set.cpp'],['../a01250.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_msh_display_surface.cpp'],['../a01346.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_proj_data.cpp'],['../a01205.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_proj_op.cpp'],['../a01316.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_raw_data.cpp'],['../a01364.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_source_space.cpp'],['../a01253.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_surface.cpp'],['../a01169.html#aa8cecfc5c5c054d2875c03e77b7be15d',1,'TRUE:&#160;mne_surface_or_volume.cpp']]]
 ];

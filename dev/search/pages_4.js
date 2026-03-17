@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['encoding_20part_0',['MNE toolbox root function ###: Definition of the mne_block_diag function - encoding part',['../a03304.html#autotoc_md32',1,'']]]
+  ['encoding_20part_0',['MNE toolbox root function ###: Definition of the mne_block_diag function - encoding part',['../a03300.html#autotoc_md32',1,'']]]
 ];

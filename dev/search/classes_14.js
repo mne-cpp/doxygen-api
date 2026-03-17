@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unbiasedsquaredphaselagindex_0',['UnbiasedSquaredPhaseLagIndex',['../a01928.html',1,'CONNECTIVITYLIB']]]
+  ['unbiasedsquaredphaselagindex_0',['UnbiasedSquaredPhaseLagIndex',['../a01932.html',1,'CONNECTIVITYLIB']]]
 ];

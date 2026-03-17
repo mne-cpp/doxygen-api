@@ -1,13 +1,15 @@
 var searchData=
 [
-  ['realloc_0',['REALLOC',['../a01703.html#ab90f386854a30017b01eee0ac6cb2a30',1,'REALLOC:&#160;inv_dipole_fit.cpp'],['../a01673.html#ab90f386854a30017b01eee0ac6cb2a30',1,'REALLOC:&#160;inv_dipole_fit_settings.cpp']]],
-  ['realloc_5f16_1',['REALLOC_16',['../a01676.html#a53b7ecf68df4f068e8b817881121c043',1,'inv_guess_data.cpp']]],
-  ['realloc_5f17_2',['REALLOC_17',['../a01166.html#a2500ed92c4bd79efe33e36f94afe201b',1,'mne_surface_or_volume.cpp']]],
-  ['realloc_5f23_3',['REALLOC_23',['../a01202.html#add58331147b1f7ec1940a83273b731d4',1,'mne_proj_op.cpp']]],
-  ['realloc_5f3_4',['REALLOC_3',['../a01670.html#a65916d7bf5f5b59635f62ea6cfe6ea8a',1,'inv_dipole_fit_data.cpp']]],
-  ['realloc_5f36_5',['REALLOC_36',['../a01313.html#a63c907fc3752133b59c9ad9256ad38d5',1,'mne_raw_data.cpp']]],
-  ['realloc_5f9_6',['REALLOC_9',['../a01769.html#a42014bb1c43fd43b585ee96b4f5d1576',1,'inv_meas_data.cpp']]],
-  ['really_5frevert_7',['REALLY_REVERT',['../a01670.html#a8b643d45378b9e6c628749db4200451f',1,'inv_dipole_fit_data.cpp']]],
-  ['rh_5flabel_5ftag_8',['RH_LABEL_TAG',['../a01358.html#ae346ee5152226850ea9ad879d4429efd',1,'mne_source_space.cpp']]],
-  ['rtprocesingshared_5fexport_9',['RTPROCESINGSHARED_EXPORT',['../a00011.html#a616e1261b0e0ab71d698362d3994fd62',1,'rtprocessing_global.h']]]
+  ['show_5fcurvature_5fnone_0',['SHOW_CURVATURE_NONE',['../a01709.html#a5238335f68da0d713482b2c6e5c19f85',1,'inv_analyze_types.h']]],
+  ['show_5fcurvature_5foverlay_1',['SHOW_CURVATURE_OVERLAY',['../a01709.html#ad85aa2b40310468e01664d24f4a73dd0',1,'inv_analyze_types.h']]],
+  ['show_5foverlay_5fheat_2',['SHOW_OVERLAY_HEAT',['../a01709.html#af54c9ad5b7f99755368ee4ee6ebc7c31',1,'inv_analyze_types.h']]],
+  ['show_5foverlay_5fnegpos_3',['SHOW_OVERLAY_NEGPOS',['../a01709.html#ade1aca63e881c7ee5b4730a11d84f75c',1,'inv_analyze_types.h']]],
+  ['show_5foverlay_5fnone_4',['SHOW_OVERLAY_NONE',['../a01709.html#a533503f85e9c75d2ff50a622f75ead16',1,'inv_analyze_types.h']]],
+  ['small_5',['SMALL',['../a00065.html#a09c78d2f8feb311dd9fc969a0bf84979',1,'parksmcclellan.cpp']]],
+  ['surf_5fboth_5fhemis_6',['SURF_BOTH_HEMIS',['../a01709.html#acb5e0f8238b9fad83712580b5e1d0fbf',1,'inv_analyze_types.h']]],
+  ['surf_5fleft_5fhemi_7',['SURF_LEFT_HEMI',['../a01709.html#aa2c4e6a167a5918346c02af822c6eda4',1,'inv_analyze_types.h']]],
+  ['surf_5fleft_5fmorph_5fhemi_8',['SURF_LEFT_MORPH_HEMI',['../a01709.html#ae74dc93708e0565574fa91faa192938a',1,'inv_analyze_types.h']]],
+  ['surf_5fright_5fhemi_9',['SURF_RIGHT_HEMI',['../a01709.html#a5ee30c72cad93c359ee0916a3b98f144',1,'inv_analyze_types.h']]],
+  ['surf_5fright_5fmorph_5fhemi_10',['SURF_RIGHT_MORPH_HEMI',['../a01709.html#ac9d721ae86d5e9f7872055e27d3691fa',1,'inv_analyze_types.h']]],
+  ['surf_5funknown_11',['SURF_UNKNOWN',['../a01709.html#a3a8187c39f07cabcd65c49f5798fa284',1,'inv_analyze_types.h']]]
 ];

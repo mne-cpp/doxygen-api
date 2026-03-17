@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['program_5fversion_0',['PROGRAM_VERSION',['../a01703.html#a2f10abd650e471fae2d7e8c63d41206a',1,'PROGRAM_VERSION:&#160;inv_dipole_fit.cpp'],['../a01673.html#a2f10abd650e471fae2d7e8c63d41206a',1,'PROGRAM_VERSION:&#160;inv_dipole_fit_settings.cpp']]]
+  ['quad_5ffile_5fmagic_5fnumber_0',['QUAD_FILE_MAGIC_NUMBER',['../a01379.html#a22fe97fb5f2426a242f09290a5c363eb',1,'mne_surface_or_volume.h']]]
 ];
