@@ -1,14 +1,13 @@
 var searchData=
 [
-  ['dataloader_0',['DataLoader',['../a02196.html',1,'']]],
-  ['datasetdata_1',['dataSetData',['../a02788.html',1,'INVLIB']]],
-  ['debiasedsquaredweightedphaselagindex_2',['DebiasedSquaredWeightedPhaseLagIndex',['../a01916.html',1,'CONNECTIVITYLIB']]],
-  ['digitizersettreeitem_3',['DigitizerSetTreeItem',['../a02252.html',1,'']]],
-  ['digitizertreeitem_4',['DigitizerTreeItem',['../a02256.html',1,'']]],
-  ['dipfiterror_5',['DipFitError',['../a02712.html',1,'INVLIB']]],
-  ['dipolefitfuncsrec_6',['dipoleFitFuncsRec',['../a02660.html',1,'INVLIB']]],
-  ['dipolefitview_7',['DipoleFitView',['../a02044.html',1,'DISPLIB']]],
-  ['dipoleobject_8',['DipoleObject',['../a02296.html',1,'']]],
-  ['dipoletreeitem_9',['DipoleTreeItem',['../a02260.html',1,'']]],
-  ['draggableframelesswidget_10',['DraggableFramelessWidget',['../a02080.html',1,'DISPLIB']]]
+  ['dataloader_0',['DataLoader',['../a02193.html',1,'']]],
+  ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a01913.html',1,'CONNECTIVITYLIB']]],
+  ['digitizersettreeitem_2',['DigitizerSetTreeItem',['../a02249.html',1,'']]],
+  ['digitizertreeitem_3',['DigitizerTreeItem',['../a02253.html',1,'']]],
+  ['dipfiterror_4',['DipFitError',['../a02709.html',1,'INVLIB']]],
+  ['dipolefitfuncsrec_5',['dipoleFitFuncsRec',['../a02657.html',1,'INVLIB']]],
+  ['dipolefitview_6',['DipoleFitView',['../a02041.html',1,'DISPLIB']]],
+  ['dipoleobject_7',['DipoleObject',['../a02293.html',1,'']]],
+  ['dipoletreeitem_8',['DipoleTreeItem',['../a02257.html',1,'']]],
+  ['draggableframelesswidget_9',['DraggableFramelessWidget',['../a02077.html',1,'DISPLIB']]]
 ];

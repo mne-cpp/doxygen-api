@@ -1,22 +1,4 @@
 var searchData=
 [
-  ['matrix6t_0',['Matrix6T',['../a02852.html#a4b5f4e1df9f2eb7df082335c90dcccdb',1,'INVLIB::InvRapMusic']]],
-  ['matrix6xt_1',['Matrix6XT',['../a02852.html#ac49335abdbf2d2f94dcae6eecf31aa67',1,'INVLIB::InvRapMusic']]],
-  ['matrixdau16_2',['MatrixDau16',['../a01813.html#a67219b17cf8c0ed2c6af8012f2e81c4d',1,'FIFFLIB']]],
-  ['matrixshort_3',['MatrixShort',['../a01813.html#af44351ffdedcaa116f51d6d9b3d36517',1,'FIFFLIB']]],
-  ['matrixx6t_4',['MatrixX6T',['../a02852.html#aae39adcecc4842a909d493be52c3a659',1,'INVLIB::InvRapMusic']]],
-  ['matrixxdr_5',['MatrixXdR',['../a01814.html#aa92ebf45614e24145966232d70b942bd',1,'DISPLIB']]],
-  ['matrixxt_6',['MatrixXT',['../a02852.html#a4774954f1b425a538cd5d28f187f16d4',1,'INVLIB::InvRapMusic']]],
-  ['mnechselection_7',['mneChSelection',['../a01811.html#a173c1c01ff29bc214944238e35413788',1,'MNELIB']]],
-  ['mnechselectionrec_8',['mneChSelectionRec',['../a01811.html#a093c408b9e25b1adc81a95c498ff1156',1,'MNELIB']]],
-  ['mnelayoutport_9',['mneLayoutPort',['../a01811.html#ac0f1faef2bcbd15cb6f41fd45bc410ef',1,'MNELIB']]],
-  ['mnelayoutportrec_10',['mneLayoutPortRec',['../a01811.html#a5f2fc2dfabb9112dea601cb9839e9e04',1,'MNELIB']]],
-  ['mneoverlayrec_11',['mneOverlayRec',['../a01822.html#a331beb800a819d0884ef0be2fa24e3a0',1,'INVLIB']]],
-  ['mneprefrec_12',['mnePrefRec',['../a01822.html#a78878f1dd19d7ec7c3da3ae99ffb20ba',1,'INVLIB']]],
-  ['mneuserfreefunc_13',['mneUserFreeFunc',['../a01811.html#a227ebaa07cd2de5e00062a0a33d24dfe',1,'MNELIB']]],
-  ['mshlabelrec_14',['mshLabelRec',['../a01822.html#a167a846679f76cf7dd1c656137bdc309',1,'INVLIB']]],
-  ['mshlabelsetrec_15',['mshLabelSetRec',['../a01822.html#aebcbb1a8098532dc9c02e4d566e1fa84',1,'INVLIB']]],
-  ['mshmegeegdata_16',['mshMegEegData',['../a01822.html#a8a8763887a4370d6e2945991e741ba02',1,'INVLIB']]],
-  ['mshmegeegdatarec_17',['mshMegEegDataRec',['../a01822.html#af2397e608c7939009a6ad2d798ec7eb5',1,'INVLIB']]],
-  ['mshscalesrec_18',['mshScalesRec',['../a01822.html#ae83c494e0323dc433dc1eb22fddd2e1c',1,'INVLIB']]]
+  ['normalst_0',['NormalsT',['../a03069.html#a89060366d83dab74c46a34fc110e39c1',1,'MNELIB::MNESurfaceOrVolume']]]
 ];

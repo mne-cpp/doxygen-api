@@ -9,6 +9,5 @@ var searchData=
   ['alloc_5fint_5f17_6',['ALLOC_INT_17',['../a01172.html#a94eae3e96e09f0eb1b66a008627686d7',1,'mne_surface_or_volume.cpp']]],
   ['alloc_5fint_5f51_7',['ALLOC_INT_51',['../a01382.html#a7f2da76449a953f4f7b8c0bb03625782',1,'mne_source_space.cpp']]],
   ['alpha_8',['ALPHA',['../a01013.html#af5abd28c44c29b7397c84f1fec4b1d84',1,'simplex_algorithm.h']]],
-  ['alt_5fsurfaces_9',['ALT_SURFACES',['../a01802.html#ad1490b95d6283b918b558a7b5ef59894',1,'inv_analyze_types.h']]],
-  ['approx_5fring_5fbuf_5fsize_10',['APPROX_RING_BUF_SIZE',['../a01328.html#a7a900d5938105f52f3d00950893ecb67',1,'mne_raw_data.cpp']]]
+  ['approx_5fring_5fbuf_5fsize_9',['APPROX_RING_BUF_SIZE',['../a01328.html#a7a900d5938105f52f3d00950893ecb67',1,'mne_raw_data.cpp']]]
 ];

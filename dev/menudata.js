@@ -74,12 +74,9 @@ var menudata={children:[
 {text:"c",url:"namespacemembers_type.html#index_c"},
 {text:"d",url:"namespacemembers_type.html#index_d"},
 {text:"f",url:"namespacemembers_type.html#index_f"},
-{text:"h",url:"namespacemembers_type.html#index_h"},
 {text:"m",url:"namespacemembers_type.html#index_m"},
-{text:"o",url:"namespacemembers_type.html#index_o"},
 {text:"p",url:"namespacemembers_type.html#index_p"},
-{text:"r",url:"namespacemembers_type.html#index_r"},
-{text:"t",url:"namespacemembers_type.html#index_t"}]},
+{text:"r",url:"namespacemembers_type.html#index_r"}]},
 {text:"Enumerations",url:"namespacemembers_enum.html"},
 {text:"Enumerator",url:"namespacemembers_eval.html",children:[
 {text:"b",url:"namespacemembers_eval.html#index_b"},

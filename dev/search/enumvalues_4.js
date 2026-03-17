@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['eeg_0',['EEG',['../a02256.html#a440916d47e7eb32391128b4641666ab8adba0601fe3e1987410ccaa05238a5fa5',1,'DigitizerTreeItem']]],
-  ['eloreta_1',['eLORETA',['../a01822.html#a29bb5b206858a4db67919400558e5a99ae6c741df0424aa393ec575d0248fb43d',1,'INVLIB']]],
-  ['eos_2',['Eos',['../a01822.html#af1ffe934a77f18c6a7260b1975016387a86d16d93f97145c1c4532ada5501eaeb',1,'INVLIB']]],
-  ['extra_3',['Extra',['../a02256.html#a440916d47e7eb32391128b4641666ab8a005519b0c56f970e91dfdd89662cf215',1,'DigitizerTreeItem']]]
+  ['eeg_0',['EEG',['../a02253.html#a440916d47e7eb32391128b4641666ab8adba0601fe3e1987410ccaa05238a5fa5',1,'DigitizerTreeItem']]],
+  ['eloreta_1',['eLORETA',['../a01819.html#a29bb5b206858a4db67919400558e5a99ae6c741df0424aa393ec575d0248fb43d',1,'INVLIB']]],
+  ['eos_2',['Eos',['../a01819.html#af1ffe934a77f18c6a7260b1975016387a86d16d93f97145c1c4532ada5501eaeb',1,'INVLIB']]],
+  ['extra_3',['Extra',['../a02253.html#a440916d47e7eb32391128b4641666ab8a005519b0c56f970e91dfdd89662cf215',1,'DigitizerTreeItem']]]
 ];

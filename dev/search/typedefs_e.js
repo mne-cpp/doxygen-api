@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['t_5fobservers_0',['t_Observers',['../a03268.html#a011a53c136d92dad3e9f1652f8c87317',1,'UTILSLIB::Subject']]],
-  ['timecoursedatarec_1',['timecourseDataRec',['../a01822.html#acebce8aa7b6d46ad3f46d2e0eaafb080',1,'INVLIB']]],
-  ['timecoursedatasetrec_2',['timecourseDataSetRec',['../a01822.html#a797b8ba67004c98582155a063920006d',1,'INVLIB']]],
-  ['trianglest_3',['TrianglesT',['../a03136.html#a8ee14307656ff4d52e9c2926a85aee69',1,'MNELIB::MNESurfaceOrVolume']]]
+  ['vector6t_0',['Vector6T',['../a02785.html#a004a7553c74f2589388e8f1bed49bd79',1,'INVLIB::InvRapMusic']]],
+  ['vectorxt_1',['VectorXT',['../a02785.html#a4df742705ad40b36e568b76e22280dd4',1,'INVLIB::InvRapMusic']]],
+  ['visualizationmode_2',['VisualizationMode',['../a02285.html#a75930ecc45037311a171d32d25f3bfda',1,'BrainSurface']]]
 ];
