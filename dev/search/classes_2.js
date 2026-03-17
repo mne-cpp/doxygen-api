@@ -1,7 +1,7 @@
 var searchData=
 [
   ['bar_0',['Bar',['../a01956.html',1,'DISPLIB']]],
-  ['bdipecd_1',['bdipEcd',['../a02748.html',1,'INVLIB']]],
+  ['bdipecd_1',['bdipEcd',['../a02684.html',1,'INVLIB']]],
   ['bemtreeitem_2',['BemTreeItem',['../a02248.html',1,'']]],
   ['bergschergpar_3',['BergSchergPar',['../a02628.html',1,'FWDLIB']]],
   ['bidsview_4',['BidsView',['../a02012.html',1,'DISPLIB']]],

@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['uid_0',['uid',['../a02884.html#a8ba86d6daac068d7eb7d5dcc39b075d5',1,'LSLLIB::stream_info']]],
+  ['uid_0',['uid',['../a02856.html#a8ba86d6daac068d7eb7d5dcc39b075d5',1,'LSLLIB::stream_info']]],
   ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a01932.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNECTIVITYLIB::UnbiasedSquaredPhaseLagIndex']]],
   ['unproject_2',['unproject',['../a02236.html#a0fd0857d6f884aa208ba26cd2d8fc8bc',1,'RayPicker']]],
-  ['update_3',['update',['../a01868.html#abfe57b4aa8b3e796e127bb5acc0308c4',1,'COMMUNICATIONLIB::CommandManager::update()'],['../a03272.html#ac18f6636cd2d62345063f24a9bdf3784',1,'UTILSLIB::IObserver::update()']]],
-  ['update_5finuse_4',['update_inuse',['../a03120.html#addc43a1850073f26095b2de12ac8e07d',1,'MNELIB::MNESourceSpace']]],
+  ['update_3',['update',['../a01868.html#abfe57b4aa8b3e796e127bb5acc0308c4',1,'COMMUNICATIONLIB::CommandManager::update()'],['../a03264.html#ac18f6636cd2d62345063f24a9bdf3784',1,'UTILSLIB::IObserver::update()']]],
+  ['update_5finuse_4',['update_inuse',['../a03112.html#addc43a1850073f26095b2de12ac8e07d',1,'MNELIB::MNESourceSpace']]],
   ['updatebadchannels_5',['updateBadChannels',['../a02020.html#ad27afa32a53143ca5447a623287185ad',1,'DISPLIB::ChannelSelectionView']]],
   ['updatebuffers_6',['updateBuffers',['../a02288.html#ac37f37f7fcc4368161060017cde2e67c',1,'BrainSurface::updateBuffers()'],['../a02296.html#a4c628c1ffa809daa288a53727197fa97',1,'DipoleObject::updateBuffers()']]],
   ['updatecompensator_7',['updateCompensator',['../a02084.html#ac599da8a972a6540c493975659f259e0',1,'DISPLIB::EvokedSetModel::updateCompensator()'],['../a02112.html#aaae4b384d2770ad9d1425675826d6f9f',1,'DISPLIB::RtFiffRawViewModel::updateCompensator()'],['../a02168.html#a32567d01cdeb0ffe3dfcba15eb60eeee',1,'DISPLIB::RtFiffRawView::updateCompensator()']]],
@@ -28,11 +28,11 @@ var searchData=
   ['updateprojection_25',['updateProjection',['../a02084.html#a8b32b2bda0ce384a5ff2384562b6b871',1,'DISPLIB::EvokedSetModel::updateProjection()'],['../a02112.html#ae499ebd483a0bfb64fd1bc64e408b6cf',1,'DISPLIB::RtFiffRawViewModel::updateProjection()'],['../a02168.html#ae43d8cb14e6dd97d97831feccfceb797',1,'DISPLIB::RtFiffRawView::updateProjection()']]],
   ['updatescene_26',['updateScene',['../a02064.html#a87e3fbf7153764d1c7b14582aa97ff7d',1,'DISPLIB::AverageScene']]],
   ['updatesceneuniforms_27',['updateSceneUniforms',['../a02344.html#aa829180cc2bc149b20713cae47b94d7d',1,'BrainRenderer']]],
-  ['updatesensorset_28',['updateSensorSet',['../a02796.html#ae96d4ca354abe69fb02fef7728f1d3c7',1,'INVLIB::InvSensorSetCreator']]],
+  ['updatesensorset_28',['updateSensorSet',['../a02732.html#ae96d4ca354abe69fb02fef7728f1d3c7',1,'INVLIB::InvSensorSetCreator']]],
   ['updatespharaactivation_29',['updateSpharaActivation',['../a02112.html#a05e8374b8b8edf48bf73f5101066e1de',1,'DISPLIB::RtFiffRawViewModel::updateSpharaActivation()'],['../a02168.html#aa964e440d1a58217243100854b9aa91c',1,'DISPLIB::RtFiffRawView::updateSpharaActivation()']]],
   ['updatespharaoptions_30',['updateSpharaOptions',['../a02112.html#a6f3fcaabb4d1c340ac21e3a973cd1a4d',1,'DISPLIB::RtFiffRawViewModel::updateSpharaOptions()'],['../a02168.html#a556e2a223a2356a68a827d2664f81e5d',1,'DISPLIB::RtFiffRawView::updateSpharaOptions()']]],
   ['updatethresholdsfromdata_31',['updateThresholdsFromData',['../a02324.html#aea304d99821fd29ae97fb1bf7e667242',1,'SourceEstimateOverlay']]],
   ['updatevalue_32',['updateValue',['../a02176.html#a81fd96a50e20d91991942dc45af36d72',1,'DISPLIB::SpectrumSettingsView']]],
   ['updateview_33',['updateView',['../a02016.html#ae70d4af2b2f79684a01739d07754c5e3',1,'DISPLIB::ButterflyView']]],
-  ['usefullrank_34',['useFullRank',['../a02880.html#a92d14534b5e186cebc50e462feccc221',1,'INVLIB::InvRapMusic']]]
+  ['usefullrank_34',['useFullRank',['../a02852.html#a92d14534b5e186cebc50e462feccc221',1,'INVLIB::InvRapMusic']]]
 ];

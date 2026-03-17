@@ -12,7 +12,7 @@ var searchData=
   ['valuetoredblue_9',['valueToRedBlue',['../a01964.html#a8db9c9c6ff90e31de54a9553f53f3b63',1,'DISPLIB::ColorMap']]],
   ['valuetoviridis_10',['valueToViridis',['../a01964.html#a38a49ebefdf9e40f9558176b0f446bb2',1,'DISPLIB::ColorMap']]],
   ['valuetoviridisnegated_11',['valueToViridisNegated',['../a01964.html#a7f35cc8ea29483a08e064a96ac839a4c',1,'DISPLIB::ColorMap']]],
-  ['vechpifreqs_12',['vecHpiFreqs',['../a02788.html#a0ed4cf88f6be42a21d78e4d93de8f9a6',1,'INVLIB::InvHpiModelParameters']]],
+  ['vechpifreqs_12',['vecHpiFreqs',['../a02724.html#a0ed4cf88f6be42a21d78e4d93de8f9a6',1,'INVLIB::InvHpiModelParameters']]],
   ['vertexbuffer_13',['vertexBuffer',['../a02288.html#a6293e6eb2843a4dfd677d635367de361',1,'BrainSurface::vertexBuffer()'],['../a02296.html#ae05a5098ea661fcdc0b17771b3f41edf',1,'DipoleObject::vertexBuffer()']]],
   ['vertexcount_14',['vertexCount',['../a02288.html#a959743a3ab8f09dfae19b72a4f033d40',1,'BrainSurface']]],
   ['vertexnormals_15',['vertexNormals',['../a02288.html#a4e95641b89f520bf9cc0b5d85e9fbe2c',1,'BrainSurface']]],
