@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['decoding_20part_0',['MNE toolbox root function ###: Definition of the mne_block_diag function - decoding part',['../a03225.html#autotoc_md29',1,'']]],
-  ['definition_20of_20the_20mne_5fblock_5fdiag_20function_20decoding_20part_1',['MNE toolbox root function ###: Definition of the mne_block_diag function - decoding part',['../a03225.html#autotoc_md29',1,'']]],
-  ['definition_20of_20the_20mne_5fblock_5fdiag_20function_20encoding_20part_2',['MNE toolbox root function ###: Definition of the mne_block_diag function - encoding part',['../a03225.html#autotoc_md30',1,'']]],
+  ['decoding_20part_0',['MNE toolbox root function ###: Definition of the mne_block_diag function - decoding part',['../a03229.html#autotoc_md29',1,'']]],
+  ['definition_20of_20the_20mne_5fblock_5fdiag_20function_20decoding_20part_1',['MNE toolbox root function ###: Definition of the mne_block_diag function - decoding part',['../a03229.html#autotoc_md29',1,'']]],
+  ['definition_20of_20the_20mne_5fblock_5fdiag_20function_20encoding_20part_2',['MNE toolbox root function ###: Definition of the mne_block_diag function - encoding part',['../a03229.html#autotoc_md30',1,'']]],
   ['definition_20of_20the_20mne_5ffind_5fsource_5fspace_5fhemi_20function_3',['MNE toolbox root function ###: Definition of the mne_find_source_space_hemi function',['../a03049.html#autotoc_md23',1,'']]],
   ['definition_20of_20the_20mne_5fpatch_5finfo_20function_4',['MNE toolbox root function ###: Definition of the mne_patch_info function',['../a03049.html#autotoc_md24',1,'']]],
   ['definition_20of_20the_20mne_5fread_5fbem_5fsurface_20function_5',['MNE toolbox root function ###: Definition of the mne_read_bem_surface function',['../a02817.html#autotoc_md19',1,'']]],

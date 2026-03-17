@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['icommand_0',['ICommand',['../a03193.html',1,'UTILSLIB']]],
+  ['icommand_0',['ICommand',['../a03197.html',1,'UTILSLIB']]],
   ['imagcoherence_1',['ImagCoherence',['../a01917.html',1,'CONNECTIVITYLIB']]],
   ['imagesc_2',['ImageSc',['../a01965.html',1,'DISPLIB']]],
   ['impl_3',['Impl',['../a02337.html',1,'BrainRenderer']]],
@@ -36,6 +36,6 @@ var searchData=
   ['invsourceestimate_33',['InvSourceEstimate',['../a02753.html',1,'INVLIB']]],
   ['invtoken_34',['InvToken',['../a02757.html',1,'INVLIB']]],
   ['invtokenizeoptions_35',['InvTokenizeOptions',['../a02761.html',1,'INVLIB']]],
-  ['iobserver_36',['IObserver',['../a03197.html',1,'UTILSLIB']]],
-  ['ioutils_37',['IOUtils',['../a03205.html',1,'UTILSLIB']]]
+  ['iobserver_36',['IObserver',['../a03201.html',1,'UTILSLIB']]],
+  ['ioutils_37',['IOUtils',['../a03209.html',1,'UTILSLIB']]]
 ];

@@ -73,7 +73,7 @@ var searchData=
   ['stat_70',['stat',['../a02649.html#a92002c6b3f409709b661fcdd9dd88df8',1,'FWDLIB::FwdThreadArg::stat'],['../a02809.html#a009f960ae3fe19b1af40cd22b3f3df67',1,'MNELIB::FilterThreadArg::stat']]],
   ['state_71',['state',['../a02961.html#aeeb0172818460ad0c9259f5edf416840',1,'MNELIB::MNEMshLight']]],
   ['stim14_72',['stim14',['../a02925.html#a3d66597d719dfa7b1c47776bd9d2d0ba',1,'MNELIB::MNEMeasDataSet']]],
-  ['stimignore_73',['stimIgnore',['../a02481.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'FIFFLIB::RejectionParams::stimIgnore'],['../a03389.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'MNELIB::RejectionParams::stimIgnore']]],
+  ['stimignore_73',['stimIgnore',['../a02481.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'FIFFLIB::RejectionParams::stimIgnore'],['../a03393.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'MNELIB::RejectionParams::stimIgnore']]],
   ['stream_74',['stream',['../a03037.html#aceab2140ababd8e3935e57f02fc4ae42',1,'MNELIB::MNERawData']]],
   ['struct_5fnames_75',['struct_names',['../a02561.html#a18c9e7fec718c0738cc6ae31ed618213',1,'FSLIB::FsColortable']]],
   ['subj_76',['subj',['../a02949.html#aaa6869e796573f3891587df3813213a1',1,'MNELIB::MNEMshDisplaySurface::subj'],['../a02953.html#a28ff3da8607d6e9bb9c0910173511dba',1,'MNELIB::MNEMshDisplaySurfaceSet::subj']]],

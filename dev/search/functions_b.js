@@ -4,7 +4,7 @@ var searchData=
   ['layoutchanged_1',['layoutChanged',['../a02073.html#ac7e379f73e9df1cff67dca7ef5f36b7f',1,'DISPLIB::ChannelInfoModel']]],
   ['layoutscene_2',['LayoutScene',['../a02097.html#a161afd8f3f5e61cb264d190f4f4e912e',1,'DISPLIB::LayoutScene']]],
   ['leftmargin_3',['leftMargin',['../a01977.html#afff1aee4d4b5a32ccd02afee544b05a3',1,'DISPLIB::Spline']]],
-  ['legendre_4',['legendre',['../a03225.html#a014a77ce3bee7edc9b7afcf7604f46e1',1,'UTILSLIB::MNEMath::legendre(qint32 n, const Eigen::VectorXd &amp;X, QString normalize=QString(&quot;unnorm&quot;))'],['../a03225.html#a5ef840cfb3ae8cd8b07849d6609612eb',1,'UTILSLIB::MNEMath::legendre(qint32 n, const Eigen::VectorXd &amp;X, std::string normalize=&quot;unnorm&quot;)']]],
+  ['legendre_4',['legendre',['../a03229.html#a014a77ce3bee7edc9b7afcf7604f46e1',1,'UTILSLIB::MNEMath::legendre(qint32 n, const Eigen::VectorXd &amp;X, QString normalize=QString(&quot;unnorm&quot;))'],['../a03229.html#a5ef840cfb3ae8cd8b07849d6609612eb',1,'UTILSLIB::MNEMath::legendre(qint32 n, const Eigen::VectorXd &amp;X, std::string normalize=&quot;unnorm&quot;)']]],
   ['legrangeinterp2_5',['LeGrangeInterp2',['../a03129.html#a08fbcf9452e2cb7707b3cfcdab305f00',1,'RTPROCESSINGLIB::ParksMcClellan']]],
   ['lightcolorchanged_6',['lightColorChanged',['../a02029.html#ad598e088aaab9cd9447ed743b66afa46',1,'DISPLIB::Control3DView']]],
   ['lightintensitychanged_7',['lightIntensityChanged',['../a02029.html#a8eee42297abf7f1f577dcc8b6e5eb449',1,'DISPLIB::Control3DView']]],
@@ -36,6 +36,6 @@ var searchData=
   ['loadstc_33',['loadStc',['../a02321.html#af70605955a2fc729e3f4e58204fe2c80',1,'SourceEstimateOverlay']]],
   ['loadtrans_34',['loadTrans',['../a02033.html#aa39531284b760d9513a805c86d280e7e',1,'DISPLIB::CoregSettingsView']]],
   ['loadtransformation_35',['loadTransformation',['../a02349.html#a21b7bf2a59715f54dcf702d68876eb21',1,'BrainView']]],
-  ['log2_36',['log2',['../a03225.html#affffe64d961a9923bb9e6480edfed402',1,'UTILSLIB::MNEMath']]],
+  ['log2_36',['log2',['../a03229.html#affffe64d961a9923bb9e6480edfed402',1,'UTILSLIB::MNEMath']]],
   ['lt_5fpacked_5findex_37',['lt_packed_index',['../a02833.html#ab85a124e16f2c81bfa9e790495691716',1,'MNELIB::MNECovMatrix']]]
 ];
