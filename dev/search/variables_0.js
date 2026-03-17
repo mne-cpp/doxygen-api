@@ -1,7 +1,7 @@
 var searchData=
 [
   ['a_0',['a',['../a02400.html#ae8ddb22ecad9b194a248401371dc517e',1,'EVENTSLIB::RgbColor::a'],['../a03080.html#ae6328ede35d89addc0304820b6334dcb',1,'MNELIB::MNEProjData::a']]],
-  ['abs_5fpicked_5ftime_1',['abs_picked_time',['../a02708.html#a2a6ccdd030c3a9389392b14db1f44ffd',1,'INVLIB::mshMegEegData']]],
+  ['abs_5fpicked_5ftime_1',['abs_picked_time',['../a02708.html#ac15873328032e01dfd12f80cc396b902',1,'INVLIB::mshMegEegDataRec']]],
   ['accuracy_2',['accuracy',['../a02612.html#a8e2fc3e7eeae6e5eab5550b091c2f3a4',1,'FWDLIB::FwdCoil']]],
   ['accurate_3',['accurate',['../a02584.html#a5072f23b1e36019122a09d771ec756f9',1,'FWDLIB::ComputeFwdSettings::accurate'],['../a02736.html#a301a27e1b799899807889e9a906d3996',1,'INVLIB::InvDipoleFitSettings::accurate']]],
   ['acq_5fpars_4',['acq_pars',['../a02512.html#ac5441674648831c0e691f4022360755e',1,'FIFFLIB::FiffInfo']]],

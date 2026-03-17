@@ -68,7 +68,7 @@ var searchData=
   ['mrivoldata_65',['MriVolData',['../a03176.html',1,'MRILIB']]],
   ['mshlabel_66',['mshLabel',['../a02668.html',1,'INVLIB']]],
   ['mshlabelset_67',['mshLabelSet',['../a02672.html',1,'INVLIB']]],
-  ['mshmegeegdata_68',['mshMegEegData',['../a02708.html',1,'INVLIB']]],
+  ['mshmegeegdatarec_68',['mshMegEegDataRec',['../a02708.html',1,'INVLIB']]],
   ['mshscales_69',['mshScales',['../a02656.html',1,'INVLIB']]],
   ['multiview_70',['MultiView',['../a02144.html',1,'DISPLIB']]],
   ['multiviewlayout_71',['MultiViewLayout',['../a02356.html',1,'']]],

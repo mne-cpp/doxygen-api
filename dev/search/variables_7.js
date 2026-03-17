@@ -5,7 +5,7 @@ var searchData=
   ['hasdevhead_2',['hasDevHead',['../a02200.html#ad94615a97634b2781d753f273e827311',1,'DataLoader::SensorLoadResult']]],
   ['hasdigitizer_3',['hasDigitizer',['../a02200.html#afb94b2d0ff0a8a73ec4a3e956798b059',1,'DataLoader::SensorLoadResult']]],
   ['hasinfo_4',['hasInfo',['../a02200.html#aaf310358b5de0fe0c4b9a6cba34e28a2',1,'DataLoader::SensorLoadResult']]],
-  ['have_5fpicked_5',['have_picked',['../a02704.html#ace929d1b77da2c75d067ec4931edbbae',1,'INVLIB::dataSetData::have_picked'],['../a02708.html#a56c4715050bc65ad52b1db13d3830c21',1,'INVLIB::mshMegEegData::have_picked']]],
+  ['have_5fpicked_5',['have_picked',['../a02704.html#ace929d1b77da2c75d067ec4931edbbae',1,'INVLIB::dataSetData::have_picked'],['../a02708.html#a03deaf7ae7968d4c084f66c9ac0f45b0',1,'INVLIB::mshMegEegDataRec::have_picked']]],
   ['head_5fmri_5ft_6',['head_mri_t',['../a02464.html#a83991492df19ee58dcbcfaf11d0176cf',1,'FIFFLIB::FiffDigitizerData::head_mri_t'],['../a02604.html#af51a6e2c2a5a870fab8be11ac77999f0',1,'FWDLIB::FwdBemModel::head_mri_t']]],
   ['head_5fmri_5ft_5fadj_7',['head_mri_t_adj',['../a02464.html#a2ec4ad3d4ad8a37d52c6afb525d53b2f',1,'FIFFLIB::FiffDigitizerData']]],
   ['head_5fsurf_5fras_5ft_8',['head_surf_RAS_t',['../a02440.html#ab2d3ea77693f275851f005eb17d378b1',1,'FIFFLIB::FiffCoordTransSet']]],

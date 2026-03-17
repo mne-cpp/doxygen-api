@@ -1,7 +1,7 @@
 var searchData=
 [
   ['a_0',['a',['../a02400.html#ae8ddb22ecad9b194a248401371dc517e',1,'EVENTSLIB::RgbColor::a'],['../a03080.html#ae6328ede35d89addc0304820b6334dcb',1,'MNELIB::MNEProjData::a']]],
-  ['abs_5fpicked_5ftime_1',['abs_picked_time',['../a02708.html#a2a6ccdd030c3a9389392b14db1f44ffd',1,'INVLIB::mshMegEegData']]],
+  ['abs_5fpicked_5ftime_1',['abs_picked_time',['../a02708.html#ac15873328032e01dfd12f80cc396b902',1,'INVLIB::mshMegEegDataRec']]],
   ['abstractitem_2',['AbstractItem',['../a02244.html#a7804788c78ce642387ab26f50d3dda68aac38c1fb9e3c0035fdd08ce1af07ccb8',1,'AbstractTreeItem']]],
   ['abstractmetric_3',['AbstractMetric',['../a01896.html',1,'CONNECTIVITYLIB::AbstractMetric'],['../a01896.html#a2832e5d79679b611d40a0b811033c483',1,'CONNECTIVITYLIB::AbstractMetric::AbstractMetric()']]],
   ['abstractmetric_2ecpp_4',['abstractmetric.cpp',['../a00923.html',1,'']]],

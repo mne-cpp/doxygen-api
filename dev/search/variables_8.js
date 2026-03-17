@@ -26,7 +26,7 @@ var searchData=
   ['interpolator_23',['interpolator',['../a03144.html#a8a14ef08bc9091c0bd0515e8d3b132d6',1,'MNELIB::MNESurfaceOrVolume']]],
   ['intrad_24',['intrad',['../a02660.html#a3d4f2b7cf084e8941837b7096f27d9cb',1,'INVLIB::fieldMappingPref::intrad'],['../a02684.html#a976f02acdee94effcaefc84afb1e9f33',1,'INVLIB::fieldMappingData::intrad']]],
   ['inuse_25',['inuse',['../a03144.html#a92f8be8fd572a6e6291ccf0fc0bdbdbd',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['inv_5ffile_26',['inv_file',['../a02708.html#a9a8caa1560a6b566cc01a7f60d662816',1,'INVLIB::mshMegEegData']]],
+  ['inv_5ffile_26',['inv_file',['../a02708.html#aac289e447f92f42d2cab04f3015f7340',1,'INVLIB::mshMegEegDataRec']]],
   ['inv_5flambda_27',['inv_lambda',['../a02928.html#a0d79435c43209b091e4b1f1011ba73b7',1,'MNELIB::MNECovMatrix']]],
   ['invert_28',['invert',['../a03000.html#a4bcdb9a386fbf8364a1f9a41debb5f68',1,'MNELIB::MNELayoutPort']]],
   ['invtrans_29',['invtrans',['../a02436.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FIFFLIB::FiffCoordTrans::invtrans'],['../a03476.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FiffCoordTrans::invtrans']]],

@@ -85,7 +85,7 @@ var searchData=
   ['logno_82',['logNo',['../a02428.html#a7b5c40b0a6fea48bd71623a0124118c7',1,'FIFFLIB::FiffChInfo']]],
   ['lookat_83',['lookAt',['../a02224.html#a1f8585252f95a48e4e1da3ab4f3a790a',1,'CameraResult']]],
   ['loose_84',['Loose',['../a01822.html#a8ee66830d3efbe8f53405dfb0e1a0ba7a08d78f099561104c2015d19ea7d9d41e',1,'INVLIB']]],
-  ['lout_85',['lout',['../a02708.html#a54c76e79dfe25582ef40d32abea03039',1,'INVLIB::mshMegEegData']]],
+  ['lout_85',['lout',['../a02708.html#a29a11b3c970973dd9410b5cc24059077',1,'INVLIB::mshMegEegDataRec']]],
   ['low_86',['low',['../a01822.html#a33f916f606e1c83b3d92c14df8a5d2dda53cced8d281a1a0ace3cb6594daaa4f7',1,'INVLIB']]],
   ['lowpass_87',['lowpass',['../a02512.html#ad6d3937c2aca7f34012e6d5f25444b45',1,'FIFFLIB::FiffInfo::lowpass'],['../a02836.html#a190c13fe373b3594053cceb09322c230',1,'INVLIB::InvMeasData::lowpass'],['../a02976.html#a33933717873e762b8f281b8f9cacae60',1,'MNELIB::MNEFilterDef::lowpass'],['../a03072.html#a2cb4f4d4452da463055cca6d61c308c7',1,'MNELIB::FilterSettings::lowpass'],['../a03116.html#a4cc42fbbab58ce7ae2a3f60cb6d4c55a',1,'MNELIB::MNERawInfo::lowpass']]],
   ['lowpass_5fwidth_88',['lowpass_width',['../a02976.html#aa84073ee2a44e1c9d528fd4f8bdfb112',1,'MNELIB::MNEFilterDef']]],

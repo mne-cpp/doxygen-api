@@ -17,6 +17,7 @@ var searchData=
   ['mneuserfreefunctmp_5f1_14',['mneUserFreeFuncTmp_1',['../a01775.html#a7178333c23449c9580576b53ae2bde5c',1,'inv_meas_data_set.h']]],
   ['mshlabelrec_15',['mshLabelRec',['../a01822.html#a167a846679f76cf7dd1c656137bdc309',1,'INVLIB']]],
   ['mshlabelsetrec_16',['mshLabelSetRec',['../a01822.html#aebcbb1a8098532dc9c02e4d566e1fa84',1,'INVLIB']]],
-  ['mshmegeegdatarec_17',['mshMegEegDataRec',['../a01822.html#a63ab090ed409583d4801ad3c69a68736',1,'INVLIB']]],
-  ['mshscalesrec_18',['mshScalesRec',['../a01822.html#ae83c494e0323dc433dc1eb22fddd2e1c',1,'INVLIB']]]
+  ['mshmegeegdata_17',['mshMegEegData',['../a01822.html#a8a8763887a4370d6e2945991e741ba02',1,'INVLIB']]],
+  ['mshmegeegdatarec_18',['mshMegEegDataRec',['../a01822.html#af2397e608c7939009a6ad2d798ec7eb5',1,'INVLIB']]],
+  ['mshscalesrec_19',['mshScalesRec',['../a01822.html#ae83c494e0323dc433dc1eb22fddd2e1c',1,'INVLIB']]]
 ];

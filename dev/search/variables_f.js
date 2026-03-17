@@ -14,7 +14,7 @@ var searchData=
   ['pick_11',['pick',['../a02684.html#a2bd48deb8de4f57918bb046b1d6b8060',1,'INVLIB::fieldMappingData::pick'],['../a02732.html#ab3464c7261a57abb196b27d148d30c2b',1,'INVLIB::InvDipoleFitData::pick'],['../a02920.html#ac78015c9c692aea4be34bbf6d5e11faa',1,'MNELIB::MNEChSelection::pick']]],
   ['pick_5fderiv_12',['pick_deriv',['../a02920.html#a0cf8b2deaeb2a13159bd53f1d368e651',1,'MNELIB::MNEChSelection']]],
   ['picked_13',['picked',['../a03024.html#aaa600ec8050fa9da28f281ae21c54e7a',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['picked_5ftime_14',['picked_time',['../a02704.html#a382bde2dd205fa9654b2e777ddffa80f',1,'INVLIB::dataSetData::picked_time'],['../a02708.html#ad67acc7133dbd0f5c574ce3c3293eed2',1,'INVLIB::mshMegEegData::picked_time']]],
+  ['picked_5ftime_14',['picked_time',['../a02704.html#a382bde2dd205fa9654b2e777ddffa80f',1,'INVLIB::dataSetData::picked_time'],['../a02708.html#aec36c6ba346865caaf906801bb8f3bee',1,'INVLIB::mshMegEegDataRec::picked_time']]],
   ['pinfo_15',['pinfo',['../a02992.html#aea91d7aad40be17510e882f0b650df1f',1,'MNELIB::MNEHemisphere']]],
   ['pipelines_16',['pipelines',['../a02340.html#acb2f54b164c6eb1a92aa34c7af925c25',1,'BrainRenderer::Impl']]],
   ['pipelinesbackcolor_17',['pipelinesBackColor',['../a02340.html#aa403818f987ae0bfd5fc471f3a3fe314',1,'BrainRenderer::Impl']]],

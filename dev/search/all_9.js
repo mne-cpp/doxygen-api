@@ -21,7 +21,7 @@ var searchData=
   ['haspositions_18',['hasPositions',['../a02848.html#a3299bdcaa9873d3387cc63e311755950',1,'INVLIB::InvSourceEstimate']]],
   ['hasrh_19',['hasRh',['../a02384.html#aeb9ae3fd6b1c4ea54a0f894cc0c0fef2',1,'StcLoadingWorker']]],
   ['have_5fconsumers_20',['have_consumers',['../a02900.html#a843e4d0160cfeb201ba65c8f0ef14433',1,'LSLLIB::stream_outlet']]],
-  ['have_5fpicked_21',['have_picked',['../a02704.html#ace929d1b77da2c75d067ec4931edbbae',1,'INVLIB::dataSetData::have_picked'],['../a02708.html#a56c4715050bc65ad52b1db13d3830c21',1,'INVLIB::mshMegEegData::have_picked']]],
+  ['have_5fpicked_21',['have_picked',['../a02704.html#ace929d1b77da2c75d067ec4931edbbae',1,'INVLIB::dataSetData::have_picked'],['../a02708.html#a03deaf7ae7968d4c084f66c9ac0f45b0',1,'INVLIB::mshMegEegDataRec::have_picked']]],
   ['haveconsumers_22',['haveConsumers',['../a02896.html#a42c64930b29a82f9f471d9d49416f03a',1,'LSLLIB::StreamOutletPrivate']]],
   ['head_5fmri_5ft_23',['head_mri_t',['../a02464.html#a83991492df19ee58dcbcfaf11d0176cf',1,'FIFFLIB::FiffDigitizerData::head_mri_t'],['../a02604.html#af51a6e2c2a5a870fab8be11ac77999f0',1,'FWDLIB::FwdBemModel::head_mri_t']]],
   ['head_5fmri_5ft_5fadj_24',['head_mri_t_adj',['../a02464.html#a2ec4ad3d4ad8a37d52c6afb525d53b2f',1,'FIFFLIB::FiffDigitizerData']]],

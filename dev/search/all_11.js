@@ -55,7 +55,7 @@ var searchData=
   ['pick_5ftypes_52',['pick_types',['../a02424.html#aa7315c9bf55126f9153769810422f257',1,'FIFFLIB::Fiff::pick_types()'],['../a02516.html#ada44ee9ae15b75f2dc88d285dff4a8a8',1,'FIFFLIB::FiffInfoBase::pick_types(const QString meg, bool eeg=false, bool stim=false, const QStringList &amp;include=defaultQStringList, const QStringList &amp;exclude=defaultQStringList) const'],['../a02516.html#a802a4e27920c57d6cc1865564320272f',1,'FIFFLIB::FiffInfoBase::pick_types(bool meg, bool eeg=false, bool stim=false, const QStringList &amp;include=defaultQStringList, const QStringList &amp;exclude=defaultQStringList) const'],['../a02988.html#af2a54458e56c14beb256cdc4051cc31d',1,'MNELIB::MNEForwardSolution::pick_types()']]],
   ['pickcardinalfiducials_53',['pickCardinalFiducials',['../a02464.html#adbb34701bd045549a8efdfac72ba5ab0',1,'FIFFLIB::FiffDigitizerData']]],
   ['picked_54',['picked',['../a03024.html#aaa600ec8050fa9da28f281ae21c54e7a',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['picked_5ftime_55',['picked_time',['../a02704.html#a382bde2dd205fa9654b2e777ddffa80f',1,'INVLIB::dataSetData::picked_time'],['../a02708.html#ad67acc7133dbd0f5c574ce3c3293eed2',1,'INVLIB::mshMegEegData::picked_time']]],
+  ['picked_5ftime_55',['picked_time',['../a02704.html#a382bde2dd205fa9654b2e777ddffa80f',1,'INVLIB::dataSetData::picked_time'],['../a02708.html#aec36c6ba346865caaf906801bb8f3bee',1,'INVLIB::mshMegEegDataRec::picked_time']]],
   ['pickfiducials_56',['pickFiducials',['../a02036.html#a957614c9edf6b97b406961a0e6fba060',1,'DISPLIB::CoregSettingsView']]],
   ['picklowertrianglercs_57',['pickLowerTriangleRcs',['../a02540.html#a995b26a1b575bb9fe28b88f729771b24',1,'FIFFLIB::FiffSparseMatrix']]],
   ['pickresult_58',['PickResult',['../a02232.html',1,'']]],
