@@ -80,10 +80,18 @@ var searchData=
   ['lowpass_5fwidth_77',['lowpass_width',['../a02881.html#aa84073ee2a44e1c9d528fd4f8bdfb112',1,'MNELIB::MNEFilterDef']]],
   ['lowpasswidth_78',['lowpassWidth',['../a02997.html#ab43b5c151b0e94b3679233c3e5e46ee8',1,'MNELIB::FilterSettings']]],
   ['lpf_79',['LPF',['../a03113.html#a1d87d4a47e4f36efab262e49af1066a5abbbb1ae83bb4baa82f92334021278a7b',1,'RTPROCESSINGLIB::CosineFilter::LPF'],['../a03129.html#aabcd2c24495dc8ecdacc41cd1dc9ecfca83ae0604e7402af9a335eab13de6f9d0',1,'RTPROCESSINGLIB::ParksMcClellan::LPF']]],
-  ['lsl_2eh_80',['lsl.h',['../a01553.html',1,'']]],
+  ['lsl_2eh_80',['lsl.h',['../a01556.html',1,'']]],
   ['lsl_5fglobal_2ecpp_81',['lsl_global.cpp',['../a01547.html',1,'']]],
-  ['lsl_5fglobal_2eh_82',['lsl_global.h',['../a01562.html',1,'']]],
-  ['lsllib_83',['LSLLIB',['../a01833.html',1,'']]],
-  ['lslshared_5fexport_84',['LSLSHARED_EXPORT',['../a01562.html#ad05fbecba6dcaf235964f3885b1ef731',1,'lsl_global.h']]],
-  ['lt_5fpacked_5findex_85',['lt_packed_index',['../a02833.html#ab85a124e16f2c81bfa9e790495691716',1,'MNELIB::MNECovMatrix']]]
+  ['lsl_5fglobal_2eh_82',['lsl_global.h',['../a01565.html',1,'']]],
+  ['lsl_5fstream_5fdiscovery_2ecpp_83',['lsl_stream_discovery.cpp',['../a01544.html',1,'']]],
+  ['lsl_5fstream_5fdiscovery_2eh_84',['lsl_stream_discovery.h',['../a01568.html',1,'']]],
+  ['lsl_5fstream_5finfo_2ecpp_85',['lsl_stream_info.cpp',['../a01559.html',1,'']]],
+  ['lsl_5fstream_5finfo_2eh_86',['lsl_stream_info.h',['../a01550.html',1,'']]],
+  ['lsl_5fstream_5finlet_2ecpp_87',['lsl_stream_inlet.cpp',['../a01541.html',1,'']]],
+  ['lsl_5fstream_5finlet_2eh_88',['lsl_stream_inlet.h',['../a01553.html',1,'']]],
+  ['lsl_5fstream_5foutlet_2ecpp_89',['lsl_stream_outlet.cpp',['../a01571.html',1,'']]],
+  ['lsl_5fstream_5foutlet_2eh_90',['lsl_stream_outlet.h',['../a01562.html',1,'']]],
+  ['lsllib_91',['LSLLIB',['../a01833.html',1,'']]],
+  ['lslshared_5fexport_92',['LSLSHARED_EXPORT',['../a01565.html#ad05fbecba6dcaf235964f3885b1ef731',1,'lsl_global.h']]],
+  ['lt_5fpacked_5findex_93',['lt_packed_index',['../a02833.html#ab85a124e16f2c81bfa9e790495691716',1,'MNELIB::MNECovMatrix']]]
 ];

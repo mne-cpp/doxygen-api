@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['uid_0',['uid',['../a02789.html#a8ba86d6daac068d7eb7d5dcc39b075d5',1,'LSLLIB::stream_info']]],
+  ['uid_0',['uid',['../a02789.html#aa2ee49a6de12896903c4ba333faebad7',1,'LSLLIB::stream_info']]],
   ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a01929.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNECTIVITYLIB::UnbiasedSquaredPhaseLagIndex']]],
   ['unproject_2',['unproject',['../a02233.html#a0fd0857d6f884aa208ba26cd2d8fc8bc',1,'RayPicker']]],
   ['update_3',['update',['../a01865.html#abfe57b4aa8b3e796e127bb5acc0308c4',1,'COMMUNICATIONLIB::CommandManager::update()'],['../a03197.html#ac18f6636cd2d62345063f24a9bdf3784',1,'UTILSLIB::IObserver::update()']]],

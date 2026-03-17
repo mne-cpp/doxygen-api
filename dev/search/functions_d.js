@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['name_0',['name',['../a02789.html#a798ef50facd65721b80dac7e10f842ec',1,'LSLLIB::stream_info']]],
+  ['name_0',['name',['../a02789.html#aabb6f309e6bc91ff8e10422b461dad3b',1,'LSLLIB::stream_info']]],
   ['nchild_1',['nchild',['../a02469.html#a060b67474577a17c6652f795bd7b3240',1,'FIFFLIB::FiffDirNode']]],
   ['nchoose2_2',['nchoose2',['../a03225.html#a78a6acb8de351255626065bb69e7c69f',1,'UTILSLIB::MNEMath']]],
   ['ncoil_3',['ncoil',['../a02613.html#a976a8ff745cc56c0de48c0c03350b238',1,'FWDLIB::FwdCoilSet']]],
@@ -55,7 +55,7 @@ var searchData=
   ['nodeinstancecount_52',['nodeInstanceCount',['../a02309.html#a06fc0bdb5da464a9ddfa64e13ba1dff3',1,'NetworkObject']]],
   ['nodevertexbuffer_53',['nodeVertexBuffer',['../a02309.html#ab7b48f72bc14de676b421c36f539f398',1,'NetworkObject']]],
   ['noisechanged_54',['noiseChanged',['../a02041.html#a22f633305ca2f218f9be29bdf1e2d67e',1,'DISPLIB::DipoleFitView']]],
-  ['nominal_5fsrate_55',['nominal_srate',['../a02789.html#a5cab170435a50860b35447edc3a436cb',1,'LSLLIB::stream_info']]],
+  ['nominal_5fsrate_55',['nominal_srate',['../a02789.html#a0d7bec4dffce0ec58098bb81f3b8cbc7',1,'LSLLIB::stream_info']]],
   ['normal_56',['normal',['../a03069.html#a4472262d49f882e3aa6a8c39d044fbd2',1,'MNELIB::MNESurfaceOrVolume']]],
   ['normalize_57',['normalize',['../a01941.html#a77a2e27df15438bc21d72e62326b95d3',1,'CONNECTIVITYLIB::Network']]],
   ['normalizedvisualizationtarget_58',['normalizedVisualizationTarget',['../a00791.html#ad3aa85cdf80b1dd0c88d3c395555e3df',1,'normalizedVisualizationTarget(int target, int maxIndex):&#160;viewstate.cpp'],['../a00785.html#a94f916e2d28a58e18e1e0a042e7df378',1,'normalizedVisualizationTarget(int target, int maxIndex=3):&#160;viewstate.cpp']]],

@@ -1,8 +1,8 @@
 var searchData=
 [
   ['data_0',['data',['../a02073.html#a376c0c594d98a02d7528161ff3058b80',1,'DISPLIB::ChannelInfoModel::data()'],['../a02081.html#a14ad4ac931fa87f0031f728d030d75e6',1,'DISPLIB::EvokedSetModel::data(int row, int column, int role=Qt::DisplayRole) const'],['../a02081.html#a7687739fd8766c1d2bfd3a7a4a13d5a8',1,'DISPLIB::EvokedSetModel::data(const QModelIndex &amp;index, int role=Qt::DisplayRole) const'],['../a02093.html#a70a4ece2f6663a08ea4efbfb4cc60ed9',1,'DISPLIB::FrequencySpectrumModel::data()'],['../a02109.html#ae4fe81ef705a6defaf04b2c6b3ceaf45',1,'DISPLIB::RtFiffRawViewModel::data()'],['../a02557.html#af68a8eb8bc3782973270b7de7d94c0ba',1,'FSLIB::FsAnnotationSet::data()'],['../a02573.html#afc7d4aefa070cc611c81b7e83927d319',1,'FSLIB::FsSurfaceSet::data()']]],
-  ['data_5fhost_1',['data_host',['../a02789.html#a79b611031100977ba8a45e366a1f8d2d',1,'LSLLIB::stream_info']]],
-  ['data_5fport_2',['data_port',['../a02789.html#af0c1351f93d410b276fd33cc731e5215',1,'LSLLIB::stream_info']]],
+  ['data_5fhost_1',['data_host',['../a02789.html#afef411cdc02fa5458a1bdb1e745a5c60',1,'LSLLIB::stream_info']]],
+  ['data_5fport_2',['data_port',['../a02789.html#a0c5f462f8be56131988763370c29a4ea',1,'LSLLIB::stream_info']]],
   ['dataloader_3',['DataLoader',['../a02193.html#a4c5a29afe56252929b753d30b12899b1',1,'DataLoader']]],
   ['datatopixelx_4',['dataToPixelX',['../a01977.html#a1a0f78baf2c874cc5201ac9008921df7',1,'DISPLIB::Spline']]],
   ['datatopixely_5',['dataToPixelY',['../a01977.html#abe6b29c4666ad4b1378b4fb2f6141608',1,'DISPLIB::Spline']]],

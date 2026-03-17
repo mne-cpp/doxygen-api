@@ -13,5 +13,6 @@ var searchData=
   ['directedfalse_10',['DirectedFalse',['../a01819.html#af1ffe934a77f18c6a7260b1975016387afa4135ae406bea6cd875be37b4e04b87',1,'INVLIB']]],
   ['directedtrue_11',['DirectedTrue',['../a01819.html#af1ffe934a77f18c6a7260b1975016387acdc0c3934803a442d2967d30ca33b376',1,'INVLIB']]],
   ['discrete_12',['Discrete',['../a01819.html#a9249e8f0994be81fbcf6d5b3760ad349a4984667940802dedc139aa7a430a6553',1,'INVLIB']]],
-  ['dspm_13',['dSPM',['../a01819.html#a29bb5b206858a4db67919400558e5a99aed78cd6a916a4a2831202fb478cfdbe4',1,'INVLIB']]]
+  ['double64_13',['Double64',['../a01833.html#a22b8a5da4e9e3947843244e040a7ff22ae076f0da57e855385347609cefabd8e2',1,'LSLLIB']]],
+  ['dspm_14',['dSPM',['../a01819.html#a29bb5b206858a4db67919400558e5a99aed78cd6a916a4a2831202fb478cfdbe4',1,'INVLIB']]]
 ];

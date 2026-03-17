@@ -8,7 +8,15 @@ var searchData=
   ['layoutscene_2eh_5',['layoutscene.h',['../a00344.html',1,'']]],
   ['lineplot_2ecpp_6',['lineplot.cpp',['../a00437.html',1,'']]],
   ['lineplot_2eh_7',['lineplot.h',['../a00410.html',1,'']]],
-  ['lsl_2eh_8',['lsl.h',['../a01553.html',1,'']]],
+  ['lsl_2eh_8',['lsl.h',['../a01556.html',1,'']]],
   ['lsl_5fglobal_2ecpp_9',['lsl_global.cpp',['../a01547.html',1,'']]],
-  ['lsl_5fglobal_2eh_10',['lsl_global.h',['../a01562.html',1,'']]]
+  ['lsl_5fglobal_2eh_10',['lsl_global.h',['../a01565.html',1,'']]],
+  ['lsl_5fstream_5fdiscovery_2ecpp_11',['lsl_stream_discovery.cpp',['../a01544.html',1,'']]],
+  ['lsl_5fstream_5fdiscovery_2eh_12',['lsl_stream_discovery.h',['../a01568.html',1,'']]],
+  ['lsl_5fstream_5finfo_2ecpp_13',['lsl_stream_info.cpp',['../a01559.html',1,'']]],
+  ['lsl_5fstream_5finfo_2eh_14',['lsl_stream_info.h',['../a01550.html',1,'']]],
+  ['lsl_5fstream_5finlet_2ecpp_15',['lsl_stream_inlet.cpp',['../a01541.html',1,'']]],
+  ['lsl_5fstream_5finlet_2eh_16',['lsl_stream_inlet.h',['../a01553.html',1,'']]],
+  ['lsl_5fstream_5foutlet_2ecpp_17',['lsl_stream_outlet.cpp',['../a01571.html',1,'']]],
+  ['lsl_5fstream_5foutlet_2eh_18',['lsl_stream_outlet.h',['../a01562.html',1,'']]]
 ];

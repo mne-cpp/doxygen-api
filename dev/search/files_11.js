@@ -39,15 +39,7 @@ var searchData=
   ['spline_2eh_36',['spline.h',['../a00422.html',1,'']]],
   ['stcloadingworker_2ecpp_37',['stcloadingworker.cpp',['../a00692.html',1,'']]],
   ['stcloadingworker_2eh_38',['stcloadingworker.h',['../a00716.html',1,'']]],
-  ['stream_5fdiscovery_2ecpp_39',['stream_discovery.cpp',['../a01550.html',1,'']]],
-  ['stream_5fdiscovery_2eh_40',['stream_discovery.h',['../a01556.html',1,'']]],
-  ['stream_5finfo_2ecpp_41',['stream_info.cpp',['../a01571.html',1,'']]],
-  ['stream_5finfo_2eh_42',['stream_info.h',['../a01544.html',1,'']]],
-  ['stream_5finlet_2ecpp_43',['stream_inlet.cpp',['../a01559.html',1,'']]],
-  ['stream_5finlet_2eh_44',['stream_inlet.h',['../a01541.html',1,'']]],
-  ['stream_5foutlet_2ecpp_45',['stream_outlet.cpp',['../a01568.html',1,'']]],
-  ['stream_5foutlet_2eh_46',['stream_outlet.h',['../a01565.html',1,'']]],
-  ['surfacekeys_2eh_47',['surfacekeys.h',['../a00797.html',1,'']]],
-  ['surfacetreeitem_2ecpp_48',['surfacetreeitem.cpp',['../a00824.html',1,'']]],
-  ['surfacetreeitem_2eh_49',['surfacetreeitem.h',['../a00809.html',1,'']]]
+  ['surfacekeys_2eh_39',['surfacekeys.h',['../a00797.html',1,'']]],
+  ['surfacetreeitem_2ecpp_40',['surfacetreeitem.cpp',['../a00824.html',1,'']]],
+  ['surfacetreeitem_2eh_41',['surfacetreeitem.h',['../a00809.html',1,'']]]
 ];

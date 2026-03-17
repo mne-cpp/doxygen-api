@@ -77,5 +77,5 @@ var searchData=
   ['tripletselection_74',['tripletSelection',['../a02893.html#ab2d6f557bdb892c2a5b50351274b1b9f',1,'MNELIB::MNEForwardSolution']]],
   ['tris_75',['tris',['../a02569.html#a5fc38cb2d21d26277ad5b15b6aa64cd9',1,'FSLIB::FsSurface']]],
   ['tstep_76',['tstep',['../a02321.html#a1e395a9874514581072d02bba77f992c',1,'SourceEstimateOverlay::tstep()'],['../a02333.html#ac7b19ae592264dec5ea887fc4817ca24',1,'SourceEstimateManager::tstep()']]],
-  ['type_77',['type',['../a02241.html#acbbbfb4e8f4ff73c347cb98af2d37942',1,'AbstractTreeItem::type()'],['../a02789.html#a2ff7893a6811b5e68284812c5ded7efe',1,'LSLLIB::stream_info::type()']]]
+  ['type_77',['type',['../a02241.html#acbbbfb4e8f4ff73c347cb98af2d37942',1,'AbstractTreeItem::type()'],['../a02789.html#ad061f8a74c1799094f7ae403c09b65c8',1,'LSLLIB::stream_info::type()']]]
 ];
