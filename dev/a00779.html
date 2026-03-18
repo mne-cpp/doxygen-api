@@ -1,0 +1,664 @@
+<!-- HTML header for doxygen 1.16.1 — MNE-CPP 2.0.0 -->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MNE-CPP: src/libraries/disp3D_rhi/core/viewstate.cpp File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="clipboard.js"></script>
+    <script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-custom.css" rel="stylesheet" type="text/css"/>
+    <!-- Doxygen Awesome Extensions -->
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+        DoxygenAwesomeTabs.init()
+        /*
+         * MNE-CPP navbar customisation
+         * 1. Creates version badge + GitHub link elements
+         * 2. Overrides Doxygen's 768px breakpoint -> 996px
+         * 3. On DESKTOP: badge + GitHub + dark-toggle live in
+         *    #searchBoxPos2 (inside #main-menu).
+         * 4. On MOBILE:  badge + GitHub + dark-toggle move to
+         *    the hamburger wrapper row (div.sm.sm-dox inside #top)
+         *    so they stay visible next to the logo even when the
+         *    hamburger menu is collapsed.
+         */
+        $(function () {
+            /* -- Create elements once -------------------------------- */
+            var gh = document.createElement('a');
+            gh.href = 'https://github.com/mne-tools/mne-cpp';
+            gh.target = '_blank';
+            gh.rel = 'noopener noreferrer';
+            gh.className = 'github-link';
+            gh.title = 'GitHub';
+            gh.innerHTML =
+                '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 ' +
+                '8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04' +
+                '-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 ' +
+                '3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 ' +
+                '1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776' +
+                '.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31' +
+                '.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 ' +
+                '1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 ' +
+                '2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 ' +
+                '1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 ' +
+                '4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 ' +
+                '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
+                '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
+            var pn = document.getElementById('projectnumber');
+            var badge = document.createElement('span');
+            badge.className = 'version-badge';
+            badge.textContent = pn ? pn.textContent.trim() : '';
+            var darkToggle = null;
+            /* -- Helpers --------------------------------------------- */
+            /* Find the hamburger wrapper: div.sm.sm-dox that is a
+               direct child of #top (contains checkbox + hamburger btn) */
+            function getHamburgerWrapper() {
+                return document.querySelector('#top > div.sm.sm-dox');
+            }
+            /* Inject badge + GitHub + dark toggle into a target container */
+            function injectInto(container) {
+                if (!container) return;
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                /* Move nodes (appendChild/insertBefore moves if already in DOM) */
+                if (badge.parentNode !== container) {
+                    /* On desktop (sp2): insert at start.
+                       On mobile (hamburger wrapper): insert before hamburger btn. */
+                    container.insertBefore(badge, container.firstChild);
+                }
+                if (gh.parentNode !== container) {
+                    container.insertBefore(gh, badge.nextSibling);
+                }
+                if (darkToggle && darkToggle.parentNode !== container) {
+                    container.insertBefore(darkToggle, gh.nextSibling);
+                }
+            }
+            /* -- Breakpoint override: 768px -> 996px ----------------- */
+            var MNE_BP = 997;
+            var prevW = 0;
+            function mneResetNav() {
+                var w = $(window).outerWidth();
+                if (w === prevW) return;
+                prevW = w;
+                var $menu = $('#main-menu');
+                var $state = $('#main-menu-state');
+                /* Grab dark toggle before anything is emptied */
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                if (darkToggle && darkToggle.parentNode) {
+                    darkToggle.parentNode.removeChild(darkToggle);
+                }
+                if (w < MNE_BP) {
+                    /* -- MOBILE -- */
+                    if (!$state.prop('checked')) {
+                        $menu.hide();
+                    }
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in the
+                       hamburger wrapper (always visible in #top) */
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    /* -- DESKTOP -- */
+                    $menu.css('display', 'flex');
+                    $state.prop('checked', false);
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in searchBoxPos2 */
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                if (typeof searchBox !== 'undefined') {
+                    searchBox.CloseResultsWindow();
+                }
+            }
+            /* Run after Doxygen's own initMenu has finished */
+            setTimeout(function () {
+                /* Initial inject for whatever size we start at */
+                var w = $(window).outerWidth();
+                if (w < MNE_BP) {
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                $(window).on('resize', mneResetNav);
+                mneResetNav();
+            }, 150);
+        });
+    </script>
+</head>
+<body>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div id="titlearea">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr id="projectrow">
+                            <td id="projectlogo"><a href="https://mne-cpp.github.io/">
+                                    <img alt="Logo" class="logo-light" src="MNE-CPP_Logo.svg"  />
+                                    <img alt="Logo" class="logo-dark" src="MNE-CPP_Logo_Dark.svg"  />
+                                </a></td>
+                            <td id="projectalign">
+                                <div id="projectname"><span
+                                        id="projectnumber">v2.0.0</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_ceb91b0558e305478f9a6f250cbf6c42.html">disp3D_rhi</a></li><li class="navelem"><a href="dir_095569f40fb99858bc2e88fca72854eb.html">core</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">viewstate.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>ViewState implementations — per-view data structures and helpers.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="a00773_source.html">viewstate.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00716_source.html">renderable/brainsurface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00758_source.html">view/brainrenderer.h</a>&quot;</code><br />
+<code>#include &lt;QSettings&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for viewstate.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00780.png" border="0" usemap="#asrc_2libraries_2disp3_d__rhi_2core_2viewstate_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d__rhi_2core_2viewstate_8cpp" id="asrc_2libraries_2disp3_d__rhi_2core_2viewstate_8cpp">
+<area shape="rect" title="ViewState implementations — per&#45;view data structures and helpers." alt="" coords="1127,5,1301,45"/>
+<area shape="rect" href="a00773.html" title="ViewState declarations — per&#45;view data structures and conversion helpers." alt="" coords="319,167,418,192"/>
+<area shape="poly" title=" " alt="" coords="1127,45,432,169,431,164,1127,40"/>
+<area shape="rect" href="a00716.html" title="BrainSurface class declaration." alt="" coords="947,93,1137,119"/>
+<area shape="poly" title=" " alt="" coords="1174,48,1081,90,1078,85,1172,43"/>
+<area shape="rect" href="a00758.html" title="BrainRenderer class declaration." alt="" coords="2096,167,2252,192"/>
+<area shape="poly" title=" " alt="" coords="1205,46,1193,83,1193,101,1201,117,1220,128,1253,138,1351,152,1481,160,1627,163,1908,163,2077,164,2083,165,2082,170,2076,169,1908,168,1627,169,1481,165,1351,158,1252,143,1218,133,1197,120,1188,103,1188,82,1200,45"/>
+<area shape="rect" title=" " alt="" coords="1211,93,1297,119"/>
+<area shape="poly" title=" " alt="" coords="1226,44,1244,80,1239,82,1221,47"/>
+<area shape="rect" title=" " alt="" coords="1321,93,1384,119"/>
+<area shape="poly" title=" " alt="" coords="1248,43,1321,84,1319,89,1246,48"/>
+<area shape="rect" title=" " alt="" coords="1409,93,1467,119"/>
+<area shape="poly" title=" " alt="" coords="1268,43,1396,87,1394,92,1267,48"/>
+<area shape="rect" href="a00632.html" title="disp3D_rhi library export/import macros." alt="" coords="1947,313,2110,339"/>
+<area shape="poly" title=" " alt="" coords="396,190,507,238,535,252,564,263,678,282,822,294,985,301,1158,305,1496,307,1758,311,1933,318,1933,323,1758,316,1496,312,1158,310,985,307,822,299,678,287,563,268,533,257,505,242,394,195"/>
+<area shape="rect" href="a00782.html" title="Lightweight render&#45;related enums shared across the disp3D_rhi library." alt="" coords="1973,240,2085,265"/>
+<area shape="poly" title=" " alt="" coords="418,180,1959,246,1959,251,418,185"/>
+<area shape="rect" title=" " alt="" coords="295,607,365,632"/>
+<area shape="poly" title=" " alt="" coords="319,185,244,189,158,199,81,216,53,228,34,242,18,267,10,293,9,319,14,345,26,371,42,397,86,448,140,496,198,537,297,598,294,602,195,542,137,500,82,452,38,400,21,374,9,346,3,319,5,292,13,265,31,238,50,223,80,211,157,193,243,184,319,179"/>
+<area shape="rect" title=" " alt="" coords="45,240,105,265"/>
+<area shape="poly" title=" " alt="" coords="320,195,119,243,118,237,318,189"/>
+<area shape="rect" title=" " alt="" coords="130,240,234,265"/>
+<area shape="poly" title=" " alt="" coords="339,195,226,237,224,233,338,190"/>
+<area shape="rect" title=" " alt="" coords="258,240,349,265"/>
+<area shape="poly" title=" " alt="" coords="360,194,325,232,321,228,356,191"/>
+<area shape="rect" title=" " alt="" coords="700,680,779,705"/>
+<area shape="poly" title=" " alt="" coords="371,193,370,226,363,266,339,325,307,376,238,464,213,504,205,524,200,544,200,564,206,585,217,607,234,630,256,641,299,652,424,668,568,680,686,686,686,692,567,685,424,674,298,657,255,646,231,634,212,610,201,587,195,565,195,543,200,523,208,502,234,461,303,373,335,322,358,265,365,225,366,192"/>
+<area shape="rect" title=" " alt="" coords="575,240,642,265"/>
+<area shape="poly" title=" " alt="" coords="408,189,563,235,561,240,406,195"/>
+<area shape="rect" title=" " alt="" coords="717,240,802,265"/>
+<area shape="poly" title=" " alt="" coords="418,187,703,238,702,244,418,192"/>
+<area shape="rect" title=" " alt="" coords="978,460,1055,485"/>
+<area shape="poly" title=" " alt="" coords="386,190,439,224,507,263,636,323,766,377,971,453,969,458,765,382,634,328,505,268,436,229,383,194"/>
+<area shape="rect" title=" " alt="" coords="1106,827,1237,852"/>
+<area shape="poly" title=" " alt="" coords="2077,336,2155,358,2242,389,2281,408,2313,427,2335,449,2343,471,2343,695,2332,702,2305,709,2207,726,1894,766,1250,833,1250,828,1894,760,2207,721,2304,704,2330,697,2338,693,2338,472,2331,451,2310,432,2279,412,2240,394,2153,363,2075,341"/>
+<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="1309,827,1431,852"/>
+<area shape="poly" title=" " alt="" coords="2111,335,2262,358,2326,372,2361,384,2379,404,2389,423,2393,444,2394,471,2394,694,2393,721,2390,743,2380,763,2361,781,2340,791,2308,799,2217,813,2096,824,1957,831,1670,839,1445,841,1445,835,1670,834,1957,826,2095,818,2216,808,2307,794,2338,786,2358,776,2376,759,2385,742,2388,721,2389,694,2389,471,2388,445,2384,424,2375,407,2358,389,2324,377,2261,364,2110,340"/>
+<area shape="rect" title=" " alt="" coords="1337,900,1403,925"/>
+<area shape="poly" title=" " alt="" coords="1373,852,1373,886,1367,886,1367,852"/>
+<area shape="poly" title=" " alt="" coords="2031,266,2031,300,2026,300,2026,266"/>
+<area shape="rect" title=" " alt="" coords="2134,313,2201,339"/>
+<area shape="poly" title=" " alt="" coords="2052,263,2134,305,2131,309,2050,268"/>
+<area shape="poly" title=" " alt="" coords="1137,114,1319,133,1542,161,1753,197,1839,217,1904,238,1961,269,2007,302,2004,307,1958,273,1902,242,1838,222,1752,202,1541,167,1319,138,1137,119"/>
+<area shape="poly" title=" " alt="" coords="1137,113,1183,116,1354,118,1575,116,1688,119,1793,126,1884,141,1923,151,1955,164,1975,177,1992,193,2017,226,2013,229,1988,196,1971,181,1953,169,1921,156,1883,146,1792,132,1687,124,1575,122,1354,123,1183,121,1137,118"/>
+<area shape="poly" title=" " alt="" coords="1004,121,862,169,804,194,656,241,654,236,802,190,860,164,1002,116"/>
+<area shape="poly" title=" " alt="" coords="1045,119,1045,251,1045,327,1038,393,1026,448,1021,446,1033,392,1039,327,1039,251,1039,119"/>
+<area shape="rect" title=" " alt="" coords="717,167,791,192"/>
+<area shape="poly" title=" " alt="" coords="996,121,805,168,803,163,995,116"/>
+<area shape="rect" title=" " alt="" coords="2109,240,2199,265"/>
+<area shape="poly" title=" " alt="" coords="1137,113,1183,116,1360,122,1587,127,1814,139,1911,149,1988,164,2027,178,2065,195,2127,230,2125,235,2063,200,2025,183,1987,169,1910,154,1814,144,1587,132,1360,128,1183,121,1137,118"/>
+<area shape="rect" title=" " alt="" coords="1683,313,1745,339"/>
+<area shape="poly" title=" " alt="" coords="1137,112,1327,133,1417,148,1481,164,1545,195,1605,232,1693,302,1689,306,1602,237,1543,199,1480,169,1416,153,1327,138,1137,118"/>
+<area shape="rect" href="a01430.html" title="FsSurface class declaration." alt="" coords="634,533,751,559"/>
+<area shape="poly" title=" " alt="" coords="1033,121,927,242,802,401,712,523,707,520,797,398,922,238,1029,117"/>
+<area shape="rect" title=" " alt="" coords="860,680,952,705"/>
+<area shape="poly" title=" " alt="" coords="948,115,818,132,748,148,680,169,596,205,527,242,469,283,422,330,382,384,347,447,316,521,284,608,280,620,284,630,294,637,313,643,370,654,530,667,791,677,846,683,846,688,791,683,530,672,369,659,312,648,292,642,280,634,275,620,279,606,311,519,343,445,378,381,418,326,466,279,524,238,594,200,678,164,747,143,817,127,947,110"/>
+<area shape="rect" href="a01457.html" title="FsAnnotation class declaration." alt="" coords="417,460,555,485"/>
+<area shape="poly" title=" " alt="" coords="947,116,878,123,808,134,747,149,724,158,708,169,691,187,684,205,682,251,682,328,678,353,668,375,653,395,634,412,589,439,543,458,541,453,586,435,630,408,649,391,664,372,673,351,677,327,677,251,679,203,687,184,704,165,722,153,745,144,807,128,877,118,947,111"/>
+<area shape="rect" href="a01277.html" title="MNEBem class declaration." alt="" coords="1336,167,1468,192"/>
+<area shape="poly" title=" " alt="" coords="1100,116,1331,161,1330,167,1099,121"/>
+<area shape="rect" href="a01424.html" title="Fs library export/import macros." alt="" coords="597,607,690,632"/>
+<area shape="poly" title=" " alt="" coords="687,561,661,597,657,594,682,557"/>
+<area shape="rect" title=" " alt="" coords="1119,607,1242,632"/>
+<area shape="poly" title=" " alt="" coords="752,553,770,556,1106,605,1105,610,769,561,751,559"/>
+<area shape="poly" title=" " alt="" coords="709,557,811,630,876,671,874,675,808,634,706,561"/>
+<area shape="poly" title=" " alt="" coords="649,631,663,667,675,687,690,703,737,736,788,762,842,783,897,800,1003,822,1093,832,1092,838,1002,827,896,805,840,789,786,767,734,740,687,707,670,690,658,670,644,633"/>
+<area shape="poly" title=" " alt="" coords="674,630,792,678,849,703,972,741,1096,775,1300,821,1299,827,1094,780,971,746,848,708,790,682,672,635"/>
+<area shape="poly" title=" " alt="" coords="460,488,423,508,386,535,362,565,344,595,339,593,358,562,383,531,420,503,458,483"/>
+<area shape="poly" title=" " alt="" coords="483,486,474,521,475,540,481,557,502,578,527,593,555,604,583,610,582,616,554,609,525,598,498,582,477,560,469,541,469,520,478,485"/>
+<area shape="poly" title=" " alt="" coords="542,483,1113,601,1112,606,540,488"/>
+<area shape="poly" title=" " alt="" coords="481,487,466,520,463,539,468,558,491,588,516,605,585,629,635,643,704,657,847,680,846,686,703,663,633,649,584,635,514,610,487,592,463,560,458,540,461,519,476,485"/>
+<area shape="rect" href="a01433.html" title="FsColortable class declaration." alt="" coords="492,533,611,559"/>
+<area shape="poly" title=" " alt="" coords="499,484,533,521,529,525,495,487"/>
+<area shape="poly" title=" " alt="" coords="516,561,379,605,377,600,515,556"/>
+<area shape="poly" title=" " alt="" coords="568,557,619,596,616,600,564,561"/>
+<area shape="poly" title=" " alt="" coords="611,554,622,556,888,587,1105,609,1105,614,887,593,622,561,610,560"/>
+<area shape="poly" title=" " alt="" coords="582,556,703,604,868,672,865,677,701,609,580,561"/>
+<area shape="rect" title=" " alt="" coords="1746,680,1839,705"/>
+<area shape="poly" title=" " alt="" coords="611,554,622,556,864,596,1108,629,1281,645,1418,651,1556,659,1733,677,1732,683,1556,664,1418,657,1281,650,1107,635,864,601,621,561,610,560"/>
+<area shape="poly" title=" " alt="" coords="1336,191,816,248,815,242,1335,185"/>
+<area shape="poly" title=" " alt="" coords="1428,190,1678,305,1676,310,1426,195"/>
+<area shape="poly" title=" " alt="" coords="1336,188,1149,209,1057,224,992,243,954,258,922,272,910,280,900,291,895,306,893,325,893,400,899,440,916,475,943,506,975,533,1012,555,1050,574,1122,600,1120,605,1048,579,1010,560,972,537,939,510,912,478,894,442,887,401,887,325,889,305,896,289,906,276,919,267,952,253,990,237,1056,219,1148,203,1336,183"/>
+<area shape="rect" href="a01142.html" title="mne library export/import macros." alt="" coords="1131,460,1241,485"/>
+<area shape="poly" title=" " alt="" coords="1380,194,1347,214,1315,242,1287,281,1255,338,1199,449,1195,447,1250,336,1283,278,1311,238,1344,210,1377,190"/>
+<area shape="rect" href="a01352.html" title="MNEBemSurface class declaration." alt="" coords="1325,240,1479,265"/>
+<area shape="poly" title=" " alt="" coords="1405,192,1405,226,1399,226,1399,192"/>
+<area shape="rect" href="a00596.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="1529,607,1643,632"/>
+<area shape="poly" title=" " alt="" coords="1336,190,1221,206,1091,233,1033,252,986,273,954,298,946,311,943,325,943,401,945,447,952,465,968,483,1008,509,1066,532,1137,551,1216,568,1379,594,1515,609,1514,614,1379,599,1215,573,1136,557,1064,537,1005,514,964,487,947,468,940,448,938,401,938,324,941,309,950,294,983,268,1031,247,1090,228,1220,201,1335,185"/>
+<area shape="rect" title=" " alt="" coords="2119,680,2173,705"/>
+<area shape="poly" title=" " alt="" coords="1469,182,1604,200,1681,215,1757,237,1810,261,1848,286,1885,311,1936,336,1987,353,2027,361,2069,368,2120,384,2150,393,2180,398,2235,406,2258,413,2276,425,2288,444,2293,471,2293,548,2290,570,2282,591,2255,627,2220,655,2185,676,2182,672,2217,651,2251,623,2277,588,2284,568,2287,547,2287,472,2283,446,2272,428,2256,418,2234,411,2179,403,2149,398,2118,389,2067,374,2026,366,1985,358,1934,341,1882,316,1845,290,1807,266,1756,243,1680,221,1603,205,1468,188"/>
+<area shape="rect" href="a00464.html" title="FIFF class declaration, which provides static wrapper functions to stay consistent with mne matlab to..." alt="" coords="1535,313,1607,339"/>
+<area shape="poly" title=" " alt="" coords="1423,190,1457,211,1493,238,1527,270,1555,301,1551,304,1523,274,1489,242,1454,215,1421,194"/>
+<area shape="rect" href="a00530.html" title="FiffDirNode class declaration, which provides fiff dir tree processing methods." alt="" coords="1581,460,1695,485"/>
+<area shape="poly" title=" " alt="" coords="1468,181,1540,191,1621,213,1661,230,1699,252,1732,279,1760,312,1769,333,1768,354,1760,374,1747,393,1710,428,1672,455,1669,451,1707,424,1743,390,1756,371,1763,353,1764,334,1756,315,1729,283,1696,256,1659,235,1619,218,1539,196,1468,186"/>
+<area shape="rect" title=" " alt="" coords="2042,460,2133,485"/>
+<area shape="poly" title=" " alt="" coords="1469,184,1584,203,1649,218,1712,238,1763,261,1800,285,1836,310,1886,336,1929,349,1966,354,2002,362,2021,371,2041,385,2066,414,2081,446,2077,448,2061,417,2037,389,2018,375,2000,367,1965,359,1928,355,1884,341,1833,315,1797,290,1761,266,1710,242,1647,223,1583,208,1468,190"/>
+<area shape="poly" title=" " alt="" coords="1178,487,1142,537,1124,571,1110,607,1105,636,1105,665,1117,723,1138,774,1159,813,1154,816,1133,776,1112,724,1100,666,1100,636,1105,606,1119,569,1138,534,1174,484"/>
+<area shape="poly" title=" " alt="" coords="1194,484,1256,605,1360,813,1356,815,1251,608,1189,487"/>
+<area shape="poly" title=" " alt="" coords="1453,263,1670,312,1668,317,1451,268"/>
+<area shape="poly" title=" " alt="" coords="1359,268,1279,293,1176,333,1122,359,1067,389,1015,424,968,462,931,495,917,511,904,534,894,569,893,607,893,632,900,666,895,667,887,632,887,607,889,568,899,532,913,508,927,491,964,458,1012,419,1065,385,1119,354,1174,328,1277,288,1357,263"/>
+<area shape="poly" title=" " alt="" coords="1380,268,1347,288,1314,315,1296,340,1285,363,1275,387,1257,414,1215,454,1211,450,1253,410,1271,384,1281,361,1291,337,1311,312,1344,283,1377,263"/>
+<area shape="rect" href="a01223.html" title="MNESurface class declaration." alt="" coords="1080,387,1199,412"/>
+<area shape="poly" title=" " alt="" coords="1374,268,1324,289,1270,316,1215,349,1168,381,1165,376,1212,344,1267,311,1322,284,1372,263"/>
+<area shape="poly" title=" " alt="" coords="1423,263,1451,284,1475,312,1486,338,1489,361,1490,384,1495,411,1523,486,1558,557,1576,593,1571,596,1553,560,1518,488,1490,413,1484,384,1483,361,1481,340,1470,315,1447,287,1420,268"/>
+<area shape="poly" title=" " alt="" coords="1455,263,1533,283,1620,311,1646,324,1672,336,1733,349,1787,353,1883,347,1928,344,1976,347,2027,359,2084,384,2108,399,2124,414,2136,433,2147,459,2160,516,2163,574,2160,626,2154,667,2148,666,2154,626,2158,574,2155,517,2142,461,2132,436,2120,418,2105,403,2082,389,2025,364,1975,352,1928,349,1883,352,1787,358,1733,355,1670,341,1644,329,1618,316,1532,288,1453,268"/>
+<area shape="poly" title=" " alt="" coords="1430,263,1532,305,1530,310,1428,268"/>
+<area shape="rect" title=" " alt="" coords="1325,313,1461,339"/>
+<area shape="poly" title=" " alt="" coords="1403,266,1398,300,1393,299,1398,265"/>
+<area shape="poly" title=" " alt="" coords="1121,414,1050,455,1047,451,1118,410"/>
+<area shape="poly" title=" " alt="" coords="1134,414,1109,450,1090,470,1069,488,1048,499,1027,504,990,507,956,512,940,520,924,535,907,566,900,601,900,636,903,666,898,667,894,637,895,601,902,564,920,532,937,516,954,507,989,501,1026,499,1046,494,1066,483,1086,466,1104,446,1130,411"/>
+<area shape="poly" title=" " alt="" coords="1149,411,1173,447,1169,450,1145,414"/>
+<area shape="poly" title=" " alt="" coords="1529,627,1237,650,849,683,793,688,792,683,848,677,1237,644,1528,622"/>
+<area shape="poly" title=" " alt="" coords="1529,629,966,688,966,682,1528,624"/>
+<area shape="poly" title=" " alt="" coords="1620,629,1747,673,1745,678,1618,635"/>
+<area shape="rect" href="a00473.html" title="Fiff constants." alt="" coords="1973,680,2095,705"/>
+<area shape="poly" title=" " alt="" coords="1644,627,1960,677,1959,682,1643,632"/>
+<area shape="rect" href="a00584.html" title="FiffTime class declaration." alt="" coords="1418,680,1506,705"/>
+<area shape="poly" title=" " alt="" coords="1567,634,1495,675,1493,671,1565,630"/>
+<area shape="rect" href="a00470.html" title="FiffDataRef class declaration." alt="" coords="1531,680,1641,705"/>
+<area shape="poly" title=" " alt="" coords="1589,632,1589,666,1583,666,1583,632"/>
+<area shape="poly" title=" " alt="" coords="1644,621,1844,639,1973,655,2105,677,2104,682,1972,660,1844,644,1643,627"/>
+<area shape="rect" title=" " alt="" coords="1666,680,1722,705"/>
+<area shape="poly" title=" " alt="" coords="1605,630,1666,670,1663,675,1602,634"/>
+<area shape="rect" href="a00458.html" title="Fiff library export/import macros." alt="" coords="1413,753,1511,779"/>
+<area shape="poly" title=" " alt="" coords="1465,706,1465,740,1459,740,1459,706"/>
+<area shape="poly" title=" " alt="" coords="1416,781,1232,826,1231,821,1415,776"/>
+<area shape="poly" title=" " alt="" coords="1449,781,1397,820,1394,816,1445,777"/>
+<area shape="poly" title=" " alt="" coords="1567,708,1495,749,1493,744,1565,703"/>
+<area shape="poly" title=" " alt="" coords="1547,341,1439,392,1299,462,1255,488,1185,521,1130,544,1076,570,1010,609,967,641,930,672,927,668,963,637,1007,604,1073,565,1128,539,1183,516,1253,483,1297,458,1436,388,1545,336"/>
+<area shape="poly" title=" " alt="" coords="1608,333,1673,353,1743,384,1793,414,1811,432,1828,459,1848,505,1856,544,1853,585,1839,633,1829,654,1816,671,1812,668,1824,651,1834,631,1847,584,1851,544,1843,506,1824,461,1807,435,1790,418,1741,389,1671,358,1606,338"/>
+<area shape="poly" title=" " alt="" coords="1602,336,1678,371,1722,395,1763,423,1798,454,1820,488,1826,505,1826,524,1822,542,1811,560,1786,578,1748,592,1657,611,1656,606,1747,587,1784,573,1807,557,1817,540,1821,523,1821,506,1815,490,1794,457,1760,427,1719,399,1675,375,1600,341"/>
+<area shape="poly" title=" " alt="" coords="1608,332,1704,356,1750,370,1783,384,1827,415,1867,451,1904,490,1937,531,1990,608,2024,666,2019,669,1985,611,1933,534,1900,494,1863,455,1823,419,1781,389,1749,375,1702,361,1607,338"/>
+<area shape="poly" title=" " alt="" coords="1608,333,1626,336,1689,344,1743,347,1836,346,1881,348,1928,353,1980,364,2040,384,2093,409,2140,442,2180,480,2209,522,2227,568,2231,615,2227,639,2218,662,2205,685,2188,707,2174,716,2152,724,2088,737,2002,747,1902,755,1693,764,1525,767,1525,762,1693,758,1902,750,2001,742,2087,732,2151,719,2172,712,2184,703,2201,682,2213,660,2221,637,2225,615,2222,569,2204,525,2176,483,2137,446,2090,414,2038,389,1979,370,1927,358,1880,353,1836,352,1743,352,1689,349,1625,341,1607,338"/>
+<area shape="poly" title=" " alt="" coords="1608,332,1730,360,1819,384,1872,415,1922,452,2012,532,2084,609,2131,667,2127,671,2080,613,2008,536,1918,456,1869,420,1817,389,1729,365,1607,338"/>
+<area shape="rect" href="a00602.html" title="FiffCoordTrans class declaration." alt="" coords="1504,387,1639,412"/>
+<area shape="poly" title=" " alt="" coords="1574,339,1574,373,1569,373,1569,339"/>
+<area shape="poly" title=" " alt="" coords="1599,336,1629,356,1643,369,1654,386,1658,401,1659,418,1652,448,1647,447,1653,417,1653,402,1649,388,1639,373,1625,360,1596,341"/>
+<area shape="rect" href="a00494.html" title="FiffDirEntry class declaration." alt="" coords="1682,533,1797,559"/>
+<area shape="poly" title=" " alt="" coords="1601,336,1638,356,1673,385,1697,418,1715,454,1737,519,1731,521,1711,456,1693,420,1669,389,1635,361,1598,341"/>
+<area shape="poly" title=" " alt="" coords="1608,333,1626,336,1684,343,1734,345,1821,342,1862,343,1905,349,1952,362,2006,384,2027,397,2045,413,2074,447,2070,450,2041,417,2023,402,2003,389,1951,367,1904,354,1862,348,1821,347,1734,350,1684,348,1625,341,1607,338"/>
+<area shape="poly" title=" " alt="" coords="1504,412,1069,467,1069,462,1503,407"/>
+<area shape="poly" title=" " alt="" coords="1542,415,1227,535,1205,564,1191,595,1186,593,1201,561,1224,531,1540,410"/>
+<area shape="poly" title=" " alt="" coords="1517,415,1437,434,1350,462,1299,488,1200,536,939,676,937,671,1198,531,1297,483,1348,458,1435,429,1516,409"/>
+<area shape="poly" title=" " alt="" coords="1572,413,1564,475,1563,517,1567,558,1578,593,1573,595,1562,559,1558,517,1559,475,1566,412"/>
+<area shape="poly" title=" " alt="" coords="1562,414,1525,454,1477,516,1430,594,1412,637,1399,681,1397,693,1399,704,1413,726,1432,743,1429,747,1409,729,1394,706,1391,693,1394,679,1407,635,1426,592,1473,513,1521,451,1558,410"/>
+<area shape="poly" title=" " alt="" coords="1584,411,1620,448,1616,452,1580,414"/>
+<area shape="poly" title=" " alt="" coords="1639,407,2029,461,2028,466,1638,413"/>
+<area shape="poly" title=" " alt="" coords="1581,487,1485,507,1379,536,1291,569,1217,603,1215,598,1289,565,1377,531,1484,502,1580,481"/>
+<area shape="poly" title=" " alt="" coords="1696,475,1727,481,1758,492,1787,508,1811,532,1820,548,1824,566,1825,603,1817,639,1807,668,1802,666,1812,637,1820,602,1819,567,1815,550,1806,535,1784,512,1756,497,1725,486,1695,480"/>
+<area shape="poly" title=" " alt="" coords="1621,488,1597,507,1578,534,1574,549,1573,564,1579,593,1574,594,1568,564,1569,548,1573,532,1593,504,1617,483"/>
+<area shape="poly" title=" " alt="" coords="1695,483,1763,502,1834,531,1888,564,1938,601,2014,668,2011,672,1935,605,1885,568,1831,536,1761,507,1694,488"/>
+<area shape="poly" title=" " alt="" coords="1616,488,1569,515,1510,558,1452,614,1427,646,1408,681,1406,697,1411,714,1436,743,1432,746,1407,716,1401,698,1403,679,1423,643,1448,610,1506,554,1566,511,1614,483"/>
+<area shape="poly" title=" " alt="" coords="1696,481,1781,501,1874,531,1945,564,2014,602,2119,669,2116,674,2012,607,1943,569,1872,536,1779,506,1695,486"/>
+<area shape="poly" title=" " alt="" coords="1656,483,1713,523,1710,527,1653,488"/>
+<area shape="rect" href="a00545.html" title="FiffId class declaration." alt="" coords="1587,533,1657,559"/>
+<area shape="poly" title=" " alt="" coords="1638,486,1630,521,1625,520,1633,485"/>
+<area shape="poly" title=" " alt="" coords="1682,560,1670,561,1444,591,1256,613,1255,607,1444,585,1670,556,1681,554"/>
+<area shape="poly" title=" " alt="" coords="1716,561,1624,603,1622,598,1713,556"/>
+<area shape="poly" title=" " alt="" coords="1769,556,1806,576,1841,605,1865,630,1883,654,1890,680,1886,693,1877,707,1853,725,1817,739,1773,749,1723,757,1617,766,1525,768,1525,763,1617,760,1722,752,1772,744,1816,734,1850,720,1873,703,1881,691,1884,680,1878,657,1860,633,1837,609,1803,581,1766,561"/>
+<area shape="poly" title=" " alt="" coords="1587,556,1256,609,1255,603,1586,550"/>
+<area shape="poly" title=" " alt="" coords="1618,560,1600,596,1596,593,1614,558"/>
+<area shape="poly" title=" " alt="" coords="1658,553,1731,575,1771,590,1809,608,1840,629,1861,652,1866,665,1867,679,1863,693,1853,707,1831,724,1797,737,1710,755,1612,764,1525,767,1525,762,1612,759,1709,750,1796,732,1828,719,1849,703,1858,691,1862,678,1861,666,1857,655,1837,633,1806,613,1769,595,1729,580,1657,558"/>
+<area shape="poly" title=" " alt="" coords="2188,191,2202,206,2214,225,2219,247,2213,267,2196,281,2169,293,2101,313,2100,308,2167,288,2193,276,2209,264,2214,246,2209,228,2197,209,2184,194"/>
+<area shape="poly" title=" " alt="" coords="2152,194,2065,236,2063,232,2149,190"/>
+<area shape="poly" title=" " alt="" coords="2193,190,2216,211,2235,239,2238,267,2232,299,2215,340,2174,369,2124,392,2065,410,1999,425,1850,444,1688,453,1367,456,1229,457,1119,463,1069,468,1069,463,1119,457,1228,452,1367,451,1688,448,1850,439,1998,419,2063,405,2122,387,2171,364,2210,337,2227,297,2233,267,2230,241,2212,214,2189,194"/>
+<area shape="poly" title=" " alt="" coords="2173,193,2163,228,2158,226,2168,192"/>
+<area shape="rect" title=" " alt="" coords="2325,240,2423,265"/>
+<area shape="poly" title=" " alt="" coords="2207,190,2329,233,2327,238,2205,195"/>
+</map>
+</div>
+</div>
+<p><a href="a00779_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad4a9ee775f380f1e92dfc3deb7cdf902" id="r_ad4a9ee775f380f1e92dfc3deb7cdf902"><td class="memItemLeft">QQuaternion&#160;</td><td class="memItemRight"><a class="el" href="#ad4a9ee775f380f1e92dfc3deb7cdf902">perspectivePresetRotation</a> ()</td></tr>
+<tr class="memitem:ad96b3b9e21719469e4abbca957897481" id="r_ad96b3b9e21719469e4abbca957897481"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#ad96b3b9e21719469e4abbca957897481">multiViewPresetName</a> (int preset)</td></tr>
+<tr class="memitem:a2320a51f693ae69633e78579dd478239" id="r_a2320a51f693ae69633e78579dd478239"><td class="memItemLeft">QQuaternion&#160;</td><td class="memItemRight"><a class="el" href="#a2320a51f693ae69633e78579dd478239">multiViewPresetOffset</a> (int preset)</td></tr>
+<tr class="memitem:a4812d1153e296f994021013b6f64ca18" id="r_a4812d1153e296f994021013b6f64ca18"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4812d1153e296f994021013b6f64ca18">multiViewPresetIsPerspective</a> (int preset)</td></tr>
+<tr class="memitem:ad3aa85cdf80b1dd0c88d3c395555e3df" id="r_ad3aa85cdf80b1dd0c88d3c395555e3df"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ad3aa85cdf80b1dd0c88d3c395555e3df">normalizedVisualizationTarget</a> (int target, int maxIndex)</td></tr>
+<tr class="memitem:aaeb08d03d4e115efa79cb25d3b2e8a43" id="r_aaeb08d03d4e115efa79cb25d3b2e8a43"><td class="memItemLeft"><a class="el" href="a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612c">ShaderMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#aaeb08d03d4e115efa79cb25d3b2e8a43">shaderModeFromName</a> (const QString &amp;name)</td></tr>
+<tr class="memitem:a4259f460e27bd16cb8268e4dd715cc4c" id="r_a4259f460e27bd16cb8268e4dd715cc4c"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a4259f460e27bd16cb8268e4dd715cc4c">shaderModeName</a> (<a class="el" href="a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612c">ShaderMode</a> mode)</td></tr>
+<tr class="memitem:a43d88a3d83ded247f4aba23a7f09b60a" id="r_a43d88a3d83ded247f4aba23a7f09b60a"><td class="memItemLeft"><a class="el" href="a00782.html#acde6478628a967ffbc4bf2604d954cf8">VisualizationMode</a>&#160;</td><td class="memItemRight"><a class="el" href="#a43d88a3d83ded247f4aba23a7f09b60a">visualizationModeFromName</a> (const QString &amp;name)</td></tr>
+<tr class="memitem:a45a9a8f45cec27d2205ae5e729866f75" id="r_a45a9a8f45cec27d2205ae5e729866f75"><td class="memItemLeft">QString&#160;</td><td class="memItemRight"><a class="el" href="#a45a9a8f45cec27d2205ae5e729866f75">visualizationModeName</a> (<a class="el" href="a00782.html#acde6478628a967ffbc4bf2604d954cf8">VisualizationMode</a> mode)</td></tr>
+<tr class="memitem:aae62cdb5282c44de78f2ad0c6312f4ec" id="r_aae62cdb5282c44de78f2ad0c6312f4ec"><td class="memItemLeft">QRgb&#160;</td><td class="memItemRight"><a class="el" href="#aae62cdb5282c44de78f2ad0c6312f4ec">mneAnalyzeColor</a> (double v)</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>ViewState implementations — per-view data structures and helpers. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
+LICENSE</h1>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<p class="definition">Definition in file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aae62cdb5282c44de78f2ad0c6312f4ec" name="aae62cdb5282c44de78f2ad0c6312f4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae62cdb5282c44de78f2ad0c6312f4ec">&#9670;&#160;</a></span>mneAnalyzeColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QRgb mneAnalyzeColor </td>
+          <td>(</td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>MNE analyze colormap: teal → blue → gray → red → yellow.</p>
+<p>Port of mne_analyze_colormap(format='vtk') from MNE-Python. Input v is normalised to [0,1] where 0.5 corresponds to zero field.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>Normalised value in [0,1]. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Packed QRgb colour. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00361">361</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4812d1153e296f994021013b6f64ca18" name="a4812d1153e296f994021013b6f64ca18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4812d1153e296f994021013b6f64ca18">&#9670;&#160;</a></span>multiViewPresetIsPerspective()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool multiViewPresetIsPerspective </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>preset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Whether a preset is a perspective (free-rotate) camera rather than an orthographic-style fixed camera. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00284">284</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad96b3b9e21719469e4abbca957897481" name="ad96b3b9e21719469e4abbca957897481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad96b3b9e21719469e4abbca957897481">&#9670;&#160;</a></span>multiViewPresetName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString multiViewPresetName </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>preset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Human-readable name for a multi-view preset index (0–6). </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00238">238</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2320a51f693ae69633e78579dd478239" name="a2320a51f693ae69633e78579dd478239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2320a51f693ae69633e78579dd478239">&#9670;&#160;</a></span>multiViewPresetOffset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QQuaternion multiViewPresetOffset </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>preset</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Camera rotation quaternion for a multi-view preset index (0–6). </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00254">254</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad3aa85cdf80b1dd0c88d3c395555e3df" name="ad3aa85cdf80b1dd0c88d3c395555e3df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3aa85cdf80b1dd0c88d3c395555e3df">&#9670;&#160;</a></span>normalizedVisualizationTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int normalizedVisualizationTarget </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>target</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>maxIndex</em></span><span class="paramdefsep"> = </span><span class="paramdefval">3</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Clamp a visualization target index to [-1, maxIndex].</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">target</td><td>Raw target index (-1 = single view, 0+ = multi pane). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">maxIndex</td><td>Upper bound (inclusive). Defaults to 3 for backwards compatibility, but callers should pass viewportCount-1. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00314">314</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4a9ee775f380f1e92dfc3deb7cdf902" name="ad4a9ee775f380f1e92dfc3deb7cdf902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4a9ee775f380f1e92dfc3deb7cdf902">&#9670;&#160;</a></span>perspectivePresetRotation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QQuaternion perspectivePresetRotation </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default perspective rotation quaternion used for the "Perspective" camera. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00231">231</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaeb08d03d4e115efa79cb25d3b2e8a43" name="aaeb08d03d4e115efa79cb25d3b2e8a43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeb08d03d4e115efa79cb25d3b2e8a43">&#9670;&#160;</a></span>shaderModeFromName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612c">ShaderMode</a> shaderModeFromName </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Convert a shader name ("Standard", "Holographic", "Anatomical") to enum. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00321">321</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4259f460e27bd16cb8268e4dd715cc4c" name="a4259f460e27bd16cb8268e4dd715cc4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4259f460e27bd16cb8268e4dd715cc4c">&#9670;&#160;</a></span>shaderModeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString shaderModeName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612c">ShaderMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Convert a <a class="el" href="a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612c">ShaderMode</a> enum to display string. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00330">330</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a43d88a3d83ded247f4aba23a7f09b60a" name="a43d88a3d83ded247f4aba23a7f09b60a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43d88a3d83ded247f4aba23a7f09b60a">&#9670;&#160;</a></span>visualizationModeFromName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00782.html#acde6478628a967ffbc4bf2604d954cf8">VisualizationMode</a> visualizationModeFromName </td>
+          <td>(</td>
+          <td class="paramtype">const QString &amp;</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Convert a visualization mode name to enum. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00339">339</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a45a9a8f45cec27d2205ae5e729866f75" name="a45a9a8f45cec27d2205ae5e729866f75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45a9a8f45cec27d2205ae5e729866f75">&#9670;&#160;</a></span>visualizationModeName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">QString visualizationModeName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00782.html#acde6478628a967ffbc4bf2604d954cf8">VisualizationMode</a></td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Convert a <a class="el" href="a00782.html#acde6478628a967ffbc4bf2604d954cf8">VisualizationMode</a> enum to display string. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00779_source.html#l00349">349</a> of file <a class="el" href="a00779_source.html">viewstate.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

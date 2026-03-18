@@ -1,0 +1,339 @@
+<!-- HTML header for doxygen 1.16.1 — MNE-CPP 2.0.0 -->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MNE-CPP: src/libraries/connectivity/metrics/unbiasedsquaredphaselagindex.cpp File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="clipboard.js"></script>
+    <script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-custom.css" rel="stylesheet" type="text/css"/>
+    <!-- Doxygen Awesome Extensions -->
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+        DoxygenAwesomeTabs.init()
+        /*
+         * MNE-CPP navbar customisation
+         * 1. Creates version badge + GitHub link elements
+         * 2. Overrides Doxygen's 768px breakpoint -> 996px
+         * 3. On DESKTOP: badge + GitHub + dark-toggle live in
+         *    #searchBoxPos2 (inside #main-menu).
+         * 4. On MOBILE:  badge + GitHub + dark-toggle move to
+         *    the hamburger wrapper row (div.sm.sm-dox inside #top)
+         *    so they stay visible next to the logo even when the
+         *    hamburger menu is collapsed.
+         */
+        $(function () {
+            /* -- Create elements once -------------------------------- */
+            var gh = document.createElement('a');
+            gh.href = 'https://github.com/mne-tools/mne-cpp';
+            gh.target = '_blank';
+            gh.rel = 'noopener noreferrer';
+            gh.className = 'github-link';
+            gh.title = 'GitHub';
+            gh.innerHTML =
+                '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 ' +
+                '8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04' +
+                '-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 ' +
+                '3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 ' +
+                '1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776' +
+                '.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31' +
+                '.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 ' +
+                '1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 ' +
+                '2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 ' +
+                '1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 ' +
+                '4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 ' +
+                '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
+                '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
+            var pn = document.getElementById('projectnumber');
+            var badge = document.createElement('span');
+            badge.className = 'version-badge';
+            badge.textContent = pn ? pn.textContent.trim() : '';
+            var darkToggle = null;
+            /* -- Helpers --------------------------------------------- */
+            /* Find the hamburger wrapper: div.sm.sm-dox that is a
+               direct child of #top (contains checkbox + hamburger btn) */
+            function getHamburgerWrapper() {
+                return document.querySelector('#top > div.sm.sm-dox');
+            }
+            /* Inject badge + GitHub + dark toggle into a target container */
+            function injectInto(container) {
+                if (!container) return;
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                /* Move nodes (appendChild/insertBefore moves if already in DOM) */
+                if (badge.parentNode !== container) {
+                    /* On desktop (sp2): insert at start.
+                       On mobile (hamburger wrapper): insert before hamburger btn. */
+                    container.insertBefore(badge, container.firstChild);
+                }
+                if (gh.parentNode !== container) {
+                    container.insertBefore(gh, badge.nextSibling);
+                }
+                if (darkToggle && darkToggle.parentNode !== container) {
+                    container.insertBefore(darkToggle, gh.nextSibling);
+                }
+            }
+            /* -- Breakpoint override: 768px -> 996px ----------------- */
+            var MNE_BP = 997;
+            var prevW = 0;
+            function mneResetNav() {
+                var w = $(window).outerWidth();
+                if (w === prevW) return;
+                prevW = w;
+                var $menu = $('#main-menu');
+                var $state = $('#main-menu-state');
+                /* Grab dark toggle before anything is emptied */
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                if (darkToggle && darkToggle.parentNode) {
+                    darkToggle.parentNode.removeChild(darkToggle);
+                }
+                if (w < MNE_BP) {
+                    /* -- MOBILE -- */
+                    if (!$state.prop('checked')) {
+                        $menu.hide();
+                    }
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in the
+                       hamburger wrapper (always visible in #top) */
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    /* -- DESKTOP -- */
+                    $menu.css('display', 'flex');
+                    $state.prop('checked', false);
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in searchBoxPos2 */
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                if (typeof searchBox !== 'undefined') {
+                    searchBox.CloseResultsWindow();
+                }
+            }
+            /* Run after Doxygen's own initMenu has finished */
+            setTimeout(function () {
+                /* Initial inject for whatever size we start at */
+                var w = $(window).outerWidth();
+                if (w < MNE_BP) {
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                $(window).on('resize', mneResetNav);
+                mneResetNav();
+            }, 150);
+        });
+    </script>
+</head>
+<body>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div id="titlearea">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr id="projectrow">
+                            <td id="projectlogo"><a href="https://mne-cpp.github.io/">
+                                    <img alt="Logo" class="logo-light" src="MNE-CPP_Logo.svg"  />
+                                    <img alt="Logo" class="logo-dark" src="MNE-CPP_Logo_Dark.svg"  />
+                                </a></td>
+                            <td id="projectalign">
+                                <div id="projectname"><span
+                                        id="projectnumber">v2.0.0</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_4966471859b0659b2008791a461b6feb.html">connectivity</a></li><li class="navelem"><a href="dir_f5b9a59d67d23c798a9a50c62b2401ad.html">metrics</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle"><div class="title">unbiasedsquaredphaselagindex.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><a class="el" href="a01929.html" title="Computes the unbiased squared phase lag index (USPLI) connectivity metric.">UnbiasedSquaredPhaseLagIndex</a> class definition.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="a00881_source.html">unbiasedsquaredphaselagindex.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00935_source.html">../network/networknode.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00932_source.html">../network/networkedge.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00944_source.html">../network/network.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a00998_source.html">utils/spectral.h</a>&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QtConcurrent&gt;</code><br />
+<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for unbiasedsquaredphaselagindex.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00879.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2unbiasedsquaredphaselagindex_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2connectivity_2metrics_2unbiasedsquaredphaselagindex_8cpp" id="asrc_2libraries_2connectivity_2metrics_2unbiasedsquaredphaselagindex_8cpp">
+<area shape="rect" title="UnbiasedSquaredPhaseLagIndex class definition." alt="" coords="787,5,1099,45"/>
+<area shape="rect" href="a00881.html" title="UnbiasedSquaredPhaseLagIndex class declaration." alt="" coords="302,93,542,119"/>
+<area shape="poly" title=" " alt="" coords="819,48,511,94,511,89,818,43"/>
+<area shape="rect" href="a00935.html" title="NetworkNode class declaration." alt="" coords="773,167,961,192"/>
+<area shape="poly" title=" " alt="" coords="931,47,902,95,878,154,873,152,897,92,927,44"/>
+<area shape="rect" href="a00932.html" title="NetworkEdge class declaration." alt="" coords="562,167,749,192"/>
+<area shape="poly" title=" " alt="" coords="909,48,691,162,688,158,906,43"/>
+<area shape="rect" href="a00944.html" title="Network class declaration." alt="" coords="1037,167,1193,192"/>
+<area shape="poly" title=" " alt="" coords="942,46,940,82,944,100,952,117,967,133,985,145,1025,163,1023,168,982,150,964,137,948,120,939,102,935,82,936,46"/>
+<area shape="rect" href="a00998.html" title="Declaration of Spectral class." alt="" coords="1217,167,1336,192"/>
+<area shape="poly" title=" " alt="" coords="951,44,967,82,980,101,995,116,1024,127,1077,139,1204,163,1203,169,1075,145,1022,132,993,121,975,104,962,84,946,46"/>
+<area shape="rect" title=" " alt="" coords="1006,93,1081,119"/>
+<area shape="poly" title=" " alt="" coords="969,43,1019,82,1016,87,966,48"/>
+<area shape="rect" title=" " alt="" coords="1105,93,1213,119"/>
+<area shape="poly" title=" " alt="" coords="996,43,1116,86,1114,91,994,48"/>
+<area shape="rect" title=" " alt="" coords="1238,93,1409,119"/>
+<area shape="poly" title=" " alt="" coords="1035,43,1255,88,1254,93,1034,48"/>
+<area shape="rect" href="a00851.html" title="connectivity library export/import macros." alt="" coords="431,240,605,265"/>
+<area shape="poly" title=" " alt="" coords="399,121,376,135,354,152,343,172,343,181,347,191,361,206,379,219,419,237,417,242,376,224,358,210,342,193,337,182,338,170,350,149,372,131,396,117"/>
+<area shape="rect" href="a00914.html" title="AbstractMetric class declaration." alt="" coords="357,167,487,192"/>
+<area shape="poly" title=" " alt="" coords="425,119,425,153,419,153,419,119"/>
+<area shape="rect" title=" " alt="" coords="629,240,751,265"/>
+<area shape="poly" title=" " alt="" coords="439,117,488,151,551,190,647,233,645,238,549,194,485,155,436,121"/>
+<area shape="rect" title=" " alt="" coords="776,240,868,265"/>
+<area shape="poly" title=" " alt="" coords="543,109,671,116,806,127,917,143,955,153,976,165,982,179,976,194,961,206,938,218,881,239,879,234,936,214,958,202,972,190,977,179,972,168,953,158,916,148,805,133,671,122,542,115"/>
+<area shape="rect" href="a00950.html" title="ConnectivitySettings class declaration." alt="" coords="103,167,282,192"/>
+<area shape="poly" title=" " alt="" coords="386,121,244,165,242,160,384,116"/>
+<area shape="rect" title=" " alt="" coords="5,167,79,192"/>
+<area shape="poly" title=" " alt="" coords="353,121,93,169,92,164,352,116"/>
+<area shape="rect" title=" " alt="" coords="1205,313,1335,339"/>
+<area shape="poly" title=" " alt="" coords="605,261,617,263,1192,315,1191,321,616,268,605,267"/>
+<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="858,313,981,339"/>
+<area shape="poly" title=" " alt="" coords="583,263,845,309,844,314,582,268"/>
+<area shape="rect" title=" " alt="" coords="886,387,953,412"/>
+<area shape="poly" title=" " alt="" coords="922,339,922,373,917,373,917,339"/>
+<area shape="poly" title=" " alt="" coords="439,190,493,229,490,234,436,194"/>
+<area shape="poly" title=" " alt="" coords="466,189,634,234,633,239,464,195"/>
+<area shape="rect" title=" " alt="" coords="299,240,372,265"/>
+<area shape="poly" title=" " alt="" coords="410,194,362,233,358,229,406,190"/>
+<area shape="poly" title=" " alt="" coords="487,189,763,237,762,243,486,194"/>
+<area shape="poly" title=" " alt="" coords="246,189,453,234,451,240,244,195"/>
+<area shape="poly" title=" " alt="" coords="277,189,615,237,615,242,276,195"/>
+<area shape="poly" title=" " alt="" coords="217,190,301,231,299,236,214,194"/>
+<area shape="poly" title=" " alt="" coords="283,185,497,205,763,237,762,243,497,210,282,190"/>
+<area shape="rect" title=" " alt="" coords="146,240,239,265"/>
+<area shape="poly" title=" " alt="" coords="195,192,195,226,190,226,190,192"/>
+<area shape="poly" title=" " alt="" coords="812,195,588,240,587,235,811,189"/>
+<area shape="poly" title=" " alt="" coords="840,194,732,237,730,232,838,190"/>
+<area shape="poly" title=" " alt="" coords="862,194,839,230,834,227,858,191"/>
+<area shape="rect" title=" " alt="" coords="893,240,967,265"/>
+<area shape="poly" title=" " alt="" coords="880,191,913,228,909,231,876,194"/>
+<area shape="poly" title=" " alt="" coords="634,194,554,236,551,231,632,190"/>
+<area shape="poly" title=" " alt="" coords="663,191,681,226,676,229,659,194"/>
+<area shape="poly" title=" " alt="" coords="683,190,783,232,781,237,681,194"/>
+<area shape="poly" title=" " alt="" coords="1038,193,618,242,618,237,1037,187"/>
+<area shape="poly" title=" " alt="" coords="1047,195,765,242,765,236,1047,189"/>
+<area shape="poly" title=" " alt="" coords="1069,195,882,240,880,234,1068,189"/>
+<area shape="rect" title=" " alt="" coords="992,240,1047,265"/>
+<area shape="poly" title=" " alt="" coords="1101,194,1048,234,1045,229,1098,190"/>
+<area shape="poly" title=" " alt="" coords="1218,193,1206,195,988,219,766,242,765,237,987,213,1206,189,1217,188"/>
+<area shape="poly" title=" " alt="" coords="1218,193,1206,195,1046,217,882,243,881,237,1045,212,1206,189,1217,188"/>
+<area shape="rect" href="a01016.html" title="utils library export/import macros." alt="" coords="1417,240,1526,265"/>
+<area shape="poly" title=" " alt="" coords="1309,190,1428,233,1426,238,1307,195"/>
+<area shape="rect" title=" " alt="" coords="1071,240,1133,265"/>
+<area shape="poly" title=" " alt="" coords="1250,194,1144,237,1142,232,1248,190"/>
+<area shape="rect" title=" " alt="" coords="1157,240,1217,265"/>
+<area shape="poly" title=" " alt="" coords="1264,194,1214,233,1211,229,1261,190"/>
+<area shape="rect" title=" " alt="" coords="1241,240,1312,265"/>
+<area shape="poly" title=" " alt="" coords="1279,192,1279,226,1274,226,1274,192"/>
+<area shape="rect" title=" " alt="" coords="1337,240,1393,265"/>
+<area shape="poly" title=" " alt="" coords="1292,190,1341,229,1338,233,1289,194"/>
+<area shape="poly" title=" " alt="" coords="1440,268,1316,311,1315,306,1438,263"/>
+<area shape="poly" title=" " alt="" coords="1417,266,1405,268,1181,298,995,319,994,314,1181,292,1404,263,1416,261"/>
+</map>
+</div>
+</div>
+<p><a href="a00878_source.html">Go to the source code of this file.</a></p>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a01929.html" title="Computes the unbiased squared phase lag index (USPLI) connectivity metric.">UnbiasedSquaredPhaseLagIndex</a> class definition. </p>
+<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'Dan'+'ie'+'l.S'+'tr'+'ohm'+'ei'+'er@'+'tu'+'-il'+'me'+'nau'+'.d'+'e'; return false;">Danie<span class="obfuscator">.nosp@m.</span>l.St<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>tu-il<span class="obfuscator">.nosp@m.</span>mena<span class="obfuscator">.nosp@m.</span>u.de</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>April, 2018</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
+LICENSE</h1>
+<p>Copyright (C) 2018, Daniel Strohmeier, Lorenz Esch. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+<dl class="section note"><dt>Note</dt><dd>Notes:<ul>
+<li>Some of this code was adapted from mne-python (<a href="https://martinos.org/mne">https://martinos.org/mne</a>) with permission from Alexandre Gramfort.</li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition in file <a class="el" href="a00878_source.html">unbiasedsquaredphaselagindex.cpp</a>.</p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

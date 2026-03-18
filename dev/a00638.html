@@ -1,0 +1,435 @@
+<!-- HTML header for doxygen 1.16.1 — MNE-CPP 2.0.0 -->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MNE-CPP: src/libraries/disp3D_rhi/scene/sourceestimatemanager.cpp File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="clipboard.js"></script>
+    <script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-custom.css" rel="stylesheet" type="text/css"/>
+    <!-- Doxygen Awesome Extensions -->
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+        DoxygenAwesomeTabs.init()
+        /*
+         * MNE-CPP navbar customisation
+         * 1. Creates version badge + GitHub link elements
+         * 2. Overrides Doxygen's 768px breakpoint -> 996px
+         * 3. On DESKTOP: badge + GitHub + dark-toggle live in
+         *    #searchBoxPos2 (inside #main-menu).
+         * 4. On MOBILE:  badge + GitHub + dark-toggle move to
+         *    the hamburger wrapper row (div.sm.sm-dox inside #top)
+         *    so they stay visible next to the logo even when the
+         *    hamburger menu is collapsed.
+         */
+        $(function () {
+            /* -- Create elements once -------------------------------- */
+            var gh = document.createElement('a');
+            gh.href = 'https://github.com/mne-tools/mne-cpp';
+            gh.target = '_blank';
+            gh.rel = 'noopener noreferrer';
+            gh.className = 'github-link';
+            gh.title = 'GitHub';
+            gh.innerHTML =
+                '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 ' +
+                '8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04' +
+                '-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 ' +
+                '3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 ' +
+                '1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776' +
+                '.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31' +
+                '.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 ' +
+                '1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 ' +
+                '2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 ' +
+                '1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 ' +
+                '4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 ' +
+                '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
+                '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
+            var pn = document.getElementById('projectnumber');
+            var badge = document.createElement('span');
+            badge.className = 'version-badge';
+            badge.textContent = pn ? pn.textContent.trim() : '';
+            var darkToggle = null;
+            /* -- Helpers --------------------------------------------- */
+            /* Find the hamburger wrapper: div.sm.sm-dox that is a
+               direct child of #top (contains checkbox + hamburger btn) */
+            function getHamburgerWrapper() {
+                return document.querySelector('#top > div.sm.sm-dox');
+            }
+            /* Inject badge + GitHub + dark toggle into a target container */
+            function injectInto(container) {
+                if (!container) return;
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                /* Move nodes (appendChild/insertBefore moves if already in DOM) */
+                if (badge.parentNode !== container) {
+                    /* On desktop (sp2): insert at start.
+                       On mobile (hamburger wrapper): insert before hamburger btn. */
+                    container.insertBefore(badge, container.firstChild);
+                }
+                if (gh.parentNode !== container) {
+                    container.insertBefore(gh, badge.nextSibling);
+                }
+                if (darkToggle && darkToggle.parentNode !== container) {
+                    container.insertBefore(darkToggle, gh.nextSibling);
+                }
+            }
+            /* -- Breakpoint override: 768px -> 996px ----------------- */
+            var MNE_BP = 997;
+            var prevW = 0;
+            function mneResetNav() {
+                var w = $(window).outerWidth();
+                if (w === prevW) return;
+                prevW = w;
+                var $menu = $('#main-menu');
+                var $state = $('#main-menu-state');
+                /* Grab dark toggle before anything is emptied */
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                if (darkToggle && darkToggle.parentNode) {
+                    darkToggle.parentNode.removeChild(darkToggle);
+                }
+                if (w < MNE_BP) {
+                    /* -- MOBILE -- */
+                    if (!$state.prop('checked')) {
+                        $menu.hide();
+                    }
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in the
+                       hamburger wrapper (always visible in #top) */
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    /* -- DESKTOP -- */
+                    $menu.css('display', 'flex');
+                    $state.prop('checked', false);
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in searchBoxPos2 */
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                if (typeof searchBox !== 'undefined') {
+                    searchBox.CloseResultsWindow();
+                }
+            }
+            /* Run after Doxygen's own initMenu has finished */
+            setTimeout(function () {
+                /* Initial inject for whatever size we start at */
+                var w = $(window).outerWidth();
+                if (w < MNE_BP) {
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                $(window).on('resize', mneResetNav);
+                mneResetNav();
+            }, 150);
+        });
+    </script>
+</head>
+<body>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div id="titlearea">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr id="projectrow">
+                            <td id="projectlogo"><a href="https://mne-cpp.github.io/">
+                                    <img alt="Logo" class="logo-light" src="MNE-CPP_Logo.svg"  />
+                                    <img alt="Logo" class="logo-dark" src="MNE-CPP_Logo_Dark.svg"  />
+                                </a></td>
+                            <td id="projectalign">
+                                <div id="projectname"><span
+                                        id="projectnumber">v2.0.0</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_ceb91b0558e305478f9a6f250cbf6c42.html">disp3D_rhi</a></li><li class="navelem"><a href="dir_f8289d7432030df7cfdcf0edb36f7c6a.html">scene</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle"><div class="title">sourceestimatemanager.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p><a class="el" href="a02333.html" title="Source estimate lifecycle manager.">SourceEstimateManager</a> class definition.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="a00650_source.html">sourceestimatemanager.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00722_source.html">../renderable/sourceestimateoverlay.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00716_source.html">../renderable/brainsurface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00704_source.html">../workers/stcloadingworker.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00671_source.html">../workers/rtsourcedatacontroller.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00773_source.html">../core/viewstate.h</a>&quot;</code><br />
+<code>#include &lt;QThread&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QSet&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for sourceestimatemanager.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00639.png" border="0" usemap="#asrc_2libraries_2disp3_d__rhi_2scene_2sourceestimatemanager_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d__rhi_2scene_2sourceestimatemanager_8cpp" id="asrc_2libraries_2disp3_d__rhi_2scene_2sourceestimatemanager_8cpp">
+<area shape="rect" title="SourceEstimateManager class definition." alt="" coords="2219,5,2496,45"/>
+<area shape="rect" href="a00650.html" title="SourceEstimateManager class declaration — owns STC overlay, loading, and real&#45;time streaming." alt="" coords="392,255,584,280"/>
+<area shape="poly" title=" " alt="" coords="2219,32,1890,39,1472,52,1064,71,896,83,767,96,716,100,670,100,590,98,554,102,520,113,487,134,454,168,447,186,450,205,459,224,471,242,466,245,454,227,445,206,442,185,450,165,484,130,518,108,553,97,590,92,670,94,716,95,767,91,895,77,1064,66,1472,47,1890,34,2219,26"/>
+<area shape="rect" href="a00722.html" title="SourceEstimateOverlay class declaration." alt="" coords="780,93,1048,119"/>
+<area shape="poly" title=" " alt="" coords="2219,36,1714,60,1075,96,1062,97,1061,92,1075,91,1714,55,2218,30"/>
+<area shape="rect" href="a00716.html" title="BrainSurface class declaration." alt="" coords="2188,93,2389,119"/>
+<area shape="poly" title=" " alt="" coords="2343,47,2310,84,2306,81,2339,44"/>
+<area shape="rect" href="a00704.html" title="StcLoadingWorker class declaration." alt="" coords="1087,93,1298,119"/>
+<area shape="poly" title=" " alt="" coords="2219,39,1311,99,1311,94,2219,33"/>
+<area shape="rect" href="a00671.html" title="RtSourceDataController class declaration." alt="" coords="1934,255,2178,280"/>
+<area shape="poly" title=" " alt="" coords="2275,48,2224,67,2176,95,2140,130,2110,171,2069,243,2064,241,2105,168,2136,127,2173,91,2222,62,2273,43"/>
+<area shape="rect" href="a00773.html" title="ViewState declarations — per&#45;view data structures and conversion helpers." alt="" coords="3245,174,3388,199"/>
+<area shape="poly" title=" " alt="" coords="2372,44,2406,82,2428,101,2453,116,2551,127,2768,144,3231,177,3231,182,2768,149,2551,132,2451,121,2425,106,2402,86,2368,47"/>
+<area shape="rect" title=" " alt="" coords="2464,93,2542,119"/>
+<area shape="poly" title=" " alt="" coords="2394,43,2471,84,2468,89,2391,48"/>
+<area shape="rect" title=" " alt="" coords="2566,93,2640,119"/>
+<area shape="poly" title=" " alt="" coords="2417,43,2555,87,2553,92,2415,48"/>
+<area shape="rect" title=" " alt="" coords="2664,93,2718,119"/>
+<area shape="poly" title=" " alt="" coords="2447,43,2651,91,2650,96,2446,48"/>
+<area shape="rect" title=" " alt="" coords="2742,93,2805,119"/>
+<area shape="poly" title=" " alt="" coords="2475,43,2729,91,2728,96,2474,48"/>
+<area shape="rect" href="a00632.html" title="disp3D_rhi library export/import macros." alt="" coords="2236,328,2399,353"/>
+<area shape="poly" title=" " alt="" coords="585,272,698,277,1124,290,1458,293,1793,301,1990,310,2223,325,2222,331,1990,315,1793,306,1458,299,1124,295,697,283,584,277"/>
+<area shape="rect" title=" " alt="" coords="680,328,755,353"/>
+<area shape="poly" title=" " alt="" coords="526,277,668,321,666,326,524,283"/>
+<area shape="rect" title=" " alt="" coords="446,328,520,353"/>
+<area shape="poly" title=" " alt="" coords="490,281,487,315,482,314,485,280"/>
+<area shape="rect" title=" " alt="" coords="596,328,656,353"/>
+<area shape="poly" title=" " alt="" coords="511,278,592,319,590,324,509,282"/>
+<area shape="rect" title=" " alt="" coords="1208,328,1278,353"/>
+<area shape="poly" title=" " alt="" coords="585,275,1194,332,1194,337,584,280"/>
+<area shape="rect" title=" " alt="" coords="802,401,894,427"/>
+<area shape="poly" title=" " alt="" coords="500,279,535,315,558,335,584,351,636,373,690,388,789,405,788,411,689,394,634,378,582,356,555,339,531,319,496,282"/>
+<area shape="rect" title=" " alt="" coords="3368,328,3446,353"/>
+<area shape="poly" title=" " alt="" coords="585,272,698,277,955,283,1275,284,2018,283,2402,285,2766,292,3090,304,3355,326,3354,331,3090,310,2766,297,2402,291,2018,289,1275,289,955,288,697,283,584,277"/>
+<area shape="rect" title=" " alt="" coords="2135,401,2266,427"/>
+<area shape="poly" title=" " alt="" coords="2300,356,2233,396,2230,392,2297,351"/>
+<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="1871,401,1994,427"/>
+<area shape="poly" title=" " alt="" coords="2256,356,2008,401,2007,396,2255,351"/>
+<area shape="poly" title=" " alt="" coords="1048,114,1711,164,1856,176,1969,183,2024,190,2080,203,2143,222,2215,252,2262,282,2300,316,2296,320,2259,287,2212,257,2141,227,2079,208,2023,195,1969,188,1855,182,1711,169,1048,120"/>
+<area shape="poly" title=" " alt="" coords="780,111,577,120,462,129,346,143,236,161,140,186,63,218,34,236,13,256,8,267,13,278,26,289,43,298,87,312,141,319,202,322,327,322,432,326,432,331,327,327,202,327,141,324,86,317,41,303,23,294,9,282,3,267,9,253,31,232,61,213,138,181,235,156,345,137,461,124,577,115,779,106"/>
+<area shape="poly" title=" " alt="" coords="780,119,584,139,506,153,481,161,467,169,462,178,460,186,468,205,480,214,506,224,578,247,698,277,838,302,977,318,1194,335,1193,340,977,324,837,307,697,283,577,252,504,229,478,218,463,208,455,187,457,176,464,165,479,156,505,148,583,134,779,114"/>
+<area shape="rect" href="a01793.html" title="InvSourceEstimate class declaration." alt="" coords="842,167,986,207"/>
+<area shape="poly" title=" " alt="" coords="916,119,916,153,911,153,911,119"/>
+<area shape="rect" title=" " alt="" coords="1776,328,1899,353"/>
+<area shape="poly" title=" " alt="" coords="1048,114,1407,142,1561,155,1637,164,1689,179,1729,194,1765,216,1804,253,1823,283,1834,314,1829,315,1818,285,1799,256,1762,220,1727,199,1687,184,1636,169,1561,160,1407,147,1048,120"/>
+<area shape="rect" title=" " alt="" coords="478,174,584,199"/>
+<area shape="poly" title=" " alt="" coords="848,121,603,169,587,173,585,168,602,164,847,116"/>
+<area shape="poly" title=" " alt="" coords="841,197,443,232,178,257,153,271,134,285,121,303,108,329,104,341,108,352,120,360,142,368,208,381,298,391,401,398,617,407,788,410,788,415,617,412,401,404,297,396,208,386,140,373,118,365,103,355,98,342,103,327,116,300,131,281,150,266,177,252,443,226,841,192"/>
+<area shape="rect" href="a01799.html" title="inverse library export/import macros." alt="" coords="1527,328,1628,353"/>
+<area shape="poly" title=" " alt="" coords="912,207,911,244,916,263,926,278,950,285,1003,293,1167,309,1513,333,1513,338,1166,315,1002,299,948,290,923,282,911,265,906,245,907,207"/>
+<area shape="rect" href="a01796.html" title="Inverse library type enumerations." alt="" coords="220,255,317,280"/>
+<area shape="poly" title=" " alt="" coords="842,199,337,257,331,258,331,253,336,252,841,193"/>
+<area shape="rect" href="a01784.html" title="InvFocalDipole struct declaration for off&#45;grid dipole results (e.g. ECD dipole fit)." alt="" coords="118,328,258,353"/>
+<area shape="poly" title=" " alt="" coords="841,197,452,231,195,257,187,269,184,283,185,314,179,314,178,283,183,267,192,252,451,225,841,191"/>
+<area shape="rect" href="a01658.html" title="InvSourceCoupling struct declaration for correlated source groups (e.g. RAP&#45;MUSIC dipole tuples)." alt="" coords="937,255,1104,280"/>
+<area shape="poly" title=" " alt="" coords="941,205,995,244,992,248,938,209"/>
+<area shape="rect" title=" " alt="" coords="2149,328,2212,353"/>
+<area shape="poly" title=" " alt="" coords="986,188,1680,215,2030,234,2143,243,2191,252,2200,267,2202,284,2194,316,2189,315,2196,284,2195,269,2188,257,2142,249,2030,239,1680,220,986,193"/>
+<area shape="rect" href="a01661.html" title="InvConnectivity struct for pairwise source connectivity results." alt="" coords="283,328,422,353"/>
+<area shape="poly" title=" " alt="" coords="841,197,459,231,208,257,202,267,202,277,207,286,216,294,247,310,284,322,282,327,245,315,213,299,203,289,197,278,197,266,205,252,459,225,841,192"/>
+<area shape="rect" href="a01448.html" title="FsLabel class declaration." alt="" coords="710,255,811,280"/>
+<area shape="poly" title=" " alt="" coords="878,209,796,251,794,246,876,204"/>
+<area shape="poly" title=" " alt="" coords="974,204,1109,242,1269,277,1405,297,1512,306,1620,312,1758,325,1763,326,1762,331,1757,331,1620,318,1512,311,1405,303,1268,283,1107,247,973,209"/>
+<area shape="rect" title=" " alt="" coords="2825,401,2880,427"/>
+<area shape="poly" title=" " alt="" coords="986,188,2007,223,2776,252,2807,281,2829,318,2843,355,2851,387,2846,388,2838,357,2824,320,2803,285,2774,257,2007,228,986,193"/>
+<area shape="rect" title=" " alt="" coords="1280,255,1371,280"/>
+<area shape="poly" title=" " alt="" coords="986,199,1268,252,1267,258,985,204"/>
+<area shape="poly" title=" " alt="" coords="1629,349,1641,351,1904,383,2121,403,2121,409,1904,388,1640,356,1628,354"/>
+<area shape="poly" title=" " alt="" coords="1629,350,1862,396,1861,401,1628,355"/>
+<area shape="poly" title=" " alt="" coords="259,349,271,351,562,382,789,405,788,410,561,388,271,356,258,354"/>
+<area shape="poly" title=" " alt="" coords="1008,282,874,394,871,390,1004,278"/>
+<area shape="poly" title=" " alt="" coords="1104,271,2135,334,2135,339,1103,276"/>
+<area shape="poly" title=" " alt="" coords="422,349,789,402,788,407,421,355"/>
+<area shape="poly" title=" " alt="" coords="740,282,661,324,658,319,737,278"/>
+<area shape="poly" title=" " alt="" coords="770,279,836,388,832,391,765,282"/>
+<area shape="rect" href="a01424.html" title="Fs library export/import macros." alt="" coords="1652,328,1746,353"/>
+<area shape="poly" title=" " alt="" coords="811,270,924,277,1124,288,1280,294,1438,304,1639,325,1639,331,1437,309,1280,299,1124,293,924,283,811,275"/>
+<area shape="poly" title=" " alt="" coords="811,270,924,277,1159,290,1341,296,1524,306,1758,325,1763,326,1762,331,1757,331,1523,311,1341,302,1159,295,924,283,811,275"/>
+<area shape="poly" title=" " alt="" coords="1746,348,1765,351,2122,400,2121,405,1764,356,1745,353"/>
+<area shape="poly" title=" " alt="" coords="1737,351,1882,395,1881,400,1736,356"/>
+<area shape="poly" title=" " alt="" coords="2364,116,2406,134,2424,148,2440,165,2449,188,2449,210,2441,233,2427,254,2389,292,2350,322,2347,318,2386,288,2423,251,2436,230,2444,209,2444,189,2435,168,2421,152,2403,139,2361,121"/>
+<area shape="poly" title=" " alt="" coords="2187,111,1892,115,1500,125,1112,143,952,155,830,169,791,178,761,188,731,199,691,209,643,214,581,214,436,211,364,212,299,219,245,233,225,243,209,257,187,275,162,287,136,294,111,297,67,294,43,284,45,276,58,272,118,272,239,287,433,325,432,330,238,293,118,277,59,277,49,280,48,281,68,289,110,292,135,289,160,282,184,270,205,253,222,239,243,228,298,214,364,207,436,206,581,209,642,209,690,204,729,194,759,183,789,173,829,164,951,149,1112,137,1499,120,1891,110,2187,106"/>
+<area shape="poly" title=" " alt="" coords="2187,112,1371,130,940,147,784,158,691,169,665,178,645,189,625,200,597,209,541,216,470,217,304,210,220,210,145,215,83,230,59,242,41,256,32,270,29,283,31,295,38,307,63,330,97,351,137,362,207,373,402,389,789,408,788,413,402,395,206,378,136,367,95,356,60,335,34,311,26,297,23,283,27,268,37,253,56,237,81,225,144,210,220,204,304,205,470,211,541,211,596,204,622,195,642,184,662,173,690,164,783,153,940,142,1371,125,2187,106"/>
+<area shape="poly" title=" " alt="" coords="2389,112,2452,116,2614,123,2751,125,2983,123,3095,124,3215,130,3351,142,3511,164,3565,169,3613,171,3698,171,3736,177,3773,191,3809,215,3844,253,3850,268,3844,282,3817,301,3777,316,3727,327,3672,334,3557,342,3460,343,3460,338,3556,336,3671,329,3726,321,3775,311,3814,296,3839,278,3844,267,3839,256,3805,219,3771,196,3735,183,3698,177,3613,176,3564,175,3511,169,3351,148,3215,135,3095,130,2983,129,2751,130,2614,128,2452,121,2389,117"/>
+<area shape="poly" title=" " alt="" coords="2330,116,2366,135,2383,148,2396,165,2403,187,2396,208,2380,231,2361,252,2316,286,2269,312,2226,329,2224,324,2266,307,2313,282,2357,248,2376,228,2391,205,2397,187,2391,168,2379,152,2363,139,2327,121"/>
+<area shape="rect" href="a00782.html" title="Lightweight render&#45;related enums shared across the disp3D_rhi library." alt="" coords="3238,255,3394,280"/>
+<area shape="poly" title=" " alt="" coords="2389,115,2624,140,2821,164,3061,208,3254,249,3253,254,3060,213,2820,169,2623,145,2389,120"/>
+<area shape="rect" title=" " alt="" coords="2291,174,2382,199"/>
+<area shape="poly" title=" " alt="" coords="2298,117,2324,161,2320,164,2293,120"/>
+<area shape="rect" title=" " alt="" coords="3763,255,3830,280"/>
+<area shape="poly" title=" " alt="" coords="2389,112,2452,116,2719,125,2928,126,3135,134,3257,145,3401,164,3499,182,3597,205,3751,249,3749,254,3595,210,3498,187,3400,169,3257,150,3135,139,2928,131,2719,131,2452,121,2389,117"/>
+<area shape="rect" href="a01430.html" title="FsSurface class declaration." alt="" coords="1640,255,1758,280"/>
+<area shape="poly" title=" " alt="" coords="2247,121,1755,254,1754,248,2245,116"/>
+<area shape="rect" href="a01457.html" title="FsAnnotation class declaration." alt="" coords="1486,174,1624,199"/>
+<area shape="poly" title=" " alt="" coords="2188,121,1638,179,1638,174,2187,115"/>
+<area shape="rect" href="a01277.html" title="MNEBem class declaration." alt="" coords="2677,174,2809,199"/>
+<area shape="poly" title=" " alt="" coords="2355,116,2664,169,2663,174,2354,121"/>
+<area shape="poly" title=" " alt="" coords="3238,281,3226,283,3000,300,2824,308,2649,315,2423,331,2413,332,2412,326,2423,325,2648,310,2824,302,3000,295,3225,277,3238,276"/>
+<area shape="rect" title=" " alt="" coords="3278,328,3344,353"/>
+<area shape="poly" title=" " alt="" coords="3318,281,3315,315,3310,314,3313,280"/>
+<area shape="poly" title=" " alt="" coords="1640,282,1536,302,1417,331,1379,344,1341,356,1221,378,1102,395,908,412,908,407,1101,389,1221,373,1340,351,1377,339,1415,325,1535,297,1639,276"/>
+<area shape="poly" title=" " alt="" coords="1702,280,1702,314,1696,314,1696,280"/>
+<area shape="poly" title=" " alt="" coords="1722,278,1804,319,1801,324,1720,282"/>
+<area shape="poly" title=" " alt="" coords="1486,199,1361,221,1306,237,1270,257,1260,269,1253,284,1246,315,1241,313,1248,282,1256,266,1266,253,1304,232,1360,216,1485,193"/>
+<area shape="poly" title=" " alt="" coords="1485,190,1349,191,1184,200,1103,208,1030,220,969,236,926,257,897,285,877,321,863,357,855,388,850,387,858,355,872,318,893,282,923,252,967,231,1028,215,1102,203,1183,194,1349,186,1485,184"/>
+<area shape="poly" title=" " alt="" coords="1565,198,1593,235,1630,278,1675,317,1671,321,1626,282,1588,238,1561,201"/>
+<area shape="poly" title=" " alt="" coords="1625,196,1698,217,1736,232,1771,253,1803,282,1826,314,1822,317,1799,286,1768,257,1734,237,1696,222,1624,201"/>
+<area shape="rect" href="a01433.html" title="FsColortable class declaration." alt="" coords="1446,255,1565,280"/>
+<area shape="poly" title=" " alt="" coords="1550,201,1522,244,1518,242,1545,198"/>
+<area shape="poly" title=" " alt="" coords="1464,283,1292,329,1291,324,1463,277"/>
+<area shape="poly" title=" " alt="" coords="1478,283,1290,356,1186,378,1081,395,909,412,908,407,1081,389,1185,373,1289,351,1476,278"/>
+<area shape="poly" title=" " alt="" coords="1538,278,1656,321,1654,326,1536,283"/>
+<area shape="poly" title=" " alt="" coords="1559,277,1771,322,1770,328,1558,283"/>
+<area shape="poly" title=" " alt="" coords="2709,202,2589,239,2438,283,2334,307,2226,330,2225,325,2333,302,2437,277,2588,234,2707,197"/>
+<area shape="poly" title=" " alt="" coords="2677,202,1913,329,1913,324,2676,196"/>
+<area shape="poly" title=" " alt="" coords="2786,197,2815,204,2855,210,2890,210,2955,205,2984,205,3012,211,3040,226,3068,253,3074,264,3076,278,3072,306,3058,333,3039,355,3005,380,2967,396,2928,407,2894,412,2893,407,2927,401,2965,391,3003,375,3036,351,3053,330,3067,304,3071,278,3069,266,3063,256,3037,231,3011,216,2983,210,2955,210,2891,215,2854,215,2814,209,2784,202"/>
+<area shape="poly" title=" " alt="" coords="2677,194,2394,209,2111,219,1891,223,1671,232,1390,257,1385,258,1384,253,1389,252,1671,227,1891,218,2111,214,2393,204,2676,189"/>
+<area shape="rect" href="a01142.html" title="mne library export/import macros." alt="" coords="2618,328,2729,353"/>
+<area shape="poly" title=" " alt="" coords="2755,199,2778,236,2783,259,2777,281,2754,307,2725,325,2723,320,2751,303,2773,279,2777,259,2773,238,2751,201"/>
+<area shape="rect" href="a01352.html" title="MNEBemSurface class declaration." alt="" coords="2608,255,2763,280"/>
+<area shape="poly" title=" " alt="" coords="2737,201,2704,245,2700,242,2732,198"/>
+<area shape="rect" href="a00596.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="2888,328,3003,353"/>
+<area shape="poly" title=" " alt="" coords="2772,197,2820,220,2871,253,2905,284,2931,315,2927,319,2901,288,2868,257,2818,225,2770,202"/>
+<area shape="rect" href="a00530.html" title="FiffDirNode class declaration, which provides fiff dir tree processing methods." alt="" coords="2939,255,3054,280"/>
+<area shape="poly" title=" " alt="" coords="2780,197,2947,248,2945,253,2779,202"/>
+<area shape="rect" title=" " alt="" coords="3128,255,3214,280"/>
+<area shape="poly" title=" " alt="" coords="2806,197,3110,252,3115,253,3114,258,3109,257,2805,202"/>
+<area shape="poly" title=" " alt="" coords="2618,353,2280,403,2279,398,2617,348"/>
+<area shape="poly" title=" " alt="" coords="2618,352,2583,356,2263,387,2007,409,2007,404,2262,382,2583,351,2618,347"/>
+<area shape="poly" title=" " alt="" coords="2608,274,2010,296,1696,313,1583,322,1516,331,1484,343,1453,356,1301,385,1148,403,1012,412,908,415,908,410,1012,407,1148,398,1300,380,1451,351,1482,338,1514,325,1582,317,1696,308,2009,291,2608,268"/>
+<area shape="poly" title=" " alt="" coords="2608,278,2437,298,2226,331,2225,326,2436,292,2608,273"/>
+<area shape="poly" title=" " alt="" coords="2701,278,2830,390,2827,394,2697,282"/>
+<area shape="poly" title=" " alt="" coords="2686,281,2680,315,2675,314,2681,280"/>
+<area shape="poly" title=" " alt="" coords="2728,277,2891,322,2890,327,2727,283"/>
+<area shape="rect" title=" " alt="" coords="2435,328,2571,353"/>
+<area shape="poly" title=" " alt="" coords="2657,283,2547,325,2545,320,2655,278"/>
+<area shape="poly" title=" " alt="" coords="2888,348,2740,356,2182,377,1641,395,908,414,908,409,1641,389,2182,372,2740,351,2888,343"/>
+<area shape="poly" title=" " alt="" coords="2932,355,2880,395,2877,391,2929,351"/>
+<area shape="rect" title=" " alt="" coords="3174,401,3253,427"/>
+<area shape="poly" title=" " alt="" coords="2989,351,3161,396,3160,401,2988,356"/>
+<area shape="poly" title=" " alt="" coords="2939,275,1913,337,1913,332,2939,270"/>
+<area shape="poly" title=" " alt="" coords="3006,279,3022,314,3024,335,3017,355,2991,380,2959,397,2925,408,2894,413,2893,408,2924,402,2957,392,2988,376,3013,352,3019,335,3017,316,3001,281"/>
+<area shape="poly" title=" " alt="" coords="2990,282,2964,318,2960,315,2986,279"/>
+<area shape="poly" title=" " alt="" coords="1298,106,1535,110,1822,120,2079,137,2170,149,2223,164,2243,178,2260,195,2287,236,2305,278,2315,314,2310,315,2300,280,2282,238,2256,199,2239,182,2220,169,2169,154,2078,142,1822,125,1535,115,1298,111"/>
+<area shape="poly" title=" " alt="" coords="1094,121,946,143,878,156,830,169,787,185,753,199,725,220,700,256,696,270,696,285,706,315,701,317,691,286,690,269,695,253,721,216,750,195,785,180,829,164,877,150,945,137,1093,116"/>
+<area shape="poly" title=" " alt="" coords="1197,119,1240,314,1235,315,1192,120"/>
+<area shape="poly" title=" " alt="" coords="1152,121,994,166,993,160,1151,116"/>
+<area shape="poly" title=" " alt="" coords="1298,106,1457,111,1635,121,1786,138,1837,150,1866,165,1878,182,1884,202,1882,243,1870,284,1854,317,1849,315,1865,282,1877,243,1878,203,1873,185,1862,169,1836,155,1785,144,1634,127,1457,117,1298,112"/>
+<area shape="poly" title=" " alt="" coords="1087,120,803,147,603,169,584,173,583,168,602,164,803,142,1086,114"/>
+<area shape="poly" title=" " alt="" coords="2099,277,2263,322,2261,327,2097,283"/>
+<area shape="poly" title=" " alt="" coords="1934,278,769,339,769,334,1934,272"/>
+<area shape="poly" title=" " alt="" coords="1934,276,583,331,534,336,533,330,583,325,1934,271"/>
+<area shape="poly" title=" " alt="" coords="1934,282,1292,338,1292,332,1934,277"/>
+<area shape="poly" title=" " alt="" coords="1934,275,1717,292,1592,308,1470,331,1434,343,1398,356,1262,381,1125,398,908,413,908,408,1125,393,1261,376,1397,351,1433,338,1469,325,1592,303,1716,287,1934,270"/>
+<area shape="poly" title=" " alt="" coords="2077,278,2149,319,2147,323,2075,282"/>
+<area shape="poly" title=" " alt="" coords="2022,283,1887,326,1885,321,2020,277"/>
+<area shape="poly" title=" " alt="" coords="2065,279,2094,316,2114,336,2137,351,2195,370,2274,385,2368,395,2469,403,2666,410,2811,410,2811,416,2666,415,2469,408,2367,401,2273,390,2194,375,2135,356,2111,340,2090,320,2061,282"/>
+<area shape="poly" title=" " alt="" coords="2128,277,2421,324,2421,329,2128,283"/>
+<area shape="poly" title=" " alt="" coords="3244,190,3120,192,2958,201,2777,221,2686,237,2597,257,2568,269,2540,282,2458,308,2383,327,2381,322,2457,303,2538,278,2566,264,2595,252,2685,232,2776,216,2958,196,3120,186,3244,184"/>
+<area shape="poly" title=" " alt="" coords="3245,194,2820,209,1593,216,1155,221,772,230,496,241,415,249,382,257,377,267,382,278,409,291,461,305,583,329,582,334,460,310,407,296,378,282,372,267,378,253,414,244,496,236,772,224,1155,216,1593,211,2820,204,3245,188"/>
+<area shape="poly" title=" " alt="" coords="3245,193,2820,209,2125,221,1692,235,1530,245,1434,257,1409,268,1384,282,1285,325,1283,320,1382,278,1406,263,1433,252,1529,239,1691,229,2125,216,2820,204,3245,188"/>
+<area shape="poly" title=" " alt="" coords="3345,197,3380,219,3396,235,3409,254,3417,285,3415,315,3410,314,3412,285,3404,256,3392,238,3377,223,3342,202"/>
+<area shape="poly" title=" " alt="" coords="3319,200,3319,241,3314,241,3314,200"/>
+<area shape="poly" title=" " alt="" coords="3388,194,3550,217,3750,252,3749,257,3549,222,3387,200"/>
+<area shape="poly" title=" " alt="" coords="3347,197,3390,219,3411,235,3430,253,3451,278,3467,303,3472,328,3468,341,3460,355,3447,366,3428,376,3378,391,3267,410,3266,405,3377,386,3426,371,3444,362,3456,352,3463,339,3466,328,3462,305,3447,281,3426,256,3408,239,3387,224,3345,202"/>
+<area shape="poly" title=" " alt="" coords="3296,202,3206,250,3203,246,3293,197"/>
+<area shape="rect" title=" " alt="" coords="3520,255,3624,280"/>
+<area shape="poly" title=" " alt="" coords="3354,197,3522,248,3521,253,3353,202"/>
+<area shape="rect" title=" " alt="" coords="3648,255,3739,280"/>
+<area shape="poly" title=" " alt="" coords="3372,197,3635,251,3634,256,3371,202"/>
+</map>
+</div>
+</div>
+<p><a href="a00638_source.html">Go to the source code of this file.</a></p>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="a02333.html" title="Source estimate lifecycle manager.">SourceEstimateManager</a> class definition. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
+LICENSE</h1>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<p class="definition">Definition in file <a class="el" href="a00638_source.html">sourceestimatemanager.cpp</a>.</p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

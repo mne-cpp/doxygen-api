@@ -1,0 +1,307 @@
+<!-- HTML header for doxygen 1.16.1 — MNE-CPP 2.0.0 -->
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MNE-CPP: src/libraries/disp/viewers/bidsview.cpp File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script type="text/javascript" src="clipboard.js"></script>
+    <script type="text/javascript" src="cookie.js"></script>
+    <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-custom.css" rel="stylesheet" type="text/css"/>
+    <!-- Doxygen Awesome Extensions -->
+    <script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+    <script type="text/javascript" src="doxygen-awesome-tabs.js"></script>
+    <script type="text/javascript">
+        DoxygenAwesomeDarkModeToggle.init()
+        DoxygenAwesomeFragmentCopyButton.init()
+        DoxygenAwesomeParagraphLink.init()
+        DoxygenAwesomeInteractiveToc.init()
+        DoxygenAwesomeTabs.init()
+        /*
+         * MNE-CPP navbar customisation
+         * 1. Creates version badge + GitHub link elements
+         * 2. Overrides Doxygen's 768px breakpoint -> 996px
+         * 3. On DESKTOP: badge + GitHub + dark-toggle live in
+         *    #searchBoxPos2 (inside #main-menu).
+         * 4. On MOBILE:  badge + GitHub + dark-toggle move to
+         *    the hamburger wrapper row (div.sm.sm-dox inside #top)
+         *    so they stay visible next to the logo even when the
+         *    hamburger menu is collapsed.
+         */
+        $(function () {
+            /* -- Create elements once -------------------------------- */
+            var gh = document.createElement('a');
+            gh.href = 'https://github.com/mne-tools/mne-cpp';
+            gh.target = '_blank';
+            gh.rel = 'noopener noreferrer';
+            gh.className = 'github-link';
+            gh.title = 'GitHub';
+            gh.innerHTML =
+                '<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
+                '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 ' +
+                '8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04' +
+                '-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 ' +
+                '3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 ' +
+                '1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776' +
+                '.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31' +
+                '.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 ' +
+                '1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 ' +
+                '2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 ' +
+                '1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 ' +
+                '4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 ' +
+                '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
+                '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
+            var pn = document.getElementById('projectnumber');
+            var badge = document.createElement('span');
+            badge.className = 'version-badge';
+            badge.textContent = pn ? pn.textContent.trim() : '';
+            var darkToggle = null;
+            /* -- Helpers --------------------------------------------- */
+            /* Find the hamburger wrapper: div.sm.sm-dox that is a
+               direct child of #top (contains checkbox + hamburger btn) */
+            function getHamburgerWrapper() {
+                return document.querySelector('#top > div.sm.sm-dox');
+            }
+            /* Inject badge + GitHub + dark toggle into a target container */
+            function injectInto(container) {
+                if (!container) return;
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                /* Move nodes (appendChild/insertBefore moves if already in DOM) */
+                if (badge.parentNode !== container) {
+                    /* On desktop (sp2): insert at start.
+                       On mobile (hamburger wrapper): insert before hamburger btn. */
+                    container.insertBefore(badge, container.firstChild);
+                }
+                if (gh.parentNode !== container) {
+                    container.insertBefore(gh, badge.nextSibling);
+                }
+                if (darkToggle && darkToggle.parentNode !== container) {
+                    container.insertBefore(darkToggle, gh.nextSibling);
+                }
+            }
+            /* -- Breakpoint override: 768px -> 996px ----------------- */
+            var MNE_BP = 997;
+            var prevW = 0;
+            function mneResetNav() {
+                var w = $(window).outerWidth();
+                if (w === prevW) return;
+                prevW = w;
+                var $menu = $('#main-menu');
+                var $state = $('#main-menu-state');
+                /* Grab dark toggle before anything is emptied */
+                if (!darkToggle) {
+                    darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
+                }
+                if (darkToggle && darkToggle.parentNode) {
+                    darkToggle.parentNode.removeChild(darkToggle);
+                }
+                if (w < MNE_BP) {
+                    /* -- MOBILE -- */
+                    if (!$state.prop('checked')) {
+                        $menu.hide();
+                    }
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in the
+                       hamburger wrapper (always visible in #top) */
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    /* -- DESKTOP -- */
+                    $menu.css('display', 'flex');
+                    $state.prop('checked', false);
+                    $('#searchBoxPos1').empty().hide();
+                    $('#searchBoxPos2').show();
+                    /* Put badge + GitHub + dark toggle in searchBoxPos2 */
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                if (typeof searchBox !== 'undefined') {
+                    searchBox.CloseResultsWindow();
+                }
+            }
+            /* Run after Doxygen's own initMenu has finished */
+            setTimeout(function () {
+                /* Initial inject for whatever size we start at */
+                var w = $(window).outerWidth();
+                if (w < MNE_BP) {
+                    injectInto(getHamburgerWrapper());
+                } else {
+                    injectInto(document.getElementById('searchBoxPos2'));
+                }
+                $(window).on('resize', mneResetNav);
+                mneResetNav();
+            }, 150);
+        });
+    </script>
+</head>
+<body>
+        <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+            <div id="titlearea">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr id="projectrow">
+                            <td id="projectlogo"><a href="https://mne-cpp.github.io/">
+                                    <img alt="Logo" class="logo-light" src="MNE-CPP_Logo.svg"  />
+                                    <img alt="Logo" class="logo-dark" src="MNE-CPP_Logo_Dark.svg"  />
+                                </a></td>
+                            <td id="projectalign">
+                                <div id="projectname"><span
+                                        id="projectnumber">v2.0.0</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li><li class="navelem"><a href="dir_d19fc5ec52e92d8bb58a9ebdf299e2d2.html">viewers</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="headertitle"><div class="title">bidsview.cpp File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Contains the declaration of the <a class="el" href="a02009.html" title="The DataManagerView class provides the plugin control.">BidsView</a> class.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="a00167_source.html">bidsview.h</a>&quot;</code><br />
+<code>#include &quot;ui_bidsview.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00338_source.html">helpers/bidsviewmodel.h</a>&quot;</code><br />
+<code>#include &lt;QTreeView&gt;</code><br />
+<code>#include &lt;QStandardItemModel&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QMenu&gt;</code><br />
+<code>#include &lt;QKeyEvent&gt;</code><br />
+<code>#include &lt;QMessageBox&gt;</code><br />
+<code>#include &lt;QInputDialog&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for bidsview.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00363.png" border="0" usemap="#asrc_2libraries_2disp_2viewers_2bidsview_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp_2viewers_2bidsview_8cpp" id="asrc_2libraries_2disp_2viewers_2bidsview_8cpp">
+<area shape="rect" title="Contains the declaration of the BidsView class." alt="" coords="931,5,1097,45"/>
+<area shape="rect" href="a00167.html" title="Contains the declaration of the BidsView class." alt="" coords="405,93,495,119"/>
+<area shape="poly" title=" " alt="" coords="932,39,742,62,509,96,508,91,742,57,931,33"/>
+<area shape="rect" title=" " alt="" coords="520,93,631,119"/>
+<area shape="poly" title=" " alt="" coords="931,44,645,95,644,90,930,39"/>
+<area shape="rect" href="a00338.html" title="Contains declaration of BidsViewModel Container class." alt="" coords="655,93,840,119"/>
+<area shape="poly" title=" " alt="" coords="951,48,800,92,799,87,949,43"/>
+<area shape="rect" title=" " alt="" coords="791,167,951,192"/>
+<area shape="poly" title=" " alt="" coords="970,48,936,68,905,95,888,124,879,154,874,152,884,122,901,92,933,64,967,43"/>
+<area shape="rect" title=" " alt="" coords="915,93,1006,119"/>
+<area shape="poly" title=" " alt="" coords="1003,47,979,83,974,80,999,44"/>
+<area shape="rect" title=" " alt="" coords="1030,93,1105,119"/>
+<area shape="poly" title=" " alt="" coords="1029,44,1054,80,1049,83,1025,47"/>
+<area shape="rect" title=" " alt="" coords="1129,93,1197,119"/>
+<area shape="poly" title=" " alt="" coords="1051,43,1130,84,1128,89,1048,48"/>
+<area shape="rect" title=" " alt="" coords="1222,93,1315,119"/>
+<area shape="poly" title=" " alt="" coords="1076,43,1219,87,1217,92,1074,48"/>
+<area shape="rect" title=" " alt="" coords="1339,93,1454,119"/>
+<area shape="poly" title=" " alt="" coords="1098,41,1328,88,1327,93,1096,46"/>
+<area shape="rect" title=" " alt="" coords="1478,93,1585,119"/>
+<area shape="poly" title=" " alt="" coords="1097,36,1465,91,1464,96,1097,41"/>
+<area shape="rect" href="a00443.html" title="disp library export/import macros." alt="" coords="637,240,757,265"/>
+<area shape="poly" title=" " alt="" coords="496,114,602,140,648,153,673,165,684,178,691,194,698,226,693,227,686,196,679,181,670,169,646,158,601,145,495,120"/>
+<area shape="rect" href="a00215.html" title="Declaration of the AbstractView Class." alt="" coords="542,167,659,192"/>
+<area shape="poly" title=" " alt="" coords="475,116,565,158,562,163,473,121"/>
+<area shape="rect" title=" " alt="" coords="244,240,323,265"/>
+<area shape="poly" title=" " alt="" coords="405,109,309,110,192,117,136,125,86,136,46,150,20,169,12,180,8,191,9,199,14,207,35,221,67,232,149,244,230,249,230,254,148,250,65,237,32,226,10,211,4,201,3,190,7,178,16,165,43,145,84,130,135,120,192,112,309,105,404,104"/>
+<area shape="rect" title=" " alt="" coords="31,167,187,192"/>
+<area shape="poly" title=" " alt="" coords="405,119,178,166,177,161,404,114"/>
+<area shape="rect" title=" " alt="" coords="211,167,374,192"/>
+<area shape="poly" title=" " alt="" coords="426,121,332,163,329,159,424,116"/>
+<area shape="rect" title=" " alt="" coords="398,167,518,192"/>
+<area shape="poly" title=" " alt="" coords="454,119,458,153,452,153,449,119"/>
+<area shape="rect" title=" " alt="" coords="557,313,687,339"/>
+<area shape="poly" title=" " alt="" coords="686,267,646,306,642,302,683,263"/>
+<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="711,313,834,339"/>
+<area shape="poly" title=" " alt="" coords="711,263,752,302,748,306,707,267"/>
+<area shape="rect" title=" " alt="" coords="739,387,806,412"/>
+<area shape="poly" title=" " alt="" coords="775,339,775,373,770,373,770,339"/>
+<area shape="poly" title=" " alt="" coords="618,190,671,229,668,234,614,194"/>
+<area shape="poly" title=" " alt="" coords="550,195,337,242,336,237,549,189"/>
+<area shape="poly" title=" " alt="" coords="746,120,708,228,703,226,741,118"/>
+<area shape="poly" title=" " alt="" coords="769,116,841,157,838,162,766,121"/>
+</map>
+</div>
+</div>
+<p><a href="a00362_source.html">Go to the source code of this file.</a></p>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contains the declaration of the <a class="el" href="a02009.html" title="The DataManagerView class provides the plugin control.">BidsView</a> class. </p>
+<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Lars Debor <a href="#" onclick="location.href='mai'+'lto:'+'Lar'+'s.'+'Deb'+'or'+'@tu'+'-i'+'lme'+'na'+'u.d'+'e'; return false;">Lars.<span class="obfuscator">.nosp@m.</span>Debo<span class="obfuscator">.nosp@m.</span>r@tu-<span class="obfuscator">.nosp@m.</span>ilme<span class="obfuscator">.nosp@m.</span>nau.d<span class="obfuscator">.nosp@m.</span>e</a>; Simon Heinke <a href="#" onclick="location.href='mai'+'lto:'+'Sim'+'on'+'.He'+'in'+'ke@'+'tu'+'-il'+'me'+'nau'+'.d'+'e'; return false;">Simon<span class="obfuscator">.nosp@m.</span>.Hei<span class="obfuscator">.nosp@m.</span>nke@t<span class="obfuscator">.nosp@m.</span>u-il<span class="obfuscator">.nosp@m.</span>menau<span class="obfuscator">.nosp@m.</span>.de</a> Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.6 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>October, 2020</dd></dl>
+<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
+LICENSE</h1>
+<p>Copyright (C) 2020, Lorenz Esch, Lars Debor, Simon Heinke, Gabriel Motta. All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
+<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+</ul>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+
+<p class="definition">Definition in file <a class="el" href="a00362_source.html">bidsview.cpp</a>.</p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>
