@@ -6,7 +6,7 @@ var searchData=
   ['impl_3',['Impl',['../a02304.html',1,'BrainRenderer']]],
   ['intermediatesumdata_4',['IntermediateSumData',['../a01856.html',1,'CONNLIB::ConnectivitySettings']]],
   ['intermediatetrialdata_5',['IntermediateTrialData',['../a01852.html',1,'CONNLIB::ConnectivitySettings']]],
-  ['interpolation_6',['Interpolation',['../a02184.html',1,'DISP3DRHILIB']]],
+  ['interpolation_6',['Interpolation',['../a02184.html',1,'DISP3DLIB']]],
   ['invconnectivity_7',['InvConnectivity',['../a02756.html',1,'INVLIB']]],
   ['invcorsourceestimate_8',['InvCorSourceEstimate',['../a02760.html',1,'INVLIB']]],
   ['invdipole_9',['InvDipole',['../a02788.html',1,'INVLIB']]],

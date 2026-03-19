@@ -25,8 +25,8 @@ var searchData=
   ['insetforseparator_22',['insetForSeparator',['../a02320.html#a1b2235d1ec64c125bd80ef81d3946d78',1,'MultiViewLayout']]],
   ['instancebuffer_23',['instanceBuffer',['../a02260.html#a0178f2339ddf10424d6e5dc05ac63eff',1,'DipoleObject']]],
   ['instancecount_24',['instanceCount',['../a02260.html#a14d6a140c7d80784fdca5f5f67be97f0',1,'DipoleObject']]],
-  ['interpolatesignal_25',['interpolateSignal',['../a02184.html#a686ba7030d9abd5b1ddfc4be08a615d4',1,'DISP3DRHILIB::Interpolation::interpolateSignal(const QSharedPointer&lt; Eigen::SparseMatrix&lt; float &gt; &gt; matInterpolationMatrix, const QSharedPointer&lt; Eigen::VectorXf &gt; &amp;vecMeasurementData)'],['../a02184.html#a36a4d34bad40f57bbf7a11d2ac99c166',1,'DISP3DRHILIB::Interpolation::interpolateSignal(const Eigen::SparseMatrix&lt; float &gt; &amp;matInterpolationMatrix, const Eigen::VectorXf &amp;vecMeasurementData)']]],
-  ['interpolation_26',['Interpolation',['../a02184.html#a0200851cc2ec2a964c2cf34890179a5e',1,'DISP3DRHILIB::Interpolation']]],
+  ['interpolatesignal_25',['interpolateSignal',['../a02184.html#a54f29bfc9a18cfa3833486c6c4c487e8',1,'DISP3DLIB::Interpolation::interpolateSignal(const QSharedPointer&lt; Eigen::SparseMatrix&lt; float &gt; &gt; matInterpolationMatrix, const QSharedPointer&lt; Eigen::VectorXf &gt; &amp;vecMeasurementData)'],['../a02184.html#a3607f1bfdf7eeb7c3a11027abadf05ba',1,'DISP3DLIB::Interpolation::interpolateSignal(const Eigen::SparseMatrix&lt; float &gt; &amp;matInterpolationMatrix, const Eigen::VectorXf &amp;vecMeasurementData)']]],
+  ['interpolation_26',['Interpolation',['../a02184.html#ac3bca8308a44135286a0bf9479dbeee4',1,'DISP3DLIB::Interpolation']]],
   ['interpolationmatlh_27',['interpolationMatLh',['../a02288.html#a65ac362d74eb881211209682d2fd371b',1,'SourceEstimateOverlay::interpolationMatLh()'],['../a02348.html#a0e3ce3b1e8ba72fcd6eacde0ec46eaea',1,'StcLoadingWorker::interpolationMatLh()']]],
   ['interpolationmatrh_28',['interpolationMatRh',['../a02288.html#a4167e6f12256130261a58c0c570e5be1',1,'SourceEstimateOverlay::interpolationMatRh()'],['../a02348.html#a371c1ece56852edfd37c47545ff47f69',1,'StcLoadingWorker::interpolationMatRh()']]],
   ['intersect_29',['intersect',['../a02260.html#a3020bb448746db639caf778c081387d1',1,'DipoleObject::intersect()'],['../a02832.html#a90c4fe377860728f06d622e960351b41',1,'UTILSLIB::Linalg::intersect()']]],
@@ -94,11 +94,11 @@ var searchData=
   ['isselectionempty_91',['isSelectionEmpty',['../a01984.html#a8ef7faf6d6f1a9bb30b0337e8de83b9d',1,'DISPLIB::ChannelSelectionView']]],
   ['issparse_92',['issparse',['../a02836.html#a926c1e4cd9e58fa52723ab65b405f78d',1,'UTILSLIB::Numerics']]],
   ['isstreaming_93',['isStreaming',['../a02292.html#a26652d8922cc5c99c2320a999fbd7304',1,'RtSensorStreamManager::isStreaming()'],['../a02300.html#a7f6c40151a747d632439545dcbcff9b6',1,'SourceEstimateManager::isStreaming()'],['../a02324.html#ad6964206232cbd12c107df43c3c91a38',1,'RtSensorDataController::isStreaming()'],['../a02336.html#a75ef5b93125ff44a52bd6e4800781b41',1,'RtSourceDataController::isStreaming()']]],
-  ['istrue_94',['isTrue',['../a00782.html#aa1ecf762994d097a0450b5e2b7c60eaa',1,'viewstate.h']]],
+  ['istrue_94',['isTrue',['../a01565.html#aa1ecf762994d097a0450b5e2b7c60eaa',1,'viewstate.h']]],
   ['isvalid_95',['isValid',['../a03156.html#a4d3a83b834ed3045ee666274ebec8494',1,'MRILIB::MriVolData']]],
   ['isvalideeg_96',['isValidEeg',['../a02444.html#a137f12b3d5ca5b2bb9eb71b3b70025f8',1,'FIFFLIB::FiffChInfo']]],
   ['isviewportenabled_97',['isViewportEnabled',['../a02316.html#ac9a59c43b9ccf9a4fd57cd672e471d3a',1,'BrainView']]],
   ['isvisible_98',['isVisible',['../a02208.html#a61099ddf4dd5495d544d46d946836635',1,'AbstractTreeItem::isVisible()'],['../a02252.html#ae784ad68bbf799c7325833c082f1b5ff',1,'BrainSurface::isVisible()'],['../a02260.html#aebcaf23da3aca8202266cb2ec015b5a5',1,'DipoleObject::isVisible()'],['../a02276.html#a678f6f9eb8579b0889f0628c9937c667',1,'NetworkObject::isVisible()']]],
   ['iterate_5falignment_5fonce_99',['iterate_alignment_once',['../a03004.html#ae88b8f56f33dd8046fb35fd214393548',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['iterativedijkstra_100',['iterativeDijkstra',['../a02180.html#a9c47eef6d6d4c3cab48b707b1ba8d25d',1,'DISP3DRHILIB::GeometryInfo']]]
+  ['iterativedijkstra_100',['iterativeDijkstra',['../a02180.html#a9c47eef6d6d4c3cab48b707b1ba8d25d',1,'DISP3DLIB::GeometryInfo']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['x_0',['X',['../a01571.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01127.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp']]],
+  ['x_0',['X',['../a01715.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01052.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp']]],
   ['x1_1',['x1',['../a02800.html#accc2647ae98b82f7dd45dbea0e039cc2',1,'INVLIB::Pair']]],
   ['x2_2',['x2',['../a02800.html#a3c608ee980958d3d008cff84dd09f83e',1,'INVLIB::Pair']]],
   ['x_5fras_3',['x_ras',['../a03136.html#a0c58f7d8868a70ff48a0ba05849e0efe',1,'MNELIB::MNEVolGeom::x_ras'],['../a03156.html#a613966e8bf278c5bb46e1e0c7d2a66b5',1,'MRILIB::MriVolData::x_ras']]],

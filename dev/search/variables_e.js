@@ -3,7 +3,7 @@ var searchData=
   ['off_0',['off',['../a02668.html#af605102f7a8caf5b4da878139a12fbff',1,'FWDLIB::FwdThreadArg']]],
   ['offset_1',['offset',['../a02468.html#ab577e002f2c45081ca06fefaad098b3e',1,'FIFFLIB::FiffDataRef']]],
   ['offsets_2',['offsets',['../a03092.html#a7dfb817dbfa85ef5863e4310a15c7847',1,'MNELIB::MNERawData']]],
-  ['ok_3',['OK',['../a01571.html#a93a6cff6e7a14b08c6d67db498648ba9',1,'OK:&#160;compute_fwd.cpp'],['../a01658.html#a93a6cff6e7a14b08c6d67db498648ba9',1,'OK:&#160;inv_dipole_fit_data.cpp'],['../a01127.html#a93a6cff6e7a14b08c6d67db498648ba9',1,'OK:&#160;mne_forward_solution.cpp']]],
+  ['ok_3',['OK',['../a01715.html#a93a6cff6e7a14b08c6d67db498648ba9',1,'OK:&#160;compute_fwd.cpp'],['../a00035.html#a93a6cff6e7a14b08c6d67db498648ba9',1,'OK:&#160;inv_dipole_fit_data.cpp'],['../a01052.html#a93a6cff6e7a14b08c6d67db498648ba9',1,'OK:&#160;mne_forward_solution.cpp']]],
   ['omit_5fdata_5fproj_4',['omit_data_proj',['../a02688.html#af5e4880ec630b723564d2b1322ec2b41',1,'INVLIB::InvDipoleFitSettings']]],
   ['omit_5fsamp_5',['omit_samp',['../a03092.html#afc9323320ab41324f1b99f5554b635d9',1,'MNELIB::MNERawData']]],
   ['omit_5fsamp_5fold_6',['omit_samp_old',['../a03092.html#ab5236bb840d324676a4ebfee55e16387',1,'MNELIB::MNERawData']]],

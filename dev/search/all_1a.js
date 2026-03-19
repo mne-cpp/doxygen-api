@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['y_0',['Y',['../a01673.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;inv_ecd_set.cpp'],['../a01163.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;mne_sss_data.cpp'],['../a01571.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a01127.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp']]],
+  ['y_0',['Y',['../a00050.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;inv_ecd_set.cpp'],['../a01088.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;mne_sss_data.cpp'],['../a01715.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a01052.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp']]],
   ['y_1',['y',['../a02648.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y'],['../a02788.html#a6a2b7f6f1221352c915eb6f7436095c1',1,'INVLIB::InvDipole::y()'],['../a02788.html#acc3f7f01ff801a33c468d20d09a28ecd',1,'INVLIB::InvDipole::y() const']]],
-  ['y_5f16_2',['Y_16',['../a01664.html#afab828c9760002b1e77065412b5f3c49',1,'inv_guess_data.cpp']]],
-  ['y_5f17_3',['Y_17',['../a01256.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_msh_display_surface.cpp'],['../a01382.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_source_space.cpp'],['../a01259.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface.cpp'],['../a01169.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface_or_volume.cpp']]],
-  ['y_5f43_4',['Y_43',['../a01253.html#ad833d7f74169d2299e4628fa3f440e48',1,'mne_patch_info.cpp']]],
-  ['y_5f46_5',['Y_46',['../a01361.html#a4b6665a12b4af3d232346d9be448676e',1,'mne_proj_data.cpp']]],
-  ['y_5f51_6',['Y_51',['../a01382.html#aca1310ffcc6361dd870350110c15356c',1,'mne_source_space.cpp']]],
+  ['y_5f16_2',['Y_16',['../a00041.html#afab828c9760002b1e77065412b5f3c49',1,'inv_guess_data.cpp']]],
+  ['y_5f17_3',['Y_17',['../a01181.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_msh_display_surface.cpp'],['../a01307.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_source_space.cpp'],['../a01184.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface.cpp'],['../a01094.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface_or_volume.cpp']]],
+  ['y_5f43_4',['Y_43',['../a01178.html#ad833d7f74169d2299e4628fa3f440e48',1,'mne_patch_info.cpp']]],
+  ['y_5f46_5',['Y_46',['../a01286.html#a4b6665a12b4af3d232346d9be448676e',1,'mne_proj_data.cpp']]],
+  ['y_5f51_6',['Y_51',['../a01307.html#aca1310ffcc6361dd870350110c15356c',1,'mne_source_space.cpp']]],
   ['y_5fras_7',['y_ras',['../a03136.html#a0b245033bee29e63134e056a21907ecd',1,'MNELIB::MNEVolGeom::y_ras'],['../a03156.html#a1226779fdae15a96ce0e45a39b5bf2e5',1,'MRILIB::MriVolData::y_ras']]],
   ['ymax_8',['ymax',['../a02968.html#a1572cf4baf34ef14fb5a68cfcbca770c',1,'MNELIB::MNELayout::ymax'],['../a02972.html#ae691ffab1b93a4a54a068e99775bc1d5',1,'MNELIB::MNELayoutPort::ymax']]],
   ['ymin_9',['ymin',['../a02968.html#a862a3501c32cc719c6ee5113bb2bbf6e',1,'MNELIB::MNELayout::ymin'],['../a02972.html#a4fee0abd1fa3e01f1f5a4d9892568e21',1,'MNELIB::MNELayoutPort::ymin']]],

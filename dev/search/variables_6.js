@@ -5,7 +5,7 @@ var searchData=
   ['gof_2',['GoF',['../a02720.html#a6c4c49f0df5fb0cf22e01ab49d6ab19a',1,'INVLIB::HpiFitResult']]],
   ['good_3',['good',['../a02696.html#a0531472d2db03f27baf4dc6b608961dd',1,'INVLIB::InvEcd']]],
   ['goodness_4',['goodness',['../a02700.html#acdeeb519ef9b4c3299b8fb0dc76224da',1,'INVLIB::bdipEcd::goodness'],['../a02764.html#a87bc21ccd40b0368289f0c8b3064f333',1,'INVLIB::InvFocalDipole::goodness']]],
-  ['grad_5fcomp_5',['grad_comp',['../a01418.html#a07b1203222ba80fb8ee8f05c0237a377',1,'mne_ctf_comp_data_set.cpp']]],
+  ['grad_5fcomp_5',['grad_comp',['../a01343.html#a07b1203222ba80fb8ee8f05c0237a377',1,'mne_ctf_comp_data_set.cpp']]],
   ['grad_5freg_6',['grad_reg',['../a02688.html#aee49d19cb9fdf4d4102cc5b1d5275072',1,'INVLIB::InvDipoleFitSettings']]],
   ['grad_5fstd_7',['grad_std',['../a02688.html#a3781c425866ca361dc349e2e8c6d7063',1,'INVLIB::InvDipoleFitSettings']]],
   ['grandavefile_8',['grandAveFile',['../a03056.html#adef5f9837eeb2b6e005865961479f826',1,'MNELIB::ProcessingSettings']]],

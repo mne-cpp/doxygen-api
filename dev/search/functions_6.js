@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['gaussian_0',['gaussian',['../a02184.html#a468e26c0550542d30ccfa5f8b6cb46d7',1,'DISP3DRHILIB::Interpolation']]],
+  ['gaussian_0',['gaussian',['../a02184.html#a468e26c0550542d30ccfa5f8b6cb46d7',1,'DISP3DLIB::Interpolation']]],
   ['gcd_1',['gcd',['../a02836.html#a65ad4892d732968e78af4db30b4afe2a',1,'UTILSLIB::Numerics']]],
   ['gee2_2',['GEE2',['../a02368.html#a2949c3ed1deb8ccf63ebaf2392d959fb',1,'UTILSLIB::ParksMcClellan']]],
   ['generateevoked_3',['generateEvoked',['../a02372.html#aeffecb7f71baebf0e4e723f4c873d386',1,'RTPROCESSINGLIB::RtAveragingWorker']]],
   ['generatetapers_4',['generateTapers',['../a02848.html#a2cfaddb1880ea031cfaeedb4bf5d7451',1,'UTILSLIB::Spectral::generateTapers(int iSignalLength, const QString &amp;sWindowType=&quot;hanning&quot;)'],['../a02848.html#aa96656c45d933a338528c4e19dc1af40',1,'UTILSLIB::Spectral::generateTapers(int iSignalLength, const std::string &amp;sWindowType=&quot;hanning&quot;)']]],
-  ['geometryinfo_5',['GeometryInfo',['../a02180.html#a3b203154f2853083589d33f0a2cd716e',1,'DISP3DRHILIB::GeometryInfo']]],
+  ['geometryinfo_5',['GeometryInfo',['../a02180.html#a21a61f3334f0249aa598ea0a32b4c357',1,'DISP3DLIB::GeometryInfo']]],
   ['gestureevent_6',['gestureEvent',['../a02064.html#a9947b1763b04cf0297a48084cb339bea',1,'DISPLIB::LayoutScene']]],
   ['get_5fchannel_5ftypes_7',['get_channel_types',['../a02532.html#abd94a27da48fa119e8fb6d921c7e8684',1,'FIFFLIB::FiffInfoBase']]],
   ['get_5fcomp_8',['get_comp',['../a02900.html#aeb22a5b2f55df8266ee081edbb28a3b6',1,'MNELIB::MNECTFCompDataSet']]],

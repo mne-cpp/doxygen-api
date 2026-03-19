@@ -49,7 +49,7 @@ var searchData=
   ['error_5fmatrix_46',['error_matrix',['../a02700.html#a8b1b26f6490e0ab68b773b8f68d7a3fe',1,'INVLIB::bdipEcd']]],
   ['errordistances_47',['errorDistances',['../a02720.html#a4f469e11e4f560010e8ffb7b8d0d6214',1,'INVLIB::HpiFitResult']]],
   ['errors_5fcomputed_48',['errors_computed',['../a02700.html#a9ad909a89c68bbf99f044f2c2791e13d',1,'INVLIB::bdipEcd']]],
-  ['even_5fcurv_5fcolor_49',['EVEN_CURV_COLOR',['../a01256.html#aee9e12aad270198548abe822c63a2c86',1,'mne_msh_display_surface.cpp']]],
+  ['even_5fcurv_5fcolor_49',['EVEN_CURV_COLOR',['../a01181.html#aee9e12aad270198548abe822c63a2c86',1,'mne_msh_display_surface.cpp']]],
   ['even_5fvertex_5fcolor_50',['even_vertex_color',['../a03004.html#a528872bb709e7827731897b751ce3613',1,'MNELIB::MNEMshDisplaySurface']]],
   ['event_51',['event',['../a02916.html#aef887d7c3d8dc9eea2ae45b865e30ece',1,'MNELIB::MNEEpochData']]],
   ['event_5flist_52',['event_list',['../a03092.html#ac68e1c3865710e26a4fd96008559aea2',1,'MNELIB::MNERawData']]],

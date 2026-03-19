@@ -2,8 +2,8 @@ var searchData=
 [
   ['hamming_0',['Hamming',['../a01783.html#a5eceb806e5a783c30efd572246abe4dfa718179b3bcff69a9d3f010aca0e9901a',1,'UTILSLIB']]],
   ['high_1',['high',['../a01787.html#a33f916f606e1c83b3d92c14df8a5d2dda8d966b2253a917086c8604959e152243',1,'INVLIB']]],
-  ['holographic_2',['Holographic',['../a00791.html#a9a65336a07fa3c9b4b13e6d52e3a612cadb4c9a54c480868af2ecc15779323f41',1,'rendertypes.h']]],
-  ['horizontal_3',['Horizontal',['../a00770.html#aa760f37b1c504a57961771013387fcf9ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'multiviewlayout.h']]],
+  ['holographic_2',['Holographic',['../a01574.html#a9a65336a07fa3c9b4b13e6d52e3a612cadb4c9a54c480868af2ecc15779323f41',1,'rendertypes.h']]],
+  ['horizontal_3',['Horizontal',['../a01553.html#aa760f37b1c504a57961771013387fcf9ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'multiviewlayout.h']]],
   ['hot_4',['Hot',['../a01778.html#a53c600771742063d0826523495db22f3ad051758fbfbcd886f8272b74ccaa9c46',1,'DISPLIB']]],
   ['hotneg1_5',['HotNeg1',['../a01778.html#a53c600771742063d0826523495db22f3aa054b2fbe6def57f4efb64bc95b7b6ce',1,'DISPLIB']]],
   ['hotneg2_6',['HotNeg2',['../a01778.html#a53c600771742063d0826523495db22f3aedd1e681cde4bff0a4f1fa30fa822fc1',1,'DISPLIB']]],
