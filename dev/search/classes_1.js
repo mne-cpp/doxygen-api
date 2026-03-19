@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['abstractmetric_0',['AbstractMetric',['../a01854.html',1,'CONNECTIVITYLIB']]],
+  ['abstractmetric_0',['AbstractMetric',['../a01854.html',1,'CONNLIB']]],
   ['abstracttreeitem_1',['AbstractTreeItem',['../a02202.html',1,'']]],
   ['abstractview_2',['AbstractView',['../a01946.html',1,'DISPLIB']]],
   ['applicationlogger_3',['ApplicationLogger',['../a03150.html',1,'UTILSLIB']]],

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['imagcoherence_2ecpp_0',['imagcoherence.cpp',['../a00893.html',1,'']]],
-  ['imagcoherence_2eh_1',['imagcoherence.h',['../a00869.html',1,'']]],
+  ['imagcoherence_2ecpp_0',['imagcoherence.cpp',['../a00938.html',1,'']]],
+  ['imagcoherence_2eh_1',['imagcoherence.h',['../a00914.html',1,'']]],
   ['imagesc_2ecpp_2',['imagesc.cpp',['../a00320.html',1,'']]],
   ['imagesc_2eh_3',['imagesc.h',['../a00353.html',1,'']]],
   ['interpolation_2ecpp_4',['interpolation.cpp',['../a00752.html',1,'']]],

@@ -2,8 +2,8 @@ var searchData=
 [
   ['dataloader_2ecpp_0',['dataloader.cpp',['../a00785.html',1,'']]],
   ['dataloader_2eh_1',['dataloader.h',['../a00779.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_2ecpp_2',['debiasedsquaredweightedphaselagindex.cpp',['../a00914.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_2eh_3',['debiasedsquaredweightedphaselagindex.h',['../a00902.html',1,'']]],
+  ['debiasedsquaredweightedphaselagindex_2ecpp_2',['debiasedsquaredweightedphaselagindex.cpp',['../a00959.html',1,'']]],
+  ['debiasedsquaredweightedphaselagindex_2eh_3',['debiasedsquaredweightedphaselagindex.h',['../a00947.html',1,'']]],
   ['digitizersettreeitem_2ecpp_4',['digitizersettreeitem.cpp',['../a00845.html',1,'']]],
   ['digitizersettreeitem_2eh_5',['digitizersettreeitem.h',['../a00839.html',1,'']]],
   ['digitizertreeitem_2ecpp_6',['digitizertreeitem.cpp',['../a00830.html',1,'']]],

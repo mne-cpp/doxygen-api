@@ -1,11 +1,11 @@
 var searchData=
 [
   ['icommand_0',['ICommand',['../a03158.html',1,'UTILSLIB']]],
-  ['imagcoherence_1',['ImagCoherence',['../a01878.html',1,'CONNECTIVITYLIB']]],
+  ['imagcoherence_1',['ImagCoherence',['../a01878.html',1,'CONNLIB']]],
   ['imagesc_2',['ImageSc',['../a01926.html',1,'DISPLIB']]],
   ['impl_3',['Impl',['../a02298.html',1,'BrainRenderer']]],
-  ['intermediatesumdata_4',['IntermediateSumData',['../a01850.html',1,'CONNECTIVITYLIB::ConnectivitySettings']]],
-  ['intermediatetrialdata_5',['IntermediateTrialData',['../a01846.html',1,'CONNECTIVITYLIB::ConnectivitySettings']]],
+  ['intermediatesumdata_4',['IntermediateSumData',['../a01850.html',1,'CONNLIB::ConnectivitySettings']]],
+  ['intermediatetrialdata_5',['IntermediateTrialData',['../a01846.html',1,'CONNLIB::ConnectivitySettings']]],
   ['interpolation_6',['Interpolation',['../a02178.html',1,'DISP3DRHILIB']]],
   ['invconnectivity_7',['InvConnectivity',['../a02750.html',1,'INVLIB']]],
   ['invcorsourceestimate_8',['InvCorSourceEstimate',['../a02754.html',1,'INVLIB']]],

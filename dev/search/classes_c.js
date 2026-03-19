@@ -1,7 +1,7 @@
 var searchData=
 [
   ['meshfactory_0',['MeshFactory',['../a02170.html',1,'']]],
-  ['metadata_1',['MetaData',['../a01814.html',1,'COMMUNICATIONLIB']]],
+  ['metadata_1',['MetaData',['../a01814.html',1,'COMLIB']]],
   ['methodexpl_2',['MethodExpl',['../a02606.html',1,'FWDLIB']]],
   ['minimumnormsettingsview_3',['MinimumNormSettingsView',['../a02094.html',1,'DISPLIB']]],
   ['mne_4',['MNE',['../a02858.html',1,'MNELIB']]],

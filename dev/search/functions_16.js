@@ -2,9 +2,9 @@ var searchData=
 [
   ['w_0',['w',['../a02738.html#a79ce36694190f8c035fa1e2259d7428e',1,'INVLIB::InvSensorSet::w(int iSensor) const'],['../a02738.html#a739dd9518a44cd91d361f60fe755f90b',1,'INVLIB::InvSensorSet::w() const']]],
   ['wait_1',['wait',['../a02422.html#a2b0a4b5a7af4352ab911827c3df2e0d9',1,'RTPROCESSINGLIB::RtNoise']]],
-  ['waitfordataavailable_2',['waitForDataAvailable',['../a01810.html#aedb984ba58a256f03f08ee65eb4998ae',1,'COMMUNICATIONLIB::RtCmdClient']]],
+  ['waitfordataavailable_2',['waitForDataAvailable',['../a01810.html#aedb984ba58a256f03f08ee65eb4998ae',1,'COMLIB::RtCmdClient']]],
   ['warp_3',['warp',['../a02862.html#ab1c47c8ea006631e13061fa8819e1b65',1,'MNELIB::MNEBem']]],
-  ['weightedphaselagindex_4',['WeightedPhaseLagIndex',['../a01894.html#a58c700738916d6a0a45d9e45a56f5c49',1,'CONNECTIVITYLIB::WeightedPhaseLagIndex']]],
+  ['weightedphaselagindex_4',['WeightedPhaseLagIndex',['../a01894.html#a58c700738916d6a0a45d9e45a56f5c49',1,'CONNLIB::WeightedPhaseLagIndex']]],
   ['wheelevent_5',['wheelEvent',['../a02058.html#a979f7a918e6cf119a125f9d90d5ba000',1,'DISPLIB::LayoutScene::wheelEvent()'],['../a02310.html#a23364467a018869a970d86b28f7ededd',1,'BrainView::wheelEvent()']]],
   ['whiten_5fvector_6',['whiten_vector',['../a02878.html#adbd9c7ed5b3683ad898a0f98dca149a3',1,'MNELIB::MNECovMatrix']]],
   ['windowsizechanged_7',['windowSizeChanged',['../a02070.html#a439eab2dfcb684461a651ddc8473064f',1,'DISPLIB::RtFiffRawViewModel']]],

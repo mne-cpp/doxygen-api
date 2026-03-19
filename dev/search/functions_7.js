@@ -3,7 +3,7 @@ var searchData=
   ['handleresults_0',['handleResults',['../a02370.html#a85489fa1fbbf486e3199ed0e0642de84',1,'RTPROCESSINGLIB::RtAveraging::handleResults()'],['../a02402.html#acabe050fa7c5016708178d9a47a15d6b',1,'RTPROCESSINGLIB::RtHpi::handleResults()'],['../a02414.html#a4800f86ebbe991e8f1c698df739fb256',1,'RTPROCESSINGLIB::RtInvOp::handleResults()']]],
   ['has_5fkind_1',['has_kind',['../a02482.html#ac77f8f15613e6cb97cfd590beec1cfe6',1,'FIFFLIB::FiffDirNode']]],
   ['has_5ftag_2',['has_tag',['../a02482.html#ac9dd32cf11d69d73e4ebb2acb419d890',1,'FIFFLIB::FiffDirNode']]],
-  ['hascommand_3',['hasCommand',['../a01810.html#a4e36185d9b4628d8c00e5f9e25074b79',1,'COMMUNICATIONLIB::RtCmdClient::hasCommand()'],['../a01826.html#ae4b90efd73aaa41e5c15bdd54c4ed47b',1,'COMMUNICATIONLIB::CommandManager::hasCommand()']]],
+  ['hascommand_3',['hasCommand',['../a01810.html#a656809e9a7a8b1447061bb66af573440',1,'COMLIB::RtCmdClient::hasCommand()'],['../a01826.html#adea0131ae290ea5b716bfaebc584563a',1,'COMLIB::CommandManager::hasCommand()']]],
   ['hasconnectivity_4',['hasConnectivity',['../a02766.html#a3ee4de4c08a70c4aa9002413d532600d',1,'INVLIB::InvSourceEstimate']]],
   ['hascouplings_5',['hasCouplings',['../a02766.html#a2e9f36bfd1c05ee01ad537131bd6d408',1,'INVLIB::InvSourceEstimate']]],
   ['hasdata_6',['hasData',['../a02270.html#a9a93ebe23ada992bcfbd076505419f33',1,'NetworkObject']]],

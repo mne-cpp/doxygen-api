@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['tissuetype_0',['TissueType',['../a02246.html#a7a35e381402ddbce8531f24014867df8',1,'BrainSurface']]],
-  ['tpasstype_1',['TPassType',['../a02346.html#a2a90eeea1af21a4c8d5d8f987b297a34',1,'UTILSLIB::CosineFilter::TPassType'],['../a02362.html#a5cc46b61e85230db24f52030d1c71eea',1,'UTILSLIB::ParksMcClellan::TPassType']]]
+  ['shadermode_0',['ShaderMode',['../a00791.html#a9a65336a07fa3c9b4b13e6d52e3a612c',1,'rendertypes.h']]],
+  ['splitterhit_1',['SplitterHit',['../a00770.html#aa760f37b1c504a57961771013387fcf9',1,'multiviewlayout.h']]],
+  ['stylemode_2',['StyleMode',['../a01946.html#a36141ad3b6f880d2d82a3dd69d6e2e29',1,'DISPLIB::AbstractView']]],
+  ['surfacerole_3',['SurfaceRole',['../a02234.html#a4428acbaaf56d9874c19e82819f3baa8',1,'SurfaceTreeItem']]]
 ];

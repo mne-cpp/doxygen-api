@@ -1,9 +1,9 @@
 var searchData=
 [
   ['uid_0',['uid',['../a02802.html#aa2ee49a6de12896903c4ba333faebad7',1,'LSLLIB::stream_info']]],
-  ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a01890.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNECTIVITYLIB::UnbiasedSquaredPhaseLagIndex']]],
+  ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a01890.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNLIB::UnbiasedSquaredPhaseLagIndex']]],
   ['unproject_2',['unproject',['../a02194.html#a0fd0857d6f884aa208ba26cd2d8fc8bc',1,'RayPicker']]],
-  ['update_3',['update',['../a01826.html#abfe57b4aa8b3e796e127bb5acc0308c4',1,'COMMUNICATIONLIB::CommandManager::update()'],['../a03162.html#ac18f6636cd2d62345063f24a9bdf3784',1,'UTILSLIB::IObserver::update()']]],
+  ['update_3',['update',['../a01826.html#abfe57b4aa8b3e796e127bb5acc0308c4',1,'COMLIB::CommandManager::update()'],['../a03162.html#ac18f6636cd2d62345063f24a9bdf3784',1,'UTILSLIB::IObserver::update()']]],
   ['update_5finuse_4',['update_inuse',['../a03090.html#addc43a1850073f26095b2de12ac8e07d',1,'MNELIB::MNESourceSpace']]],
   ['updatebadchannels_5',['updateBadChannels',['../a01978.html#ad27afa32a53143ca5447a623287185ad',1,'DISPLIB::ChannelSelectionView']]],
   ['updatebuffers_6',['updateBuffers',['../a02246.html#ac37f37f7fcc4368161060017cde2e67c',1,'BrainSurface::updateBuffers()'],['../a02254.html#a4c628c1ffa809daa288a53727197fa97',1,'DipoleObject::updateBuffers()']]],

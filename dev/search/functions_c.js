@@ -1,7 +1,7 @@
 var searchData=
 [
   ['magnetic_5fdipole_0',['magnetic_dipole',['../a02730.html#a78ac3527a77d3627a1d99ed53665cb94',1,'INVLIB::InvHpiFitData']]],
-  ['make_5fblock_5fdiag_1',['make_block_diag',['../a02826.html#a55c2c671b431d27e0ecdf32b48fd45c5',1,'UTILSLIB::MNEMath::make_block_diag()'],['../a02858.html#ab5f5d52785d3fd2b1e2dcea9180e6cb3',1,'MNELIB::MNE::make_block_diag()']]],
+  ['make_5fblock_5fdiag_1',['make_block_diag',['../a02826.html#a34fa4a83aca47f5b904db701f3bec931',1,'UTILSLIB::MNEMath::make_block_diag()'],['../a02858.html#ae77f8087c76d065106e506112eef67ba',1,'MNELIB::MNE::make_block_diag()']]],
   ['make_5fcomp_2',['make_comp',['../a02890.html#a2315a5652781e0edf6e05ad6b9472675',1,'MNELIB::MNECTFCompDataSet']]],
   ['make_5fcompensator_3',['make_compensator',['../a02522.html#ad1dd2a15d84e0e3130ba2502f77a085e',1,'FIFFLIB::FiffInfo::make_compensator()'],['../a02858.html#a27b55333c517e75aec341a0415e04d7f',1,'MNELIB::MNE::make_compensator()']]],
   ['make_5fguesses_4',['make_guesses',['../a02614.html#ad8021d8094326f243e51537a4ebf81f2',1,'FWDLIB::FwdBemModel']]],
@@ -32,7 +32,7 @@ var searchData=
   ['megsurfacekey_29',['megSurfaceKey',['../a02290.html#a5d5ea820c43cde369bfd820df7f940d8',1,'SensorFieldMapper']]],
   ['mergedata_30',['mergeData',['../a02366.html#aef95d59cc138a1d302e736c60a39ee68',1,'RTPROCESSINGLIB::RtAveragingWorker']]],
   ['meshfactory_31',['MeshFactory',['../a02170.html#a15ab289c5eea016e1904caf6ac7e970a',1,'MeshFactory']]],
-  ['metadata_32',['MetaData',['../a01814.html#a6d3f8c2c32c06889dbd2c6878b15a481',1,'COMMUNICATIONLIB::MetaData']]],
+  ['metadata_32',['MetaData',['../a01814.html#abbd648d5039e8c79572642c8c928a47e',1,'COMLIB::MetaData']]],
   ['methodchanged_33',['methodChanged',['../a02094.html#af052fc6df1c9266b5e1cb668b334d805',1,'DISPLIB::MinimumNormSettingsView']]],
   ['minimumnormsettingsview_34',['MinimumNormSettingsView',['../a02094.html#a62cd282a30bab360c22b0bc56842293c',1,'DISPLIB::MinimumNormSettingsView']]],
   ['minpanepx_35',['minPanePx',['../a02314.html#af20e33dac08549dd0a0f78331978c87e',1,'MultiViewLayout']]],

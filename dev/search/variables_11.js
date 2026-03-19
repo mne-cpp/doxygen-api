@@ -23,7 +23,7 @@ var searchData=
   ['rel_5frad_20',['rel_rad',['../a02634.html#ab0ba8ec8e92953d133860e3e232c8133',1,'FWDLIB::FwdEegSphereLayer']]],
   ['relative_21',['relative',['../a02990.html#a31947cf66a25bfa0b8da9df0e092ca8a',1,'MNELIB::MNEMshColorScaleDef']]],
   ['removesamplemean_22',['removeSampleMean',['../a03038.html#afc4adff0b4779270f38bdb85f185cd05',1,'MNELIB::CovDescription']]],
-  ['report_23',['report',['../a02842.html#ac7005a8bf036daaad7fb6640e9f22cbd',1,'UTILSLIB::fitUserNew::report'],['../a03178.html#abef5aca98096fff6189259ad7f12dc51',1,'UTILSLIB::fitUser::report']]],
+  ['report_23',['report',['../a02842.html#a4e9fe7b79b1b0331d783e8df1376ecc6',1,'UTILSLIB::FitUser::report'],['../a03178.html#abef5aca98096fff6189259ad7f12dc51',1,'UTILSLIB::fitUser::report']]],
   ['report_5fdim_24',['report_dim',['../a02674.html#a8ec3a35ee0089237b2ed90a6677dbe0f',1,'INVLIB::FitDipUserRec']]],
   ['res_25',['res',['../a02662.html#aaf437719c8e02693e705a4edd7571a82',1,'FWDLIB::FwdThreadArg']]],
   ['res_5fgrad_26',['res_grad',['../a02662.html#aab8524c1cadd67bc36f92ac4a9de07c8',1,'FWDLIB::FwdThreadArg']]],
@@ -39,5 +39,5 @@ var searchData=
   ['row_5fnames_36',['row_names',['../a02534.html#ae3e205f52a45955739f2d6c711a52150',1,'FIFFLIB::FiffNamedMatrix']]],
   ['rowcals_37',['rowcals',['../a02458.html#a21bf8cd43bee78ee5ef5a494a4fa1191',1,'FIFFLIB::FiffCtfComp']]],
   ['rowlist_38',['rowlist',['../a03018.html#a896f85880835db146d939c29e84d9778',1,'MNELIB::MNENamedMatrix::rowlist'],['../a03098.html#afa9920bb21f700e48152b1e40a3566dd',1,'MNELIB::MNESparseNamedMatrix::rowlist']]],
-  ['rr_39',['rr',['../a02702.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a02842.html#a6a1784657e200af36d900fb4c935bb34',1,'UTILSLIB::fitUserNew::rr'],['../a03114.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a03178.html#abe84a54eccb98f09876e7ff7c4e50de9',1,'UTILSLIB::fitUser::rr']]]
+  ['rr_39',['rr',['../a02702.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a02842.html#a137245b4a4c887daee71940e310dd358',1,'UTILSLIB::FitUser::rr'],['../a03114.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a03178.html#abe84a54eccb98f09876e7ff7c4e50de9',1,'UTILSLIB::fitUser::rr']]]
 ];

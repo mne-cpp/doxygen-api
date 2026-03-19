@@ -1,7 +1,7 @@
 var searchData=
 [
   ['dataloader_0',['DataLoader',['../a02154.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a01874.html',1,'CONNECTIVITYLIB']]],
+  ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a01874.html',1,'CONNLIB']]],
   ['digitizersettreeitem_2',['DigitizerSetTreeItem',['../a02210.html',1,'']]],
   ['digitizertreeitem_3',['DigitizerTreeItem',['../a02214.html',1,'']]],
   ['dipfiterror_4',['DipFitError',['../a02722.html',1,'INVLIB']]],
