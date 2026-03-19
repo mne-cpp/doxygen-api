@@ -16,7 +16,7 @@ var searchData=
   ['braintreemodel_2eh_13',['braintreemodel.h',['../a00800.html',1,'']]],
   ['brainview_2ecpp_14',['brainview.cpp',['../a00764.html',1,'']]],
   ['brainview_2eh_15',['brainview.h',['../a00776.html',1,'']]],
-  ['buildinfo_2eh_16',['buildinfo.h',['../a00992.html',1,'']]],
+  ['buildinfo_2eh_16',['buildinfo.h',['../a01040.html',1,'']]],
   ['butterflyview_2ecpp_17',['butterflyview.cpp',['../a00290.html',1,'']]],
   ['butterflyview_2eh_18',['butterflyview.h',['../a00110.html',1,'']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['beta_0',['BETA',['../a01529.html#a1b996515309fc3c03449912bb33046e3',1,'simplex_algorithm.h']]],
+  ['beta_0',['BETA',['../a01499.html#a1b996515309fc3c03449912bb33046e3',1,'simplex_algorithm.h']]],
   ['bids_5fanatomicaldata_1',['BIDS_ANATOMICALDATA',['../a00254.html#a8f3e96923ea70fc458a499ed0711cb32',1,'bidsviewmodel.h']]],
   ['bids_5faverage_2',['BIDS_AVERAGE',['../a00254.html#a771f0fb9e4645dc428fcaeaed0d5c60f',1,'bidsviewmodel.h']]],
   ['bids_5fbehavioraldata_3',['BIDS_BEHAVIORALDATA',['../a00254.html#a4ec98963e51e21539be4187d7c0d3598',1,'bidsviewmodel.h']]],
@@ -15,5 +15,5 @@ var searchData=
   ['bids_5fsubject_12',['BIDS_SUBJECT',['../a00254.html#a60e2591a1b7628870bebf6901c3cf876',1,'bidsviewmodel.h']]],
   ['bids_5funknown_13',['BIDS_UNKNOWN',['../a00254.html#abde145b2a87d4e777ce5eb7b87cd597d',1,'bidsviewmodel.h']]],
   ['big_14',['BIG',['../a00578.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'parksmcclellan.cpp']]],
-  ['big_5ftime_15',['BIG_TIME',['../a01712.html#a9b7eb62aa0860447484765b33902ea95',1,'inv_dipole_fit_settings.h']]]
+  ['big_5ftime_15',['BIG_TIME',['../a01682.html#a9b7eb62aa0860447484765b33902ea95',1,'inv_dipole_fit_settings.h']]]
 ];

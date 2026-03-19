@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eventupdatetype_0',['EventUpdateType',['../a01817.html#adfcc6ef5ca938af6c20c084296d7316a',1,'EVENTSLIB::EVENTSINTERNAL']]]
+  ['guimode_0',['GuiMode',['../a01946.html#a4758d14e067b1f8207526dca12903cf6',1,'DISPLIB::AbstractView']]]
 ];
