@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['vertexdata_0',['VertexData',['../a02250.html',1,'']]],
-  ['viewvisibilityprofile_1',['ViewVisibilityProfile',['../a02170.html',1,'']]],
-  ['visualizationinfo_2',['VisualizationInfo',['../a01906.html',1,'CONNECTIVITYLIB']]]
+  ['warp_0',['Warp',['../a03269.html',1,'UTILSLIB']]],
+  ['weightedphaselagindex_1',['WeightedPhaseLagIndex',['../a01933.html',1,'CONNECTIVITYLIB']]]
 ];

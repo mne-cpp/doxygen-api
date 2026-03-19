@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../a02802.html#a4f8aa1f33711db226f1eb823557f8f54',1,'INVERSELIB::Dipole::x()'],['../a02802.html#a8133e65519152ff50a49c281cd682cdf',1,'INVERSELIB::Dipole::x() const']]]
+  ['x_0',['x',['../a02769.html#a98d0d18dd4a7bb0462c48c24765ffc3d',1,'INVLIB::InvDipole::x()'],['../a02769.html#a5e38f637519553c677cdc894c1cf7092',1,'INVLIB::InvDipole::x() const']]]
 ];

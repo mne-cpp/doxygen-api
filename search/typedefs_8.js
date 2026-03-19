@@ -1,22 +1,4 @@
 var searchData=
 [
-  ['matrix6t_0',['Matrix6T',['../a02818.html#a09ff67c88a29959be3a8993813edcdfb',1,'INVERSELIB::RapMusic']]],
-  ['matrix6xt_1',['Matrix6XT',['../a02818.html#aa49db16068c475f461fe3c5a40310e0e',1,'INVERSELIB::RapMusic']]],
-  ['matrixdau16_2',['MatrixDau16',['../a01786.html#a67219b17cf8c0ed2c6af8012f2e81c4d',1,'FIFFLIB']]],
-  ['matrixshort_3',['MatrixShort',['../a01786.html#af44351ffdedcaa116f51d6d9b3d36517',1,'FIFFLIB']]],
-  ['matrixx6t_4',['MatrixX6T',['../a02818.html#a1164b219770c9a58d162e572221dde90',1,'INVERSELIB::RapMusic']]],
-  ['matrixxdr_5',['MatrixXdR',['../a01787.html#aa92ebf45614e24145966232d70b942bd',1,'DISPLIB']]],
-  ['matrixxt_6',['MatrixXT',['../a02818.html#a12b6d8f3b23f86dab1609a8783c2c38f',1,'INVERSELIB::RapMusic']]],
-  ['mnechselection_7',['mneChSelection',['../a01784.html#a7a9d637b023dcfe9587173e3808973ad',1,'MNELIB']]],
-  ['mnechselectionrec_8',['mneChSelectionRec',['../a01784.html#ab8031d82ea18ac52e78d80e928b60920',1,'MNELIB']]],
-  ['mnelayoutport_9',['mneLayoutPort',['../a01784.html#a530ccba55815cb2f00e627e05195198d',1,'MNELIB']]],
-  ['mnelayoutportrec_10',['mneLayoutPortRec',['../a01784.html#a537f237e45216b7c2ee45e0e3d667edd',1,'MNELIB']]],
-  ['mneoverlayrec_11',['mneOverlayRec',['../a01795.html#afa9b45e0d23185220828f9ec91eb4fa8',1,'INVERSELIB']]],
-  ['mneprefrec_12',['mnePrefRec',['../a01795.html#a8c147ce04e75bbb6246e2a08b2d0383e',1,'INVERSELIB']]],
-  ['mneuserfreefunc_13',['mneUserFreeFunc',['../a01784.html#a227ebaa07cd2de5e00062a0a33d24dfe',1,'MNELIB']]],
-  ['mneuserfreefunctmp_5f1_14',['mneUserFreeFuncTmp_1',['../a01712.html#a7178333c23449c9580576b53ae2bde5c',1,'mne_meas_data_set.h']]],
-  ['mshlabelrec_15',['mshLabelRec',['../a01795.html#a98065a8ccd7755d20a6ae6f37d56a0c2',1,'INVERSELIB']]],
-  ['mshlabelsetrec_16',['mshLabelSetRec',['../a01795.html#a44f2cfe3991d5ed560d8572363e477af',1,'INVERSELIB']]],
-  ['mshmegeegdatarec_17',['mshMegEegDataRec',['../a01795.html#ad12f89760bc1648a739e54caa8fad676',1,'INVERSELIB']]],
-  ['mshscalesrec_18',['mshScalesRec',['../a01795.html#a1c98e2c9e7372df6b5935aaec0cccad5',1,'INVERSELIB']]]
+  ['normalst_0',['NormalsT',['../a03069.html#a89060366d83dab74c46a34fc110e39c1',1,'MNELIB::MNESurfaceOrVolume']]]
 ];

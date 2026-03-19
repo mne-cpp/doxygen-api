@@ -1,10 +1,21 @@
 var searchData=
 [
-  ['tissuebrain_0',['TissueBrain',['../a02254.html#a7a35e381402ddbce8531f24014867df8a9dd94c56727561d251c71cf7db49364f',1,'BrainSurface']]],
-  ['tissueinnerskull_1',['TissueInnerSkull',['../a02254.html#a7a35e381402ddbce8531f24014867df8a00bae7f77d1216ca846246035e2a1a79',1,'BrainSurface']]],
-  ['tissueouterskull_2',['TissueOuterSkull',['../a02254.html#a7a35e381402ddbce8531f24014867df8a20ac1643c27f9ae97e391a380c7d049e',1,'BrainSurface']]],
-  ['tissueskin_3',['TissueSkin',['../a02254.html#a7a35e381402ddbce8531f24014867df8ab7a3b21bba16dc00113b960a3be2fea2',1,'BrainSurface']]],
-  ['tissueunknown_4',['TissueUnknown',['../a02254.html#a7a35e381402ddbce8531f24014867df8a8378956738d25386637210629e2f5ea9',1,'BrainSurface']]],
-  ['transformrole_5',['TransformRole',['../a02210.html#ae941378b7f6d564b5c34d9b68d1c4203a51c2222ccb0db13a98db738725e9548c',1,'AbstractTreeItem']]],
-  ['typerole_6',['TypeRole',['../a02210.html#ae941378b7f6d564b5c34d9b68d1c4203a5edd23e6fa21acab8eba51d4bd4755ba',1,'AbstractTreeItem']]]
+  ['sam_0',['SAM',['../a01819.html#a29bb5b206858a4db67919400558e5a99a9f1b3be4a82b11d104e4ef7f7ccb1c19',1,'INVLIB']]],
+  ['sensoritem_1',['SensorItem',['../a02241.html#a7804788c78ce642387ab26f50d3dda68a71763a759a309d47115344912eac51fa',1,'AbstractTreeItem']]],
+  ['sep_2',['Sep',['../a01819.html#af1ffe934a77f18c6a7260b1975016387af04aa7019c490474fa3ce16e93501b57',1,'INVLIB']]],
+  ['shadermoderole_3',['ShaderModeRole',['../a02273.html#a4428acbaaf56d9874c19e82819f3baa8aba408734b138da92ad05177f043d9be9',1,'SurfaceTreeItem']]],
+  ['shownormals_4',['ShowNormals',['../a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612caee33357d890bdafe66ce0ac3dfe0bbc9',1,'rendertypes.h']]],
+  ['singleview_5',['SingleView',['../a02349.html#aa3d141044493fd3001bf21b70c9dbfe4ad3ffb81dca285cc917e96c84cf7617e8',1,'BrainView']]],
+  ['sloreta_6',['sLORETA',['../a01819.html#a29bb5b206858a4db67919400558e5a99ab715ed259d4a6da05c9591016507159c',1,'INVLIB']]],
+  ['sourcespaceitem_7',['SourceSpaceItem',['../a02241.html#a7804788c78ce642387ab26f50d3dda68a4033c0bb8d2fda6213b54e2229f02645',1,'AbstractTreeItem']]],
+  ['spacediscrete_8',['SpaceDiscrete',['../a01819.html#af1ffe934a77f18c6a7260b1975016387aeef60ec45c3ce6bdcb5431d658b5b2b7',1,'INVLIB']]],
+  ['spacemixed_9',['SpaceMixed',['../a01819.html#af1ffe934a77f18c6a7260b1975016387a5abdb6aed4796d8d6f72b010f2c62c96',1,'INVLIB']]],
+  ['spacesurface_10',['SpaceSurface',['../a01819.html#af1ffe934a77f18c6a7260b1975016387a71cd70411174f4085d9fd5efe1bd9668',1,'INVLIB']]],
+  ['spaceunknown_11',['SpaceUnknown',['../a01819.html#af1ffe934a77f18c6a7260b1975016387a70b1fa28cd6ea66e8dda3dbb05be4503',1,'INVLIB']]],
+  ['spacevolume_12',['SpaceVolume',['../a01819.html#af1ffe934a77f18c6a7260b1975016387af8f0c3db3b7d1c625ce659eb8b007879',1,'INVLIB']]],
+  ['standard_13',['Standard',['../a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612ca57f9bf199e30a749a03be1dac2f5f624',1,'rendertypes.h']]],
+  ['string_14',['String',['../a01833.html#a22b8a5da4e9e3947843244e040a7ff22a27118326006d3829667a400ad23d5d98',1,'LSLLIB']]],
+  ['surface_15',['Surface',['../a01819.html#a9249e8f0994be81fbcf6d5b3760ad349aaa0d528ba11ea1485d466dfe1ea40819',1,'INVLIB']]],
+  ['surfacedatarole_16',['SurfaceDataRole',['../a02273.html#a4428acbaaf56d9874c19e82819f3baa8a8237f17c932261c40d73d311e83b3b6c',1,'SurfaceTreeItem']]],
+  ['surfaceitem_17',['SurfaceItem',['../a02241.html#a7804788c78ce642387ab26f50d3dda68a06fc0c50075752b58051f54bd6a234d9',1,'AbstractTreeItem']]]
 ];

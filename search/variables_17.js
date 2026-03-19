@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['x1_0',['x1',['../a02814.html#aebddc056b9761d1647ae282fb8b20e88',1,'INVERSELIB::Pair']]],
-  ['x2_1',['x2',['../a02814.html#a5e72c38d49abd45201ce7f9459400adf',1,'INVERSELIB::Pair']]],
-  ['x_5fras_2',['x_ras',['../a03114.html#a4965340c61f53dbe3d0aa00f7b025adb',1,'MNELIB::MneVolGeom::x_ras'],['../a03134.html#a0241a986087faf2e9ac858d7eb906f6e',1,'MRILIB::MriVolData::x_ras']]],
-  ['xmax_3',['xmax',['../a02950.html#af2c8da72bc1993fbe3d32fb67b11fcc3',1,'MNELIB::MneLayout::xmax'],['../a02954.html#a1d025bec768092d56e25c4cff4937924',1,'MNELIB::MneLayoutPort::xmax']]],
-  ['xmin_4',['xmin',['../a02950.html#a684163f8c77c4bbd15524257890228c1',1,'MNELIB::MneLayout::xmin'],['../a02954.html#a25718d4943a975e08d75552497856410',1,'MNELIB::MneLayoutPort::xmin']]],
-  ['xplotter_5flayout_5',['xplotter_layout',['../a02478.html#acc10f2af7adfa85a043cf6492a64adbd',1,'FIFFLIB::FiffInfo']]],
-  ['xray_6',['XRay',['../a02310.html#af2e6498d4b32074d53b31a6ca5f948dd',1,'BrainRenderer']]],
-  ['xsize_7',['xsize',['../a03114.html#afbfc6077ae7d3b204f59b32ace54219d',1,'MNELIB::MneVolGeom::xsize'],['../a03134.html#a8af11bb886165557f07685bf5abd5488',1,'MRILIB::MriVolData::xsize']]]
+  ['x_0',['X',['../a01604.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01127.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp']]],
+  ['x1_1',['x1',['../a02781.html#accc2647ae98b82f7dd45dbea0e039cc2',1,'INVLIB::Pair']]],
+  ['x2_2',['x2',['../a02781.html#a3c608ee980958d3d008cff84dd09f83e',1,'INVLIB::Pair']]],
+  ['x_5fras_3',['x_ras',['../a03081.html#a0c58f7d8868a70ff48a0ba05849e0efe',1,'MNELIB::MNEVolGeom::x_ras'],['../a03101.html#a613966e8bf278c5bb46e1e0c7d2a66b5',1,'MRILIB::MriVolData::x_ras']]],
+  ['xmax_4',['xmax',['../a02913.html#a495742e3c6539e8f1ddc215a12f7a781',1,'MNELIB::MNELayout::xmax'],['../a02917.html#a2001ac6e93a04e2865008f5869f20b76',1,'MNELIB::MNELayoutPort::xmax']]],
+  ['xmin_5',['xmin',['../a02913.html#a59e01e73a44faaaa3e8f5a25fc810627',1,'MNELIB::MNELayout::xmin'],['../a02917.html#a798ca770c2daf9ee5bd0892479edc5be',1,'MNELIB::MNELayoutPort::xmin']]],
+  ['xplotter_5flayout_6',['xplotter_layout',['../a02509.html#acc10f2af7adfa85a043cf6492a64adbd',1,'FIFFLIB::FiffInfo']]],
+  ['xray_7',['XRay',['../a02341.html#af2e6498d4b32074d53b31a6ca5f948dd',1,'BrainRenderer']]],
+  ['xsize_8',['xsize',['../a03081.html#a81fa9b4b0707bc75d2c30134f7f45cff',1,'MNELIB::MNEVolGeom::xsize'],['../a03101.html#a8af11bb886165557f07685bf5abd5488',1,'MRILIB::MriVolData::xsize']]]
 ];
