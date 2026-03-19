@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['alloc_5fcmatrix_5f16_0',['ALLOC_CMATRIX_16',['../a01658.html#a20c62f0479e181256489b13d8c44e778',1,'inv_guess_data.cpp']]],
+  ['alloc_5fcmatrix_5f16_0',['ALLOC_CMATRIX_16',['../a01664.html#a20c62f0479e181256489b13d8c44e778',1,'inv_guess_data.cpp']]],
   ['alloc_5fcmatrix_5f17_1',['ALLOC_CMATRIX_17',['../a01256.html#ad4594b69f5389d8003480371f9e10146',1,'ALLOC_CMATRIX_17:&#160;mne_msh_display_surface.cpp'],['../a01382.html#ad4594b69f5389d8003480371f9e10146',1,'ALLOC_CMATRIX_17:&#160;mne_source_space.cpp'],['../a01169.html#ad4594b69f5389d8003480371f9e10146',1,'ALLOC_CMATRIX_17:&#160;mne_surface_or_volume.cpp']]],
   ['alloc_5fcmatrix_5f23_2',['ALLOC_CMATRIX_23',['../a01208.html#a49a9736b631ddb32e18cc109249b03b3',1,'mne_proj_op.cpp']]],
   ['alloc_5fcmatrix_5f36_3',['ALLOC_CMATRIX_36',['../a01328.html#aebbd473dbda046d901b4394a513d4fe9',1,'mne_raw_data.cpp']]],

@@ -9,5 +9,7 @@ var searchData=
   ['networkobject_2ecpp_6',['networkobject.cpp',['../a00737.html',1,'']]],
   ['networkobject_2eh_7',['networkobject.h',['../a00722.html',1,'']]],
   ['networktreeitem_2ecpp_8',['networktreeitem.cpp',['../a00827.html',1,'']]],
-  ['networktreeitem_2eh_9',['networktreeitem.h',['../a00818.html',1,'']]]
+  ['networktreeitem_2eh_9',['networktreeitem.h',['../a00818.html',1,'']]],
+  ['numerics_2ecpp_10',['numerics.cpp',['../a01526.html',1,'']]],
+  ['numerics_2eh_11',['numerics.h',['../a01532.html',1,'']]]
 ];
