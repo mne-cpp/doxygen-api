@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp3D/input/cameracontroller.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/disp3D/input/raypicker.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -213,151 +213,108 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">cameracontroller.cpp</div></div>
+  <div class="headertitle"><div class="title">raypicker.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01448.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a01451.html">cameracontroller.h</a>&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#ifndef RAYPICKER_H</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define RAYPICKER_H</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;<a class="code" href="a01418.html">../disp3D_global.h</a>&quot;</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><a class="code hl_struct" href="a02188.html">CameraResult</a> CameraController::computeForRotation(<span class="keyword">const</span> QQuaternion &amp;effectiveRotation,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                                    <span class="keywordtype">float</span> vpZoom,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                                    <span class="keyword">const</span> QVector2D &amp;pan,</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                                    <span class="keywordtype">bool</span> applyPan,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                                                    <span class="keywordtype">float</span> aspectRatio)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    CameraResult result;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// Projection</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">float</span> farPlane = std::max(m_sceneSize * 20.0f, 100.0f);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    result.<a class="code hl_variable" href="a02188.html#a42fe6fdd7e79aea7f5aaf995f8559350">projection</a>.perspective(45.0f, aspectRatio, m_sceneSize * 0.01f, farPlane);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// Camera position from rotation + zoom</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">float</span> baseDistance = m_sceneSize * 1.5f;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    result.<a class="code hl_variable" href="a02188.html#a1ece30e5c5ad6596029defbae1b06f86">distance</a>    = baseDistance - vpZoom * (m_sceneSize * 0.05f);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    result.<a class="code hl_variable" href="a02188.html#a2f27124123450cd0a5f15110e08e496b">cameraPos</a>   = effectiveRotation.rotatedVector(QVector3D(0, 0, result.<a class="code hl_variable" href="a02188.html#a1ece30e5c5ad6596029defbae1b06f86">distance</a>));</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    result.<a class="code hl_variable" href="a02188.html#a8452dbd91d28f04e668d91b02ef770c9">upVector</a>    = effectiveRotation.rotatedVector(QVector3D(0, 1, 0));</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    result.<a class="code hl_variable" href="a02188.html#a1f8585252f95a48e4e1da3ab4f3a790a">lookAt</a>      = QVector3D(0, 0, 0);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// Pan: shift look-at and camera position along the view plane</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">if</span> (applyPan &amp;&amp; (pan.x() != 0.0f || pan.y() != 0.0f)) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">const</span> QVector3D right = effectiveRotation.rotatedVector(QVector3D(1, 0, 0)).normalized();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keyword">const</span> QVector3D up    = result.<a class="code hl_variable" href="a02188.html#a8452dbd91d28f04e668d91b02ef770c9">upVector</a>.normalized();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keyword">const</span> QVector3D offset = right * pan.x() + up * pan.y();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        result.<a class="code hl_variable" href="a02188.html#a1f8585252f95a48e4e1da3ab4f3a790a">lookAt</a>    += offset;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        result.<a class="code hl_variable" href="a02188.html#a2f27124123450cd0a5f15110e08e496b">cameraPos</a> += offset;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">// View matrix</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    result.<a class="code hl_variable" href="a02188.html#a2fc7da9d4ed159b0b447ce4e681d82c8">view</a>.lookAt(result.<a class="code hl_variable" href="a02188.html#a2f27124123450cd0a5f15110e08e496b">cameraPos</a>, result.<a class="code hl_variable" href="a02188.html#a1f8585252f95a48e4e1da3ab4f3a790a">lookAt</a>, result.<a class="code hl_variable" href="a02188.html#a8452dbd91d28f04e668d91b02ef770c9">upVector</a>);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">// Model matrix: translate to scene center</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    result.<a class="code hl_variable" href="a02188.html#a318b59a9ccf4e1dad3985f24462b0c01">model</a>.translate(-m_sceneCenter);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a02192.html#acfb4d7a66970f5533463af5b54de3480">   87</a></span><a class="code hl_struct" href="a02188.html">CameraResult</a> <a class="code hl_function" href="a02192.html#acfb4d7a66970f5533463af5b54de3480">CameraController::computeSingleView</a>(<span class="keywordtype">float</span> aspectRatio)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> QQuaternion preset    = <a class="code hl_function" href="a01571.html#ad4a9ee775f380f1e92dfc3deb7cdf902">perspectivePresetRotation</a>();</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> QQuaternion effective = m_cameraRotation * preset;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> computeForRotation(effective, m_zoom, QVector2D(), <span class="keyword">false</span>, aspectRatio);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &quot;<a class="code" href="a01559.html">core/viewstate.h</a>&quot;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;QPoint&gt;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;QRect&gt;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;QMatrix4x4&gt;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;QVector3D&gt;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;QMap&gt;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;QStandardItem&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">class </span><a class="code hl_class" href="a02246.html">BrainSurface</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">class </span><a class="code hl_class" href="a02254.html">DipoleObject</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="};">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a02190.html">   64</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02190.html">PickResult</a></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a02190.html#a201486be18ac48f8e6ca479c85bb9141">   66</a></span>    <span class="keywordtype">bool</span>    <a class="code hl_variable" href="a02190.html#a201486be18ac48f8e6ca479c85bb9141">hit</a>             = <span class="keyword">false</span>;     </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a02190.html#aacbe3395ca42e1b31d8c8d087c0f05bb">   67</a></span>    <span class="keywordtype">float</span>   <a class="code hl_variable" href="a02190.html#aacbe3395ca42e1b31d8c8d087c0f05bb">distance</a>        = 0.0f;     </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a02190.html#a8ba0a7a820edc2d067fac84cef856f35">   68</a></span>    QVector3D <a class="code hl_variable" href="a02190.html#a8ba0a7a820edc2d067fac84cef856f35">hitPoint</a>;                 </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a02190.html#a9f5995d42cb34e8a8e942ea86d312f4f">   70</a></span>    QStandardItem *<a class="code hl_variable" href="a02190.html#a9f5995d42cb34e8a8e942ea86d312f4f">item</a>     = <span class="keyword">nullptr</span>;  </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a02190.html#a5bf425e9c4de910d09fa36018eba89a7">   71</a></span>    QString <a class="code hl_variable" href="a02190.html#a5bf425e9c4de910d09fa36018eba89a7">surfaceKey</a>;                 </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a02190.html#a171fa9a905765cf2cc8215bda6b83327">   72</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="a02190.html#a171fa9a905765cf2cc8215bda6b83327">vertexIndex</a>     = -1;       </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a02190.html#ac1c38af26d5f64e91569e8b5724a0fcd">   74</a></span>    <span class="keywordtype">bool</span>    <a class="code hl_variable" href="a02190.html#ac1c38af26d5f64e91569e8b5724a0fcd">isDipole</a>        = <span class="keyword">false</span>;    </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a02190.html#a0618170c6a4050555ec77ba945ac9039">   75</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="a02190.html#a0618170c6a4050555ec77ba945ac9039">dipoleIndex</a>     = -1;       </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="comment">// FsAnnotation info (brain surfaces only)</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="a02190.html#a9dc93a733530a4a226c8f35341c1b8a2">   78</a></span>    QString <a class="code hl_variable" href="a02190.html#a9dc93a733530a4a226c8f35341c1b8a2">regionName</a>;                 </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a02190.html#ae87d4392258dd5a5e4a23259a1578a31">   79</a></span>    <span class="keywordtype">int</span>     <a class="code hl_variable" href="a02190.html#ae87d4392258dd5a5e4a23259a1578a31">regionId</a>        = -1;       </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    QString <a class="code hl_function" href="a02190.html#a95e01c8555e990afcd3a04a8cc9f2789">displayLabel</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>};</div>
 </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a02192.html#a6d6f6ac771f3c5be72cb14dd550da97a">   97</a></span><a class="code hl_struct" href="a02188.html">CameraResult</a> <a class="code hl_function" href="a02192.html#a6d6f6ac771f3c5be72cb14dd550da97a">CameraController::computeMultiView</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a02172.html">SubView</a> &amp;subView, <span class="keywordtype">float</span> aspectRatio)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> preset = std::clamp(subView.<a class="code hl_variable" href="a02172.html#ae1fdb53368161a413147c82e7510ffec">preset</a>, 0, 6);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">const</span> QQuaternion presetOffset = <a class="code hl_function" href="a01571.html#a2320a51f693ae69633e78579dd478239">multiViewPresetOffset</a>(preset);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    QQuaternion effectiveRotation;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a01571.html#a4812d1153e296f994021013b6f64ca18">multiViewPresetIsPerspective</a>(preset)) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        effectiveRotation = subView.<a class="code hl_variable" href="a02172.html#a966a64a6a71e38fb0ea580324f241559">perspectiveRotation</a> * presetOffset;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        effectiveRotation = presetOffset;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isPlanar = !<a class="code hl_function" href="a01571.html#a4812d1153e296f994021013b6f64ca18">multiViewPresetIsPerspective</a>(preset);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">return</span> computeForRotation(effectiveRotation, subView.<a class="code hl_variable" href="a02172.html#af2dfae7a90fad04e9ea67e42458344c3">zoom</a>, subView.<a class="code hl_variable" href="a02172.html#a8a404e70357099091977347c9672ab6c">pan</a>,</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                              isPlanar, aspectRatio);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="};">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a02194.html">  102</a></span><span class="keyword">class </span><a class="code hl_define" href="a01418.html#a9e0813af0c7548e2ee60e9033fdf045e">DISP3DSHARED_EXPORT</a> <a class="code hl_class" href="a02194.html">RayPicker</a></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a02194.html#a0fd0857d6f884aa208ba26cd2d8fc8bc">unproject</a>(<span class="keyword">const</span> QPoint &amp;screenPos,</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                          <span class="keyword">const</span> QRect &amp;paneRect,</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                          <span class="keyword">const</span> QMatrix4x4 &amp;pvm,</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                          QVector3D &amp;rayOrigin,</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                          QVector3D &amp;rayDir);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keyword">static</span> <a class="code hl_struct" href="a02190.html">PickResult</a> <a class="code hl_function" href="a02194.html#a7b8745b93723842f8b7e514d358d7cec">pick</a>(<span class="keyword">const</span> QVector3D &amp;rayOrigin,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                           <span class="keyword">const</span> QVector3D &amp;rayDir,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                           <span class="keyword">const</span> <a class="code hl_struct" href="a02166.html">SubView</a> &amp;subView,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                           <span class="keyword">const</span> QMap&lt;QString, std::shared_ptr&lt;BrainSurface&gt;&gt; &amp;surfaces,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                           <span class="keyword">const</span> QMap&lt;<span class="keyword">const</span> QStandardItem*, std::shared_ptr&lt;BrainSurface&gt;&gt; &amp;itemSurfaceMap,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                           <span class="keyword">const</span> QMap&lt;<span class="keyword">const</span> QStandardItem*, std::shared_ptr&lt;DipoleObject&gt;&gt; &amp;itemDipoleMap);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keyword">static</span> QString <a class="code hl_function" href="a02194.html#a25a540649c6bf023ccae84366a5ee71e">buildLabel</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a02190.html">PickResult</a> &amp;result,</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                              <span class="keyword">const</span> QMap&lt;<span class="keyword">const</span> QStandardItem*, std::shared_ptr&lt;BrainSurface&gt;&gt; &amp;itemSurfaceMap,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                              <span class="keyword">const</span> QMap&lt;QString, std::shared_ptr&lt;BrainSurface&gt;&gt; &amp;surfaces);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>};</div>
 </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a02192.html#a42406b2931a053ba5d8c0eac83a9cbbb">  117</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02192.html#a42406b2931a053ba5d8c0eac83a9cbbb">CameraController::applyMouseRotation</a>(<span class="keyword">const</span> QPoint &amp;delta,</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                                           QQuaternion &amp;<a class="code hl_function" href="a02192.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a>,</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                                           <span class="keywordtype">float</span> speed)</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> QQuaternion preset = <a class="code hl_function" href="a01571.html#ad4a9ee775f380f1e92dfc3deb7cdf902">perspectivePresetRotation</a>();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    QQuaternion effective    = <a class="code hl_function" href="a02192.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a> * preset;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">const</span> QVector3D upAxis    = effective.rotatedVector(QVector3D(0, 1, 0)).normalized();</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> QVector3D rightAxis = effective.rotatedVector(QVector3D(1, 0, 0)).normalized();</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    QQuaternion yaw   = QQuaternion::fromAxisAndAngle(upAxis,    -delta.x() * speed);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    QQuaternion pitch = QQuaternion::fromAxisAndAngle(rightAxis, -delta.y() * speed);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    effective = yaw * pitch * effective;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <a class="code hl_function" href="a02192.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a>  = effective * preset.conjugated();</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <a class="code hl_function" href="a02192.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a>.normalize();</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
-</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a02192.html#a58dcc1d4d5b79cc0ccf3a9ae443da6ff">  137</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02192.html#a58dcc1d4d5b79cc0ccf3a9ae443da6ff">CameraController::applyMousePan</a>(<span class="keyword">const</span> QPoint &amp;delta,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                                      QVector2D &amp;pan,</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                      <span class="keywordtype">float</span> <a class="code hl_function" href="a02192.html#afd6c9eeb6cc31618b47f9bd97fb79b4f">sceneSize</a>)</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> panSpeed = <a class="code hl_function" href="a02192.html#afd6c9eeb6cc31618b47f9bd97fb79b4f">sceneSize</a> * 0.002f;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    pan += QVector2D(-delta.x() * panSpeed, delta.y() * panSpeed);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
-</div>
-<div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">cameracontroller.h</a></div><div class="ttdoc">CameraController class declaration.</div></div>
-<div class="ttc" id="aa01571_html_a2320a51f693ae69633e78579dd478239"><div class="ttname"><a href="a01571.html#a2320a51f693ae69633e78579dd478239">multiViewPresetOffset</a></div><div class="ttdeci">QQuaternion multiViewPresetOffset(int preset)</div><div class="ttdef"><b>Definition</b> <a href="a01571_source.html#l00254">viewstate.cpp:254</a></div></div>
-<div class="ttc" id="aa01571_html_a4812d1153e296f994021013b6f64ca18"><div class="ttname"><a href="a01571.html#a4812d1153e296f994021013b6f64ca18">multiViewPresetIsPerspective</a></div><div class="ttdeci">bool multiViewPresetIsPerspective(int preset)</div><div class="ttdef"><b>Definition</b> <a href="a01571_source.html#l00284">viewstate.cpp:284</a></div></div>
-<div class="ttc" id="aa01571_html_ad4a9ee775f380f1e92dfc3deb7cdf902"><div class="ttname"><a href="a01571.html#ad4a9ee775f380f1e92dfc3deb7cdf902">perspectivePresetRotation</a></div><div class="ttdeci">QQuaternion perspectivePresetRotation()</div><div class="ttdef"><b>Definition</b> <a href="a01571_source.html#l00231">viewstate.cpp:231</a></div></div>
-<div class="ttc" id="aa02172_html"><div class="ttname"><a href="a02172.html">SubView</a></div><div class="ttdoc">Viewport subdivision holding its own camera, projection, and scissor rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a01565_source.html#l00147">viewstate.h:148</a></div></div>
-<div class="ttc" id="aa02172_html_a8a404e70357099091977347c9672ab6c"><div class="ttname"><a href="a02172.html#a8a404e70357099091977347c9672ab6c">SubView::pan</a></div><div class="ttdeci">QVector2D pan</div><div class="ttdef"><b>Definition</b> <a href="a01565_source.html#l00158">viewstate.h:158</a></div></div>
-<div class="ttc" id="aa02172_html_a966a64a6a71e38fb0ea580324f241559"><div class="ttname"><a href="a02172.html#a966a64a6a71e38fb0ea580324f241559">SubView::perspectiveRotation</a></div><div class="ttdeci">QQuaternion perspectiveRotation</div><div class="ttdef"><b>Definition</b> <a href="a01565_source.html#l00159">viewstate.h:159</a></div></div>
-<div class="ttc" id="aa02172_html_ae1fdb53368161a413147c82e7510ffec"><div class="ttname"><a href="a02172.html#ae1fdb53368161a413147c82e7510ffec">SubView::preset</a></div><div class="ttdeci">int preset</div><div class="ttdef"><b>Definition</b> <a href="a01565_source.html#l00160">viewstate.h:160</a></div></div>
-<div class="ttc" id="aa02172_html_af2dfae7a90fad04e9ea67e42458344c3"><div class="ttname"><a href="a02172.html#af2dfae7a90fad04e9ea67e42458344c3">SubView::zoom</a></div><div class="ttdeci">float zoom</div><div class="ttdef"><b>Definition</b> <a href="a01565_source.html#l00157">viewstate.h:157</a></div></div>
-<div class="ttc" id="aa02188_html"><div class="ttname"><a href="a02188.html">CameraResult</a></div><div class="ttdoc">Computed camera matrices (projection, view, model) and vectors for a single viewport.</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00060">cameracontroller.h:61</a></div></div>
-<div class="ttc" id="aa02188_html_a1ece30e5c5ad6596029defbae1b06f86"><div class="ttname"><a href="a02188.html#a1ece30e5c5ad6596029defbae1b06f86">CameraResult::distance</a></div><div class="ttdeci">float distance</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00068">cameracontroller.h:68</a></div></div>
-<div class="ttc" id="aa02188_html_a1f8585252f95a48e4e1da3ab4f3a790a"><div class="ttname"><a href="a02188.html#a1f8585252f95a48e4e1da3ab4f3a790a">CameraResult::lookAt</a></div><div class="ttdeci">QVector3D lookAt</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00067">cameracontroller.h:67</a></div></div>
-<div class="ttc" id="aa02188_html_a2f27124123450cd0a5f15110e08e496b"><div class="ttname"><a href="a02188.html#a2f27124123450cd0a5f15110e08e496b">CameraResult::cameraPos</a></div><div class="ttdeci">QVector3D cameraPos</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00065">cameracontroller.h:65</a></div></div>
-<div class="ttc" id="aa02188_html_a2fc7da9d4ed159b0b447ce4e681d82c8"><div class="ttname"><a href="a02188.html#a2fc7da9d4ed159b0b447ce4e681d82c8">CameraResult::view</a></div><div class="ttdeci">QMatrix4x4 view</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00063">cameracontroller.h:63</a></div></div>
-<div class="ttc" id="aa02188_html_a318b59a9ccf4e1dad3985f24462b0c01"><div class="ttname"><a href="a02188.html#a318b59a9ccf4e1dad3985f24462b0c01">CameraResult::model</a></div><div class="ttdeci">QMatrix4x4 model</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00064">cameracontroller.h:64</a></div></div>
-<div class="ttc" id="aa02188_html_a42fe6fdd7e79aea7f5aaf995f8559350"><div class="ttname"><a href="a02188.html#a42fe6fdd7e79aea7f5aaf995f8559350">CameraResult::projection</a></div><div class="ttdeci">QMatrix4x4 projection</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00062">cameracontroller.h:62</a></div></div>
-<div class="ttc" id="aa02188_html_a8452dbd91d28f04e668d91b02ef770c9"><div class="ttname"><a href="a02188.html#a8452dbd91d28f04e668d91b02ef770c9">CameraResult::upVector</a></div><div class="ttdeci">QVector3D upVector</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00066">cameracontroller.h:66</a></div></div>
-<div class="ttc" id="aa02192_html_a42406b2931a053ba5d8c0eac83a9cbbb"><div class="ttname"><a href="a02192.html#a42406b2931a053ba5d8c0eac83a9cbbb">CameraController::applyMouseRotation</a></div><div class="ttdeci">static void applyMouseRotation(const QPoint &amp;delta, QQuaternion &amp;rotation, float speed=0.5f)</div><div class="ttdef"><b>Definition</b> <a href="#l00117">cameracontroller.cpp:117</a></div></div>
-<div class="ttc" id="aa02192_html_a58dcc1d4d5b79cc0ccf3a9ae443da6ff"><div class="ttname"><a href="a02192.html#a58dcc1d4d5b79cc0ccf3a9ae443da6ff">CameraController::applyMousePan</a></div><div class="ttdeci">static void applyMousePan(const QPoint &amp;delta, QVector2D &amp;pan, float sceneSize)</div><div class="ttdef"><b>Definition</b> <a href="#l00137">cameracontroller.cpp:137</a></div></div>
-<div class="ttc" id="aa02192_html_a617f67f057a02d92a59fa7f94e267e67"><div class="ttname"><a href="a02192.html#a617f67f057a02d92a59fa7f94e267e67">CameraController::rotation</a></div><div class="ttdeci">QQuaternion rotation() const</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00105">cameracontroller.h:105</a></div></div>
-<div class="ttc" id="aa02192_html_a6d6f6ac771f3c5be72cb14dd550da97a"><div class="ttname"><a href="a02192.html#a6d6f6ac771f3c5be72cb14dd550da97a">CameraController::computeMultiView</a></div><div class="ttdeci">CameraResult computeMultiView(const SubView &amp;subView, float aspectRatio) const</div><div class="ttdef"><b>Definition</b> <a href="#l00097">cameracontroller.cpp:97</a></div></div>
-<div class="ttc" id="aa02192_html_acfb4d7a66970f5533463af5b54de3480"><div class="ttname"><a href="a02192.html#acfb4d7a66970f5533463af5b54de3480">CameraController::computeSingleView</a></div><div class="ttdeci">CameraResult computeSingleView(float aspectRatio) const</div><div class="ttdef"><b>Definition</b> <a href="#l00087">cameracontroller.cpp:87</a></div></div>
-<div class="ttc" id="aa02192_html_afd6c9eeb6cc31618b47f9bd97fb79b4f"><div class="ttname"><a href="a02192.html#afd6c9eeb6cc31618b47f9bd97fb79b4f">CameraController::sceneSize</a></div><div class="ttdeci">float sceneSize() const</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00099">cameracontroller.h:99</a></div></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#endif </span><span class="comment">// RAYPICKER_H</span></div>
+<div class="ttc" id="aa01418_html"><div class="ttname"><a href="a01418.html">disp3D_global.h</a></div><div class="ttdoc">disp3D library export/import macros.</div></div>
+<div class="ttc" id="aa01418_html_a9e0813af0c7548e2ee60e9033fdf045e"><div class="ttname"><a href="a01418.html#a9e0813af0c7548e2ee60e9033fdf045e">DISP3DSHARED_EXPORT</a></div><div class="ttdeci">#define DISP3DSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a01418_source.html#l00050">disp3D_global.h:50</a></div></div>
+<div class="ttc" id="aa01559_html"><div class="ttname"><a href="a01559.html">viewstate.h</a></div><div class="ttdoc">ViewState declarations — per-view data structures and conversion helpers.</div></div>
+<div class="ttc" id="aa02166_html"><div class="ttname"><a href="a02166.html">SubView</a></div><div class="ttdoc">Viewport subdivision holding its own camera, projection, and scissor rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a01559_source.html#l00147">viewstate.h:148</a></div></div>
+<div class="ttc" id="aa02190_html"><div class="ttname"><a href="a02190.html">PickResult</a></div><div class="ttdoc">Result of a ray–mesh intersection test containing the hit point, triangle index, and distance.</div><div class="ttdef"><b>Definition</b> <a href="#l00064">raypicker.h:65</a></div></div>
+<div class="ttc" id="aa02190_html_a0618170c6a4050555ec77ba945ac9039"><div class="ttname"><a href="a02190.html#a0618170c6a4050555ec77ba945ac9039">PickResult::dipoleIndex</a></div><div class="ttdeci">int dipoleIndex</div><div class="ttdoc">Index within the dipole set.</div><div class="ttdef"><b>Definition</b> <a href="#l00075">raypicker.h:75</a></div></div>
+<div class="ttc" id="aa02190_html_a171fa9a905765cf2cc8215bda6b83327"><div class="ttname"><a href="a02190.html#a171fa9a905765cf2cc8215bda6b83327">PickResult::vertexIndex</a></div><div class="ttdeci">int vertexIndex</div><div class="ttdoc">Vertex or element index at hit.</div><div class="ttdef"><b>Definition</b> <a href="#l00072">raypicker.h:72</a></div></div>
+<div class="ttc" id="aa02190_html_a201486be18ac48f8e6ca479c85bb9141"><div class="ttname"><a href="a02190.html#a201486be18ac48f8e6ca479c85bb9141">PickResult::hit</a></div><div class="ttdeci">bool hit</div><div class="ttdoc">True if something was hit.</div><div class="ttdef"><b>Definition</b> <a href="#l00066">raypicker.h:66</a></div></div>
+<div class="ttc" id="aa02190_html_a5bf425e9c4de910d09fa36018eba89a7"><div class="ttname"><a href="a02190.html#a5bf425e9c4de910d09fa36018eba89a7">PickResult::surfaceKey</a></div><div class="ttdeci">QString surfaceKey</div><div class="ttdoc">FsSurface map key of the hit surface.</div><div class="ttdef"><b>Definition</b> <a href="#l00071">raypicker.h:71</a></div></div>
+<div class="ttc" id="aa02190_html_a8ba0a7a820edc2d067fac84cef856f35"><div class="ttname"><a href="a02190.html#a8ba0a7a820edc2d067fac84cef856f35">PickResult::hitPoint</a></div><div class="ttdeci">QVector3D hitPoint</div><div class="ttdoc">World-space intersection point.</div><div class="ttdef"><b>Definition</b> <a href="#l00068">raypicker.h:68</a></div></div>
+<div class="ttc" id="aa02190_html_a95e01c8555e990afcd3a04a8cc9f2789"><div class="ttname"><a href="a02190.html#a95e01c8555e990afcd3a04a8cc9f2789">PickResult::displayLabel</a></div><div class="ttdeci">QString displayLabel() const</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00245">raypicker.cpp:245</a></div></div>
+<div class="ttc" id="aa02190_html_a9dc93a733530a4a226c8f35341c1b8a2"><div class="ttname"><a href="a02190.html#a9dc93a733530a4a226c8f35341c1b8a2">PickResult::regionName</a></div><div class="ttdeci">QString regionName</div><div class="ttdoc">FsAnnotation region label (if available).</div><div class="ttdef"><b>Definition</b> <a href="#l00078">raypicker.h:78</a></div></div>
+<div class="ttc" id="aa02190_html_a9f5995d42cb34e8a8e942ea86d312f4f"><div class="ttname"><a href="a02190.html#a9f5995d42cb34e8a8e942ea86d312f4f">PickResult::item</a></div><div class="ttdeci">QStandardItem * item</div><div class="ttdoc">Tree item that was hit (nullable).</div><div class="ttdef"><b>Definition</b> <a href="#l00070">raypicker.h:70</a></div></div>
+<div class="ttc" id="aa02190_html_aacbe3395ca42e1b31d8c8d087c0f05bb"><div class="ttname"><a href="a02190.html#aacbe3395ca42e1b31d8c8d087c0f05bb">PickResult::distance</a></div><div class="ttdeci">float distance</div><div class="ttdoc">Distance along ray to hit point.</div><div class="ttdef"><b>Definition</b> <a href="#l00067">raypicker.h:67</a></div></div>
+<div class="ttc" id="aa02190_html_ac1c38af26d5f64e91569e8b5724a0fcd"><div class="ttname"><a href="a02190.html#ac1c38af26d5f64e91569e8b5724a0fcd">PickResult::isDipole</a></div><div class="ttdeci">bool isDipole</div><div class="ttdoc">True if a dipole was hit.</div><div class="ttdef"><b>Definition</b> <a href="#l00074">raypicker.h:74</a></div></div>
+<div class="ttc" id="aa02190_html_ae87d4392258dd5a5e4a23259a1578a31"><div class="ttname"><a href="a02190.html#ae87d4392258dd5a5e4a23259a1578a31">PickResult::regionId</a></div><div class="ttdeci">int regionId</div><div class="ttdoc">FsAnnotation label ID.</div><div class="ttdef"><b>Definition</b> <a href="#l00079">raypicker.h:79</a></div></div>
+<div class="ttc" id="aa02194_html"><div class="ttname"><a href="a02194.html">RayPicker</a></div><div class="ttdoc">Ray casting and intersection testing.</div><div class="ttdef"><b>Definition</b> <a href="#l00102">raypicker.h:103</a></div></div>
+<div class="ttc" id="aa02194_html_a0fd0857d6f884aa208ba26cd2d8fc8bc"><div class="ttname"><a href="a02194.html#a0fd0857d6f884aa208ba26cd2d8fc8bc">RayPicker::unproject</a></div><div class="ttdeci">static bool unproject(const QPoint &amp;screenPos, const QRect &amp;paneRect, const QMatrix4x4 &amp;pvm, QVector3D &amp;rayOrigin, QVector3D &amp;rayDir)</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00052">raypicker.cpp:52</a></div></div>
+<div class="ttc" id="aa02194_html_a25a540649c6bf023ccae84366a5ee71e"><div class="ttname"><a href="a02194.html#a25a540649c6bf023ccae84366a5ee71e">RayPicker::buildLabel</a></div><div class="ttdeci">static QString buildLabel(const PickResult &amp;result, const QMap&lt; const QStandardItem *, std::shared_ptr&lt; BrainSurface &gt; &gt; &amp;itemSurfaceMap, const QMap&lt; QString, std::shared_ptr&lt; BrainSurface &gt; &gt; &amp;surfaces)</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00174">raypicker.cpp:174</a></div></div>
+<div class="ttc" id="aa02194_html_a7b8745b93723842f8b7e514d358d7cec"><div class="ttname"><a href="a02194.html#a7b8745b93723842f8b7e514d358d7cec">RayPicker::pick</a></div><div class="ttdeci">static PickResult pick(const QVector3D &amp;rayOrigin, const QVector3D &amp;rayDir, const SubView &amp;subView, const QMap&lt; QString, std::shared_ptr&lt; BrainSurface &gt; &gt; &amp;surfaces, const QMap&lt; const QStandardItem *, std::shared_ptr&lt; BrainSurface &gt; &gt; &amp;itemSurfaceMap, const QMap&lt; const QStandardItem *, std::shared_ptr&lt; DipoleObject &gt; &gt; &amp;itemDipoleMap)</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00085">raypicker.cpp:85</a></div></div>
+<div class="ttc" id="aa02246_html"><div class="ttname"><a href="a02246.html">BrainSurface</a></div><div class="ttdoc">Renderable cortical surface mesh with per-vertex color, curvature data, and GPU buffer management.</div><div class="ttdef"><b>Definition</b> <a href="a01502_source.html#l00082">brainsurface.h:83</a></div></div>
+<div class="ttc" id="aa02254_html"><div class="ttname"><a href="a02254.html">DipoleObject</a></div><div class="ttdoc">Renderable dipole arrow set with instanced GPU rendering for QRhi.</div><div class="ttdef"><b>Definition</b> <a href="a01511_source.html#l00062">dipoleobject.h:63</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
