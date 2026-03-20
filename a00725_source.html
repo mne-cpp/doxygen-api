@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp3D_rhi/renderable/dipoleobject.h Source File</title>
+    <title>MNE-CPP: src/libraries/dsp/rt_noise.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,119 +243,153 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_ceb91b0558e305478f9a6f250cbf6c42.html">disp3D_rhi</a></li><li class="navelem"><a href="dir_5e98c40a3bbad6795da3bb5e148728e5.html">renderable</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_d291838a59ac818b2ab15cba6e7b68a7.html">dsp</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">dipoleobject.h</div></div>
+  <div class="headertitle"><div class="title">rt_noise.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00725.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#ifndef DIPOLEOBJECT_H</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define DIPOLEOBJECT_H</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;<a class="code" href="a00632.html">../disp3D_rhi_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;QMatrix4x4&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;QVector3D&gt;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;<a class="code" href="a01688.html">inverse/dipole_fit/inv_ecd_set.h</a>&gt;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">// Forward-declare QRhi types so that this header stays QRhi-free</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">class </span>QRhi;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">class </span>QRhiBuffer;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">class </span>QRhiResourceUpdateBatch;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#ifndef RT_NOISE_RTPROCESSING_H</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define RT_NOISE_RTPROCESSING_H</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;<a class="code" href="a00758.html">dsp_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;<a class="code" href="a00509.html">fiff/fiff_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;QThread&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;QMutex&gt;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a02293.html">   62</a></span><span class="keyword">class </span><a class="code hl_define" href="a00632.html#a79fb53bd53692b7890eeecee0dcf29e5">DISP3DRHISHARED_EXPORT</a> <a class="code hl_function" href="a02293.html#abd0a53421dd547c6e234f2c979a9a521">DipoleObject</a></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_function" href="a02293.html#abd0a53421dd547c6e234f2c979a9a521">DipoleObject</a>();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a02293.html#ac59e5f47311718f5edd51ca4c77357ab">   66</a></span>    <a class="code hl_function" href="a02293.html#ac59e5f47311718f5edd51ca4c77357ab">~DipoleObject</a>();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">// DEFINE NAMESPACE RTPROCESSINGLIB</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01776.html">RTPROCESSINGLIB</a></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02293.html#aa0285860ee586210386c294f296da8d2">load</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02685.html">INVLIB::InvEcdSet</a> &amp;ecdSet);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// Apply a transformation matrix to all dipoles</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02293.html#ae52c4a0c2891dd8e4f2dc26abca8a9c6">applyTransform</a>(<span class="keyword">const</span> QMatrix4x4 &amp;trans);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02293.html#a4c628c1ffa809daa288a53727197fa97">updateBuffers</a>(QRhi *rhi, QRhiResourceUpdateBatch *u);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    QRhiBuffer* <a class="code hl_function" href="a02293.html#ae05a5098ea661fcdc0b17771b3f41edf">vertexBuffer</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    QRhiBuffer* <a class="code hl_function" href="a02293.html#aafc5f76b0d9951cdf96f31ccb8520215">indexBuffer</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    QRhiBuffer* <a class="code hl_function" href="a02293.html#a0178f2339ddf10424d6e5dc05ac63eff">instanceBuffer</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a02293.html#a5b5c115ae2bfaeb5b2b390c3c9ee4f63">   79</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="a02293.html#a5b5c115ae2bfaeb5b2b390c3c9ee4f63">indexCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_indexCount; }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="a02293.html#a14d6a140c7d80784fdca5f5f67be97f0">   80</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="a02293.html#a14d6a140c7d80784fdca5f5f67be97f0">instanceCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_instanceCount; }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a02293.html#aebcaf23da3aca8202266cb2ec015b5a5">   82</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02293.html#aebcaf23da3aca8202266cb2ec015b5a5">isVisible</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_visible; }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a02293.html#a89e54de447e0d0d0006e6a9fcb40f8de">   83</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02293.html#a89e54de447e0d0d0006e6a9fcb40f8de">setVisible</a>(<span class="keywordtype">bool</span> visible) { m_visible = visible; }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    QVector3D debugFirstDipolePosition() <span class="keyword">const</span>; <span class="comment">// For debugging</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">void</span> setSelected(<span class="keywordtype">int</span> index, <span class="keywordtype">bool</span> selected);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="};">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a02418.html">   72</a></span><span class="keyword">class </span><a class="code hl_define" href="a00758.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a> <a class="code hl_function" href="a02418.html#a48e8872161eb21b686d3c24a306aae95">RtNoiseWorker</a> : <span class="keyword">public</span> QObject</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    Q_OBJECT</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a02418.html#a48e8872161eb21b686d3c24a306aae95">RtNoiseWorker</a>(qint32 iFftLength,</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                           <a class="code hl_typedef" href="a02522.html#abfce6128814de61b3fdd324a97918338">FIFFLIB::FiffInfo::SPtr</a> pFiffInfo,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                           qint32 iDataLength);</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">int</span> intersect(<span class="keyword">const</span> QVector3D &amp;rayOrigin, <span class="keyword">const</span> QVector3D &amp;rayDir, <span class="keywordtype">float</span> &amp;dist) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">void</span> createGeometry();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">struct </span>GpuBuffers;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    std::unique_ptr&lt;GpuBuffers&gt; m_gpu;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">int</span> m_indexCount = 0;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordtype">int</span> m_instanceCount = 0;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordtype">bool</span> m_visible = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">struct </span><a class="code hl_struct" href="a02281.html">VertexData</a> {</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordtype">float</span> x, y, z;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordtype">float</span> nx, ny, nz;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    };</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="comment">// Instance data: Model Matrix (4x4) + Color (vec4)</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">struct </span>InstanceData {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordtype">float</span> model[16]; </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordtype">float</span> color[4];</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordtype">float</span> isSelected; <span class="comment">// 1.0 = selected, 0.0 = not</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    };</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    QByteArray m_vertexData;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    QByteArray m_indexData;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    QByteArray m_instanceData;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordtype">bool</span> m_geometryDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordtype">bool</span> m_instancesDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    std::vector&lt;QVector4D&gt; m_originalColors;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>};</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02418.html#a7276f47e8814e61e190d22e14fc93868">doWork</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>signals:</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a02418.html#a04be71fe04839de806597ccff8177a5f">  103</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02418.html#a04be71fe04839de806597ccff8177a5f">resultReady</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matSpecData);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">static</span> QVector&lt;float&gt; hanning(<span class="keywordtype">int</span> N, <span class="keywordtype">short</span> itype);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    qint32              m_iFftLength;       </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordtype">double</span>              m_dFs;              </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    qint32              m_iDataLength;      </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    QVector&lt;float&gt;      m_fWin;             </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">int</span>                 m_iNumOfBlocks = 0; </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">int</span>                 m_iBlockSize = 0;   </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordtype">int</span>                 m_iSensors = 0;     </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordtype">int</span>                 m_iBlockIndex = 0;  </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordtype">bool</span>                m_bFirstBlock = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    Eigen::MatrixXd     m_matCircBuf;       </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>};</div>
 </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="preprocessor">#endif </span><span class="comment">// DIPOLEOBJECT_H</span></div>
-<div class="ttc" id="aa00632_html"><div class="ttname"><a href="a00632.html">disp3D_rhi_global.h</a></div><div class="ttdoc">disp3D_rhi library export/import macros.</div></div>
-<div class="ttc" id="aa00632_html_a79fb53bd53692b7890eeecee0dcf29e5"><div class="ttname"><a href="a00632.html#a79fb53bd53692b7890eeecee0dcf29e5">DISP3DRHISHARED_EXPORT</a></div><div class="ttdeci">#define DISP3DRHISHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00632_source.html#l00050">disp3D_rhi_global.h:50</a></div></div>
-<div class="ttc" id="aa01688_html"><div class="ttname"><a href="a01688.html">inv_ecd_set.h</a></div><div class="ttdoc">FiffDigPointSet class declaration.</div></div>
-<div class="ttc" id="aa02281_html"><div class="ttname"><a href="a02281.html">VertexData</a></div><div class="ttdoc">Interleaved vertex attributes (position, normal, color, curvature) for brain surface GPU upload.</div><div class="ttdef"><b>Definition</b> <a href="a00716_source.html#l00069">brainsurface.h:69</a></div></div>
-<div class="ttc" id="aa02293_html_a0178f2339ddf10424d6e5dc05ac63eff"><div class="ttname"><a href="a02293.html#a0178f2339ddf10424d6e5dc05ac63eff">DipoleObject::instanceBuffer</a></div><div class="ttdeci">QRhiBuffer * instanceBuffer() const</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00067">dipoleobject.cpp:67</a></div></div>
-<div class="ttc" id="aa02293_html_a14d6a140c7d80784fdca5f5f67be97f0"><div class="ttname"><a href="a02293.html#a14d6a140c7d80784fdca5f5f67be97f0">DipoleObject::instanceCount</a></div><div class="ttdeci">int instanceCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00080">dipoleobject.h:80</a></div></div>
-<div class="ttc" id="aa02293_html_a4c628c1ffa809daa288a53727197fa97"><div class="ttname"><a href="a02293.html#a4c628c1ffa809daa288a53727197fa97">DipoleObject::updateBuffers</a></div><div class="ttdeci">void updateBuffers(QRhi *rhi, QRhiResourceUpdateBatch *u)</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00322">dipoleobject.cpp:322</a></div></div>
-<div class="ttc" id="aa02293_html_a5b5c115ae2bfaeb5b2b390c3c9ee4f63"><div class="ttname"><a href="a02293.html#a5b5c115ae2bfaeb5b2b390c3c9ee4f63">DipoleObject::indexCount</a></div><div class="ttdeci">int indexCount() const</div><div class="ttdef"><b>Definition</b> <a href="#l00079">dipoleobject.h:79</a></div></div>
-<div class="ttc" id="aa02293_html_a89e54de447e0d0d0006e6a9fcb40f8de"><div class="ttname"><a href="a02293.html#a89e54de447e0d0d0006e6a9fcb40f8de">DipoleObject::setVisible</a></div><div class="ttdeci">void setVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l00083">dipoleobject.h:83</a></div></div>
-<div class="ttc" id="aa02293_html_aa0285860ee586210386c294f296da8d2"><div class="ttname"><a href="a02293.html#aa0285860ee586210386c294f296da8d2">DipoleObject::load</a></div><div class="ttdeci">void load(const INVLIB::InvEcdSet &amp;ecdSet)</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00069">dipoleobject.cpp:69</a></div></div>
-<div class="ttc" id="aa02293_html_aafc5f76b0d9951cdf96f31ccb8520215"><div class="ttname"><a href="a02293.html#aafc5f76b0d9951cdf96f31ccb8520215">DipoleObject::indexBuffer</a></div><div class="ttdeci">QRhiBuffer * indexBuffer() const</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00066">dipoleobject.cpp:66</a></div></div>
-<div class="ttc" id="aa02293_html_abd0a53421dd547c6e234f2c979a9a521"><div class="ttname"><a href="a02293.html#abd0a53421dd547c6e234f2c979a9a521">DipoleObject::DipoleObject</a></div><div class="ttdeci">DipoleObject()</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00058">dipoleobject.cpp:58</a></div></div>
-<div class="ttc" id="aa02293_html_ac59e5f47311718f5edd51ca4c77357ab"><div class="ttname"><a href="a02293.html#ac59e5f47311718f5edd51ca4c77357ab">DipoleObject::~DipoleObject</a></div><div class="ttdeci">~DipoleObject()</div></div>
-<div class="ttc" id="aa02293_html_ae05a5098ea661fcdc0b17771b3f41edf"><div class="ttname"><a href="a02293.html#ae05a5098ea661fcdc0b17771b3f41edf">DipoleObject::vertexBuffer</a></div><div class="ttdeci">QRhiBuffer * vertexBuffer() const</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00065">dipoleobject.cpp:65</a></div></div>
-<div class="ttc" id="aa02293_html_ae52c4a0c2891dd8e4f2dc26abca8a9c6"><div class="ttname"><a href="a02293.html#ae52c4a0c2891dd8e4f2dc26abca8a9c6">DipoleObject::applyTransform</a></div><div class="ttdeci">void applyTransform(const QMatrix4x4 &amp;trans)</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00158">dipoleobject.cpp:158</a></div></div>
-<div class="ttc" id="aa02293_html_aebcaf23da3aca8202266cb2ec015b5a5"><div class="ttname"><a href="a02293.html#aebcaf23da3aca8202266cb2ec015b5a5">DipoleObject::isVisible</a></div><div class="ttdeci">bool isVisible() const</div><div class="ttdef"><b>Definition</b> <a href="#l00082">dipoleobject.h:82</a></div></div>
-<div class="ttc" id="aa02685_html"><div class="ttname"><a href="a02685.html">INVLIB::InvEcdSet</a></div><div class="ttdoc">Holds a set of Electric Current Dipoles.</div><div class="ttdef"><b>Definition</b> <a href="a01688_source.html#l00080">inv_ecd_set.h:81</a></div></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="};">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a02422.html">  125</a></span><span class="keyword">class </span><a class="code hl_define" href="a00758.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a> <a class="code hl_function" href="a02422.html#a747455e168bc7fc0ff4a637c403d7c40">RtNoise</a> : <span class="keyword">public</span> QObject</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>{</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    Q_OBJECT</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="a02422.html#ac1769b198acc9d3e84e92483431689c0">  130</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;RtNoise&gt; <a class="code hl_typedef" href="a02422.html#ac1769b198acc9d3e84e92483431689c0">SPtr</a>;             </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="a02422.html#a3cfb2be22a02d5dc1df998a83bceafbf">  131</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const RtNoise&gt; <a class="code hl_typedef" href="a02422.html#a3cfb2be22a02d5dc1df998a83bceafbf">ConstSPtr</a>;  </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a02422.html#a747455e168bc7fc0ff4a637c403d7c40">RtNoise</a>(qint32 iFftLength,</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                     <a class="code hl_typedef" href="a02522.html#abfce6128814de61b3fdd324a97918338">FIFFLIB::FiffInfo::SPtr</a> pFiffInfo,</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                     qint32 iDataLength,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                     QObject *parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <a class="code hl_function" href="a02422.html#a747455e168bc7fc0ff4a637c403d7c40">~RtNoise</a>();</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02422.html#ab607c384fbb10c2d7bdea1e93cb88598">append</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02422.html#af3dda23aef2a78961d07375c829846c8">isRunning</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02422.html#accd754d50adc8e853179e61e413baa70">start</a>();</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02422.html#adcb945c3badc9eac97395586a7419c02">stop</a>();</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02422.html#a2b0a4b5a7af4352ab911827c3df2e0d9">wait</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> time = ULONG_MAX);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>signals:</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="a02422.html#a4d7557525d8df813abb8bcd9a60e8b5e">  193</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02422.html#a4d7557525d8df813abb8bcd9a60e8b5e">SpecCalculated</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matSpecData);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="a02422.html#a2c0afdf428480b213127a30d62f02cd8">  198</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02422.html#a2c0afdf428480b213127a30d62f02cd8">operate</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    QThread             m_workerThread;     </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordtype">bool</span>                m_bIsRunning = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>};</div>
+</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment">// INLINE DEFINITIONS</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>} <span class="comment">// NAMESPACE</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">#endif </span><span class="comment">// RT_NOISE_RTPROCESSING_H</span></div>
+<div class="ttc" id="aa00509_html"><div class="ttname"><a href="a00509.html">fiff_info.h</a></div><div class="ttdoc">FiffInfo class declaration.</div></div>
+<div class="ttc" id="aa00758_html"><div class="ttname"><a href="a00758.html">dsp_global.h</a></div><div class="ttdoc">dsp library export/import macros.</div></div>
+<div class="ttc" id="aa00758_html_abb361459cf37ec31dad972356041a014"><div class="ttname"><a href="a00758.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a></div><div class="ttdeci">#define DSPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00056">dsp_global.h:56</a></div></div>
+<div class="ttc" id="aa01776_html"><div class="ttname"><a href="a01776.html">RTPROCESSINGLIB</a></div><div class="ttdef"><b>Definition</b> <a href="a00371_source.html#l00064">rtfiffrawviewdelegate.h:64</a></div></div>
+<div class="ttc" id="aa02418_html_a04be71fe04839de806597ccff8177a5f"><div class="ttname"><a href="a02418.html#a04be71fe04839de806597ccff8177a5f">RTPROCESSINGLIB::RtNoiseWorker::resultReady</a></div><div class="ttdeci">void resultReady(const Eigen::MatrixXd &amp;matSpecData)</div></div>
+<div class="ttc" id="aa02418_html_a48e8872161eb21b686d3c24a306aae95"><div class="ttname"><a href="a02418.html#a48e8872161eb21b686d3c24a306aae95">RTPROCESSINGLIB::RtNoiseWorker::RtNoiseWorker</a></div><div class="ttdeci">RtNoiseWorker(qint32 iFftLength, FIFFLIB::FiffInfo::SPtr pFiffInfo, qint32 iDataLength)</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00072">rt_noise.cpp:72</a></div></div>
+<div class="ttc" id="aa02418_html_a7276f47e8814e61e190d22e14fc93868"><div class="ttname"><a href="a02418.html#a7276f47e8814e61e190d22e14fc93868">RTPROCESSINGLIB::RtNoiseWorker::doWork</a></div><div class="ttdeci">void doWork(const Eigen::MatrixXd &amp;matData)</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00084">rt_noise.cpp:84</a></div></div>
+<div class="ttc" id="aa02422_html_a2b0a4b5a7af4352ab911827c3df2e0d9"><div class="ttname"><a href="a02422.html#a2b0a4b5a7af4352ab911827c3df2e0d9">RTPROCESSINGLIB::RtNoise::wait</a></div><div class="ttdeci">bool wait(unsigned long time=ULONG_MAX)</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00265">rt_noise.cpp:265</a></div></div>
+<div class="ttc" id="aa02422_html_a2c0afdf428480b213127a30d62f02cd8"><div class="ttname"><a href="a02422.html#a2c0afdf428480b213127a30d62f02cd8">RTPROCESSINGLIB::RtNoise::operate</a></div><div class="ttdeci">void operate(const Eigen::MatrixXd &amp;matData)</div></div>
+<div class="ttc" id="aa02422_html_a3cfb2be22a02d5dc1df998a83bceafbf"><div class="ttname"><a href="a02422.html#a3cfb2be22a02d5dc1df998a83bceafbf">RTPROCESSINGLIB::RtNoise::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const RtNoise &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00131">rt_noise.h:131</a></div></div>
+<div class="ttc" id="aa02422_html_a4d7557525d8df813abb8bcd9a60e8b5e"><div class="ttname"><a href="a02422.html#a4d7557525d8df813abb8bcd9a60e8b5e">RTPROCESSINGLIB::RtNoise::SpecCalculated</a></div><div class="ttdeci">void SpecCalculated(const Eigen::MatrixXd &amp;matSpecData)</div></div>
+<div class="ttc" id="aa02422_html_a747455e168bc7fc0ff4a637c403d7c40"><div class="ttname"><a href="a02422.html#a747455e168bc7fc0ff4a637c403d7c40">RTPROCESSINGLIB::RtNoise::RtNoise</a></div><div class="ttdeci">RtNoise(qint32 iFftLength, FIFFLIB::FiffInfo::SPtr pFiffInfo, qint32 iDataLength, QObject *parent=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00198">rt_noise.cpp:198</a></div></div>
+<div class="ttc" id="aa02422_html_ab607c384fbb10c2d7bdea1e93cb88598"><div class="ttname"><a href="a02422.html#ab607c384fbb10c2d7bdea1e93cb88598">RTPROCESSINGLIB::RtNoise::append</a></div><div class="ttdeci">void append(const Eigen::MatrixXd &amp;matData)</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00228">rt_noise.cpp:228</a></div></div>
+<div class="ttc" id="aa02422_html_ac1769b198acc9d3e84e92483431689c0"><div class="ttname"><a href="a02422.html#ac1769b198acc9d3e84e92483431689c0">RTPROCESSINGLIB::RtNoise::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; RtNoise &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00130">rt_noise.h:130</a></div></div>
+<div class="ttc" id="aa02422_html_accd754d50adc8e853179e61e413baa70"><div class="ttname"><a href="a02422.html#accd754d50adc8e853179e61e413baa70">RTPROCESSINGLIB::RtNoise::start</a></div><div class="ttdeci">bool start()</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00242">rt_noise.cpp:242</a></div></div>
+<div class="ttc" id="aa02422_html_adcb945c3badc9eac97395586a7419c02"><div class="ttname"><a href="a02422.html#adcb945c3badc9eac97395586a7419c02">RTPROCESSINGLIB::RtNoise::stop</a></div><div class="ttdeci">bool stop()</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00255">rt_noise.cpp:255</a></div></div>
+<div class="ttc" id="aa02422_html_af3dda23aef2a78961d07375c829846c8"><div class="ttname"><a href="a02422.html#af3dda23aef2a78961d07375c829846c8">RTPROCESSINGLIB::RtNoise::isRunning</a></div><div class="ttdeci">bool isRunning() const</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00235">rt_noise.cpp:235</a></div></div>
+<div class="ttc" id="aa02522_html_abfce6128814de61b3fdd324a97918338"><div class="ttname"><a href="a02522.html#abfce6128814de61b3fdd324a97918338">FIFFLIB::FiffInfo::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FiffInfo &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="a00509_source.html#l00087">fiff_info.h:87</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

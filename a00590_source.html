@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/fiff/fiff_file_sharer.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/fiff/fiff_ctf_comp.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -213,146 +248,90 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">fiff_file_sharer.cpp</div></div>
+  <div class="headertitle"><div class="title">fiff_ctf_comp.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00590.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a00548.html">fiff_file_sharer.h</a>&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;QDir&gt;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">// DEFINE STATIC MEMBERS</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> m_sDefaultDirectory[](<span class="stringliteral">&quot;realtime_shared_files&quot;</span>);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">char</span> m_sDefaultFileName[](<span class="stringliteral">&quot;realtime_file&quot;</span>);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#ifndef FIFF_CTF_COMP_H</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define FIFF_CTF_COMP_H</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &quot;<a class="code" href="a00512.html">fiff_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;<a class="code" href="a00653.html">fiff_types.h</a>&quot;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;<a class="code" href="a00533.html">fiff_named_matrix.h</a>&quot;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// DEFINE NAMESPACE FIFFLIB</span></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a02501.html#ad6643529a62035aad1aee81e6a29a432">   64</a></span><a class="code hl_function" href="a02501.html#ad6643529a62035aad1aee81e6a29a432">FiffFileSharer::FiffFileSharer</a>()</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>: <a class="code hl_function" href="a02501.html#ad6643529a62035aad1aee81e6a29a432">FiffFileSharer</a>(m_sDefaultDirectory)</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
-</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a02501.html#a38144203e52fcd5c6b42da80f2fdc460">   71</a></span><a class="code hl_function" href="a02501.html#ad6643529a62035aad1aee81e6a29a432">FiffFileSharer::FiffFileSharer</a>(<span class="keyword">const</span> QString&amp; sDirName)</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>: m_sDirectory(QDir::currentPath() + <span class="stringliteral">&quot;/&quot;</span> + sDirName)</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>, m_iFileIndex(0)</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
-</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01771.html">FIFFLIB</a></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="};">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a02458.html">   73</a></span><span class="keyword">class </span><a class="code hl_define" href="a00512.html#aab6c6e9f74ed9d6762feab45287c6ad8">FIFFSHARED_EXPORT</a> <a class="code hl_function" href="a02458.html#a71ab7f302a963cee050a96c9789a00df">FiffCtfComp</a> {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a02458.html#ac26c66d5600c9e5c7b753e8bfc1a4fe6">   76</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;FiffCtfComp&gt; <a class="code hl_typedef" href="a02458.html#ac26c66d5600c9e5c7b753e8bfc1a4fe6">SPtr</a>;               </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a02458.html#ac559e46d7c6bec5a1b4e4e73d2ea5f88">   77</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const FiffCtfComp&gt; <a class="code hl_typedef" href="a02458.html#ac559e46d7c6bec5a1b4e4e73d2ea5f88">ConstSPtr</a>;    </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a02501.html#ab0bbbc4a1b2b4fdcf00d24a32bedf545">   79</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02501.html#ab0bbbc4a1b2b4fdcf00d24a32bedf545">FiffFileSharer::copyRealtimeFile</a>(<span class="keyword">const</span> QString &amp;sSourcePath)</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span>(initSharedDirectory()){</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        QString sFilePath(m_sDirectory + <span class="stringliteral">&quot;/&quot;</span> + m_sDefaultFileName + QString::number(m_iFileIndex++) + <span class="stringliteral">&quot;_raw.fif&quot;</span>);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span>(QFile::copy(sSourcePath, sFilePath)){</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            QFile newFile(sFilePath);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">if</span>(newFile.open(QIODevice::ReadWrite)){</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                <a class="code hl_class" href="a02541.html">FIFFLIB::FiffStream</a> stream(&amp;newFile);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                stream.skipRawData(newFile.bytesAvailable());</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                stream.<a class="code hl_function" href="a02541.html#af9607baeadb2cca8011c5173eb606cde">finish_writing_raw</a>();</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                newFile.close();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            }</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
-</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_function" href="a02458.html#a71ab7f302a963cee050a96c9789a00df">FiffCtfComp</a>();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_function" href="a02458.html#a71ab7f302a963cee050a96c9789a00df">FiffCtfComp</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02458.html#a71ab7f302a963cee050a96c9789a00df">FiffCtfComp</a> &amp;p_FiffCtfComp);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_function" href="a02458.html#a71ab7f302a963cee050a96c9789a00df">~FiffCtfComp</a>();</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a02501.html#a1f341484e5cfe2fbdd1ba6eae4289c2c">   99</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02501.html#a1f341484e5cfe2fbdd1ba6eae4289c2c">FiffFileSharer::initWatcher</a>()</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>{</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">if</span>(initSharedDirectory()){</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        clearSharedDirectory();</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        m_fileWatcher.addPath(m_sDirectory);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        connect(&amp;m_fileWatcher, &amp;QFileSystemWatcher::directoryChanged,</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keyword">this</span>, &amp;FiffFileSharer::onDirectoryChanged, Qt::UniqueConnection);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        connect(&amp;m_fileWatcher, &amp;QFileSystemWatcher::fileChanged,</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                <span class="keyword">this</span>, &amp;FiffFileSharer::onFileChanged, Qt::UniqueConnection);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;[FiffFileSharer::initWatcher] Unable to initilaize shared directory&quot;</span>;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02458.html#a2d900f59128799f79ed965fa86600659">clear</a>();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a02458.html#a657fc151479eee767b672b7dbc0dcfa8">  106</a></span>    <a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> <a class="code hl_variable" href="a02458.html#a657fc151479eee767b672b7dbc0dcfa8">ctfkind</a>;             </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a02458.html#a87ce56e229922b8c0b71c0d29a4d8698">  107</a></span>    <a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> <a class="code hl_variable" href="a02458.html#a87ce56e229922b8c0b71c0d29a4d8698">kind</a>;                </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a02458.html#a2c42e307469c490de4fcb0b878fdf32c">  108</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="a02458.html#a2c42e307469c490de4fcb0b878fdf32c">save_calibrated</a>;           </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a02458.html#a21bf8cd43bee78ee5ef5a494a4fa1191">  109</a></span>    Eigen::MatrixXd <a class="code hl_variable" href="a02458.html#a21bf8cd43bee78ee5ef5a494a4fa1191">rowcals</a>;        </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a02458.html#a41739e5990c525f390e338857979991c">  110</a></span>    Eigen::MatrixXd <a class="code hl_variable" href="a02458.html#a41739e5990c525f390e338857979991c">colcals</a>;        </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="a02458.html#a59d3cc5600aa876c0f8bcfc3b31e4e65">  111</a></span>    <a class="code hl_typedef" href="a02534.html#a013471cfe5f75de645b42e1bc71f0651">FiffNamedMatrix::SDPtr</a> <a class="code hl_variable" href="a02458.html#a59d3cc5600aa876c0f8bcfc3b31e4e65">data</a>;    </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>};</div>
 </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>} <span class="comment">// NAMESPACE</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keywordtype">void</span> FiffFileSharer::clearSharedDirectory()</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>{</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    QDir directory(m_sDirectory);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    directory.setNameFilters(QStringList(<span class="stringliteral">&quot;*.*&quot;</span>));</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    directory.setFilter(QDir::Files);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; file : directory.entryList()){</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        directory.remove(file);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keywordtype">void</span> FiffFileSharer::onDirectoryChanged(<span class="keyword">const</span> QString &amp;sPath)</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>{</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    QString filePath(sPath + <span class="stringliteral">&quot;/&quot;</span> + m_sDefaultFileName + QString::number(m_iFileIndex) + <span class="stringliteral">&quot;_raw.fif&quot;</span>);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    m_fileWatcher.addPath(filePath);</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keywordtype">void</span> FiffFileSharer::onFileChanged(<span class="keyword">const</span> QString &amp;sPath)</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>{</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    emit <a class="code hl_signal" href="a02501.html#a0cf9b54cc36001a300c0e240aaf41836">newFileAtPath</a>(sPath);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    m_fileWatcher.removePath(sPath);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    m_iFileIndex++;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>}</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keywordtype">bool</span> FiffFileSharer::initSharedDirectory()</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>{</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    QDir sharedDirectory(m_sDirectory);</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">if</span>(!sharedDirectory.exists()){</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        sharedDirectory.mkpath(<span class="stringliteral">&quot;.&quot;</span>);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">return</span> sharedDirectory.exists();</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
-<div class="ttc" id="aa00548_html"><div class="ttname"><a href="a00548.html">fiff_file_sharer.h</a></div><div class="ttdoc">FiffFileSharer class declaration.</div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa02501_html_a0cf9b54cc36001a300c0e240aaf41836"><div class="ttname"><a href="a02501.html#a0cf9b54cc36001a300c0e240aaf41836">FIFFLIB::FiffFileSharer::newFileAtPath</a></div><div class="ttdeci">void newFileAtPath(const QString &amp;sPath)</div></div>
-<div class="ttc" id="aa02501_html_a1f341484e5cfe2fbdd1ba6eae4289c2c"><div class="ttname"><a href="a02501.html#a1f341484e5cfe2fbdd1ba6eae4289c2c">FIFFLIB::FiffFileSharer::initWatcher</a></div><div class="ttdeci">void initWatcher()</div><div class="ttdef"><b>Definition</b> <a href="#l00099">fiff_file_sharer.cpp:99</a></div></div>
-<div class="ttc" id="aa02501_html_ab0bbbc4a1b2b4fdcf00d24a32bedf545"><div class="ttname"><a href="a02501.html#ab0bbbc4a1b2b4fdcf00d24a32bedf545">FIFFLIB::FiffFileSharer::copyRealtimeFile</a></div><div class="ttdeci">void copyRealtimeFile(const QString &amp;sSourcePath)</div><div class="ttdef"><b>Definition</b> <a href="#l00079">fiff_file_sharer.cpp:79</a></div></div>
-<div class="ttc" id="aa02501_html_ad6643529a62035aad1aee81e6a29a432"><div class="ttname"><a href="a02501.html#ad6643529a62035aad1aee81e6a29a432">FIFFLIB::FiffFileSharer::FiffFileSharer</a></div><div class="ttdeci">FiffFileSharer()</div><div class="ttdef"><b>Definition</b> <a href="#l00064">fiff_file_sharer.cpp:64</a></div></div>
-<div class="ttc" id="aa02541_html"><div class="ttname"><a href="a02541.html">FIFFLIB::FiffStream</a></div><div class="ttdoc">FIFF File I/O routines.</div><div class="ttdef"><b>Definition</b> <a href="a00482_source.html#l00105">fiff_stream.h:106</a></div></div>
-<div class="ttc" id="aa02541_html_af9607baeadb2cca8011c5173eb606cde"><div class="ttname"><a href="a02541.html#af9607baeadb2cca8011c5173eb606cde">FIFFLIB::FiffStream::finish_writing_raw</a></div><div class="ttdeci">void finish_writing_raw()</div><div class="ttdef"><b>Definition</b> <a href="a00524_source.html#l00180">fiff_stream.cpp:180</a></div></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#endif </span><span class="comment">// FIFF_CTF_COMP_H</span></div>
+<div class="ttc" id="aa00512_html"><div class="ttname"><a href="a00512.html">fiff_global.h</a></div><div class="ttdoc">Fiff library export/import macros.</div></div>
+<div class="ttc" id="aa00512_html_aab6c6e9f74ed9d6762feab45287c6ad8"><div class="ttname"><a href="a00512.html#aab6c6e9f74ed9d6762feab45287c6ad8">FIFFSHARED_EXPORT</a></div><div class="ttdeci">#define FIFFSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00052">fiff_global.h:52</a></div></div>
+<div class="ttc" id="aa00533_html"><div class="ttname"><a href="a00533.html">fiff_named_matrix.h</a></div><div class="ttdoc">FiffNamedMatrix class declaration.</div></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">fiff_types.h</a></div><div class="ttdoc">Old fiff_type declarations - replace them.</div></div>
+<div class="ttc" id="aa01771_html"><div class="ttname"><a href="a01771.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00071">connectivitysettings.h:71</a></div></div>
+<div class="ttc" id="aa01771_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a01771.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00653_source.html#l00089">fiff_types.h:89</a></div></div>
+<div class="ttc" id="aa02458_html_a21bf8cd43bee78ee5ef5a494a4fa1191"><div class="ttname"><a href="a02458.html#a21bf8cd43bee78ee5ef5a494a4fa1191">FIFFLIB::FiffCtfComp::rowcals</a></div><div class="ttdeci">Eigen::MatrixXd rowcals</div><div class="ttdef"><b>Definition</b> <a href="#l00109">fiff_ctf_comp.h:109</a></div></div>
+<div class="ttc" id="aa02458_html_a2c42e307469c490de4fcb0b878fdf32c"><div class="ttname"><a href="a02458.html#a2c42e307469c490de4fcb0b878fdf32c">FIFFLIB::FiffCtfComp::save_calibrated</a></div><div class="ttdeci">bool save_calibrated</div><div class="ttdef"><b>Definition</b> <a href="#l00108">fiff_ctf_comp.h:108</a></div></div>
+<div class="ttc" id="aa02458_html_a2d900f59128799f79ed965fa86600659"><div class="ttname"><a href="a02458.html#a2d900f59128799f79ed965fa86600659">FIFFLIB::FiffCtfComp::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition</b> <a href="a00686_source.html#l00082">fiff_ctf_comp.cpp:82</a></div></div>
+<div class="ttc" id="aa02458_html_a41739e5990c525f390e338857979991c"><div class="ttname"><a href="a02458.html#a41739e5990c525f390e338857979991c">FIFFLIB::FiffCtfComp::colcals</a></div><div class="ttdeci">Eigen::MatrixXd colcals</div><div class="ttdef"><b>Definition</b> <a href="#l00110">fiff_ctf_comp.h:110</a></div></div>
+<div class="ttc" id="aa02458_html_a59d3cc5600aa876c0f8bcfc3b31e4e65"><div class="ttname"><a href="a02458.html#a59d3cc5600aa876c0f8bcfc3b31e4e65">FIFFLIB::FiffCtfComp::data</a></div><div class="ttdeci">FiffNamedMatrix::SDPtr data</div><div class="ttdef"><b>Definition</b> <a href="#l00111">fiff_ctf_comp.h:111</a></div></div>
+<div class="ttc" id="aa02458_html_a657fc151479eee767b672b7dbc0dcfa8"><div class="ttname"><a href="a02458.html#a657fc151479eee767b672b7dbc0dcfa8">FIFFLIB::FiffCtfComp::ctfkind</a></div><div class="ttdeci">fiff_int_t ctfkind</div><div class="ttdef"><b>Definition</b> <a href="#l00106">fiff_ctf_comp.h:106</a></div></div>
+<div class="ttc" id="aa02458_html_a71ab7f302a963cee050a96c9789a00df"><div class="ttname"><a href="a02458.html#a71ab7f302a963cee050a96c9789a00df">FIFFLIB::FiffCtfComp::FiffCtfComp</a></div><div class="ttdeci">FiffCtfComp()</div><div class="ttdef"><b>Definition</b> <a href="a00686_source.html#l00054">fiff_ctf_comp.cpp:54</a></div></div>
+<div class="ttc" id="aa02458_html_a87ce56e229922b8c0b71c0d29a4d8698"><div class="ttname"><a href="a02458.html#a87ce56e229922b8c0b71c0d29a4d8698">FIFFLIB::FiffCtfComp::kind</a></div><div class="ttdeci">fiff_int_t kind</div><div class="ttdef"><b>Definition</b> <a href="#l00107">fiff_ctf_comp.h:107</a></div></div>
+<div class="ttc" id="aa02458_html_ac26c66d5600c9e5c7b753e8bfc1a4fe6"><div class="ttname"><a href="a02458.html#ac26c66d5600c9e5c7b753e8bfc1a4fe6">FIFFLIB::FiffCtfComp::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FiffCtfComp &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00076">fiff_ctf_comp.h:76</a></div></div>
+<div class="ttc" id="aa02458_html_ac559e46d7c6bec5a1b4e4e73d2ea5f88"><div class="ttname"><a href="a02458.html#ac559e46d7c6bec5a1b4e4e73d2ea5f88">FIFFLIB::FiffCtfComp::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const FiffCtfComp &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00077">fiff_ctf_comp.h:77</a></div></div>
+<div class="ttc" id="aa02534_html_a013471cfe5f75de645b42e1bc71f0651"><div class="ttname"><a href="a02534.html#a013471cfe5f75de645b42e1bc71f0651">FIFFLIB::FiffNamedMatrix::SDPtr</a></div><div class="ttdeci">QSharedDataPointer&lt; FiffNamedMatrix &gt; SDPtr</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00081">fiff_named_matrix.h:81</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

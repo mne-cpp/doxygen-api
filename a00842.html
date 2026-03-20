@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp3D_rhi/model/items/dipoletreeitem.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/conn/metrics/coherence.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,85 +243,97 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_ceb91b0558e305478f9a6f250cbf6c42.html">disp3D_rhi</a></li><li class="navelem"><a href="dir_aec169a2768c88bdc449b05bc58ddb38.html">model</a></li><li class="navelem"><a href="dir_f3afdc2d9c89bc5b9a878d47957ea6fd.html">items</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_2960015e23681b11126f26d2a32abf5e.html">conn</a></li><li class="navelem"><a href="dir_60f52984fcbd592522f236410d5ed5d2.html">metrics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">dipoletreeitem.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">coherence.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a02257.html" title="Tree item representing a set of fitted dipoles in the 3-D scene hierarchy.">DipoleTreeItem</a> class definition.  
+<p>Coherence class declaration.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00827_source.html">dipoletreeitem.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00896_source.html">../conn_global.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00887_source.html">abstractmetric.h</a>&quot;</code><br />
+<code>#include &lt;QSharedPointer&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for dipoletreeitem.cpp:</div>
+Include dependency graph for coherence.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00843.png" border="0" usemap="#asrc_2libraries_2disp3_d__rhi_2model_2items_2dipoletreeitem_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2disp3_d__rhi_2model_2items_2dipoletreeitem_8cpp" id="asrc_2libraries_2disp3_d__rhi_2model_2items_2dipoletreeitem_8cpp">
-<area shape="rect" title="DipoleTreeItem class definition." alt="" coords="121,5,379,45"/>
-<area shape="rect" href="a00827.html" title="DipoleTreeItem class declaration." alt="" coords="185,93,315,119"/>
-<area shape="poly" title=" " alt="" coords="253,46,253,79,247,79,247,46"/>
-<area shape="rect" href="a00632.html" title="disp3D_rhi library export/import macros." alt="" coords="5,328,180,353"/>
-<area shape="poly" title=" " alt="" coords="220,121,177,140,128,169,81,208,62,231,46,256,42,272,47,287,69,317,65,320,42,290,37,272,41,254,57,227,78,204,125,165,175,136,217,116"/>
-<area shape="rect" href="a00800.html" title="AbstractTreeItem class declaration." alt="" coords="179,174,321,199"/>
-<area shape="poly" title=" " alt="" coords="253,119,253,160,247,160,247,119"/>
-<area shape="rect" href="a01688.html" title="FiffDigPointSet class declaration." alt="" coords="617,167,752,207"/>
-<area shape="poly" title=" " alt="" coords="314,116,604,168,603,173,313,121"/>
-<area shape="rect" title=" " alt="" coords="35,401,166,427"/>
-<area shape="poly" title=" " alt="" coords="97,353,101,388,95,388,91,354"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="194,401,317,427"/>
-<area shape="poly" title=" " alt="" coords="120,351,217,393,215,398,118,356"/>
-<area shape="rect" title=" " alt="" coords="222,475,289,500"/>
-<area shape="poly" title=" " alt="" coords="258,427,258,461,253,461,253,427"/>
-<area shape="poly" title=" " alt="" coords="179,195,145,202,112,214,81,231,56,256,51,270,54,286,73,316,68,319,49,288,46,270,52,253,78,227,109,209,144,197,178,190"/>
-<area shape="rect" title=" " alt="" coords="66,255,186,280"/>
-<area shape="poly" title=" " alt="" coords="233,202,157,249,154,245,230,197"/>
-<area shape="rect" title=" " alt="" coords="211,255,289,280"/>
-<area shape="poly" title=" " alt="" coords="253,200,253,241,247,241,247,200"/>
-<area shape="rect" title=" " alt="" coords="314,255,413,280"/>
-<area shape="poly" title=" " alt="" coords="268,197,337,245,334,249,265,202"/>
-<area shape="rect" title=" " alt="" coords="437,255,527,280"/>
-<area shape="poly" title=" " alt="" coords="285,197,436,248,434,253,283,202"/>
-<area shape="rect" href="a01799.html" title="inverse library export/import macros." alt="" coords="289,328,403,353"/>
-<area shape="poly" title=" " alt="" coords="661,209,607,246,540,282,474,308,410,327,408,322,472,303,538,278,604,241,658,205"/>
-<area shape="rect" href="a01727.html" title="Electric Current Dipole (InvEcd) class declaration." alt="" coords="603,255,687,280"/>
-<area shape="poly" title=" " alt="" coords="677,208,659,243,654,241,673,206"/>
-<area shape="rect" title=" " alt="" coords="685,328,807,353"/>
-<area shape="poly" title=" " alt="" coords="695,206,739,314,734,316,690,208"/>
-<area shape="rect" title=" " alt="" coords="763,255,817,280"/>
-<area shape="poly" title=" " alt="" coords="712,205,765,244,762,248,709,209"/>
-<area shape="rect" title=" " alt="" coords="841,255,912,280"/>
-<area shape="poly" title=" " alt="" coords="732,204,837,247,835,252,730,209"/>
-<area shape="poly" title=" " alt="" coords="307,356,154,400,153,395,306,351"/>
-<area shape="poly" title=" " alt="" coords="333,355,283,395,279,390,330,351"/>
-<area shape="poly" title=" " alt="" coords="603,281,408,327,407,322,602,276"/>
-<area shape="rect" title=" " alt="" coords="469,328,561,353"/>
-<area shape="poly" title=" " alt="" coords="625,282,550,323,548,319,623,278"/>
-<area shape="poly" title=" " alt="" coords="662,278,720,318,717,322,659,282"/>
-<area shape="rect" title=" " alt="" coords="586,328,661,353"/>
-<area shape="poly" title=" " alt="" coords="644,281,633,316,628,314,639,280"/>
+<div class="center"><img src="a00843.png" border="0" usemap="#asrc_2libraries_2conn_2metrics_2coherence_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2conn_2metrics_2coherence_8h" id="asrc_2libraries_2conn_2metrics_2coherence_8h">
+<area shape="rect" title="Coherence class declaration." alt="" coords="265,5,423,45"/>
+<area shape="rect" href="a00896.html" title="conn library export/import macros." alt="" coords="83,167,207,192"/>
+<area shape="poly" title=" " alt="" coords="321,48,173,160,170,156,318,43"/>
+<area shape="rect" href="a00887.html" title="AbstractMetric class declaration." alt="" coords="331,93,461,119"/>
+<area shape="poly" title=" " alt="" coords="359,44,383,80,378,83,354,47"/>
+<area shape="rect" title=" " alt="" coords="232,167,355,192"/>
+<area shape="poly" title=" " alt="" coords="339,47,323,94,303,154,298,153,317,92,334,45"/>
+<area shape="rect" title=" " alt="" coords="477,167,569,192"/>
+<area shape="poly" title=" " alt="" coords="397,43,437,63,475,91,499,122,515,152,511,155,495,124,471,95,435,68,395,48"/>
+<area shape="rect" title=" " alt="" coords="5,240,136,265"/>
+<area shape="poly" title=" " alt="" coords="135,194,95,232,91,229,132,190"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="160,240,283,265"/>
+<area shape="poly" title=" " alt="" coords="159,190,201,229,197,232,156,194"/>
+<area shape="rect" title=" " alt="" coords="188,313,255,339"/>
+<area shape="poly" title=" " alt="" coords="224,266,224,300,219,300,219,266"/>
+<area shape="poly" title=" " alt="" coords="356,121,200,165,198,160,355,116"/>
+<area shape="poly" title=" " alt="" coords="381,121,323,161,320,156,378,116"/>
+<area shape="rect" title=" " alt="" coords="379,167,453,192"/>
+<area shape="poly" title=" " alt="" coords="402,118,412,153,407,154,397,120"/>
+<area shape="poly" title=" " alt="" coords="418,116,491,157,489,162,415,121"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00844.png" border="0" usemap="#asrc_2libraries_2conn_2metrics_2coherence_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2conn_2metrics_2coherence_8hdep" id="asrc_2libraries_2conn_2metrics_2coherence_8hdep">
+<area shape="rect" title="Coherence class declaration." alt="" coords="81,5,239,45"/>
+<area shape="rect" href="a00893.html" title="Connectivity class definition." alt="" coords="5,93,139,133"/>
+<area shape="poly" title=" " alt="" coords="132,57,93,95,90,91,129,53"/>
+<area shape="rect" href="a00827.html" title="Coherence class declaration." alt="" coords="163,93,336,133"/>
+<area shape="poly" title=" " alt="" coords="192,53,231,91,228,95,188,57"/>
 </map>
 </div>
 </div>
 <p><a href="a00842_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:CONNLIB_3A_3ACoherence" id="r_CONNLIB_3A_3ACoherence"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01858.html">CONNLIB::Coherence</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class computes the coherence connectivity metric.  <a href="a01858.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:CONNLIB" id="r_CONNLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01768.html">CONNLIB</a></td></tr>
+<tr class="memdesc:a01768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functional connectivity metrics (coherence, PLV, cross-correlation, etc.). <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02257.html" title="Tree item representing a set of fitted dipoles in the 3-D scene hierarchy.">DipoleTreeItem</a> class definition. </p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a>; Lars Debor <a href="#" onclick="location.href='mai'+'lto:'+'Lar'+'s.'+'Deb'+'or'+'@tu'+'-i'+'lme'+'na'+'u.d'+'e'; return false;">Lars.<span class="obfuscator">.nosp@m.</span>Debo<span class="obfuscator">.nosp@m.</span>r@tu-<span class="obfuscator">.nosp@m.</span>ilme<span class="obfuscator">.nosp@m.</span>nau.d<span class="obfuscator">.nosp@m.</span>e</a>; Gabriel B Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
+<div class="textblock"><p>Coherence class declaration. </p>
+<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'Dan'+'ie'+'l.S'+'tr'+'ohm'+'ei'+'er@'+'tu'+'-il'+'me'+'nau'+'.d'+'e'; return false;">Danie<span class="obfuscator">.nosp@m.</span>l.St<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>tu-il<span class="obfuscator">.nosp@m.</span>mena<span class="obfuscator">.nosp@m.</span>u.de</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>April, 2018</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
+<p>Copyright (C) 2018, Daniel Strohmeier, Lorenz Esch. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
 <li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+<dl class="section note"><dt>Note</dt><dd>Notes:<ul>
+<li>Some of this code was adapted from mne-python (<a href="https://martinos.org/mne">https://martinos.org/mne</a>) with permission from Alexandre Gramfort.</li>
+<li>QtConcurrent can be used to speed up computation.</li>
+</ul>
+</dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a00842_source.html">dipoletreeitem.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00842_source.html">coherence.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

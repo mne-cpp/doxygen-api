@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/utils/spectral.h File Reference</title>
+    <title>MNE-CPP: src/libraries/mri/mri_cor_fif_io.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,7 +243,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_304646ad377fe11859b8f1aafeeadc65.html">utils</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_4738fd813dac7ad3c3cfdea8eead0f33.html">mri</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
@@ -216,71 +251,127 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">spectral.h File Reference</div></div>
+  <div class="headertitle"><div class="title">mri_cor_fif_io.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Declaration of Spectral class.  
+<p>MriCorFifIO class declaration.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01016_source.html">utils_global.h</a>&quot;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00989_source.html">mri_global.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01010_source.html">mri_vol_data.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a00659_source.html">fiff/fiff_coord_trans.h</a>&gt;</code><br />
 <code>#include &lt;QString&gt;</code><br />
-<code>#include &lt;QPair&gt;</code><br />
-<code>#include &lt;QSharedPointer&gt;</code><br />
+<code>#include &lt;QVector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for spectral.h:</div>
+Include dependency graph for mri_cor_fif_io.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00999.png" border="0" usemap="#asrc_2libraries_2utils_2spectral_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2utils_2spectral_8h" id="asrc_2libraries_2utils_2spectral_8h">
-<area shape="rect" title="Declaration of Spectral class." alt="" coords="348,5,479,45"/>
-<area shape="rect" href="a01016.html" title="utils library export/import macros." alt="" coords="63,93,172,119"/>
-<area shape="poly" title=" " alt="" coords="348,47,174,92,173,87,347,41"/>
-<area shape="rect" title=" " alt="" coords="197,93,259,119"/>
-<area shape="poly" title=" " alt="" coords="370,48,269,90,267,85,368,43"/>
-<area shape="rect" title=" " alt="" coords="283,93,343,119"/>
-<area shape="poly" title=" " alt="" coords="391,48,341,87,338,82,387,43"/>
-<area shape="rect" title=" " alt="" coords="367,93,459,119"/>
-<area shape="poly" title=" " alt="" coords="416,46,416,79,411,79,411,46"/>
-<area shape="rect" title=" " alt="" coords="483,93,554,119"/>
-<area shape="poly" title=" " alt="" coords="440,43,494,83,490,87,437,48"/>
-<area shape="rect" title=" " alt="" coords="579,93,635,119"/>
-<area shape="poly" title=" " alt="" coords="461,43,567,86,565,91,459,48"/>
-<area shape="rect" title=" " alt="" coords="659,93,781,119"/>
-<area shape="poly" title=" " alt="" coords="479,41,663,87,661,92,478,46"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="5,167,96,192"/>
-<area shape="poly" title=" " alt="" coords="108,121,73,158,69,155,104,117"/>
-<area shape="rect" title=" " alt="" coords="120,167,251,192"/>
-<area shape="poly" title=" " alt="" coords="130,117,167,155,163,158,127,121"/>
-<area shape="rect" title=" " alt="" coords="17,240,84,265"/>
-<area shape="poly" title=" " alt="" coords="53,192,53,226,48,226,48,192"/>
+<div class="center"><img src="a00999.png" border="0" usemap="#asrc_2libraries_2mri_2mri__cor__fif__io_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2mri_2mri__cor__fif__io_8h" id="asrc_2libraries_2mri_2mri__cor__fif__io_8h">
+<area shape="rect" title="MriCorFifIO class declaration." alt="" coords="1360,5,1511,45"/>
+<area shape="rect" href="a00989.html" title="MRI library export/import macros." alt="" coords="1386,240,1488,265"/>
+<area shape="poly" title=" " alt="" coords="1408,47,1385,68,1367,94,1365,106,1368,118,1378,149,1392,179,1422,227,1418,230,1388,181,1373,151,1362,119,1360,106,1363,92,1381,65,1405,43"/>
+<area shape="rect" href="a01010.html" title="MriVolData class declaration." alt="" coords="1376,93,1495,119"/>
+<area shape="poly" title=" " alt="" coords="1438,46,1438,79,1433,79,1433,46"/>
+<area shape="rect" href="a00659.html" title="FiffCoordTrans class declaration." alt="" coords="1074,167,1229,192"/>
+<area shape="poly" title=" " alt="" coords="1386,48,1334,69,1280,96,1225,129,1179,161,1176,156,1222,124,1277,91,1332,65,1384,43"/>
+<area shape="rect" title=" " alt="" coords="1536,313,1607,339"/>
+<area shape="poly" title=" " alt="" coords="1512,42,1562,60,1613,85,1661,120,1681,141,1698,165,1705,187,1704,208,1696,229,1682,248,1645,282,1606,309,1603,304,1642,278,1678,245,1691,226,1699,207,1700,188,1693,168,1677,145,1657,124,1611,90,1560,64,1510,47"/>
+<area shape="rect" title=" " alt="" coords="1610,167,1683,192"/>
+<area shape="poly" title=" " alt="" coords="1463,43,1621,156,1618,161,1460,48"/>
+<area shape="rect" title=" " alt="" coords="914,680,1045,705"/>
+<area shape="poly" title=" " alt="" coords="1434,267,1414,323,1405,360,1401,398,1401,548,1398,561,1391,574,1364,598,1324,618,1275,636,1163,665,1059,683,1058,678,1162,659,1273,631,1322,613,1361,593,1387,571,1393,559,1396,547,1396,398,1399,359,1408,321,1429,265"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="1281,680,1404,705"/>
+<area shape="poly" title=" " alt="" coords="1441,265,1448,322,1452,398,1452,547,1450,573,1444,594,1419,634,1398,656,1375,675,1372,670,1394,652,1415,630,1439,591,1445,573,1446,547,1446,398,1442,323,1436,266"/>
+<area shape="rect" title=" " alt="" coords="1309,753,1376,779"/>
+<area shape="poly" title=" " alt="" coords="1345,706,1345,740,1340,740,1340,706"/>
+<area shape="poly" title=" " alt="" coords="1435,119,1428,152,1426,192,1433,226,1428,227,1421,192,1422,151,1430,118"/>
+<area shape="rect" href="a00980.html" title="MRI type definitions and constants." alt="" coords="1436,167,1534,192"/>
+<area shape="poly" title=" " alt="" coords="1446,117,1471,154,1467,157,1442,121"/>
+<area shape="poly" title=" " alt="" coords="1391,121,1211,166,1210,161,1389,116"/>
+<area shape="rect" title=" " alt="" coords="1135,533,1227,559"/>
+<area shape="poly" title=" " alt="" coords="1424,121,1402,143,1378,174,1358,211,1352,231,1350,251,1350,327,1346,361,1335,392,1319,422,1299,449,1254,495,1212,527,1209,523,1250,491,1295,445,1315,419,1331,390,1341,359,1345,327,1345,251,1347,230,1353,209,1373,171,1398,139,1420,117"/>
+<area shape="poly" title=" " alt="" coords="1477,116,1515,135,1533,148,1549,165,1565,199,1574,235,1577,270,1577,300,1571,300,1572,271,1569,236,1560,200,1544,168,1530,152,1512,139,1474,121"/>
+<area shape="poly" title=" " alt="" coords="1470,116,1600,160,1599,165,1469,121"/>
+<area shape="rect" href="a00512.html" title="Fiff library export/import macros." alt="" coords="824,607,922,632"/>
+<area shape="poly" title=" " alt="" coords="1178,190,1210,210,1240,238,1269,281,1291,322,1306,363,1312,404,1309,444,1296,484,1274,523,1241,561,1220,575,1188,587,1108,604,1017,614,936,619,936,614,1017,609,1107,599,1187,582,1217,570,1238,557,1270,519,1292,482,1303,443,1306,404,1300,365,1286,324,1265,283,1236,242,1207,214,1175,194"/>
+<area shape="rect" href="a00653.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="402,460,496,485"/>
+<area shape="poly" title=" " alt="" coords="1074,188,842,203,547,230,406,247,284,267,193,290,164,302,147,315,137,331,133,345,134,358,139,370,163,393,200,413,245,429,295,443,388,461,387,466,294,448,244,434,198,418,160,397,135,373,129,359,128,344,132,328,143,312,161,298,192,285,283,262,405,242,546,224,841,198,1074,182"/>
+<area shape="poly" title=" " alt="" coords="1168,190,1192,212,1218,244,1240,282,1247,303,1249,325,1249,401,1244,436,1232,470,1201,524,1196,521,1227,468,1239,435,1244,400,1244,325,1241,304,1235,284,1214,247,1188,216,1164,194"/>
+<area shape="rect" href="a00536.html" title="FiffStream class declaration." alt="" coords="666,240,770,265"/>
+<area shape="poly" title=" " alt="" coords="1082,195,785,243,784,238,1082,189"/>
+<area shape="rect" title=" " alt="" coords="784,460,906,485"/>
+<area shape="poly" title=" " alt="" coords="1135,194,1071,242,1009,299,951,357,866,451,862,448,948,353,1006,295,1067,238,1132,190"/>
+<area shape="rect" href="a00587.html" title="FiffDirNode class declaration, which provides fiff dir tree processing methods." alt="" coords="157,313,272,339"/>
+<area shape="poly" title=" " alt="" coords="1075,191,883,212,655,243,450,279,281,313,280,308,449,274,654,237,883,207,1074,186"/>
+<area shape="rect" title=" " alt="" coords="1118,313,1209,339"/>
+<area shape="poly" title=" " alt="" coords="1159,191,1173,240,1174,271,1171,300,1166,299,1169,271,1168,240,1154,193"/>
+<area shape="rect" title=" " alt="" coords="1081,240,1158,265"/>
+<area shape="poly" title=" " alt="" coords="1149,193,1133,229,1128,227,1144,191"/>
+<area shape="poly" title=" " alt="" coords="892,630,952,670,949,675,889,634"/>
+<area shape="poly" title=" " alt="" coords="923,625,1267,677,1267,683,922,631"/>
+<area shape="rect" href="a00527.html" title="Fiff constants." alt="" coords="154,533,275,559"/>
+<area shape="poly" title=" " alt="" coords="412,488,266,532,265,527,410,483"/>
+<area shape="rect" href="a00641.html" title="FiffTime class declaration." alt="" coords="514,533,602,559"/>
+<area shape="poly" title=" " alt="" coords="468,483,530,523,527,528,465,488"/>
+<area shape="rect" href="a00524.html" title="FiffDataRef class declaration." alt="" coords="299,533,410,559"/>
+<area shape="poly" title=" " alt="" coords="435,487,382,527,379,523,432,483"/>
+<area shape="poly" title=" " alt="" coords="497,476,1121,536,1121,542,496,481"/>
+<area shape="rect" title=" " alt="" coords="730,533,784,559"/>
+<area shape="poly" title=" " alt="" coords="497,481,717,531,716,536,496,486"/>
+<area shape="rect" title=" " alt="" coords="36,533,129,559"/>
+<area shape="poly" title=" " alt="" coords="402,486,143,536,142,530,401,481"/>
+<area shape="rect" title=" " alt="" coords="434,533,490,559"/>
+<area shape="poly" title=" " alt="" coords="454,485,460,519,455,520,449,486"/>
+<area shape="rect" title=" " alt="" coords="627,533,706,559"/>
+<area shape="poly" title=" " alt="" coords="485,483,619,526,617,532,483,488"/>
+<area shape="poly" title=" " alt="" coords="603,555,811,601,810,607,602,560"/>
+<area shape="rect" title=" " alt="" coords="418,607,496,632"/>
+<area shape="poly" title=" " alt="" coords="544,561,486,601,483,596,540,556"/>
+<area shape="poly" title=" " alt="" coords="410,554,423,556,811,608,810,613,422,561,410,559"/>
+<area shape="poly" title=" " alt="" coords="372,556,430,596,427,601,369,561"/>
+<area shape="poly" title=" " alt="" coords="771,254,810,259,853,269,895,286,933,311,949,328,957,345,966,386,969,417,966,448,948,507,920,559,893,597,889,594,916,556,943,505,961,447,964,417,961,387,952,347,945,331,930,315,893,291,851,274,809,264,770,259"/>
+<area shape="poly" title=" " alt="" coords="705,268,549,389,474,452,471,448,546,385,701,263"/>
+<area shape="poly" title=" " alt="" coords="771,252,822,256,881,266,942,284,1000,311,1031,333,1059,360,1109,418,1147,475,1172,520,1167,522,1142,477,1105,421,1056,363,1027,338,997,316,940,289,880,271,821,262,771,257"/>
+<area shape="poly" title=" " alt="" coords="771,253,805,258,842,269,877,286,906,312,935,355,948,398,948,419,944,441,920,487,895,512,863,529,830,539,799,545,798,540,829,534,861,524,892,508,916,484,939,439,943,419,943,399,930,358,902,315,874,291,840,274,804,264,770,258"/>
+<area shape="poly" title=" " alt="" coords="666,259,534,265,370,277,225,294,174,304,146,316,127,337,111,362,100,390,92,419,84,475,83,520,78,520,79,474,87,418,95,388,106,360,122,334,143,311,172,299,224,288,370,272,534,260,666,253"/>
+<area shape="rect" href="a00602.html" title="FiffId class declaration." alt="" coords="699,387,770,412"/>
+<area shape="poly" title=" " alt="" coords="715,266,703,299,700,319,702,338,720,374,715,377,697,339,695,319,698,298,710,265"/>
+<area shape="poly" title=" " alt="" coords="722,265,729,299,736,319,746,337,762,353,780,360,798,369,816,385,833,415,843,446,838,447,828,417,812,388,795,373,778,365,759,357,742,340,731,321,723,301,717,266"/>
+<area shape="poly" title=" " alt="" coords="666,263,285,316,285,311,666,258"/>
+<area shape="rect" href="a00548.html" title="FiffDirEntry class declaration." alt="" coords="560,387,674,412"/>
+<area shape="poly" title=" " alt="" coords="712,267,635,377,631,374,708,264"/>
+<area shape="rect" title=" " alt="" coords="756,313,892,339"/>
+<area shape="poly" title=" " alt="" coords="737,263,797,303,794,308,734,268"/>
+<area shape="rect" title=" " alt="" coords="296,313,394,339"/>
+<area shape="poly" title=" " alt="" coords="666,267,408,315,407,310,666,261"/>
+<area shape="rect" title=" " alt="" coords="418,313,528,339"/>
+<area shape="poly" title=" " alt="" coords="680,268,526,312,525,307,678,263"/>
+<area shape="poly" title=" " alt="" coords="771,260,1105,313,1104,318,770,265"/>
+<area shape="poly" title=" " alt="" coords="771,256,1523,318,1522,323,770,261"/>
+<area shape="poly" title=" " alt="" coords="740,411,752,446,774,484,791,499,808,507,825,515,843,532,860,562,870,592,865,594,855,564,839,535,822,520,805,511,788,503,770,487,747,448,735,413"/>
+<area shape="poly" title=" " alt="" coords="699,412,509,459,508,454,698,407"/>
+<area shape="poly" title=" " alt="" coords="754,410,817,450,814,455,751,414"/>
+<area shape="poly" title=" " alt="" coords="193,341,129,379,92,404,57,433,29,464,12,496,8,512,9,527,15,542,25,556,58,566,131,576,355,593,810,613,810,619,355,598,130,581,57,572,22,561,10,545,4,528,3,511,7,494,25,461,53,430,89,400,126,374,190,337"/>
+<area shape="poly" title=" " alt="" coords="235,337,420,450,417,455,232,341"/>
+<area shape="poly" title=" " alt="" coords="217,339,217,519,212,519,212,339"/>
+<area shape="poly" title=" " alt="" coords="244,336,718,526,716,531,242,341"/>
+<area shape="poly" title=" " alt="" coords="209,340,99,523,94,520,205,338"/>
+<area shape="poly" title=" " alt="" coords="272,334,284,336,395,350,483,358,572,367,685,384,685,389,571,372,482,363,394,355,283,341,271,340"/>
+<area shape="poly" title=" " alt="" coords="272,334,284,336,394,342,537,345,610,349,678,356,737,367,782,384,800,397,815,413,836,446,832,449,810,416,796,401,780,389,736,372,677,361,610,354,537,350,394,347,283,341,271,340"/>
+<area shape="poly" title=" " alt="" coords="272,335,546,383,545,388,272,340"/>
+<area shape="poly" title=" " alt="" coords="636,410,708,460,797,531,857,594,853,598,794,535,705,464,633,414"/>
+<area shape="poly" title=" " alt="" coords="591,414,490,457,488,452,589,410"/>
+<area shape="poly" title=" " alt="" coords="654,409,796,453,794,458,653,415"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01000.png" border="0" usemap="#asrc_2libraries_2utils_2spectral_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2utils_2spectral_8hdep" id="asrc_2libraries_2utils_2spectral_8hdep">
-<area shape="rect" title="Declaration of Spectral class." alt="" coords="1118,5,1249,45"/>
-<area shape="rect" href="a00887.html" title="Coherency class declaration." alt="" coords="5,93,188,133"/>
-<area shape="poly" title=" " alt="" coords="1104,32,715,51,460,69,201,96,189,98,188,92,200,91,459,64,715,45,1104,26"/>
-<area shape="rect" href="a00890.html" title="CrossCorrelation class definition." alt="" coords="213,93,423,133"/>
-<area shape="poly" title=" " alt="" coords="1104,35,810,58,436,96,424,98,423,92,435,91,809,52,1104,29"/>
-<area shape="rect" href="a00905.html" title="DebiasedSquaredWeightedPhaseLagIndex class definition." alt="" coords="448,93,820,133"/>
-<area shape="poly" title=" " alt="" coords="1104,42,755,96,754,91,1104,36"/>
-<area shape="rect" href="a00899.html" title="PhaseLagIndex class definition." alt="" coords="844,93,1045,133"/>
-<area shape="poly" title=" " alt="" coords="1119,53,998,96,996,91,1117,48"/>
-<area shape="rect" href="a00902.html" title="PhaseLockingValue class definition." alt="" coords="1069,93,1297,133"/>
-<area shape="poly" title=" " alt="" coords="1186,59,1186,93,1181,93,1181,59"/>
-<area shape="rect" href="a00878.html" title="UnbiasedSquaredPhaseLagIndex class definition." alt="" coords="1322,93,1634,133"/>
-<area shape="poly" title=" " alt="" coords="1262,47,1414,91,1413,96,1260,52"/>
-<area shape="rect" href="a00863.html" title="WeightedPhaseLagIndex class definition." alt="" coords="1658,93,1919,133"/>
-<area shape="poly" title=" " alt="" coords="1263,35,1658,91,1658,96,1262,40"/>
-<area shape="rect" href="a00929.html" title="Network class definition." alt="" coords="1944,93,2127,133"/>
-<area shape="poly" title=" " alt="" coords="1263,29,1558,51,1744,69,1932,91,1944,92,1943,98,1931,96,1743,74,1557,56,1262,34"/>
-<area shape="rect" href="a01037.html" title="Declaration of Spectral class." alt="" coords="2151,93,2282,133"/>
-<area shape="poly" title=" " alt="" coords="1263,25,1424,30,1642,40,1890,60,2140,91,2151,93,2151,98,2139,96,1889,65,1642,46,1424,35,1263,30"/>
+<div class="center"><img src="a01000.png" border="0" usemap="#asrc_2libraries_2mri_2mri__cor__fif__io_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2mri_2mri__cor__fif__io_8hdep" id="asrc_2libraries_2mri_2mri__cor__fif__io_8hdep">
+<area shape="rect" title="MriCorFifIO class declaration." alt="" coords="5,5,156,45"/>
+<area shape="rect" href="a01004.html" title="MriCorFifIO class definition." alt="" coords="5,93,156,133"/>
+<area shape="poly" title=" " alt="" coords="83,59,83,93,78,93,78,59"/>
 </map>
 </div>
 </div>
@@ -288,38 +379,54 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:UTILSLIB_3A_3ATaperedSpectraInputData" id="r_UTILSLIB_3A_3ATaperedSpectraInputData"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a03245.html">UTILSLIB::TaperedSpectraInputData</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Input parameters for multi-taper spectral estimation (data matrix, taper weights, frequencies, sample rate).  <a href="a03245.html#details">More...</a><br /></td></tr>
-<tr class="memitem:UTILSLIB_3A_3ASpectral" id="r_UTILSLIB_3A_3ASpectral"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a03249.html">UTILSLIB::Spectral</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes spectral measures of input data.  <a href="a03249.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MRILIB_3A_3AMriCorFifIO" id="r_MRILIB_3A_3AMriCorFifIO"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a03130.html">MRILIB::MriCorFifIO</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">COR.fif FIFF file writer.  <a href="a03130.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:UTILSLIB" id="r_UTILSLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01840.html">UTILSLIB</a></td></tr>
-<tr class="memdesc:a01840"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shared utilities (I/O helpers, spectral analysis, layout management, warp algorithms). <br /></td></tr>
+<tr class="memitem:MRILIB" id="r_MRILIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01801.html">MRILIB</a></td></tr>
+<tr class="memdesc:a01801"><td class="mdescLeft">&#160;</td><td class="mdescRight">MRI volume and coordinate-system I/O (volumes, voxel geometry, transforms). <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declaration of Spectral class. </p>
-<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'Dan'+'ie'+'l.S'+'tr'+'ohm'+'ei'+'er@'+'tu'+'-il'+'me'+'nau'+'.d'+'e'; return false;">Danie<span class="obfuscator">.nosp@m.</span>l.St<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>tu-il<span class="obfuscator">.nosp@m.</span>mena<span class="obfuscator">.nosp@m.</span>u.de</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March, 2018</dd></dl>
+<div class="textblock"><p>MriCorFifIO class declaration. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2018, Daniel Strohmeier, Lorenz Esch, Gabriel Motta. All rights reserved.</p>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
 <li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
-<dl class="section note"><dt>Note</dt><dd>Notes:<ul>
-<li>Some of this code was adapted from mne-python (<a href="https://martinos.org/mne">https://martinos.org/mne</a>) with permission from Alexandre Gramfort.</li>
-<li>This code is prepared for adding spectral estimation with multitapers, which is, however not yet supported.</li>
-<li>This code only allows FFT based spectral estimation. Time-frequency transforms are not yet supported. </li>
-</ul>
-</dd></dl>
+<pre class="fragment">      Writer for COR.fif FIFF files containing MRI slice data.
 
-<p class="definition">Definition in file <a class="el" href="a00998_source.html">spectral.h</a>.</p>
+      COR.fif is the Neuromag/MNE convention for storing MRI volume data
+      in FIFF format. The file structure is:
+
+      FIFFB_MRI
+        FIFF_BLOCK_ID
+        FIFFB_MRI_SET
+          FIFF_COORD_TRANS (HEAD -&gt; MRI identity)
+          [additional coord transforms: Talairach etc.]
+          FIFFB_MRI_SLICE (repeated for each slice)
+            FIFF_MRI_WIDTH
+            FIFF_MRI_WIDTH_M
+            FIFF_MRI_HEIGHT
+            FIFF_MRI_HEIGHT_M
+            FIFF_COORD_TRANS (slice -&gt; MRI)
+            FIFF_MRI_PIXEL_ENCODING
+            FIFF_MRI_PIXEL_DATA
+          /FIFFB_MRI_SLICE
+        /FIFFB_MRI_SET
+      /FIFFB_MRI
+
+      Ported from save_slices() / write_slice() in MNE C write_mri_set.c
+      by Matti Hamalainen.
+</pre> 
+<p class="definition">Definition in file <a class="el" href="a00998_source.html">mri_cor_fif_io.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

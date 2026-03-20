@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp/disp_global.h Source File</title>
+    <title>MNE-CPP: src/libraries/disp/viewers/abstractview.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,58 +243,75 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li><li class="navelem"><a href="dir_d19fc5ec52e92d8bb58a9ebdf299e2d2.html">viewers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">disp_global.h</div></div>
+  <div class="headertitle"><div class="title">abstractview.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00443.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#ifndef DISP_GLOBAL_H</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define DISP_GLOBAL_H</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a00269.html">abstractview.h</a>&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;QtCore/qglobal.h&gt;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;<a class="code" href="a01001.html">utils/buildinfo.h</a>&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;QDebug&gt;</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">// DEFINES</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">// EIGEN INCLUDES</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#if defined(STATICBUILD)</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">   51</a></span><span class="preprocessor">#  define DISPSHARED_EXPORT</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#elif defined(MNE_DISP_LIBRARY)</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#  define DISPSHARED_EXPORT Q_DECL_EXPORT    </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#  define DISPSHARED_EXPORT Q_DECL_IMPORT    </span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01772.html">DISPLIB</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01811.html">DISPLIB</a>{</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><a class="code hl_define" href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="a01811.html#aba8abe77c9305199bd891f501f391207">buildDateTime</a>();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><a class="code hl_define" href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="a01811.html#a72483416e19e15772bc638f1f4012a79">buildHash</a>();</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><a class="code hl_define" href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="a01811.html#a67e32bdd367e24e6aa3ad079ffc4c7c9">buildHashLong</a>();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#endif </span><span class="comment">// DISP_GLOBAL_H</span></div>
-<div class="ttc" id="aa00443_html_aded49b96c9ac1f92dc1381a1d7845c28"><div class="ttname"><a href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a></div><div class="ttdeci">#define DISPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="#l00051">disp_global.h:51</a></div></div>
-<div class="ttc" id="aa01001_html"><div class="ttname"><a href="a01001.html">buildinfo.h</a></div><div class="ttdoc">build information utils</div></div>
-<div class="ttc" id="aa01811_html"><div class="ttname"><a href="a01811.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
-<div class="ttc" id="aa01811_html_a67e32bdd367e24e6aa3ad079ffc4c7c9"><div class="ttname"><a href="a01811.html#a67e32bdd367e24e6aa3ad079ffc4c7c9">DISPLIB::buildHashLong</a></div><div class="ttdeci">const char * buildHashLong()</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00054">disp_global.cpp:54</a></div></div>
-<div class="ttc" id="aa01811_html_a72483416e19e15772bc638f1f4012a79"><div class="ttname"><a href="a01811.html#a72483416e19e15772bc638f1f4012a79">DISPLIB::buildHash</a></div><div class="ttdeci">const char * buildHash()</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00050">disp_global.cpp:50</a></div></div>
-<div class="ttc" id="aa01811_html_aba8abe77c9305199bd891f501f391207"><div class="ttname"><a href="a01811.html#aba8abe77c9305199bd891f501f391207">DISPLIB::buildDateTime</a></div><div class="ttdeci">const char * buildDateTime()</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00046">disp_global.cpp:46</a></div></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a01946.html#ac89203d30dfc08db59dbac07aae528b7">   60</a></span><a class="code hl_function" href="a01946.html#ac89203d30dfc08db59dbac07aae528b7">AbstractView::AbstractView</a>(QWidget *parent,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                           Qt::WindowFlags f)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>: QWidget(parent, f)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a01946.html#a81901e5a602db668a59f5be4ffe48e86">   68</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a01946.html#a81901e5a602db668a59f5be4ffe48e86">AbstractView::setGuiMode</a>(<a class="code hl_enumeration" href="a01946.html#a4758d14e067b1f8207526dca12903cf6">GuiMode</a> mode)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_function" href="a01946.html#afa10eff488a2867933ba0d609f5440ac">updateGuiMode</a>(mode);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
+</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a01946.html#a0b6238b1be9ddb295ea914c9b11169b2">   75</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a01946.html#a0b6238b1be9ddb295ea914c9b11169b2">AbstractView::setProcessingMode</a>(<a class="code hl_enumeration" href="a01946.html#ac60b3fec00fc454e4e14c344855222a4">ProcessingMode</a> mode)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>{</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_function" href="a01946.html#ad61d6b18dbd97bc20b645641d9bd020d">updateProcessingMode</a>(mode);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+</div>
+<div class="ttc" id="aa00269_html"><div class="ttname"><a href="a00269.html">abstractview.h</a></div><div class="ttdoc">Declaration of the AbstractView Class.</div></div>
+<div class="ttc" id="aa01772_html"><div class="ttname"><a href="a01772.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
+<div class="ttc" id="aa01946_html_a0b6238b1be9ddb295ea914c9b11169b2"><div class="ttname"><a href="a01946.html#a0b6238b1be9ddb295ea914c9b11169b2">DISPLIB::AbstractView::setProcessingMode</a></div><div class="ttdeci">virtual void setProcessingMode(ProcessingMode mode)</div><div class="ttdef"><b>Definition</b> <a href="#l00075">abstractview.cpp:75</a></div></div>
+<div class="ttc" id="aa01946_html_a4758d14e067b1f8207526dca12903cf6"><div class="ttname"><a href="a01946.html#a4758d14e067b1f8207526dca12903cf6">DISPLIB::AbstractView::GuiMode</a></div><div class="ttdeci">GuiMode</div><div class="ttdef"><b>Definition</b> <a href="a00269_source.html#l00088">abstractview.h:88</a></div></div>
+<div class="ttc" id="aa01946_html_a81901e5a602db668a59f5be4ffe48e86"><div class="ttname"><a href="a01946.html#a81901e5a602db668a59f5be4ffe48e86">DISPLIB::AbstractView::setGuiMode</a></div><div class="ttdeci">virtual void setGuiMode(GuiMode mode)</div><div class="ttdef"><b>Definition</b> <a href="#l00068">abstractview.cpp:68</a></div></div>
+<div class="ttc" id="aa01946_html_ac60b3fec00fc454e4e14c344855222a4"><div class="ttname"><a href="a01946.html#ac60b3fec00fc454e4e14c344855222a4">DISPLIB::AbstractView::ProcessingMode</a></div><div class="ttdeci">ProcessingMode</div><div class="ttdef"><b>Definition</b> <a href="a00269_source.html#l00093">abstractview.h:93</a></div></div>
+<div class="ttc" id="aa01946_html_ac89203d30dfc08db59dbac07aae528b7"><div class="ttname"><a href="a01946.html#ac89203d30dfc08db59dbac07aae528b7">DISPLIB::AbstractView::AbstractView</a></div><div class="ttdeci">AbstractView(QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="#l00060">abstractview.cpp:60</a></div></div>
+<div class="ttc" id="aa01946_html_ad61d6b18dbd97bc20b645641d9bd020d"><div class="ttname"><a href="a01946.html#ad61d6b18dbd97bc20b645641d9bd020d">DISPLIB::AbstractView::updateProcessingMode</a></div><div class="ttdeci">virtual void updateProcessingMode(ProcessingMode mode)=0</div></div>
+<div class="ttc" id="aa01946_html_afa10eff488a2867933ba0d609f5440ac"><div class="ttname"><a href="a01946.html#afa10eff488a2867933ba0d609f5440ac">DISPLIB::AbstractView::updateGuiMode</a></div><div class="ttdeci">virtual void updateGuiMode(GuiMode mode)=0</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

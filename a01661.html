@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/inverse/inv_connectivity.h File Reference</title>
+    <title>MNE-CPP: src/libraries/math/spectral.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,106 +243,87 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_da00284eb508be172557aef63038345c.html">inverse</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_d1053a7f99953907e2110a8ae94cc2ea.html">math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">inv_connectivity.h File Reference</div></div>
+  <div class="headertitle"><div class="title">spectral.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>InvConnectivity struct for pairwise source connectivity results.  
+<p>Declaration of <a class="el" href="a02838.html" title="Computes spectral measures of input data.">Spectral</a> class.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01634_source.html">spectral.h</a>&quot;</code><br />
+<code>#include &quot;math.h&quot;</code><br />
+<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
+<code>#include &lt;QtMath&gt;</code><br />
+<code>#include &lt;QtConcurrent&gt;</code><br />
+<code>#include &lt;QVector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for inv_connectivity.h:</div>
+Include dependency graph for spectral.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01662.png" border="0" usemap="#asrc_2libraries_2inverse_2inv__connectivity_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2inverse_2inv__connectivity_8h" id="asrc_2libraries_2inverse_2inv__connectivity_8h">
-<area shape="rect" title="InvConnectivity struct for pairwise source connectivity results." alt="" coords="9,5,159,45"/>
-<area shape="rect" title=" " alt="" coords="5,93,64,119"/>
-<area shape="poly" title=" " alt="" coords="74,47,51,83,47,80,70,44"/>
-<area shape="rect" title=" " alt="" coords="89,93,181,119"/>
-<area shape="poly" title=" " alt="" coords="99,44,122,80,117,83,94,47"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a01663.png" border="0" usemap="#asrc_2libraries_2inverse_2inv__connectivity_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2inverse_2inv__connectivity_8hdep" id="asrc_2libraries_2inverse_2inv__connectivity_8hdep">
-<area shape="rect" title="InvConnectivity struct for pairwise source connectivity results." alt="" coords="1327,5,1478,45"/>
-<area shape="rect" href="a01793.html" title="InvSourceEstimate class declaration." alt="" coords="1316,93,1489,133"/>
-<area shape="poly" title=" " alt="" coords="1405,59,1405,93,1400,93,1400,59"/>
-<area shape="rect" href="a00722.html" title="SourceEstimateOverlay class declaration." alt="" coords="325,189,609,229"/>
-<area shape="poly" title=" " alt="" coords="1303,123,998,146,811,163,623,184,572,191,571,186,622,179,810,158,998,140,1302,118"/>
-<area shape="rect" href="a00704.html" title="StcLoadingWorker class declaration." alt="" coords="635,189,861,229"/>
-<area shape="poly" title=" " alt="" coords="1303,128,1104,151,874,184,834,191,833,186,873,179,1103,145,1302,122"/>
-<area shape="rect" href="a01733.html" title="InvCorSourceEstimate class declaration." alt="" coords="885,189,1085,229"/>
-<area shape="poly" title=" " alt="" coords="1303,139,1098,184,1066,191,1065,186,1097,179,1302,134"/>
-<area shape="rect" href="a01790.html" title="Definition of the SourceEstimate Class." alt="" coords="1110,189,1298,229"/>
-<area shape="poly" title=" " alt="" coords="1351,142,1245,191,1243,186,1349,137"/>
-<area shape="rect" href="a01787.html" title="Tokenization and de&#45;tokenization of InvSourceEstimate for foundation&#45;model interfacing." alt="" coords="1322,181,1483,236"/>
-<area shape="poly" title=" " alt="" coords="1405,147,1405,181,1400,181,1400,147"/>
-<area shape="rect" href="a01742.html" title="Definition of the InvMinimumNorm Class." alt="" coords="1447,284,1671,339"/>
-<area shape="poly" title=" " alt="" coords="1450,139,1474,157,1497,180,1515,205,1531,233,1552,283,1547,285,1526,235,1511,208,1493,183,1471,162,1446,143"/>
-<area shape="rect" href="a01745.html" title="Minimum norm class declaration." alt="" coords="1559,181,1783,236"/>
-<area shape="poly" title=" " alt="" coords="1471,135,1596,179,1594,184,1469,140"/>
-<area shape="rect" href="a01682.html" title="InvPwlRapMusic algorithm class declaration." alt="" coords="1733,284,1907,339"/>
-<area shape="poly" title=" " alt="" coords="1503,116,1586,123,1673,135,1747,153,1776,165,1797,179,1813,203,1822,231,1825,284,1820,284,1817,232,1808,206,1793,183,1773,170,1746,158,1672,141,1586,129,1503,122"/>
-<area shape="rect" href="a01667.html" title="InvRapMusic algorithm class declaration." alt="" coords="1857,189,2060,229"/>
-<area shape="poly" title=" " alt="" coords="1503,126,1661,149,1839,179,1876,186,1875,191,1838,184,1660,154,1502,131"/>
-<area shape="rect" href="a00734.html" title="SourceEstimateOverlay class definition." alt="" coords="5,291,304,331"/>
-<area shape="poly" title=" " alt="" coords="396,235,214,294,212,289,395,230"/>
-<area shape="rect" href="a00638.html" title="SourceEstimateManager class definition." alt="" coords="328,291,605,331"/>
-<area shape="poly" title=" " alt="" coords="469,243,469,291,464,291,464,243"/>
-<area shape="poly" title=" " alt="" coords="683,236,520,294,518,289,681,231"/>
-<area shape="rect" href="a00680.html" title="StcLoadingWorker class definition." alt="" coords="629,291,872,331"/>
-<area shape="poly" title=" " alt="" coords="752,243,753,291,748,291,746,243"/>
-<area shape="rect" href="a01730.html" title="Definition of the InvCorSourceEstimate Class." alt="" coords="897,291,1111,331"/>
-<area shape="poly" title=" " alt="" coords="994,242,1003,291,998,292,989,243"/>
-<area shape="poly" title=" " alt="" coords="1633,247,1590,286,1586,282,1629,243"/>
-<area shape="rect" href="a01670.html" title="Definition of the InvPwlRapMusic Algorithm Class." alt="" coords="1733,387,1907,441"/>
-<area shape="poly" title=" " alt="" coords="1823,352,1823,387,1817,387,1817,352"/>
-<area shape="poly" title=" " alt="" coords="1923,239,1858,286,1855,282,1920,235"/>
-<area shape="rect" href="a01676.html" title="Definition of the InvRapMusic Algorithm Class." alt="" coords="1932,291,2151,331"/>
-<area shape="poly" title=" " alt="" coords="1985,238,2028,290,2024,293,1981,241"/>
+<div class="center"><img src="a01662.png" border="0" usemap="#asrc_2libraries_2math_2spectral_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2math_2spectral_8cpp" id="asrc_2libraries_2math_2spectral_8cpp">
+<area shape="rect" title="Declaration of Spectral class." alt="" coords="689,5,825,45"/>
+<area shape="rect" href="a01634.html" title="Declaration of Spectral class." alt="" coords="397,93,483,119"/>
+<area shape="poly" title=" " alt="" coords="690,46,497,93,496,88,689,41"/>
+<area shape="rect" title=" " alt="" coords="507,93,575,119"/>
+<area shape="poly" title=" " alt="" coords="707,48,587,91,585,86,705,43"/>
+<area shape="rect" title=" " alt="" coords="600,93,771,119"/>
+<area shape="poly" title=" " alt="" coords="742,47,707,85,703,81,738,44"/>
+<area shape="rect" title=" " alt="" coords="795,93,866,119"/>
+<area shape="poly" title=" " alt="" coords="777,44,812,81,808,85,773,47"/>
+<area shape="rect" title=" " alt="" coords="890,93,998,119"/>
+<area shape="poly" title=" " alt="" coords="803,43,905,85,903,90,801,48"/>
+<area shape="rect" title=" " alt="" coords="1022,93,1095,119"/>
+<area shape="poly" title=" " alt="" coords="826,42,1009,89,1008,94,825,47"/>
+<area shape="rect" href="a01655.html" title="math library export/import macros." alt="" coords="84,167,199,192"/>
+<area shape="poly" title=" " alt="" coords="397,120,203,166,202,161,396,115"/>
+<area shape="rect" title=" " alt="" coords="223,167,286,192"/>
+<area shape="poly" title=" " alt="" coords="411,121,298,164,297,159,409,116"/>
+<area shape="rect" title=" " alt="" coords="310,167,370,192"/>
+<area shape="poly" title=" " alt="" coords="425,121,369,161,366,156,422,117"/>
+<area shape="rect" title=" " alt="" coords="394,167,486,192"/>
+<area shape="poly" title=" " alt="" coords="443,119,443,153,437,153,437,119"/>
+<area shape="rect" title=" " alt="" coords="510,167,581,192"/>
+<area shape="poly" title=" " alt="" coords="458,116,518,157,516,161,455,121"/>
+<area shape="rect" title=" " alt="" coords="605,167,661,192"/>
+<area shape="poly" title=" " alt="" coords="472,116,593,160,591,166,470,121"/>
+<area shape="rect" title=" " alt="" coords="685,167,808,192"/>
+<area shape="poly" title=" " alt="" coords="485,115,685,161,684,166,483,120"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="5,240,128,265"/>
+<area shape="poly" title=" " alt="" coords="131,194,91,232,87,229,128,190"/>
+<area shape="rect" title=" " alt="" coords="152,240,283,265"/>
+<area shape="poly" title=" " alt="" coords="155,190,197,229,193,232,152,194"/>
+<area shape="rect" title=" " alt="" coords="33,313,100,339"/>
+<area shape="poly" title=" " alt="" coords="69,266,69,300,64,300,64,266"/>
 </map>
 </div>
 </div>
 <p><a href="a01661_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:INVLIB_3A_3AInvConnectivity" id="r_INVLIB_3A_3AInvConnectivity"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02737.html">INVLIB::InvConnectivity</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pairwise source connectivity matrix with measure, directionality, and frequency/time metadata.  <a href="a02737.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:INVLIB" id="r_INVLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01819.html">INVLIB</a></td></tr>
-<tr class="memdesc:a01819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting). <br /></td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>InvConnectivity struct for pairwise source connectivity results. </p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
+<div class="textblock"><p>Declaration of <a class="el" href="a02838.html" title="Computes spectral measures of input data.">Spectral</a> class. </p>
+<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'Dan'+'ie'+'l.S'+'tr'+'ohm'+'ei'+'er@'+'tu'+'-il'+'me'+'nau'+'.d'+'e'; return false;">Danie<span class="obfuscator">.nosp@m.</span>l.St<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>tu-il<span class="obfuscator">.nosp@m.</span>mena<span class="obfuscator">.nosp@m.</span>u.de</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>June, 2025</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>March, 2018</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2025, Christoph Dinh. All rights reserved.</p>
+<p>Copyright (C) 2018, Daniel Strohmeier, Lorenz Esch, Gabriel Motta. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
 <li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+<dl class="section note"><dt>Note</dt><dd>Notes:<ul>
+<li>Some of this code was adapted from mne-python (<a href="https://martinos.org/mne">https://martinos.org/mne</a>) with permission from Alexandre Gramfort.</li>
+<li>This code is prepared for adding spectral estimation with multitapers, which is, however not yet supported.</li>
+<li>This code only allows FFT based spectral estimation. Time-frequency transforms are not yet supported. </li>
+</ul>
+</dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a01661_source.html">inv_connectivity.h</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01661_source.html">spectral.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

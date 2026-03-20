@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp/viewers/filterdesignview.h Source File</title>
+    <title>MNE-CPP: src/libraries/disp/viewers/fwdsettingsview.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -213,28 +248,29 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">filterdesignview.h</div></div>
+  <div class="headertitle"><div class="title">fwdsettingsview.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00176.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#ifndef FILTERDESIGNVIEW_H</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define FILTERDESIGNVIEW_H</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;<a class="code" href="a00443.html">../disp_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &quot;<a class="code" href="a00215.html">abstractview.h</a>&quot;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;<a class="code" href="a00062.html">rtprocessing/helpers/filterkernel.h</a>&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#ifndef FWDSETTINGSVIEW_H</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define FWDSETTINGSVIEW_H</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;<a class="code" href="a00497.html">../disp_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;<a class="code" href="a00269.html">abstractview.h</a>&quot;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;<a class="code" href="a00653.html">fiff/fiff_types.h</a>&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;<a class="code" href="a01361.html">fs/fs_annotationset.h</a>&gt;</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// QT INCLUDES</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;QPointer&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">// EIGEN INCLUDES</span></div>
@@ -244,215 +280,151 @@ $(function() {
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// FORWARD DECLARATIONS</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">class </span>QCheckBox;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">namespace </span>Ui {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">class </span>FilterDesignViewWidget;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">// DEFINE NAMESPACE DISPLIB</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01811.html">DISPLIB</a></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// DISPLIB FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">class </span><a class="code hl_class" href="a02085.html">FilterPlotScene</a>;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="};">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a02049.html">   86</a></span><span class="keyword">class </span><a class="code hl_define" href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a> <a class="code hl_function" href="a02049.html#af9b96f2c912b96d4bd04c49b7bbfeb97">FilterDesignView</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01985.html#ac89203d30dfc08db59dbac07aae528b7">AbstractView</a></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>{</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    Q_OBJECT</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a02049.html#a96bd99e59b5fbb7e1603fdabab47cb71">   91</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;FilterDesignView&gt; <a class="code hl_typedef" href="a02049.html#a96bd99e59b5fbb7e1603fdabab47cb71">SPtr</a>;              </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a02049.html#a5cc2094ccb7ed87d5c5f695a539661e2">   92</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const FilterDesignView&gt; <a class="code hl_typedef" href="a02049.html#a5cc2094ccb7ed87d5c5f695a539661e2">ConstSPtr</a>;   </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_function" href="a02049.html#af9b96f2c912b96d4bd04c49b7bbfeb97">FilterDesignView</a>(<span class="keyword">const</span> QString&amp; sSettingsPath,</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                     QWidget *parent = 0,</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                     Qt::WindowFlags f = Qt::Widget);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01770.html">FSLIB</a> {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">class </span><a class="code hl_class" href="a02570.html">FsAnnotationSet</a>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">namespace </span>Ui {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">class </span>FwdSettingsViewWidget;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">// DEFINE NAMESPACE DISPLIB</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01772.html">DISPLIB</a></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a02018.html">   82</a></span><span class="keyword">class </span><a class="code hl_define" href="a00497.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a> <a class="code hl_function" href="a02018.html#ae42c7ad059d4a9a6a4091df767b7994e">FwdSettingsView</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01946.html#ac89203d30dfc08db59dbac07aae528b7">AbstractView</a></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    Q_OBJECT</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a02018.html#ae42c7ad059d4a9a6a4091df767b7994e">FwdSettingsView</a>(<span class="keyword">const</span> QString&amp; sSettingsPath = <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                             QWidget *parent = 0,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                             Qt::WindowFlags f = Qt::Widget);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <a class="code hl_function" href="a02018.html#ae42c7ad059d4a9a6a4091df767b7994e">~FwdSettingsView</a>();</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02018.html#a38b466c5c7963bd71db12347310155b2">getRecomputationStatusChanged</a>();</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_function" href="a02049.html#af9b96f2c912b96d4bd04c49b7bbfeb97">~FilterDesignView</a>();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a0494ef27d948855b22927db7866bdded">setMaxAllowedFilterTaps</a>(<span class="keywordtype">int</span> iMaxNumberFilterTaps);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="a02049.html#a8175dc71536deba147c9c1afc1b76d70">getFilterTaps</a>();</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a3a3340a472445b5f390ee72563746065">setSamplingRate</a>(<span class="keywordtype">double</span> dSamplingRate);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#a9059272adc6259665a457424059b3779">setRecomputationStatus</a>(<span class="keywordtype">int</span> iStatus);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02018.html#afa74e06191636ec8f7a2e3c34488c9b9">getClusteringStatusChanged</a>();</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="a02018.html#a7477a30c40a84e94c0b51304809de9fc">getClusterNumber</a>();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#a13d25357ab23eeec3c723865c2d74576">showAtlasDirDialog</a>();</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a366da14e2bf4509662c7a6a2509df763">setFrom</a>(<span class="keywordtype">double</span> dFrom);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#aa2767f265b71257becfc38b6e4738930">setTo</a>(<span class="keywordtype">double</span> dTo);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a02049.html#a0ed2f06e512746d9765e1929dd52d092">getFrom</a>();</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#a0c675656ca243bb56c7941bf6f4e3df6">setSolutionInformation</a>(<a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a> iSourceOri,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                                <a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a> iCoordFrame,</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>                                <span class="keywordtype">int</span> iNSource,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                                <span class="keywordtype">int</span> iNChan,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                                <span class="keywordtype">int</span> iNSpaces);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="comment">//=========================================================================================================</span></div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a02049.html#a1b0f73cbcf6844723f2c76e588aedd55">getTo</a>();</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <a class="code hl_class" href="a03125.html">RTPROCESSINGLIB::FilterKernel</a> <a class="code hl_function" href="a02049.html#a9d70c5143a70865e405f01d9d8937d97">getCurrentFilter</a>();</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    QString <a class="code hl_function" href="a02049.html#a150822331390e3a1898ae24bb9c1985a">getChannelType</a>();</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#aa4ad036ca8ae2ef6628776453728580c">setChannelType</a>(<span class="keyword">const</span> QString&amp; sType);</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a726f9e6db84e39ce980816a888d0cc40">saveSettings</a>();</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#a2598a23bfb79fedaea9b17adbd8b53a6">setClusteredInformation</a>(<span class="keywordtype">int</span> iNSource);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#acefe80e78ef549c4327dcd5dd91621a6">onClusteringStatusChanged</a>(<span class="keywordtype">bool</span> bChecked);</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#a443777843f24cd4ce8241b9534550d38">saveSettings</a>();</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#a1c80d93847dfd4a1110d88c6356ff4a1">loadSettings</a>();</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#ace4536359fe7788903ca6a9af8e2c530">clearView</a>();</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#ae1b8a2b62ed809b14b2a724615605a53">updateGuiMode</a>(<a class="code hl_enumeration" href="a01946.html#a4758d14e067b1f8207526dca12903cf6">GuiMode</a> mode);</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a29837eba6faa46abc4e0f76054a4286b">loadSettings</a>();</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a73d1f1f77d892a37d02cd238fbec52ca">clearView</a>();</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02018.html#a95d28012b8de46ea7faab7de42acfd89">updateProcessingMode</a>(<a class="code hl_enumeration" href="a01946.html#ac60b3fec00fc454e4e14c344855222a4">ProcessingMode</a> mode);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="a02018.html#ad964792203a55ac4c8d97fbc92d92774">  207</a></span>    <span class="keywordtype">bool</span>                                        <a class="code hl_variable" href="a02018.html#ad964792203a55ac4c8d97fbc92d92774">m_bAnnotaionsLoaded</a>;    </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="a02018.html#a4aea3af7f59dca1b26653ac807454808">  209</a></span>    Ui::FwdSettingsViewWidget*                  <a class="code hl_variable" href="a02018.html#a4aea3af7f59dca1b26653ac807454808">m_pUi</a>;                  </div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a81acc3b43c74a0b4f7bcfbe5c3adf129">updateFilterPlot</a>();</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a8f317078811a121fdb3d3146937175d8">guiStyleChanged</a>(<a class="code hl_enumeration" href="a01985.html#a36141ad3b6f880d2d82a3dd69d6e2e29">DISPLIB::AbstractView::StyleMode</a> style);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a36a776ef411c17b2c3f63aefd89e6a17">updateGuiMode</a>(<a class="code hl_enumeration" href="a01985.html#a4758d14e067b1f8207526dca12903cf6">GuiMode</a> mode);</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#ac5a1085f2c5293e6c3cb9b3da2fd5e9d">updateProcessingMode</a>(<a class="code hl_enumeration" href="a01985.html#ac60b3fec00fc454e4e14c344855222a4">ProcessingMode</a> mode);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="a02018.html#ab5906269506bf10c18034ef0ad3bfa19">  211</a></span>    QString                                     <a class="code hl_variable" href="a02018.html#ab5906269506bf10c18034ef0ad3bfa19">m_sSettingsPath</a>;        </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>signals:</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="a02018.html#abf78d9fde03907bbcb9fbd384f86388c">  220</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02018.html#abf78d9fde03907bbcb9fbd384f86388c">recompStatusChanged</a>(<span class="keywordtype">bool</span> bChecked);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="a02018.html#ab51adfacc9e4bc96240fdb9fc0991cd0">  228</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02018.html#ab51adfacc9e4bc96240fdb9fc0991cd0">clusteringStatusChanged</a>(<span class="keywordtype">bool</span> bChecked);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno"><a class="line" href="a02018.html#a9098b6fe45c679f17e3f15a4278aae11">  237</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02018.html#a9098b6fe45c679f17e3f15a4278aae11">atlasDirChanged</a>(<span class="keyword">const</span> QString&amp; sDirPath,</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                         <span class="keyword">const</span> <a class="code hl_typedef" href="a02570.html#a36068ec74f1741e14c0e9784f167cd81">FSLIB::FsAnnotationSet::SPtr</a> pAnnotationSet);</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
 <div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#ab4e74aae8be60af9c7ced4e07bc2f30a">initSpinBoxes</a>();</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a02018.html#a31a72d993efd5e0ba801c5d8391d70c0">  244</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02018.html#a31a72d993efd5e0ba801c5d8391d70c0">doForwardComputation</a>();</div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a019dac5262a51a735ab57c6aaf575f90">initButtons</a>();</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a866f41ade4e1babfab7f6d88250f3f7c">initComboBoxes</a>();</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#abfaad24013a8a21c13b2ebf30a2777e1">initFilterPlot</a>();</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a6ad732ea8a51eb9b9e8b4b7e8a9e7005">resizeEvent</a>(QResizeEvent * event);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a6c2dc3290e41d3feac706707119b9e2d">keyPressEvent</a>(QKeyEvent * event);</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a058accb97a75b61dd44490430bf0f339">changeStateSpinBoxes</a>(<span class="keywordtype">int</span> currentIndex);</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a3ff5b6d4fc36185cce7d26c2ea402d75">filterParametersChanged</a>();</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#acb480d4ae7fe973477b79fca1e1fc5e3">onSpinBoxFilterChannelType</a>(<span class="keyword">const</span> QString &amp;channelType);</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a77c3c5c5815bd606b02183c7653db949">onBtnExportFilterPlot</a>();</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a5d8fa7613017f18c5ab5be7ae59a8f26">onBtnExportFilterCoefficients</a>();</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a8390f05116e000cbbc6320a311186eab">onBtnLoadFilter</a>();</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02049.html#a6a412758aa9563dda87cb27973f49d10">updateGuiFromFilter</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03125.html">RTPROCESSINGLIB::FilterKernel</a>&amp; filter);</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno"><a class="line" href="a02049.html#ab31681631533b3812af9aaaef6c4f768">  324</a></span>    Ui::FilterDesignViewWidget*         <a class="code hl_variable" href="a02049.html#ab31681631533b3812af9aaaef6c4f768">m_pUi</a>;                      </div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno"><a class="line" href="a02049.html#a56574b6c259e9009f0460c4cc45b4205">  326</a></span>    QPointer&lt;FilterPlotScene&gt;           <a class="code hl_variable" href="a02049.html#a56574b6c259e9009f0460c4cc45b4205">m_pFilterPlotScene</a>;         </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="a02049.html#ad3cb549a15bde5e23d3cb539deffc51a">  328</a></span>    <a class="code hl_class" href="a03125.html">RTPROCESSINGLIB::FilterKernel</a>       <a class="code hl_variable" href="a02049.html#ad3cb549a15bde5e23d3cb539deffc51a">m_filterKernel</a>;             </div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno"><a class="line" href="a02049.html#adfe27c9720f23a8e98d50f75ef13e6bb">  330</a></span>    QString                             <a class="code hl_variable" href="a02049.html#adfe27c9720f23a8e98d50f75ef13e6bb">m_sSettingsPath</a>;            </div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno"><a class="line" href="a02049.html#ab21a72907a12559cad80af74f625b421">  332</a></span>    <span class="keywordtype">int</span>                                 <a class="code hl_variable" href="a02049.html#ab21a72907a12559cad80af74f625b421">m_iFilterTaps</a>;              </div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="a02049.html#a3ab2e6efaa9ed7c2c4886f3dc5234c9c">  333</a></span>    <span class="keywordtype">double</span>                              <a class="code hl_variable" href="a02049.html#a3ab2e6efaa9ed7c2c4886f3dc5234c9c">m_dSFreq</a>;                   </div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>signals:</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno"><a class="line" href="a02049.html#a2e563c87d415c220c976b619342a782f">  342</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02049.html#a2e563c87d415c220c976b619342a782f">filterChanged</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03125.html">RTPROCESSINGLIB::FilterKernel</a>&amp; activeFilter);</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno"><a class="line" href="a02049.html#acbf6648e25db795aa722fc7d4954a6b6">  350</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02049.html#acbf6648e25db795aa722fc7d4954a6b6">filterChannelTypeChanged</a>(<span class="keyword">const</span> QString&amp; channelType);</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno"><a class="line" href="a02049.html#a311cb4f48ca64755e63ae2fc292794ca">  358</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02049.html#a311cb4f48ca64755e63ae2fc292794ca">updateFilterFrom</a>(<span class="keywordtype">double</span> dFrom);</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno"><a class="line" href="a02049.html#a3f387c45e93a2db56695c41bf00b488e">  366</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02049.html#a3f387c45e93a2db56695c41bf00b488e">updateFilterTo</a>(<span class="keywordtype">double</span> dTo);</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>};</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="a02018.html#a8a7abc4d5ec90404d776f2f8b09c244c">  252</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02018.html#a8a7abc4d5ec90404d776f2f8b09c244c">clusterNumberChanged</a>(<span class="keywordtype">int</span> iNCluster);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>};</div>
 </div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>} <span class="comment">// NAMESPACE DISPLIB</span></div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span><span class="preprocessor">#endif </span><span class="comment">// FILTERDESIGNVIEW_H</span></div>
-<div class="ttc" id="aa00062_html"><div class="ttname"><a href="a00062.html">filterkernel.h</a></div><div class="ttdoc">The FilterKernel class represents a filter object that generates the FIR filter coefficients using Pa...</div></div>
-<div class="ttc" id="aa00215_html"><div class="ttname"><a href="a00215.html">abstractview.h</a></div><div class="ttdoc">Declaration of the AbstractView Class.</div></div>
-<div class="ttc" id="aa00443_html"><div class="ttname"><a href="a00443.html">disp_global.h</a></div><div class="ttdoc">disp library export/import macros.</div></div>
-<div class="ttc" id="aa00443_html_aded49b96c9ac1f92dc1381a1d7845c28"><div class="ttname"><a href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a></div><div class="ttdeci">#define DISPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00443_source.html#l00051">disp_global.h:51</a></div></div>
-<div class="ttc" id="aa01811_html"><div class="ttname"><a href="a01811.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
-<div class="ttc" id="aa01985_html_a36141ad3b6f880d2d82a3dd69d6e2e29"><div class="ttname"><a href="a01985.html#a36141ad3b6f880d2d82a3dd69d6e2e29">DISPLIB::AbstractView::StyleMode</a></div><div class="ttdeci">StyleMode</div><div class="ttdef"><b>Definition</b> <a href="a00215_source.html#l00083">abstractview.h:83</a></div></div>
-<div class="ttc" id="aa01985_html_a4758d14e067b1f8207526dca12903cf6"><div class="ttname"><a href="a01985.html#a4758d14e067b1f8207526dca12903cf6">DISPLIB::AbstractView::GuiMode</a></div><div class="ttdeci">GuiMode</div><div class="ttdef"><b>Definition</b> <a href="a00215_source.html#l00088">abstractview.h:88</a></div></div>
-<div class="ttc" id="aa01985_html_ac60b3fec00fc454e4e14c344855222a4"><div class="ttname"><a href="a01985.html#ac60b3fec00fc454e4e14c344855222a4">DISPLIB::AbstractView::ProcessingMode</a></div><div class="ttdeci">ProcessingMode</div><div class="ttdef"><b>Definition</b> <a href="a00215_source.html#l00093">abstractview.h:93</a></div></div>
-<div class="ttc" id="aa01985_html_ac89203d30dfc08db59dbac07aae528b7"><div class="ttname"><a href="a01985.html#ac89203d30dfc08db59dbac07aae528b7">DISPLIB::AbstractView::AbstractView</a></div><div class="ttdeci">AbstractView(QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="a00389_source.html#l00060">abstractview.cpp:60</a></div></div>
-<div class="ttc" id="aa02049_html_a019dac5262a51a735ab57c6aaf575f90"><div class="ttname"><a href="a02049.html#a019dac5262a51a735ab57c6aaf575f90">DISPLIB::FilterDesignView::initButtons</a></div><div class="ttdeci">void initButtons()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00296">filterdesignview.cpp:296</a></div></div>
-<div class="ttc" id="aa02049_html_a0494ef27d948855b22927db7866bdded"><div class="ttname"><a href="a02049.html#a0494ef27d948855b22927db7866bdded">DISPLIB::FilterDesignView::setMaxAllowedFilterTaps</a></div><div class="ttdeci">void setMaxAllowedFilterTaps(int iMaxNumberFilterTaps)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00114">filterdesignview.cpp:114</a></div></div>
-<div class="ttc" id="aa02049_html_a058accb97a75b61dd44490430bf0f339"><div class="ttname"><a href="a02049.html#a058accb97a75b61dd44490430bf0f339">DISPLIB::FilterDesignView::changeStateSpinBoxes</a></div><div class="ttdeci">void changeStateSpinBoxes(int currentIndex)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00382">filterdesignview.cpp:382</a></div></div>
-<div class="ttc" id="aa02049_html_a0ed2f06e512746d9765e1929dd52d092"><div class="ttname"><a href="a02049.html#a0ed2f06e512746d9765e1929dd52d092">DISPLIB::FilterDesignView::getFrom</a></div><div class="ttdeci">double getFrom()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00562">filterdesignview.cpp:562</a></div></div>
-<div class="ttc" id="aa02049_html_a150822331390e3a1898ae24bb9c1985a"><div class="ttname"><a href="a02049.html#a150822331390e3a1898ae24bb9c1985a">DISPLIB::FilterDesignView::getChannelType</a></div><div class="ttdeci">QString getChannelType()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00188">filterdesignview.cpp:188</a></div></div>
-<div class="ttc" id="aa02049_html_a1b0f73cbcf6844723f2c76e588aedd55"><div class="ttname"><a href="a02049.html#a1b0f73cbcf6844723f2c76e588aedd55">DISPLIB::FilterDesignView::getTo</a></div><div class="ttdeci">double getTo()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00569">filterdesignview.cpp:569</a></div></div>
-<div class="ttc" id="aa02049_html_a29837eba6faa46abc4e0f76054a4286b"><div class="ttname"><a href="a02049.html#a29837eba6faa46abc4e0f76054a4286b">DISPLIB::FilterDesignView::loadSettings</a></div><div class="ttdeci">void loadSettings()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00222">filterdesignview.cpp:222</a></div></div>
-<div class="ttc" id="aa02049_html_a2e563c87d415c220c976b619342a782f"><div class="ttname"><a href="a02049.html#a2e563c87d415c220c976b619342a782f">DISPLIB::FilterDesignView::filterChanged</a></div><div class="ttdeci">void filterChanged(const RTPROCESSINGLIB::FilterKernel &amp;activeFilter)</div></div>
-<div class="ttc" id="aa02049_html_a311cb4f48ca64755e63ae2fc292794ca"><div class="ttname"><a href="a02049.html#a311cb4f48ca64755e63ae2fc292794ca">DISPLIB::FilterDesignView::updateFilterFrom</a></div><div class="ttdeci">void updateFilterFrom(double dFrom)</div></div>
-<div class="ttc" id="aa02049_html_a366da14e2bf4509662c7a6a2509df763"><div class="ttname"><a href="a02049.html#a366da14e2bf4509662c7a6a2509df763">DISPLIB::FilterDesignView::setFrom</a></div><div class="ttdeci">void setFrom(double dFrom)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00165">filterdesignview.cpp:165</a></div></div>
-<div class="ttc" id="aa02049_html_a36a776ef411c17b2c3f63aefd89e6a17"><div class="ttname"><a href="a02049.html#a36a776ef411c17b2c3f63aefd89e6a17">DISPLIB::FilterDesignView::updateGuiMode</a></div><div class="ttdeci">void updateGuiMode(GuiMode mode)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00250">filterdesignview.cpp:250</a></div></div>
-<div class="ttc" id="aa02049_html_a3a3340a472445b5f390ee72563746065"><div class="ttname"><a href="a02049.html#a3a3340a472445b5f390ee72563746065">DISPLIB::FilterDesignView::setSamplingRate</a></div><div class="ttdeci">void setSamplingRate(double dSamplingRate)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00136">filterdesignview.cpp:136</a></div></div>
-<div class="ttc" id="aa02049_html_a3ab2e6efaa9ed7c2c4886f3dc5234c9c"><div class="ttname"><a href="a02049.html#a3ab2e6efaa9ed7c2c4886f3dc5234c9c">DISPLIB::FilterDesignView::m_dSFreq</a></div><div class="ttdeci">double m_dSFreq</div><div class="ttdef"><b>Definition</b> <a href="#l00333">filterdesignview.h:333</a></div></div>
-<div class="ttc" id="aa02049_html_a3f387c45e93a2db56695c41bf00b488e"><div class="ttname"><a href="a02049.html#a3f387c45e93a2db56695c41bf00b488e">DISPLIB::FilterDesignView::updateFilterTo</a></div><div class="ttdeci">void updateFilterTo(double dTo)</div></div>
-<div class="ttc" id="aa02049_html_a3ff5b6d4fc36185cce7d26c2ea402d75"><div class="ttname"><a href="a02049.html#a3ff5b6d4fc36185cce7d26c2ea402d75">DISPLIB::FilterDesignView::filterParametersChanged</a></div><div class="ttdeci">void filterParametersChanged()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00406">filterdesignview.cpp:406</a></div></div>
-<div class="ttc" id="aa02049_html_a56574b6c259e9009f0460c4cc45b4205"><div class="ttname"><a href="a02049.html#a56574b6c259e9009f0460c4cc45b4205">DISPLIB::FilterDesignView::m_pFilterPlotScene</a></div><div class="ttdeci">QPointer&lt; FilterPlotScene &gt; m_pFilterPlotScene</div><div class="ttdef"><b>Definition</b> <a href="#l00326">filterdesignview.h:326</a></div></div>
-<div class="ttc" id="aa02049_html_a5cc2094ccb7ed87d5c5f695a539661e2"><div class="ttname"><a href="a02049.html#a5cc2094ccb7ed87d5c5f695a539661e2">DISPLIB::FilterDesignView::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const FilterDesignView &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00092">filterdesignview.h:92</a></div></div>
-<div class="ttc" id="aa02049_html_a5d8fa7613017f18c5ab5be7ae59a8f26"><div class="ttname"><a href="a02049.html#a5d8fa7613017f18c5ab5be7ae59a8f26">DISPLIB::FilterDesignView::onBtnExportFilterCoefficients</a></div><div class="ttdeci">void onBtnExportFilterCoefficients()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00507">filterdesignview.cpp:507</a></div></div>
-<div class="ttc" id="aa02049_html_a6a412758aa9563dda87cb27973f49d10"><div class="ttname"><a href="a02049.html#a6a412758aa9563dda87cb27973f49d10">DISPLIB::FilterDesignView::updateGuiFromFilter</a></div><div class="ttdeci">void updateGuiFromFilter(const RTPROCESSINGLIB::FilterKernel &amp;filter)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00576">filterdesignview.cpp:576</a></div></div>
-<div class="ttc" id="aa02049_html_a6ad732ea8a51eb9b9e8b4b7e8a9e7005"><div class="ttname"><a href="a02049.html#a6ad732ea8a51eb9b9e8b4b7e8a9e7005">DISPLIB::FilterDesignView::resizeEvent</a></div><div class="ttdeci">void resizeEvent(QResizeEvent *event)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00348">filterdesignview.cpp:348</a></div></div>
-<div class="ttc" id="aa02049_html_a6c2dc3290e41d3feac706707119b9e2d"><div class="ttname"><a href="a02049.html#a6c2dc3290e41d3feac706707119b9e2d">DISPLIB::FilterDesignView::keyPressEvent</a></div><div class="ttdeci">virtual void keyPressEvent(QKeyEvent *event)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00356">filterdesignview.cpp:356</a></div></div>
-<div class="ttc" id="aa02049_html_a726f9e6db84e39ce980816a888d0cc40"><div class="ttname"><a href="a02049.html#a726f9e6db84e39ce980816a888d0cc40">DISPLIB::FilterDesignView::saveSettings</a></div><div class="ttdeci">void saveSettings()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00203">filterdesignview.cpp:203</a></div></div>
-<div class="ttc" id="aa02049_html_a73d1f1f77d892a37d02cd238fbec52ca"><div class="ttname"><a href="a02049.html#a73d1f1f77d892a37d02cd238fbec52ca">DISPLIB::FilterDesignView::clearView</a></div><div class="ttdeci">void clearView()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00555">filterdesignview.cpp:555</a></div></div>
-<div class="ttc" id="aa02049_html_a77c3c5c5815bd606b02183c7653db949"><div class="ttname"><a href="a02049.html#a77c3c5c5815bd606b02183c7653db949">DISPLIB::FilterDesignView::onBtnExportFilterPlot</a></div><div class="ttdeci">void onBtnExportFilterPlot()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00470">filterdesignview.cpp:470</a></div></div>
-<div class="ttc" id="aa02049_html_a8175dc71536deba147c9c1afc1b76d70"><div class="ttname"><a href="a02049.html#a8175dc71536deba147c9c1afc1b76d70">DISPLIB::FilterDesignView::getFilterTaps</a></div><div class="ttdeci">int getFilterTaps()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00129">filterdesignview.cpp:129</a></div></div>
-<div class="ttc" id="aa02049_html_a81acc3b43c74a0b4f7bcfbe5c3adf129"><div class="ttname"><a href="a02049.html#a81acc3b43c74a0b4f7bcfbe5c3adf129">DISPLIB::FilterDesignView::updateFilterPlot</a></div><div class="ttdeci">void updateFilterPlot()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00369">filterdesignview.cpp:369</a></div></div>
-<div class="ttc" id="aa02049_html_a8390f05116e000cbbc6320a311186eab"><div class="ttname"><a href="a02049.html#a8390f05116e000cbbc6320a311186eab">DISPLIB::FilterDesignView::onBtnLoadFilter</a></div><div class="ttdeci">void onBtnLoadFilter()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00528">filterdesignview.cpp:528</a></div></div>
-<div class="ttc" id="aa02049_html_a866f41ade4e1babfab7f6d88250f3f7c"><div class="ttname"><a href="a02049.html#a866f41ade4e1babfab7f6d88250f3f7c">DISPLIB::FilterDesignView::initComboBoxes</a></div><div class="ttdeci">void initComboBoxes()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00310">filterdesignview.cpp:310</a></div></div>
-<div class="ttc" id="aa02049_html_a8f317078811a121fdb3d3146937175d8"><div class="ttname"><a href="a02049.html#a8f317078811a121fdb3d3146937175d8">DISPLIB::FilterDesignView::guiStyleChanged</a></div><div class="ttdeci">void guiStyleChanged(DISPLIB::AbstractView::StyleMode style)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00588">filterdesignview.cpp:588</a></div></div>
-<div class="ttc" id="aa02049_html_a96bd99e59b5fbb7e1603fdabab47cb71"><div class="ttname"><a href="a02049.html#a96bd99e59b5fbb7e1603fdabab47cb71">DISPLIB::FilterDesignView::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FilterDesignView &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00091">filterdesignview.h:91</a></div></div>
-<div class="ttc" id="aa02049_html_a9d70c5143a70865e405f01d9d8937d97"><div class="ttname"><a href="a02049.html#a9d70c5143a70865e405f01d9d8937d97">DISPLIB::FilterDesignView::getCurrentFilter</a></div><div class="ttdeci">RTPROCESSINGLIB::FilterKernel getCurrentFilter()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00181">filterdesignview.cpp:181</a></div></div>
-<div class="ttc" id="aa02049_html_aa2767f265b71257becfc38b6e4738930"><div class="ttname"><a href="a02049.html#aa2767f265b71257becfc38b6e4738930">DISPLIB::FilterDesignView::setTo</a></div><div class="ttdeci">void setTo(double dTo)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00173">filterdesignview.cpp:173</a></div></div>
-<div class="ttc" id="aa02049_html_aa4ad036ca8ae2ef6628776453728580c"><div class="ttname"><a href="a02049.html#aa4ad036ca8ae2ef6628776453728580c">DISPLIB::FilterDesignView::setChannelType</a></div><div class="ttdeci">void setChannelType(const QString &amp;sType)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00195">filterdesignview.cpp:195</a></div></div>
-<div class="ttc" id="aa02049_html_ab21a72907a12559cad80af74f625b421"><div class="ttname"><a href="a02049.html#ab21a72907a12559cad80af74f625b421">DISPLIB::FilterDesignView::m_iFilterTaps</a></div><div class="ttdeci">int m_iFilterTaps</div><div class="ttdef"><b>Definition</b> <a href="#l00332">filterdesignview.h:332</a></div></div>
-<div class="ttc" id="aa02049_html_ab31681631533b3812af9aaaef6c4f768"><div class="ttname"><a href="a02049.html#ab31681631533b3812af9aaaef6c4f768">DISPLIB::FilterDesignView::m_pUi</a></div><div class="ttdeci">Ui::FilterDesignViewWidget * m_pUi</div><div class="ttdef"><b>Definition</b> <a href="#l00324">filterdesignview.h:324</a></div></div>
-<div class="ttc" id="aa02049_html_ab4e74aae8be60af9c7ced4e07bc2f30a"><div class="ttname"><a href="a02049.html#ab4e74aae8be60af9c7ced4e07bc2f30a">DISPLIB::FilterDesignView::initSpinBoxes</a></div><div class="ttdeci">void initSpinBoxes()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00274">filterdesignview.cpp:274</a></div></div>
-<div class="ttc" id="aa02049_html_abfaad24013a8a21c13b2ebf30a2777e1"><div class="ttname"><a href="a02049.html#abfaad24013a8a21c13b2ebf30a2777e1">DISPLIB::FilterDesignView::initFilterPlot</a></div><div class="ttdeci">void initFilterPlot()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00335">filterdesignview.cpp:335</a></div></div>
-<div class="ttc" id="aa02049_html_ac5a1085f2c5293e6c3cb9b3da2fd5e9d"><div class="ttname"><a href="a02049.html#ac5a1085f2c5293e6c3cb9b3da2fd5e9d">DISPLIB::FilterDesignView::updateProcessingMode</a></div><div class="ttdeci">void updateProcessingMode(ProcessingMode mode)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00262">filterdesignview.cpp:262</a></div></div>
-<div class="ttc" id="aa02049_html_acb480d4ae7fe973477b79fca1e1fc5e3"><div class="ttname"><a href="a02049.html#acb480d4ae7fe973477b79fca1e1fc5e3">DISPLIB::FilterDesignView::onSpinBoxFilterChannelType</a></div><div class="ttdeci">void onSpinBoxFilterChannelType(const QString &amp;channelType)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00463">filterdesignview.cpp:463</a></div></div>
-<div class="ttc" id="aa02049_html_acbf6648e25db795aa722fc7d4954a6b6"><div class="ttname"><a href="a02049.html#acbf6648e25db795aa722fc7d4954a6b6">DISPLIB::FilterDesignView::filterChannelTypeChanged</a></div><div class="ttdeci">void filterChannelTypeChanged(const QString &amp;channelType)</div></div>
-<div class="ttc" id="aa02049_html_ad3cb549a15bde5e23d3cb539deffc51a"><div class="ttname"><a href="a02049.html#ad3cb549a15bde5e23d3cb539deffc51a">DISPLIB::FilterDesignView::m_filterKernel</a></div><div class="ttdeci">RTPROCESSINGLIB::FilterKernel m_filterKernel</div><div class="ttdef"><b>Definition</b> <a href="#l00328">filterdesignview.h:328</a></div></div>
-<div class="ttc" id="aa02049_html_adfe27c9720f23a8e98d50f75ef13e6bb"><div class="ttname"><a href="a02049.html#adfe27c9720f23a8e98d50f75ef13e6bb">DISPLIB::FilterDesignView::m_sSettingsPath</a></div><div class="ttdeci">QString m_sSettingsPath</div><div class="ttdef"><b>Definition</b> <a href="#l00330">filterdesignview.h:330</a></div></div>
-<div class="ttc" id="aa02049_html_af9b96f2c912b96d4bd04c49b7bbfeb97"><div class="ttname"><a href="a02049.html#af9b96f2c912b96d4bd04c49b7bbfeb97">DISPLIB::FilterDesignView::FilterDesignView</a></div><div class="ttdeci">FilterDesignView(const QString &amp;sSettingsPath, QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00083">filterdesignview.cpp:83</a></div></div>
-<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">DISPLIB::FilterPlotScene</a></div><div class="ttdoc">The FilterPlotScene class provides the scene where a filter response can be plotted.</div><div class="ttdef"><b>Definition</b> <a href="a00263_source.html#l00079">filterplotscene.h:80</a></div></div>
-<div class="ttc" id="aa03125_html"><div class="ttname"><a href="a03125.html">RTPROCESSINGLIB::FilterKernel</a></div><div class="ttdoc">The FilterKernel class provides methods to create/design a FIR filter kernel.</div><div class="ttdef"><b>Definition</b> <a href="a00062_source.html#l00132">filterkernel.h:133</a></div></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment">// INLINE DEFINITIONS</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>} <span class="comment">// NAMESPACE</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">#endif </span><span class="comment">// FWDSETTINGSVIEW_H</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="ttc" id="aa00269_html"><div class="ttname"><a href="a00269.html">abstractview.h</a></div><div class="ttdoc">Declaration of the AbstractView Class.</div></div>
+<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">disp_global.h</a></div><div class="ttdoc">disp library export/import macros.</div></div>
+<div class="ttc" id="aa00497_html_aded49b96c9ac1f92dc1381a1d7845c28"><div class="ttname"><a href="a00497.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a></div><div class="ttdeci">#define DISPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00497_source.html#l00051">disp_global.h:51</a></div></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">fiff_types.h</a></div><div class="ttdoc">Old fiff_type declarations - replace them.</div></div>
+<div class="ttc" id="aa01361_html"><div class="ttname"><a href="a01361.html">fs_annotationset.h</a></div><div class="ttdoc">FsAnnotationSet class declaration.</div></div>
+<div class="ttc" id="aa01770_html"><div class="ttname"><a href="a01770.html">FSLIB</a></div><div class="ttdoc">FreeSurfer surface and annotation I/O.</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00067">connectivitysettings.h:67</a></div></div>
+<div class="ttc" id="aa01771_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a01771.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00653_source.html#l00089">fiff_types.h:89</a></div></div>
+<div class="ttc" id="aa01772_html"><div class="ttname"><a href="a01772.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
+<div class="ttc" id="aa01946_html_a4758d14e067b1f8207526dca12903cf6"><div class="ttname"><a href="a01946.html#a4758d14e067b1f8207526dca12903cf6">DISPLIB::AbstractView::GuiMode</a></div><div class="ttdeci">GuiMode</div><div class="ttdef"><b>Definition</b> <a href="a00269_source.html#l00088">abstractview.h:88</a></div></div>
+<div class="ttc" id="aa01946_html_ac60b3fec00fc454e4e14c344855222a4"><div class="ttname"><a href="a01946.html#ac60b3fec00fc454e4e14c344855222a4">DISPLIB::AbstractView::ProcessingMode</a></div><div class="ttdeci">ProcessingMode</div><div class="ttdef"><b>Definition</b> <a href="a00269_source.html#l00093">abstractview.h:93</a></div></div>
+<div class="ttc" id="aa01946_html_ac89203d30dfc08db59dbac07aae528b7"><div class="ttname"><a href="a01946.html#ac89203d30dfc08db59dbac07aae528b7">DISPLIB::AbstractView::AbstractView</a></div><div class="ttdeci">AbstractView(QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="a00443_source.html#l00060">abstractview.cpp:60</a></div></div>
+<div class="ttc" id="aa02018_html_a0c675656ca243bb56c7941bf6f4e3df6"><div class="ttname"><a href="a02018.html#a0c675656ca243bb56c7941bf6f4e3df6">DISPLIB::FwdSettingsView::setSolutionInformation</a></div><div class="ttdeci">void setSolutionInformation(FIFFLIB::fiff_int_t iSourceOri, FIFFLIB::fiff_int_t iCoordFrame, int iNSource, int iNChan, int iNSpaces)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00222">fwdsettingsview.cpp:222</a></div></div>
+<div class="ttc" id="aa02018_html_a13d25357ab23eeec3c723865c2d74576"><div class="ttname"><a href="a02018.html#a13d25357ab23eeec3c723865c2d74576">DISPLIB::FwdSettingsView::showAtlasDirDialog</a></div><div class="ttdeci">void showAtlasDirDialog()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00296">fwdsettingsview.cpp:296</a></div></div>
+<div class="ttc" id="aa02018_html_a1c80d93847dfd4a1110d88c6356ff4a1"><div class="ttname"><a href="a02018.html#a1c80d93847dfd4a1110d88c6356ff4a1">DISPLIB::FwdSettingsView::loadSettings</a></div><div class="ttdeci">void loadSettings()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00151">fwdsettingsview.cpp:151</a></div></div>
+<div class="ttc" id="aa02018_html_a2598a23bfb79fedaea9b17adbd8b53a6"><div class="ttname"><a href="a02018.html#a2598a23bfb79fedaea9b17adbd8b53a6">DISPLIB::FwdSettingsView::setClusteredInformation</a></div><div class="ttdeci">void setClusteredInformation(int iNSource)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00288">fwdsettingsview.cpp:288</a></div></div>
+<div class="ttc" id="aa02018_html_a31a72d993efd5e0ba801c5d8391d70c0"><div class="ttname"><a href="a02018.html#a31a72d993efd5e0ba801c5d8391d70c0">DISPLIB::FwdSettingsView::doForwardComputation</a></div><div class="ttdeci">void doForwardComputation()</div></div>
+<div class="ttc" id="aa02018_html_a38b466c5c7963bd71db12347310155b2"><div class="ttname"><a href="a02018.html#a38b466c5c7963bd71db12347310155b2">DISPLIB::FwdSettingsView::getRecomputationStatusChanged</a></div><div class="ttdeci">bool getRecomputationStatusChanged()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00187">fwdsettingsview.cpp:187</a></div></div>
+<div class="ttc" id="aa02018_html_a443777843f24cd4ce8241b9534550d38"><div class="ttname"><a href="a02018.html#a443777843f24cd4ce8241b9534550d38">DISPLIB::FwdSettingsView::saveSettings</a></div><div class="ttdeci">void saveSettings()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00139">fwdsettingsview.cpp:139</a></div></div>
+<div class="ttc" id="aa02018_html_a4aea3af7f59dca1b26653ac807454808"><div class="ttname"><a href="a02018.html#a4aea3af7f59dca1b26653ac807454808">DISPLIB::FwdSettingsView::m_pUi</a></div><div class="ttdeci">Ui::FwdSettingsViewWidget * m_pUi</div><div class="ttdef"><b>Definition</b> <a href="#l00209">fwdsettingsview.h:209</a></div></div>
+<div class="ttc" id="aa02018_html_a7477a30c40a84e94c0b51304809de9fc"><div class="ttname"><a href="a02018.html#a7477a30c40a84e94c0b51304809de9fc">DISPLIB::FwdSettingsView::getClusterNumber</a></div><div class="ttdeci">int getClusterNumber()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00266">fwdsettingsview.cpp:266</a></div></div>
+<div class="ttc" id="aa02018_html_a8a7abc4d5ec90404d776f2f8b09c244c"><div class="ttname"><a href="a02018.html#a8a7abc4d5ec90404d776f2f8b09c244c">DISPLIB::FwdSettingsView::clusterNumberChanged</a></div><div class="ttdeci">void clusterNumberChanged(int iNCluster)</div></div>
+<div class="ttc" id="aa02018_html_a9059272adc6259665a457424059b3779"><div class="ttname"><a href="a02018.html#a9059272adc6259665a457424059b3779">DISPLIB::FwdSettingsView::setRecomputationStatus</a></div><div class="ttdeci">void setRecomputationStatus(int iStatus)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00194">fwdsettingsview.cpp:194</a></div></div>
+<div class="ttc" id="aa02018_html_a9098b6fe45c679f17e3f15a4278aae11"><div class="ttname"><a href="a02018.html#a9098b6fe45c679f17e3f15a4278aae11">DISPLIB::FwdSettingsView::atlasDirChanged</a></div><div class="ttdeci">void atlasDirChanged(const QString &amp;sDirPath, const FSLIB::FsAnnotationSet::SPtr pAnnotationSet)</div></div>
+<div class="ttc" id="aa02018_html_a95d28012b8de46ea7faab7de42acfd89"><div class="ttname"><a href="a02018.html#a95d28012b8de46ea7faab7de42acfd89">DISPLIB::FwdSettingsView::updateProcessingMode</a></div><div class="ttdeci">void updateProcessingMode(ProcessingMode mode)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00175">fwdsettingsview.cpp:175</a></div></div>
+<div class="ttc" id="aa02018_html_ab51adfacc9e4bc96240fdb9fc0991cd0"><div class="ttname"><a href="a02018.html#ab51adfacc9e4bc96240fdb9fc0991cd0">DISPLIB::FwdSettingsView::clusteringStatusChanged</a></div><div class="ttdeci">void clusteringStatusChanged(bool bChecked)</div></div>
+<div class="ttc" id="aa02018_html_ab5906269506bf10c18034ef0ad3bfa19"><div class="ttname"><a href="a02018.html#ab5906269506bf10c18034ef0ad3bfa19">DISPLIB::FwdSettingsView::m_sSettingsPath</a></div><div class="ttdeci">QString m_sSettingsPath</div><div class="ttdef"><b>Definition</b> <a href="#l00211">fwdsettingsview.h:211</a></div></div>
+<div class="ttc" id="aa02018_html_abf78d9fde03907bbcb9fbd384f86388c"><div class="ttname"><a href="a02018.html#abf78d9fde03907bbcb9fbd384f86388c">DISPLIB::FwdSettingsView::recompStatusChanged</a></div><div class="ttdeci">void recompStatusChanged(bool bChecked)</div></div>
+<div class="ttc" id="aa02018_html_ace4536359fe7788903ca6a9af8e2c530"><div class="ttname"><a href="a02018.html#ace4536359fe7788903ca6a9af8e2c530">DISPLIB::FwdSettingsView::clearView</a></div><div class="ttdeci">void clearView()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00321">fwdsettingsview.cpp:321</a></div></div>
+<div class="ttc" id="aa02018_html_acefe80e78ef549c4327dcd5dd91621a6"><div class="ttname"><a href="a02018.html#acefe80e78ef549c4327dcd5dd91621a6">DISPLIB::FwdSettingsView::onClusteringStatusChanged</a></div><div class="ttdeci">void onClusteringStatusChanged(bool bChecked)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00273">fwdsettingsview.cpp:273</a></div></div>
+<div class="ttc" id="aa02018_html_ad964792203a55ac4c8d97fbc92d92774"><div class="ttname"><a href="a02018.html#ad964792203a55ac4c8d97fbc92d92774">DISPLIB::FwdSettingsView::m_bAnnotaionsLoaded</a></div><div class="ttdeci">bool m_bAnnotaionsLoaded</div><div class="ttdef"><b>Definition</b> <a href="#l00207">fwdsettingsview.h:207</a></div></div>
+<div class="ttc" id="aa02018_html_ae1b8a2b62ed809b14b2a724615605a53"><div class="ttname"><a href="a02018.html#ae1b8a2b62ed809b14b2a724615605a53">DISPLIB::FwdSettingsView::updateGuiMode</a></div><div class="ttdeci">void updateGuiMode(GuiMode mode)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00163">fwdsettingsview.cpp:163</a></div></div>
+<div class="ttc" id="aa02018_html_ae42c7ad059d4a9a6a4091df767b7994e"><div class="ttname"><a href="a02018.html#ae42c7ad059d4a9a6a4091df767b7994e">DISPLIB::FwdSettingsView::FwdSettingsView</a></div><div class="ttdeci">FwdSettingsView(const QString &amp;sSettingsPath=&quot;&quot;, QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00073">fwdsettingsview.cpp:73</a></div></div>
+<div class="ttc" id="aa02018_html_afa74e06191636ec8f7a2e3c34488c9b9"><div class="ttname"><a href="a02018.html#afa74e06191636ec8f7a2e3c34488c9b9">DISPLIB::FwdSettingsView::getClusteringStatusChanged</a></div><div class="ttdeci">bool getClusteringStatusChanged()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00259">fwdsettingsview.cpp:259</a></div></div>
+<div class="ttc" id="aa02570_html"><div class="ttname"><a href="a02570.html">FSLIB::FsAnnotationSet</a></div><div class="ttdoc">FsAnnotation set.</div><div class="ttdef"><b>Definition</b> <a href="a01361_source.html#l00080">fs_annotationset.h:81</a></div></div>
+<div class="ttc" id="aa02570_html_a36068ec74f1741e14c0e9784f167cd81"><div class="ttname"><a href="a02570.html#a36068ec74f1741e14c0e9784f167cd81">FSLIB::FsAnnotationSet::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FsAnnotationSet &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="a01361_source.html#l00083">fs_annotationset.h:83</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

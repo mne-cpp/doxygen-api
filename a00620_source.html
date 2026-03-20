@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/fiff/fiff_io.h Source File</title>
+    <title>MNE-CPP: src/libraries/fiff/fiff_proj.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -213,159 +248,146 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">fiff_io.h</div></div>
+  <div class="headertitle"><div class="title">fiff_proj.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00620.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#ifndef FIFF_IO_H</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define FIFF_IO_H</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;<a class="code" href="a00458.html">fiff_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;<a class="code" href="a00455.html">fiff_info.h</a>&quot;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &quot;<a class="code" href="a00596.html">fiff_types.h</a>&quot;</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &quot;<a class="code" href="a00527.html">fiff_raw_data.h</a>&quot;</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &quot;<a class="code" href="a00554.html">fiff_evoked.h</a>&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#ifndef FIFF_PROJ_H</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define FIFF_PROJ_H</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &quot;<a class="code" href="a00512.html">fiff_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;<a class="code" href="a00653.html">fiff_types.h</a>&quot;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;<a class="code" href="a00533.html">fiff_named_matrix.h</a>&quot;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &quot;<a class="code" href="a00482.html">fiff_stream.h</a>&quot;</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &lt;QList&gt;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &lt;QFile&gt;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#include &lt;QIODevice&gt;</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#include &lt;QDebug&gt;</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01815.html">RTPROCESSINGLIB</a></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">class </span><a class="code hl_class" href="a03125.html">FilterKernel</a>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">// DEFINE NAMESPACE FIFFLIB</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00084" data-start="{" data-end="};">
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a02517.html">   84</a></span><span class="keyword">class </span><a class="code hl_define" href="a00458.html#aab6c6e9f74ed9d6762feab45287c6ad8">FIFFSHARED_EXPORT</a> <a class="code hl_function" href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">FiffIO</a> : <span class="keyword">public</span> QObject</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>{</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">//    enum Type {</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="comment">//        _RAW = FIFFB_RAW_DATA, //102</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">//        _EVOKED = FIFFB_EVOKED, //104</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">//        _PROJ = FIFFB_PROJ, //313</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">//        _FWD = FIFFB_MNE_FORWARD_SOLUTION, //352</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">//        _COV = FIFFB_MNE_COV, //355</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">//        _NAMED_MATRIX = FIFFB_MNE_NAMED_MATRIX //357</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">//    };</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_function" href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">FiffIO</a>();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_function" href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">~FiffIO</a>();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <a class="code hl_function" href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">FiffIO</a>(QIODevice&amp; pIODevice);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &lt;QStringList&gt;</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#include &lt;QMap&gt;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">// DEFINE NAMESPACE FIFFLIB</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01771.html">FIFFLIB</a></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// FORWARD DECLARATIONS</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">class </span><a class="code hl_class" href="a02542.html">FiffRawData</a>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a02538.html">   82</a></span><span class="keyword">class </span><a class="code hl_define" href="a00512.html#aab6c6e9f74ed9d6762feab45287c6ad8">FIFFSHARED_EXPORT</a> <a class="code hl_function" href="a02538.html#a8697939307d08cb52238f987d2a6da15">FiffProj</a> {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a02538.html#a7a9709e0797cc30508c3a394ee13cf9e">   85</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;FiffProj&gt; <a class="code hl_typedef" href="a02538.html#a7a9709e0797cc30508c3a394ee13cf9e">SPtr</a>;              </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a02538.html#a2a6c76ee4b9ee6c57e410b88af897ac5">   86</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const FiffProj&gt; <a class="code hl_typedef" href="a02538.html#a2a6c76ee4b9ee6c57e410b88af897ac5">ConstSPtr</a>;   </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_function" href="a02538.html#a8697939307d08cb52238f987d2a6da15">FiffProj</a>();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_function" href="a02538.html#a8697939307d08cb52238f987d2a6da15">FiffProj</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02538.html#a8697939307d08cb52238f987d2a6da15">FiffProj</a>&amp; p_FiffProj);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a02538.html#a8697939307d08cb52238f987d2a6da15">FiffProj</a>(<a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> p_kind,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                      <span class="keywordtype">bool</span> p_active,</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                      QString p_desc,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                      <a class="code hl_class" href="a02534.html">FiffNamedMatrix</a>&amp; p_data);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <a class="code hl_function" href="a02538.html#a8697939307d08cb52238f987d2a6da15">~FiffProj</a>();</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_function" href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">FiffIO</a>(QList&lt;QIODevice*&gt;&amp; p_qlistIODevices);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02538.html#a685d18954ba6fd796daa8bef216641e6">activate_projs</a>(QList&lt;FiffProj&gt; &amp;p_qListFiffProj);</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="a02517.html#a20f884cfc300d3436424b8dc998ebd30">  131</a></span>    <a class="code hl_function" href="a02517.html#a20f884cfc300d3436424b8dc998ebd30">FiffIO</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">FiffIO</a>&amp; p_FiffIO);</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a02517.html#acfe9c0e6c913c24901693a78433e9a35">setup_read</a>(QIODevice&amp; pIODevice,</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                           <a class="code hl_class" href="a02509.html">FiffInfo</a>&amp; info,</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                           <a class="code hl_typedef" href="a02469.html#a3423b7800a3595503eddd6c7be7c6734">FiffDirNode::SPtr</a>&amp; dirTree);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keyword">static</span> <a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> <a class="code hl_function" href="a02538.html#a405c0b66db5c0466b2c286033ee8469e">make_projector</a>(<span class="keyword">const</span> QList&lt;FiffProj&gt;&amp; projs,</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                                     <span class="keyword">const</span> QStringList&amp; ch_names,</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                                     Eigen::MatrixXd&amp; proj,</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                                     <span class="keyword">const</span> QStringList&amp; bads = defaultQStringList,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                                     Eigen::MatrixXd&amp; U = defaultMatrixXd);</div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02517.html#a6ce6e4d0a830a9b7c2e0ea8b70259350">read</a>(QIODevice&amp; pIODevice);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="a02517.html#a2467a3d1611faa541d2c6abef01f2870">  161</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02517.html#a2467a3d1611faa541d2c6abef01f2870">read</a>(QList&lt;QIODevice&gt;&amp; p_qlistIODevices);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02517.html#a15463da975f83c59c5262d0d9d783c5c">write</a>(QIODevice&amp; pIODevice,</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>               <span class="keyword">const</span> <a class="code hl_typedef" href="a01810.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> type,</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>               <span class="keyword">const</span> <a class="code hl_typedef" href="a01810.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> idx) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02517.html#a15463da975f83c59c5262d0d9d783c5c">write</a>(QFile&amp; p_QFile,</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>               <span class="keyword">const</span> <a class="code hl_typedef" href="a01810.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> type,</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>               <span class="keyword">const</span> <a class="code hl_typedef" href="a01810.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> idx) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02517.html#aa4734cc26cf65314c6f168625fb62652">write_raw</a>(QIODevice&amp; pIODevice,</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                   <span class="keyword">const</span> <a class="code hl_typedef" href="a01810.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> idx) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="a02517.html#a6d438c5935df1965cf674750e81ceffd">  213</a></span>    <span class="keyword">friend</span> std::ostream&amp; <a class="code hl_friend" href="a02517.html#a6d438c5935df1965cf674750e81ceffd">operator&lt;&lt;</a>(std::ostream&amp; out,</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>                                    <span class="keyword">const</span> <a class="code hl_function" href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">FiffIO</a> &amp;p_fiffIO) {</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        out &lt;&lt; <span class="stringliteral">&quot;\n\n---------------------- Fiff data read summary ---------------------- &quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        out &lt;&lt; <span class="stringliteral">&quot;fiff data contains&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        out &lt;&lt; p_fiffIO.<a class="code hl_variable" href="a02517.html#a0e5d117031f5b193c0c98d0001ee86cc">m_qlistRaw</a>.size() &lt;&lt; <span class="stringliteral">&quot; raw data sets&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        out &lt;&lt; p_fiffIO.<a class="code hl_variable" href="a02517.html#aadb8fb26284f7d9a2a12cff0e69d3b75">m_qlistEvoked</a>.size() &lt;&lt; <span class="stringliteral">&quot; evoked sets&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span><span class="comment">//        out &lt;&lt; p_fiffIO.m_qlistFwd.size() &lt;&lt; &quot; forward solutions&quot; &lt;&lt; std::endl;</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keywordflow">return</span> out;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keyword">static</span> QList&lt;FiffProj&gt; <a class="code hl_function" href="a02538.html#a3240085ca5a354a5ff59e6da32e6ac1d">compute_from_raw</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02542.html">FiffRawData</a> &amp;raw,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                                            <span class="keyword">const</span> Eigen::MatrixXi &amp;events,</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                                            <span class="keywordtype">int</span> eventCode,</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                                            <span class="keywordtype">float</span> tmin,</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                                            <span class="keywordtype">float</span> tmax,</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>                                            <span class="keywordtype">int</span> nGrad,</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                                            <span class="keywordtype">int</span> nMag,</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>                                            <span class="keywordtype">int</span> nEeg,</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                                            <span class="keyword">const</span> QMap&lt;QString,double&gt; &amp;mapReject = QMap&lt;QString,double&gt;());</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keyword">friend</span> std::ostream&amp; <a class="code hl_friend" href="a02538.html#ac8986f41ea045faff10c0a50d8dcb363">operator&lt;&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code hl_class" href="a02538.html">FIFFLIB::FiffProj</a> &amp;p_FiffProj);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="a02538.html#a02031295a2d7618ff26fd39965406afe">  188</a></span>    <a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> <a class="code hl_variable" href="a02538.html#a02031295a2d7618ff26fd39965406afe">kind</a>;                </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="a02538.html#aa5593133aaf0bde0ac5c5c18685a14d1">  189</a></span>    <span class="keywordtype">bool</span> <a class="code hl_variable" href="a02538.html#aa5593133aaf0bde0ac5c5c18685a14d1">active</a>;                    </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="a02538.html#a461ef684d1ef47740f56b4c1b0e84181">  190</a></span>    QString <a class="code hl_variable" href="a02538.html#a461ef684d1ef47740f56b4c1b0e84181">desc</a>;                   </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="a02538.html#a01a8b9aef8636730c851226a12dce03e">  192</a></span>    <a class="code hl_typedef" href="a02534.html#a013471cfe5f75de645b42e1bc71f0651">FiffNamedMatrix::SDPtr</a> <a class="code hl_variable" href="a02538.html#a01a8b9aef8636730c851226a12dce03e">data</a>;    </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>};</div>
 </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno"><a class="line" href="a02517.html#a0e5d117031f5b193c0c98d0001ee86cc">  224</a></span>    QList&lt;QSharedPointer&lt;FiffRawData&gt; &gt;     <a class="code hl_variable" href="a02517.html#a0e5d117031f5b193c0c98d0001ee86cc">m_qlistRaw</a>;     </div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno"><a class="line" href="a02517.html#aadb8fb26284f7d9a2a12cff0e69d3b75">  225</a></span>    QList&lt;QSharedPointer&lt;FiffEvoked&gt; &gt;      <a class="code hl_variable" href="a02517.html#aadb8fb26284f7d9a2a12cff0e69d3b75">m_qlistEvoked</a>;  </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">//    QList&lt;QSharedPointer&lt;MNEForwardSolution&gt; &gt; m_qlistFwd;</span></div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="comment">//FiffCov, MNEInverseOperator, FsAnnotationSet,</span></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>};</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">// INLINE DEFINITIONS</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="foldopen" id="foldopen00199" data-start="{" data-end="}">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="a02538.html#ac8986f41ea045faff10c0a50d8dcb363">  199</a></span><span class="keyword">inline</span> std::ostream&amp; <a class="code hl_function" href="a01771.html#a25d631d93b51f54d84ecb53732388005">operator&lt;&lt;</a>(std::ostream&amp; out, <span class="keyword">const</span> <a class="code hl_class" href="a02538.html">FIFFLIB::FiffProj</a> &amp;p_FiffProj)</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>{</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    out &lt;&lt; <span class="stringliteral">&quot;#### Fiff Projector ####\n&quot;</span>;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    out &lt;&lt; <span class="stringliteral">&quot;\tKind: &quot;</span> &lt;&lt; p_FiffProj.<a class="code hl_variable" href="a02538.html#a02031295a2d7618ff26fd39965406afe">kind</a> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    out &lt;&lt; <span class="stringliteral">&quot;\tactive: &quot;</span> &lt;&lt; p_FiffProj.<a class="code hl_variable" href="a02538.html#aa5593133aaf0bde0ac5c5c18685a14d1">active</a> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    out &lt;&lt; <span class="stringliteral">&quot;\tdesc: &quot;</span> &lt;&lt; p_FiffProj.<a class="code hl_variable" href="a02538.html#a461ef684d1ef47740f56b4c1b0e84181">desc</a>.toUtf8().constData() &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    out &lt;&lt; <span class="stringliteral">&quot;\tdata:\n\t&quot;</span> &lt;&lt; *p_FiffProj.<a class="code hl_variable" href="a02538.html#a01a8b9aef8636730c851226a12dce03e">data</a>.data() &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>}</div>
 </div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span><span class="comment">// INLINE DEFINITIONS</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>} <span class="comment">// NAMESPACE</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#endif </span><span class="comment">// FIFF_IO_H</span></div>
-<div class="ttc" id="aa00455_html"><div class="ttname"><a href="a00455.html">fiff_info.h</a></div><div class="ttdoc">FiffInfo class declaration.</div></div>
-<div class="ttc" id="aa00458_html"><div class="ttname"><a href="a00458.html">fiff_global.h</a></div><div class="ttdoc">Fiff library export/import macros.</div></div>
-<div class="ttc" id="aa00458_html_aab6c6e9f74ed9d6762feab45287c6ad8"><div class="ttname"><a href="a00458.html#aab6c6e9f74ed9d6762feab45287c6ad8">FIFFSHARED_EXPORT</a></div><div class="ttdeci">#define FIFFSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00458_source.html#l00052">fiff_global.h:52</a></div></div>
-<div class="ttc" id="aa00482_html"><div class="ttname"><a href="a00482.html">fiff_stream.h</a></div><div class="ttdoc">FiffStream class declaration.</div></div>
-<div class="ttc" id="aa00527_html"><div class="ttname"><a href="a00527.html">fiff_raw_data.h</a></div><div class="ttdoc">FiffRawData class declaration.</div></div>
-<div class="ttc" id="aa00554_html"><div class="ttname"><a href="a00554.html">fiff_evoked.h</a></div><div class="ttdoc">FiffEvoked class declaration.</div></div>
-<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">fiff_types.h</a></div><div class="ttdoc">Old fiff_type declarations - replace them.</div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa01810_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a01810.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00089">fiff_types.h:89</a></div></div>
-<div class="ttc" id="aa01815_html"><div class="ttname"><a href="a01815.html">RTPROCESSINGLIB</a></div><div class="ttdoc">Real-time signal processing (filtering, averaging, HPI fitting, noise reduction).</div><div class="ttdef"><b>Definition</b> <a href="a00317_source.html#l00064">rtfiffrawviewdelegate.h:64</a></div></div>
-<div class="ttc" id="aa02469_html_a3423b7800a3595503eddd6c7be7c6734"><div class="ttname"><a href="a02469.html#a3423b7800a3595503eddd6c7be7c6734">FIFFLIB::FiffDirNode::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FiffDirNode &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="a00530_source.html#l00076">fiff_dir_node.h:76</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">FIFFLIB::FiffInfo</a></div><div class="ttdoc">FIFF measurement file information.</div><div class="ttdef"><b>Definition</b> <a href="a00455_source.html#l00084">fiff_info.h:85</a></div></div>
-<div class="ttc" id="aa02517_html_a0e5d117031f5b193c0c98d0001ee86cc"><div class="ttname"><a href="a02517.html#a0e5d117031f5b193c0c98d0001ee86cc">FIFFLIB::FiffIO::m_qlistRaw</a></div><div class="ttdeci">QList&lt; QSharedPointer&lt; FiffRawData &gt; &gt; m_qlistRaw</div><div class="ttdef"><b>Definition</b> <a href="#l00224">fiff_io.h:224</a></div></div>
-<div class="ttc" id="aa02517_html_a15463da975f83c59c5262d0d9d783c5c"><div class="ttname"><a href="a02517.html#a15463da975f83c59c5262d0d9d783c5c">FIFFLIB::FiffIO::write</a></div><div class="ttdeci">bool write(QIODevice &amp;pIODevice, const fiff_int_t type, const fiff_int_t idx) const</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00189">fiff_io.cpp:189</a></div></div>
-<div class="ttc" id="aa02517_html_a20f884cfc300d3436424b8dc998ebd30"><div class="ttname"><a href="a02517.html#a20f884cfc300d3436424b8dc998ebd30">FIFFLIB::FiffIO::FiffIO</a></div><div class="ttdeci">FiffIO(const FiffIO &amp;p_FiffIO)</div></div>
-<div class="ttc" id="aa02517_html_a2467a3d1611faa541d2c6abef01f2870"><div class="ttname"><a href="a02517.html#a2467a3d1611faa541d2c6abef01f2870">FIFFLIB::FiffIO::read</a></div><div class="ttdeci">bool read(QList&lt; QIODevice &gt; &amp;p_qlistIODevices)</div></div>
-<div class="ttc" id="aa02517_html_a6ce6e4d0a830a9b7c2e0ea8b70259350"><div class="ttname"><a href="a02517.html#a6ce6e4d0a830a9b7c2e0ea8b70259350">FIFFLIB::FiffIO::read</a></div><div class="ttdeci">bool read(QIODevice &amp;pIODevice)</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00119">fiff_io.cpp:119</a></div></div>
-<div class="ttc" id="aa02517_html_a6d438c5935df1965cf674750e81ceffd"><div class="ttname"><a href="a02517.html#a6d438c5935df1965cf674750e81ceffd">FIFFLIB::FiffIO::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, const FiffIO &amp;p_fiffIO)</div><div class="ttdef"><b>Definition</b> <a href="#l00213">fiff_io.h:213</a></div></div>
-<div class="ttc" id="aa02517_html_aa4734cc26cf65314c6f168625fb62652"><div class="ttname"><a href="a02517.html#aa4734cc26cf65314c6f168625fb62652">FIFFLIB::FiffIO::write_raw</a></div><div class="ttdeci">bool write_raw(QIODevice &amp;pIODevice, const fiff_int_t idx) const</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00246">fiff_io.cpp:246</a></div></div>
-<div class="ttc" id="aa02517_html_aadb8fb26284f7d9a2a12cff0e69d3b75"><div class="ttname"><a href="a02517.html#aadb8fb26284f7d9a2a12cff0e69d3b75">FIFFLIB::FiffIO::m_qlistEvoked</a></div><div class="ttdeci">QList&lt; QSharedPointer&lt; FiffEvoked &gt; &gt; m_qlistEvoked</div><div class="ttdef"><b>Definition</b> <a href="#l00225">fiff_io.h:225</a></div></div>
-<div class="ttc" id="aa02517_html_acfe9c0e6c913c24901693a78433e9a35"><div class="ttname"><a href="a02517.html#acfe9c0e6c913c24901693a78433e9a35">FIFFLIB::FiffIO::setup_read</a></div><div class="ttdeci">static bool setup_read(QIODevice &amp;pIODevice, FiffInfo &amp;info, FiffDirNode::SPtr &amp;dirTree)</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00097">fiff_io.cpp:97</a></div></div>
-<div class="ttc" id="aa02517_html_ad8e6d9cb7e2dbbbdfe004d9f4f523cdd"><div class="ttname"><a href="a02517.html#ad8e6d9cb7e2dbbbdfe004d9f4f523cdd">FIFFLIB::FiffIO::FiffIO</a></div><div class="ttdeci">FiffIO()</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00067">fiff_io.cpp:67</a></div></div>
-<div class="ttc" id="aa03125_html"><div class="ttname"><a href="a03125.html">RTPROCESSINGLIB::FilterKernel</a></div><div class="ttdoc">The FilterKernel class provides methods to create/design a FIR filter kernel.</div><div class="ttdef"><b>Definition</b> <a href="a00062_source.html#l00132">filterkernel.h:133</a></div></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>} <span class="comment">// NAMESPACE</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="preprocessor">#endif </span><span class="comment">// FIFF_PROJ_H</span></div>
+<div class="ttc" id="aa00512_html"><div class="ttname"><a href="a00512.html">fiff_global.h</a></div><div class="ttdoc">Fiff library export/import macros.</div></div>
+<div class="ttc" id="aa00512_html_aab6c6e9f74ed9d6762feab45287c6ad8"><div class="ttname"><a href="a00512.html#aab6c6e9f74ed9d6762feab45287c6ad8">FIFFSHARED_EXPORT</a></div><div class="ttdeci">#define FIFFSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00052">fiff_global.h:52</a></div></div>
+<div class="ttc" id="aa00533_html"><div class="ttname"><a href="a00533.html">fiff_named_matrix.h</a></div><div class="ttdoc">FiffNamedMatrix class declaration.</div></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">fiff_types.h</a></div><div class="ttdoc">Old fiff_type declarations - replace them.</div></div>
+<div class="ttc" id="aa01771_html"><div class="ttname"><a href="a01771.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00071">connectivitysettings.h:71</a></div></div>
+<div class="ttc" id="aa01771_html_a25d631d93b51f54d84ecb53732388005"><div class="ttname"><a href="a01771.html#a25d631d93b51f54d84ecb53732388005">FIFFLIB::operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, const FIFFLIB::FiffCov &amp;p_FiffCov)</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00271">fiff_cov.h:271</a></div></div>
+<div class="ttc" id="aa01771_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a01771.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00653_source.html#l00089">fiff_types.h:89</a></div></div>
+<div class="ttc" id="aa02534_html"><div class="ttname"><a href="a02534.html">FIFFLIB::FiffNamedMatrix</a></div><div class="ttdoc">A named matrix.</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00076">fiff_named_matrix.h:77</a></div></div>
+<div class="ttc" id="aa02534_html_a013471cfe5f75de645b42e1bc71f0651"><div class="ttname"><a href="a02534.html#a013471cfe5f75de645b42e1bc71f0651">FIFFLIB::FiffNamedMatrix::SDPtr</a></div><div class="ttdeci">QSharedDataPointer&lt; FiffNamedMatrix &gt; SDPtr</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00081">fiff_named_matrix.h:81</a></div></div>
+<div class="ttc" id="aa02538_html"><div class="ttname"><a href="a02538.html">FIFFLIB::FiffProj</a></div><div class="ttdoc">SSP projector data.</div><div class="ttdef"><b>Definition</b> <a href="#l00082">fiff_proj.h:82</a></div></div>
+<div class="ttc" id="aa02538_html_a01a8b9aef8636730c851226a12dce03e"><div class="ttname"><a href="a02538.html#a01a8b9aef8636730c851226a12dce03e">FIFFLIB::FiffProj::data</a></div><div class="ttdeci">FiffNamedMatrix::SDPtr data</div><div class="ttdef"><b>Definition</b> <a href="#l00192">fiff_proj.h:192</a></div></div>
+<div class="ttc" id="aa02538_html_a02031295a2d7618ff26fd39965406afe"><div class="ttname"><a href="a02538.html#a02031295a2d7618ff26fd39965406afe">FIFFLIB::FiffProj::kind</a></div><div class="ttdeci">fiff_int_t kind</div><div class="ttdef"><b>Definition</b> <a href="#l00188">fiff_proj.h:188</a></div></div>
+<div class="ttc" id="aa02538_html_a2a6c76ee4b9ee6c57e410b88af897ac5"><div class="ttname"><a href="a02538.html#a2a6c76ee4b9ee6c57e410b88af897ac5">FIFFLIB::FiffProj::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const FiffProj &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00086">fiff_proj.h:86</a></div></div>
+<div class="ttc" id="aa02538_html_a3240085ca5a354a5ff59e6da32e6ac1d"><div class="ttname"><a href="a02538.html#a3240085ca5a354a5ff59e6da32e6ac1d">FIFFLIB::FiffProj::compute_from_raw</a></div><div class="ttdeci">static QList&lt; FiffProj &gt; compute_from_raw(const FiffRawData &amp;raw, const Eigen::MatrixXi &amp;events, int eventCode, float tmin, float tmax, int nGrad, int nMag, int nEeg, const QMap&lt; QString, double &gt; &amp;mapReject=QMap&lt; QString, double &gt;())</div><div class="ttdef"><b>Definition</b> <a href="a00629_source.html#l00284">fiff_proj.cpp:284</a></div></div>
+<div class="ttc" id="aa02538_html_a405c0b66db5c0466b2c286033ee8469e"><div class="ttname"><a href="a02538.html#a405c0b66db5c0466b2c286033ee8469e">FIFFLIB::FiffProj::make_projector</a></div><div class="ttdeci">static fiff_int_t make_projector(const QList&lt; FiffProj &gt; &amp;projs, const QStringList &amp;ch_names, Eigen::MatrixXd &amp;proj, const QStringList &amp;bads=defaultQStringList, Eigen::MatrixXd &amp;U=defaultMatrixXd)</div><div class="ttdef"><b>Definition</b> <a href="a00629_source.html#l00119">fiff_proj.cpp:119</a></div></div>
+<div class="ttc" id="aa02538_html_a461ef684d1ef47740f56b4c1b0e84181"><div class="ttname"><a href="a02538.html#a461ef684d1ef47740f56b4c1b0e84181">FIFFLIB::FiffProj::desc</a></div><div class="ttdeci">QString desc</div><div class="ttdef"><b>Definition</b> <a href="#l00190">fiff_proj.h:190</a></div></div>
+<div class="ttc" id="aa02538_html_a685d18954ba6fd796daa8bef216641e6"><div class="ttname"><a href="a02538.html#a685d18954ba6fd796daa8bef216641e6">FIFFLIB::FiffProj::activate_projs</a></div><div class="ttdeci">static void activate_projs(QList&lt; FiffProj &gt; &amp;p_qListFiffProj)</div><div class="ttdef"><b>Definition</b> <a href="a00629_source.html#l00107">fiff_proj.cpp:107</a></div></div>
+<div class="ttc" id="aa02538_html_a7a9709e0797cc30508c3a394ee13cf9e"><div class="ttname"><a href="a02538.html#a7a9709e0797cc30508c3a394ee13cf9e">FIFFLIB::FiffProj::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FiffProj &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00085">fiff_proj.h:85</a></div></div>
+<div class="ttc" id="aa02538_html_a8697939307d08cb52238f987d2a6da15"><div class="ttname"><a href="a02538.html#a8697939307d08cb52238f987d2a6da15">FIFFLIB::FiffProj::FiffProj</a></div><div class="ttdeci">FiffProj()</div><div class="ttdef"><b>Definition</b> <a href="a00629_source.html#l00067">fiff_proj.cpp:67</a></div></div>
+<div class="ttc" id="aa02538_html_aa5593133aaf0bde0ac5c5c18685a14d1"><div class="ttname"><a href="a02538.html#aa5593133aaf0bde0ac5c5c18685a14d1">FIFFLIB::FiffProj::active</a></div><div class="ttdeci">bool active</div><div class="ttdef"><b>Definition</b> <a href="#l00189">fiff_proj.h:189</a></div></div>
+<div class="ttc" id="aa02538_html_ac8986f41ea045faff10c0a50d8dcb363"><div class="ttname"><a href="a02538.html#ac8986f41ea045faff10c0a50d8dcb363">FIFFLIB::FiffProj::operator&lt;&lt;</a></div><div class="ttdeci">friend std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, const FIFFLIB::FiffProj &amp;p_FiffProj)</div><div class="ttdef"><b>Definition</b> <a href="#l00199">fiff_proj.h:199</a></div></div>
+<div class="ttc" id="aa02542_html"><div class="ttname"><a href="a02542.html">FIFFLIB::FiffRawData</a></div><div class="ttdoc">FIFF raw measurement data.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00079">fiff_raw_data.h:80</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

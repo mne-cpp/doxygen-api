@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -212,8 +247,8 @@ $(function() {
 <div class="textblock">Here is a list of all variables with links to the classes they belong to:</div>
 
 <h3 class="doxsection"><a id="index_k" name="index_k"></a>- k -</h3><ul>
-<li>khi2&#160;:&#160;<a class="el" href="a02681.html#a8b4b98798b06ae576d4c5a2a7b9cf991">INVLIB::bdipEcd</a>, <a class="el" href="a02677.html#aa7f125d5ef0c845125bf8dd6d5f050e7">INVLIB::InvEcd</a>, <a class="el" href="a02745.html#aab1fcd2ad4fe178c3b56ee3401c9ed10">INVLIB::InvFocalDipole</a></li>
-<li>kind&#160;:&#160;<a class="el" href="a02497.html#a174c0a55807f53d88312d68a58b139d7">FIFFLIB::_fiffExp</a>, <a class="el" href="a02425.html#a57296252392fa2bb85f00bf4cb0454f6">FIFFLIB::FiffChInfo</a>, <a class="el" href="a02441.html#a94c5696b1f833a6e81f5e34db7e9f31a">FIFFLIB::FiffCov</a>, <a class="el" href="a02445.html#a87ce56e229922b8c0b71c0d29a4d8698">FIFFLIB::FiffCtfComp</a>, <a class="el" href="a02453.html#aae75c4510085c461d6624158a0453c59">FIFFLIB::FiffDigPoint</a>, <a class="el" href="a02465.html#a5027557278aa7bab1c93801e1e45dcb1">FIFFLIB::FiffDirEntry</a>, <a class="el" href="a02525.html#a02031295a2d7618ff26fd39965406afe">FIFFLIB::FiffProj</a>, <a class="el" href="a02545.html#a28600eedaead7b0db5d22d71fce1200b">FIFFLIB::FiffTag</a>, <a class="el" href="a02589.html#a337cd64e69fdd49d4bf5a7e79bbfbe16">FWDLIB::SurfExpl</a>, <a class="el" href="a02825.html#a1249d6174ece23f5818768d59785cd98">MNELIB::MNEChSelection</a>, <a class="el" href="a02833.html#a98f084fc3fc6933db1f112248169b7ef">MNELIB::MNECovMatrix</a>, <a class="el" href="a02837.html#a22ebcba007d5bf346f73cdd096feefb2">MNELIB::MNECTFCompData</a>, <a class="el" href="a02925.html#aac5d16af7e2cc799b5703563161fa71e">MNELIB::MNEMeasDataSet</a>, <a class="el" href="a03009.html#a0b6a5e88391716e084461acd0d1d8190">MNELIB::MNEProjItem</a></li>
+<li>khi2&#160;:&#160;<a class="el" href="a02694.html#a8b4b98798b06ae576d4c5a2a7b9cf991">INVLIB::bdipEcd</a>, <a class="el" href="a02690.html#aa7f125d5ef0c845125bf8dd6d5f050e7">INVLIB::InvEcd</a>, <a class="el" href="a02754.html#aab1fcd2ad4fe178c3b56ee3401c9ed10">INVLIB::InvFocalDipole</a></li>
+<li>kind&#160;:&#160;<a class="el" href="a02510.html#a174c0a55807f53d88312d68a58b139d7">FIFFLIB::_fiffExp</a>, <a class="el" href="a02438.html#a57296252392fa2bb85f00bf4cb0454f6">FIFFLIB::FiffChInfo</a>, <a class="el" href="a02454.html#a94c5696b1f833a6e81f5e34db7e9f31a">FIFFLIB::FiffCov</a>, <a class="el" href="a02458.html#a87ce56e229922b8c0b71c0d29a4d8698">FIFFLIB::FiffCtfComp</a>, <a class="el" href="a02466.html#aae75c4510085c461d6624158a0453c59">FIFFLIB::FiffDigPoint</a>, <a class="el" href="a02478.html#a5027557278aa7bab1c93801e1e45dcb1">FIFFLIB::FiffDirEntry</a>, <a class="el" href="a02538.html#a02031295a2d7618ff26fd39965406afe">FIFFLIB::FiffProj</a>, <a class="el" href="a02558.html#a28600eedaead7b0db5d22d71fce1200b">FIFFLIB::FiffTag</a>, <a class="el" href="a02602.html#a337cd64e69fdd49d4bf5a7e79bbfbe16">FWDLIB::SurfExpl</a>, <a class="el" href="a02870.html#a1249d6174ece23f5818768d59785cd98">MNELIB::MNEChSelection</a>, <a class="el" href="a02878.html#a98f084fc3fc6933db1f112248169b7ef">MNELIB::MNECovMatrix</a>, <a class="el" href="a02882.html#a22ebcba007d5bf346f73cdd096feefb2">MNELIB::MNECTFCompData</a>, <a class="el" href="a02970.html#aac5d16af7e2cc799b5703563161fa71e">MNELIB::MNEMeasDataSet</a>, <a class="el" href="a03054.html#a0b6a5e88391716e084461acd0d1d8190">MNELIB::MNEProjItem</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

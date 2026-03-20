@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/mne/mne_vol_geom.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/mne/mne_event_list.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -213,67 +248,84 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">mne_vol_geom.cpp</div></div>
+  <div class="headertitle"><div class="title">mne_event_list.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01292.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;<a class="code" href="a01190.html">mne_vol_geom.h</a>&quot;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01808.html">MNELIB</a>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
+<a href="a01292.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef MNE_EVENT_LIST_H</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define MNE_EVENT_LIST_H</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="a01061.html">mne_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="a01334.html">mne_event.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// DEFINE NAMESPACE MNELIB</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01769.html">MNELIB</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a02922.html">   27</a></span><span class="keyword">class </span><a class="code hl_define" href="a01061.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a> <a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">   30</a></span>    <a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a02922.html#a0e52793416a929ab2223dd812b65a24d">   31</a></span>    <a class="code hl_function" href="a02922.html#a0e52793416a929ab2223dd812b65a24d">~MNEEventList</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a02922.html#ae0dca577f141d7f12776f2f42aed1714">   33</a></span>    <a class="code hl_function" href="a02922.html#ae0dca577f141d7f12776f2f42aed1714">MNEEventList</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a>&amp; other)</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.reserve(other.<a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.size());</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; e : other.<a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.push_back(std::make_unique&lt;MNEEvent&gt;(*e));</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a02922.html#a7f115f8e794aa750146a0e93debb0c2c">   40</a></span>    <a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a>&amp; <a class="code hl_function" href="a02922.html#a7f115f8e794aa750146a0e93debb0c2c">operator=</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a>&amp; other)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">if</span> (<span class="keyword">this</span> != &amp;other) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.clear();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.reserve(other.<a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.size());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; e : other.<a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.push_back(std::make_unique&lt;MNEEvent&gt;(*e));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
+</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a02922.html#ac19334e83c0f3cf4f329338e3fe7a41e">   51</a></span>    <a class="code hl_function" href="a02922.html#ac19334e83c0f3cf4f329338e3fe7a41e">MNEEventList</a>(<a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a02922.html#a4f24c9cfb2c3cc0bed4655ff30b98a2c">   52</a></span>    <a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a>&amp; <a class="code hl_function" href="a02922.html#a4f24c9cfb2c3cc0bed4655ff30b98a2c">operator=</a>(<a class="code hl_function" href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNEEventList</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a03081.html#abf49bd2dccde58c5a8c580b40b5e4b4f">   54</a></span><a class="code hl_function" href="a03081.html#abf49bd2dccde58c5a8c580b40b5e4b4f">MNEVolGeom::MNEVolGeom</a>()</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>: <a class="code hl_variable" href="a03081.html#aacb89a3eb5f7330fec2eb07458cc4c3f">valid</a>(0)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>, <a class="code hl_variable" href="a03081.html#a353b3afc027f68f17fa54d72a2322514">width</a>(0)</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>, <a class="code hl_variable" href="a03081.html#ab1b5854366ba8e82645bcd9e248742a2">height</a>(0)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>, <a class="code hl_variable" href="a03081.html#a9d07f9177a20c2d49b7a1fee92973e1b">depth</a>(0)</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>, <a class="code hl_variable" href="a03081.html#a81fa9b4b0707bc75d2c30134f7f45cff">xsize</a>(0.0f)</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>, <a class="code hl_variable" href="a03081.html#a156e3f2f1477f70b0086b9ef237fc373">ysize</a>(0.0f)</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>, <a class="code hl_variable" href="a03081.html#a01d54f615cbc7d31900c6277a67436dc">zsize</a>(0.0f)</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>, <a class="code hl_variable" href="a03081.html#a0c58f7d8868a70ff48a0ba05849e0efe">x_ras</a>{0.0f, 0.0f, 0.0f}</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>, <a class="code hl_variable" href="a03081.html#a0b245033bee29e63134e056a21907ecd">y_ras</a>{0.0f, 0.0f, 0.0f}</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>, <a class="code hl_variable" href="a03081.html#a634163daaf57c07a8de773081efe2cc2">z_ras</a>{0.0f, 0.0f, 0.0f}</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>, <a class="code hl_variable" href="a03081.html#a95ac0c17b0e444056a8ef773c0d3fafe">c_ras</a>{0.0f, 0.0f, 0.0f}</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a02922.html#acc5ddcdddc5a2c83fce8c3922a805f47">   58</a></span>    <span class="keywordtype">int</span> <a class="code hl_function" href="a02922.html#acc5ddcdddc5a2c83fce8c3922a805f47">nevent</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>.size()); }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a02922.html#a430bb690060deb260e9cef945ef2841a">   60</a></span>    std::vector&lt;std::unique_ptr&lt;MNEEvent&gt;&gt; <a class="code hl_variable" href="a02922.html#a430bb690060deb260e9cef945ef2841a">events</a>; </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
 </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a03081.html#ac64b0575b8edad1b275c113470aa3bce">   71</a></span><a class="code hl_function" href="a03081.html#ac64b0575b8edad1b275c113470aa3bce">MNEVolGeom::~MNEVolGeom</a>()</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-</div>
-<div class="ttc" id="aa01190_html"><div class="ttname"><a href="a01190.html">mne_vol_geom.h</a></div><div class="ttdoc">MNEVolGeom class declaration.</div></div>
-<div class="ttc" id="aa01808_html"><div class="ttname"><a href="a01808.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00063">connectivitysettings.h:63</a></div></div>
-<div class="ttc" id="aa03081_html_a01d54f615cbc7d31900c6277a67436dc"><div class="ttname"><a href="a03081.html#a01d54f615cbc7d31900c6277a67436dc">MNELIB::MNEVolGeom::zsize</a></div><div class="ttdeci">float zsize</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00098">mne_vol_geom.h:98</a></div></div>
-<div class="ttc" id="aa03081_html_a0b245033bee29e63134e056a21907ecd"><div class="ttname"><a href="a03081.html#a0b245033bee29e63134e056a21907ecd">MNELIB::MNEVolGeom::y_ras</a></div><div class="ttdeci">float y_ras[3]</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00099">mne_vol_geom.h:99</a></div></div>
-<div class="ttc" id="aa03081_html_a0c58f7d8868a70ff48a0ba05849e0efe"><div class="ttname"><a href="a03081.html#a0c58f7d8868a70ff48a0ba05849e0efe">MNELIB::MNEVolGeom::x_ras</a></div><div class="ttdeci">float x_ras[3]</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00099">mne_vol_geom.h:99</a></div></div>
-<div class="ttc" id="aa03081_html_a156e3f2f1477f70b0086b9ef237fc373"><div class="ttname"><a href="a03081.html#a156e3f2f1477f70b0086b9ef237fc373">MNELIB::MNEVolGeom::ysize</a></div><div class="ttdeci">float ysize</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00098">mne_vol_geom.h:98</a></div></div>
-<div class="ttc" id="aa03081_html_a353b3afc027f68f17fa54d72a2322514"><div class="ttname"><a href="a03081.html#a353b3afc027f68f17fa54d72a2322514">MNELIB::MNEVolGeom::width</a></div><div class="ttdeci">int width</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00097">mne_vol_geom.h:97</a></div></div>
-<div class="ttc" id="aa03081_html_a634163daaf57c07a8de773081efe2cc2"><div class="ttname"><a href="a03081.html#a634163daaf57c07a8de773081efe2cc2">MNELIB::MNEVolGeom::z_ras</a></div><div class="ttdeci">float z_ras[3]</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00099">mne_vol_geom.h:99</a></div></div>
-<div class="ttc" id="aa03081_html_a81fa9b4b0707bc75d2c30134f7f45cff"><div class="ttname"><a href="a03081.html#a81fa9b4b0707bc75d2c30134f7f45cff">MNELIB::MNEVolGeom::xsize</a></div><div class="ttdeci">float xsize</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00098">mne_vol_geom.h:98</a></div></div>
-<div class="ttc" id="aa03081_html_a95ac0c17b0e444056a8ef773c0d3fafe"><div class="ttname"><a href="a03081.html#a95ac0c17b0e444056a8ef773c0d3fafe">MNELIB::MNEVolGeom::c_ras</a></div><div class="ttdeci">float c_ras[3]</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00100">mne_vol_geom.h:100</a></div></div>
-<div class="ttc" id="aa03081_html_a9d07f9177a20c2d49b7a1fee92973e1b"><div class="ttname"><a href="a03081.html#a9d07f9177a20c2d49b7a1fee92973e1b">MNELIB::MNEVolGeom::depth</a></div><div class="ttdeci">int depth</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00097">mne_vol_geom.h:97</a></div></div>
-<div class="ttc" id="aa03081_html_aacb89a3eb5f7330fec2eb07458cc4c3f"><div class="ttname"><a href="a03081.html#aacb89a3eb5f7330fec2eb07458cc4c3f">MNELIB::MNEVolGeom::valid</a></div><div class="ttdeci">int valid</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00096">mne_vol_geom.h:96</a></div></div>
-<div class="ttc" id="aa03081_html_ab1b5854366ba8e82645bcd9e248742a2"><div class="ttname"><a href="a03081.html#ab1b5854366ba8e82645bcd9e248742a2">MNELIB::MNEVolGeom::height</a></div><div class="ttdeci">int height</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00097">mne_vol_geom.h:97</a></div></div>
-<div class="ttc" id="aa03081_html_abf49bd2dccde58c5a8c580b40b5e4b4f"><div class="ttname"><a href="a03081.html#abf49bd2dccde58c5a8c580b40b5e4b4f">MNELIB::MNEVolGeom::MNEVolGeom</a></div><div class="ttdeci">MNEVolGeom()</div><div class="ttdef"><b>Definition</b> <a href="#l00054">mne_vol_geom.cpp:54</a></div></div>
-<div class="ttc" id="aa03081_html_ac64b0575b8edad1b275c113470aa3bce"><div class="ttname"><a href="a03081.html#ac64b0575b8edad1b275c113470aa3bce">MNELIB::MNEVolGeom::~MNEVolGeom</a></div><div class="ttdeci">~MNEVolGeom()</div><div class="ttdef"><b>Definition</b> <a href="#l00071">mne_vol_geom.cpp:71</a></div></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace MNELIB</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif </span><span class="comment">// MNE_EVENT_LIST_H</span></div>
+<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">mne_global.h</a></div><div class="ttdoc">mne library export/import macros.</div></div>
+<div class="ttc" id="aa01061_html_ae182e5976a87d895a5eecf737aafefc3"><div class="ttname"><a href="a01061.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a></div><div class="ttdeci">#define MNESHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a01061_source.html#l00052">mne_global.h:52</a></div></div>
+<div class="ttc" id="aa01334_html"><div class="ttname"><a href="a01334.html">mne_event.h</a></div></div>
+<div class="ttc" id="aa01769_html"><div class="ttname"><a href="a01769.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00063">connectivitysettings.h:63</a></div></div>
+<div class="ttc" id="aa02922_html_a0e52793416a929ab2223dd812b65a24d"><div class="ttname"><a href="a02922.html#a0e52793416a929ab2223dd812b65a24d">MNELIB::MNEEventList::~MNEEventList</a></div><div class="ttdeci">~MNEEventList()=default</div></div>
+<div class="ttc" id="aa02922_html_a1d78c32d41ecc013ef504bf1ff1d1631"><div class="ttname"><a href="a02922.html#a1d78c32d41ecc013ef504bf1ff1d1631">MNELIB::MNEEventList::MNEEventList</a></div><div class="ttdeci">MNEEventList()=default</div></div>
+<div class="ttc" id="aa02922_html_a430bb690060deb260e9cef945ef2841a"><div class="ttname"><a href="a02922.html#a430bb690060deb260e9cef945ef2841a">MNELIB::MNEEventList::events</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; MNEEvent &gt; &gt; events</div><div class="ttdef"><b>Definition</b> <a href="#l00060">mne_event_list.h:60</a></div></div>
+<div class="ttc" id="aa02922_html_a4f24c9cfb2c3cc0bed4655ff30b98a2c"><div class="ttname"><a href="a02922.html#a4f24c9cfb2c3cc0bed4655ff30b98a2c">MNELIB::MNEEventList::operator=</a></div><div class="ttdeci">MNEEventList &amp; operator=(MNEEventList &amp;&amp;)=default</div></div>
+<div class="ttc" id="aa02922_html_a7f115f8e794aa750146a0e93debb0c2c"><div class="ttname"><a href="a02922.html#a7f115f8e794aa750146a0e93debb0c2c">MNELIB::MNEEventList::operator=</a></div><div class="ttdeci">MNEEventList &amp; operator=(const MNEEventList &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00040">mne_event_list.h:40</a></div></div>
+<div class="ttc" id="aa02922_html_ac19334e83c0f3cf4f329338e3fe7a41e"><div class="ttname"><a href="a02922.html#ac19334e83c0f3cf4f329338e3fe7a41e">MNELIB::MNEEventList::MNEEventList</a></div><div class="ttdeci">MNEEventList(MNEEventList &amp;&amp;)=default</div></div>
+<div class="ttc" id="aa02922_html_acc5ddcdddc5a2c83fce8c3922a805f47"><div class="ttname"><a href="a02922.html#acc5ddcdddc5a2c83fce8c3922a805f47">MNELIB::MNEEventList::nevent</a></div><div class="ttdeci">int nevent() const</div><div class="ttdoc">Returns the number of events in the list.</div><div class="ttdef"><b>Definition</b> <a href="#l00058">mne_event_list.h:58</a></div></div>
+<div class="ttc" id="aa02922_html_ae0dca577f141d7f12776f2f42aed1714"><div class="ttname"><a href="a02922.html#ae0dca577f141d7f12776f2f42aed1714">MNELIB::MNEEventList::MNEEventList</a></div><div class="ttdeci">MNEEventList(const MNEEventList &amp;other)</div><div class="ttdef"><b>Definition</b> <a href="#l00033">mne_event_list.h:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

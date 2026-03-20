@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/rtprocessing/rtinvop.h Source File</title>
+    <title>MNE-CPP: src/libraries/inv/inv_source_coupling.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,166 +243,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_be5bb3afcb9a3543d066161be7c6cdb9.html">rtprocessing</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_b121f4639c206225e3550e4e3ca83e37.html">inv</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">rtinvop.h</div></div>
+  <div class="headertitle"><div class="title">inv_source_coupling.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00002.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#ifndef RTINVOP_RTPROCESSING_H</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define RTINVOP_RTPROCESSING_H</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;<a class="code" href="a00008.html">rtprocessing_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;<a class="code" href="a00566.html">fiff/fiff_cov.h</a>&gt;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;QThread&gt;</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#ifndef INV_SOURCE_COUPLING_H</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define INV_SOURCE_COUPLING_H</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// DEFINE NAMESPACE INVLIB</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">// FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a> {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">class </span><a class="code hl_class" href="a02509.html">FiffInfo</a>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01808.html">MNELIB</a> {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">class </span><a class="code hl_class" href="a02893.html">MNEForwardSolution</a>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">class </span><a class="code hl_class" href="a02909.html">MNEInverseOperator</a>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">// DEFINE NAMESPACE RTPROCESSINGLIB</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01815.html">RTPROCESSINGLIB</a></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// RTPROCESSINGLIB FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
-<div class="foldopen" id="foldopen00081" data-start="{" data-end="};">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a03165.html">   81</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03165.html">RtInvOpInput</a> {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a03165.html#a49e17171509c1483ba9d6b4b8b9b473a">   82</a></span>    QSharedPointer&lt;FIFFLIB::FiffInfo&gt;           <a class="code hl_variable" href="a03165.html#a49e17171509c1483ba9d6b4b8b9b473a">pFiffInfo</a>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a03165.html#af5036ceb2c86e23a8eefab499b87094f">   83</a></span>    QSharedPointer&lt;MNELIB::MNEForwardSolution&gt;  <a class="code hl_variable" href="a03165.html#af5036ceb2c86e23a8eefab499b87094f">pFwd</a>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a03165.html#a3d8ed2b5d31e45e5a24358904f5fc464">   84</a></span>    <a class="code hl_class" href="a02441.html">FIFFLIB::FiffCov</a>                            <a class="code hl_variable" href="a03165.html#a3d8ed2b5d31e45e5a24358904f5fc464">noiseCov</a>;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>};</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01781.html">INVLIB</a></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="};">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a02758.html">   65</a></span><span class="keyword">struct </span><a class="code hl_function" href="a02758.html#a3f542728287ecf04785d36d9a0acfaea">InvSourceCoupling</a></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a02758.html#aa22b7e05ebf73bf22495c5a8528805b0">   67</a></span>    std::vector&lt;int&gt;        <a class="code hl_variable" href="a02758.html#aa22b7e05ebf73bf22495c5a8528805b0">gridIndices</a>;    </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a02758.html#a0440bc5ec9914429fa0aa45b92456b4f">   68</a></span>    std::vector&lt;Eigen::Vector3d&gt; <a class="code hl_variable" href="a02758.html#a0440bc5ec9914429fa0aa45b92456b4f">moments</a>;   </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a02758.html#ac80249c40a96d45a2b1d12e5ede30e1b">   69</a></span>    Eigen::MatrixXd         <a class="code hl_variable" href="a02758.html#ac80249c40a96d45a2b1d12e5ede30e1b">correlations</a>;   </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a02758.html#a8b2422c7ff4e275ed14e2f913115fd77">   70</a></span>    <span class="keywordtype">float</span>                   <a class="code hl_variable" href="a02758.html#a8b2422c7ff4e275ed14e2f913115fd77">tmin</a>;           </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a02758.html#ad45097ab9d85f9953d4928009b7e0b34">   71</a></span>    <span class="keywordtype">float</span>                   <a class="code hl_variable" href="a02758.html#ad45097ab9d85f9953d4928009b7e0b34">tmax</a>;           </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_function" href="a02758.html#a3f542728287ecf04785d36d9a0acfaea">InvSourceCoupling</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
 </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="};">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="a03169.html">   93</a></span><span class="keyword">class </span><a class="code hl_define" href="a00008.html#a04b5cbf3ede66c5d7093618723cbb36f">RTPROCESSINGSHARED_EXPORT</a> <a class="code hl_class" href="a03169.html">RtInvOpWorker</a> : <span class="keyword">public</span> QObject</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>{</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    Q_OBJECT</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03169.html#a050dbdd4900c87c885fe2d00982eaa2a">doWork</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03165.html">RtInvOpInput</a> &amp;inputData);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>signals:</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a03169.html#a33d816e86a4213cf682aa610215ca9a2">  113</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03169.html#a33d816e86a4213cf682aa610215ca9a2">resultReady</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02909.html">MNELIB::MNEInverseOperator</a>&amp; invOp);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>};</div>
-</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00122" data-start="{" data-end="};">
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a03173.html">  122</a></span><span class="keyword">class </span><a class="code hl_define" href="a00008.html#a04b5cbf3ede66c5d7093618723cbb36f">RTPROCESSINGSHARED_EXPORT</a> <a class="code hl_function" href="a03173.html#a28af2e3f8be637b4f0f280ad5222eb5a">RtInvOp</a> : <span class="keyword">public</span> QObject</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>{</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    Q_OBJECT</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a03173.html#ab8ce30738752408ffeed505f8355fcad">  127</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;RtInvOp&gt; <a class="code hl_typedef" href="a03173.html#ab8ce30738752408ffeed505f8355fcad">SPtr</a>;             </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="a03173.html#ac0800b9f2eb29f29bbc1e4f9f120a41c">  128</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const RtInvOp&gt; <a class="code hl_typedef" href="a03173.html#ac0800b9f2eb29f29bbc1e4f9f120a41c">ConstSPtr</a>;  </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a03173.html#a28af2e3f8be637b4f0f280ad5222eb5a">RtInvOp</a>(QSharedPointer&lt;FIFFLIB::FiffInfo&gt; &amp;p_pFiffInfo,</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                     QSharedPointer&lt;MNELIB::MNEForwardSolution&gt; &amp;p_pFwd,</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                     QObject *parent = 0);</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <a class="code hl_function" href="a03173.html#a28af2e3f8be637b4f0f280ad5222eb5a">~RtInvOp</a>();</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03173.html#a439651220fd17b5c47d9259c25a091cb">append</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02441.html">FIFFLIB::FiffCov</a> &amp;noiseCov);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03173.html#a79122f31f1fd3154ac89f052e08f46ee">setFwdSolution</a>(QSharedPointer&lt;MNELIB::MNEForwardSolution&gt; pFwd);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03173.html#aa3e5a98fff6099760c757f7954d9cf7c">restart</a>();</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03173.html#a093c59cd754427ec994744f00031c8e3">stop</a>();</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03173.html#a4800f86ebbe991e8f1c698df739fb256">handleResults</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02909.html">MNELIB::MNEInverseOperator</a>&amp; invOp);</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="a03173.html#adb0a4d122ea377010a25964ea2bdbf26">  183</a></span>    QSharedPointer&lt;FIFFLIB::FiffInfo&gt;           <a class="code hl_variable" href="a03173.html#adb0a4d122ea377010a25964ea2bdbf26">m_pFiffInfo</a>;        </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="a03173.html#a2abace7ae7f17230ca8449ae0bc22e2e">  184</a></span>    QSharedPointer&lt;MNELIB::MNEForwardSolution&gt;  <a class="code hl_variable" href="a03173.html#a2abace7ae7f17230ca8449ae0bc22e2e">m_pFwd</a>;             </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="a03173.html#a52d45bd160e4eb535797a3aa5bf000a0">  186</a></span>    QThread                                     <a class="code hl_variable" href="a03173.html#a52d45bd160e4eb535797a3aa5bf000a0">m_workerThread</a>;     </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>signals:</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="a03173.html#aba42d9b9a25414487eb9da98f40a6d6e">  195</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03173.html#aba42d9b9a25414487eb9da98f40a6d6e">invOperatorCalculated</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02909.html">MNELIB::MNEInverseOperator</a>&amp; invOp);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="a03173.html#ae21eb0ba02afe7d7b5878b0001fdde11">  203</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03173.html#ae21eb0ba02afe7d7b5878b0001fdde11">operate</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03165.html">RtInvOpInput</a> &amp;inputData);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>};</div>
-</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment">// INLINE DEFINITIONS</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>} <span class="comment">// NAMESPACE</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">#endif </span><span class="comment">// RTINV_RTPROCESSING_H</span></div>
-<div class="ttc" id="aa00008_html"><div class="ttname"><a href="a00008.html">rtprocessing_global.h</a></div><div class="ttdoc">realtime library export/import macros.</div></div>
-<div class="ttc" id="aa00008_html_a04b5cbf3ede66c5d7093618723cbb36f"><div class="ttname"><a href="a00008.html#a04b5cbf3ede66c5d7093618723cbb36f">RTPROCESSINGSHARED_EXPORT</a></div><div class="ttdeci">#define RTPROCESSINGSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00008_source.html#l00051">rtprocessing_global.h:51</a></div></div>
-<div class="ttc" id="aa00566_html"><div class="ttname"><a href="a00566.html">fiff_cov.h</a></div><div class="ttdoc">FiffCov class declaration.</div></div>
-<div class="ttc" id="aa01808_html"><div class="ttname"><a href="a01808.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00063">connectivitysettings.h:63</a></div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa01815_html"><div class="ttname"><a href="a01815.html">RTPROCESSINGLIB</a></div><div class="ttdoc">Real-time signal processing (filtering, averaging, HPI fitting, noise reduction).</div><div class="ttdef"><b>Definition</b> <a href="a00317_source.html#l00064">rtfiffrawviewdelegate.h:64</a></div></div>
-<div class="ttc" id="aa02441_html"><div class="ttname"><a href="a02441.html">FIFFLIB::FiffCov</a></div><div class="ttdoc">covariance data</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00083">fiff_cov.h:84</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">FIFFLIB::FiffInfo</a></div><div class="ttdoc">FIFF measurement file information.</div><div class="ttdef"><b>Definition</b> <a href="a00455_source.html#l00084">fiff_info.h:85</a></div></div>
-<div class="ttc" id="aa02893_html"><div class="ttname"><a href="a02893.html">MNELIB::MNEForwardSolution</a></div><div class="ttdoc">Forward operator.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00172">mne_forward_solution.h:173</a></div></div>
-<div class="ttc" id="aa02909_html"><div class="ttname"><a href="a02909.html">MNELIB::MNEInverseOperator</a></div><div class="ttdoc">MNE-style inverse operator.</div><div class="ttdef"><b>Definition</b> <a href="a01133_source.html#l00139">mne_inverse_operator.h:140</a></div></div>
-<div class="ttc" id="aa03165_html"><div class="ttname"><a href="a03165.html">RTPROCESSINGLIB::RtInvOpInput</a></div><div class="ttdoc">Input bundle for the real-time inverse operator worker containing noise covariance,...</div><div class="ttdef"><b>Definition</b> <a href="#l00081">rtinvop.h:81</a></div></div>
-<div class="ttc" id="aa03165_html_a3d8ed2b5d31e45e5a24358904f5fc464"><div class="ttname"><a href="a03165.html#a3d8ed2b5d31e45e5a24358904f5fc464">RTPROCESSINGLIB::RtInvOpInput::noiseCov</a></div><div class="ttdeci">FIFFLIB::FiffCov noiseCov</div><div class="ttdef"><b>Definition</b> <a href="#l00084">rtinvop.h:84</a></div></div>
-<div class="ttc" id="aa03165_html_a49e17171509c1483ba9d6b4b8b9b473a"><div class="ttname"><a href="a03165.html#a49e17171509c1483ba9d6b4b8b9b473a">RTPROCESSINGLIB::RtInvOpInput::pFiffInfo</a></div><div class="ttdeci">QSharedPointer&lt; FIFFLIB::FiffInfo &gt; pFiffInfo</div><div class="ttdef"><b>Definition</b> <a href="#l00082">rtinvop.h:82</a></div></div>
-<div class="ttc" id="aa03165_html_af5036ceb2c86e23a8eefab499b87094f"><div class="ttname"><a href="a03165.html#af5036ceb2c86e23a8eefab499b87094f">RTPROCESSINGLIB::RtInvOpInput::pFwd</a></div><div class="ttdeci">QSharedPointer&lt; MNELIB::MNEForwardSolution &gt; pFwd</div><div class="ttdef"><b>Definition</b> <a href="#l00083">rtinvop.h:83</a></div></div>
-<div class="ttc" id="aa03169_html"><div class="ttname"><a href="a03169.html">RTPROCESSINGLIB::RtInvOpWorker</a></div><div class="ttdoc">Background worker thread that recomputes the MNE inverse operator when covariance updates arrive.</div><div class="ttdef"><b>Definition</b> <a href="#l00093">rtinvop.h:94</a></div></div>
-<div class="ttc" id="aa03169_html_a050dbdd4900c87c885fe2d00982eaa2a"><div class="ttname"><a href="a03169.html#a050dbdd4900c87c885fe2d00982eaa2a">RTPROCESSINGLIB::RtInvOpWorker::doWork</a></div><div class="ttdeci">void doWork(const RtInvOpInput &amp;inputData)</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00072">rtinvop.cpp:72</a></div></div>
-<div class="ttc" id="aa03169_html_a33d816e86a4213cf682aa610215ca9a2"><div class="ttname"><a href="a03169.html#a33d816e86a4213cf682aa610215ca9a2">RTPROCESSINGLIB::RtInvOpWorker::resultReady</a></div><div class="ttdeci">void resultReady(const MNELIB::MNEInverseOperator &amp;invOp)</div></div>
-<div class="ttc" id="aa03173_html_a093c59cd754427ec994744f00031c8e3"><div class="ttname"><a href="a03173.html#a093c59cd754427ec994744f00031c8e3">RTPROCESSINGLIB::RtInvOp::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00174">rtinvop.cpp:174</a></div></div>
-<div class="ttc" id="aa03173_html_a28af2e3f8be637b4f0f280ad5222eb5a"><div class="ttname"><a href="a03173.html#a28af2e3f8be637b4f0f280ad5222eb5a">RTPROCESSINGLIB::RtInvOp::RtInvOp</a></div><div class="ttdeci">RtInvOp(QSharedPointer&lt; FIFFLIB::FiffInfo &gt; &amp;p_pFiffInfo, QSharedPointer&lt; MNELIB::MNEForwardSolution &gt; &amp;p_pFwd, QObject *parent=0)</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00094">rtinvop.cpp:94</a></div></div>
-<div class="ttc" id="aa03173_html_a2abace7ae7f17230ca8449ae0bc22e2e"><div class="ttname"><a href="a03173.html#a2abace7ae7f17230ca8449ae0bc22e2e">RTPROCESSINGLIB::RtInvOp::m_pFwd</a></div><div class="ttdeci">QSharedPointer&lt; MNELIB::MNEForwardSolution &gt; m_pFwd</div><div class="ttdef"><b>Definition</b> <a href="#l00184">rtinvop.h:184</a></div></div>
-<div class="ttc" id="aa03173_html_a439651220fd17b5c47d9259c25a091cb"><div class="ttname"><a href="a03173.html#a439651220fd17b5c47d9259c25a091cb">RTPROCESSINGLIB::RtInvOp::append</a></div><div class="ttdeci">void append(const FIFFLIB::FiffCov &amp;noiseCov)</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00127">rtinvop.cpp:127</a></div></div>
-<div class="ttc" id="aa03173_html_a4800f86ebbe991e8f1c698df739fb256"><div class="ttname"><a href="a03173.html#a4800f86ebbe991e8f1c698df739fb256">RTPROCESSINGLIB::RtInvOp::handleResults</a></div><div class="ttdeci">void handleResults(const MNELIB::MNEInverseOperator &amp;invOp)</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00146">rtinvop.cpp:146</a></div></div>
-<div class="ttc" id="aa03173_html_a52d45bd160e4eb535797a3aa5bf000a0"><div class="ttname"><a href="a03173.html#a52d45bd160e4eb535797a3aa5bf000a0">RTPROCESSINGLIB::RtInvOp::m_workerThread</a></div><div class="ttdeci">QThread m_workerThread</div><div class="ttdef"><b>Definition</b> <a href="#l00186">rtinvop.h:186</a></div></div>
-<div class="ttc" id="aa03173_html_a79122f31f1fd3154ac89f052e08f46ee"><div class="ttname"><a href="a03173.html#a79122f31f1fd3154ac89f052e08f46ee">RTPROCESSINGLIB::RtInvOp::setFwdSolution</a></div><div class="ttdeci">void setFwdSolution(QSharedPointer&lt; MNELIB::MNEForwardSolution &gt; pFwd)</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00139">rtinvop.cpp:139</a></div></div>
-<div class="ttc" id="aa03173_html_aa3e5a98fff6099760c757f7954d9cf7c"><div class="ttname"><a href="a03173.html#aa3e5a98fff6099760c757f7954d9cf7c">RTPROCESSINGLIB::RtInvOp::restart</a></div><div class="ttdeci">void restart()</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00153">rtinvop.cpp:153</a></div></div>
-<div class="ttc" id="aa03173_html_ab8ce30738752408ffeed505f8355fcad"><div class="ttname"><a href="a03173.html#ab8ce30738752408ffeed505f8355fcad">RTPROCESSINGLIB::RtInvOp::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; RtInvOp &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00127">rtinvop.h:127</a></div></div>
-<div class="ttc" id="aa03173_html_aba42d9b9a25414487eb9da98f40a6d6e"><div class="ttname"><a href="a03173.html#aba42d9b9a25414487eb9da98f40a6d6e">RTPROCESSINGLIB::RtInvOp::invOperatorCalculated</a></div><div class="ttdeci">void invOperatorCalculated(const MNELIB::MNEInverseOperator &amp;invOp)</div></div>
-<div class="ttc" id="aa03173_html_ac0800b9f2eb29f29bbc1e4f9f120a41c"><div class="ttname"><a href="a03173.html#ac0800b9f2eb29f29bbc1e4f9f120a41c">RTPROCESSINGLIB::RtInvOp::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const RtInvOp &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00128">rtinvop.h:128</a></div></div>
-<div class="ttc" id="aa03173_html_adb0a4d122ea377010a25964ea2bdbf26"><div class="ttname"><a href="a03173.html#adb0a4d122ea377010a25964ea2bdbf26">RTPROCESSINGLIB::RtInvOp::m_pFiffInfo</a></div><div class="ttdeci">QSharedPointer&lt; FIFFLIB::FiffInfo &gt; m_pFiffInfo</div><div class="ttdef"><b>Definition</b> <a href="#l00183">rtinvop.h:183</a></div></div>
-<div class="ttc" id="aa03173_html_ae21eb0ba02afe7d7b5878b0001fdde11"><div class="ttname"><a href="a03173.html#ae21eb0ba02afe7d7b5878b0001fdde11">RTPROCESSINGLIB::RtInvOp::operate</a></div><div class="ttdeci">void operate(const RtInvOpInput &amp;inputData)</div></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// NAMESPACE INVLIB</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif </span><span class="comment">// INV_SOURCE_COUPLING_H</span></div>
+<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">INVLIB</a></div><div class="ttdoc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting).</div><div class="ttdef"><b>Definition</b> <a href="a01574_source.html#l00055">braintreemodel.h:55</a></div></div>
+<div class="ttc" id="aa02758_html_a0440bc5ec9914429fa0aa45b92456b4f"><div class="ttname"><a href="a02758.html#a0440bc5ec9914429fa0aa45b92456b4f">INVLIB::InvSourceCoupling::moments</a></div><div class="ttdeci">std::vector&lt; Eigen::Vector3d &gt; moments</div><div class="ttdef"><b>Definition</b> <a href="#l00068">inv_source_coupling.h:68</a></div></div>
+<div class="ttc" id="aa02758_html_a3f542728287ecf04785d36d9a0acfaea"><div class="ttname"><a href="a02758.html#a3f542728287ecf04785d36d9a0acfaea">INVLIB::InvSourceCoupling::InvSourceCoupling</a></div><div class="ttdeci">InvSourceCoupling()</div><div class="ttdef"><b>Definition</b> <a href="a00029_source.html#l00051">inv_source_coupling.cpp:51</a></div></div>
+<div class="ttc" id="aa02758_html_a8b2422c7ff4e275ed14e2f913115fd77"><div class="ttname"><a href="a02758.html#a8b2422c7ff4e275ed14e2f913115fd77">INVLIB::InvSourceCoupling::tmin</a></div><div class="ttdeci">float tmin</div><div class="ttdef"><b>Definition</b> <a href="#l00070">inv_source_coupling.h:70</a></div></div>
+<div class="ttc" id="aa02758_html_aa22b7e05ebf73bf22495c5a8528805b0"><div class="ttname"><a href="a02758.html#aa22b7e05ebf73bf22495c5a8528805b0">INVLIB::InvSourceCoupling::gridIndices</a></div><div class="ttdeci">std::vector&lt; int &gt; gridIndices</div><div class="ttdef"><b>Definition</b> <a href="#l00067">inv_source_coupling.h:67</a></div></div>
+<div class="ttc" id="aa02758_html_ac80249c40a96d45a2b1d12e5ede30e1b"><div class="ttname"><a href="a02758.html#ac80249c40a96d45a2b1d12e5ede30e1b">INVLIB::InvSourceCoupling::correlations</a></div><div class="ttdeci">Eigen::MatrixXd correlations</div><div class="ttdef"><b>Definition</b> <a href="#l00069">inv_source_coupling.h:69</a></div></div>
+<div class="ttc" id="aa02758_html_ad45097ab9d85f9953d4928009b7e0b34"><div class="ttname"><a href="a02758.html#ad45097ab9d85f9953d4928009b7e0b34">INVLIB::InvSourceCoupling::tmax</a></div><div class="ttdeci">float tmax</div><div class="ttdef"><b>Definition</b> <a href="#l00071">inv_source_coupling.h:71</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['part_0',['part',['../a03229.html#autotoc_md29',1,'MNE toolbox root function ###: Definition of the mne_block_diag function - decoding part'],['../a03229.html#autotoc_md30',1,'MNE toolbox root function ###: Definition of the mne_block_diag function - encoding part']]]
+  ['superuser_0',['of free blocks available to non-superuser.',['../a00650.html#autotoc_md1',1,'']]]
 ];

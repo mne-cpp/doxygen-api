@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -212,10 +247,10 @@ $(function() {
 <div class="textblock">Here is a list of all macros with links to the files they belong to:</div>
 
 <h3 class="doxsection"><a id="index_i" name="index_i"></a>- i -</h3><ul>
-<li>INVSHARED_EXPORT&#160;:&#160;<a class="el" href="a01799.html#abf8a4c9503f2c284931c293bad8e0a7c">inv_global.h</a></li>
-<li>IS_MATRIX&#160;:&#160;<a class="el" href="a00452.html#a7cf27e738b24f611af8c649c11fcbbdb">fiff_tag.h</a></li>
-<li>IS_TRANSPOSED&#160;:&#160;<a class="el" href="a01682.html#ac18202c2d588eee60087ed889794a5ff">inv_pwl_rap_music.h</a>, <a class="el" href="a01667.html#ac18202c2d588eee60087ed889794a5ff">inv_rap_music.h</a></li>
-<li>ITRMAX&#160;:&#160;<a class="el" href="a00056.html#a056d176a605f44b8b29878100fcb2be8">parksmcclellan.cpp</a></li>
+<li>INVSHARED_EXPORT&#160;:&#160;<a class="el" href="a00137.html#abf8a4c9503f2c284931c293bad8e0a7c">inv_global.h</a></li>
+<li>IS_MATRIX&#160;:&#160;<a class="el" href="a00506.html#a7cf27e738b24f611af8c649c11fcbbdb">fiff_tag.h</a></li>
+<li>IS_TRANSPOSED&#160;:&#160;<a class="el" href="a00026.html#ac18202c2d588eee60087ed889794a5ff">inv_pwl_rap_music.h</a>, <a class="el" href="a00011.html#ac18202c2d588eee60087ed889794a5ff">inv_rap_music.h</a></li>
+<li>ITRMAX&#160;:&#160;<a class="el" href="a00716.html#a056d176a605f44b8b29878100fcb2be8">parksmcclellan.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

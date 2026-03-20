@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/mne/filter_thread_arg.h Source File</title>
+    <title>MNE-CPP: src/libraries/mne/mne_mgh_tag.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -213,105 +248,71 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">filter_thread_arg.h</div></div>
+  <div class="headertitle"><div class="title">mne_mgh_tag.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01193.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#ifndef FILTERTHREADARG_H</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#define FILTERTHREADARG_H</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &quot;<a class="code" href="a01142.html">mne_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;<a class="code" href="a01358.html">mne_source_space.h</a>&quot;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &quot;<a class="code" href="a01223.html">mne_surface.h</a>&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#ifndef MNEMGHTAG_H</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#define MNEMGHTAG_H</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;<a class="code" href="a01061.html">mne_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">// EIGEN INCLUDES</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;QByteArray&gt;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// DEFINE NAMESPACE MNELIB</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01769.html">MNELIB</a></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#include &lt;QWeakPointer&gt;</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &lt;QTextStream&gt;</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a> { <span class="keyword">class </span><a class="code hl_class" href="a02433.html">FiffCoordTrans</a>; }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">// DEFINE NAMESPACE MNELIB</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01808.html">MNELIB</a></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>{</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00080" data-start="{" data-end="};">
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="a02809.html">   80</a></span><span class="keyword">class </span><a class="code hl_define" href="a01142.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a> <a class="code hl_function" href="a02809.html#a19344e765634257683fa72b251c8a97e">FilterThreadArg</a></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a02809.html#accc6bdd36e3605c78209d744ee25f23a">   83</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;FilterThreadArg&gt; <a class="code hl_typedef" href="a02809.html#accc6bdd36e3605c78209d744ee25f23a">SPtr</a>;              </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a02809.html#a43ee87b32bc0594fe2ebb1aef5d97b4f">   84</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const FilterThreadArg&gt; <a class="code hl_typedef" href="a02809.html#a43ee87b32bc0594fe2ebb1aef5d97b4f">ConstSPtr</a>;   </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_function" href="a02809.html#a19344e765634257683fa72b251c8a97e">FilterThreadArg</a>();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_function" href="a02809.html#a19344e765634257683fa72b251c8a97e">~FilterThreadArg</a>();</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="a02809.html#a5143226b0ac325a0f4169d501fb9c526">  101</a></span>    <a class="code hl_class" href="a03045.html">MNESourceSpace</a>* <a class="code hl_variable" href="a02809.html#a5143226b0ac325a0f4169d501fb9c526">s</a>;           </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a02809.html#a7eb828019b3d8c44b4d5ce722d2c3749">  102</a></span>    std::unique_ptr&lt;FIFFLIB::FiffCoordTrans&gt; <a class="code hl_variable" href="a02809.html#a7eb828019b3d8c44b4d5ce722d2c3749">mri_head_t</a>;  </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a02809.html#a3ab8dbc9139dc81bdf8fc6b50c77742e">  103</a></span>    QWeakPointer&lt;MNESurface&gt; <a class="code hl_variable" href="a02809.html#a3ab8dbc9139dc81bdf8fc6b50c77742e">surf</a>;  </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a02809.html#a26036f16baf52a8cd3cd1e47b44c4e4c">  104</a></span>    <span class="keywordtype">float</span>          <a class="code hl_variable" href="a02809.html#a26036f16baf52a8cd3cd1e47b44c4e4c">limit</a>;           </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a02809.html#a72fa592c3a46487b384c40b0e7144ab4">  105</a></span>    QTextStream    *<a class="code hl_variable" href="a02809.html#a72fa592c3a46487b384c40b0e7144ab4">filtered</a>;       </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a02809.html#a009f960ae3fe19b1af40cd22b3f3df67">  106</a></span>    <span class="keywordtype">int</span>            <a class="code hl_variable" href="a02809.html#a009f960ae3fe19b1af40cd22b3f3df67">stat</a>;            </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">// ### OLD STRUCT ###</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">//typedef struct {</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">//    MNESourceSpace* s;           /* The source space to process */</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">//    FiffCoordTransOld* mri_head_t;  /* Coordinate transformation */</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment">//    MNESurface*   surf;          /* The inner skull surface */</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="comment">//    float          limit;           /* Distance limit */</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="comment">//    FILE           *filtered;       /* Log omitted point locations here */</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">//    int            stat;            /* How was it? */</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">//} *filterThreadArg,filterThreadArgRec;</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="};">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a02974.html">   66</a></span><span class="keyword">class </span><a class="code hl_define" href="a01061.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a> <a class="code hl_function" href="a02974.html#a96ab8a0cdcbe3a37f91bbfca5b32d805">MNEMghTag</a></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a02974.html#afbfce329fa1f05a2dc8adf83c92b7090">   69</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;MNEMghTag&gt; <a class="code hl_typedef" href="a02974.html#afbfce329fa1f05a2dc8adf83c92b7090">SPtr</a>;              </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a02974.html#a01e6682ead449d13cc26db7a1069c89c">   70</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const MNEMghTag&gt; <a class="code hl_typedef" href="a02974.html#a01e6682ead449d13cc26db7a1069c89c">ConstSPtr</a>;   </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a02974.html#a96ab8a0cdcbe3a37f91bbfca5b32d805">   76</a></span>    <a class="code hl_function" href="a02974.html#a96ab8a0cdcbe3a37f91bbfca5b32d805">MNEMghTag</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a02974.html#a123cf2a3d1d9c2c8d99756cb742b140e">   82</a></span>    <a class="code hl_function" href="a02974.html#a123cf2a3d1d9c2c8d99756cb742b140e">~MNEMghTag</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a02974.html#a711866edc47ba1309ad7a4557706c990">   85</a></span>    <span class="keywordtype">int</span>        <a class="code hl_variable" href="a02974.html#a711866edc47ba1309ad7a4557706c990">tag</a> = 0;            </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a02974.html#a2453132637dabf3210b35b79308ab54c">   86</a></span>    <span class="keywordtype">long</span> <span class="keywordtype">long</span>  <a class="code hl_variable" href="a02974.html#a2453132637dabf3210b35b79308ab54c">len</a> = 0;            </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a02974.html#a8d5280961f5a9bcbc4b7b8e504596b8d">   87</a></span>    QByteArray <a class="code hl_variable" href="a02974.html#a8d5280961f5a9bcbc4b7b8e504596b8d">data</a>;               </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
 </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="comment">// INLINE DEFINITIONS</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// NAMESPACE MNELIB</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#endif </span><span class="comment">// FILTERTHREADARG_H</span></div>
-<div class="ttc" id="aa01142_html"><div class="ttname"><a href="a01142.html">mne_global.h</a></div><div class="ttdoc">mne library export/import macros.</div></div>
-<div class="ttc" id="aa01142_html_ae182e5976a87d895a5eecf737aafefc3"><div class="ttname"><a href="a01142.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a></div><div class="ttdeci">#define MNESHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00052">mne_global.h:52</a></div></div>
-<div class="ttc" id="aa01223_html"><div class="ttname"><a href="a01223.html">mne_surface.h</a></div><div class="ttdoc">MNESurface class declaration.</div></div>
-<div class="ttc" id="aa01358_html"><div class="ttname"><a href="a01358.html">mne_source_space.h</a></div><div class="ttdoc">MNESourceSpace class declaration.</div></div>
-<div class="ttc" id="aa01808_html"><div class="ttname"><a href="a01808.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00063">connectivitysettings.h:63</a></div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa02433_html"><div class="ttname"><a href="a02433.html">FIFFLIB::FiffCoordTrans</a></div><div class="ttdoc">Coordinate transformation description.</div><div class="ttdef"><b>Definition</b> <a href="a00602_source.html#l00080">fiff_coord_trans.h:81</a></div></div>
-<div class="ttc" id="aa02809_html_a009f960ae3fe19b1af40cd22b3f3df67"><div class="ttname"><a href="a02809.html#a009f960ae3fe19b1af40cd22b3f3df67">MNELIB::FilterThreadArg::stat</a></div><div class="ttdeci">int stat</div><div class="ttdef"><b>Definition</b> <a href="#l00106">filter_thread_arg.h:106</a></div></div>
-<div class="ttc" id="aa02809_html_a19344e765634257683fa72b251c8a97e"><div class="ttname"><a href="a02809.html#a19344e765634257683fa72b251c8a97e">MNELIB::FilterThreadArg::FilterThreadArg</a></div><div class="ttdeci">FilterThreadArg()</div><div class="ttdef"><b>Definition</b> <a href="a01244_source.html#l00064">filter_thread_arg.cpp:64</a></div></div>
-<div class="ttc" id="aa02809_html_a26036f16baf52a8cd3cd1e47b44c4e4c"><div class="ttname"><a href="a02809.html#a26036f16baf52a8cd3cd1e47b44c4e4c">MNELIB::FilterThreadArg::limit</a></div><div class="ttdeci">float limit</div><div class="ttdef"><b>Definition</b> <a href="#l00104">filter_thread_arg.h:104</a></div></div>
-<div class="ttc" id="aa02809_html_a3ab8dbc9139dc81bdf8fc6b50c77742e"><div class="ttname"><a href="a02809.html#a3ab8dbc9139dc81bdf8fc6b50c77742e">MNELIB::FilterThreadArg::surf</a></div><div class="ttdeci">QWeakPointer&lt; MNESurface &gt; surf</div><div class="ttdef"><b>Definition</b> <a href="#l00103">filter_thread_arg.h:103</a></div></div>
-<div class="ttc" id="aa02809_html_a43ee87b32bc0594fe2ebb1aef5d97b4f"><div class="ttname"><a href="a02809.html#a43ee87b32bc0594fe2ebb1aef5d97b4f">MNELIB::FilterThreadArg::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const FilterThreadArg &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00084">filter_thread_arg.h:84</a></div></div>
-<div class="ttc" id="aa02809_html_a5143226b0ac325a0f4169d501fb9c526"><div class="ttname"><a href="a02809.html#a5143226b0ac325a0f4169d501fb9c526">MNELIB::FilterThreadArg::s</a></div><div class="ttdeci">MNESourceSpace * s</div><div class="ttdef"><b>Definition</b> <a href="#l00101">filter_thread_arg.h:101</a></div></div>
-<div class="ttc" id="aa02809_html_a72fa592c3a46487b384c40b0e7144ab4"><div class="ttname"><a href="a02809.html#a72fa592c3a46487b384c40b0e7144ab4">MNELIB::FilterThreadArg::filtered</a></div><div class="ttdeci">QTextStream * filtered</div><div class="ttdef"><b>Definition</b> <a href="#l00105">filter_thread_arg.h:105</a></div></div>
-<div class="ttc" id="aa02809_html_a7eb828019b3d8c44b4d5ce722d2c3749"><div class="ttname"><a href="a02809.html#a7eb828019b3d8c44b4d5ce722d2c3749">MNELIB::FilterThreadArg::mri_head_t</a></div><div class="ttdeci">std::unique_ptr&lt; FIFFLIB::FiffCoordTrans &gt; mri_head_t</div><div class="ttdef"><b>Definition</b> <a href="#l00102">filter_thread_arg.h:102</a></div></div>
-<div class="ttc" id="aa02809_html_accc6bdd36e3605c78209d744ee25f23a"><div class="ttname"><a href="a02809.html#accc6bdd36e3605c78209d744ee25f23a">MNELIB::FilterThreadArg::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FilterThreadArg &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00083">filter_thread_arg.h:83</a></div></div>
-<div class="ttc" id="aa03045_html"><div class="ttname"><a href="a03045.html">MNELIB::MNESourceSpace</a></div><div class="ttdoc">This defines a source space.</div><div class="ttdef"><b>Definition</b> <a href="a01358_source.html#l00076">mne_source_space.h:77</a></div></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">// INLINE DEFINITIONS</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>} <span class="comment">// NAMESPACE MNELIB</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#endif </span><span class="comment">// MNEMGHTAG_H</span></div>
+<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">mne_global.h</a></div><div class="ttdoc">mne library export/import macros.</div></div>
+<div class="ttc" id="aa01061_html_ae182e5976a87d895a5eecf737aafefc3"><div class="ttname"><a href="a01061.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a></div><div class="ttdeci">#define MNESHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a01061_source.html#l00052">mne_global.h:52</a></div></div>
+<div class="ttc" id="aa01769_html"><div class="ttname"><a href="a01769.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00063">connectivitysettings.h:63</a></div></div>
+<div class="ttc" id="aa02974_html_a01e6682ead449d13cc26db7a1069c89c"><div class="ttname"><a href="a02974.html#a01e6682ead449d13cc26db7a1069c89c">MNELIB::MNEMghTag::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const MNEMghTag &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00070">mne_mgh_tag.h:70</a></div></div>
+<div class="ttc" id="aa02974_html_a123cf2a3d1d9c2c8d99756cb742b140e"><div class="ttname"><a href="a02974.html#a123cf2a3d1d9c2c8d99756cb742b140e">MNELIB::MNEMghTag::~MNEMghTag</a></div><div class="ttdeci">~MNEMghTag()=default</div></div>
+<div class="ttc" id="aa02974_html_a2453132637dabf3210b35b79308ab54c"><div class="ttname"><a href="a02974.html#a2453132637dabf3210b35b79308ab54c">MNELIB::MNEMghTag::len</a></div><div class="ttdeci">long long len</div><div class="ttdef"><b>Definition</b> <a href="#l00086">mne_mgh_tag.h:86</a></div></div>
+<div class="ttc" id="aa02974_html_a711866edc47ba1309ad7a4557706c990"><div class="ttname"><a href="a02974.html#a711866edc47ba1309ad7a4557706c990">MNELIB::MNEMghTag::tag</a></div><div class="ttdeci">int tag</div><div class="ttdef"><b>Definition</b> <a href="#l00085">mne_mgh_tag.h:85</a></div></div>
+<div class="ttc" id="aa02974_html_a8d5280961f5a9bcbc4b7b8e504596b8d"><div class="ttname"><a href="a02974.html#a8d5280961f5a9bcbc4b7b8e504596b8d">MNELIB::MNEMghTag::data</a></div><div class="ttdeci">QByteArray data</div><div class="ttdef"><b>Definition</b> <a href="#l00087">mne_mgh_tag.h:87</a></div></div>
+<div class="ttc" id="aa02974_html_a96ab8a0cdcbe3a37f91bbfca5b32d805"><div class="ttname"><a href="a02974.html#a96ab8a0cdcbe3a37f91bbfca5b32d805">MNELIB::MNEMghTag::MNEMghTag</a></div><div class="ttdeci">MNEMghTag()=default</div></div>
+<div class="ttc" id="aa02974_html_afbfce329fa1f05a2dc8adf83c92b7090"><div class="ttname"><a href="a02974.html#afbfce329fa1f05a2dc8adf83c92b7090">MNELIB::MNEMghTag::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; MNEMghTag &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00069">mne_mgh_tag.h:69</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -221,22 +256,25 @@ Directory dependency graph for fwd:</div>
 <div class="dyncontent">
 <div class="center"><img src="dir_4384c352833c69f1669626bdfc5138dc_dep.png" border="0" usemap="#adir__4384c352833c69f1669626bdfc5138dc__dep" loading="lazy" alt="src/libraries/fwd"/></div>
 <map name="adir__4384c352833c69f1669626bdfc5138dc__dep" id="adir__4384c352833c69f1669626bdfc5138dc__dep">
-<area shape="rect" href="dir_304646ad377fe11859b8f1aafeeadc65.html" title="utils" alt="" coords="27,136,77,161"/>
-<area shape="rect" href="dir_aaeba049e8bbc472f18d1508b9ef9ec0.html" title="mne" alt="" coords="101,136,152,161"/>
-<area shape="rect" href="dir_adb2409acb15410cca2b1cbb01c919f2.html" title="fiff" alt="" coords="177,136,215,161"/>
-<area shape="poly" href="dir_000012_000039.html" alt="" coords="61,89,57,123,52,122,56,88"/>
-<area shape="rect" href="dir_000012_000039.html" title="2" alt="" coords="59,111,68,126"/>
-<area shape="poly" href="dir_000012_000027.html" alt="" coords="73,87,108,124,105,128,69,90"/>
-<area shape="rect" href="dir_000012_000027.html" title="11" alt="" coords="101,110,118,124"/>
-<area shape="poly" href="dir_000012_000010.html" alt="" coords="78,86,96,96,166,131,163,136,93,101,76,90"/>
-<area shape="rect" href="dir_000012_000010.html" title="24" alt="" coords="155,116,172,131"/>
-<area shape="rect" href="dir_3ade9ed529d919a30d3a68a29823edca.html" title="compute_fwd" alt="" coords="107,63,216,88"/>
-<area shape="poly" href="dir_000001_000027.html" alt="" coords="158,90,141,125,136,122,153,87"/>
-<area shape="rect" href="dir_000001_000027.html" title="3" alt="" coords="143,116,153,131"/>
-<area shape="poly" href="dir_000001_000010.html" alt="" coords="169,87,187,122,182,125,165,90"/>
-<area shape="rect" href="dir_000001_000010.html" title="8" alt="" coords="185,109,195,123"/>
+<area shape="rect" href="dir_304646ad377fe11859b8f1aafeeadc65.html" title="utils" alt="" coords="165,136,216,161"/>
+<area shape="rect" href="dir_aaeba049e8bbc472f18d1508b9ef9ec0.html" title="mne" alt="" coords="91,136,141,161"/>
+<area shape="rect" href="dir_adb2409acb15410cca2b1cbb01c919f2.html" title="fiff" alt="" coords="27,136,66,161"/>
+<area shape="rect" href="dir_d1053a7f99953907e2110a8ae94cc2ea.html" title="math" alt="" coords="240,136,296,161"/>
+<area shape="poly" href="dir_000012_000038.html" alt="" coords="196,88,194,123,189,122,190,88"/>
+<area shape="rect" href="dir_000012_000038.html" title="1" alt="" coords="196,111,205,125"/>
+<area shape="poly" href="dir_000012_000027.html" alt="" coords="183,90,141,128,137,125,179,86"/>
+<area shape="rect" href="dir_000012_000027.html" title="11" alt="" coords="139,122,156,137"/>
+<area shape="poly" href="dir_000012_000010.html" alt="" coords="178,90,160,101,80,137,78,132,157,96,175,86"/>
+<area shape="rect" href="dir_000012_000010.html" title="24" alt="" coords="77,134,95,148"/>
+<area shape="poly" href="dir_000012_000024.html" alt="" coords="207,86,248,125,244,128,203,90"/>
+<area shape="rect" href="dir_000012_000024.html" title="1" alt="" coords="244,110,253,125"/>
+<area shape="rect" href="dir_3ade9ed529d919a30d3a68a29823edca.html" title="compute_fwd" alt="" coords="37,63,147,88"/>
+<area shape="poly" href="dir_000001_000027.html" alt="" coords="98,87,110,122,105,124,93,89"/>
+<area shape="rect" href="dir_000001_000027.html" title="3" alt="" coords="110,109,119,123"/>
+<area shape="poly" href="dir_000001_000010.html" alt="" coords="87,90,64,126,59,123,82,87"/>
+<area shape="rect" href="dir_000001_000010.html" title="8" alt="" coords="66,118,76,133"/>
 <area shape="rect" href="dir_4384c352833c69f1669626bdfc5138dc.html" alt="" coords="27,52,227,99"/>
-<area shape="rect" href="dir_588cd77586230d2c129f15f0bca2b9b2.html" title="libraries" alt="" coords="16,16,237,172"/>
+<area shape="rect" href="dir_588cd77586230d2c129f15f0bca2b9b2.html" title="libraries" alt="" coords="16,16,307,172"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -246,54 +284,54 @@ Directories</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:fwd_2Eh" id="r_fwd_2Eh"><td class="memItemLeft"><a href="a01592_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01592.html">fwd.h</a></td></tr>
-<tr class="memdesc:a01592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fwd class declaration, which provides static wrapper functions for the forward library. <br /></td></tr>
-<tr class="memitem:fwd_5Fbem_5Fmodel_2Ecpp" id="r_fwd_5Fbem_5Fmodel_2Ecpp"><td class="memItemLeft"><a href="a01628_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01628.html">fwd_bem_model.cpp</a></td></tr>
-<tr class="memdesc:a01628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdBemModel Class. <br /></td></tr>
-<tr class="memitem:fwd_5Fbem_5Fmodel_2Eh" id="r_fwd_5Fbem_5Fmodel_2Eh"><td class="memItemLeft"><a href="a01655_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01655.html">fwd_bem_model.h</a></td></tr>
-<tr class="memdesc:a01655"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdBemModel class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Fbem_5Fsolution_2Ecpp" id="r_fwd_5Fbem_5Fsolution_2Ecpp"><td class="memItemLeft"><a href="a01625_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01625.html">fwd_bem_solution.cpp</a></td></tr>
-<tr class="memdesc:a01625"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdBemSolution Class. <br /></td></tr>
-<tr class="memitem:fwd_5Fbem_5Fsolution_2Eh" id="r_fwd_5Fbem_5Fsolution_2Eh"><td class="memItemLeft"><a href="a01580_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01580.html">fwd_bem_solution.h</a></td></tr>
-<tr class="memdesc:a01580"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdBemSolution class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Fcoil_2Ecpp" id="r_fwd_5Fcoil_2Ecpp"><td class="memItemLeft"><a href="a01586_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01586.html">fwd_coil.cpp</a></td></tr>
-<tr class="memdesc:a01586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdCoil Class. <br /></td></tr>
-<tr class="memitem:fwd_5Fcoil_2Eh" id="r_fwd_5Fcoil_2Eh"><td class="memItemLeft"><a href="a01619_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01619.html">fwd_coil.h</a></td></tr>
-<tr class="memdesc:a01619"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdCoil class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Fcoil_5Fset_2Ecpp" id="r_fwd_5Fcoil_5Fset_2Ecpp"><td class="memItemLeft"><a href="a01616_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01616.html">fwd_coil_set.cpp</a></td></tr>
-<tr class="memdesc:a01616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdCoilSet Class. <br /></td></tr>
-<tr class="memitem:fwd_5Fcoil_5Fset_2Eh" id="r_fwd_5Fcoil_5Fset_2Eh"><td class="memItemLeft"><a href="a01637_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01637.html">fwd_coil_set.h</a></td></tr>
-<tr class="memdesc:a01637"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdCoilSet class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Fcomp_5Fdata_2Ecpp" id="r_fwd_5Fcomp_5Fdata_2Ecpp"><td class="memItemLeft"><a href="a01634_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01634.html">fwd_comp_data.cpp</a></td></tr>
-<tr class="memdesc:a01634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdCompData Class. <br /></td></tr>
-<tr class="memitem:fwd_5Fcomp_5Fdata_2Eh" id="r_fwd_5Fcomp_5Fdata_2Eh"><td class="memItemLeft"><a href="a01589_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01589.html">fwd_comp_data.h</a></td></tr>
-<tr class="memdesc:a01589"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdCompData class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Feeg_5Fsphere_5Flayer_2Ecpp" id="r_fwd_5Feeg_5Fsphere_5Flayer_2Ecpp"><td class="memItemLeft"><a href="a01610_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01610.html">fwd_eeg_sphere_layer.cpp</a></td></tr>
-<tr class="memdesc:a01610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdEegSphereLayer Class. <br /></td></tr>
-<tr class="memitem:fwd_5Feeg_5Fsphere_5Flayer_2Eh" id="r_fwd_5Feeg_5Fsphere_5Flayer_2Eh"><td class="memItemLeft"><a href="a01640_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01640.html">fwd_eeg_sphere_layer.h</a></td></tr>
-<tr class="memdesc:a01640"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdEegSphereLayer class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_2Ecpp" id="r_fwd_5Feeg_5Fsphere_5Fmodel_2Ecpp"><td class="memItemLeft"><a href="a01607_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01607.html">fwd_eeg_sphere_model.cpp</a></td></tr>
-<tr class="memdesc:a01607"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdEegSphereModel Class. <br /></td></tr>
-<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_2Eh" id="r_fwd_5Feeg_5Fsphere_5Fmodel_2Eh"><td class="memItemLeft"><a href="a01646_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01646.html">fwd_eeg_sphere_model.h</a></td></tr>
-<tr class="memdesc:a01646"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdEegSphereModel class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Ecpp" id="r_fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Ecpp"><td class="memItemLeft"><a href="a01613_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01613.html">fwd_eeg_sphere_model_set.cpp</a></td></tr>
-<tr class="memdesc:a01613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdEegSphereModelSet Class. <br /></td></tr>
-<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Eh" id="r_fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Eh"><td class="memItemLeft"><a href="a01577_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01577.html">fwd_eeg_sphere_model_set.h</a></td></tr>
-<tr class="memdesc:a01577"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdEegSphereModelSet class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Ffield_5Fmap_2Ecpp" id="r_fwd_5Ffield_5Fmap_2Ecpp"><td class="memItemLeft"><a href="a01622_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01622.html">fwd_field_map.cpp</a></td></tr>
-<tr class="memdesc:a01622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sphere-model field mapping. <br /></td></tr>
-<tr class="memitem:fwd_5Ffield_5Fmap_2Eh" id="r_fwd_5Ffield_5Fmap_2Eh"><td class="memItemLeft"><a href="a01574_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01574.html">fwd_field_map.h</a></td></tr>
-<tr class="memdesc:a01574"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdFieldMap class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Fglobal_2Ecpp" id="r_fwd_5Fglobal_2Ecpp"><td class="memItemLeft"><a href="a01649_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01649.html">fwd_global.cpp</a></td></tr>
-<tr class="memdesc:a01649"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward library export/import macros. <br /></td></tr>
-<tr class="memitem:fwd_5Fglobal_2Eh" id="r_fwd_5Fglobal_2Eh"><td class="memItemLeft"><a href="a01631_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01631.html">fwd_global.h</a></td></tr>
-<tr class="memdesc:a01631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward library export/import macros. <br /></td></tr>
-<tr class="memitem:fwd_5Fthread_5Farg_2Ecpp" id="r_fwd_5Fthread_5Farg_2Ecpp"><td class="memItemLeft"><a href="a01643_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01643.html">fwd_thread_arg.cpp</a></td></tr>
-<tr class="memdesc:a01643"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdThreadArg class definition. <br /></td></tr>
-<tr class="memitem:fwd_5Fthread_5Farg_2Eh" id="r_fwd_5Fthread_5Farg_2Eh"><td class="memItemLeft"><a href="a01652_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01652.html">fwd_thread_arg.h</a></td></tr>
-<tr class="memdesc:a01652"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdThreadArg class declaration. <br /></td></tr>
-<tr class="memitem:fwd_5Ftypes_2Eh" id="r_fwd_5Ftypes_2Eh"><td class="memItemLeft"><a href="a01583_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01583.html">fwd_types.h</a></td></tr>
-<tr class="memdesc:a01583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward library type definitions. <br /></td></tr>
+<tr class="memitem:fwd_2Eh" id="r_fwd_2Eh"><td class="memItemLeft"><a href="a01697_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01697.html">fwd.h</a></td></tr>
+<tr class="memdesc:a01697"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fwd class declaration, which provides static wrapper functions for the forward library. <br /></td></tr>
+<tr class="memitem:fwd_5Fbem_5Fmodel_2Ecpp" id="r_fwd_5Fbem_5Fmodel_2Ecpp"><td class="memItemLeft"><a href="a01733_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01733.html">fwd_bem_model.cpp</a></td></tr>
+<tr class="memdesc:a01733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdBemModel Class. <br /></td></tr>
+<tr class="memitem:fwd_5Fbem_5Fmodel_2Eh" id="r_fwd_5Fbem_5Fmodel_2Eh"><td class="memItemLeft"><a href="a01760_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01760.html">fwd_bem_model.h</a></td></tr>
+<tr class="memdesc:a01760"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdBemModel class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Fbem_5Fsolution_2Ecpp" id="r_fwd_5Fbem_5Fsolution_2Ecpp"><td class="memItemLeft"><a href="a01730_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01730.html">fwd_bem_solution.cpp</a></td></tr>
+<tr class="memdesc:a01730"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdBemSolution Class. <br /></td></tr>
+<tr class="memitem:fwd_5Fbem_5Fsolution_2Eh" id="r_fwd_5Fbem_5Fsolution_2Eh"><td class="memItemLeft"><a href="a01685_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01685.html">fwd_bem_solution.h</a></td></tr>
+<tr class="memdesc:a01685"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdBemSolution class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Fcoil_2Ecpp" id="r_fwd_5Fcoil_2Ecpp"><td class="memItemLeft"><a href="a01691_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01691.html">fwd_coil.cpp</a></td></tr>
+<tr class="memdesc:a01691"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdCoil Class. <br /></td></tr>
+<tr class="memitem:fwd_5Fcoil_2Eh" id="r_fwd_5Fcoil_2Eh"><td class="memItemLeft"><a href="a01724_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01724.html">fwd_coil.h</a></td></tr>
+<tr class="memdesc:a01724"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdCoil class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Fcoil_5Fset_2Ecpp" id="r_fwd_5Fcoil_5Fset_2Ecpp"><td class="memItemLeft"><a href="a01721_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01721.html">fwd_coil_set.cpp</a></td></tr>
+<tr class="memdesc:a01721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdCoilSet Class. <br /></td></tr>
+<tr class="memitem:fwd_5Fcoil_5Fset_2Eh" id="r_fwd_5Fcoil_5Fset_2Eh"><td class="memItemLeft"><a href="a01742_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01742.html">fwd_coil_set.h</a></td></tr>
+<tr class="memdesc:a01742"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdCoilSet class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Fcomp_5Fdata_2Ecpp" id="r_fwd_5Fcomp_5Fdata_2Ecpp"><td class="memItemLeft"><a href="a01739_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01739.html">fwd_comp_data.cpp</a></td></tr>
+<tr class="memdesc:a01739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdCompData Class. <br /></td></tr>
+<tr class="memitem:fwd_5Fcomp_5Fdata_2Eh" id="r_fwd_5Fcomp_5Fdata_2Eh"><td class="memItemLeft"><a href="a01694_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01694.html">fwd_comp_data.h</a></td></tr>
+<tr class="memdesc:a01694"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdCompData class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Feeg_5Fsphere_5Flayer_2Ecpp" id="r_fwd_5Feeg_5Fsphere_5Flayer_2Ecpp"><td class="memItemLeft"><a href="a01715_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01715.html">fwd_eeg_sphere_layer.cpp</a></td></tr>
+<tr class="memdesc:a01715"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdEegSphereLayer Class. <br /></td></tr>
+<tr class="memitem:fwd_5Feeg_5Fsphere_5Flayer_2Eh" id="r_fwd_5Feeg_5Fsphere_5Flayer_2Eh"><td class="memItemLeft"><a href="a01745_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01745.html">fwd_eeg_sphere_layer.h</a></td></tr>
+<tr class="memdesc:a01745"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdEegSphereLayer class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_2Ecpp" id="r_fwd_5Feeg_5Fsphere_5Fmodel_2Ecpp"><td class="memItemLeft"><a href="a01712_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01712.html">fwd_eeg_sphere_model.cpp</a></td></tr>
+<tr class="memdesc:a01712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdEegSphereModel Class. <br /></td></tr>
+<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_2Eh" id="r_fwd_5Feeg_5Fsphere_5Fmodel_2Eh"><td class="memItemLeft"><a href="a01751_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01751.html">fwd_eeg_sphere_model.h</a></td></tr>
+<tr class="memdesc:a01751"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdEegSphereModel class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Ecpp" id="r_fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Ecpp"><td class="memItemLeft"><a href="a01718_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01718.html">fwd_eeg_sphere_model_set.cpp</a></td></tr>
+<tr class="memdesc:a01718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of the FwdEegSphereModelSet Class. <br /></td></tr>
+<tr class="memitem:fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Eh" id="r_fwd_5Feeg_5Fsphere_5Fmodel_5Fset_2Eh"><td class="memItemLeft"><a href="a01682_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01682.html">fwd_eeg_sphere_model_set.h</a></td></tr>
+<tr class="memdesc:a01682"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdEegSphereModelSet class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Ffield_5Fmap_2Ecpp" id="r_fwd_5Ffield_5Fmap_2Ecpp"><td class="memItemLeft"><a href="a01727_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01727.html">fwd_field_map.cpp</a></td></tr>
+<tr class="memdesc:a01727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sphere-model field mapping. <br /></td></tr>
+<tr class="memitem:fwd_5Ffield_5Fmap_2Eh" id="r_fwd_5Ffield_5Fmap_2Eh"><td class="memItemLeft"><a href="a01679_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01679.html">fwd_field_map.h</a></td></tr>
+<tr class="memdesc:a01679"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdFieldMap class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Fglobal_2Ecpp" id="r_fwd_5Fglobal_2Ecpp"><td class="memItemLeft"><a href="a01754_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01754.html">fwd_global.cpp</a></td></tr>
+<tr class="memdesc:a01754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward library export/import macros. <br /></td></tr>
+<tr class="memitem:fwd_5Fglobal_2Eh" id="r_fwd_5Fglobal_2Eh"><td class="memItemLeft"><a href="a01736_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01736.html">fwd_global.h</a></td></tr>
+<tr class="memdesc:a01736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward library export/import macros. <br /></td></tr>
+<tr class="memitem:fwd_5Fthread_5Farg_2Ecpp" id="r_fwd_5Fthread_5Farg_2Ecpp"><td class="memItemLeft"><a href="a01748_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01748.html">fwd_thread_arg.cpp</a></td></tr>
+<tr class="memdesc:a01748"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdThreadArg class definition. <br /></td></tr>
+<tr class="memitem:fwd_5Fthread_5Farg_2Eh" id="r_fwd_5Fthread_5Farg_2Eh"><td class="memItemLeft"><a href="a01757_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01757.html">fwd_thread_arg.h</a></td></tr>
+<tr class="memdesc:a01757"><td class="mdescLeft">&#160;</td><td class="mdescRight">FwdThreadArg class declaration. <br /></td></tr>
+<tr class="memitem:fwd_5Ftypes_2Eh" id="r_fwd_5Ftypes_2Eh"><td class="memItemLeft"><a href="a01688_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a01688.html">fwd_types.h</a></td></tr>
+<tr class="memdesc:a01688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forward library type definitions. <br /></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

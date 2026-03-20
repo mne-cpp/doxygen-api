@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp/plots/helpers/colormap.h File Reference</title>
+    <title>MNE-CPP: src/libraries/disp/viewers/dipolefitview.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,101 +243,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li><li class="navelem"><a href="dir_8cafa439731c7034b93cd1ad35b8d367.html">plots</a></li><li class="navelem"><a href="dir_3d9da719dd639dd4dcc993686d6c9688.html">helpers</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li><li class="navelem"><a href="dir_d19fc5ec52e92d8bb58a9ebdf299e2d2.html">viewers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">colormap.h File Reference</div></div>
+  <div class="headertitle"><div class="title">dipolefitview.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>ColorMap class declaration.  
+<p>Definition of the <a class="el" href="a02002.html" title="Settings panel for configuring and launching equivalent current dipole (InvEcd) fitting.">DipoleFitView</a> Class.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00443_source.html">../../disp_global.h</a>&quot;</code><br />
-<code>#include &lt;QSharedPointer&gt;</code><br />
-<code>#include &lt;QColor&gt;</code><br />
-<code>#include &lt;QVector&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00284_source.html">dipolefitview.h</a>&quot;</code><br />
+<code>#include &quot;ui_dipolefitview.h&quot;</code><br />
+<code>#include &lt;QDateTime&gt;</code><br />
+<code>#include &lt;QtDebug&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for colormap.h:</div>
+Include dependency graph for dipolefitview.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00423.png" border="0" usemap="#asrc_2libraries_2disp_2plots_2helpers_2colormap_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2disp_2plots_2helpers_2colormap_8h" id="asrc_2libraries_2disp_2plots_2helpers_2colormap_8h">
-<area shape="rect" title="ColorMap class declaration." alt="" coords="323,5,509,45"/>
-<area shape="rect" href="a00443.html" title="disp library export/import macros." alt="" coords="79,93,211,119"/>
-<area shape="poly" title=" " alt="" coords="352,48,199,92,197,87,350,43"/>
-<area shape="rect" title=" " alt="" coords="236,93,359,119"/>
-<area shape="poly" title=" " alt="" coords="389,48,328,88,325,84,386,43"/>
-<area shape="rect" title=" " alt="" coords="383,93,449,119"/>
-<area shape="poly" title=" " alt="" coords="419,46,419,79,413,79,413,46"/>
-<area shape="rect" title=" " alt="" coords="474,93,547,119"/>
-<area shape="poly" title=" " alt="" coords="441,43,487,82,484,86,437,48"/>
-<area shape="rect" title=" " alt="" coords="571,93,663,119"/>
-<area shape="poly" title=" " alt="" coords="465,43,576,86,574,91,463,48"/>
-<area shape="rect" title=" " alt="" coords="5,167,136,192"/>
-<area shape="poly" title=" " alt="" coords="135,121,95,159,91,155,132,117"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="160,167,283,192"/>
-<area shape="poly" title=" " alt="" coords="159,117,201,155,197,159,156,121"/>
-<area shape="rect" title=" " alt="" coords="188,240,255,265"/>
-<area shape="poly" title=" " alt="" coords="224,192,224,226,219,226,219,192"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00424.png" border="0" usemap="#asrc_2libraries_2disp_2plots_2helpers_2colormap_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2disp_2plots_2helpers_2colormap_8hdep" id="asrc_2libraries_2disp_2plots_2helpers_2colormap_8hdep">
-<area shape="rect" title="ColorMap class declaration." alt="" coords="736,5,923,45"/>
-<area shape="rect" href="a00419.html" title="Definition of the ColorMap class." alt="" coords="5,93,208,133"/>
-<area shape="poly" title=" " alt="" coords="723,39,492,63,220,96,209,98,208,92,220,91,491,58,722,34"/>
-<area shape="rect" href="a00404.html" title="Definition of the ImageSc class." alt="" coords="232,93,376,133"/>
-<area shape="poly" title=" " alt="" coords="723,43,564,66,388,96,377,98,376,93,388,91,564,61,722,38"/>
-<area shape="rect" href="a00431.html" title="Definition of spline class." alt="" coords="401,93,530,133"/>
-<area shape="poly" title=" " alt="" coords="735,51,542,96,531,99,530,93,541,91,734,46"/>
-<area shape="rect" href="a00416.html" title="TFplot class definition." alt="" coords="554,93,683,133"/>
-<area shape="poly" title=" " alt="" coords="772,53,666,96,664,91,770,48"/>
-<area shape="rect" href="a00728.html" title="NetworkObject class definition." alt="" coords="708,93,951,133"/>
-<area shape="poly" title=" " alt="" coords="832,59,832,93,827,93,827,59"/>
-<area shape="rect" href="a00734.html" title="SourceEstimateOverlay class definition." alt="" coords="975,93,1273,133"/>
-<area shape="poly" title=" " alt="" coords="908,47,1060,91,1059,96,906,52"/>
-<area shape="rect" href="a00647.html" title="SensorFieldMapper class implementation." alt="" coords="1298,93,1537,133"/>
-<area shape="poly" title=" " alt="" coords="937,40,1298,92,1298,97,936,45"/>
-<area shape="rect" href="a00677.html" title="RtSensorDataWorker class definition." alt="" coords="1561,93,1818,133"/>
-<area shape="poly" title=" " alt="" coords="937,33,1215,57,1550,91,1561,92,1560,97,1549,96,1214,62,937,38"/>
-<area shape="rect" href="a00683.html" title="RtSourceDataWorker class definition." alt="" coords="1842,93,2099,133"/>
-<area shape="poly" title=" " alt="" coords="936,29,1330,51,1580,69,1831,91,1842,92,1842,97,1830,96,1579,74,1330,56,936,34"/>
+<div class="center"><img src="a00423.png" border="0" usemap="#asrc_2libraries_2disp_2viewers_2dipolefitview_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp_2viewers_2dipolefitview_8cpp" id="asrc_2libraries_2disp_2viewers_2dipolefitview_8cpp">
+<area shape="rect" title="Definition of the DipoleFitView Class." alt="" coords="381,5,571,45"/>
+<area shape="rect" href="a00284.html" title="Declaration of the DipoleFitView Class." alt="" coords="197,93,315,119"/>
+<area shape="poly" title=" " alt="" coords="424,48,302,91,300,86,422,43"/>
+<area shape="rect" title=" " alt="" coords="339,93,475,119"/>
+<area shape="poly" title=" " alt="" coords="461,47,428,84,424,81,457,44"/>
+<area shape="rect" title=" " alt="" coords="499,93,595,119"/>
+<area shape="poly" title=" " alt="" coords="495,44,529,81,525,85,491,47"/>
+<area shape="rect" title=" " alt="" coords="619,93,698,119"/>
+<area shape="poly" title=" " alt="" coords="521,43,620,85,618,90,519,48"/>
+<area shape="rect" href="a00497.html" title="disp library export/import macros." alt="" coords="85,240,205,265"/>
+<area shape="poly" title=" " alt="" coords="208,121,169,139,153,152,140,168,134,182,133,197,138,227,133,228,128,197,129,181,135,165,149,148,167,135,205,116"/>
+<area shape="rect" href="a00269.html" title="Declaration of the AbstractView Class." alt="" coords="149,167,267,192"/>
+<area shape="poly" title=" " alt="" coords="250,121,226,157,221,154,246,118"/>
+<area shape="rect" title=" " alt="" coords="247,240,326,265"/>
+<area shape="poly" title=" " alt="" coords="264,118,281,166,289,226,283,226,276,167,259,120"/>
+<area shape="rect" title=" " alt="" coords="342,167,421,192"/>
+<area shape="poly" title=" " alt="" coords="277,116,350,157,348,162,275,121"/>
+<area shape="rect" title=" " alt="" coords="5,313,136,339"/>
+<area shape="poly" title=" " alt="" coords="135,267,95,306,91,302,132,263"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="160,313,283,339"/>
+<area shape="poly" title=" " alt="" coords="159,263,201,302,197,306,156,267"/>
+<area shape="rect" title=" " alt="" coords="188,387,255,412"/>
+<area shape="poly" title=" " alt="" coords="224,339,224,373,219,373,219,339"/>
+<area shape="poly" title=" " alt="" coords="200,194,167,231,163,228,196,191"/>
+<area shape="poly" title=" " alt="" coords="222,190,266,229,262,233,219,194"/>
 </map>
 </div>
 </div>
 <p><a href="a00422_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:DISPLIB_3A_3AColorMap" id="r_DISPLIB_3A_3AColorMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01961.html">DISPLIB::ColorMap</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color map RGB transformations.  <a href="a01961.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:DISPLIB" id="r_DISPLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01811.html">DISPLIB</a></td></tr>
-<tr class="memdesc:a01811"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-D display widgets and visualisation helpers (charts, topography, colour maps). <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:afedb2bd8f0e44feffe3147e0d578d256" id="r_afedb2bd8f0e44feffe3147e0d578d256"><td class="memItemLeft">const Eigen::MatrixX3i&#160;</td><td class="memItemRight"><a class="el" href="a01811.html#afedb2bd8f0e44feffe3147e0d578d256">DISPLIB::m_matViridrisData</a></td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>ColorMap class declaration. </p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March, 2013</dd></dl>
+<div class="textblock"><p>Definition of the <a class="el" href="a02002.html" title="Settings panel for configuring and launching equivalent current dipole (InvEcd) fitting.">DipoleFitView</a> Class. </p>
+<dl class="section author"><dt>Author</dt><dd>Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.7 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>Novemeber, 2020</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2013, Lorenz Esch, Christoph Dinh. All rights reserved.</p>
+<p>Copyright (C) 2020, Gabriel Motta. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
@@ -310,7 +307,7 @@ LICENSE</h1>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-<p class="definition">Definition in file <a class="el" href="a00422_source.html">colormap.h</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00422_source.html">dipolefitview.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

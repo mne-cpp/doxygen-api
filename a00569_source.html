@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/fiff/fiff_dir_entry.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/fiff/fiff_named_matrix.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -213,7 +248,7 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">fiff_dir_entry.cpp</div></div>
+  <div class="headertitle"><div class="title">fiff_named_matrix.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00569.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
@@ -222,55 +257,91 @@ $(function() {
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;<a class="code" href="a00494.html">fiff_dir_entry.h</a>&quot;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;<a class="code" href="a00533.html">fiff_named_matrix.h</a>&quot;</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// USED NAMESPACES</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a02465.html#ae158f7e6fccd6dba2c1fa340d05b4a59">   53</a></span><a class="code hl_function" href="a02465.html#ae158f7e6fccd6dba2c1fa340d05b4a59">FiffDirEntry::FiffDirEntry</a>()</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>: <a class="code hl_variable" href="a02465.html#a5027557278aa7bab1c93801e1e45dcb1">kind</a>(-1)</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>, <a class="code hl_variable" href="a02465.html#a365e3bf2f5b6d8ef1865db8a1731a50b">type</a>(-1)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>, <a class="code hl_variable" href="a02465.html#a1282e02113b2ab4f3fde07227bb42d37">size</a>(-1)</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>, <a class="code hl_variable" href="a02465.html#a9f8411b582913d9fc965d8e07d0a6152">pos</a>(-1)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01771.html">FIFFLIB</a>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a02534.html#aab914e6cfc84dc9dffe1773de5750893">   54</a></span><a class="code hl_function" href="a02534.html#aab914e6cfc84dc9dffe1773de5750893">FiffNamedMatrix::FiffNamedMatrix</a>()</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>: <a class="code hl_variable" href="a02534.html#aef0a5d4a8109baaab3aeb28211929486">nrow</a>(-1)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>, <a class="code hl_variable" href="a02534.html#acfa5db29e4def540654ba39c16b8455d">ncol</a>(-1)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
 </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a02465.html#ab011f06341d6e0ad0a93257b2dab85a0">   63</a></span><a class="code hl_function" href="a02465.html#ae158f7e6fccd6dba2c1fa340d05b4a59">FiffDirEntry::FiffDirEntry</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02465.html#ae158f7e6fccd6dba2c1fa340d05b4a59">FiffDirEntry</a>&amp; p_FiffDirEntry)</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>: <a class="code hl_variable" href="a02465.html#a5027557278aa7bab1c93801e1e45dcb1">kind</a>(p_FiffDirEntry.<a class="code hl_variable" href="a02465.html#a5027557278aa7bab1c93801e1e45dcb1">kind</a>)</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>, <a class="code hl_variable" href="a02465.html#a365e3bf2f5b6d8ef1865db8a1731a50b">type</a>(p_FiffDirEntry.<a class="code hl_variable" href="a02465.html#a365e3bf2f5b6d8ef1865db8a1731a50b">type</a>)</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>, <a class="code hl_variable" href="a02465.html#a1282e02113b2ab4f3fde07227bb42d37">size</a>(p_FiffDirEntry.<a class="code hl_variable" href="a02465.html#a1282e02113b2ab4f3fde07227bb42d37">size</a>)</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>, <a class="code hl_variable" href="a02465.html#a9f8411b582913d9fc965d8e07d0a6152">pos</a>(p_FiffDirEntry.<a class="code hl_variable" href="a02465.html#a9f8411b582913d9fc965d8e07d0a6152">pos</a>)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><a class="code hl_function" href="a02534.html#aab914e6cfc84dc9dffe1773de5750893">FiffNamedMatrix::FiffNamedMatrix</a>(<a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> p_nrow, <a class="code hl_typedef" href="a01771.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> p_ncol, <span class="keyword">const</span> QStringList&amp; p_row_names, <span class="keyword">const</span> QStringList&amp; p_col_names, <span class="keyword">const</span> MatrixXd&amp; p_data)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>: nrow(p_nrow)</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>, ncol(p_ncol)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>, row_names(p_row_names)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>, col_names(p_col_names)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>, data(p_data)</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
-</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a02465.html#a82ab561798daac9cc0bacc7448e4c723">   73</a></span><a class="code hl_function" href="a02465.html#a82ab561798daac9cc0bacc7448e4c723">FiffDirEntry::~FiffDirEntry</a>()</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>{</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a02534.html#af2f8c6c75acee0cec8bb29ba8f9c87a0">   73</a></span><a class="code hl_function" href="a02534.html#aab914e6cfc84dc9dffe1773de5750893">FiffNamedMatrix::FiffNamedMatrix</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02534.html#aab914e6cfc84dc9dffe1773de5750893">FiffNamedMatrix</a>&amp; p_FiffNamedMatrix)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>: QSharedData(p_FiffNamedMatrix)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>, <a class="code hl_variable" href="a02534.html#aef0a5d4a8109baaab3aeb28211929486">nrow</a>(p_FiffNamedMatrix.<a class="code hl_variable" href="a02534.html#aef0a5d4a8109baaab3aeb28211929486">nrow</a>)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>, <a class="code hl_variable" href="a02534.html#acfa5db29e4def540654ba39c16b8455d">ncol</a>(p_FiffNamedMatrix.<a class="code hl_variable" href="a02534.html#acfa5db29e4def540654ba39c16b8455d">ncol</a>)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>, <a class="code hl_variable" href="a02534.html#ae3e205f52a45955739f2d6c711a52150">row_names</a>(p_FiffNamedMatrix.<a class="code hl_variable" href="a02534.html#ae3e205f52a45955739f2d6c711a52150">row_names</a>)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>, <a class="code hl_variable" href="a02534.html#a612bfa11eef52ae09de143272a6da84f">col_names</a>(p_FiffNamedMatrix.<a class="code hl_variable" href="a02534.html#a612bfa11eef52ae09de143272a6da84f">col_names</a>)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>, <a class="code hl_variable" href="a02534.html#a0d2b3dd48396beed06b02d1e586d2af4">data</a>(p_FiffNamedMatrix.<a class="code hl_variable" href="a02534.html#a0d2b3dd48396beed06b02d1e586d2af4">data</a>)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
 </div>
-<div class="ttc" id="aa00494_html"><div class="ttname"><a href="a00494.html">fiff_dir_entry.h</a></div><div class="ttdoc">FiffDirEntry class declaration.</div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa02465_html_a1282e02113b2ab4f3fde07227bb42d37"><div class="ttname"><a href="a02465.html#a1282e02113b2ab4f3fde07227bb42d37">FIFFLIB::FiffDirEntry::size</a></div><div class="ttdeci">fiff_int_t size</div><div class="ttdef"><b>Definition</b> <a href="a00494_source.html#l00104">fiff_dir_entry.h:104</a></div></div>
-<div class="ttc" id="aa02465_html_a365e3bf2f5b6d8ef1865db8a1731a50b"><div class="ttname"><a href="a02465.html#a365e3bf2f5b6d8ef1865db8a1731a50b">FIFFLIB::FiffDirEntry::type</a></div><div class="ttdeci">fiff_int_t type</div><div class="ttdef"><b>Definition</b> <a href="a00494_source.html#l00103">fiff_dir_entry.h:103</a></div></div>
-<div class="ttc" id="aa02465_html_a5027557278aa7bab1c93801e1e45dcb1"><div class="ttname"><a href="a02465.html#a5027557278aa7bab1c93801e1e45dcb1">FIFFLIB::FiffDirEntry::kind</a></div><div class="ttdeci">fiff_int_t kind</div><div class="ttdef"><b>Definition</b> <a href="a00494_source.html#l00102">fiff_dir_entry.h:102</a></div></div>
-<div class="ttc" id="aa02465_html_a82ab561798daac9cc0bacc7448e4c723"><div class="ttname"><a href="a02465.html#a82ab561798daac9cc0bacc7448e4c723">FIFFLIB::FiffDirEntry::~FiffDirEntry</a></div><div class="ttdeci">~FiffDirEntry()</div><div class="ttdef"><b>Definition</b> <a href="#l00073">fiff_dir_entry.cpp:73</a></div></div>
-<div class="ttc" id="aa02465_html_a9f8411b582913d9fc965d8e07d0a6152"><div class="ttname"><a href="a02465.html#a9f8411b582913d9fc965d8e07d0a6152">FIFFLIB::FiffDirEntry::pos</a></div><div class="ttdeci">fiff_int_t pos</div><div class="ttdef"><b>Definition</b> <a href="a00494_source.html#l00105">fiff_dir_entry.h:105</a></div></div>
-<div class="ttc" id="aa02465_html_ae158f7e6fccd6dba2c1fa340d05b4a59"><div class="ttname"><a href="a02465.html#ae158f7e6fccd6dba2c1fa340d05b4a59">FIFFLIB::FiffDirEntry::FiffDirEntry</a></div><div class="ttdeci">FiffDirEntry()</div><div class="ttdef"><b>Definition</b> <a href="#l00053">fiff_dir_entry.cpp:53</a></div></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a02534.html#aec1a37467b780b4fb9472a0787b55ce6">   85</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02534.html#aec1a37467b780b4fb9472a0787b55ce6">FiffNamedMatrix::clear</a>()</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_variable" href="a02534.html#aef0a5d4a8109baaab3aeb28211929486">nrow</a> = -1;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_variable" href="a02534.html#acfa5db29e4def540654ba39c16b8455d">ncol</a> = -1;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_variable" href="a02534.html#ae3e205f52a45955739f2d6c711a52150">row_names</a>.clear();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_variable" href="a02534.html#a612bfa11eef52ae09de143272a6da84f">col_names</a>.clear();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_variable" href="a02534.html#a0d2b3dd48396beed06b02d1e586d2af4">data</a> = MatrixXd();</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a02534.html#acfc42a46812792ab7b36a5de046c37b6">   96</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02534.html#acfc42a46812792ab7b36a5de046c37b6">FiffNamedMatrix::transpose_named_matrix</a>()</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>{</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    QStringList col_names_old = this-&gt;<a class="code hl_variable" href="a02534.html#a612bfa11eef52ae09de143272a6da84f">col_names</a>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    this-&gt;<a class="code hl_variable" href="a02534.html#a612bfa11eef52ae09de143272a6da84f">col_names</a> = this-&gt;<a class="code hl_variable" href="a02534.html#ae3e205f52a45955739f2d6c711a52150">row_names</a>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    this-&gt;<a class="code hl_variable" href="a02534.html#ae3e205f52a45955739f2d6c711a52150">row_names</a> = col_names_old;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    this-&gt;<a class="code hl_variable" href="a02534.html#a0d2b3dd48396beed06b02d1e586d2af4">data</a>.transposeInPlace();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    this-&gt;<a class="code hl_variable" href="a02534.html#aef0a5d4a8109baaab3aeb28211929486">nrow</a> = this-&gt;<a class="code hl_variable" href="a02534.html#a0d2b3dd48396beed06b02d1e586d2af4">data</a>.rows();</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    this-&gt;<a class="code hl_variable" href="a02534.html#acfa5db29e4def540654ba39c16b8455d">ncol</a> = this-&gt;<a class="code hl_variable" href="a02534.html#a0d2b3dd48396beed06b02d1e586d2af4">data</a>.cols();</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+</div>
+<div class="ttc" id="aa00533_html"><div class="ttname"><a href="a00533.html">fiff_named_matrix.h</a></div><div class="ttdoc">FiffNamedMatrix class declaration.</div></div>
+<div class="ttc" id="aa01771_html"><div class="ttname"><a href="a01771.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00071">connectivitysettings.h:71</a></div></div>
+<div class="ttc" id="aa01771_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a01771.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00653_source.html#l00089">fiff_types.h:89</a></div></div>
+<div class="ttc" id="aa02534_html_a0d2b3dd48396beed06b02d1e586d2af4"><div class="ttname"><a href="a02534.html#a0d2b3dd48396beed06b02d1e586d2af4">FIFFLIB::FiffNamedMatrix::data</a></div><div class="ttdeci">Eigen::MatrixXd data</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00173">fiff_named_matrix.h:173</a></div></div>
+<div class="ttc" id="aa02534_html_a612bfa11eef52ae09de143272a6da84f"><div class="ttname"><a href="a02534.html#a612bfa11eef52ae09de143272a6da84f">FIFFLIB::FiffNamedMatrix::col_names</a></div><div class="ttdeci">QStringList col_names</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00172">fiff_named_matrix.h:172</a></div></div>
+<div class="ttc" id="aa02534_html_aab914e6cfc84dc9dffe1773de5750893"><div class="ttname"><a href="a02534.html#aab914e6cfc84dc9dffe1773de5750893">FIFFLIB::FiffNamedMatrix::FiffNamedMatrix</a></div><div class="ttdeci">FiffNamedMatrix()</div><div class="ttdef"><b>Definition</b> <a href="#l00054">fiff_named_matrix.cpp:54</a></div></div>
+<div class="ttc" id="aa02534_html_acfa5db29e4def540654ba39c16b8455d"><div class="ttname"><a href="a02534.html#acfa5db29e4def540654ba39c16b8455d">FIFFLIB::FiffNamedMatrix::ncol</a></div><div class="ttdeci">fiff_int_t ncol</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00170">fiff_named_matrix.h:170</a></div></div>
+<div class="ttc" id="aa02534_html_acfc42a46812792ab7b36a5de046c37b6"><div class="ttname"><a href="a02534.html#acfc42a46812792ab7b36a5de046c37b6">FIFFLIB::FiffNamedMatrix::transpose_named_matrix</a></div><div class="ttdeci">void transpose_named_matrix()</div><div class="ttdef"><b>Definition</b> <a href="#l00096">fiff_named_matrix.cpp:96</a></div></div>
+<div class="ttc" id="aa02534_html_ae3e205f52a45955739f2d6c711a52150"><div class="ttname"><a href="a02534.html#ae3e205f52a45955739f2d6c711a52150">FIFFLIB::FiffNamedMatrix::row_names</a></div><div class="ttdeci">QStringList row_names</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00171">fiff_named_matrix.h:171</a></div></div>
+<div class="ttc" id="aa02534_html_aec1a37467b780b4fb9472a0787b55ce6"><div class="ttname"><a href="a02534.html#aec1a37467b780b4fb9472a0787b55ce6">FIFFLIB::FiffNamedMatrix::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition</b> <a href="#l00085">fiff_named_matrix.cpp:85</a></div></div>
+<div class="ttc" id="aa02534_html_aef0a5d4a8109baaab3aeb28211929486"><div class="ttname"><a href="a02534.html#aef0a5d4a8109baaab3aeb28211929486">FIFFLIB::FiffNamedMatrix::nrow</a></div><div class="ttdeci">fiff_int_t nrow</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00169">fiff_named_matrix.h:169</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

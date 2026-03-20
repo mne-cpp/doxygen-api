@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -214,24 +249,24 @@ $(function() {
 <div class="contents">
 <div class="textblock">Here is a list of all namespaces with brief descriptions:</div><div class="directory">
 <div class="levels">[detail level <span onclick="javascript:dynsection.toggleLevel(1);">1</span><span onclick="javascript:dynsection.toggleLevel(2);">2</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01806.html" target="_self">COMMUNICATIONLIB</a></td><td class="desc">Real-time client/server communication (commands, raw data streaming) </td></tr>
-<tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01807.html" target="_self">CONNECTIVITYLIB</a></td><td class="desc">Functional connectivity metrics (coherence, PLV, cross-correlation, etc.) </td></tr>
-<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01817.html" target="_self">DISP3DRHILIB</a></td><td class="desc">3-D brain visualisation using the Qt RHI rendering backend </td></tr>
-<tr id="row_3_" class="odd"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_3_" class="arrow" onclick="dynsection.toggleFolder('3_')"><span class="arrowhead opened"></span></span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01811.html" target="_self">DISPLIB</a></td><td class="desc">2-D display widgets and visualisation helpers (charts, topography, colour maps) </td></tr>
-<tr id="row_3_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01813.html" target="_self">ChannelInfoModelRoles</a></td><td class="desc"></td></tr>
-<tr id="row_3_1_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01814.html" target="_self">EvokedSetModelRoles</a></td><td class="desc"></td></tr>
-<tr id="row_4_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_4_" class="arrow" onclick="dynsection.toggleFolder('4_')"><span class="arrowhead opened"></span></span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01823.html" target="_self">EVENTSLIB</a></td><td class="desc"><a class="el" href="a02385.html" title="Public event descriptor holding sample index, group membership, and unique identifier.">Event</a> annotation management (creation, grouping, shared-memory transport) </td></tr>
-<tr id="row_4_0_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01824.html" target="_self">EVENTSINTERNAL</a></td><td class="desc"></td></tr>
-<tr id="row_5_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01810.html" target="_self">FIFFLIB</a></td><td class="desc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward) </td></tr>
-<tr id="row_6_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01809.html" target="_self">FSLIB</a></td><td class="desc">FreeSurfer surface and annotation I/O </td></tr>
-<tr id="row_7_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01826.html" target="_self">FWDLIB</a></td><td class="desc">Forward modelling (BEM, MEG/EEG lead fields) </td></tr>
-<tr id="row_8_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01819.html" target="_self">INVLIB</a></td><td class="desc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting) </td></tr>
-<tr id="row_9_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01833.html" target="_self">LSLLIB</a></td><td class="desc">Lab Streaming Layer (LSL) integration for real-time data exchange </td></tr>
-<tr id="row_10_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01808.html" target="_self">MNELIB</a></td><td class="desc">Core <a class="el" href="a02813.html" title="The MNE class provides wrapper functions to stay consistent with mne matlab toolbox.">MNE</a> data structures (source spaces, source estimates, hemispheres) </td></tr>
-<tr id="row_11_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01839.html" target="_self">MRILIB</a></td><td class="desc">MRI volume and coordinate-system I/O (volumes, voxel geometry, transforms) </td></tr>
-<tr id="row_12_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01815.html" target="_self">RTPROCESSINGLIB</a></td><td class="desc">Real-time signal processing (filtering, averaging, HPI fitting, noise reduction) </td></tr>
-<tr id="row_13_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01816.html" target="_self">SURFACEKEYS</a></td><td class="desc">Centralised string constants for surface map keys </td></tr>
-<tr id="row_14_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01840.html" target="_self">UTILSLIB</a></td><td class="desc">Shared utilities (I/O helpers, spectral analysis, layout management, warp algorithms) </td></tr>
+<tr id="row_0_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01767.html" target="_self">COMLIB</a></td><td class="desc">Real-time client/server communication (commands, raw data streaming) </td></tr>
+<tr id="row_1_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01768.html" target="_self">CONNLIB</a></td><td class="desc">Functional connectivity metrics (coherence, PLV, cross-correlation, etc.) </td></tr>
+<tr id="row_2_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01779.html" target="_self">DISP3DLIB</a></td><td class="desc">3-D brain visualisation using the Qt RHI rendering backend </td></tr>
+<tr id="row_3_" class="odd"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_3_" class="arrow" onclick="dynsection.toggleFolder('3_')"><span class="arrowhead opened"></span></span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01772.html" target="_self">DISPLIB</a></td><td class="desc">2-D display widgets and visualisation helpers (charts, topography, colour maps) </td></tr>
+<tr id="row_3_0_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01774.html" target="_self">ChannelInfoModelRoles</a></td><td class="desc"></td></tr>
+<tr id="row_3_1_" class="odd"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01775.html" target="_self">EvokedSetModelRoles</a></td><td class="desc"></td></tr>
+<tr id="row_4_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01785.html" target="_self">DSPLIB</a></td><td class="desc">Digital signal processing (filtering, spectrograms, real-time averaging, HPI, noise reduction) </td></tr>
+<tr id="row_5_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01771.html" target="_self">FIFFLIB</a></td><td class="desc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward) </td></tr>
+<tr id="row_6_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01770.html" target="_self">FSLIB</a></td><td class="desc">FreeSurfer surface and annotation I/O </td></tr>
+<tr id="row_7_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01786.html" target="_self">FWDLIB</a></td><td class="desc">Forward modelling (BEM, MEG/EEG lead fields) </td></tr>
+<tr id="row_8_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01781.html" target="_self">INVLIB</a></td><td class="desc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting) </td></tr>
+<tr id="row_9_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01793.html" target="_self">LSLLIB</a></td><td class="desc">Lab Streaming Layer (LSL) integration for real-time data exchange </td></tr>
+<tr id="row_10_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01796.html" target="_self">MATHLIB</a></td><td class="desc">Mathematical algorithms and geometry (linear algebra, optimization, spectral estimation) </td></tr>
+<tr id="row_11_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01769.html" target="_self">MNELIB</a></td><td class="desc">Core <a class="el" href="a02858.html" title="The MNE class provides wrapper functions to stay consistent with mne matlab toolbox.">MNE</a> data structures (source spaces, source estimates, hemispheres) </td></tr>
+<tr id="row_12_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01801.html" target="_self">MRILIB</a></td><td class="desc">MRI volume and coordinate-system I/O (volumes, voxel geometry, transforms) </td></tr>
+<tr id="row_13_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01776.html" target="_self">RTPROCESSINGLIB</a></td><td class="desc"></td></tr>
+<tr id="row_14_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01778.html" target="_self">SURFACEKEYS</a></td><td class="desc">Centralised string constants for surface map keys </td></tr>
+<tr id="row_15_" class="odd"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="a01777.html" target="_self">UTILSLIB</a></td><td class="desc">Shared utilities (I/O helpers, spectral analysis, layout management, warp algorithms) </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->

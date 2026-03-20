@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -210,16 +245,17 @@ $(function() {
 
 <div class="contents">
 <div class="textblock">Here is a list of all namespace enums with links to the namespace documentation for each enum:</div><ul>
-<li>Accuracy&#160;:&#160;<a class="el" href="a01819.html#a33f916f606e1c83b3d92c14df8a5d2dd">INVLIB</a></li>
-<li>ChannelFormat&#160;:&#160;<a class="el" href="a01833.html#a22b8a5da4e9e3947843244e040a7ff22">LSLLIB</a></li>
-<li>ColorMaps&#160;:&#160;<a class="el" href="a01811.html#a53c600771742063d0826523495db22f3">DISPLIB</a></li>
-<li>EventUpdateType&#160;:&#160;<a class="el" href="a01824.html#adfcc6ef5ca938af6c20c084296d7316a">EVENTSLIB::EVENTSINTERNAL</a></li>
-<li>InvEstimateMethod&#160;:&#160;<a class="el" href="a01819.html#a29bb5b206858a4db67919400558e5a99">INVLIB</a></li>
-<li>InvOrientationType&#160;:&#160;<a class="el" href="a01819.html#a8ee66830d3efbe8f53405dfb0e1a0ba7">INVLIB</a></li>
-<li>InvSourceSpaceType&#160;:&#160;<a class="el" href="a01819.html#a9249e8f0994be81fbcf6d5b3760ad349">INVLIB</a></li>
-<li>InvTokenId&#160;:&#160;<a class="el" href="a01819.html#af1ffe934a77f18c6a7260b1975016387">INVLIB</a></li>
-<li>ItemRole&#160;:&#160;<a class="el" href="a01813.html#a926ca49699be694dba55a9e23002e840">DISPLIB::ChannelInfoModelRoles</a>, <a class="el" href="a01814.html#af8473446140c50be634d662a7a0062fc">DISPLIB::EvokedSetModelRoles</a></li>
-<li>SharedMemoryMode&#160;:&#160;<a class="el" href="a01823.html#a025e9a81ba277a75a48caa6acd5cebff">EVENTSLIB</a></li>
+<li>Accuracy&#160;:&#160;<a class="el" href="a01781.html#a33f916f606e1c83b3d92c14df8a5d2dd">INVLIB</a></li>
+<li>ChannelFormat&#160;:&#160;<a class="el" href="a01793.html#a22b8a5da4e9e3947843244e040a7ff22">LSLLIB</a></li>
+<li>ColorMaps&#160;:&#160;<a class="el" href="a01772.html#a53c600771742063d0826523495db22f3">DISPLIB</a></li>
+<li>InvEstimateMethod&#160;:&#160;<a class="el" href="a01781.html#a29bb5b206858a4db67919400558e5a99">INVLIB</a></li>
+<li>InvOrientationType&#160;:&#160;<a class="el" href="a01781.html#a8ee66830d3efbe8f53405dfb0e1a0ba7">INVLIB</a></li>
+<li>InvSourceSpaceType&#160;:&#160;<a class="el" href="a01781.html#a9249e8f0994be81fbcf6d5b3760ad349">INVLIB</a></li>
+<li>InvTokenId&#160;:&#160;<a class="el" href="a01781.html#af1ffe934a77f18c6a7260b1975016387">INVLIB</a></li>
+<li>ItemRole&#160;:&#160;<a class="el" href="a01774.html#a926ca49699be694dba55a9e23002e840">DISPLIB::ChannelInfoModelRoles</a>, <a class="el" href="a01775.html#af8473446140c50be634d662a7a0062fc">DISPLIB::EvokedSetModelRoles</a></li>
+<li>KMeansDistance&#160;:&#160;<a class="el" href="a01777.html#a5eceb806e5a783c30efd572246abe4df">UTILSLIB</a></li>
+<li>KMeansEmptyAction&#160;:&#160;<a class="el" href="a01777.html#acde2a5498c30dc44b98126dbbafec884">UTILSLIB</a></li>
+<li>KMeansStart&#160;:&#160;<a class="el" href="a01777.html#af418e20a365c0decd25b1aba899200cb">UTILSLIB</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

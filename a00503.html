@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/fiff/fiff_dig_point.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/fiff/fiff_ch_pos.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -213,150 +248,198 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">fiff_dig_point.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">fiff_ch_pos.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of the <a class="el" href="a02453.html" title="Digitization point description.">FiffDigPoint</a> Class.  
+<p>FiffChPos class declaration.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00617_source.html">fiff_dig_point.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00602_source.html">fiff_coord_trans.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00482_source.html">fiff_stream.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00530_source.html">fiff_dir_node.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00452_source.html">fiff_tag.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00512_source.html">fiff_global.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00653_source.html">fiff_types.h</a>&quot;</code><br />
+<code>#include &lt;QSharedPointer&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for fiff_dig_point.cpp:</div>
+Include dependency graph for fiff_ch_pos.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00504.png" border="0" usemap="#asrc_2libraries_2fiff_2fiff__dig__point_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2fiff_2fiff__dig__point_8cpp" id="asrc_2libraries_2fiff_2fiff__dig__point_8cpp">
-<area shape="rect" title="Definition of the FiffDigPoint Class." alt="" coords="681,5,818,45"/>
-<area shape="rect" href="a00617.html" title="FiffDigPoint class declaration." alt="" coords="1882,167,2001,192"/>
-<area shape="poly" title=" " alt="" coords="818,29,1090,52,1439,91,1675,127,1869,161,1868,167,1674,132,1438,96,1090,57,818,34"/>
-<area shape="rect" href="a00602.html" title="FiffCoordTrans class declaration." alt="" coords="339,167,474,192"/>
-<area shape="poly" title=" " alt="" coords="708,48,446,163,444,159,706,43"/>
-<area shape="rect" href="a00482.html" title="FiffStream class declaration." alt="" coords="697,240,801,265"/>
-<area shape="poly" title=" " alt="" coords="752,45,752,226,747,226,747,45"/>
-<area shape="rect" href="a00530.html" title="FiffDirNode class declaration, which provides fiff dir tree processing methods." alt="" coords="309,313,424,339"/>
-<area shape="poly" title=" " alt="" coords="681,31,572,45,508,58,443,78,380,105,322,140,273,185,253,212,236,241,232,253,233,263,246,281,270,296,299,307,298,312,268,300,243,285,228,264,227,252,231,239,248,209,269,182,319,136,377,100,441,73,507,53,571,39,680,26"/>
-<area shape="rect" href="a00452.html" title="FiffTag class declaration, which provides fiff tag I/O and processing methods." alt="" coords="1347,93,1426,119"/>
-<area shape="poly" title=" " alt="" coords="818,32,1334,96,1333,101,818,38"/>
-<area shape="rect" href="a00458.html" title="Fiff library export/import macros." alt="" coords="1025,607,1124,632"/>
-<area shape="poly" title=" " alt="" coords="1950,191,1975,247,1986,285,1991,325,1991,474,1986,504,1973,525,1952,538,1926,545,1864,552,1796,561,1739,573,1663,583,1478,599,1138,618,1138,613,1477,594,1662,577,1738,567,1796,556,1864,546,1925,540,1950,533,1969,521,1981,503,1985,474,1985,325,1981,286,1970,249,1945,193"/>
-<area shape="rect" href="a00596.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="673,460,767,485"/>
-<area shape="poly" title=" " alt="" coords="1899,195,1613,268,1283,341,1051,389,776,459,775,454,1050,384,1282,336,1611,263,1898,189"/>
-<area shape="rect" title=" " alt="" coords="1112,460,1235,485"/>
-<area shape="poly" title=" " alt="" coords="1921,195,1722,293,1578,357,1426,415,1334,441,1249,460,1247,455,1333,436,1424,409,1576,352,1720,288,1919,190"/>
-<area shape="rect" title=" " alt="" coords="1525,240,1600,265"/>
-<area shape="poly" title=" " alt="" coords="1882,194,1619,243,1614,244,1613,238,1618,237,1881,189"/>
-<area shape="rect" title=" " alt="" coords="935,680,1065,705"/>
-<area shape="poly" title=" " alt="" coords="1065,634,1024,672,1020,669,1061,630"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="1089,680,1212,705"/>
-<area shape="poly" title=" " alt="" coords="1089,630,1130,669,1126,672,1085,634"/>
-<area shape="rect" title=" " alt="" coords="1117,753,1184,779"/>
-<area shape="poly" title=" " alt="" coords="1153,706,1153,740,1148,740,1148,706"/>
-<area shape="rect" href="a00473.html" title="Fiff constants." alt="" coords="865,533,986,559"/>
-<area shape="poly" title=" " alt="" coords="754,483,880,526,878,531,752,488"/>
-<area shape="rect" href="a00584.html" title="FiffTime class declaration." alt="" coords="433,533,521,559"/>
-<area shape="poly" title=" " alt="" coords="682,488,530,532,529,527,680,483"/>
-<area shape="rect" href="a00470.html" title="FiffDataRef class declaration." alt="" coords="546,533,657,559"/>
-<area shape="poly" title=" " alt="" coords="702,488,634,528,631,524,700,483"/>
-<area shape="rect" title=" " alt="" coords="1691,533,1783,559"/>
-<area shape="poly" title=" " alt="" coords="768,475,1677,538,1677,543,767,480"/>
-<area shape="rect" title=" " alt="" coords="230,533,285,559"/>
-<area shape="poly" title=" " alt="" coords="673,484,299,541,298,536,672,479"/>
-<area shape="rect" title=" " alt="" coords="84,533,177,559"/>
-<area shape="poly" title=" " alt="" coords="673,482,218,536,191,539,191,534,217,531,672,477"/>
-<area shape="rect" title=" " alt="" coords="784,533,840,559"/>
-<area shape="poly" title=" " alt="" coords="736,483,788,523,785,527,733,487"/>
-<area shape="rect" title=" " alt="" coords="681,533,759,559"/>
-<area shape="poly" title=" " alt="" coords="723,486,723,520,717,520,717,486"/>
-<area shape="poly" title=" " alt="" coords="522,554,534,556,799,590,1012,610,1011,616,799,595,533,561,521,559"/>
-<area shape="rect" title=" " alt="" coords="501,607,579,632"/>
-<area shape="poly" title=" " alt="" coords="490,557,523,594,519,598,486,561"/>
-<area shape="poly" title=" " alt="" coords="657,554,668,556,1012,607,1012,612,668,561,657,560"/>
-<area shape="poly" title=" " alt="" coords="593,561,561,598,557,594,589,557"/>
-<area shape="poly" title=" " alt="" coords="339,183,282,187,216,197,148,215,84,242,53,259,29,274,14,294,8,325,8,474,12,503,25,524,45,541,73,556,116,564,207,573,478,590,1012,613,1012,618,478,595,206,578,115,570,71,561,42,545,21,528,7,505,3,474,3,324,9,292,25,271,50,254,82,238,146,210,215,192,281,182,339,178"/>
-<area shape="poly" title=" " alt="" coords="340,191,240,208,188,221,140,237,101,256,76,280,70,292,69,306,73,321,83,337,100,353,122,367,183,393,258,414,343,431,518,454,659,465,659,471,517,459,342,436,257,419,181,398,120,372,97,357,79,340,68,323,63,306,65,291,71,277,98,252,137,232,186,215,239,202,339,185"/>
-<area shape="poly" title=" " alt="" coords="474,179,721,188,1058,209,1231,226,1392,248,1528,276,1583,293,1628,311,1673,338,1702,369,1721,408,1736,459,1741,490,1741,519,1736,519,1735,491,1731,461,1716,410,1697,372,1669,342,1625,316,1581,298,1527,282,1391,254,1231,231,1058,215,720,193,474,185"/>
-<area shape="poly" title=" " alt="" coords="418,190,444,221,484,261,533,303,589,336,633,354,671,364,739,370,809,372,850,375,897,384,1003,414,1126,453,1124,458,1001,419,895,389,849,381,808,377,738,376,670,369,631,359,587,341,530,307,480,265,440,224,414,194"/>
-<area shape="poly" title=" " alt="" coords="462,189,685,235,683,240,461,195"/>
-<area shape="poly" title=" " alt="" coords="406,193,376,301,371,299,401,192"/>
-<area shape="rect" title=" " alt="" coords="93,313,184,339"/>
-<area shape="poly" title=" " alt="" coords="402,194,376,230,358,250,336,268,277,292,198,313,197,308,275,286,333,263,354,246,372,227,398,191"/>
-<area shape="rect" title=" " alt="" coords="245,240,323,265"/>
-<area shape="poly" title=" " alt="" coords="388,194,317,235,314,231,386,190"/>
-<area shape="poly" title=" " alt="" coords="802,253,1228,274,1441,291,1511,301,1544,311,1565,339,1573,366,1572,392,1561,417,1542,440,1517,462,1451,502,1371,537,1286,566,1138,607,1137,602,1285,561,1369,532,1448,497,1514,458,1538,436,1556,414,1566,391,1568,367,1560,342,1541,315,1510,306,1440,296,1228,280,802,259"/>
-<area shape="poly" title=" " alt="" coords="698,261,668,267,639,277,612,293,590,315,582,334,583,353,591,372,605,391,645,425,687,451,684,456,642,429,602,395,587,375,578,355,577,333,586,312,608,289,637,272,667,262,697,255"/>
-<area shape="poly" title=" " alt="" coords="802,253,1232,273,1458,290,1540,300,1588,311,1617,325,1638,340,1674,385,1695,419,1712,456,1734,519,1729,521,1707,458,1690,422,1670,388,1634,344,1614,329,1586,316,1539,305,1457,295,1232,278,802,258"/>
-<area shape="poly" title=" " alt="" coords="697,256,598,258,478,266,421,273,369,284,327,298,299,315,281,337,268,363,259,391,254,419,252,475,256,519,250,520,247,475,249,419,254,389,263,361,277,334,296,311,325,293,368,279,420,268,478,260,597,252,697,251"/>
-<area shape="poly" title=" " alt="" coords="697,258,595,262,471,271,354,288,308,301,275,316,248,336,224,361,185,418,157,475,140,521,135,519,152,473,180,416,220,358,244,332,272,311,306,296,353,283,470,266,594,256,697,252"/>
-<area shape="poly" title=" " alt="" coords="765,263,811,298,872,336,931,362,993,384,1139,452,1137,456,991,389,930,367,869,341,808,303,762,268"/>
-<area shape="rect" href="a00545.html" title="FiffId class declaration." alt="" coords="814,387,885,412"/>
-<area shape="poly" title=" " alt="" coords="760,264,836,374,832,377,755,267"/>
-<area shape="poly" title=" " alt="" coords="698,266,438,314,437,309,697,261"/>
-<area shape="rect" href="a00494.html" title="FiffDirEntry class declaration." alt="" coords="675,387,789,412"/>
-<area shape="poly" title=" " alt="" coords="751,266,738,373,732,373,745,265"/>
-<area shape="rect" title=" " alt="" coords="939,313,1075,339"/>
-<area shape="poly" title=" " alt="" coords="791,263,953,307,951,312,790,268"/>
-<area shape="rect" title=" " alt="" coords="1099,313,1197,339"/>
-<area shape="poly" title=" " alt="" coords="802,260,1086,311,1085,316,801,266"/>
-<area shape="rect" title=" " alt="" coords="601,313,711,339"/>
-<area shape="poly" title=" " alt="" coords="736,267,684,307,680,303,733,263"/>
-<area shape="poly" title=" " alt="" coords="697,261,482,282,203,316,198,317,197,311,202,311,481,277,697,256"/>
-<area shape="rect" title=" " alt="" coords="1062,387,1133,412"/>
-<area shape="poly" title=" " alt="" coords="774,263,928,336,1050,380,1048,385,926,341,771,268"/>
-<area shape="poly" title=" " alt="" coords="885,404,975,426,1017,441,1045,458,1065,490,1075,527,1080,562,1080,593,1074,593,1074,563,1070,528,1060,492,1041,462,1015,446,974,431,884,410"/>
-<area shape="poly" title=" " alt="" coords="830,414,755,455,752,451,827,410"/>
-<area shape="poly" title=" " alt="" coords="886,406,1108,454,1107,460,885,411"/>
-<area shape="poly" title=" " alt="" coords="368,339,366,381,369,441,376,473,386,504,402,533,423,556,454,569,511,581,675,598,860,608,1012,614,1011,619,860,614,674,603,510,586,452,574,420,561,397,536,381,506,371,474,364,442,360,381,363,339"/>
-<area shape="poly" title=" " alt="" coords="385,337,443,372,518,410,591,436,660,455,658,460,589,441,516,414,441,376,383,341"/>
-<area shape="poly" title=" " alt="" coords="379,337,414,372,463,410,515,438,558,454,661,483,760,509,852,528,850,533,759,514,659,488,556,459,513,443,460,414,410,376,375,341"/>
-<area shape="poly" title=" " alt="" coords="363,340,272,522,267,520,358,338"/>
-<area shape="poly" title=" " alt="" coords="356,341,155,526,152,522,352,337"/>
-<area shape="poly" title=" " alt="" coords="401,336,516,372,663,409,782,430,901,445,1099,464,1098,469,900,451,781,435,662,415,515,378,399,341"/>
-<area shape="poly" title=" " alt="" coords="425,333,443,336,620,357,699,367,801,384,800,389,699,373,620,363,442,341,424,339"/>
-<area shape="poly" title=" " alt="" coords="425,336,661,382,660,387,424,341"/>
-<area shape="poly" title=" " alt="" coords="765,410,872,456,937,490,999,531,1033,562,1060,594,1056,597,1029,566,996,535,935,495,870,461,762,414"/>
-<area shape="poly" title=" " alt="" coords="733,413,727,447,722,446,727,412"/>
-<area shape="poly" title=" " alt="" coords="790,407,802,409,1098,457,1098,462,801,415,789,413"/>
-<area shape="poly" title=" " alt="" coords="1427,109,1863,164,1868,165,1868,170,1862,169,1426,115"/>
-<area shape="poly" title=" " alt="" coords="1426,106,1763,125,1940,142,2004,152,2040,164,2064,182,2080,200,2089,222,2092,251,2092,474,2087,505,2074,526,2053,539,2026,546,1963,552,1894,561,1827,574,1739,584,1525,601,1138,619,1138,613,1524,596,1738,579,1826,568,1893,556,1963,547,2025,541,2051,534,2070,522,2082,503,2087,474,2087,251,2084,224,2076,203,2060,186,2037,169,2002,158,1939,147,1763,130,1426,112"/>
-<area shape="poly" title=" " alt="" coords="1347,113,1173,130,1056,145,932,166,813,193,707,226,662,246,625,267,596,290,577,314,573,338,578,367,588,393,598,410,628,436,664,453,661,458,625,440,594,414,583,396,573,368,568,338,572,312,592,286,622,262,660,241,705,221,811,188,931,161,1055,140,1172,124,1347,107"/>
-<area shape="poly" title=" " alt="" coords="1399,117,1439,165,1477,215,1515,263,1530,276,1543,285,1556,295,1566,312,1571,326,1566,340,1552,360,1538,373,1506,389,1469,399,1426,414,1339,456,1247,488,1117,519,1000,538,999,533,1116,513,1246,483,1337,451,1424,410,1468,394,1504,384,1535,369,1548,356,1562,337,1565,326,1562,314,1552,299,1540,289,1527,281,1511,267,1472,218,1435,168,1395,121"/>
-<area shape="poly" title=" " alt="" coords="1426,105,1568,110,1754,119,1924,137,1983,149,2003,156,2015,165,2033,190,2043,216,2045,242,2040,269,2030,296,2014,323,1972,375,1920,423,1865,466,1771,529,1768,524,1862,462,1917,419,1968,371,2010,320,2025,294,2035,268,2039,242,2037,217,2028,192,2011,169,2000,161,1981,154,1923,142,1754,125,1568,115,1426,111"/>
-<area shape="poly" title=" " alt="" coords="1347,111,849,128,548,146,422,157,327,169,253,178,193,183,166,189,140,199,113,216,85,242,66,264,57,286,57,310,65,338,80,368,98,397,143,450,189,492,230,523,226,527,186,496,139,453,94,400,75,371,60,340,52,311,52,285,62,262,81,238,110,212,137,195,164,184,192,178,252,172,326,164,421,152,547,141,849,123,1347,106"/>
-<area shape="poly" title=" " alt="" coords="1385,120,1349,213,1320,277,1285,340,1239,402,1196,452,1192,448,1235,399,1280,337,1315,275,1344,211,1380,118"/>
-<area shape="poly" title=" " alt="" coords="1426,104,1521,105,1640,112,1698,119,1750,130,1792,145,1821,165,1827,179,1820,194,1743,214,1614,243,1613,238,1742,209,1817,190,1821,179,1817,168,1790,150,1749,135,1697,124,1639,117,1521,110,1426,109"/>
-<area shape="poly" title=" " alt="" coords="1347,112,997,130,748,147,494,169,488,170,488,165,493,164,748,142,996,125,1347,106"/>
-<area shape="poly" title=" " alt="" coords="1370,121,1344,141,1319,168,1306,192,1299,215,1294,259,1292,280,1286,301,1275,321,1255,341,1225,357,1184,368,1085,379,983,383,904,389,899,390,898,385,904,384,982,378,1084,373,1183,362,1223,352,1252,337,1270,318,1281,299,1287,279,1289,258,1294,214,1301,190,1315,165,1340,137,1367,117"/>
-<area shape="poly" title=" " alt="" coords="1365,121,1332,141,1301,168,1284,192,1273,215,1262,259,1248,301,1233,322,1211,341,1177,357,1131,368,1020,380,902,384,803,389,803,384,902,379,1020,374,1130,363,1175,352,1208,336,1229,318,1243,299,1257,258,1268,213,1279,189,1297,165,1329,137,1362,117"/>
-<area shape="poly" title=" " alt="" coords="1348,117,1272,135,1230,150,1189,169,1140,201,1095,238,1027,305,1024,301,1091,234,1137,197,1187,164,1228,145,1270,130,1346,111"/>
-<area shape="poly" title=" " alt="" coords="1348,114,1282,131,1248,147,1218,169,1193,199,1175,235,1162,270,1155,301,1150,299,1157,269,1170,233,1188,197,1214,165,1245,142,1280,126,1346,109"/>
-<area shape="rect" href="a00593.html" title="Header file describing the numerical values used in fif files." alt="" coords="1526,167,1605,192"/>
-<area shape="poly" title=" " alt="" coords="1416,116,1525,159,1523,164,1414,121"/>
-<area shape="rect" href="a00542.html" title="FiffChInfo class declaration." alt="" coords="1425,313,1530,339"/>
-<area shape="poly" title=" " alt="" coords="1389,119,1396,183,1405,224,1421,264,1436,285,1453,303,1450,307,1432,288,1416,267,1400,226,1390,184,1384,119"/>
-<area shape="rect" href="a00449.html" title="FiffChPos class declaration." alt="" coords="1310,387,1413,412"/>
-<area shape="poly" title=" " alt="" coords="1394,118,1430,194,1452,236,1471,263,1499,284,1529,299,1549,315,1551,327,1545,340,1521,364,1491,381,1459,392,1427,398,1426,392,1457,386,1489,376,1517,360,1540,337,1546,326,1545,318,1526,303,1496,288,1467,267,1448,238,1425,196,1389,120"/>
-<area shape="rect" title=" " alt="" coords="1629,167,1702,192"/>
-<area shape="poly" title=" " alt="" coords="1427,115,1616,163,1615,168,1425,120"/>
-<area shape="rect" title=" " alt="" coords="1727,167,1807,192"/>
-<area shape="poly" title=" " alt="" coords="1427,111,1714,164,1713,169,1426,117"/>
-<area shape="poly" title=" " alt="" coords="1475,340,1456,375,1427,414,1390,448,1349,479,1264,533,1183,575,1118,604,1116,599,1181,570,1262,528,1346,475,1387,444,1423,410,1452,372,1470,338"/>
-<area shape="poly" title=" " alt="" coords="1435,341,1146,415,947,447,781,468,781,462,946,442,1145,409,1433,336"/>
-<area shape="poly" title=" " alt="" coords="1493,337,1715,522,1711,526,1489,341"/>
-<area shape="poly" title=" " alt="" coords="1433,341,1369,361,1300,389,1245,421,1200,454,1197,449,1242,417,1297,384,1367,356,1431,336"/>
-<area shape="poly" title=" " alt="" coords="1425,339,1152,389,1147,390,1146,385,1152,384,1424,334"/>
-<area shape="poly" title=" " alt="" coords="1460,341,1393,382,1391,377,1457,336"/>
-<area shape="poly" title=" " alt="" coords="1348,414,1102,600,1099,596,1345,410"/>
-<area shape="poly" title=" " alt="" coords="1310,409,781,467,781,462,1310,404"/>
-<area shape="poly" title=" " alt="" coords="1332,415,1218,457,1216,452,1330,410"/>
+<div class="center"><img src="a00504.png" border="0" usemap="#asrc_2libraries_2fiff_2fiff__ch__pos_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2fiff_2fiff__ch__pos_8h" id="asrc_2libraries_2fiff_2fiff__ch__pos_8h">
+<area shape="rect" title="FiffChPos class declaration." alt="" coords="318,5,437,45"/>
+<area shape="rect" href="a00512.html" title="Fiff library export/import macros." alt="" coords="539,240,637,265"/>
+<area shape="poly" title=" " alt="" coords="318,36,208,53,148,66,92,83,47,104,17,129,10,142,9,157,14,173,26,190,50,202,97,213,235,230,393,241,526,247,525,252,393,246,234,235,96,218,49,207,22,194,9,175,3,157,5,141,13,125,44,99,90,78,147,61,207,47,318,30"/>
+<area shape="rect" href="a00653.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="330,93,425,119"/>
+<area shape="poly" title=" " alt="" coords="380,46,380,79,375,79,375,46"/>
+<area shape="rect" title=" " alt="" coords="449,93,572,119"/>
+<area shape="poly" title=" " alt="" coords="411,43,481,84,478,89,408,48"/>
+<area shape="rect" title=" " alt="" coords="448,313,579,339"/>
+<area shape="poly" title=" " alt="" coords="578,267,537,306,534,302,574,263"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="603,313,725,339"/>
+<area shape="poly" title=" " alt="" coords="602,263,644,302,640,306,599,267"/>
+<area shape="rect" title=" " alt="" coords="631,387,697,412"/>
+<area shape="poly" title=" " alt="" coords="667,339,667,373,661,373,661,339"/>
+<area shape="rect" href="a00527.html" title="Fiff constants." alt="" coords="781,167,902,192"/>
+<area shape="poly" title=" " alt="" coords="426,114,438,116,601,141,768,164,767,169,600,146,437,121,425,119"/>
+<area shape="rect" href="a00641.html" title="FiffTime class declaration." alt="" coords="668,167,756,192"/>
+<area shape="poly" title=" " alt="" coords="426,115,655,163,654,168,425,120"/>
+<area shape="rect" href="a00524.html" title="FiffDataRef class declaration." alt="" coords="533,167,643,192"/>
+<area shape="poly" title=" " alt="" coords="412,116,542,160,540,165,410,121"/>
+<area shape="rect" title=" " alt="" coords="37,167,129,192"/>
+<area shape="poly" title=" " alt="" coords="331,121,143,166,142,161,330,116"/>
+<area shape="rect" title=" " alt="" coords="153,167,207,192"/>
+<area shape="poly" title=" " alt="" coords="347,121,222,166,220,161,345,116"/>
+<area shape="rect" title=" " alt="" coords="232,167,325,192"/>
+<area shape="poly" title=" " alt="" coords="363,121,307,161,304,156,360,117"/>
+<area shape="rect" title=" " alt="" coords="349,167,405,192"/>
+<area shape="poly" title=" " alt="" coords="380,119,380,153,375,153,375,119"/>
+<area shape="rect" title=" " alt="" coords="430,167,509,192"/>
+<area shape="poly" title=" " alt="" coords="394,117,445,156,442,160,391,121"/>
+<area shape="poly" title=" " alt="" coords="694,194,622,235,619,231,691,190"/>
+<area shape="rect" title=" " alt="" coords="667,240,746,265"/>
+<area shape="poly" title=" " alt="" coords="714,193,711,227,706,226,709,192"/>
+<area shape="poly" title=" " alt="" coords="591,192,591,226,585,226,585,192"/>
+<area shape="poly" title=" " alt="" coords="609,190,677,230,674,235,606,194"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00505.png" border="0" usemap="#asrc_2libraries_2fiff_2fiff__ch__pos_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2fiff_2fiff__ch__pos_8hdep" id="asrc_2libraries_2fiff_2fiff__ch__pos_8hdep">
+<area shape="rect" title="FiffChPos class declaration." alt="" coords="3182,5,3301,45"/>
+<area shape="rect" href="a00599.html" title="FiffChInfo class declaration." alt="" coords="1678,93,1797,133"/>
+<area shape="poly" title=" " alt="" coords="3168,33,1797,111,1797,106,3168,28"/>
+<area shape="rect" href="a00578.html" title="Definition of the FiffStream Class." alt="" coords="2052,357,2175,397"/>
+<area shape="poly" title=" " alt="" coords="3246,59,3244,97,3237,142,3221,186,3208,206,3192,223,3158,248,3113,270,3059,289,2998,305,2858,332,2703,352,2547,365,2399,373,2175,379,2175,373,2399,368,2547,360,2703,347,2857,327,2997,300,3058,284,3111,265,3155,243,3189,219,3204,203,3216,183,3231,140,3239,97,3240,59"/>
+<area shape="rect" href="a00506.html" title="FiffTag class declaration, which provides fiff tag I/O and processing methods." alt="" coords="4595,181,4714,221"/>
+<area shape="poly" title=" " alt="" coords="3250,58,3265,98,3277,116,3293,131,3314,137,3354,144,3483,156,3869,175,4292,189,4595,196,4595,201,4292,194,3868,180,3483,161,3353,149,3312,143,3291,136,3273,120,3260,100,3245,60"/>
+<area shape="rect" href="a00680.html" title="Definition of the FiffChPos Class." alt="" coords="3304,93,3427,133"/>
+<area shape="poly" title=" " alt="" coords="3282,51,3339,91,3336,95,3279,55"/>
+<area shape="rect" href="a00437.html" title="Definition of the ArtifactSettingsView class." alt="" coords="1133,269,1371,309"/>
+<area shape="poly" title=" " alt="" coords="1664,120,1523,127,1358,140,1216,159,1167,170,1142,183,1135,194,1135,206,1140,217,1149,228,1176,249,1209,267,1206,272,1173,254,1145,232,1135,220,1130,206,1130,193,1138,179,1165,165,1215,153,1358,135,1523,122,1664,115"/>
+<area shape="rect" href="a00242.html" title="Declaration of the ArtifactSettingsView class." alt="" coords="1151,181,1374,221"/>
+<area shape="poly" title=" " alt="" coords="1665,130,1367,184,1366,179,1664,125"/>
+<area shape="rect" href="a00197.html" title="Contains the declaration of the AveragingSettingsView class." alt="" coords="2097,181,2337,221"/>
+<area shape="poly" title=" " alt="" coords="1811,125,2113,179,2112,184,1810,130"/>
+<area shape="rect" href="a00233.html" title="Declaration of the ModalitySelectionView Class." alt="" coords="2361,181,2601,221"/>
+<area shape="poly" title=" " alt="" coords="1811,119,2050,144,2350,179,2362,180,2361,185,2349,184,2050,149,1810,125"/>
+<area shape="rect" href="a01433.html" title="SensorFieldMapper class implementation." alt="" coords="2626,181,2841,221"/>
+<area shape="poly" title=" " alt="" coords="1811,116,2157,137,2384,155,2614,179,2626,180,2625,185,2613,184,2384,161,2157,143,1810,121"/>
+<area shape="rect" href="a01484.html" title="RtSensorInterpolationMatWorker class definition." alt="" coords="2865,181,3178,221"/>
+<area shape="poly" title=" " alt="" coords="1811,115,2252,137,2550,156,2854,179,2865,180,2864,185,2853,184,2550,161,2251,143,1810,120"/>
+<area shape="rect" href="a00608.html" title="Definition of the FiffChInfo Class." alt="" coords="651,181,775,221"/>
+<area shape="poly" title=" " alt="" coords="1664,119,1507,124,1291,135,1044,154,795,184,776,187,775,182,794,179,1044,149,1290,129,1506,118,1664,113"/>
+<area shape="rect" href="a00509.html" title="FiffInfo class declaration." alt="" coords="867,269,986,309"/>
+<area shape="poly" title=" " alt="" coords="1664,118,1467,121,1223,130,1106,139,1005,150,930,165,906,174,891,183,885,192,883,202,887,225,898,248,912,268,908,271,893,250,881,227,878,202,880,190,887,179,903,169,929,160,1004,145,1105,133,1222,125,1467,115,1664,112"/>
+<area shape="poly" title=" " alt="" coords="1664,120,1520,127,1351,140,1204,159,1153,170,1127,183,1105,214,1097,246,1102,277,1123,307,1143,319,1177,329,1281,343,1416,350,1569,353,1864,351,1974,351,2040,355,2052,357,2051,362,2040,360,1974,357,1864,356,1569,358,1416,356,1280,349,1176,335,1141,324,1119,311,1097,279,1091,245,1100,212,1124,179,1152,165,1203,153,1350,135,1520,122,1664,115"/>
+<area shape="rect" href="a00107.html" title="InvHpiDataUpdater class definition." alt="" coords="5,357,197,397"/>
+<area shape="poly" title=" " alt="" coords="1664,120,1486,127,1258,140,1037,159,946,171,877,184,851,193,832,203,813,213,788,224,671,256,511,293,196,360,195,355,510,288,670,251,786,219,811,208,830,198,849,188,875,179,945,165,1036,154,1258,135,1486,122,1664,114"/>
+<area shape="rect" href="a00566.html" title="FiffInfoBase class declaration." alt="" coords="901,181,1027,221"/>
+<area shape="poly" title=" " alt="" coords="1664,121,1391,142,1219,160,1046,184,1027,187,1026,182,1045,179,1218,155,1391,136,1664,116"/>
+<area shape="poly" title=" " alt="" coords="1811,114,4595,196,4595,201,1811,119"/>
+<area shape="rect" href="a01298.html" title="Definition of the MNECovMatrix Class." alt="" coords="5234,357,5398,397"/>
+<area shape="poly" title=" " alt="" coords="1810,113,2125,117,2556,128,2770,136,2960,148,3106,162,3157,170,3192,179,3219,193,3240,209,3269,244,3299,279,3318,294,3345,307,3391,319,3462,329,3665,346,3928,358,4224,366,4816,373,5234,374,5234,379,4816,379,4224,371,3928,363,3665,351,3462,334,3390,324,3343,312,3316,298,3295,282,3265,247,3236,212,3216,197,3190,184,3156,175,3105,167,2959,153,2770,142,2556,133,2125,122,1810,118"/>
+<area shape="rect" href="a01691.html" title="Definition of the FwdCoil Class." alt="" coords="1399,181,1551,221"/>
+<area shape="poly" title=" " alt="" coords="1668,140,1533,184,1531,179,1666,135"/>
+<area shape="rect" href="a01721.html" title="Definition of the FwdCoilSet Class." alt="" coords="1575,181,1727,221"/>
+<area shape="poly" title=" " alt="" coords="1710,145,1672,183,1668,179,1707,141"/>
+<area shape="rect" href="a00113.html" title="InvHpiFit class declaration." alt="" coords="1751,181,1897,221"/>
+<area shape="poly" title=" " alt="" coords="1768,141,1807,179,1803,183,1764,145"/>
+<area shape="rect" href="a00110.html" title="InvSensorSet class definition." alt="" coords="1922,181,2073,221"/>
+<area shape="poly" title=" " alt="" coords="1808,135,1941,179,1940,184,1807,140"/>
+<area shape="poly" title=" " alt="" coords="1261,235,1257,269,1252,269,1256,235"/>
+<area shape="rect" href="a00152.html" title="Definition of the AveragingSettingsView class." alt="" coords="2082,269,2337,309"/>
+<area shape="poly" title=" " alt="" coords="2217,235,2214,269,2208,269,2212,235"/>
+<area shape="rect" href="a00185.html" title="Definition of the ModalitySelectionView Class." alt="" coords="2361,269,2615,309"/>
+<area shape="poly" title=" " alt="" coords="2487,235,2489,269,2484,269,2481,235"/>
+<area shape="rect" href="a00791.html" title=" " alt="" coords="1884,357,2028,397"/>
+<area shape="poly" title=" " alt="" coords="1000,306,1006,307,1137,322,1248,330,1439,332,1629,333,1741,340,1872,355,1884,357,1883,362,1872,360,1740,345,1629,338,1439,337,1248,335,1136,328,1005,312,999,311"/>
+<area shape="rect" href="a00779.html" title=" " alt="" coords="3652,357,3823,397"/>
+<area shape="poly" title=" " alt="" coords="1000,296,1121,307,1566,322,2325,342,3652,372,3652,377,2324,347,1566,327,1121,312,1000,302"/>
+<area shape="rect" href="a00899.html" title="ConnectivitySettings class definition." alt="" coords="222,357,407,397"/>
+<area shape="poly" title=" " alt="" coords="854,308,832,312,717,328,626,337,536,345,420,360,408,362,407,357,420,355,535,340,626,331,716,322,832,307,854,303"/>
+<area shape="rect" href="a00203.html" title="Definition of the AverageLayoutView Class." alt="" coords="432,357,664,397"/>
+<area shape="poly" title=" " alt="" coords="855,310,632,360,631,355,853,304"/>
+<area shape="rect" href="a00155.html" title="Definition of the FilterDesignView class." alt="" coords="688,357,899,397"/>
+<area shape="poly" title=" " alt="" coords="887,319,824,359,821,355,884,315"/>
+<area shape="rect" href="a00377.html" title="The definition for ChannelInfoModel." alt="" coords="923,357,1200,397"/>
+<area shape="poly" title=" " alt="" coords="970,315,1033,355,1030,359,967,319"/>
+<area shape="rect" href="a00374.html" title="Definition of the EvokedSetModel Class." alt="" coords="1225,357,1493,397"/>
+<area shape="poly" title=" " alt="" coords="1000,305,1006,307,1253,355,1252,360,1005,312,999,311"/>
+<area shape="rect" href="a00356.html" title="Definition of the FrequencySpectrumDelegate Class." alt="" coords="1517,357,1859,397"/>
+<area shape="poly" title=" " alt="" coords="1000,306,1006,307,1145,326,1255,336,1365,343,1506,355,1517,356,1516,361,1505,360,1364,348,1254,341,1145,332,1005,312,999,311"/>
+<area shape="rect" href="a00518.html" title="FIFF class declaration, which provides static wrapper functions to stay consistent with mne matlab to..." alt="" coords="2695,357,2814,397"/>
+<area shape="poly" title=" " alt="" coords="1000,296,1122,307,1465,325,1931,344,2695,371,2695,377,1931,349,1464,330,1121,312,1000,301"/>
+<area shape="poly" title=" " alt="" coords="1000,306,1006,307,1162,324,1295,332,1413,332,1523,329,1633,327,1750,328,1884,336,2040,355,2052,357,2051,362,2040,360,1883,341,1750,333,1633,332,1523,335,1413,337,1295,337,1162,330,1005,312,999,311"/>
+<area shape="poly" title=" " alt="" coords="854,309,832,312,658,331,521,337,384,343,210,360,198,362,197,356,209,355,384,338,521,332,657,325,832,307,854,303"/>
+<area shape="poly" title=" " alt="" coords="953,235,937,270,932,268,948,233"/>
+<area shape="poly" title=" " alt="" coords="983,231,1014,273,1034,292,1057,307,1083,315,1122,322,1236,332,1544,343,1854,347,1971,350,2040,355,2052,357,2051,362,2040,360,1971,355,1854,352,1544,348,1236,337,1122,327,1081,320,1055,312,1031,296,1010,276,979,235"/>
+<area shape="poly" title=" " alt="" coords="4582,208,4510,214,4426,225,4336,244,4249,272,4232,281,4220,291,4208,302,4190,312,4095,342,3996,361,3902,372,3823,377,3823,372,3902,367,3995,356,4093,336,4188,307,4205,298,4217,287,4229,277,4247,267,4335,239,4425,220,4510,208,4582,202"/>
+<area shape="poly" title=" " alt="" coords="4582,211,4369,233,4264,250,4222,260,4191,272,4178,281,4170,291,4161,302,4146,312,4113,321,4063,329,3920,344,3736,355,3527,363,3110,374,2814,378,2814,373,3110,369,3527,358,3735,350,3920,338,4062,324,4112,316,4144,307,4157,298,4165,288,4174,277,4188,267,4220,255,4263,245,4368,227,4581,205"/>
+<area shape="poly" title=" " alt="" coords="4582,206,4321,211,3963,222,3605,242,3456,255,3345,272,3314,281,3290,292,3267,303,3235,312,3139,327,3011,340,2704,359,2398,371,2175,377,2175,372,2398,366,2704,354,3011,334,3138,322,3234,307,3265,298,3288,287,3312,276,3343,267,3456,250,3605,236,3963,217,4321,206,4582,201"/>
+<area shape="rect" href="a00596.html" title="Definition of the FiffCoordTrans Class." alt="" coords="6510,269,6663,309"/>
+<area shape="poly" title=" " alt="" coords="4728,201,5081,207,5593,219,6116,239,6334,252,6499,267,6510,268,6509,273,6498,272,6334,257,6115,244,5593,224,5081,212,4728,206"/>
+<area shape="rect" href="a00557.html" title="Definition of the FiffDigPoint Class." alt="" coords="3355,269,3493,309"/>
+<area shape="poly" title=" " alt="" coords="4582,205,4393,208,4126,217,3818,237,3660,253,3506,272,3493,274,3493,269,3505,267,3660,247,3818,232,4126,212,4393,203,4581,200"/>
+<area shape="rect" href="a00530.html" title="fiff_dig_point_set class definition." alt="" coords="3517,269,3681,309"/>
+<area shape="poly" title=" " alt="" coords="4581,207,4201,225,3949,244,3694,272,3682,274,3681,268,3693,267,3948,239,4200,220,4581,202"/>
+<area shape="rect" href="a00665.html" title="Definition of the FiffDirNode Class." alt="" coords="3705,269,3839,309"/>
+<area shape="poly" title=" " alt="" coords="4582,208,4264,226,4059,245,3852,272,3840,274,3839,269,3852,267,4058,240,4263,221,4581,203"/>
+<area shape="rect" href="a00671.html" title="Definition of the FiffEvents Class." alt="" coords="3863,269,3985,309"/>
+<area shape="poly" title=" " alt="" coords="4582,209,4323,229,4160,247,3998,272,3985,274,3984,269,3997,267,4160,242,4322,224,4581,204"/>
+<area shape="rect" href="a00635.html" title="Definition of the FIFFEvoked Class." alt="" coords="4009,269,4133,309"/>
+<area shape="poly" title=" " alt="" coords="4582,213,4388,236,4152,272,4133,276,4132,271,4152,267,4387,231,4582,208"/>
+<area shape="rect" href="a00638.html" title="Definition of the FiffEvokedSet Class." alt="" coords="4259,269,4410,309"/>
+<area shape="poly" title=" " alt="" coords="4583,225,4406,272,4404,267,4581,219"/>
+<area shape="rect" href="a00593.html" title="Definition of the FiffRawData Class." alt="" coords="4434,269,4571,309"/>
+<area shape="poly" title=" " alt="" coords="4611,230,4537,272,4535,267,4608,226"/>
+<area shape="rect" href="a00656.html" title="FiffSparseMatrix class declaration." alt="" coords="5353,269,5508,309"/>
+<area shape="poly" title=" " alt="" coords="4728,205,4996,227,5165,245,5335,267,5354,270,5353,275,5334,272,5164,250,4995,232,4727,210"/>
+<area shape="poly" title=" " alt="" coords="4728,203,4877,211,5053,224,5208,242,5262,254,5292,267,5308,288,5316,312,5320,357,5315,358,5311,313,5303,290,5289,271,5260,259,5207,248,5053,229,4877,216,4728,208"/>
+<area shape="rect" href="a01301.html" title="Definition of the MNESourceSpace Class." alt="" coords="5442,357,5606,397"/>
+<area shape="poly" title=" " alt="" coords="4728,200,4928,203,5178,213,5298,221,5402,233,5479,248,5505,257,5522,267,5534,289,5538,313,5533,357,5527,357,5533,313,5529,290,5518,271,5503,262,5478,253,5401,238,5298,226,5178,218,4928,208,4728,206"/>
+<area shape="rect" href="a00614.html" title="Definition of the FiffTag Class." alt="" coords="4595,269,4714,309"/>
+<area shape="poly" title=" " alt="" coords="4657,235,4657,269,4652,269,4652,235"/>
+<area shape="rect" href="a01760.html" title="FwdBemModel class declaration." alt="" coords="4739,269,4891,309"/>
+<area shape="poly" title=" " alt="" coords="4703,225,4781,267,4778,272,4700,230"/>
+<area shape="rect" href="a00041.html" title="Definition of the InvGuessData Class." alt="" coords="4915,269,5090,309"/>
+<area shape="poly" title=" " alt="" coords="4728,218,4927,267,4926,272,4727,223"/>
+<area shape="rect" href="a01034.html" title="Definition of the MNECTFCompData Class." alt="" coords="5114,269,5278,309"/>
+<area shape="poly" title=" " alt="" coords="4728,210,4900,234,5103,267,5114,269,5113,274,5102,272,4899,239,4728,215"/>
+<area shape="rect" href="a01223.html" title="MNENamedMatrix class definition." alt="" coords="5583,269,5747,309"/>
+<area shape="poly" title=" " alt="" coords="4728,203,5088,222,5325,241,5564,267,5583,269,5583,275,5564,272,5324,246,5088,227,4728,208"/>
+<area shape="rect" href="a01127.html" title="Definition of the MNEProjOp Class." alt="" coords="5771,269,5935,309"/>
+<area shape="poly" title=" " alt="" coords="4728,201,4910,205,5166,216,5461,236,5760,267,5771,268,5771,274,5760,272,5460,241,5166,222,4910,211,4728,206"/>
+<area shape="rect" href="a01253.html" title="Definition of the MNERawInfo Class." alt="" coords="5959,269,6123,309"/>
+<area shape="poly" title=" " alt="" coords="4728,200,4937,203,5239,212,5590,232,5771,247,5948,267,5959,268,5959,273,5948,272,5771,253,5590,237,5239,217,4937,208,4728,205"/>
+<area shape="rect" href="a01082.html" title="Definition of the MNE SSS Data (MNESssData) Class." alt="" coords="6147,269,6311,309"/>
+<area shape="poly" title=" " alt="" coords="4728,199,4963,200,5311,208,5720,228,5930,245,6136,267,6147,268,6147,273,6136,272,5930,250,5719,234,5311,213,4963,206,4728,205"/>
+<area shape="rect" href="a01004.html" title="MriCorFifIO class definition." alt="" coords="6335,269,6486,309"/>
+<area shape="poly" title=" " alt="" coords="4728,201,5512,221,5981,240,6176,253,6324,267,6336,268,6335,274,6324,272,6176,258,5981,246,5512,226,4728,207"/>
+<area shape="poly" title=" " alt="" coords="5396,320,5343,359,5340,355,5393,316"/>
+<area shape="poly" title=" " alt="" coords="5463,317,5505,355,5502,359,5460,321"/>
 </map>
 </div>
 </div>
 <p><a href="a00503_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:FIFFLIB_3A_3AFiffChPos" id="r_FIFFLIB_3A_3AFiffChPos"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02442.html">FIFFLIB::FiffChPos</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Measurement channel position and coil type.  <a href="a02442.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:FIFFLIB" id="r_FIFFLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01771.html">FIFFLIB</a></td></tr>
+<tr class="memdesc:a01771"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward). <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0c6c758fd4127395b2e9f5121a96da33" id="r_a0c6c758fd4127395b2e9f5121a96da33"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="a01771.html#a0c6c758fd4127395b2e9f5121a96da33">FIFFLIB::operator==</a> (const <a class="el" href="a02442.html">FiffChPos</a> &amp;a, const <a class="el" href="a02442.html">FiffChPos</a> &amp;b)</td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of the <a class="el" href="a02453.html" title="Digitization point description.">FiffDigPoint</a> Class. </p>
+<div class="textblock"><p>FiffChPos class declaration. </p>
 <dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>July, 2012</dd></dl>
@@ -370,7 +453,7 @@ LICENSE</h1>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-<p class="definition">Definition in file <a class="el" href="a00503_source.html">fiff_dig_point.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00503_source.html">fiff_ch_pos.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

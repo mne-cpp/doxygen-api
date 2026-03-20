@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -228,17 +263,17 @@ Directory dependency graph for generics:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-files" class="groupheader"><a id="files" name="files"></a>
 Files</h2></td></tr>
-<tr class="memitem:applicationlogger_2Ecpp" id="r_applicationlogger_2Ecpp"><td class="memItemLeft"><a href="a00977_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00977.html">applicationlogger.cpp</a></td></tr>
-<tr class="memitem:applicationlogger_2Eh" id="r_applicationlogger_2Eh"><td class="memItemLeft"><a href="a00971_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00971.html">applicationlogger.h</a></td></tr>
-<tr class="memdesc:a00971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the declaration of the ApplicationLogger class. <br /></td></tr>
-<tr class="memitem:circularbuffer_2Eh" id="r_circularbuffer_2Eh"><td class="memItemLeft"><a href="a00974_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00974.html">circularbuffer.h</a></td></tr>
-<tr class="memdesc:a00974"><td class="mdescLeft">&#160;</td><td class="mdescRight">CircularBuffer class declaration. <br /></td></tr>
-<tr class="memitem:commandpattern_2Eh" id="r_commandpattern_2Eh"><td class="memItemLeft"><a href="a00983_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00983.html">commandpattern.h</a></td></tr>
-<tr class="memdesc:a00983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains declarations of the command design pattern: ICommand interface. <br /></td></tr>
-<tr class="memitem:observerpattern_2Ecpp" id="r_observerpattern_2Ecpp"><td class="memItemLeft"><a href="a00980_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00980.html">observerpattern.cpp</a></td></tr>
-<tr class="memdesc:a00980"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains implementations of the observer design pattern: Subject class and IObserver interface. <br /></td></tr>
-<tr class="memitem:observerpattern_2Eh" id="r_observerpattern_2Eh"><td class="memItemLeft"><a href="a00986_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00986.html">observerpattern.h</a></td></tr>
-<tr class="memdesc:a00986"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains declarations of the observer design pattern: Subject class and IObserver interface. <br /></td></tr>
+<tr class="memitem:applicationlogger_2Ecpp" id="r_applicationlogger_2Ecpp"><td class="memItemLeft"><a href="a00941_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00941.html">applicationlogger.cpp</a></td></tr>
+<tr class="memitem:applicationlogger_2Eh" id="r_applicationlogger_2Eh"><td class="memItemLeft"><a href="a00935_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00935.html">applicationlogger.h</a></td></tr>
+<tr class="memdesc:a00935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the declaration of the ApplicationLogger class. <br /></td></tr>
+<tr class="memitem:circularbuffer_2Eh" id="r_circularbuffer_2Eh"><td class="memItemLeft"><a href="a00938_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00938.html">circularbuffer.h</a></td></tr>
+<tr class="memdesc:a00938"><td class="mdescLeft">&#160;</td><td class="mdescRight">CircularBuffer class declaration. <br /></td></tr>
+<tr class="memitem:commandpattern_2Eh" id="r_commandpattern_2Eh"><td class="memItemLeft"><a href="a00947_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00947.html">commandpattern.h</a></td></tr>
+<tr class="memdesc:a00947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains declarations of the command design pattern: ICommand interface. <br /></td></tr>
+<tr class="memitem:observerpattern_2Ecpp" id="r_observerpattern_2Ecpp"><td class="memItemLeft"><a href="a00944_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00944.html">observerpattern.cpp</a></td></tr>
+<tr class="memdesc:a00944"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains implementations of the observer design pattern: Subject class and IObserver interface. <br /></td></tr>
+<tr class="memitem:observerpattern_2Eh" id="r_observerpattern_2Eh"><td class="memItemLeft"><a href="a00950_source.html"><span class="icondoc"><div class="doc-icon"></div></span></a>&#160;</td><td class="memItemRight"><a class="el" href="a00950.html">observerpattern.h</a></td></tr>
+<tr class="memdesc:a00950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains declarations of the observer design pattern: Subject class and IObserver interface. <br /></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

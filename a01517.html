@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/events/eventsharedmemmanager.h File Reference</title>
+    <title>MNE-CPP: src/libraries/disp3D/renderable/dipoleobject.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,92 +243,78 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_7485ef47046898e59a84de7b1132681b.html">events</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_061a979e1ff4d1f23adfb2165bb6f08f.html">disp3D</a></li><li class="navelem"><a href="dir_d4159da38ffb0820af57d29688a35242.html">renderable</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#var-members">Variables</a>  </div>
-  <div class="headertitle"><div class="title">eventsharedmemmanager.h File Reference</div></div>
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">dipoleobject.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>EventSharedMemManager definition.  
+<p><a class="el" href="a02254.html" title="Renderable dipole arrow set with instanced GPU rendering for QRhi.">DipoleObject</a> class definition.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;thread&gt;</code><br />
-<code>#include &lt;mutex&gt;</code><br />
-<code>#include &lt;atomic&gt;</code><br />
-<code>#include &lt;QSharedMemory&gt;</code><br />
-<code>#include &quot;<a class="el" href="a01538_source.html">event.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01520_source.html">eventgroup.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01511_source.html">dipoleobject.h</a>&quot;</code><br />
+<code>#include &lt;rhi/qrhi.h&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;QQuaternion&gt;</code><br />
+<code>#include &lt;QRandomGenerator&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for eventsharedmemmanager.h:</div>
+Include dependency graph for dipoleobject.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01518.png" border="0" usemap="#asrc_2libraries_2events_2eventsharedmemmanager_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2events_2eventsharedmemmanager_8h" id="asrc_2libraries_2events_2eventsharedmemmanager_8h">
-<area shape="rect" title="EventSharedMemManager definition." alt="" coords="251,5,461,45"/>
-<area shape="rect" title=" " alt="" coords="5,240,64,265"/>
-<area shape="poly" title=" " alt="" coords="251,41,139,62,94,77,65,95,45,126,36,161,33,196,34,226,29,227,27,196,30,160,40,123,61,91,91,72,138,57,250,36"/>
-<area shape="rect" title=" " alt="" coords="221,93,299,119"/>
-<area shape="poly" title=" " alt="" coords="334,48,286,87,283,82,331,43"/>
-<area shape="rect" title=" " alt="" coords="323,93,389,119"/>
-<area shape="poly" title=" " alt="" coords="359,46,359,79,353,79,353,46"/>
-<area shape="rect" title=" " alt="" coords="413,93,477,119"/>
-<area shape="poly" title=" " alt="" coords="379,44,424,82,420,86,376,48"/>
-<area shape="rect" title=" " alt="" coords="501,93,565,119"/>
-<area shape="poly" title=" " alt="" coords="400,43,496,85,494,90,397,48"/>
-<area shape="rect" title=" " alt="" coords="589,93,656,119"/>
-<area shape="poly" title=" " alt="" coords="421,43,576,88,575,93,419,48"/>
-<area shape="rect" title=" " alt="" coords="680,93,811,119"/>
-<area shape="poly" title=" " alt="" coords="450,43,676,88,674,93,449,48"/>
-<area shape="rect" href="a01538.html" title="Event declaration." alt="" coords="75,93,146,119"/>
-<area shape="poly" title=" " alt="" coords="298,48,160,92,158,87,296,43"/>
-<area shape="rect" href="a01520.html" title="EventGroup declaration." alt="" coords="149,167,257,192"/>
-<area shape="poly" title=" " alt="" coords="278,48,241,67,225,80,212,95,205,108,201,123,201,153,196,153,196,122,200,106,207,92,221,76,238,62,275,43"/>
-<area shape="poly" title=" " alt="" coords="107,120,49,229,45,227,102,118"/>
-<area shape="rect" href="a01526.html" title="event library export/import macros." alt="" coords="88,240,213,265"/>
-<area shape="poly" title=" " alt="" coords="117,118,146,226,141,227,111,120"/>
-<area shape="poly" title=" " alt="" coords="127,117,179,156,175,160,124,121"/>
-<area shape="rect" title=" " alt="" coords="11,313,141,339"/>
-<area shape="poly" title=" " alt="" coords="141,267,100,306,96,302,137,263"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="165,313,288,339"/>
-<area shape="poly" title=" " alt="" coords="165,263,206,302,202,306,161,267"/>
-<area shape="rect" title=" " alt="" coords="193,387,260,412"/>
-<area shape="poly" title=" " alt="" coords="229,339,229,373,224,373,224,339"/>
-<area shape="poly" title=" " alt="" coords="177,194,76,237,74,232,175,190"/>
-<area shape="poly" title=" " alt="" coords="196,194,169,230,165,227,192,191"/>
-<area shape="rect" title=" " alt="" coords="237,240,304,265"/>
-<area shape="poly" title=" " alt="" coords="216,190,252,228,248,232,212,194"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a01519.png" border="0" usemap="#asrc_2libraries_2events_2eventsharedmemmanager_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2events_2eventsharedmemmanager_8hdep" id="asrc_2libraries_2events_2eventsharedmemmanager_8hdep">
-<area shape="rect" title="EventSharedMemManager definition." alt="" coords="700,5,911,45"/>
-<area shape="rect" href="a01532.html" title="EventManager declaration." alt="" coords="677,93,824,133"/>
-<area shape="poly" title=" " alt="" coords="788,58,765,95,761,92,784,56"/>
-<area shape="rect" href="a01511.html" title=" " alt="" coords="799,181,1025,221"/>
-<area shape="poly" title=" " alt="" coords="826,56,903,180,898,183,822,59"/>
-<area shape="rect" href="a00308.html" title="Declaration of the RtFiffRawViewModel Class." alt="" coords="335,181,603,221"/>
-<area shape="poly" title=" " alt="" coords="677,140,532,184,530,179,675,135"/>
-<area shape="rect" href="a01535.html" title=" " alt="" coords="628,181,775,221"/>
-<area shape="poly" title=" " alt="" coords="735,147,715,182,710,180,731,144"/>
-<area shape="poly" title=" " alt="" coords="799,137,878,179,875,184,797,142"/>
-<area shape="rect" href="a00284.html" title="Definition of the RtFiffRawViewDelegate Class." alt="" coords="5,269,304,309"/>
-<area shape="poly" title=" " alt="" coords="388,228,224,272,223,267,386,222"/>
-<area shape="rect" href="a00257.html" title="Definition of the RtFiffRawViewModel Class." alt="" coords="328,269,611,309"/>
-<area shape="poly" title=" " alt="" coords="472,235,472,269,467,269,467,235"/>
-<area shape="rect" href="a00203.html" title="Definition of the RtFiffRawView Class." alt="" coords="635,269,824,309"/>
-<area shape="poly" title=" " alt="" coords="540,223,673,267,672,272,539,228"/>
+<div class="center"><img src="a01518.png" border="0" usemap="#asrc_2libraries_2disp3_d_2renderable_2dipoleobject_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d_2renderable_2dipoleobject_8cpp" id="asrc_2libraries_2disp3_d_2renderable_2dipoleobject_8cpp">
+<area shape="rect" title="DipoleObject class definition." alt="" coords="343,5,550,45"/>
+<area shape="rect" href="a01511.html" title="DipoleObject class declaration." alt="" coords="220,93,335,119"/>
+<area shape="poly" title=" " alt="" coords="407,48,316,90,314,85,405,43"/>
+<area shape="rect" title=" " alt="" coords="5,328,80,353"/>
+<area shape="poly" title=" " alt="" coords="343,30,261,41,217,50,173,64,130,82,91,105,55,133,26,168,17,185,13,204,13,244,22,282,33,314,28,316,16,284,7,245,7,204,12,184,22,165,52,130,88,100,128,77,171,59,215,45,260,35,343,25"/>
+<area shape="rect" title=" " alt="" coords="359,93,439,119"/>
+<area shape="poly" title=" " alt="" coords="437,47,415,83,411,80,433,44"/>
+<area shape="rect" title=" " alt="" coords="463,93,526,119"/>
+<area shape="poly" title=" " alt="" coords="461,44,483,80,478,83,456,47"/>
+<area shape="rect" title=" " alt="" coords="551,93,655,119"/>
+<area shape="poly" title=" " alt="" coords="485,43,569,85,566,89,483,48"/>
+<area shape="rect" title=" " alt="" coords="679,93,830,119"/>
+<area shape="poly" title=" " alt="" coords="521,43,697,87,696,92,520,48"/>
+<area shape="rect" href="a01418.html" title="disp3D library export/import macros." alt="" coords="511,328,649,353"/>
+<area shape="poly" title=" " alt="" coords="335,116,420,138,458,151,484,165,518,199,544,240,563,280,575,314,570,316,558,282,539,242,514,203,481,169,456,156,419,143,334,121"/>
+<area shape="rect" title=" " alt="" coords="552,174,651,199"/>
+<area shape="poly" title=" " alt="" coords="330,116,534,164,549,168,547,173,533,169,329,121"/>
+<area shape="rect" title=" " alt="" coords="36,174,127,199"/>
+<area shape="poly" title=" " alt="" coords="250,121,123,171,121,166,248,116"/>
+<area shape="rect" title=" " alt="" coords="151,174,214,199"/>
+<area shape="poly" title=" " alt="" coords="265,121,209,167,206,163,262,117"/>
+<area shape="rect" title=" " alt="" coords="239,174,316,199"/>
+<area shape="poly" title=" " alt="" coords="280,119,280,160,275,160,275,119"/>
+<area shape="rect" href="a00032.html" title="FiffDigPointSet class declaration." alt="" coords="340,167,471,207"/>
+<area shape="poly" title=" " alt="" coords="298,117,364,157,361,161,295,121"/>
+<area shape="rect" title=" " alt="" coords="364,401,495,427"/>
+<area shape="poly" title=" " alt="" coords="557,356,468,398,465,393,555,351"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="519,401,641,427"/>
+<area shape="poly" title=" " alt="" coords="583,354,583,388,577,388,577,354"/>
+<area shape="rect" title=" " alt="" coords="547,475,613,500"/>
+<area shape="poly" title=" " alt="" coords="583,427,583,461,577,461,577,427"/>
+<area shape="rect" href="a00137.html" title="inverse library export/import macros." alt="" coords="373,328,486,353"/>
+<area shape="poly" title=" " alt="" coords="420,206,432,228,441,254,443,286,439,315,434,314,438,286,436,255,427,230,415,208"/>
+<area shape="rect" href="a00071.html" title="Electric Current Dipole (InvEcd) class declaration." alt="" coords="211,255,295,280"/>
+<area shape="poly" title=" " alt="" coords="370,209,290,250,287,246,368,204"/>
+<area shape="rect" title=" " alt="" coords="225,328,348,353"/>
+<area shape="poly" title=" " alt="" coords="392,209,306,319,302,316,388,206"/>
+<area shape="rect" title=" " alt="" coords="371,255,426,280"/>
+<area shape="poly" title=" " alt="" coords="406,207,403,241,398,241,401,207"/>
+<area shape="rect" title=" " alt="" coords="117,255,187,280"/>
+<area shape="poly" title=" " alt="" coords="345,209,202,254,200,248,344,204"/>
+<area shape="poly" title=" " alt="" coords="432,354,432,388,427,388,427,354"/>
+<area shape="poly" title=" " alt="" coords="455,351,544,393,542,398,452,356"/>
+<area shape="poly" title=" " alt="" coords="283,278,389,320,387,325,281,282"/>
+<area shape="rect" title=" " alt="" coords="109,328,201,353"/>
+<area shape="poly" title=" " alt="" coords="239,282,183,322,180,318,236,278"/>
+<area shape="poly" title=" " alt="" coords="261,279,278,315,273,317,256,281"/>
+<area shape="poly" title=" " alt="" coords="220,283,90,326,89,321,219,277"/>
 </map>
 </div>
 </div>
@@ -301,61 +322,24 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:EVENTSLIB_3A_3AEVENTSINTERNAL_3A_3AEventUpdate" id="r_EVENTSLIB_3A_3AEVENTSINTERNAL_3A_3AEventUpdate"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02413.html">EVENTSLIB::EVENTSINTERNAL::EventUpdate</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializable delta record describing a single event creation, deletion, or modification for shared-memory transport.  <a href="a02413.html#details">More...</a><br /></td></tr>
-<tr class="memitem:EVENTSLIB_3A_3AEVENTSINTERNAL_3A_3AEventSharedMemManager" id="r_EVENTSLIB_3A_3AEVENTSINTERNAL_3A_3AEventSharedMemManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02417.html">EVENTSLIB::EVENTSINTERNAL::EventSharedMemManager</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes and receives event change notifications between processes via a shared-memory ring buffer.  <a href="a02417.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:EVENTSLIB" id="r_EVENTSLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01823.html">EVENTSLIB</a></td></tr>
-<tr class="memdesc:a01823"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02385.html" title="Public event descriptor holding sample index, group membership, and unique identifier.">Event</a> annotation management (creation, grouping, shared-memory transport). <br /></td></tr>
-<tr class="memitem:EVENTSLIB_3A_3AEVENTSINTERNAL" id="r_EVENTSLIB_3A_3AEVENTSINTERNAL"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01824.html">EVENTSLIB::EVENTSINTERNAL</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a025e9a81ba277a75a48caa6acd5cebff" id="r_a025e9a81ba277a75a48caa6acd5cebff"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="a01823.html#a025e9a81ba277a75a48caa6acd5cebff">EVENTSLIB::SharedMemoryMode</a> { <a class="el" href="a01823.html#a025e9a81ba277a75a48caa6acd5cebffa21f5980667446949003773e18b0ffa2c">EVENTSLIB::READ</a>
-, <a class="el" href="a01823.html#a025e9a81ba277a75a48caa6acd5cebffa1feb79c749efd56ff24ecda6f65008bb">EVENTSLIB::WRITE</a>
-, <a class="el" href="a01823.html#a025e9a81ba277a75a48caa6acd5cebffa55c5c8b01d5fcb0f611c09877eab395b">EVENTSLIB::READWRITE</a>
- }</td></tr>
-<tr class="memitem:adfcc6ef5ca938af6c20c084296d7316a" id="r_adfcc6ef5ca938af6c20c084296d7316a"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="a01824.html#adfcc6ef5ca938af6c20c084296d7316a">EVENTSLIB::EVENTSINTERNAL::EventUpdateType</a> { <a class="el" href="a01824.html#adfcc6ef5ca938af6c20c084296d7316aa3d76192d8227b1a26952b0845765bfac">EVENTSLIB::EVENTSINTERNAL::NULL_EVENT</a>
-, <a class="el" href="a01824.html#adfcc6ef5ca938af6c20c084296d7316aaf7362d50bec276f85c3dd8b90953bc37">EVENTSLIB::EVENTSINTERNAL::NEW_EVENT</a>
-, <a class="el" href="a01824.html#adfcc6ef5ca938af6c20c084296d7316aaff88b698899cfd850dc68e2a8ad687ba">EVENTSLIB::EVENTSINTERNAL::DELETE_EVENT</a>
- }</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a4cceaa915083c5e9652c32c820c19b43" id="r_a4cceaa915083c5e9652c32c820c19b43"><td class="memItemLeft">const std::string&#160;</td><td class="memItemRight"><a class="el" href="a01824.html#a4cceaa915083c5e9652c32c820c19b43">EVENTSLIB::EVENTSINTERNAL::EventUpdateTypeString</a> [3] = {&quot;Null Event&quot;, &quot;New Event&quot;, &quot;Delete Event&quot;}</td></tr>
+<tr class="memitem:DipoleObject_3A_3AGpuBuffers" id="r_DipoleObject_3A_3AGpuBuffers"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a02250.html">DipoleObject::GpuBuffers</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>EventSharedMemManager definition. </p>
-<dl class="section author"><dt>Author</dt><dd>Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Juan Garcia-Prieto <a href="#" onclick="location.href='mai'+'lto:'+'jua'+'ng'+'pc@'+'gm'+'ail'+'.c'+'om'; return false;">juang<span class="obfuscator">.nosp@m.</span>pc@g<span class="obfuscator">.nosp@m.</span>mail.<span class="obfuscator">.nosp@m.</span>com</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.8 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March, 2021</dd></dl>
+<div class="textblock"><p><a class="el" href="a02254.html" title="Renderable dipole arrow set with instanced GPU rendering for QRhi.">DipoleObject</a> class definition. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2021, Gabriel Motta, Juan Garcia-Prieto. All rights reserved.</p>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
 <li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
-<dl class="section author"><dt>Author</dt><dd>Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Juan Garcia-Prieto <a href="#" onclick="location.href='mai'+'lto:'+'jua'+'ng'+'pc@'+'gm'+'ail'+'.c'+'om'; return false;">juang<span class="obfuscator">.nosp@m.</span>pc@g<span class="obfuscator">.nosp@m.</span>mail.<span class="obfuscator">.nosp@m.</span>com</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.8 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March, 2021</dd></dl>
-<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
-LICENSE</h1>
-<p>Copyright (C) 2021, Gabriel Motta, Juan Garcia-Prieto. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
-<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
-<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
-<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
-<pre class="fragment">EventSharedMemManager declaration.
-</pre> 
-<p class="definition">Definition in file <a class="el" href="a01517_source.html">eventsharedmemmanager.h</a>.</p>
+
+<p class="definition">Definition in file <a class="el" href="a01517_source.html">dipoleobject.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

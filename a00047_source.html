@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/rtprocessing/averaging.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/inv/dipole_fit/inv_dipole_forward.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,218 +243,25 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_be5bb3afcb9a3543d066161be7c6cdb9.html">rtprocessing</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_b121f4639c206225e3550e4e3ca83e37.html">inv</a></li><li class="navelem"><a href="dir_6766aec9894208e082cb4af25489fcdb.html">dipole_fit</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">averaging.cpp</div></div>
+  <div class="headertitle"><div class="title">inv_dipole_forward.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00047.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a00038.html">averaging.h</a>&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;<a class="code" href="a00062.html">helpers/filterkernel.h</a>&quot;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;<a class="code" href="a00077.html">filter.h</a>&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;<a class="code" href="a01250.html">mne/mne_epoch_data_list.h</a>&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// EIGEN INCLUDES</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01808.html">MNELIB</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// DEFINE GLOBAL RTPROCESSINGLIB METHODS</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><a class="code hl_class" href="a02477.html">FiffEvoked</a> <a class="code hl_function" href="a01815.html#a9552fa167050532febe2af7b7296dde8">RTPROCESSINGLIB::computeAverage</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02529.html">FiffRawData</a>&amp; raw,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                           <span class="keyword">const</span> MatrixXi&amp; matEvents,</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                                           <span class="keywordtype">float</span> fTMinS,</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                                           <span class="keywordtype">float</span> fTMaxS,</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                                           qint32 eventType,</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                                           <span class="keywordtype">bool</span> bApplyBaseline,</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                                           <span class="keywordtype">float</span> fTBaselineFromS,</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                                           <span class="keywordtype">float</span> fTBaselineToS,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                                           <span class="keyword">const</span> QMap&lt;QString,double&gt;&amp; mapReject,</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                                           <span class="keyword">const</span> QStringList&amp; lExcludeChs,</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                                           <span class="keyword">const</span> RowVectorXi&amp; picks)</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>{</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_class" href="a02869.html">MNEEpochDataList</a> lstEpochDataList = <a class="code hl_function" href="a02869.html#a9bbe6732f481487f15f973160da53a34">MNEEpochDataList::readEpochs</a>(raw,</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                                                                     matEvents,</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                                                                     fTMinS,</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                                                                     fTMaxS,</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                                                                     eventType,</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                                                                     mapReject,</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                                                                     lExcludeChs,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                                                                     picks);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">if</span>(bApplyBaseline){</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        QPair&lt;float, float&gt; baselinePair(fTBaselineFromS, fTBaselineToS);</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        lstEpochDataList.<a class="code hl_function" href="a02869.html#a4dd6b7bb66be4c0eb8afa60dc0071b39">applyBaselineCorrection</a>(baselinePair);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">if</span>(!mapReject.isEmpty()){</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        lstEpochDataList.<a class="code hl_function" href="a02869.html#a2be58d48d6e2358d91119bceb4b4f733">dropRejected</a>();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span> lstEpochDataList.<a class="code hl_function" href="a02869.html#a0deb106f494ffd48fede836c25058695">average</a>(raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>,</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                                    0,</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                                    lstEpochDataList.first()-&gt;epoch.cols());</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><a class="code hl_class" href="a02477.html">FiffEvoked</a> <a class="code hl_function" href="a01815.html#ad671cae6a73eca1272170db827ba939b">RTPROCESSINGLIB::computeFilteredAverage</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02529.html">FiffRawData</a>&amp; raw,</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                                                   <span class="keyword">const</span> MatrixXi&amp; matEvents,</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                                                   <span class="keywordtype">float</span> fTMinS,</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                                                   <span class="keywordtype">float</span> fTMaxS,</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                                                   qint32 eventType,</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                                                   <span class="keywordtype">bool</span> bApplyBaseline,</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                                                   <span class="keywordtype">float</span> fTBaselineFromS,</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                                                   <span class="keywordtype">float</span> fTBaselineToS,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                                                   <span class="keyword">const</span> QMap&lt;QString,double&gt;&amp; mapReject,</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                                                   <span class="keyword">const</span> FilterKernel&amp; filterKernel,</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                                                   <span class="keyword">const</span> QStringList&amp; lExcludeChs,</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                                                   <span class="keyword">const</span> RowVectorXi&amp; picks)</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>{</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_class" href="a02869.html">MNEEpochDataList</a> lstEpochDataList;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="comment">// Select the desired events</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    qint32 count = 0;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    qint32 p;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    MatrixXi selected = MatrixXi::Zero(1, matEvents.rows());</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">for</span> (p = 0; p &lt; matEvents.rows(); ++p)</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">if</span> (matEvents(p,1) == 0 &amp;&amp; matEvents(p,2) == eventType)</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        {</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            selected(0,count) = p;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            ++count;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    selected.conservativeResize(1, count);</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">if</span> (count &gt; 0) {</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        qInfo(<span class="stringliteral">&quot;[RTPROCESSINGLIB::computeFilteredAverage] %d matching events found&quot;</span>,count);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    }</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="comment">// If picks are empty, pick all</span></div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    RowVectorXi picksNew = picks;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keywordflow">if</span>(picks.cols() &lt;= 0) {</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        picksNew.resize(raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a02513.html#aa07b3b770d7fe65ac065e01461688e04">chs</a>.size());</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a02513.html#aa07b3b770d7fe65ac065e01461688e04">chs</a>.size(); ++i) {</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            picksNew(i) = i;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        }</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <a class="code hl_typedef" href="a01810.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> event_samp, from, to;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <a class="code hl_typedef" href="a01810.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> dropCount = 0;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    MatrixXd timesDummy;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    MatrixXd times;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    std::unique_ptr&lt;MNEEpochData&gt; epoch;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordtype">int</span> iFilterDelay = filterKernel.getFilterOrder()/2;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">for</span> (p = 0; p &lt; count; ++p) {</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="comment">// Read a data segment</span></div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        event_samp = matEvents(selected(p),0);</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        from = event_samp + fTMinS*raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a02509.html#a963c80bf73b01ed07eb1a31540cf308c">sfreq</a>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        to   = event_samp + floor(fTMaxS*raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a02509.html#a963c80bf73b01ed07eb1a31540cf308c">sfreq</a> + 0.5);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        epoch = std::make_unique&lt;MNEEpochData&gt;();</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">if</span>(raw.<a class="code hl_function" href="a02529.html#a40d816b15fb9f590a49677316a75eb8b">read_raw_segment</a>(epoch-&gt;epoch, timesDummy, from - iFilterDelay, to + iFilterDelay, picksNew)) {</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            <span class="comment">// Filter the data</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>            epoch-&gt;epoch = <a class="code hl_function" href="a01815.html#a47f40c0eb49b71a791092f4d7b4adebd">RTPROCESSINGLIB::filterData</a>(epoch-&gt;epoch,filterKernel).block(0, iFilterDelay, epoch-&gt;epoch.rows(), to-from);</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>            <span class="keywordflow">if</span> (p == 0) {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                times.resize(1, to-from+1);</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>                <span class="keywordflow">for</span> (qint32 i = 0; i &lt; times.cols(); ++i)</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                    times(0, i) = ((float)(from-event_samp+i)) / raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a02509.html#a963c80bf73b01ed07eb1a31540cf308c">sfreq</a>;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            }</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            epoch-&gt;event = eventType;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            epoch-&gt;tmin = fTMinS;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            epoch-&gt;tmax = fTMaxS;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            epoch-&gt;bReject = <a class="code hl_function" href="a02869.html#af222809fd9d42e15cc367169114f3d4e">MNEEpochDataList::checkForArtifact</a>(epoch-&gt;epoch,</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                                                                raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>,</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                                                                mapReject,</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                                                                lExcludeChs);</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>            <span class="keywordflow">if</span> (epoch-&gt;bReject) {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                dropCount++;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>            }</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <span class="comment">//Check if data block has the same size as the previous one</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="keywordflow">if</span>(!lstEpochDataList.isEmpty()) {</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                <span class="keywordflow">if</span>(epoch-&gt;epoch.size() == lstEpochDataList.last()-&gt;epoch.size()) {</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                    lstEpochDataList.append(<a class="code hl_typedef" href="a02861.html#a8c7db76c1ed6c28c008fe03ad6b6c5b9">MNEEpochData::SPtr</a>(epoch.release()));<span class="comment">//List takes ownwership of the pointer - no delete need</span></div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                }</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                lstEpochDataList.append(<a class="code hl_typedef" href="a02861.html#a8c7db76c1ed6c28c008fe03ad6b6c5b9">MNEEpochData::SPtr</a>(epoch.release()));<span class="comment">//List takes ownwership of the pointer - no delete need</span></div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            }</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            qWarning(<span class="stringliteral">&quot;[MNEEpochDataList::readEpochs] Can&#39;t read the event data segments.&quot;</span>);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        }</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    }</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    qInfo().noquote() &lt;&lt; <span class="stringliteral">&quot;[MNEEpochDataList::readEpochs] Read a total of&quot;</span>&lt;&lt; lstEpochDataList.size() &lt;&lt;<span class="stringliteral">&quot;epochs of type&quot;</span> &lt;&lt; eventType &lt;&lt; <span class="stringliteral">&quot;and marked&quot;</span>&lt;&lt; dropCount &lt;&lt;<span class="stringliteral">&quot;for rejection.&quot;</span>;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">if</span>(bApplyBaseline){</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        QPair&lt;float, float&gt; baselinePair(fTBaselineFromS, fTBaselineToS);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        lstEpochDataList.<a class="code hl_function" href="a02869.html#a4dd6b7bb66be4c0eb8afa60dc0071b39">applyBaselineCorrection</a>(baselinePair);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">if</span>(!mapReject.isEmpty()){</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        lstEpochDataList.<a class="code hl_function" href="a02869.html#a2be58d48d6e2358d91119bceb4b4f733">dropRejected</a>();</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordflow">return</span> lstEpochDataList.<a class="code hl_function" href="a02869.html#a0deb106f494ffd48fede836c25058695">average</a>(raw.<a class="code hl_variable" href="a02529.html#a30074ee25c17578db14b98a473092061">info</a>,</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                                    0,</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                                    lstEpochDataList.first()-&gt;epoch.cols());</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>}</div>
-<div class="ttc" id="aa00038_html"><div class="ttname"><a href="a00038.html">averaging.h</a></div><div class="ttdoc">Averaging declarations.</div></div>
-<div class="ttc" id="aa00062_html"><div class="ttname"><a href="a00062.html">filterkernel.h</a></div><div class="ttdoc">The FilterKernel class represents a filter object that generates the FIR filter coefficients using Pa...</div></div>
-<div class="ttc" id="aa00077_html"><div class="ttname"><a href="a00077.html">filter.h</a></div><div class="ttdoc">Filter declarations.</div></div>
-<div class="ttc" id="aa01250_html"><div class="ttname"><a href="a01250.html">mne_epoch_data_list.h</a></div><div class="ttdoc">MNEEpochDataList class declaration.</div></div>
-<div class="ttc" id="aa01808_html"><div class="ttname"><a href="a01808.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00063">connectivitysettings.h:63</a></div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa01810_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a01810.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00089">fiff_types.h:89</a></div></div>
-<div class="ttc" id="aa01815_html_a47f40c0eb49b71a791092f4d7b4adebd"><div class="ttname"><a href="a01815.html#a47f40c0eb49b71a791092f4d7b4adebd">RTPROCESSINGLIB::filterData</a></div><div class="ttdeci">RTPROCESSINGSHARED_EXPORT Eigen::MatrixXd filterData(const Eigen::MatrixXd &amp;matData, int type, double dCenterfreq, double dBandwidth, double dTransition, double dSFreq, int iOrder=1024, int designMethod=FilterKernel::m_designMethods.indexOf(FilterParameter(&quot;Cosine&quot;)), const Eigen::RowVectorXi &amp;vecPicks=Eigen::RowVectorXi(), bool bUseThreads=true, bool bKeepOverhead=false)</div></div>
-<div class="ttc" id="aa01815_html_a9552fa167050532febe2af7b7296dde8"><div class="ttname"><a href="a01815.html#a9552fa167050532febe2af7b7296dde8">RTPROCESSINGLIB::computeAverage</a></div><div class="ttdeci">RTPROCESSINGSHARED_EXPORT FIFFLIB::FiffEvoked computeAverage(const FIFFLIB::FiffRawData &amp;raw, const Eigen::MatrixXi &amp;matEvents, float fTMinS, float fTMaxS, qint32 eventType, bool bApplyBaseline, float fTBaselineFromS, float fTBaselineToS, const QMap&lt; QString, double &gt; &amp;mapReject, const QStringList &amp;lExcludeChs=QStringList(), const Eigen::RowVectorXi &amp;vecPicks=Eigen::RowVectorXi())</div></div>
-<div class="ttc" id="aa01815_html_ad671cae6a73eca1272170db827ba939b"><div class="ttname"><a href="a01815.html#ad671cae6a73eca1272170db827ba939b">RTPROCESSINGLIB::computeFilteredAverage</a></div><div class="ttdeci">RTPROCESSINGSHARED_EXPORT FIFFLIB::FiffEvoked computeFilteredAverage(const FIFFLIB::FiffRawData &amp;raw, const Eigen::MatrixXi &amp;matEvents, float fTMinS, float fTMaxS, qint32 eventType, bool bApplyBaseline, float fTBaselineFromS, float fTBaselineToS, const QMap&lt; QString, double &gt; &amp;mapReject, const FilterKernel &amp;filterKernel, const QStringList &amp;lExcludeChs=QStringList(), const Eigen::RowVectorXi &amp;vecPicks=Eigen::RowVectorXi())</div></div>
-<div class="ttc" id="aa02477_html"><div class="ttname"><a href="a02477.html">FIFFLIB::FiffEvoked</a></div><div class="ttdoc">evoked data</div><div class="ttdef"><b>Definition</b> <a href="a00554_source.html#l00077">fiff_evoked.h:78</a></div></div>
-<div class="ttc" id="aa02509_html_a963c80bf73b01ed07eb1a31540cf308c"><div class="ttname"><a href="a02509.html#a963c80bf73b01ed07eb1a31540cf308c">FIFFLIB::FiffInfo::sfreq</a></div><div class="ttdeci">float sfreq</div><div class="ttdef"><b>Definition</b> <a href="a00455_source.html#l00267">fiff_info.h:267</a></div></div>
-<div class="ttc" id="aa02513_html_aa07b3b770d7fe65ac065e01461688e04"><div class="ttname"><a href="a02513.html#aa07b3b770d7fe65ac065e01461688e04">FIFFLIB::FiffInfoBase::chs</a></div><div class="ttdeci">QList&lt; FiffChInfo &gt; chs</div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00249">fiff_info_base.h:249</a></div></div>
-<div class="ttc" id="aa02529_html"><div class="ttname"><a href="a02529.html">FIFFLIB::FiffRawData</a></div><div class="ttdoc">FIFF raw measurement data.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00079">fiff_raw_data.h:80</a></div></div>
-<div class="ttc" id="aa02529_html_a30074ee25c17578db14b98a473092061"><div class="ttname"><a href="a02529.html#a30074ee25c17578db14b98a473092061">FIFFLIB::FiffRawData::info</a></div><div class="ttdeci">FiffInfo info</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00218">fiff_raw_data.h:218</a></div></div>
-<div class="ttc" id="aa02529_html_a40d816b15fb9f590a49677316a75eb8b"><div class="ttname"><a href="a02529.html#a40d816b15fb9f590a49677316a75eb8b">FIFFLIB::FiffRawData::read_raw_segment</a></div><div class="ttdeci">bool read_raw_segment(Eigen::MatrixXd &amp;data, Eigen::MatrixXd &amp;times, fiff_int_t from=-1, fiff_int_t to=-1, const Eigen::RowVectorXi &amp;sel=defaultRowVectorXi, bool do_debug=false) const</div></div>
-<div class="ttc" id="aa02861_html_a8c7db76c1ed6c28c008fe03ad6b6c5b9"><div class="ttname"><a href="a02861.html#a8c7db76c1ed6c28c008fe03ad6b6c5b9">MNELIB::MNEEpochData::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; MNEEpochData &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="a01265_source.html#l00077">mne_epoch_data.h:77</a></div></div>
-<div class="ttc" id="aa02869_html"><div class="ttname"><a href="a02869.html">MNELIB::MNEEpochDataList</a></div><div class="ttdoc">Epoch data list.</div><div class="ttdef"><b>Definition</b> <a href="a01250_source.html#l00081">mne_epoch_data_list.h:82</a></div></div>
-<div class="ttc" id="aa02869_html_a0deb106f494ffd48fede836c25058695"><div class="ttname"><a href="a02869.html#a0deb106f494ffd48fede836c25058695">MNELIB::MNEEpochDataList::average</a></div><div class="ttdeci">FIFFLIB::FiffEvoked average(const FIFFLIB::FiffInfo &amp;p_info, FIFFLIB::fiff_int_t first, FIFFLIB::fiff_int_t last, Eigen::VectorXi sel=FIFFLIB::defaultVectorXi, bool proj=false)</div><div class="ttdef"><b>Definition</b> <a href="a01112_source.html#l00181">mne_epoch_data_list.cpp:181</a></div></div>
-<div class="ttc" id="aa02869_html_a2be58d48d6e2358d91119bceb4b4f733"><div class="ttname"><a href="a02869.html#a2be58d48d6e2358d91119bceb4b4f733">MNELIB::MNEEpochDataList::dropRejected</a></div><div class="ttdeci">void dropRejected()</div><div class="ttdef"><b>Definition</b> <a href="a01112_source.html#l00253">mne_epoch_data_list.cpp:253</a></div></div>
-<div class="ttc" id="aa02869_html_a4dd6b7bb66be4c0eb8afa60dc0071b39"><div class="ttname"><a href="a02869.html#a4dd6b7bb66be4c0eb8afa60dc0071b39">MNELIB::MNEEpochDataList::applyBaselineCorrection</a></div><div class="ttdeci">void applyBaselineCorrection(const QPair&lt; float, float &gt; &amp;baseline)</div><div class="ttdef"><b>Definition</b> <a href="a01112_source.html#l00242">mne_epoch_data_list.cpp:242</a></div></div>
-<div class="ttc" id="aa02869_html_a9bbe6732f481487f15f973160da53a34"><div class="ttname"><a href="a02869.html#a9bbe6732f481487f15f973160da53a34">MNELIB::MNEEpochDataList::readEpochs</a></div><div class="ttdeci">static MNEEpochDataList readEpochs(const FIFFLIB::FiffRawData &amp;raw, const Eigen::MatrixXi &amp;events, float tmin, float tmax, qint32 event, const QMap&lt; QString, double &gt; &amp;mapReject, const QStringList &amp;lExcludeChs=QStringList(), const Eigen::RowVectorXi &amp;picks=Eigen::RowVectorXi())</div><div class="ttdef"><b>Definition</b> <a href="a01112_source.html#l00086">mne_epoch_data_list.cpp:86</a></div></div>
-<div class="ttc" id="aa02869_html_af222809fd9d42e15cc367169114f3d4e"><div class="ttname"><a href="a02869.html#af222809fd9d42e15cc367169114f3d4e">MNELIB::MNEEpochDataList::checkForArtifact</a></div><div class="ttdeci">static bool checkForArtifact(const Eigen::MatrixXd &amp;data, const FIFFLIB::FiffInfo &amp;pFiffInfo, const QMap&lt; QString, double &gt; &amp;mapReject, const QStringList &amp;lExcludeChs=QStringList())</div><div class="ttdef"><b>Definition</b> <a href="a01112_source.html#l00275">mne_epoch_data_list.cpp:275</a></div></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;<a class="code" href="a00056.html">inv_dipole_forward.h</a>&quot;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// Constructor and destructor are defaulted in the header.</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// Eigen members handle their own memory automatically.</span></div>
+<div class="ttc" id="aa00056_html"><div class="ttname"><a href="a00056.html">inv_dipole_forward.h</a></div><div class="ttdoc">InvDipoleForward class declaration.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

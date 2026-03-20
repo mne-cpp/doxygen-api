@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/inverse/hpi/inv_sensor_set.cpp File Reference</title>
+    <title>MNE-CPP: DISPLIB Namespace Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -206,175 +241,424 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_da00284eb508be172557aef63038345c.html">inverse</a></li><li class="navelem"><a href="dir_6135a5dc8675f07c3195b7f18ad26372.html">hpi</a></li>  </ul>
-</div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">inv_sensor_set.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">DISPLIB Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a02725.html" title="Stores MEG sensor geometry (positions, orientations, weights, coil count) for a single sensor type.">InvSensorSet</a> class definition.  
+<p>2-D display widgets and visualisation helpers (charts, topography, colour maps).  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01760_source.html">inv_sensor_set.h</a>&quot;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01637_source.html">fwd/fwd_coil_set.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00542_source.html">fiff/fiff_ch_info.h</a>&gt;</code><br />
-<code>#include &lt;QCoreApplication&gt;</code><br />
-<code>#include &lt;Eigen/Dense&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for inv_sensor_set.cpp:</div>
-<div class="dyncontent">
-<div class="center"><img src="a01773.png" border="0" usemap="#asrc_2libraries_2inverse_2hpi_2inv__sensor__set_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2inverse_2hpi_2inv__sensor__set_8cpp" id="asrc_2libraries_2inverse_2hpi_2inv__sensor__set_8cpp">
-<area shape="rect" title="InvSensorSet class definition." alt="" coords="451,5,626,45"/>
-<area shape="rect" href="a01760.html" title="InvSensorSet class declaration." alt="" coords="51,460,181,485"/>
-<area shape="poly" title=" " alt="" coords="452,45,355,66,254,96,211,115,176,134,153,156,147,167,145,178,145,327,139,393,126,448,121,446,133,392,140,327,140,178,142,165,149,153,173,130,208,110,252,91,353,61,451,39"/>
-<area shape="rect" title=" " alt="" coords="567,93,647,119"/>
-<area shape="poly" title=" " alt="" coords="557,44,590,81,586,84,553,47"/>
-<area shape="rect" href="a01637.html" title="FwdCoilSet class declaration." alt="" coords="401,93,543,119"/>
-<area shape="poly" title=" " alt="" coords="525,47,493,84,489,81,521,44"/>
-<area shape="rect" href="a00542.html" title="FiffChInfo class declaration." alt="" coords="409,387,535,412"/>
-<area shape="poly" title=" " alt="" coords="455,48,419,67,404,79,391,95,383,101,372,100,346,88,319,71,299,63,295,64,293,71,303,112,338,197,405,337,421,359,441,377,438,381,417,363,400,340,333,199,297,113,288,70,291,60,300,57,322,67,349,83,373,95,382,96,388,91,400,76,416,62,453,43"/>
-<area shape="rect" title=" " alt="" coords="671,93,806,119"/>
-<area shape="poly" title=" " alt="" coords="588,43,698,86,696,91,586,48"/>
-<area shape="rect" title=" " alt="" coords="830,93,933,119"/>
-<area shape="poly" title=" " alt="" coords="621,43,819,88,817,93,620,48"/>
-<area shape="rect" href="a01799.html" title="inverse library export/import macros." alt="" coords="1079,680,1193,705"/>
-<area shape="poly" title=" " alt="" coords="121,485,129,516,144,556,168,597,183,615,201,630,220,638,250,645,337,658,583,675,854,685,1066,688,1065,693,854,690,583,681,336,663,249,650,218,643,199,634,179,619,163,600,139,558,124,517,116,486"/>
-<area shape="rect" title=" " alt="" coords="5,533,80,559"/>
-<area shape="poly" title=" " alt="" coords="106,488,66,526,63,522,102,484"/>
-<area shape="rect" title=" " alt="" coords="691,533,813,559"/>
-<area shape="poly" title=" " alt="" coords="182,479,677,534,677,539,181,484"/>
-<area shape="rect" title=" " alt="" coords="325,607,417,632"/>
-<area shape="poly" title=" " alt="" coords="134,483,252,556,334,598,332,603,249,561,132,488"/>
-<area shape="rect" title=" " alt="" coords="1379,753,1509,779"/>
-<area shape="poly" title=" " alt="" coords="1186,703,1382,748,1381,753,1185,708"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="1232,753,1355,779"/>
-<area shape="poly" title=" " alt="" coords="1162,703,1256,745,1254,750,1160,708"/>
-<area shape="rect" title=" " alt="" coords="1260,827,1327,852"/>
-<area shape="poly" title=" " alt="" coords="1296,779,1296,813,1291,813,1291,779"/>
-<area shape="poly" title=" " alt="" coords="468,120,452,159,435,216,431,247,431,279,436,309,449,337,469,358,491,366,518,372,548,384,652,458,731,522,727,527,649,462,545,389,516,377,490,371,466,362,444,340,431,311,425,279,425,247,430,215,447,157,464,118"/>
-<area shape="poly" title=" " alt="" coords="464,121,403,199,366,254,334,314,319,353,311,385,304,460,303,489,307,510,329,557,354,594,350,597,324,560,302,512,298,489,299,460,306,384,314,352,330,312,361,252,398,195,460,117"/>
-<area shape="rect" href="a01631.html" title="Forward library export/import macros." alt="" coords="1943,240,2047,265"/>
-<area shape="poly" title=" " alt="" coords="543,115,555,116,651,119,813,120,1243,120,1469,123,1671,131,1830,144,1886,153,1922,164,1942,177,1959,193,1984,226,1980,230,1955,196,1939,181,1920,169,1884,158,1829,149,1671,136,1469,129,1243,126,813,125,651,124,554,121,542,120"/>
-<area shape="rect" href="a01619.html" title="FwdCoil class declaration." alt="" coords="521,167,607,192"/>
-<area shape="poly" title=" " alt="" coords="488,117,540,156,537,160,485,121"/>
-<area shape="rect" href="a00596.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="1169,533,1263,559"/>
-<area shape="poly" title=" " alt="" coords="543,115,555,116,656,121,828,123,1047,126,1285,132,1516,145,1620,155,1713,167,1792,182,1852,201,1891,223,1902,237,1905,251,1905,328,1903,347,1895,362,1884,373,1870,382,1837,395,1800,414,1742,457,1715,473,1678,488,1570,517,1460,535,1359,544,1277,547,1277,542,1358,539,1459,530,1569,512,1676,483,1713,468,1740,452,1797,410,1834,390,1868,377,1881,369,1891,359,1898,346,1900,327,1900,252,1897,239,1887,227,1850,206,1790,187,1713,172,1620,160,1515,151,1285,138,1047,131,828,128,655,126,554,121,542,120"/>
-<area shape="rect" title=" " alt="" coords="459,313,536,339"/>
-<area shape="poly" title=" " alt="" coords="476,119,497,299,492,299,471,119"/>
-<area shape="rect" title=" " alt="" coords="631,167,694,192"/>
-<area shape="poly" title=" " alt="" coords="504,116,620,159,618,164,502,121"/>
-<area shape="poly" title=" " alt="" coords="2004,264,2033,320,2045,358,2051,398,2051,621,2050,648,2046,670,2037,689,2017,708,1991,718,1944,728,1811,744,1523,764,1523,758,1810,739,1943,723,1989,713,2015,703,2032,686,2041,668,2045,647,2045,621,2045,398,2040,359,2028,322,2000,267"/>
-<area shape="poly" title=" " alt="" coords="1998,266,2000,398,2000,622,1979,632,1925,646,1752,682,1369,754,1368,749,1751,677,1924,641,1977,627,1995,619,1995,398,1992,266"/>
-<area shape="poly" title=" " alt="" coords="532,195,471,222,436,241,402,265,371,292,346,324,329,359,323,398,323,474,326,507,335,540,359,594,355,596,330,542,321,508,317,474,317,398,324,357,341,321,367,289,399,261,434,237,469,217,530,190"/>
-<area shape="poly" title=" " alt="" coords="608,188,619,189,740,201,899,211,1282,228,1929,247,1929,253,1282,234,899,217,739,206,618,195,607,193"/>
-<area shape="rect" href="a00602.html" title="FiffCoordTrans class declaration." alt="" coords="1192,240,1347,265"/>
-<area shape="poly" title=" " alt="" coords="608,188,619,189,773,209,926,225,1179,244,1178,249,926,230,772,215,618,195,607,193"/>
-<area shape="poly" title=" " alt="" coords="565,193,558,226,544,267,519,304,514,301,539,264,553,225,560,192"/>
-<area shape="poly" title=" " alt="" coords="1192,262,1055,275,893,299,816,316,748,336,693,360,673,374,658,388,651,402,653,412,660,422,672,431,701,445,722,458,739,489,749,519,744,521,734,491,718,462,699,450,669,435,656,426,648,414,646,401,654,385,670,370,691,356,746,331,815,310,892,294,1054,270,1191,256"/>
-<area shape="poly" title=" " alt="" coords="1192,263,985,283,735,316,561,344,455,367,417,378,398,389,382,412,370,438,363,466,360,494,361,549,368,593,362,594,356,550,355,494,358,465,365,436,377,409,394,385,415,373,454,361,560,339,734,311,985,277,1192,257"/>
-<area shape="rect" href="a00458.html" title="Fiff library export/import macros." alt="" coords="1320,680,1419,705"/>
-<area shape="poly" title=" " alt="" coords="1347,253,1419,258,1503,269,1593,286,1679,311,1750,335,1776,354,1801,385,1837,452,1849,483,1856,513,1857,543,1851,573,1837,603,1814,634,1788,653,1749,668,1700,678,1646,686,1532,694,1433,695,1433,690,1531,689,1645,681,1699,673,1747,662,1785,648,1810,630,1832,600,1846,571,1852,543,1851,514,1844,485,1832,454,1796,388,1773,358,1747,340,1678,316,1591,291,1502,274,1418,264,1347,259"/>
-<area shape="poly" title=" " alt="" coords="1348,261,1488,283,1641,317,1707,337,1756,359,1772,372,1782,385,1785,399,1778,414,1764,428,1744,442,1692,466,1627,486,1554,503,1402,528,1277,542,1277,537,1402,523,1553,498,1625,481,1690,461,1741,437,1760,424,1774,410,1779,398,1777,387,1768,375,1753,364,1705,342,1640,322,1487,289,1347,267"/>
-<area shape="rect" href="a00482.html" title="FiffStream class declaration." alt="" coords="1217,313,1321,339"/>
-<area shape="poly" title=" " alt="" coords="1272,266,1272,300,1267,300,1267,266"/>
-<area shape="rect" href="a00530.html" title="FiffDirNode class declaration, which provides fiff dir tree processing methods." alt="" coords="1433,387,1548,412"/>
-<area shape="poly" title=" " alt="" coords="1289,263,1463,377,1460,381,1286,268"/>
-<area shape="rect" title=" " alt="" coords="1673,387,1764,412"/>
-<area shape="poly" title=" " alt="" coords="1306,263,1671,380,1669,385,1304,268"/>
-<area shape="poly" title=" " alt="" coords="1192,260,911,279,733,295,555,316,550,317,549,311,554,311,733,289,910,273,1192,255"/>
-<area shape="poly" title=" " alt="" coords="1383,703,1424,742,1420,746,1379,707"/>
-<area shape="poly" title=" " alt="" coords="1359,707,1318,746,1314,742,1355,703"/>
-<area shape="poly" title=" " alt="" coords="1168,554,431,616,430,610,1168,549"/>
-<area shape="rect" href="a00473.html" title="Fiff constants." alt="" coords="1513,607,1634,632"/>
-<area shape="poly" title=" " alt="" coords="1264,554,1503,601,1502,607,1263,559"/>
-<area shape="rect" href="a00584.html" title="FiffTime class declaration." alt="" coords="1269,607,1357,632"/>
-<area shape="poly" title=" " alt="" coords="1233,557,1288,596,1285,600,1230,561"/>
-<area shape="rect" href="a00470.html" title="FiffDataRef class declaration." alt="" coords="1134,607,1245,632"/>
-<area shape="poly" title=" " alt="" coords="1214,560,1201,595,1196,593,1209,558"/>
-<area shape="rect" title=" " alt="" coords="1382,607,1437,632"/>
-<area shape="poly" title=" " alt="" coords="1248,556,1370,601,1368,606,1246,561"/>
-<area shape="rect" title=" " alt="" coords="1659,607,1752,632"/>
-<area shape="poly" title=" " alt="" coords="1264,551,1428,572,1645,604,1645,609,1428,577,1263,556"/>
-<area shape="rect" title=" " alt="" coords="951,607,1007,632"/>
-<area shape="poly" title=" " alt="" coords="1179,561,1020,608,1019,603,1177,556"/>
-<area shape="rect" title=" " alt="" coords="1031,607,1110,632"/>
-<area shape="poly" title=" " alt="" coords="1194,561,1108,603,1105,598,1191,556"/>
-<area shape="poly" title=" " alt="" coords="1325,631,1354,668,1350,671,1320,634"/>
-<area shape="rect" title=" " alt="" coords="1217,680,1295,705"/>
-<area shape="poly" title=" " alt="" coords="1306,634,1276,671,1272,667,1302,631"/>
-<area shape="poly" title=" " alt="" coords="1219,630,1328,672,1326,677,1217,635"/>
-<area shape="poly" title=" " alt="" coords="1202,631,1238,668,1234,672,1198,634"/>
-<area shape="poly" title=" " alt="" coords="1259,341,1219,376,1163,414,1073,456,981,489,894,515,821,533,820,528,893,509,979,484,1071,451,1160,410,1215,372,1256,337"/>
-<area shape="poly" title=" " alt="" coords="1217,332,1085,337,921,348,777,365,727,376,702,389,697,399,702,410,721,427,741,435,763,436,786,433,809,431,832,432,854,440,874,458,882,473,883,489,871,518,849,543,827,561,795,575,752,587,645,604,529,614,431,619,430,614,529,609,644,599,751,582,793,570,824,556,846,539,867,515,877,488,876,475,870,462,851,445,831,437,809,436,786,439,763,441,740,440,718,432,698,414,692,399,698,385,726,371,776,360,921,343,1084,332,1217,326"/>
-<area shape="poly" title=" " alt="" coords="1322,324,1380,327,1451,336,1525,355,1561,368,1595,384,1667,429,1719,473,1740,499,1758,528,1793,606,1798,620,1793,634,1768,652,1731,666,1686,677,1635,684,1527,693,1433,695,1433,689,1527,687,1634,679,1685,671,1730,661,1765,647,1789,630,1792,620,1788,608,1754,531,1736,502,1715,477,1664,433,1592,389,1559,373,1523,360,1450,342,1380,333,1321,329"/>
-<area shape="poly" title=" " alt="" coords="1269,340,1225,520,1220,519,1264,338"/>
-<area shape="poly" title=" " alt="" coords="1275,338,1295,401,1329,484,1363,544,1395,594,1391,597,1358,547,1324,486,1290,403,1270,340"/>
-<area shape="poly" title=" " alt="" coords="1322,323,1375,326,1438,336,1502,354,1533,368,1562,384,1589,407,1613,433,1653,490,1682,547,1700,593,1695,595,1677,550,1649,493,1609,436,1585,411,1558,389,1530,372,1500,359,1437,341,1375,332,1322,329"/>
-<area shape="rect" href="a00545.html" title="FiffId class declaration." alt="" coords="1142,460,1213,485"/>
-<area shape="poly" title=" " alt="" coords="1264,341,1194,450,1190,447,1260,338"/>
-<area shape="poly" title=" " alt="" coords="1306,336,1443,380,1441,385,1304,341"/>
-<area shape="rect" href="a00494.html" title="FiffDirEntry class declaration." alt="" coords="1339,460,1453,485"/>
-<area shape="poly" title=" " alt="" coords="1299,337,1333,356,1366,385,1384,415,1394,445,1389,447,1379,417,1362,388,1330,360,1296,341"/>
-<area shape="rect" title=" " alt="" coords="712,387,848,412"/>
-<area shape="poly" title=" " alt="" coords="1217,338,863,389,862,383,1217,332"/>
-<area shape="rect" title=" " alt="" coords="873,387,970,412"/>
-<area shape="poly" title=" " alt="" coords="1218,341,984,388,983,383,1217,335"/>
-<area shape="rect" title=" " alt="" coords="994,387,1105,412"/>
-<area shape="poly" title=" " alt="" coords="1235,341,1098,385,1097,380,1233,336"/>
-<area shape="poly" title=" " alt="" coords="1322,332,1655,384,1660,385,1659,390,1654,389,1321,338"/>
-<area shape="rect" title=" " alt="" coords="790,460,861,485"/>
-<area shape="poly" title=" " alt="" coords="1254,341,1195,377,1117,414,1053,435,987,450,874,469,874,463,986,445,1051,430,1115,410,1193,373,1251,336"/>
-<area shape="poly" title=" " alt="" coords="1142,484,1123,488,828,536,827,531,1122,483,1141,479"/>
-<area shape="poly" title=" " alt="" coords="1142,484,1067,506,1025,521,986,538,954,559,933,581,928,592,928,604,932,617,941,630,966,648,1004,660,1051,668,1104,672,1213,674,1306,678,1306,683,1213,679,1104,677,1051,673,1003,666,964,653,937,634,927,619,922,605,923,591,929,578,951,554,983,534,1023,516,1065,500,1141,479"/>
-<area shape="poly" title=" " alt="" coords="1186,484,1206,520,1201,523,1181,487"/>
-<area shape="poly" title=" " alt="" coords="1433,408,1294,426,1211,442,1130,463,1102,475,1073,488,944,519,828,538,827,533,943,514,1071,483,1100,470,1128,457,1210,437,1293,421,1432,403"/>
-<area shape="poly" title=" " alt="" coords="1527,410,1615,444,1665,467,1712,495,1752,526,1777,560,1784,578,1784,596,1779,615,1766,634,1743,651,1709,664,1620,682,1521,691,1432,694,1432,689,1520,686,1620,677,1708,659,1740,646,1762,630,1774,613,1779,595,1778,579,1773,562,1748,530,1709,499,1662,472,1613,448,1525,415"/>
-<area shape="poly" title=" " alt="" coords="1493,413,1488,449,1480,470,1467,487,1435,505,1386,520,1278,540,1277,535,1385,515,1433,500,1464,483,1476,467,1483,448,1488,412"/>
-<area shape="poly" title=" " alt="" coords="1498,411,1516,459,1567,593,1562,595,1511,461,1493,413"/>
-<area shape="poly" title=" " alt="" coords="1496,412,1499,446,1495,486,1482,519,1465,549,1430,598,1426,595,1461,546,1477,516,1489,485,1494,446,1490,413"/>
-<area shape="poly" title=" " alt="" coords="1504,410,1686,595,1682,598,1500,414"/>
-<area shape="poly" title=" " alt="" coords="1441,415,1227,463,1226,458,1440,409"/>
-<area shape="poly" title=" " alt="" coords="1477,414,1424,454,1421,449,1474,410"/>
-<area shape="poly" title=" " alt="" coords="1339,483,827,539,827,534,1338,478"/>
-<area shape="poly" title=" " alt="" coords="1408,484,1427,511,1447,548,1458,591,1457,612,1450,633,1432,657,1408,675,1405,671,1428,654,1446,631,1452,611,1453,591,1442,550,1423,514,1404,487"/>
-<area shape="poly" title=" " alt="" coords="1368,488,1259,531,1257,526,1366,483"/>
-<area shape="poly" title=" " alt="" coords="475,412,480,448,487,467,499,483,528,500,573,513,677,533,676,538,572,519,526,505,496,487,482,470,475,449,469,413"/>
-<area shape="poly" title=" " alt="" coords="469,413,384,595,380,593,464,411"/>
-<area shape="poly" title=" " alt="" coords="455,414,399,453,367,480,337,509,313,540,299,572,296,587,298,602,304,616,314,630,329,636,360,642,464,652,773,665,1306,678,1306,683,773,671,464,657,359,647,327,641,310,634,299,619,293,603,291,587,293,570,308,537,333,505,363,476,396,449,452,410"/>
-<area shape="poly" title=" " alt="" coords="508,409,627,445,778,483,881,501,984,517,1155,536,1154,542,984,522,880,507,777,488,625,450,506,415"/>
-<area shape="poly" title=" " alt="" coords="529,409,777,459,776,464,528,415"/>
-<area shape="rect" href="a00449.html" title="FiffChPos class declaration." alt="" coords="510,460,613,485"/>
-<area shape="poly" title=" " alt="" coords="488,410,538,449,534,453,485,414"/>
-<area shape="poly" title=" " alt="" coords="593,483,709,526,707,531,591,488"/>
-<area shape="poly" title=" " alt="" coords="576,483,620,519,680,556,767,595,843,622,913,638,981,648,1124,658,1209,665,1307,677,1306,683,1208,671,1124,664,980,653,912,643,842,627,765,600,677,561,617,523,572,488"/>
-<area shape="poly" title=" " alt="" coords="613,480,632,483,925,516,1155,537,1155,542,925,521,632,488,613,485"/>
-</map>
-</div>
-</div>
-<p><a href="a01772_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:ChannelInfoModelRoles" id="r_ChannelInfoModelRoles"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01774.html">ChannelInfoModelRoles</a></td></tr>
+<tr class="memitem:EvokedSetModelRoles" id="r_EvokedSetModelRoles"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01775.html">EvokedSetModelRoles</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:Bar" id="r_Bar"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01914.html">Bar</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01914.html" title="Bar class for histogram display using QPainter.">Bar</a> class for histogram display using QPainter.  <a href="a01914.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Graph" id="r_Graph"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01918.html">Graph</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for graphs.  <a href="a01918.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ColorMap" id="r_ColorMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01922.html">ColorMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color map RGB transformations.  <a href="a01922.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ImageSc" id="r_ImageSc"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01926.html">ImageSc</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Eigen matrix visualization.  <a href="a01926.html#details">More...</a><br /></td></tr>
+<tr class="memitem:LinePlot" id="r_LinePlot"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01930.html">LinePlot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Line <a class="el" href="a01934.html" title="Vector plot.">Plot</a>.  <a href="a01930.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Plot" id="r_Plot"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01934.html">Plot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector plot.  <a href="a01934.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Spline" id="r_Spline"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01938.html">Spline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01938.html" title="Spline class for histogram display using QPainter.">Spline</a> class for histogram display using QPainter.  <a href="a01938.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TFplot" id="r_TFplot"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01942.html">TFplot</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector plot.  <a href="a01942.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AbstractView" id="r_AbstractView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01946.html">AbstractView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01946.html" title="The AbstractView class provides the base calss for all Disp viewers.">AbstractView</a> class provides the base calss for all Disp viewers.  <a href="a01946.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ApplyToView" id="r_ApplyToView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01950.html">ApplyToView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dialog for selecting which views receive a particular configuration change.  <a href="a01950.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ArtifactSettingsView" id="r_ArtifactSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01954.html">ArtifactSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01954.html" title="The ArtifactSettingsView class provides an artifact rejection settings view.">ArtifactSettingsView</a> class provides an artifact rejection settings view.  <a href="a01954.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AverageLayoutView" id="r_AverageLayoutView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01958.html">AverageLayoutView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01958.html" title="The AverageLayoutView class provides a widget for a 2D average layout.">AverageLayoutView</a> class provides a widget for a 2D average layout.  <a href="a01958.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AverageSelectionView" id="r_AverageSelectionView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01962.html">AverageSelectionView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01962.html" title="The AverageSelectionView class provides a view to activate and choose colors for different averages.">AverageSelectionView</a> class provides a view to activate and choose colors for different averages.  <a href="a01962.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AveragingSettingsView" id="r_AveragingSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01966.html">AveragingSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01966.html" title="The AveragingSettingsView class provides a averaging settings view.">AveragingSettingsView</a> class provides a averaging settings view.  <a href="a01966.html#details">More...</a><br /></td></tr>
+<tr class="memitem:BidsView" id="r_BidsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01970.html">BidsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The DataManagerView class provides the plugin control.  <a href="a01970.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ButterflyView" id="r_ButterflyView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01974.html">ButterflyView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Butterfly plot widget overlaying multiple channel waveforms in a single time-series view.  <a href="a01974.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ChannelSelectionView" id="r_ChannelSelectionView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01978.html">ChannelSelectionView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01978.html" title="The ChannelSelectionView class provides a channel selection window.">ChannelSelectionView</a> class provides a channel selection window.  <a href="a01978.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CompensatorView" id="r_CompensatorView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01982.html">CompensatorView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01982.html" title="The CompensatorView class provides a view to select the compensators.">CompensatorView</a> class provides a view to select the compensators.  <a href="a01982.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ConnectivitySettingsView" id="r_ConnectivitySettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01986.html">ConnectivitySettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a01986.html" title="The ConnectivitySettingsView class provides a view to control settings for estiamting functional conn...">ConnectivitySettingsView</a> class provides a view to control settings for estiamting functional connectivity.  <a href="a01986.html#details">More...</a><br /></td></tr>
+<tr class="memitem:Control3DView" id="r_Control3DView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01990.html">Control3DView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User GUI control for the View3D.  <a href="a01990.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CoregSettingsView" id="r_CoregSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01994.html">CoregSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Settings panel for MEG-MRI co-registration parameters and fiducial alignment.  <a href="a01994.html#details">More...</a><br /></td></tr>
+<tr class="memitem:CovarianceSettingsView" id="r_CovarianceSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01998.html">CovarianceSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User GUI control for Covariance estimation.  <a href="a01998.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DipoleFitView" id="r_DipoleFitView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02002.html">DipoleFitView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Settings panel for configuring and launching equivalent current dipole (InvEcd) fitting.  <a href="a02002.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FiffRawViewSettings" id="r_FiffRawViewSettings"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02006.html">FiffRawViewSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02006.html" title="The FiffRawViewSettings class provides a view to select different channel data view dependent setting...">FiffRawViewSettings</a> class provides a view to select different channel data view dependent settings.  <a href="a02006.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FilterDesignView" id="r_FilterDesignView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02010.html">FilterDesignView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02010.html" title="The FilterDesignView class provides the a manager for temporal filtering.">FilterDesignView</a> class provides the a manager for temporal filtering.  <a href="a02010.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FilterSettingsView" id="r_FilterSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02014.html">FilterSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02014.html" title="The FilterSettingsView class provides a view to select between different modalities.">FilterSettingsView</a> class provides a view to select between different modalities.  <a href="a02014.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FwdSettingsView" id="r_FwdSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02018.html">FwdSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02018.html" title="The FwdSettingsView class provides a QWidget for the real-time Forward Solution controls.">FwdSettingsView</a> class provides a QWidget for the real-time Forward Solution controls.  <a href="a02018.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AverageScene" id="r_AverageScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02022.html">AverageScene</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02022.html" title="The AverageScene class provides a reimplemented QGraphicsScene for 2D layout plotting.">AverageScene</a> class provides a reimplemented QGraphicsScene for 2D layout plotting.  <a href="a02022.html#details">More...</a><br /></td></tr>
+<tr class="memitem:AverageSceneItem" id="r_AverageSceneItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02026.html">AverageSceneItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02026.html" title="The AverageSceneItem class provides a new data structure for visualizing averages in a 2D layout.">AverageSceneItem</a> class provides a new data structure for visualizing averages in a 2D layout.  <a href="a02026.html#details">More...</a><br /></td></tr>
+<tr class="memitem:BidsViewModel" id="r_BidsViewModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02030.html">BidsViewModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02030.html" title="The BidsViewModel class is the base data container.">BidsViewModel</a> class is the base data container.  <a href="a02030.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ChannelInfoModel" id="r_ChannelInfoModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02034.html">ChannelInfoModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Table model exposing per-channel metadata (name, type, unit, position) for QTableView display.  <a href="a02034.html#details">More...</a><br /></td></tr>
+<tr class="memitem:DraggableFramelessWidget" id="r_DraggableFramelessWidget"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02038.html">DraggableFramelessWidget</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02038.html" title="The DraggableFramelessWidget class provides draggable and frameless QWidget.">DraggableFramelessWidget</a> class provides draggable and frameless QWidget.  <a href="a02038.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EvokedSetModel" id="r_EvokedSetModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02042.html">EvokedSetModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02042.html" title="The EvokedSetModel class implements the data access model for evoked set data.">EvokedSetModel</a> class implements the data access model for evoked set data.  <a href="a02042.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FilterPlotScene" id="r_FilterPlotScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02046.html">FilterPlotScene</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02046.html" title="The FilterPlotScene class provides the scene where a filter response can be plotted.">FilterPlotScene</a> class provides the scene where a filter response can be plotted.  <a href="a02046.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FrequencySpectrumDelegate" id="r_FrequencySpectrumDelegate"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02050.html">FrequencySpectrumDelegate</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02050.html" title="The FrequencySpectrumDelegate class represents a frequency delegate which creates the plot paths.">FrequencySpectrumDelegate</a> class represents a frequency delegate which creates the plot paths.  <a href="a02050.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FrequencySpectrumModel" id="r_FrequencySpectrumModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02054.html">FrequencySpectrumModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02054.html" title="The FrequencySpectrumModel class implements the data access model for a real-time multi sample array ...">FrequencySpectrumModel</a> class implements the data access model for a real-time multi sample array data stream.  <a href="a02054.html#details">More...</a><br /></td></tr>
+<tr class="memitem:LayoutScene" id="r_LayoutScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02058.html">LayoutScene</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02058.html" title="The LayoutScene class provides a reimplemented QGraphicsScene for 2D layout plotting....">LayoutScene</a> class provides a reimplemented QGraphicsScene for 2D layout plotting. This class handles all the user interaction features (subclass in order to use).  <a href="a02058.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MNEOperator" id="r_MNEOperator"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02062.html">MNEOperator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02062.html" title="MNEOperator class represents the base class of an arbitrary MNEOperator, e.g. FILTER,...">MNEOperator</a> class represents the base class of an arbitrary <a class="el" href="a02062.html" title="MNEOperator class represents the base class of an arbitrary MNEOperator, e.g. FILTER,...">MNEOperator</a>, e.g. FILTER,PCA,AVERAGE. All specific Operators must be derived from <a class="el" href="a02062.html" title="MNEOperator class represents the base class of an arbitrary MNEOperator, e.g. FILTER,...">MNEOperator</a>, see the FilterOperator class.  <a href="a02062.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RtFiffRawViewDelegate" id="r_RtFiffRawViewDelegate"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02066.html">RtFiffRawViewDelegate</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02066.html" title="The RtFiffRawViewDelegate class represents a RTMSA delegate which creates the plot paths.">RtFiffRawViewDelegate</a> class represents a RTMSA delegate which creates the plot paths.  <a href="a02066.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RtFiffRawViewModel" id="r_RtFiffRawViewModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02070.html">RtFiffRawViewModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02070.html" title="The RtFiffRawViewModel class implements the data access model for a real-time multi sample array data...">RtFiffRawViewModel</a> class implements the data access model for a real-time multi sample array data stream.  <a href="a02070.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ScaleControl" id="r_ScaleControl"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02074.html">ScaleControl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02074.html" title="The ScaleControl class packs together a QLabel, a DoubleSpinbox and a Slider with the necessary facil...">ScaleControl</a> class packs together a QLabel, a DoubleSpinbox and a Slider with the necessary facilities for the interaction between them.  <a href="a02074.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SelectionScene" id="r_SelectionScene"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02078.html">SelectionScene</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02078.html" title="The SelectionScene class provides a reimplemented QGraphicsScene for 2D layout plotting.">SelectionScene</a> class provides a reimplemented QGraphicsScene for 2D layout plotting.  <a href="a02078.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SelectionItem" id="r_SelectionItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02082.html">SelectionItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02086.html" title="Graphics item representing a selectable electrode or channel in a 2-D layout scene.">SelectionSceneItem</a> class provides a new data structure for visualizing channels in a 2D layout.  <a href="a02082.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SelectionSceneItem" id="r_SelectionSceneItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02086.html">SelectionSceneItem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Graphics item representing a selectable electrode or channel in a 2-D layout scene.  <a href="a02086.html#details">More...</a><br /></td></tr>
+<tr class="memitem:HpiSettingsView" id="r_HpiSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02090.html">HpiSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02090.html" title="The HpiSettingsView class provides a QWidget for the HPI controls.">HpiSettingsView</a> class provides a QWidget for the HPI controls.  <a href="a02090.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MinimumNormSettingsView" id="r_MinimumNormSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02094.html">MinimumNormSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02094.html" title="The MinimumNormSettingsView class provides a view to control settings for estiamting functional conne...">MinimumNormSettingsView</a> class provides a view to control settings for estiamting functional connectivity.  <a href="a02094.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ModalitySelectionView" id="r_ModalitySelectionView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02098.html">ModalitySelectionView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02098.html" title="The ModalitySelectionView class provides a view to select between different modalities.">ModalitySelectionView</a> class provides a view to select between different modalities.  <a href="a02098.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MultiView" id="r_MultiView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02102.html">MultiView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02102.html" title="The MultiView class inherits from QMainWindow and provides a view which supports dock widgets.">MultiView</a> class inherits from QMainWindow and provides a view which supports dock widgets.  <a href="a02102.html#details">More...</a><br /></td></tr>
+<tr class="memitem:MultiViewWindow" id="r_MultiViewWindow"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02106.html">MultiViewWindow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02106.html" title="The MultiViewWindow class provides sub windows as QDockWidgets.">MultiViewWindow</a> class provides sub windows as QDockWidgets.  <a href="a02106.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ProgressView" id="r_ProgressView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02110.html">ProgressView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indeterminate progress bar widget shown during long-running operations.  <a href="a02110.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ProjectorsView" id="r_ProjectorsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02114.html">ProjectorsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02114.html" title="The ProjectorsView class provides a view to select projectors.">ProjectorsView</a> class provides a view to select projectors.  <a href="a02114.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ProjectSettingsView" id="r_ProjectSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02118.html">ProjectSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02118.html" title="The ProjectSettingsView class provides a viewer to setup and manage the file name before the acquisit...">ProjectSettingsView</a> class provides a viewer to setup and manage the file name before the acquisition starts.  <a href="a02118.html#details">More...</a><br /></td></tr>
+<tr class="memitem:QuickControlView" id="r_QuickControlView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02122.html">QuickControlView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02122.html" title="The QuickControlView class provides a quick control view for scaling, filtering, projector and other ...">QuickControlView</a> class provides a quick control view for scaling, filtering, projector and other control options.  <a href="a02122.html#details">More...</a><br /></td></tr>
+<tr class="memitem:RtFiffRawView" id="r_RtFiffRawView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02126.html">RtFiffRawView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02126.html" title="The RtFiffRawView class provides a real-time channel view display.">RtFiffRawView</a> class provides a real-time channel view display.  <a href="a02126.html#details">More...</a><br /></td></tr>
+<tr class="memitem:ScalingView" id="r_ScalingView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02130.html">ScalingView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02130.html" title="The ScalingView class provides a view to select the scaling for different channels modalities.">ScalingView</a> class provides a view to select the scaling for different channels modalities.  <a href="a02130.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SpectrumSettingsView" id="r_SpectrumSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02134.html">SpectrumSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02134.html" title="The SpectrumSettingsView class provides settings for the spectrum estimation.">SpectrumSettingsView</a> class provides settings for the spectrum estimation.  <a href="a02134.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SpectrumView" id="r_SpectrumView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02138.html">SpectrumView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02138.html" title="The SpectrumView class provides a spectrum view.">SpectrumView</a> class provides a spectrum view.  <a href="a02138.html#details">More...</a><br /></td></tr>
+<tr class="memitem:SpharaSettingsView" id="r_SpharaSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02142.html">SpharaSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02142.html" title="The SpharaSettingsView class provides a view to select the SPHARA settings.">SpharaSettingsView</a> class provides a view to select the SPHARA settings.  <a href="a02142.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TfSettingsView" id="r_TfSettingsView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02146.html">TfSettingsView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02146.html" title="The TfSettingsView class provides a view to control settings for time frequency analysis.">TfSettingsView</a> class provides a view to control settings for time frequency analysis.  <a href="a02146.html#details">More...</a><br /></td></tr>
+<tr class="memitem:TriggerDetectionView" id="r_TriggerDetectionView"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02150.html">TriggerDetectionView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02150.html" title="The TriggerDetectionView class provides a view to control the trigger detection.">TriggerDetectionView</a> class provides a view to control the trigger detection.  <a href="a02150.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ae1ddfa37a3893969aef05a73116d5b06" id="r_ae1ddfa37a3893969aef05a73116d5b06"><td class="memItemLeft">typedef QPair&lt; const double *, qint32 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#ae1ddfa37a3893969aef05a73116d5b06">RowVectorPair</a></td></tr>
+<tr class="memitem:aa92ebf45614e24145966232d70b942bd" id="r_aa92ebf45614e24145966232d70b942bd"><td class="memItemLeft">typedef Eigen::Matrix&lt; double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aa92ebf45614e24145966232d70b942bd">MatrixXdR</a></td></tr>
+<tr class="memitem:aba6a68c54c7d8684b0894c5d3281ea99" id="r_aba6a68c54c7d8684b0894c5d3281ea99"><td class="memItemLeft">typedef QPair&lt; QString, Eigen::RowVectorXd &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aba6a68c54c7d8684b0894c5d3281ea99">AvrTypeRowVector</a></td></tr>
+<tr class="memitem:a1fa03dbd646d6a80064d0b640d5c4ad5" id="r_a1fa03dbd646d6a80064d0b640d5c4ad5"><td class="memItemLeft">typedef QPair&lt; QString, <a class="el" href="#ae1ddfa37a3893969aef05a73116d5b06">DISPLIB::RowVectorPair</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a1fa03dbd646d6a80064d0b640d5c4ad5">AvrTypeRowVectorPair</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a53c600771742063d0826523495db22f3" id="r_a53c600771742063d0826523495db22f3"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a53c600771742063d0826523495db22f3">ColorMaps</a> { <br />
+&#160;&#160;<a class="el" href="#a53c600771742063d0826523495db22f3ad051758fbfbcd886f8272b74ccaa9c46">Hot</a>
+, <a class="el" href="#a53c600771742063d0826523495db22f3aa054b2fbe6def57f4efb64bc95b7b6ce">HotNeg1</a>
+, <a class="el" href="#a53c600771742063d0826523495db22f3aedd1e681cde4bff0a4f1fa30fa822fc1">HotNeg2</a>
+, <a class="el" href="#a53c600771742063d0826523495db22f3a3c1d4cc710d85ceeb28927483396ca27">Jet</a>
+, <br />
+&#160;&#160;<a class="el" href="#a53c600771742063d0826523495db22f3ad687c3e410f57a8375480774232cb0cc">Bone</a>
+, <a class="el" href="#a53c600771742063d0826523495db22f3a8e23b4fdd9152664065d1adb48337db1">RedBlue</a>
+<br />
+ }</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aba8abe77c9305199bd891f501f391207" id="r_aba8abe77c9305199bd891f501f391207"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#aba8abe77c9305199bd891f501f391207">buildDateTime</a> ()</td></tr>
+<tr class="memitem:a72483416e19e15772bc638f1f4012a79" id="r_a72483416e19e15772bc638f1f4012a79"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a72483416e19e15772bc638f1f4012a79">buildHash</a> ()</td></tr>
+<tr class="memitem:a67e32bdd367e24e6aa3ad079ffc4c7c9" id="r_a67e32bdd367e24e6aa3ad079ffc4c7c9"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a67e32bdd367e24e6aa3ad079ffc4c7c9">buildHashLong</a> ()</td></tr>
+<tr class="memitem:afc0d4b14293cfb23ef8b820e9d4d74a9" id="r_afc0d4b14293cfb23ef8b820e9d4d74a9"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#afc0d4b14293cfb23ef8b820e9d4d74a9">getDefaultScalingValue</a> (int iChannelKind, int iChannelUnit)</td></tr>
+<tr class="memitem:ac7bca7b1d3e615d05ce8e44bff1574dc" id="r_ac7bca7b1d3e615d05ce8e44bff1574dc"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#ac7bca7b1d3e615d05ce8e44bff1574dc">getScalingValue</a> (const QMap&lt; qint32, float &gt; &amp;qMapChScaling, int iChannelKind, int iChannelUnit)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:afedb2bd8f0e44feffe3147e0d578d256" id="r_afedb2bd8f0e44feffe3147e0d578d256"><td class="memItemLeft">const Eigen::MatrixX3i&#160;</td><td class="memItemRight"><a class="el" href="#afedb2bd8f0e44feffe3147e0d578d256">m_matViridrisData</a></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02725.html" title="Stores MEG sensor geometry (positions, orientations, weights, coil count) for a single sensor type.">InvSensorSet</a> class definition. </p>
-<dl class="section author"><dt>Author</dt><dd>Ruben Dörfel <a href="#" onclick="location.href='mai'+'lto:'+'doe'+'rf'+'elr'+'ub'+'en@'+'ao'+'l.c'+'om'; return false;">doerf<span class="obfuscator">.nosp@m.</span>elru<span class="obfuscator">.nosp@m.</span>ben@a<span class="obfuscator">.nosp@m.</span>ol.c<span class="obfuscator">.nosp@m.</span>om</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.9 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>November, 2021</dd></dl>
-<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
-LICENSE</h1>
-<p>Copyright (C) 2021, Ruben Dörfel. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
-<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
-<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
-<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+<div class="textblock"><p>2-D display widgets and visualisation helpers (charts, topography, colour maps). </p>
+</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="aba6a68c54c7d8684b0894c5d3281ea99" name="aba6a68c54c7d8684b0894c5d3281ea99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba6a68c54c7d8684b0894c5d3281ea99">&#9670;&#160;</a></span>AvrTypeRowVector</h2>
 
-<p class="definition">Definition in file <a class="el" href="a01772_source.html">inv_sensor_set.cpp</a>.</p>
-</div></div><!-- contents -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef QPair&lt;QString, Eigen::RowVectorXd&gt; <a class="el" href="#aba6a68c54c7d8684b0894c5d3281ea99">DISPLIB::AvrTypeRowVector</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00092">92</a> of file <a class="el" href="a00368_source.html">evokedsetmodel.h</a>.</p>
+
+</div>
+</div>
+<a id="a1fa03dbd646d6a80064d0b640d5c4ad5" name="a1fa03dbd646d6a80064d0b640d5c4ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fa03dbd646d6a80064d0b640d5c4ad5">&#9670;&#160;</a></span>AvrTypeRowVectorPair</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef QPair&lt;QString, <a class="el" href="#ae1ddfa37a3893969aef05a73116d5b06">DISPLIB::RowVectorPair</a>&gt; <a class="el" href="#a1fa03dbd646d6a80064d0b640d5c4ad5">DISPLIB::AvrTypeRowVectorPair</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00093">93</a> of file <a class="el" href="a00368_source.html">evokedsetmodel.h</a>.</p>
+
+</div>
+</div>
+<a id="aa92ebf45614e24145966232d70b942bd" name="aa92ebf45614e24145966232d70b942bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa92ebf45614e24145966232d70b942bd">&#9670;&#160;</a></span>MatrixXdR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef Eigen::Matrix&lt; double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor &gt; <a class="el" href="#aa92ebf45614e24145966232d70b942bd">DISPLIB::MatrixXdR</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00090">90</a> of file <a class="el" href="a00368_source.html">evokedsetmodel.h</a>.</p>
+
+</div>
+</div>
+<a id="ae1ddfa37a3893969aef05a73116d5b06" name="ae1ddfa37a3893969aef05a73116d5b06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1ddfa37a3893969aef05a73116d5b06">&#9670;&#160;</a></span>RowVectorPair</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef QPair&lt; const double *, qint32 &gt; <a class="el" href="#ae1ddfa37a3893969aef05a73116d5b06">DISPLIB::RowVectorPair</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00320_source.html#l00071">71</a> of file <a class="el" href="a00320_source.html">averagesceneitem.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="a53c600771742063d0826523495db22f3" name="a53c600771742063d0826523495db22f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53c600771742063d0826523495db22f3">&#9670;&#160;</a></span>ColorMaps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a53c600771742063d0826523495db22f3">DISPLIB::ColorMaps</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a53c600771742063d0826523495db22f3ad051758fbfbcd886f8272b74ccaa9c46" name="a53c600771742063d0826523495db22f3ad051758fbfbcd886f8272b74ccaa9c46"></a>Hot&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a53c600771742063d0826523495db22f3aa054b2fbe6def57f4efb64bc95b7b6ce" name="a53c600771742063d0826523495db22f3aa054b2fbe6def57f4efb64bc95b7b6ce"></a>HotNeg1&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a53c600771742063d0826523495db22f3aedd1e681cde4bff0a4f1fa30fa822fc1" name="a53c600771742063d0826523495db22f3aedd1e681cde4bff0a4f1fa30fa822fc1"></a>HotNeg2&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a53c600771742063d0826523495db22f3a3c1d4cc710d85ceeb28927483396ca27" name="a53c600771742063d0826523495db22f3a3c1d4cc710d85ceeb28927483396ca27"></a>Jet&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a53c600771742063d0826523495db22f3ad687c3e410f57a8375480774232cb0cc" name="a53c600771742063d0826523495db22f3ad687c3e410f57a8375480774232cb0cc"></a>Bone&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a53c600771742063d0826523495db22f3a8e23b4fdd9152664065d1adb48337db1" name="a53c600771742063d0826523495db22f3a8e23b4fdd9152664065d1adb48337db1"></a>RedBlue&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00072">72</a> of file <a class="el" href="a00494_source.html">tfplot.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="aba8abe77c9305199bd891f501f391207" name="aba8abe77c9305199bd891f501f391207"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba8abe77c9305199bd891f501f391207">&#9670;&#160;</a></span>buildDateTime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * DISPLIB::buildDateTime </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns build date and time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00046">46</a> of file <a class="el" href="a00446_source.html">disp_global.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a72483416e19e15772bc638f1f4012a79" name="a72483416e19e15772bc638f1f4012a79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72483416e19e15772bc638f1f4012a79">&#9670;&#160;</a></span>buildHash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * DISPLIB::buildHash </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns abbreviated build git hash. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00050">50</a> of file <a class="el" href="a00446_source.html">disp_global.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a67e32bdd367e24e6aa3ad079ffc4c7c9" name="a67e32bdd367e24e6aa3ad079ffc4c7c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67e32bdd367e24e6aa3ad079ffc4c7c9">&#9670;&#160;</a></span>buildHashLong()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * DISPLIB::buildHashLong </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns full build git hash. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00054">54</a> of file <a class="el" href="a00446_source.html">disp_global.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afc0d4b14293cfb23ef8b820e9d4d74a9" name="afc0d4b14293cfb23ef8b820e9d4d74a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc0d4b14293cfb23ef8b820e9d4d74a9">&#9670;&#160;</a></span>getDefaultScalingValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DISPLIB::getDefaultScalingValue </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>iChannelKind</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>iChannelUnit</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the default scaling values by channel type</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">iChannelKind</td><td>The channel kind to return the default scaling value for. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">iChannelUnit</td><td>The channel unit to return the default scaling value for. The unit is only important when dealing with MEG channels in order to distinguish between magnetometers and gradiometers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The defaults scaling value. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00164_source.html#l00081">81</a> of file <a class="el" href="a00164_source.html">scalingview.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac7bca7b1d3e615d05ce8e44bff1574dc" name="ac7bca7b1d3e615d05ce8e44bff1574dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7bca7b1d3e615d05ce8e44bff1574dc">&#9670;&#160;</a></span>getScalingValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float DISPLIB::getScalingValue </td>
+          <td>(</td>
+          <td class="paramtype">const QMap&lt; qint32, float &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>qMapChScaling</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>iChannelKind</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>iChannelUnit</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the scaling value from suplied scale map, and check if there is a float asigned to the scale. Otherwise returns default scaling values for the channel type.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">qMapChScaling</td><td>The map containing the scaling values for different channel types and units. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">iChannelKind</td><td>The channel kind to return the default scaling value for. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">iChannelUnit</td><td>The channel unit to return the default scaling value for. The unit is only important when dealing with MEG channels in order to distinguish between magnetometers and gradiometers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The scaling value as a float. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00164_source.html#l00136">136</a> of file <a class="el" href="a00164_source.html">scalingview.cpp</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="afedb2bd8f0e44feffe3147e0d578d256" name="afedb2bd8f0e44feffe3147e0d578d256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afedb2bd8f0e44feffe3147e0d578d256">&#9670;&#160;</a></span>m_matViridrisData</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Eigen::MatrixX3i DISPLIB::m_matViridrisData</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00476_source.html#l00070">70</a> of file <a class="el" href="a00476_source.html">colormap.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1

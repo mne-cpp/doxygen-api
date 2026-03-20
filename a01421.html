@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/fs/fs_annotation.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/disp3D/scene/rtsensorstreammanager.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,89 +243,84 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_aa0065703ffedf5a9f23ffbb0df651d7.html">fs</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_061a979e1ff4d1f23adfb2165bb6f08f.html">disp3D</a></li><li class="navelem"><a href="dir_72862dfac25f8c4a5bcb21a201ce57b2.html">scene</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">fs_annotation.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">rtsensorstreammanager.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of the <a class="el" href="a02553.html" title="Free surfer annotation.">FsAnnotation</a> class.  
+<p><a class="el" href="a02286.html" title="Real-time sensor streaming lifecycle manager.">RtSensorStreamManager</a> class declaration — real-time sensor data streaming.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01457_source.html">fs_annotation.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01448_source.html">fs_label.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01430_source.html">fs_surface.h</a>&quot;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;QDebug&gt;</code><br />
-<code>#include &lt;QFile&gt;</code><br />
-<code>#include &lt;QDataStream&gt;</code><br />
-<code>#include &lt;QFileInfo&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01418_source.html">../disp3D_global.h</a>&quot;</code><br />
+<code>#include &lt;QObject&gt;</code><br />
+<code>#include &lt;QVector&gt;</code><br />
+<code>#include &lt;QMap&gt;</code><br />
+<code>#include &lt;QString&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for fs_annotation.cpp:</div>
+Include dependency graph for rtsensorstreammanager.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01422.png" border="0" usemap="#asrc_2libraries_2fs_2fs__annotation_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2fs_2fs__annotation_8cpp" id="asrc_2libraries_2fs_2fs__annotation_8cpp">
-<area shape="rect" title="Definition of the FsAnnotation class." alt="" coords="513,5,643,45"/>
-<area shape="rect" href="a01457.html" title="FsAnnotation class declaration." alt="" coords="219,93,342,119"/>
-<area shape="poly" title=" " alt="" coords="513,46,338,92,337,87,512,41"/>
-<area shape="rect" href="a01448.html" title="FsLabel class declaration." alt="" coords="525,167,610,192"/>
-<area shape="poly" title=" " alt="" coords="531,48,501,67,478,95,474,104,475,113,484,130,503,146,525,158,523,163,500,150,480,134,470,114,469,103,473,92,497,63,528,43"/>
-<area shape="rect" href="a01430.html" title="FsSurface class declaration." alt="" coords="349,167,450,192"/>
-<area shape="poly" title=" " alt="" coords="540,48,504,69,468,95,439,126,416,157,412,154,435,123,464,91,501,64,538,43"/>
-<area shape="rect" title=" " alt="" coords="487,93,567,119"/>
-<area shape="poly" title=" " alt="" coords="568,47,545,83,540,80,563,44"/>
-<area shape="rect" title=" " alt="" coords="591,93,666,119"/>
-<area shape="poly" title=" " alt="" coords="593,44,616,80,611,83,588,47"/>
-<area shape="rect" title=" " alt="" coords="691,93,745,119"/>
-<area shape="poly" title=" " alt="" coords="613,43,686,84,684,89,610,48"/>
-<area shape="rect" title=" " alt="" coords="769,93,880,119"/>
-<area shape="poly" title=" " alt="" coords="638,43,777,87,775,92,636,48"/>
-<area shape="rect" title=" " alt="" coords="905,93,985,119"/>
-<area shape="poly" title=" " alt="" coords="644,38,892,90,891,96,643,43"/>
-<area shape="rect" href="a01424.html" title="Fs library export/import macros." alt="" coords="482,240,575,265"/>
-<area shape="poly" title=" " alt="" coords="343,116,404,134,435,147,464,165,495,194,518,226,513,229,491,198,460,169,432,152,402,139,342,121"/>
-<area shape="rect" href="a01433.html" title="FsColortable class declaration." alt="" coords="104,167,223,192"/>
-<area shape="poly" title=" " alt="" coords="263,121,196,162,193,157,260,116"/>
-<area shape="rect" title=" " alt="" coords="5,240,76,265"/>
-<area shape="poly" title=" " alt="" coords="220,118,155,135,122,150,93,169,68,197,52,228,47,225,64,194,90,165,120,145,153,130,218,113"/>
-<area shape="rect" title=" " alt="" coords="335,240,458,265"/>
-<area shape="poly" title=" " alt="" coords="289,117,310,151,339,190,376,229,372,232,335,194,306,154,285,120"/>
-<area shape="rect" title=" " alt="" coords="219,240,311,265"/>
-<area shape="poly" title=" " alt="" coords="282,119,270,227,265,226,277,119"/>
-<area shape="rect" title=" " alt="" coords="387,313,518,339"/>
-<area shape="poly" title=" " alt="" coords="518,267,477,306,473,302,515,263"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="542,313,665,339"/>
-<area shape="poly" title=" " alt="" coords="542,263,583,302,579,306,539,267"/>
-<area shape="rect" title=" " alt="" coords="570,387,637,412"/>
-<area shape="poly" title=" " alt="" coords="606,339,606,373,601,373,601,339"/>
-<area shape="poly" title=" " alt="" coords="223,189,469,237,468,242,222,195"/>
-<area shape="poly" title=" " alt="" coords="145,194,74,235,71,231,142,190"/>
-<area shape="rect" title=" " alt="" coords="101,240,194,265"/>
-<area shape="poly" title=" " alt="" coords="163,193,155,227,150,226,158,192"/>
-<area shape="poly" title=" " alt="" coords="202,189,347,233,345,239,200,195"/>
-<area shape="poly" title=" " alt="" coords="181,190,238,230,235,234,178,194"/>
-<area shape="poly" title=" " alt="" coords="563,194,544,229,539,227,559,191"/>
-<area shape="poly" title=" " alt="" coords="541,194,438,237,436,232,539,190"/>
-<area shape="poly" title=" " alt="" coords="525,193,325,240,324,235,524,188"/>
-<area shape="rect" title=" " alt="" coords="600,240,660,265"/>
-<area shape="poly" title=" " alt="" coords="580,191,613,228,609,231,576,194"/>
-<area shape="poly" title=" " alt="" coords="421,190,496,231,494,235,419,194"/>
-<area shape="poly" title=" " alt="" coords="402,192,400,227,395,226,396,192"/>
-<area shape="poly" title=" " alt="" coords="379,194,300,236,298,231,376,190"/>
+<div class="center"><img src="a01422.png" border="0" usemap="#asrc_2libraries_2disp3_d_2scene_2rtsensorstreammanager_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d_2scene_2rtsensorstreammanager_8h" id="asrc_2libraries_2disp3_d_2scene_2rtsensorstreammanager_8h">
+<area shape="rect" title="RtSensorStreamManager class declaration — real&#45;time sensor data streaming." alt="" coords="347,5,583,45"/>
+<area shape="rect" href="a01418.html" title="disp3D library export/import macros." alt="" coords="76,93,215,119"/>
+<area shape="poly" title=" " alt="" coords="389,48,206,93,205,87,388,43"/>
+<area shape="rect" title=" " alt="" coords="239,93,313,119"/>
+<area shape="poly" title=" " alt="" coords="421,48,318,90,316,85,419,43"/>
+<area shape="rect" title=" " alt="" coords="338,93,411,119"/>
+<area shape="poly" title=" " alt="" coords="445,48,400,86,397,82,442,44"/>
+<area shape="rect" title=" " alt="" coords="435,93,495,119"/>
+<area shape="poly" title=" " alt="" coords="468,46,468,79,463,79,463,46"/>
+<area shape="rect" title=" " alt="" coords="519,93,590,119"/>
+<area shape="poly" title=" " alt="" coords="489,44,533,82,529,86,485,48"/>
+<area shape="rect" title=" " alt="" coords="614,93,706,119"/>
+<area shape="poly" title=" " alt="" coords="513,43,620,86,618,91,511,48"/>
+<area shape="rect" title=" " alt="" coords="731,93,808,119"/>
+<area shape="poly" title=" " alt="" coords="539,43,718,89,717,94,537,48"/>
+<area shape="rect" title=" " alt="" coords="5,167,136,192"/>
+<area shape="poly" title=" " alt="" coords="135,121,95,159,91,155,132,117"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="160,167,283,192"/>
+<area shape="poly" title=" " alt="" coords="159,117,201,155,197,159,156,121"/>
+<area shape="rect" title=" " alt="" coords="188,240,255,265"/>
+<area shape="poly" title=" " alt="" coords="224,192,224,226,219,226,219,192"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01423.png" border="0" usemap="#asrc_2libraries_2disp3_d_2scene_2rtsensorstreammanager_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d_2scene_2rtsensorstreammanager_8hdep" id="asrc_2libraries_2disp3_d_2scene_2rtsensorstreammanager_8hdep">
+<area shape="rect" title="RtSensorStreamManager class declaration — real&#45;time sensor data streaming." alt="" coords="123,5,359,45"/>
+<area shape="rect" href="a01430.html" title="RtSensorStreamManager class definition." alt="" coords="5,93,256,133"/>
+<area shape="poly" title=" " alt="" coords="207,56,157,95,154,91,204,52"/>
+<area shape="rect" href="a01553.html" title="BrainView class declaration." alt="" coords="280,93,427,133"/>
+<area shape="poly" title=" " alt="" coords="279,52,330,91,327,95,276,56"/>
+<area shape="rect" href="a01541.html" title="BrainView class definition." alt="" coords="278,181,429,221"/>
+<area shape="poly" title=" " alt="" coords="356,147,356,181,351,181,351,147"/>
 </map>
 </div>
 </div>
 <p><a href="a01421_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:RtSensorStreamManager" id="r_RtSensorStreamManager"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02286.html">RtSensorStreamManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Real-time sensor streaming lifecycle manager.  <a href="a02286.html#details">More...</a><br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of the <a class="el" href="a02553.html" title="Free surfer annotation.">FsAnnotation</a> class. </p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>July, 2012</dd></dl>
+<div class="textblock"><p><a class="el" href="a02286.html" title="Real-time sensor streaming lifecycle manager.">RtSensorStreamManager</a> class declaration — real-time sensor data streaming. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2012, Lorenz Esch, Matti Hamalainen, Christoph Dinh. All rights reserved.</p>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
@@ -298,7 +328,7 @@ LICENSE</h1>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-<p class="definition">Definition in file <a class="el" href="a01421_source.html">fs_annotation.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01421_source.html">rtsensorstreammanager.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

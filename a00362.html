@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp/viewers/bidsview.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/disp/viewers/helpers/rtfiffrawviewmodel.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,87 +243,160 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li><li class="navelem"><a href="dir_d19fc5ec52e92d8bb58a9ebdf299e2d2.html">viewers</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li><li class="navelem"><a href="dir_d19fc5ec52e92d8bb58a9ebdf299e2d2.html">viewers</a></li><li class="navelem"><a href="dir_259224de1d3803ce5a6eb8ae138555b5.html">helpers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">bidsview.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">rtfiffrawviewmodel.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains the declaration of the <a class="el" href="a02009.html" title="The DataManagerView class provides the plugin control.">BidsView</a> class.  
+<p>Declaration of the RtFiffRawViewModel Class.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00167_source.html">bidsview.h</a>&quot;</code><br />
-<code>#include &quot;ui_bidsview.h&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00338_source.html">helpers/bidsviewmodel.h</a>&quot;</code><br />
-<code>#include &lt;QTreeView&gt;</code><br />
-<code>#include &lt;QStandardItemModel&gt;</code><br />
-<code>#include &lt;QDebug&gt;</code><br />
-<code>#include &lt;QMenu&gt;</code><br />
-<code>#include &lt;QKeyEvent&gt;</code><br />
-<code>#include &lt;QMessageBox&gt;</code><br />
-<code>#include &lt;QInputDialog&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00497_source.html">../../disp_global.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a00653_source.html">fiff/fiff_types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00620_source.html">fiff/fiff_proj.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00722_source.html">dsp/filterkernel.h</a>&gt;</code><br />
+<code>#include &lt;QAbstractTableModel&gt;</code><br />
+<code>#include &lt;QSharedPointer&gt;</code><br />
+<code>#include &lt;QColor&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &lt;Eigen/SparseCore&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for bidsview.cpp:</div>
+Include dependency graph for rtfiffrawviewmodel.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00363.png" border="0" usemap="#asrc_2libraries_2disp_2viewers_2bidsview_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2disp_2viewers_2bidsview_8cpp" id="asrc_2libraries_2disp_2viewers_2bidsview_8cpp">
-<area shape="rect" title="Contains the declaration of the BidsView class." alt="" coords="931,5,1097,45"/>
-<area shape="rect" href="a00167.html" title="Contains the declaration of the BidsView class." alt="" coords="405,93,495,119"/>
-<area shape="poly" title=" " alt="" coords="932,39,742,62,509,96,508,91,742,57,931,33"/>
-<area shape="rect" title=" " alt="" coords="520,93,631,119"/>
-<area shape="poly" title=" " alt="" coords="931,44,645,95,644,90,930,39"/>
-<area shape="rect" href="a00338.html" title="Contains declaration of BidsViewModel Container class." alt="" coords="655,93,840,119"/>
-<area shape="poly" title=" " alt="" coords="951,48,800,92,799,87,949,43"/>
-<area shape="rect" title=" " alt="" coords="791,167,951,192"/>
-<area shape="poly" title=" " alt="" coords="970,48,936,68,905,95,888,124,879,154,874,152,884,122,901,92,933,64,967,43"/>
-<area shape="rect" title=" " alt="" coords="915,93,1006,119"/>
-<area shape="poly" title=" " alt="" coords="1003,47,979,83,974,80,999,44"/>
-<area shape="rect" title=" " alt="" coords="1030,93,1105,119"/>
-<area shape="poly" title=" " alt="" coords="1029,44,1054,80,1049,83,1025,47"/>
-<area shape="rect" title=" " alt="" coords="1129,93,1197,119"/>
-<area shape="poly" title=" " alt="" coords="1051,43,1130,84,1128,89,1048,48"/>
-<area shape="rect" title=" " alt="" coords="1222,93,1315,119"/>
-<area shape="poly" title=" " alt="" coords="1076,43,1219,87,1217,92,1074,48"/>
-<area shape="rect" title=" " alt="" coords="1339,93,1454,119"/>
-<area shape="poly" title=" " alt="" coords="1098,41,1328,88,1327,93,1096,46"/>
-<area shape="rect" title=" " alt="" coords="1478,93,1585,119"/>
-<area shape="poly" title=" " alt="" coords="1097,36,1465,91,1464,96,1097,41"/>
-<area shape="rect" href="a00443.html" title="disp library export/import macros." alt="" coords="637,240,757,265"/>
-<area shape="poly" title=" " alt="" coords="496,114,602,140,648,153,673,165,684,178,691,194,698,226,693,227,686,196,679,181,670,169,646,158,601,145,495,120"/>
-<area shape="rect" href="a00215.html" title="Declaration of the AbstractView Class." alt="" coords="542,167,659,192"/>
-<area shape="poly" title=" " alt="" coords="475,116,565,158,562,163,473,121"/>
-<area shape="rect" title=" " alt="" coords="244,240,323,265"/>
-<area shape="poly" title=" " alt="" coords="405,109,309,110,192,117,136,125,86,136,46,150,20,169,12,180,8,191,9,199,14,207,35,221,67,232,149,244,230,249,230,254,148,250,65,237,32,226,10,211,4,201,3,190,7,178,16,165,43,145,84,130,135,120,192,112,309,105,404,104"/>
-<area shape="rect" title=" " alt="" coords="31,167,187,192"/>
-<area shape="poly" title=" " alt="" coords="405,119,178,166,177,161,404,114"/>
-<area shape="rect" title=" " alt="" coords="211,167,374,192"/>
-<area shape="poly" title=" " alt="" coords="426,121,332,163,329,159,424,116"/>
-<area shape="rect" title=" " alt="" coords="398,167,518,192"/>
-<area shape="poly" title=" " alt="" coords="454,119,458,153,452,153,449,119"/>
-<area shape="rect" title=" " alt="" coords="557,313,687,339"/>
-<area shape="poly" title=" " alt="" coords="686,267,646,306,642,302,683,263"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="711,313,834,339"/>
-<area shape="poly" title=" " alt="" coords="711,263,752,302,748,306,707,267"/>
-<area shape="rect" title=" " alt="" coords="739,387,806,412"/>
-<area shape="poly" title=" " alt="" coords="775,339,775,373,770,373,770,339"/>
-<area shape="poly" title=" " alt="" coords="618,190,671,229,668,234,614,194"/>
-<area shape="poly" title=" " alt="" coords="550,195,337,242,336,237,549,189"/>
-<area shape="poly" title=" " alt="" coords="746,120,708,228,703,226,741,118"/>
-<area shape="poly" title=" " alt="" coords="769,116,841,157,838,162,766,121"/>
+<div class="center"><img src="a00363.png" border="0" usemap="#asrc_2libraries_2disp_2viewers_2helpers_2rtfiffrawviewmodel_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp_2viewers_2helpers_2rtfiffrawviewmodel_8h" id="asrc_2libraries_2disp_2viewers_2helpers_2rtfiffrawviewmodel_8h">
+<area shape="rect" title="Declaration of the RtFiffRawViewModel Class." alt="" coords="1382,5,1650,45"/>
+<area shape="rect" href="a00497.html" title="disp library export/import macros." alt="" coords="1099,387,1231,412"/>
+<area shape="poly" title=" " alt="" coords="1522,45,1542,159,1546,222,1544,248,1538,267,1513,302,1481,330,1445,353,1405,370,1363,383,1321,392,1245,400,1244,395,1320,386,1362,378,1403,365,1442,348,1478,326,1509,298,1533,264,1539,247,1541,222,1537,160,1517,46"/>
+<area shape="rect" href="a00653.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="748,240,862,265"/>
+<area shape="poly" title=" " alt="" coords="1382,32,1215,39,1035,51,885,69,835,81,808,95,798,109,792,125,788,161,791,196,799,226,794,228,786,197,782,161,787,124,794,107,805,91,833,76,884,64,1035,46,1215,34,1382,27"/>
+<area shape="rect" title=" " alt="" coords="494,313,586,339"/>
+<area shape="poly" title=" " alt="" coords="1382,31,1226,37,1054,48,897,67,833,80,786,96,748,116,711,141,645,199,593,257,557,304,553,300,589,254,642,196,708,137,745,112,784,91,832,75,896,62,1054,42,1226,31,1381,26"/>
+<area shape="rect" href="a00620.html" title="FiffProj class declaration." alt="" coords="818,93,922,119"/>
+<area shape="poly" title=" " alt="" coords="1382,46,936,99,936,94,1381,40"/>
+<area shape="rect" title=" " alt="" coords="1401,240,1524,265"/>
+<area shape="poly" title=" " alt="" coords="1513,47,1500,94,1470,227,1465,226,1494,93,1507,45"/>
+<area shape="rect" href="a00722.html" title="The FilterKernel class represents a filter object that generates the FIR filter coefficients using Pa..." alt="" coords="210,240,341,265"/>
+<area shape="poly" title=" " alt="" coords="1381,29,1163,31,905,41,779,49,662,61,564,76,490,96,431,124,377,161,331,200,298,232,294,228,328,196,374,157,428,120,488,91,563,71,662,55,778,44,905,35,1163,26,1381,23"/>
+<area shape="rect" title=" " alt="" coords="1553,93,1713,119"/>
+<area shape="poly" title=" " alt="" coords="1546,43,1606,84,1603,88,1543,48"/>
+<area shape="rect" title=" " alt="" coords="1737,93,1804,119"/>
+<area shape="poly" title=" " alt="" coords="1577,43,1724,88,1723,93,1576,48"/>
+<area shape="rect" title=" " alt="" coords="1828,93,1915,119"/>
+<area shape="poly" title=" " alt="" coords="1601,43,1815,90,1814,95,1600,48"/>
+<area shape="rect" title=" " alt="" coords="1939,93,2002,119"/>
+<area shape="poly" title=" " alt="" coords="1650,42,1780,63,1926,90,1925,96,1779,68,1649,48"/>
+<area shape="rect" title=" " alt="" coords="2026,93,2162,119"/>
+<area shape="poly" title=" " alt="" coords="1650,42,2013,90,2012,96,1650,47"/>
+<area shape="rect" title=" " alt="" coords="945,460,1076,485"/>
+<area shape="poly" title=" " alt="" coords="1141,414,1049,457,1047,452,1139,410"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="798,460,921,485"/>
+<area shape="poly" title=" " alt="" coords="1117,415,923,459,922,454,1115,409"/>
+<area shape="rect" title=" " alt="" coords="826,533,893,559"/>
+<area shape="poly" title=" " alt="" coords="862,486,862,520,857,520,857,486"/>
+<area shape="rect" href="a00527.html" title="Fiff constants." alt="" coords="1120,313,1242,339"/>
+<area shape="poly" title=" " alt="" coords="863,262,1107,308,1106,313,862,267"/>
+<area shape="rect" href="a00641.html" title="FiffTime class declaration." alt="" coords="873,313,961,339"/>
+<area shape="poly" title=" " alt="" coords="824,263,888,303,885,308,822,268"/>
+<area shape="rect" href="a00524.html" title="FiffDataRef class declaration." alt="" coords="986,313,1096,339"/>
+<area shape="poly" title=" " alt="" coords="844,263,990,307,989,312,842,268"/>
+<area shape="poly" title=" " alt="" coords="763,268,597,312,595,307,762,263"/>
+<area shape="rect" title=" " alt="" coords="610,313,664,339"/>
+<area shape="poly" title=" " alt="" coords="779,268,678,310,676,305,777,263"/>
+<area shape="rect" title=" " alt="" coords="1317,313,1410,339"/>
+<area shape="poly" title=" " alt="" coords="863,259,1303,314,1302,320,862,264"/>
+<area shape="rect" title=" " alt="" coords="689,313,745,339"/>
+<area shape="poly" title=" " alt="" coords="792,267,744,307,740,302,789,263"/>
+<area shape="rect" title=" " alt="" coords="770,313,848,339"/>
+<area shape="poly" title=" " alt="" coords="808,266,810,300,805,300,803,266"/>
+<area shape="rect" href="a00512.html" title="Fiff library export/import macros." alt="" coords="873,387,972,412"/>
+<area shape="poly" title=" " alt="" coords="921,339,923,373,918,373,915,339"/>
+<area shape="rect" title=" " alt="" coords="996,387,1075,412"/>
+<area shape="poly" title=" " alt="" coords="937,336,1006,377,1003,382,935,341"/>
+<area shape="poly" title=" " alt="" coords="938,410,987,449,984,453,935,414"/>
+<area shape="poly" title=" " alt="" coords="914,414,881,451,877,448,910,411"/>
+<area shape="poly" title=" " alt="" coords="1023,341,955,382,952,377,1021,336"/>
+<area shape="poly" title=" " alt="" coords="1043,339,1040,373,1035,373,1037,339"/>
+<area shape="poly" title=" " alt="" coords="863,120,847,142,831,168,820,198,812,227,807,226,815,197,827,166,842,139,858,117"/>
+<area shape="poly" title=" " alt="" coords="839,121,733,162,602,221,545,253,502,285,488,300,480,313,479,326,484,337,511,355,550,368,598,375,652,379,764,381,859,384,859,390,764,386,652,384,598,380,549,373,508,360,480,340,473,327,475,312,484,297,498,281,542,249,600,217,731,158,837,116"/>
+<area shape="poly" title=" " alt="" coords="854,121,570,308,567,303,852,116"/>
+<area shape="poly" title=" " alt="" coords="923,104,1012,109,1067,117,1124,129,1183,146,1240,169,1293,199,1340,238,1351,252,1358,268,1365,299,1360,300,1353,270,1346,255,1336,242,1290,204,1237,174,1181,151,1123,134,1066,122,1012,115,922,109"/>
+<area shape="rect" href="a00533.html" title="FiffNamedMatrix class declaration." alt="" coords="924,167,1078,192"/>
+<area shape="poly" title=" " alt="" coords="893,116,969,158,967,162,890,121"/>
+<area shape="poly" title=" " alt="" coords="923,106,1031,111,1165,122,1293,139,1345,150,1383,164,1404,177,1422,193,1450,227,1446,230,1418,197,1401,182,1381,169,1344,155,1292,144,1165,127,1031,117,922,112"/>
+<area shape="rect" title=" " alt="" coords="347,313,418,339"/>
+<area shape="poly" title=" " alt="" coords="819,114,711,131,650,147,591,169,535,200,483,237,405,305,402,301,480,233,532,196,589,164,648,142,710,126,818,109"/>
+<area shape="rect" title=" " alt="" coords="840,167,900,192"/>
+<area shape="poly" title=" " alt="" coords="873,119,873,153,868,153,868,119"/>
+<area shape="poly" title=" " alt="" coords="970,195,851,238,849,233,969,190"/>
+<area shape="poly" title=" " alt="" coords="981,194,959,209,940,226,929,246,929,255,934,263,955,274,998,286,1107,309,1106,314,997,292,953,279,930,267,924,256,924,244,935,223,956,204,978,190"/>
+<area shape="poly" title=" " alt="" coords="1000,192,996,228,998,247,1007,264,1023,277,1041,287,1087,299,1137,301,1186,299,1228,297,1258,300,1267,305,1271,314,1267,325,1256,341,1237,355,1208,366,1136,378,985,390,985,384,1135,373,1207,361,1234,351,1252,337,1262,323,1265,314,1263,308,1256,305,1228,302,1186,304,1137,306,1086,304,1039,292,1020,282,1003,267,993,249,990,228,995,192"/>
+<area shape="poly" title=" " alt="" coords="933,195,839,214,736,243,708,254,679,268,580,310,578,305,677,263,706,249,735,237,838,209,932,189"/>
+<area shape="poly" title=" " alt="" coords="1004,192,1009,228,1017,247,1029,263,1304,311,1303,317,1026,268,1012,250,1004,230,998,193"/>
+<area shape="rect" title=" " alt="" coords="1039,240,1147,265"/>
+<area shape="poly" title=" " alt="" coords="1017,190,1069,229,1066,234,1014,194"/>
+<area shape="rect" title=" " alt="" coords="1172,240,1326,265"/>
+<area shape="poly" title=" " alt="" coords="1042,189,1196,234,1195,239,1040,195"/>
+<area shape="poly" title=" " alt="" coords="1075,189,1388,237,1387,243,1075,195"/>
+<area shape="poly" title=" " alt="" coords="319,263,484,307,483,312,317,268"/>
+<area shape="poly" title=" " alt="" coords="294,263,355,303,352,308,291,268"/>
+<area shape="rect" href="a00758.html" title="dsp library export/import macros." alt="" coords="745,387,849,412"/>
+<area shape="poly" title=" " alt="" coords="210,258,133,264,58,277,30,288,12,301,9,309,8,317,20,337,33,345,56,353,125,367,218,377,326,385,551,393,731,395,731,401,551,398,325,390,217,383,124,372,55,359,31,350,16,340,3,318,4,307,8,298,27,283,56,272,132,259,210,253"/>
+<area shape="rect" title=" " alt="" coords="228,313,323,339"/>
+<area shape="poly" title=" " alt="" coords="278,266,278,300,273,300,273,266"/>
+<area shape="rect" title=" " alt="" coords="31,313,104,339"/>
+<area shape="poly" title=" " alt="" coords="243,268,115,311,113,306,241,263"/>
+<area shape="rect" title=" " alt="" coords="129,313,204,339"/>
+<area shape="poly" title=" " alt="" coords="260,268,197,308,194,303,257,263"/>
+<area shape="poly" title=" " alt="" coords="832,409,964,453,962,458,830,415"/>
+<area shape="poly" title=" " alt="" coords="809,411,842,448,838,451,805,414"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00364.png" border="0" usemap="#asrc_2libraries_2disp_2viewers_2helpers_2rtfiffrawviewmodel_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp_2viewers_2helpers_2rtfiffrawviewmodel_8hdep" id="asrc_2libraries_2disp_2viewers_2helpers_2rtfiffrawviewmodel_8hdep">
+<area shape="rect" title="Declaration of the RtFiffRawViewModel Class." alt="" coords="335,5,603,45"/>
+<area shape="rect" href="a00338.html" title="Definition of the RtFiffRawViewDelegate Class." alt="" coords="5,93,304,133"/>
+<area shape="poly" title=" " alt="" coords="388,52,224,96,223,91,386,46"/>
+<area shape="rect" href="a00311.html" title="Definition of the RtFiffRawViewModel Class." alt="" coords="328,93,611,133"/>
+<area shape="poly" title=" " alt="" coords="472,59,472,93,467,93,467,59"/>
+<area shape="rect" href="a00257.html" title="Definition of the RtFiffRawView Class." alt="" coords="635,93,824,133"/>
+<area shape="poly" title=" " alt="" coords="540,47,673,91,672,96,539,52"/>
 </map>
 </div>
 </div>
 <p><a href="a00362_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:DISPLIB_3A_3ARtFiffRawViewModel" id="r_DISPLIB_3A_3ARtFiffRawViewModel"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02070.html">DISPLIB::RtFiffRawViewModel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The <a class="el" href="a02070.html" title="The RtFiffRawViewModel class implements the data access model for a real-time multi sample array data...">RtFiffRawViewModel</a> class implements the data access model for a real-time multi sample array data stream.  <a href="a02070.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:FIFFLIB" id="r_FIFFLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01771.html">FIFFLIB</a></td></tr>
+<tr class="memdesc:a01771"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward). <br /></td></tr>
+<tr class="memitem:DISPLIB" id="r_DISPLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01772.html">DISPLIB</a></td></tr>
+<tr class="memdesc:a01772"><td class="mdescLeft">&#160;</td><td class="mdescRight">2-D display widgets and visualisation helpers (charts, topography, colour maps). <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains the declaration of the <a class="el" href="a02009.html" title="The DataManagerView class provides the plugin control.">BidsView</a> class. </p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Lars Debor <a href="#" onclick="location.href='mai'+'lto:'+'Lar'+'s.'+'Deb'+'or'+'@tu'+'-i'+'lme'+'na'+'u.d'+'e'; return false;">Lars.<span class="obfuscator">.nosp@m.</span>Debo<span class="obfuscator">.nosp@m.</span>r@tu-<span class="obfuscator">.nosp@m.</span>ilme<span class="obfuscator">.nosp@m.</span>nau.d<span class="obfuscator">.nosp@m.</span>e</a>; Simon Heinke <a href="#" onclick="location.href='mai'+'lto:'+'Sim'+'on'+'.He'+'in'+'ke@'+'tu'+'-il'+'me'+'nau'+'.d'+'e'; return false;">Simon<span class="obfuscator">.nosp@m.</span>.Hei<span class="obfuscator">.nosp@m.</span>nke@t<span class="obfuscator">.nosp@m.</span>u-il<span class="obfuscator">.nosp@m.</span>menau<span class="obfuscator">.nosp@m.</span>.de</a> Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.6 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>October, 2020</dd></dl>
+<div class="textblock"><p>Declaration of the RtFiffRawViewModel Class. </p>
+<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Juan Garcia-Prieto <a href="#" onclick="location.href='mai'+'lto:'+'jua'+'ng'+'pc@'+'gm'+'ail'+'.c'+'om'; return false;">juang<span class="obfuscator">.nosp@m.</span>pc@g<span class="obfuscator">.nosp@m.</span>mail.<span class="obfuscator">.nosp@m.</span>com</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>May, 2014</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2020, Lorenz Esch, Lars Debor, Simon Heinke, Gabriel Motta. All rights reserved.</p>
+<p>Copyright (C) 2014, Lorenz Esch, Christoph Dinh, Gabriel Motta, Juan Garcia-Prieto. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
@@ -296,7 +404,7 @@ LICENSE</h1>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-<p class="definition">Definition in file <a class="el" href="a00362_source.html">bidsview.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00362_source.html">rtfiffrawviewmodel.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

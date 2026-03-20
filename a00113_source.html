@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp/viewers/averagelayoutview.h Source File</title>
+    <title>MNE-CPP: src/libraries/inv/hpi/inv_hpi_fit.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,207 +243,271 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_631d53b4cd81e1ad7d94af14750000bd.html">disp</a></li><li class="navelem"><a href="dir_d19fc5ec52e92d8bb58a9ebdf299e2d2.html">viewers</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_b121f4639c206225e3550e4e3ca83e37.html">inv</a></li><li class="navelem"><a href="dir_e9b781c4c6f6587e3d82ca61034d4aef.html">hpi</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">averagelayoutview.h</div></div>
+  <div class="headertitle"><div class="title">inv_hpi_fit.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00113.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#ifndef AVERAGELAYOUTVIEW_H</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define AVERAGELAYOUTVIEW_H</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;<a class="code" href="a00443.html">../disp_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &quot;<a class="code" href="a00215.html">abstractview.h</a>&quot;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#ifndef INV_HPI_FIT_H</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define INV_HPI_FIT_H</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;QPointer&gt;</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;QMap&gt;</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">class </span>QGraphicsView;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">class </span>QGraphicsItem;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a> {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">class </span><a class="code hl_class" href="a02509.html">FiffInfo</a>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">// DEFINE NAMESPACE DISPLIB</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01811.html">DISPLIB</a></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;<a class="code" href="a00137.html">../inv_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;<a class="code" href="a00599.html">fiff/fiff_ch_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &quot;<a class="code" href="a00098.html">inv_sensor_set.h</a>&quot;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &quot;<a class="code" href="a00116.html">inv_signal_model.h</a>&quot;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;<a class="code" href="a00560.html">fiff/fiff_dig_point_set.h</a>&gt;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;<a class="code" href="a00674.html">fiff/fiff_dig_point.h</a>&gt;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;<a class="code" href="a00659.html">fiff/fiff_coord_trans.h</a>&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &lt;Eigen/Geometry&gt;</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">// FORWARD DECLARATIONS</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// DISPLIB FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">class </span><a class="code hl_class" href="a02061.html">AverageScene</a>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">class </span><a class="code hl_class" href="a02081.html">EvokedSetModel</a>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">class </span><a class="code hl_class" href="a02073.html">ChannelInfoModel</a>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">class </span><a class="code hl_class" href="a02121.html">SelectionItem</a>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00085" data-start="{" data-end="};">
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a01997.html">   85</a></span><span class="keyword">class </span><a class="code hl_define" href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a> <a class="code hl_function" href="a01997.html#ada5bfa981e6add71831e67153f7322a6">AverageLayoutView</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01985.html#ac89203d30dfc08db59dbac07aae528b7">AbstractView</a></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01786.html">FWDLIB</a>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">class </span><a class="code hl_class" href="a02622.html">FwdCoil</a>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">class </span><a class="code hl_class" href="a02626.html">FwdCoilSet</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01771.html">FIFFLIB</a>{</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">class </span><a class="code hl_class" href="a02522.html">FiffInfo</a>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">class </span><a class="code hl_class" href="a02446.html">FiffCoordTrans</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">class </span><a class="code hl_class" href="a02470.html">FiffDigPointSet</a>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>}</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">// DEFINE NAMESPACE HPILIB</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01781.html">INVLIB</a></div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>{</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    Q_OBJECT</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a01997.html#a0ab5a9954705c1b6c49b26c7d71e7f52">   90</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;AverageLayoutView&gt; <a class="code hl_typedef" href="a01997.html#a0ab5a9954705c1b6c49b26c7d71e7f52">SPtr</a>;              </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a01997.html#ad5a42b56383bb7b9bb08d81b162b19af">   91</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const AverageLayoutView&gt; <a class="code hl_typedef" href="a01997.html#ad5a42b56383bb7b9bb08d81b162b19af">ConstSPtr</a>;   </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_function" href="a01997.html#ada5bfa981e6add71831e67153f7322a6">AverageLayoutView</a>(<span class="keyword">const</span> QString&amp; sSettingsPath = <span class="stringliteral">&quot;&quot;</span>,</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                      QWidget *parent = 0,</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                      Qt::WindowFlags f = Qt::Widget);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_function" href="a01997.html#ada5bfa981e6add71831e67153f7322a6">~AverageLayoutView</a>();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a5153e7381def6ab8bc70d0196e9f499e">updateOpenGLViewport</a>();</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a19edabb03df17078e4e7d748e885951e">setChannelInfoModel</a>(QSharedPointer&lt;ChannelInfoModel&gt; &amp;pChannelInfoModel);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a11be2f3b2961f4180aa501b655cbfced">setEvokedSetModel</a>(QSharedPointer&lt;EvokedSetModel&gt; pEvokedSetModel);</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    QSharedPointer&lt;EvokedSetModel&gt; <a class="code hl_function" href="a01997.html#affa39c2ae8a4193750594548eb0c75c7">getEvokedSetModel</a>();</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a021e4c1f69222410e0d57ccd1d8e4775">setBackgroundColor</a>(<span class="keyword">const</span> QColor&amp; backgroundColor);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    QColor <a class="code hl_function" href="a01997.html#af740a7b1cc0368bcd5762b1161d51cea">getBackgroundColor</a>();</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a9ac7584667c6600711b636998017243f">takeScreenshot</a>(<span class="keyword">const</span> QString&amp; fileName);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a8163d3c1a3330a44cefa2a6aafd1bfa0">setScaleMap</a>(<span class="keyword">const</span> QMap&lt;qint32, float&gt; &amp;scaleMap);</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    QSharedPointer&lt;QMap&lt;QString, QColor&gt; &gt; <a class="code hl_function" href="a01997.html#a643e226e6e651d80f3d5c41b29dca988">getAverageColor</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    QSharedPointer&lt;QMap&lt;QString, bool&gt; &gt; <a class="code hl_function" href="a01997.html#a1fde72f285f8b91932656c487dc5d739">getAverageActivation</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a440770bba3e66b5b40913c0d0190f9cb">setAverageColor</a>(<span class="keyword">const</span> QSharedPointer&lt;QMap&lt;QString, QColor&gt; &gt; qMapAverageColor);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#af620bfdbd9a5c16d27eab3a434078013">setSingleAverageColor</a>(<span class="keyword">const</span> QColor&amp; avgColor);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#aa7840f305a28aea69dd02e4a03e4a783">setAverageActivation</a>(<span class="keyword">const</span> QSharedPointer&lt;QMap&lt;QString, bool&gt; &gt; qMapAverageActivation);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">class </span><a class="code hl_class" href="a02738.html">InvSensorSet</a>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">class </span><a class="code hl_class" href="a02746.html">InvSignalModel</a>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">class </span><a class="code hl_class" href="a02734.html">InvHpiModelParameters</a>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">// Declare all structures to be used</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="};">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a02710.html">   99</a></span><span class="keyword">struct </span><a class="code hl_function" href="a02710.html#ad2f57f10fc8d7469e4d4fac89817197f">CoilParam</a> {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a02710.html#a0d5a26d78231e6ef6fbc75e3fa94ae51">  100</a></span>    Eigen::MatrixXd <a class="code hl_variable" href="a02710.html#a0d5a26d78231e6ef6fbc75e3fa94ae51">pos</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="a02710.html#ad39dc6855c5014fe29a1d192ca325ac8">  101</a></span>    Eigen::MatrixXd <a class="code hl_variable" href="a02710.html#ad39dc6855c5014fe29a1d192ca325ac8">mom</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a02710.html#a392221ea4d83111b7d2e2a03bdcf0d8d">  102</a></span>    Eigen::VectorXd <a class="code hl_variable" href="a02710.html#a392221ea4d83111b7d2e2a03bdcf0d8d">dpfiterror</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a02710.html#aa4a16eea685973b37de567fcfa1eaea9">  103</a></span>    Eigen::VectorXd <a class="code hl_variable" href="a02710.html#aa4a16eea685973b37de567fcfa1eaea9">dpfitnumitr</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a02710.html#ad2f57f10fc8d7469e4d4fac89817197f">  105</a></span>    <a class="code hl_function" href="a02710.html#ad2f57f10fc8d7469e4d4fac89817197f">CoilParam</a>(<span class="keywordtype">int</span> iNumCoils)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        : <a class="code hl_variable" href="a02710.html#a0d5a26d78231e6ef6fbc75e3fa94ae51">pos</a>(Eigen::MatrixXd(iNumCoils,3)),</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>          <a class="code hl_variable" href="a02710.html#ad39dc6855c5014fe29a1d192ca325ac8">mom</a>(Eigen::MatrixXd::Zero(iNumCoils,3)),</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>          <a class="code hl_variable" href="a02710.html#a392221ea4d83111b7d2e2a03bdcf0d8d">dpfiterror</a>(Eigen::VectorXd::Zero(iNumCoils)),</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>          <a class="code hl_variable" href="a02710.html#aa4a16eea685973b37de567fcfa1eaea9">dpfitnumitr</a>(Eigen::VectorXd::Zero(iNumCoils))</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    {}</div>
+</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>};</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span></div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="};">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a02714.html">  118</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02714.html">HpiFitResult</a> {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a02714.html#a2f5d78360ac1f18cab478ecb8f9c2e04">  119</a></span>    QVector&lt;int&gt;                <a class="code hl_variable" href="a02714.html#a2f5d78360ac1f18cab478ecb8f9c2e04">hpiFreqs</a>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="a02714.html#a9b733f47aac1b08dda41ab9f294375af">  120</a></span>    <a class="code hl_class" href="a02470.html">FIFFLIB::FiffDigPointSet</a>    <a class="code hl_variable" href="a02714.html#a9b733f47aac1b08dda41ab9f294375af">fittedCoils</a>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="a02714.html#a2b581b477cdf5dc25ccd41142f091639">  121</a></span>    <a class="code hl_class" href="a02446.html">FIFFLIB::FiffCoordTrans</a>     <a class="code hl_variable" href="a02714.html#a2b581b477cdf5dc25ccd41142f091639">devHeadTrans</a>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a02714.html#a4f469e11e4f560010e8ffb7b8d0d6214">  122</a></span>    QVector&lt;double&gt;             <a class="code hl_variable" href="a02714.html#a4f469e11e4f560010e8ffb7b8d0d6214">errorDistances</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a02714.html#a6c4c49f0df5fb0cf22e01ab49d6ab19a">  123</a></span>    Eigen::VectorXd             <a class="code hl_variable" href="a02714.html#a6c4c49f0df5fb0cf22e01ab49d6ab19a">GoF</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="a02714.html#ac83eab8c956e9bac48cf4fb7dac4d791">  124</a></span>    QString                     <a class="code hl_variable" href="a02714.html#ac83eab8c956e9bac48cf4fb7dac4d791">sFilePathDigitzers</a>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a02714.html#abe10ba2a06103227336c3e89b834a967">  125</a></span>    <span class="keywordtype">bool</span>                        <a class="code hl_variable" href="a02714.html#abe10ba2a06103227336c3e89b834a967">bIsLargeHeadMovement</a>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a02714.html#a3ef9f7e0c644fd97ea6bc4945538b0c0">  126</a></span>    <span class="keywordtype">float</span>                       <a class="code hl_variable" href="a02714.html#a3ef9f7e0c644fd97ea6bc4945538b0c0">fHeadMovementDistance</a>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a02714.html#a62d991e00480367fb22f6e94c8c8a346">  127</a></span>    <span class="keywordtype">float</span>                       <a class="code hl_variable" href="a02714.html#a62d991e00480367fb22f6e94c8c8a346">fHeadMovementAngle</a>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>};</div>
+</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">// HPILIB FORWARD DECLARATIONS</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="};">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="a02718.html">  140</a></span><span class="keyword">class </span><a class="code hl_define" href="a00137.html#abf8a4c9503f2c284931c293bad8e0a7c">INVSHARED_EXPORT</a> <a class="code hl_function" href="a02718.html#a28d5f5c0fd25436bc04f1711e1496d12">InvHpiFit</a></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>{</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="a02718.html#a3eb3aaf98c7c92468e025a61665d281e">  144</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;InvHpiFit&gt; <a class="code hl_typedef" href="a02718.html#a3eb3aaf98c7c92468e025a61665d281e">SPtr</a>;             </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="a02718.html#a970b4d05100427764e3143eec1ca7dfa">  145</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const InvHpiFit&gt; <a class="code hl_typedef" href="a02718.html#a970b4d05100427764e3143eec1ca7dfa">ConstSPtr</a>;  </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="a02718.html#a28d5f5c0fd25436bc04f1711e1496d12">  152</a></span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a02718.html#a28d5f5c0fd25436bc04f1711e1496d12">InvHpiFit</a>();</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a02718.html#a28d5f5c0fd25436bc04f1711e1496d12">InvHpiFit</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02738.html">InvSensorSet</a>&amp; sensorSet);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02718.html#ab070defc3e909b40d96cdfbe8ea35498">checkForUpdate</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02738.html">InvSensorSet</a>&amp; sensorSet);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="a02718.html#a4ac3ca7e3bb352c3c3a1b46cb4c1eef1">  181</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02718.html#a4ac3ca7e3bb352c3c3a1b46cb4c1eef1">fit</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectedData,</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>             <span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectors,</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>             <span class="keyword">const</span> <a class="code hl_class" href="a02734.html">InvHpiModelParameters</a>&amp; hpiModelParameters,</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>             <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead,</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>             <a class="code hl_struct" href="a02714.html">HpiFitResult</a>&amp; hpiFitResult);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="a02718.html#aa530e132499258bbfaf924acacfc5480">  187</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02718.html#aa530e132499258bbfaf924acacfc5480">fit</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectedData,</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>             <span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectors,</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>             <span class="keyword">const</span> <a class="code hl_class" href="a02734.html">InvHpiModelParameters</a>&amp; hpiModelParameters,</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>             <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead,</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>             <span class="keyword">const</span> <span class="keywordtype">bool</span> bOrderFrequencies,</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>             <a class="code hl_struct" href="a02714.html">HpiFitResult</a>&amp; hpiFitResult);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02718.html#ac01e19be459359107eb39905e5168bb4">storeHeadPosition</a>(<span class="keywordtype">float</span> fTime,</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                                  <span class="keyword">const</span> Eigen::MatrixXf&amp; matTransDevHead,</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                                  Eigen::MatrixXd&amp; matPosition,</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                                  <span class="keyword">const</span> Eigen::VectorXd&amp; vecGoF,</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                                  <span class="keyword">const</span> QVector&lt;double&gt;&amp; vecError);</div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#ad50207d12a74bd36f184fe3661f05760">setFiffInfo</a>(<span class="keyword">const</span> QSharedPointer&lt;FIFFLIB::FiffInfo&gt; pFiffInfo);</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#aed0b0f71061435c6f23198970c9dfff2">channelSelectionManagerChanged</a>(<span class="keyword">const</span> QList&lt;QGraphicsItem *&gt; &amp;selectedChannelItems);</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a11e8728795c9aa865b518234e72bb76b">channelSelectionChanged</a>(<span class="keyword">const</span> QVariant &amp;data);</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#aaa0bb454f2fddba0e7e89e4fabe403f4">updateData</a>();</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a358446f6a133129b8078a7e012e8718b">saveSettings</a>();</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a667101c695524c2b366b527b05a77eba">loadSettings</a>();</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a56d010e0e0cef3cd993ff4115b898b58">clearView</a>();</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#a030a3cebda78dc30a1f0e88d243b411b">updateGuiMode</a>(<a class="code hl_enumeration" href="a01985.html#a4758d14e067b1f8207526dca12903cf6">GuiMode</a> mode);</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a01997.html#ae28bc8b48d419ba740979f34c9e98a07">updateProcessingMode</a>(<a class="code hl_enumeration" href="a01985.html#ac60b3fec00fc454e4e14c344855222a4">ProcessingMode</a> mode);</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="a01997.html#a4ef14556fb918de9a6d32df09e732c23">  277</a></span>    QSharedPointer&lt;AverageScene&gt;                                <a class="code hl_variable" href="a01997.html#a4ef14556fb918de9a6d32df09e732c23">m_pAverageScene</a>;            </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno"><a class="line" href="a01997.html#a26d0d4f4712d6b0b7e343ebca3cc269c">  278</a></span>    QSharedPointer&lt;DISPLIB::EvokedSetModel&gt;                     <a class="code hl_variable" href="a01997.html#a26d0d4f4712d6b0b7e343ebca3cc269c">m_pEvokedSetModel</a>;          </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="a01997.html#abadca195097a7b2a9cb95666690a6b10">  279</a></span>    QSharedPointer&lt;DISPLIB::ChannelInfoModel&gt;                   <a class="code hl_variable" href="a01997.html#abadca195097a7b2a9cb95666690a6b10">m_pChannelInfoModel</a>;        </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="a01997.html#a21f78a53353632cf6b07fe919da4f259">  281</a></span>    QSharedPointer&lt;FIFFLIB::FiffInfo&gt;                           <a class="code hl_variable" href="a01997.html#a21f78a53353632cf6b07fe919da4f259">m_pFiffInfo</a>;                </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="a01997.html#a4443931dafd64fd7c7b606b22a777f0e">  283</a></span>    QPointer&lt;QGraphicsView&gt;                                     <a class="code hl_variable" href="a01997.html#a4443931dafd64fd7c7b606b22a777f0e">m_pAverageLayoutView</a>;       </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="a01997.html#a5f0a6f1d9edb73b6d5a0899d6cb70b72">  285</a></span>    QSharedPointer&lt;QMap&lt;QString, QColor&gt; &gt;                      <a class="code hl_variable" href="a01997.html#a5f0a6f1d9edb73b6d5a0899d6cb70b72">m_qMapAverageColor</a>;         </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="a01997.html#a78506ca9b0680b80b77f5ca51aca971b">  286</a></span>    QSharedPointer&lt;QMap&lt;QString, bool&gt; &gt;                        <a class="code hl_variable" href="a01997.html#a78506ca9b0680b80b77f5ca51aca971b">m_qMapAverageActivation</a>;    </div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="a01997.html#a10529739e96edd10810f224a92b40a20">  287</a></span>    QMap&lt;qint32,float&gt;                                          <a class="code hl_variable" href="a01997.html#a10529739e96edd10810f224a92b40a20">m_scaleMap</a>;                 </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>};</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a302b1840b997a672d20dd7ea4c11f88f">compareTransformation</a>(<span class="keyword">const</span> Eigen::MatrixX4f&amp; mDevHeadT,</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                                      <span class="keyword">const</span> Eigen::MatrixX4f&amp; mDevHeadDest,</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                                      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; fThreshRot,</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                                      <span class="keyword">const</span> <span class="keywordtype">float</span>&amp; fThreshTrans);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    Eigen::MatrixXd computeAmplitudes(<span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectedData,</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                                      <span class="keyword">const</span> <a class="code hl_class" href="a02734.html">InvHpiModelParameters</a>&amp; hpiModelParameters);</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    Eigen::MatrixXd computeSeedPoints(<span class="keyword">const</span> Eigen::MatrixXd&amp; matAmplitudes,</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>                                      <span class="keyword">const</span> <a class="code hl_class" href="a02446.html">FIFFLIB::FiffCoordTrans</a>&amp; transDevHead,</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>                                      <span class="keyword">const</span> QVector&lt;double&gt;&amp; vecError,</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>                                      <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead);</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <a class="code hl_struct" href="a02710.html">CoilParam</a> dipfit(<span class="keyword">const</span> Eigen::MatrixXd matCoilsSeed,</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>                     <span class="keyword">const</span> <a class="code hl_class" href="a02738.html">InvSensorSet</a>&amp; sensors,</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>                     <span class="keyword">const</span> Eigen::MatrixXd &amp;matData,</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>                     <span class="keyword">const</span> <span class="keywordtype">int</span> iNumCoils,</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>                     <span class="keyword">const</span> Eigen::MatrixXd &amp;t_matProjectors,</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                     <span class="keyword">const</span> <span class="keywordtype">int</span> iMaxIterations,</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>                     <span class="keyword">const</span> <span class="keywordtype">float</span> fAbortError);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    Eigen::VectorXd computeGoF(<span class="keyword">const</span> Eigen::VectorXd&amp; vecDipFitError);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <a class="code hl_class" href="a02446.html">FIFFLIB::FiffCoordTrans</a> computeDeviceHeadTransformation(<span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsDev,</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>                                                            <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead);</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    QVector&lt;double&gt; computeEstimationError(<span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsDev,</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                                           <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead,</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                                           <span class="keyword">const</span> <a class="code hl_class" href="a02446.html">FIFFLIB::FiffCoordTrans</a>&amp; transDevHead);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <a class="code hl_class" href="a02470.html">FIFFLIB::FiffDigPointSet</a> getFittedPointSet(<span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsDev);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    Eigen::Matrix4d computeTransformation(Eigen::MatrixXd matNH,</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                                          Eigen::MatrixXd matBT);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    std::vector&lt;int&gt; findCoilOrder(<span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsDev,</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>                                   <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead);</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    Eigen::MatrixXd order(<span class="keyword">const</span> std::vector&lt;int&gt;&amp; vecOrder,</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>                          <span class="keyword">const</span> Eigen::MatrixXd&amp; matToOrder);</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    QVector&lt;int&gt; order(<span class="keyword">const</span> std::vector&lt;int&gt;&amp; vecOrder,</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>                       <span class="keyword">const</span> QVector&lt;int&gt;&amp; vecToOrder);</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    <span class="keywordtype">double</span> objectTrans(<span class="keyword">const</span> Eigen::MatrixXd&amp; matHeadCoil,</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>                       <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsDev,</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>                       <span class="keyword">const</span> Eigen::MatrixXd&amp; matTrans);</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <a class="code hl_class" href="a02738.html">InvSensorSet</a> m_sensors;            </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    <a class="code hl_class" href="a02746.html">InvSignalModel</a> m_signalModel;      </div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>};</div>
 </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>} <span class="comment">// NAMESPACE</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">#endif </span><span class="comment">// AVERAGELAYOUTVIEW_H</span></div>
-<div class="ttc" id="aa00215_html"><div class="ttname"><a href="a00215.html">abstractview.h</a></div><div class="ttdoc">Declaration of the AbstractView Class.</div></div>
-<div class="ttc" id="aa00443_html"><div class="ttname"><a href="a00443.html">disp_global.h</a></div><div class="ttdoc">disp library export/import macros.</div></div>
-<div class="ttc" id="aa00443_html_aded49b96c9ac1f92dc1381a1d7845c28"><div class="ttname"><a href="a00443.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a></div><div class="ttdeci">#define DISPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00443_source.html#l00051">disp_global.h:51</a></div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa01811_html"><div class="ttname"><a href="a01811.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
-<div class="ttc" id="aa01985_html_a4758d14e067b1f8207526dca12903cf6"><div class="ttname"><a href="a01985.html#a4758d14e067b1f8207526dca12903cf6">DISPLIB::AbstractView::GuiMode</a></div><div class="ttdeci">GuiMode</div><div class="ttdef"><b>Definition</b> <a href="a00215_source.html#l00088">abstractview.h:88</a></div></div>
-<div class="ttc" id="aa01985_html_ac60b3fec00fc454e4e14c344855222a4"><div class="ttname"><a href="a01985.html#ac60b3fec00fc454e4e14c344855222a4">DISPLIB::AbstractView::ProcessingMode</a></div><div class="ttdeci">ProcessingMode</div><div class="ttdef"><b>Definition</b> <a href="a00215_source.html#l00093">abstractview.h:93</a></div></div>
-<div class="ttc" id="aa01985_html_ac89203d30dfc08db59dbac07aae528b7"><div class="ttname"><a href="a01985.html#ac89203d30dfc08db59dbac07aae528b7">DISPLIB::AbstractView::AbstractView</a></div><div class="ttdeci">AbstractView(QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="a00389_source.html#l00060">abstractview.cpp:60</a></div></div>
-<div class="ttc" id="aa01997_html_a021e4c1f69222410e0d57ccd1d8e4775"><div class="ttname"><a href="a01997.html#a021e4c1f69222410e0d57ccd1d8e4775">DISPLIB::AverageLayoutView::setBackgroundColor</a></div><div class="ttdeci">void setBackgroundColor(const QColor &amp;backgroundColor)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00147">averagelayoutview.cpp:147</a></div></div>
-<div class="ttc" id="aa01997_html_a030a3cebda78dc30a1f0e88d243b411b"><div class="ttname"><a href="a01997.html#a030a3cebda78dc30a1f0e88d243b411b">DISPLIB::AverageLayoutView::updateGuiMode</a></div><div class="ttdeci">void updateGuiMode(GuiMode mode)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00407">averagelayoutview.cpp:407</a></div></div>
-<div class="ttc" id="aa01997_html_a0ab5a9954705c1b6c49b26c7d71e7f52"><div class="ttname"><a href="a01997.html#a0ab5a9954705c1b6c49b26c7d71e7f52">DISPLIB::AverageLayoutView::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; AverageLayoutView &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00090">averagelayoutview.h:90</a></div></div>
-<div class="ttc" id="aa01997_html_a10529739e96edd10810f224a92b40a20"><div class="ttname"><a href="a01997.html#a10529739e96edd10810f224a92b40a20">DISPLIB::AverageLayoutView::m_scaleMap</a></div><div class="ttdeci">QMap&lt; qint32, float &gt; m_scaleMap</div><div class="ttdef"><b>Definition</b> <a href="#l00287">averagelayoutview.h:287</a></div></div>
-<div class="ttc" id="aa01997_html_a11be2f3b2961f4180aa501b655cbfced"><div class="ttname"><a href="a01997.html#a11be2f3b2961f4180aa501b655cbfced">DISPLIB::AverageLayoutView::setEvokedSetModel</a></div><div class="ttdeci">void setEvokedSetModel(QSharedPointer&lt; EvokedSetModel &gt; pEvokedSetModel)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00135">averagelayoutview.cpp:135</a></div></div>
-<div class="ttc" id="aa01997_html_a11e8728795c9aa865b518234e72bb76b"><div class="ttname"><a href="a01997.html#a11e8728795c9aa865b518234e72bb76b">DISPLIB::AverageLayoutView::channelSelectionChanged</a></div><div class="ttdeci">void channelSelectionChanged(const QVariant &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00286">averagelayoutview.cpp:286</a></div></div>
-<div class="ttc" id="aa01997_html_a19edabb03df17078e4e7d748e885951e"><div class="ttname"><a href="a01997.html#a19edabb03df17078e4e7d748e885951e">DISPLIB::AverageLayoutView::setChannelInfoModel</a></div><div class="ttdeci">void setChannelInfoModel(QSharedPointer&lt; ChannelInfoModel &gt; &amp;pChannelInfoModel)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00128">averagelayoutview.cpp:128</a></div></div>
-<div class="ttc" id="aa01997_html_a1fde72f285f8b91932656c487dc5d739"><div class="ttname"><a href="a01997.html#a1fde72f285f8b91932656c487dc5d739">DISPLIB::AverageLayoutView::getAverageActivation</a></div><div class="ttdeci">QSharedPointer&lt; QMap&lt; QString, bool &gt; &gt; getAverageActivation() const</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00225">averagelayoutview.cpp:225</a></div></div>
-<div class="ttc" id="aa01997_html_a21f78a53353632cf6b07fe919da4f259"><div class="ttname"><a href="a01997.html#a21f78a53353632cf6b07fe919da4f259">DISPLIB::AverageLayoutView::m_pFiffInfo</a></div><div class="ttdeci">QSharedPointer&lt; FIFFLIB::FiffInfo &gt; m_pFiffInfo</div><div class="ttdef"><b>Definition</b> <a href="#l00281">averagelayoutview.h:281</a></div></div>
-<div class="ttc" id="aa01997_html_a26d0d4f4712d6b0b7e343ebca3cc269c"><div class="ttname"><a href="a01997.html#a26d0d4f4712d6b0b7e343ebca3cc269c">DISPLIB::AverageLayoutView::m_pEvokedSetModel</a></div><div class="ttdeci">QSharedPointer&lt; DISPLIB::EvokedSetModel &gt; m_pEvokedSetModel</div><div class="ttdef"><b>Definition</b> <a href="#l00278">averagelayoutview.h:278</a></div></div>
-<div class="ttc" id="aa01997_html_a358446f6a133129b8078a7e012e8718b"><div class="ttname"><a href="a01997.html#a358446f6a133129b8078a7e012e8718b">DISPLIB::AverageLayoutView::saveSettings</a></div><div class="ttdeci">void saveSettings()</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00385">averagelayoutview.cpp:385</a></div></div>
-<div class="ttc" id="aa01997_html_a440770bba3e66b5b40913c0d0190f9cb"><div class="ttname"><a href="a01997.html#a440770bba3e66b5b40913c0d0190f9cb">DISPLIB::AverageLayoutView::setAverageColor</a></div><div class="ttdeci">void setAverageColor(const QSharedPointer&lt; QMap&lt; QString, QColor &gt; &gt; qMapAverageColor)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00232">averagelayoutview.cpp:232</a></div></div>
-<div class="ttc" id="aa01997_html_a4443931dafd64fd7c7b606b22a777f0e"><div class="ttname"><a href="a01997.html#a4443931dafd64fd7c7b606b22a777f0e">DISPLIB::AverageLayoutView::m_pAverageLayoutView</a></div><div class="ttdeci">QPointer&lt; QGraphicsView &gt; m_pAverageLayoutView</div><div class="ttdef"><b>Definition</b> <a href="#l00283">averagelayoutview.h:283</a></div></div>
-<div class="ttc" id="aa01997_html_a4ef14556fb918de9a6d32df09e732c23"><div class="ttname"><a href="a01997.html#a4ef14556fb918de9a6d32df09e732c23">DISPLIB::AverageLayoutView::m_pAverageScene</a></div><div class="ttdeci">QSharedPointer&lt; AverageScene &gt; m_pAverageScene</div><div class="ttdef"><b>Definition</b> <a href="#l00277">averagelayoutview.h:277</a></div></div>
-<div class="ttc" id="aa01997_html_a5153e7381def6ab8bc70d0196e9f499e"><div class="ttname"><a href="a01997.html#a5153e7381def6ab8bc70d0196e9f499e">DISPLIB::AverageLayoutView::updateOpenGLViewport</a></div><div class="ttdeci">void updateOpenGLViewport()</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00117">averagelayoutview.cpp:117</a></div></div>
-<div class="ttc" id="aa01997_html_a56d010e0e0cef3cd993ff4115b898b58"><div class="ttname"><a href="a01997.html#a56d010e0e0cef3cd993ff4115b898b58">DISPLIB::AverageLayoutView::clearView</a></div><div class="ttdeci">void clearView()</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00445">averagelayoutview.cpp:445</a></div></div>
-<div class="ttc" id="aa01997_html_a5f0a6f1d9edb73b6d5a0899d6cb70b72"><div class="ttname"><a href="a01997.html#a5f0a6f1d9edb73b6d5a0899d6cb70b72">DISPLIB::AverageLayoutView::m_qMapAverageColor</a></div><div class="ttdeci">QSharedPointer&lt; QMap&lt; QString, QColor &gt; &gt; m_qMapAverageColor</div><div class="ttdef"><b>Definition</b> <a href="#l00285">averagelayoutview.h:285</a></div></div>
-<div class="ttc" id="aa01997_html_a643e226e6e651d80f3d5c41b29dca988"><div class="ttname"><a href="a01997.html#a643e226e6e651d80f3d5c41b29dca988">DISPLIB::AverageLayoutView::getAverageColor</a></div><div class="ttdeci">QSharedPointer&lt; QMap&lt; QString, QColor &gt; &gt; getAverageColor() const</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00218">averagelayoutview.cpp:218</a></div></div>
-<div class="ttc" id="aa01997_html_a667101c695524c2b366b527b05a77eba"><div class="ttname"><a href="a01997.html#a667101c695524c2b366b527b05a77eba">DISPLIB::AverageLayoutView::loadSettings</a></div><div class="ttdeci">void loadSettings()</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00396">averagelayoutview.cpp:396</a></div></div>
-<div class="ttc" id="aa01997_html_a78506ca9b0680b80b77f5ca51aca971b"><div class="ttname"><a href="a01997.html#a78506ca9b0680b80b77f5ca51aca971b">DISPLIB::AverageLayoutView::m_qMapAverageActivation</a></div><div class="ttdeci">QSharedPointer&lt; QMap&lt; QString, bool &gt; &gt; m_qMapAverageActivation</div><div class="ttdef"><b>Definition</b> <a href="#l00286">averagelayoutview.h:286</a></div></div>
-<div class="ttc" id="aa01997_html_a8163d3c1a3330a44cefa2a6aafd1bfa0"><div class="ttname"><a href="a01997.html#a8163d3c1a3330a44cefa2a6aafd1bfa0">DISPLIB::AverageLayoutView::setScaleMap</a></div><div class="ttdeci">void setScaleMap(const QMap&lt; qint32, float &gt; &amp;scaleMap)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00202">averagelayoutview.cpp:202</a></div></div>
-<div class="ttc" id="aa01997_html_a9ac7584667c6600711b636998017243f"><div class="ttname"><a href="a01997.html#a9ac7584667c6600711b636998017243f">DISPLIB::AverageLayoutView::takeScreenshot</a></div><div class="ttdeci">void takeScreenshot(const QString &amp;fileName)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00173">averagelayoutview.cpp:173</a></div></div>
-<div class="ttc" id="aa01997_html_aa7840f305a28aea69dd02e4a03e4a783"><div class="ttname"><a href="a01997.html#aa7840f305a28aea69dd02e4a03e4a783">DISPLIB::AverageLayoutView::setAverageActivation</a></div><div class="ttdeci">void setAverageActivation(const QSharedPointer&lt; QMap&lt; QString, bool &gt; &gt; qMapAverageActivation)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00257">averagelayoutview.cpp:257</a></div></div>
-<div class="ttc" id="aa01997_html_aaa0bb454f2fddba0e7e89e4fabe403f4"><div class="ttname"><a href="a01997.html#aaa0bb454f2fddba0e7e89e4fabe403f4">DISPLIB::AverageLayoutView::updateData</a></div><div class="ttdeci">void updateData()</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00305">averagelayoutview.cpp:305</a></div></div>
-<div class="ttc" id="aa01997_html_abadca195097a7b2a9cb95666690a6b10"><div class="ttname"><a href="a01997.html#abadca195097a7b2a9cb95666690a6b10">DISPLIB::AverageLayoutView::m_pChannelInfoModel</a></div><div class="ttdeci">QSharedPointer&lt; DISPLIB::ChannelInfoModel &gt; m_pChannelInfoModel</div><div class="ttdef"><b>Definition</b> <a href="#l00279">averagelayoutview.h:279</a></div></div>
-<div class="ttc" id="aa01997_html_ad50207d12a74bd36f184fe3661f05760"><div class="ttname"><a href="a01997.html#ad50207d12a74bd36f184fe3661f05760">DISPLIB::AverageLayoutView::setFiffInfo</a></div><div class="ttdeci">void setFiffInfo(const QSharedPointer&lt; FIFFLIB::FiffInfo &gt; pFiffInfo)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00431">averagelayoutview.cpp:431</a></div></div>
-<div class="ttc" id="aa01997_html_ad5a42b56383bb7b9bb08d81b162b19af"><div class="ttname"><a href="a01997.html#ad5a42b56383bb7b9bb08d81b162b19af">DISPLIB::AverageLayoutView::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const AverageLayoutView &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00091">averagelayoutview.h:91</a></div></div>
-<div class="ttc" id="aa01997_html_ada5bfa981e6add71831e67153f7322a6"><div class="ttname"><a href="a01997.html#ada5bfa981e6add71831e67153f7322a6">DISPLIB::AverageLayoutView::AverageLayoutView</a></div><div class="ttdeci">AverageLayoutView(const QString &amp;sSettingsPath=&quot;&quot;, QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00076">averagelayoutview.cpp:76</a></div></div>
-<div class="ttc" id="aa01997_html_ae28bc8b48d419ba740979f34c9e98a07"><div class="ttname"><a href="a01997.html#ae28bc8b48d419ba740979f34c9e98a07">DISPLIB::AverageLayoutView::updateProcessingMode</a></div><div class="ttdeci">void updateProcessingMode(ProcessingMode mode)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00419">averagelayoutview.cpp:419</a></div></div>
-<div class="ttc" id="aa01997_html_aed0b0f71061435c6f23198970c9dfff2"><div class="ttname"><a href="a01997.html#aed0b0f71061435c6f23198970c9dfff2">DISPLIB::AverageLayoutView::channelSelectionManagerChanged</a></div><div class="ttdeci">void channelSelectionManagerChanged(const QList&lt; QGraphicsItem * &gt; &amp;selectedChannelItems)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00270">averagelayoutview.cpp:270</a></div></div>
-<div class="ttc" id="aa01997_html_af620bfdbd9a5c16d27eab3a434078013"><div class="ttname"><a href="a01997.html#af620bfdbd9a5c16d27eab3a434078013">DISPLIB::AverageLayoutView::setSingleAverageColor</a></div><div class="ttdeci">void setSingleAverageColor(const QColor &amp;avgColor)</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00245">averagelayoutview.cpp:245</a></div></div>
-<div class="ttc" id="aa01997_html_af740a7b1cc0368bcd5762b1161d51cea"><div class="ttname"><a href="a01997.html#af740a7b1cc0368bcd5762b1161d51cea">DISPLIB::AverageLayoutView::getBackgroundColor</a></div><div class="ttdeci">QColor getBackgroundColor()</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00161">averagelayoutview.cpp:161</a></div></div>
-<div class="ttc" id="aa01997_html_affa39c2ae8a4193750594548eb0c75c7"><div class="ttname"><a href="a01997.html#affa39c2ae8a4193750594548eb0c75c7">DISPLIB::AverageLayoutView::getEvokedSetModel</a></div><div class="ttdeci">QSharedPointer&lt; EvokedSetModel &gt; getEvokedSetModel()</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00438">averagelayoutview.cpp:438</a></div></div>
-<div class="ttc" id="aa02061_html"><div class="ttname"><a href="a02061.html">DISPLIB::AverageScene</a></div><div class="ttdoc">The AverageScene class provides a reimplemented QGraphicsScene for 2D layout plotting.</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00075">averagescene.h:76</a></div></div>
-<div class="ttc" id="aa02073_html"><div class="ttname"><a href="a02073.html">DISPLIB::ChannelInfoModel</a></div><div class="ttdoc">Table model exposing per-channel metadata (name, type, unit, position) for QTableView display.</div><div class="ttdef"><b>Definition</b> <a href="a00299_source.html#l00103">channelinfomodel.h:104</a></div></div>
-<div class="ttc" id="aa02081_html"><div class="ttname"><a href="a02081.html">DISPLIB::EvokedSetModel</a></div><div class="ttdoc">The EvokedSetModel class implements the data access model for evoked set data.</div><div class="ttdef"><b>Definition</b> <a href="a00314_source.html#l00101">evokedsetmodel.h:102</a></div></div>
-<div class="ttc" id="aa02121_html"><div class="ttname"><a href="a02121.html">DISPLIB::SelectionItem</a></div><div class="ttdoc">The SelectionSceneItem class provides a new data structure for visualizing channels in a 2D layout.</div><div class="ttdef"><b>Definition</b> <a href="a00344_source.html#l00072">selectionsceneitem.h:72</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">FIFFLIB::FiffInfo</a></div><div class="ttdoc">FIFF measurement file information.</div><div class="ttdef"><b>Definition</b> <a href="a00455_source.html#l00084">fiff_info.h:85</a></div></div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="comment">// INLINE DEFINITIONS</span></div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span> </div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>} <span class="comment">//NAMESPACE</span></div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="preprocessor">#ifndef metatype_HpiFitResult</span></div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno"><a class="line" href="a00113.html#ae1ae9ef418db876a7758bb31e62dab35">  391</a></span><span class="preprocessor">#define metatype_HpiFitResult</span></div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><a class="code hl_function" href="a00791.html#a7fee6e56a316cd0690c26c2bf01d57b9">Q_DECLARE_METATYPE</a>(<a class="code hl_struct" href="a02714.html">INVLIB::HpiFitResult</a>)</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span> </div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span><span class="preprocessor">#endif </span><span class="comment">// INV_HPI_FIT_H</span></div>
+<div class="ttc" id="aa00098_html"><div class="ttname"><a href="a00098.html">inv_sensor_set.h</a></div><div class="ttdoc">InvSensorSet class declaration.</div></div>
+<div class="ttc" id="aa00116_html"><div class="ttname"><a href="a00116.html">inv_signal_model.h</a></div><div class="ttdoc">InvSignalModel class declaration.</div></div>
+<div class="ttc" id="aa00137_html"><div class="ttname"><a href="a00137.html">inv_global.h</a></div><div class="ttdoc">inverse library export/import macros.</div></div>
+<div class="ttc" id="aa00137_html_abf8a4c9503f2c284931c293bad8e0a7c"><div class="ttname"><a href="a00137.html#abf8a4c9503f2c284931c293bad8e0a7c">INVSHARED_EXPORT</a></div><div class="ttdeci">#define INVSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00137_source.html#l00052">inv_global.h:52</a></div></div>
+<div class="ttc" id="aa00560_html"><div class="ttname"><a href="a00560.html">fiff_dig_point_set.h</a></div><div class="ttdoc">FiffDigPointSet class declaration.</div></div>
+<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">fiff_ch_info.h</a></div><div class="ttdoc">FiffChInfo class declaration.</div></div>
+<div class="ttc" id="aa00659_html"><div class="ttname"><a href="a00659.html">fiff_coord_trans.h</a></div><div class="ttdoc">FiffCoordTrans class declaration.</div></div>
+<div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">fiff_dig_point.h</a></div><div class="ttdoc">FiffDigPoint class declaration.</div></div>
+<div class="ttc" id="aa00791_html_a7fee6e56a316cd0690c26c2bf01d57b9"><div class="ttname"><a href="a00791.html#a7fee6e56a316cd0690c26c2bf01d57b9">Q_DECLARE_METATYPE</a></div><div class="ttdeci">Q_DECLARE_METATYPE(Eigen::MatrixXf)</div></div>
+<div class="ttc" id="aa01771_html"><div class="ttname"><a href="a01771.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00071">connectivitysettings.h:71</a></div></div>
+<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">INVLIB</a></div><div class="ttdoc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting).</div><div class="ttdef"><b>Definition</b> <a href="a01574_source.html#l00055">braintreemodel.h:55</a></div></div>
+<div class="ttc" id="aa01786_html"><div class="ttname"><a href="a01786.html">FWDLIB</a></div><div class="ttdoc">Forward modelling (BEM, MEG/EEG lead fields).</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00090">compute_fwd.h:91</a></div></div>
+<div class="ttc" id="aa02446_html"><div class="ttname"><a href="a02446.html">FIFFLIB::FiffCoordTrans</a></div><div class="ttdoc">Coordinate transformation description.</div><div class="ttdef"><b>Definition</b> <a href="a00659_source.html#l00080">fiff_coord_trans.h:81</a></div></div>
+<div class="ttc" id="aa02470_html"><div class="ttname"><a href="a02470.html">FIFFLIB::FiffDigPointSet</a></div><div class="ttdoc">Holds a set of digitizer points.</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00084">fiff_dig_point_set.h:85</a></div></div>
+<div class="ttc" id="aa02522_html"><div class="ttname"><a href="a02522.html">FIFFLIB::FiffInfo</a></div><div class="ttdoc">FIFF measurement file information.</div><div class="ttdef"><b>Definition</b> <a href="a00509_source.html#l00084">fiff_info.h:85</a></div></div>
+<div class="ttc" id="aa02622_html"><div class="ttname"><a href="a02622.html">FWDLIB::FwdCoil</a></div><div class="ttdoc">Single MEG or EEG sensor coil with integration points, weights, and coordinate frame.</div><div class="ttdef"><b>Definition</b> <a href="a01724_source.html#l00092">fwd_coil.h:93</a></div></div>
+<div class="ttc" id="aa02626_html"><div class="ttname"><a href="a02626.html">FWDLIB::FwdCoilSet</a></div><div class="ttdoc">Collection of FwdCoil objects representing a full MEG or EEG sensor array.</div><div class="ttdef"><b>Definition</b> <a href="a01742_source.html#l00076">fwd_coil_set.h:77</a></div></div>
+<div class="ttc" id="aa02710_html"><div class="ttname"><a href="a02710.html">INVLIB::CoilParam</a></div><div class="ttdoc">Estimated dipole parameters (position, moment, goodness-of-fit) for a single HPI coil.</div><div class="ttdef"><b>Definition</b> <a href="#l00099">inv_hpi_fit.h:99</a></div></div>
+<div class="ttc" id="aa02710_html_a0d5a26d78231e6ef6fbc75e3fa94ae51"><div class="ttname"><a href="a02710.html#a0d5a26d78231e6ef6fbc75e3fa94ae51">INVLIB::CoilParam::pos</a></div><div class="ttdeci">Eigen::MatrixXd pos</div><div class="ttdef"><b>Definition</b> <a href="#l00100">inv_hpi_fit.h:100</a></div></div>
+<div class="ttc" id="aa02710_html_a392221ea4d83111b7d2e2a03bdcf0d8d"><div class="ttname"><a href="a02710.html#a392221ea4d83111b7d2e2a03bdcf0d8d">INVLIB::CoilParam::dpfiterror</a></div><div class="ttdeci">Eigen::VectorXd dpfiterror</div><div class="ttdef"><b>Definition</b> <a href="#l00102">inv_hpi_fit.h:102</a></div></div>
+<div class="ttc" id="aa02710_html_aa4a16eea685973b37de567fcfa1eaea9"><div class="ttname"><a href="a02710.html#aa4a16eea685973b37de567fcfa1eaea9">INVLIB::CoilParam::dpfitnumitr</a></div><div class="ttdeci">Eigen::VectorXd dpfitnumitr</div><div class="ttdef"><b>Definition</b> <a href="#l00103">inv_hpi_fit.h:103</a></div></div>
+<div class="ttc" id="aa02710_html_ad2f57f10fc8d7469e4d4fac89817197f"><div class="ttname"><a href="a02710.html#ad2f57f10fc8d7469e4d4fac89817197f">INVLIB::CoilParam::CoilParam</a></div><div class="ttdeci">CoilParam(int iNumCoils)</div><div class="ttdef"><b>Definition</b> <a href="#l00105">inv_hpi_fit.h:105</a></div></div>
+<div class="ttc" id="aa02710_html_ad39dc6855c5014fe29a1d192ca325ac8"><div class="ttname"><a href="a02710.html#ad39dc6855c5014fe29a1d192ca325ac8">INVLIB::CoilParam::mom</a></div><div class="ttdeci">Eigen::MatrixXd mom</div><div class="ttdef"><b>Definition</b> <a href="#l00101">inv_hpi_fit.h:101</a></div></div>
+<div class="ttc" id="aa02714_html"><div class="ttname"><a href="a02714.html">INVLIB::HpiFitResult</a></div><div class="ttdoc">Complete HPI fit output: per-coil dipole parameters, head-to-device transform, fit error,...</div><div class="ttdef"><b>Definition</b> <a href="#l00118">inv_hpi_fit.h:118</a></div></div>
+<div class="ttc" id="aa02714_html_a2b581b477cdf5dc25ccd41142f091639"><div class="ttname"><a href="a02714.html#a2b581b477cdf5dc25ccd41142f091639">INVLIB::HpiFitResult::devHeadTrans</a></div><div class="ttdeci">FIFFLIB::FiffCoordTrans devHeadTrans</div><div class="ttdef"><b>Definition</b> <a href="#l00121">inv_hpi_fit.h:121</a></div></div>
+<div class="ttc" id="aa02714_html_a2f5d78360ac1f18cab478ecb8f9c2e04"><div class="ttname"><a href="a02714.html#a2f5d78360ac1f18cab478ecb8f9c2e04">INVLIB::HpiFitResult::hpiFreqs</a></div><div class="ttdeci">QVector&lt; int &gt; hpiFreqs</div><div class="ttdef"><b>Definition</b> <a href="#l00119">inv_hpi_fit.h:119</a></div></div>
+<div class="ttc" id="aa02714_html_a3ef9f7e0c644fd97ea6bc4945538b0c0"><div class="ttname"><a href="a02714.html#a3ef9f7e0c644fd97ea6bc4945538b0c0">INVLIB::HpiFitResult::fHeadMovementDistance</a></div><div class="ttdeci">float fHeadMovementDistance</div><div class="ttdef"><b>Definition</b> <a href="#l00126">inv_hpi_fit.h:126</a></div></div>
+<div class="ttc" id="aa02714_html_a4f469e11e4f560010e8ffb7b8d0d6214"><div class="ttname"><a href="a02714.html#a4f469e11e4f560010e8ffb7b8d0d6214">INVLIB::HpiFitResult::errorDistances</a></div><div class="ttdeci">QVector&lt; double &gt; errorDistances</div><div class="ttdef"><b>Definition</b> <a href="#l00122">inv_hpi_fit.h:122</a></div></div>
+<div class="ttc" id="aa02714_html_a62d991e00480367fb22f6e94c8c8a346"><div class="ttname"><a href="a02714.html#a62d991e00480367fb22f6e94c8c8a346">INVLIB::HpiFitResult::fHeadMovementAngle</a></div><div class="ttdeci">float fHeadMovementAngle</div><div class="ttdef"><b>Definition</b> <a href="#l00127">inv_hpi_fit.h:127</a></div></div>
+<div class="ttc" id="aa02714_html_a6c4c49f0df5fb0cf22e01ab49d6ab19a"><div class="ttname"><a href="a02714.html#a6c4c49f0df5fb0cf22e01ab49d6ab19a">INVLIB::HpiFitResult::GoF</a></div><div class="ttdeci">Eigen::VectorXd GoF</div><div class="ttdef"><b>Definition</b> <a href="#l00123">inv_hpi_fit.h:123</a></div></div>
+<div class="ttc" id="aa02714_html_a9b733f47aac1b08dda41ab9f294375af"><div class="ttname"><a href="a02714.html#a9b733f47aac1b08dda41ab9f294375af">INVLIB::HpiFitResult::fittedCoils</a></div><div class="ttdeci">FIFFLIB::FiffDigPointSet fittedCoils</div><div class="ttdef"><b>Definition</b> <a href="#l00120">inv_hpi_fit.h:120</a></div></div>
+<div class="ttc" id="aa02714_html_abe10ba2a06103227336c3e89b834a967"><div class="ttname"><a href="a02714.html#abe10ba2a06103227336c3e89b834a967">INVLIB::HpiFitResult::bIsLargeHeadMovement</a></div><div class="ttdeci">bool bIsLargeHeadMovement</div><div class="ttdef"><b>Definition</b> <a href="#l00125">inv_hpi_fit.h:125</a></div></div>
+<div class="ttc" id="aa02714_html_ac83eab8c956e9bac48cf4fb7dac4d791"><div class="ttname"><a href="a02714.html#ac83eab8c956e9bac48cf4fb7dac4d791">INVLIB::HpiFitResult::sFilePathDigitzers</a></div><div class="ttdeci">QString sFilePathDigitzers</div><div class="ttdef"><b>Definition</b> <a href="#l00124">inv_hpi_fit.h:124</a></div></div>
+<div class="ttc" id="aa02718_html_a28d5f5c0fd25436bc04f1711e1496d12"><div class="ttname"><a href="a02718.html#a28d5f5c0fd25436bc04f1711e1496d12">INVLIB::InvHpiFit::InvHpiFit</a></div><div class="ttdeci">InvHpiFit()</div></div>
+<div class="ttc" id="aa02718_html_a302b1840b997a672d20dd7ea4c11f88f"><div class="ttname"><a href="a02718.html#a302b1840b997a672d20dd7ea4c11f88f">INVLIB::InvHpiFit::compareTransformation</a></div><div class="ttdeci">static bool compareTransformation(const Eigen::MatrixX4f &amp;mDevHeadT, const Eigen::MatrixX4f &amp;mDevHeadDest, const float &amp;fThreshRot, const float &amp;fThreshTrans)</div><div class="ttdef"><b>Definition</b> <a href="a00092_source.html#l00556">inv_hpi_fit.cpp:556</a></div></div>
+<div class="ttc" id="aa02718_html_a3eb3aaf98c7c92468e025a61665d281e"><div class="ttname"><a href="a02718.html#a3eb3aaf98c7c92468e025a61665d281e">INVLIB::InvHpiFit::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; InvHpiFit &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00144">inv_hpi_fit.h:144</a></div></div>
+<div class="ttc" id="aa02718_html_a4ac3ca7e3bb352c3c3a1b46cb4c1eef1"><div class="ttname"><a href="a02718.html#a4ac3ca7e3bb352c3c3a1b46cb4c1eef1">INVLIB::InvHpiFit::fit</a></div><div class="ttdeci">void fit(const Eigen::MatrixXd &amp;matProjectedData, const Eigen::MatrixXd &amp;matProjectors, const InvHpiModelParameters &amp;hpiModelParameters, const Eigen::MatrixXd &amp;matCoilsHead, HpiFitResult &amp;hpiFitResult)</div></div>
+<div class="ttc" id="aa02718_html_a970b4d05100427764e3143eec1ca7dfa"><div class="ttname"><a href="a02718.html#a970b4d05100427764e3143eec1ca7dfa">INVLIB::InvHpiFit::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const InvHpiFit &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00145">inv_hpi_fit.h:145</a></div></div>
+<div class="ttc" id="aa02718_html_aa530e132499258bbfaf924acacfc5480"><div class="ttname"><a href="a02718.html#aa530e132499258bbfaf924acacfc5480">INVLIB::InvHpiFit::fit</a></div><div class="ttdeci">void fit(const Eigen::MatrixXd &amp;matProjectedData, const Eigen::MatrixXd &amp;matProjectors, const InvHpiModelParameters &amp;hpiModelParameters, const Eigen::MatrixXd &amp;matCoilsHead, const bool bOrderFrequencies, HpiFitResult &amp;hpiFitResult)</div></div>
+<div class="ttc" id="aa02718_html_ab070defc3e909b40d96cdfbe8ea35498"><div class="ttname"><a href="a02718.html#ab070defc3e909b40d96cdfbe8ea35498">INVLIB::InvHpiFit::checkForUpdate</a></div><div class="ttdeci">void checkForUpdate(const InvSensorSet &amp;sensorSet)</div><div class="ttdef"><b>Definition</b> <a href="a00092_source.html#l00104">inv_hpi_fit.cpp:104</a></div></div>
+<div class="ttc" id="aa02718_html_ac01e19be459359107eb39905e5168bb4"><div class="ttname"><a href="a02718.html#ac01e19be459359107eb39905e5168bb4">INVLIB::InvHpiFit::storeHeadPosition</a></div><div class="ttdeci">static void storeHeadPosition(float fTime, const Eigen::MatrixXf &amp;matTransDevHead, Eigen::MatrixXd &amp;matPosition, const Eigen::VectorXd &amp;vecGoF, const QVector&lt; double &gt; &amp;vecError)</div><div class="ttdef"><b>Definition</b> <a href="a00092_source.html#l00529">inv_hpi_fit.cpp:529</a></div></div>
+<div class="ttc" id="aa02734_html"><div class="ttname"><a href="a02734.html">INVLIB::InvHpiModelParameters</a></div><div class="ttdoc">Configuration parameters for the HPI signal model (line frequency, coil frequencies,...</div><div class="ttdef"><b>Definition</b> <a href="a00104_source.html#l00075">inv_hpi_model_parameters.h:76</a></div></div>
+<div class="ttc" id="aa02738_html"><div class="ttname"><a href="a02738.html">INVLIB::InvSensorSet</a></div><div class="ttdoc">Stores MEG sensor geometry (positions, orientations, weights, coil count) for a single sensor type.</div><div class="ttdef"><b>Definition</b> <a href="a00098_source.html#l00083">inv_sensor_set.h:83</a></div></div>
+<div class="ttc" id="aa02746_html"><div class="ttname"><a href="a02746.html">INVLIB::InvSignalModel</a></div><div class="ttdoc">Generates the forward sinusoidal model matrix for HPI coil signals at known drive frequencies.</div><div class="ttdef"><b>Definition</b> <a href="a00116_source.html#l00073">inv_signal_model.h:74</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

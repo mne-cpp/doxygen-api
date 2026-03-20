@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -212,12 +247,10 @@ $(function() {
 <div class="textblock">Here is a list of all namespace members with links to the namespace documentation for each member:</div>
 
 <h3 class="doxsection"><a id="index_r" name="index_r"></a>- r -</h3><ul>
-<li>READ&#160;:&#160;<a class="el" href="a01823.html#a025e9a81ba277a75a48caa6acd5cebffa21f5980667446949003773e18b0ffa2c">EVENTSLIB</a></li>
-<li>READWRITE&#160;:&#160;<a class="el" href="a01823.html#a025e9a81ba277a75a48caa6acd5cebffa55c5c8b01d5fcb0f611c09877eab395b">EVENTSLIB</a></li>
-<li>RedBlue&#160;:&#160;<a class="el" href="a01811.html#a53c600771742063d0826523495db22f3a8e23b4fdd9152664065d1adb48337db1">DISPLIB</a></li>
-<li>resolve_stream()&#160;:&#160;<a class="el" href="a01833.html#aeb444b9ac5fa0f5568fde0ad81cac9d7">LSLLIB</a></li>
-<li>resolve_streams()&#160;:&#160;<a class="el" href="a01833.html#a2d76882163179c28c2db43874553a1c6">LSLLIB</a></li>
-<li>RowVectorPair&#160;:&#160;<a class="el" href="a01811.html#ae1ddfa37a3893969aef05a73116d5b06">DISPLIB</a></li>
+<li>RedBlue&#160;:&#160;<a class="el" href="a01772.html#a53c600771742063d0826523495db22f3a8e23b4fdd9152664065d1adb48337db1">DISPLIB</a></li>
+<li>resolve_stream()&#160;:&#160;<a class="el" href="a01793.html#aeb444b9ac5fa0f5568fde0ad81cac9d7">LSLLIB</a></li>
+<li>resolve_streams()&#160;:&#160;<a class="el" href="a01793.html#a2d76882163179c28c2db43874553a1c6">LSLLIB</a></li>
+<li>RowVectorPair&#160;:&#160;<a class="el" href="a01772.html#ae1ddfa37a3893969aef05a73116d5b06">DISPLIB</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

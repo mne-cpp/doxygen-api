@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/connectivity/metrics/abstractmetric.h File Reference</title>
+    <title>MNE-CPP: src/libraries/conn/network/networkedge.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,129 +243,61 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_4966471859b0659b2008791a461b6feb.html">connectivity</a></li><li class="navelem"><a href="dir_f5b9a59d67d23c798a9a50c62b2401ad.html">metrics</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_2960015e23681b11126f26d2a32abf5e.html">conn</a></li><li class="navelem"><a href="dir_b57ae1ab1bb00943a72a759f31dc0f06.html">network</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">abstractmetric.h File Reference</div></div>
+  <div class="headertitle"><div class="title">networkedge.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>AbstractMetric class declaration.  
+<p><a class="el" href="a01906.html" title="This class holds an object to describe the edge of a network.">NetworkEdge</a> class definition.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00851_source.html">../connectivity_global.h</a>&quot;</code><br />
-<code>#include &lt;QSharedPointer&gt;</code><br />
-<code>#include &lt;QVector&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00908_source.html">networkedge.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00911_source.html">networknode.h</a>&quot;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for abstractmetric.h:</div>
+Include dependency graph for networkedge.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00915.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2abstractmetric_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2connectivity_2metrics_2abstractmetric_8h" id="asrc_2libraries_2connectivity_2metrics_2abstractmetric_8h">
-<area shape="rect" title="AbstractMetric class declaration." alt="" coords="285,5,472,45"/>
-<area shape="rect" href="a00851.html" title="connectivity library export/import macros." alt="" coords="59,93,232,119"/>
-<area shape="poly" title=" " alt="" coords="324,48,193,91,192,86,322,43"/>
-<area shape="rect" title=" " alt="" coords="256,93,379,119"/>
-<area shape="poly" title=" " alt="" coords="366,47,337,84,333,81,362,44"/>
-<area shape="rect" title=" " alt="" coords="403,93,477,119"/>
-<area shape="poly" title=" " alt="" coords="396,44,425,81,420,84,391,47"/>
-<area shape="rect" title=" " alt="" coords="501,93,593,119"/>
-<area shape="poly" title=" " alt="" coords="420,43,511,85,508,90,418,48"/>
-<area shape="rect" title=" " alt="" coords="5,167,136,192"/>
-<area shape="poly" title=" " alt="" coords="135,121,95,159,91,155,132,117"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="160,167,283,192"/>
-<area shape="poly" title=" " alt="" coords="159,117,201,155,197,159,156,121"/>
-<area shape="rect" title=" " alt="" coords="188,240,255,265"/>
-<area shape="poly" title=" " alt="" coords="224,192,224,226,219,226,219,192"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00916.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2abstractmetric_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2connectivity_2metrics_2abstractmetric_8hdep" id="asrc_2libraries_2connectivity_2metrics_2abstractmetric_8hdep">
-<area shape="rect" title="AbstractMetric class declaration." alt="" coords="1262,5,1449,45"/>
-<area shape="rect" href="a00911.html" title="AbstractMetric class definition." alt="" coords="5,93,207,133"/>
-<area shape="poly" title=" " alt="" coords="1248,32,799,50,510,69,218,96,207,97,206,92,218,91,510,64,799,45,1248,26"/>
-<area shape="rect" href="a00869.html" title="Coherence class declaration." alt="" coords="2293,93,2476,133"/>
-<area shape="poly" title=" " alt="" coords="1463,28,1827,48,2054,66,2282,91,2293,92,2293,97,2282,96,2054,71,1826,53,1463,33"/>
-<area shape="rect" href="a00866.html" title="Coherency class declaration." alt="" coords="2500,93,2683,133"/>
-<area shape="poly" title=" " alt="" coords="1463,26,1655,32,1911,43,2199,62,2489,91,2500,92,2499,97,2488,96,2198,68,1910,49,1655,37,1462,31"/>
-<area shape="rect" href="a00896.html" title="Correlation class declaration." alt="" coords="231,93,413,133"/>
-<area shape="poly" title=" " alt="" coords="1248,33,883,53,655,72,426,96,414,98,413,92,426,91,655,66,883,48,1248,28"/>
-<area shape="rect" href="a00857.html" title="CrossCorrelation class declaration." alt="" coords="438,93,633,133"/>
-<area shape="poly" title=" " alt="" coords="1249,37,975,60,645,96,633,98,633,92,644,91,974,54,1248,32"/>
-<area shape="rect" href="a00893.html" title="DebiasedSquaredWeightedPhaseLagIndex class declaration." alt="" coords="657,93,1014,133"/>
-<area shape="poly" title=" " alt="" coords="1249,47,950,96,949,91,1248,42"/>
-<area shape="rect" href="a00860.html" title="Imaginary coherence class declaration." alt="" coords="2079,93,2269,133"/>
-<area shape="poly" title=" " alt="" coords="1463,31,1737,54,2068,91,2078,92,2078,97,2067,96,1737,59,1462,37"/>
-<area shape="rect" href="a00917.html" title="PhaseLagIndex class declaration." alt="" coords="1038,93,1225,133"/>
-<area shape="poly" title=" " alt="" coords="1294,53,1181,96,1179,91,1293,48"/>
-<area shape="rect" href="a00875.html" title="PhaseLockingValue class declaration." alt="" coords="1249,93,1462,133"/>
-<area shape="poly" title=" " alt="" coords="1358,59,1358,93,1353,93,1353,59"/>
-<area shape="rect" href="a00881.html" title="UnbiasedSquaredPhaseLagIndex class declaration." alt="" coords="1487,93,1784,133"/>
-<area shape="poly" title=" " alt="" coords="1431,47,1575,91,1573,96,1429,52"/>
-<area shape="rect" href="a00872.html" title="WeightedPhaseLagIndex class declaration." alt="" coords="1808,93,2055,133"/>
-<area shape="poly" title=" " alt="" coords="1463,40,1808,91,1807,96,1462,45"/>
-<area shape="rect" href="a00920.html" title="Connectivity class definition." alt="" coords="1440,181,1623,221"/>
-<area shape="poly" title=" " alt="" coords="2280,136,2098,154,1956,160,1815,166,1636,184,1623,186,1623,180,1635,179,1814,161,1956,155,2098,148,2279,131"/>
-<area shape="rect" href="a00854.html" title="Coherence class declaration." alt="" coords="2500,181,2683,221"/>
-<area shape="poly" title=" " alt="" coords="2444,136,2547,179,2545,184,2442,141"/>
-<area shape="poly" title=" " alt="" coords="2594,147,2594,181,2589,181,2589,147"/>
-<area shape="rect" href="a00887.html" title="Coherency class declaration." alt="" coords="2707,181,2889,221"/>
-<area shape="poly" title=" " alt="" coords="2650,136,2754,179,2752,184,2648,141"/>
-<area shape="rect" href="a00884.html" title="Imaginary coherence class declaration." alt="" coords="2269,181,2476,221"/>
-<area shape="poly" title=" " alt="" coords="2531,141,2422,184,2420,179,2530,136"/>
-<area shape="poly" title=" " alt="" coords="428,131,580,145,710,152,930,154,1150,157,1278,164,1429,179,1440,180,1439,185,1428,184,1278,170,1150,162,930,160,710,157,580,150,427,136"/>
-<area shape="rect" href="a00908.html" title="Correlation class definition." alt="" coords="124,181,307,221"/>
-<area shape="poly" title=" " alt="" coords="289,144,241,183,237,179,286,140"/>
-<area shape="poly" title=" " alt="" coords="647,131,867,149,1040,154,1211,159,1311,166,1429,179,1440,180,1439,185,1428,184,1311,172,1211,165,1039,159,867,154,646,136"/>
-<area shape="rect" href="a00890.html" title="CrossCorrelation class definition." alt="" coords="331,181,542,221"/>
-<area shape="poly" title=" " alt="" coords="505,144,460,183,457,179,502,140"/>
-<area shape="poly" title=" " alt="" coords="1027,132,1429,179,1440,180,1439,186,1428,184,1027,137"/>
-<area shape="rect" href="a00905.html" title="DebiasedSquaredWeightedPhaseLagIndex class definition." alt="" coords="567,181,939,221"/>
-<area shape="poly" title=" " alt="" coords="809,145,773,183,769,179,805,142"/>
-<area shape="poly" title=" " alt="" coords="2065,136,1944,151,1849,160,1755,169,1636,184,1624,186,1623,181,1635,179,1754,164,1848,155,1943,146,2064,131"/>
-<area shape="poly" title=" " alt="" coords="2231,136,2330,179,2328,184,2229,141"/>
-<area shape="poly" title=" " alt="" coords="1233,134,1444,179,1443,184,1232,139"/>
-<area shape="rect" href="a00899.html" title="PhaseLagIndex class definition." alt="" coords="963,181,1164,221"/>
-<area shape="poly" title=" " alt="" coords="1110,146,1080,183,1076,179,1106,143"/>
-<area shape="poly" title=" " alt="" coords="1407,137,1494,179,1492,184,1405,142"/>
-<area shape="rect" href="a00902.html" title="PhaseLockingValue class definition." alt="" coords="1188,181,1416,221"/>
-<area shape="poly" title=" " alt="" coords="1339,146,1316,183,1312,180,1334,144"/>
-<area shape="poly" title=" " alt="" coords="1603,144,1556,183,1553,179,1600,140"/>
-<area shape="rect" href="a00878.html" title="UnbiasedSquaredPhaseLagIndex class definition." alt="" coords="1647,181,1959,221"/>
-<area shape="poly" title=" " alt="" coords="1685,137,1768,179,1765,184,1683,142"/>
-<area shape="poly" title=" " alt="" coords="1831,139,1619,184,1618,179,1830,134"/>
-<area shape="rect" href="a00863.html" title="WeightedPhaseLagIndex class definition." alt="" coords="1983,181,2245,221"/>
-<area shape="poly" title=" " alt="" coords="1985,137,2075,179,2073,184,1983,142"/>
+<div class="center"><img src="a00915.png" border="0" usemap="#asrc_2libraries_2conn_2network_2networkedge_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2conn_2network_2networkedge_8cpp" id="asrc_2libraries_2conn_2network_2networkedge_8cpp">
+<area shape="rect" title="NetworkEdge class definition." alt="" coords="328,5,523,45"/>
+<area shape="rect" href="a00908.html" title="NetworkEdge class declaration." alt="" coords="223,93,342,119"/>
+<area shape="poly" title=" " alt="" coords="392,48,317,89,314,84,390,43"/>
+<area shape="rect" href="a00911.html" title="NetworkNode class declaration." alt="" coords="366,93,485,119"/>
+<area shape="poly" title=" " alt="" coords="428,46,428,79,423,79,423,46"/>
+<area shape="rect" title=" " alt="" coords="508,93,583,119"/>
+<area shape="poly" title=" " alt="" coords="456,43,518,84,515,88,453,48"/>
+<area shape="rect" href="a00896.html" title="conn library export/import macros." alt="" coords="83,167,207,192"/>
+<area shape="poly" title=" " alt="" coords="262,121,181,163,179,158,259,116"/>
+<area shape="rect" title=" " alt="" coords="232,167,355,192"/>
+<area shape="poly" title=" " alt="" coords="287,119,292,153,287,154,282,119"/>
+<area shape="rect" title=" " alt="" coords="379,167,471,192"/>
+<area shape="poly" title=" " alt="" coords="307,116,391,158,389,163,304,121"/>
+<area shape="rect" title=" " alt="" coords="5,240,136,265"/>
+<area shape="poly" title=" " alt="" coords="135,194,95,232,91,229,132,190"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="160,240,283,265"/>
+<area shape="poly" title=" " alt="" coords="159,190,201,229,197,232,156,194"/>
+<area shape="rect" title=" " alt="" coords="188,313,255,339"/>
+<area shape="poly" title=" " alt="" coords="224,266,224,300,219,300,219,266"/>
+<area shape="poly" title=" " alt="" coords="381,121,204,166,203,161,380,116"/>
+<area shape="poly" title=" " alt="" coords="405,121,328,162,326,158,403,116"/>
+<area shape="poly" title=" " alt="" coords="428,119,428,153,423,153,423,119"/>
+<area shape="rect" title=" " alt="" coords="496,167,571,192"/>
+<area shape="poly" title=" " alt="" coords="444,116,506,157,503,161,441,121"/>
 </map>
 </div>
 </div>
 <p><a href="a00914_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:CONNECTIVITYLIB_3A_3AAbstractMetric" id="r_CONNECTIVITYLIB_3A_3AAbstractMetric"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01893.html">CONNECTIVITYLIB::AbstractMetric</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class provides basic functionalities for all implemented metrics.  <a href="a01893.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:CONNECTIVITYLIB" id="r_CONNECTIVITYLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01807.html">CONNECTIVITYLIB</a></td></tr>
-<tr class="memdesc:a01807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functional connectivity metrics (coherence, PLV, cross-correlation, etc.). <br /></td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>AbstractMetric class declaration. </p>
+<div class="textblock"><p><a class="el" href="a01906.html" title="This class holds an object to describe the edge of a network.">NetworkEdge</a> class definition. </p>
 <dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>January, 2018</dd></dl>
+<dl class="section date"><dt>Date</dt><dd>August, 2016</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2018, Lorenz Esch. All rights reserved.</p>
+<p>Copyright (C) 2016, Lorenz Esch. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
@@ -338,7 +305,7 @@ LICENSE</h1>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-<p class="definition">Definition in file <a class="el" href="a00914_source.html">abstractmetric.h</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00914_source.html">networkedge.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

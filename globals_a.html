@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -212,18 +247,17 @@ $(function() {
 <div class="textblock">Here is a list of all file members with links to the files they belong to:</div>
 
 <h3 class="doxsection"><a id="index_a" name="index_a"></a>- a -</h3><ul>
-<li>ALLOC_CMATRIX_16&#160;:&#160;<a class="el" href="a01697.html#a20c62f0479e181256489b13d8c44e778">inv_guess_data.cpp</a></li>
-<li>ALLOC_CMATRIX_17&#160;:&#160;<a class="el" href="a01256.html#ad4594b69f5389d8003480371f9e10146">mne_msh_display_surface.cpp</a>, <a class="el" href="a01382.html#ad4594b69f5389d8003480371f9e10146">mne_source_space.cpp</a>, <a class="el" href="a01169.html#ad4594b69f5389d8003480371f9e10146">mne_surface_or_volume.cpp</a></li>
-<li>ALLOC_CMATRIX_23&#160;:&#160;<a class="el" href="a01208.html#a49a9736b631ddb32e18cc109249b03b3">mne_proj_op.cpp</a></li>
-<li>ALLOC_CMATRIX_36&#160;:&#160;<a class="el" href="a01328.html#aebbd473dbda046d901b4394a513d4fe9">mne_raw_data.cpp</a></li>
-<li>ALLOC_CMATRIX_51&#160;:&#160;<a class="el" href="a01382.html#a3363a42a78509e977e9c0269fda3c0ad">mne_source_space.cpp</a></li>
-<li>ALLOC_ICMATRIX_17&#160;:&#160;<a class="el" href="a01382.html#a405e6a097b07239e79cf9e0efa75ad04">mne_source_space.cpp</a>, <a class="el" href="a01169.html#a405e6a097b07239e79cf9e0efa75ad04">mne_surface_or_volume.cpp</a></li>
-<li>ALLOC_INT_17&#160;:&#160;<a class="el" href="a01169.html#a94eae3e96e09f0eb1b66a008627686d7">mne_surface_or_volume.cpp</a></li>
-<li>ALLOC_INT_51&#160;:&#160;<a class="el" href="a01382.html#a7f2da76449a953f4f7b8c0bb03625782">mne_source_space.cpp</a></li>
-<li>ALPHA&#160;:&#160;<a class="el" href="a01004.html#af5abd28c44c29b7397c84f1fec4b1d84">simplex_algorithm.h</a></li>
-<li>Anatomical&#160;:&#160;<a class="el" href="a00782.html#a9a65336a07fa3c9b4b13e6d52e3a612caf3ba9c29e4c006591a31473ffac033fe">rendertypes.h</a></li>
-<li>APPROX_RING_BUF_SIZE&#160;:&#160;<a class="el" href="a01328.html#a7a900d5938105f52f3d00950893ecb67">mne_raw_data.cpp</a></li>
-<li>arsinh()&#160;:&#160;<a class="el" href="a01628.html#ac848b31f516664e52f79fc77160777b0">fwd_bem_model.cpp</a></li>
+<li>ALLOC_CMATRIX_16&#160;:&#160;<a class="el" href="a00041.html#a20c62f0479e181256489b13d8c44e778">inv_guess_data.cpp</a></li>
+<li>ALLOC_CMATRIX_17&#160;:&#160;<a class="el" href="a01175.html#ad4594b69f5389d8003480371f9e10146">mne_msh_display_surface.cpp</a>, <a class="el" href="a01301.html#ad4594b69f5389d8003480371f9e10146">mne_source_space.cpp</a>, <a class="el" href="a01088.html#ad4594b69f5389d8003480371f9e10146">mne_surface_or_volume.cpp</a></li>
+<li>ALLOC_CMATRIX_23&#160;:&#160;<a class="el" href="a01127.html#a49a9736b631ddb32e18cc109249b03b3">mne_proj_op.cpp</a></li>
+<li>ALLOC_CMATRIX_36&#160;:&#160;<a class="el" href="a01247.html#aebbd473dbda046d901b4394a513d4fe9">mne_raw_data.cpp</a></li>
+<li>ALLOC_CMATRIX_51&#160;:&#160;<a class="el" href="a01301.html#a3363a42a78509e977e9c0269fda3c0ad">mne_source_space.cpp</a></li>
+<li>ALLOC_ICMATRIX_17&#160;:&#160;<a class="el" href="a01301.html#a405e6a097b07239e79cf9e0efa75ad04">mne_source_space.cpp</a>, <a class="el" href="a01088.html#a405e6a097b07239e79cf9e0efa75ad04">mne_surface_or_volume.cpp</a></li>
+<li>ALLOC_INT_17&#160;:&#160;<a class="el" href="a01088.html#a94eae3e96e09f0eb1b66a008627686d7">mne_surface_or_volume.cpp</a></li>
+<li>ALLOC_INT_51&#160;:&#160;<a class="el" href="a01301.html#a7f2da76449a953f4f7b8c0bb03625782">mne_source_space.cpp</a></li>
+<li>Anatomical&#160;:&#160;<a class="el" href="a01568.html#a9a65336a07fa3c9b4b13e6d52e3a612caf3ba9c29e4c006591a31473ffac033fe">rendertypes.h</a></li>
+<li>APPROX_RING_BUF_SIZE&#160;:&#160;<a class="el" href="a01247.html#a7a900d5938105f52f3d00950893ecb67">mne_raw_data.cpp</a></li>
+<li>arsinh()&#160;:&#160;<a class="el" href="a01733.html#ac848b31f516664e52f79fc77160777b0">fwd_bem_model.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/fs/fs_annotationset.h File Reference</title>
+    <title>MNE-CPP: src/libraries/disp3D/input/cameracontroller.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,132 +243,85 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_aa0065703ffedf5a9f23ffbb0df651d7.html">fs</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_061a979e1ff4d1f23adfb2165bb6f08f.html">disp3D</a></li><li class="navelem"><a href="dir_450e6e5b5dadff794b6b8fd2000c82b5.html">input</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">fs_annotationset.h File Reference</div></div>
+  <div class="headertitle"><div class="title">cameracontroller.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>FsAnnotationSet class declaration.  
+<p><a class="el" href="a02186.html" title="Camera state and matrix computation.">CameraController</a> class implementation.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01424_source.html">fs_global.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01457_source.html">fs_annotation.h</a>&quot;</code><br />
-<code>#include &lt;QString&gt;</code><br />
-<code>#include &lt;QSharedPointer&gt;</code><br />
-<code>#include &lt;QMap&gt;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01445_source.html">cameracontroller.h</a>&quot;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for fs_annotationset.h:</div>
+Include dependency graph for cameracontroller.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01443.png" border="0" usemap="#asrc_2libraries_2fs_2fs__annotationset_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2fs_2fs__annotationset_8h" id="asrc_2libraries_2fs_2fs__annotationset_8h">
-<area shape="rect" title="FsAnnotationSet class declaration." alt="" coords="440,5,571,45"/>
-<area shape="rect" href="a01424.html" title="Fs library export/import macros." alt="" coords="99,240,192,265"/>
-<area shape="poly" title=" " alt="" coords="441,41,369,62,331,77,296,96,254,127,217,164,163,231,159,227,213,160,251,123,293,91,329,72,367,57,439,36"/>
-<area shape="rect" href="a01457.html" title="FsAnnotation class declaration." alt="" coords="345,93,468,119"/>
-<area shape="poly" title=" " alt="" coords="483,48,434,87,431,82,480,43"/>
-<area shape="rect" title=" " alt="" coords="217,240,287,265"/>
-<area shape="poly" title=" " alt="" coords="441,47,387,67,335,96,296,126,269,168,259,197,255,227,250,226,254,196,264,166,292,123,332,91,385,62,439,42"/>
-<area shape="rect" title=" " alt="" coords="547,240,669,265"/>
-<area shape="poly" title=" " alt="" coords="516,44,600,226,595,229,511,47"/>
-<area shape="rect" title=" " alt="" coords="430,240,522,265"/>
-<area shape="poly" title=" " alt="" coords="506,46,482,227,477,226,500,45"/>
-<area shape="rect" title=" " alt="" coords="646,93,706,119"/>
-<area shape="poly" title=" " alt="" coords="547,43,640,85,638,90,545,48"/>
-<area shape="rect" title=" " alt="" coords="5,313,136,339"/>
-<area shape="poly" title=" " alt="" coords="135,267,95,306,91,302,132,263"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="160,313,283,339"/>
-<area shape="poly" title=" " alt="" coords="159,263,201,302,197,306,156,267"/>
-<area shape="rect" title=" " alt="" coords="188,387,255,412"/>
-<area shape="poly" title=" " alt="" coords="224,339,224,373,219,373,219,339"/>
-<area shape="poly" title=" " alt="" coords="376,121,324,142,268,169,216,202,172,234,169,230,213,197,265,164,322,137,374,116"/>
-<area shape="rect" href="a01433.html" title="FsColortable class declaration." alt="" coords="299,167,418,192"/>
-<area shape="poly" title=" " alt="" coords="401,121,376,157,372,154,397,118"/>
-<area shape="poly" title=" " alt="" coords="369,121,328,140,308,153,290,168,271,197,260,227,255,225,267,195,286,165,305,149,325,135,367,116"/>
-<area shape="poly" title=" " alt="" coords="424,117,582,230,579,234,421,121"/>
-<area shape="poly" title=" " alt="" coords="415,118,467,226,462,229,410,120"/>
-<area shape="poly" title=" " alt="" coords="325,195,194,238,192,233,324,189"/>
-<area shape="poly" title=" " alt="" coords="343,194,282,235,279,230,340,190"/>
-<area shape="rect" title=" " alt="" coords="312,240,405,265"/>
-<area shape="poly" title=" " alt="" coords="361,192,361,226,356,226,356,192"/>
-<area shape="poly" title=" " alt="" coords="399,189,555,234,554,239,398,195"/>
-<area shape="poly" title=" " alt="" coords="379,190,446,230,444,235,376,194"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a01444.png" border="0" usemap="#asrc_2libraries_2fs_2fs__annotationset_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2fs_2fs__annotationset_8hdep" id="asrc_2libraries_2fs_2fs__annotationset_8hdep">
-<area shape="rect" title="FsAnnotationSet class declaration." alt="" coords="281,5,412,45"/>
-<area shape="rect" href="a00218.html" title="FwdSettingsView class definition." alt="" coords="5,181,219,221"/>
-<area shape="poly" title=" " alt="" coords="268,35,233,43,199,55,166,72,138,95,125,115,118,138,114,182,108,181,112,137,120,113,134,92,163,67,197,50,232,38,267,30"/>
-<area shape="rect" href="a00122.html" title="FwdSettingsView class declaration." alt="" coords="149,93,347,133"/>
-<area shape="poly" title=" " alt="" coords="316,56,272,95,268,91,313,52"/>
-<area shape="rect" href="a01427.html" title="FsAnnotationSet class implementation." alt="" coords="372,93,519,133"/>
-<area shape="poly" title=" " alt="" coords="380,52,425,91,422,95,377,56"/>
-<area shape="rect" href="a01367.html" title="MNEForwardSolution class declaration." alt="" coords="785,93,949,133"/>
-<area shape="poly" title=" " alt="" coords="426,37,785,96,784,101,425,42"/>
-<area shape="poly" title=" " alt="" coords="208,143,143,184,140,179,205,139"/>
-<area shape="rect" href="a00923.html" title="ConnectivitySettings class definition." alt="" coords="243,181,429,221"/>
-<area shape="poly" title=" " alt="" coords="772,132,442,184,429,186,429,181,441,179,771,126"/>
-<area shape="rect" href="a01604.html" title="ComputeFwd class definition." alt="" coords="453,181,640,221"/>
-<area shape="poly" title=" " alt="" coords="784,140,617,184,616,179,782,134"/>
-<area shape="rect" href="a01592.html" title="Fwd class declaration, which provides static wrapper functions for the forward library." alt="" coords="665,189,829,214"/>
-<area shape="poly" title=" " alt="" coords="830,144,764,191,761,186,827,139"/>
-<area shape="rect" href="a01682.html" title="InvPwlRapMusic algorithm class declaration." alt="" coords="697,269,871,324"/>
-<area shape="poly" title=" " alt="" coords="865,148,856,184,842,222,827,248,810,271,806,268,823,245,838,220,851,183,859,147"/>
-<area shape="rect" href="a01667.html" title="InvRapMusic algorithm class declaration." alt="" coords="904,181,1107,221"/>
-<area shape="poly" title=" " alt="" coords="910,138,976,179,974,184,907,143"/>
-<area shape="rect" href="a01127.html" title="MNEForwardSolution class definition." alt="" coords="1131,181,1296,221"/>
-<area shape="poly" title=" " alt="" coords="957,134,1138,179,1137,184,955,139"/>
-<area shape="rect" href="a01133.html" title="MNEInverseOperator class declaration." alt="" coords="1387,181,1551,221"/>
-<area shape="poly" title=" " alt="" coords="963,126,1388,186,1387,191,962,131"/>
-<area shape="rect" href="a00026.html" title="Definition of the RtInvOp Class." alt="" coords="1765,277,1947,317"/>
-<area shape="poly" title=" " alt="" coords="963,113,1084,117,1235,128,1401,148,1565,179,1637,199,1707,225,1819,274,1817,279,1705,230,1635,205,1563,184,1400,153,1235,133,1084,123,962,118"/>
-<area shape="rect" href="a01670.html" title="Definition of the InvPwlRapMusic Algorithm Class." alt="" coords="697,372,871,427"/>
-<area shape="poly" title=" " alt="" coords="787,338,787,372,781,372,781,338"/>
-<area shape="poly" title=" " alt="" coords="949,229,847,272,845,267,947,224"/>
-<area shape="rect" href="a01676.html" title="Definition of the InvRapMusic Algorithm Class." alt="" coords="896,277,1115,317"/>
-<area shape="poly" title=" " alt="" coords="1008,235,1008,277,1003,277,1003,235"/>
-<area shape="rect" href="a01745.html" title="Minimum norm class declaration." alt="" coords="1139,269,1363,324"/>
-<area shape="poly" title=" " alt="" coords="1414,229,1313,272,1311,267,1412,224"/>
-<area shape="rect" href="a01316.html" title="Definition of the MNEInverseOperator Class." alt="" coords="1387,277,1552,317"/>
-<area shape="poly" title=" " alt="" coords="1472,235,1472,277,1467,277,1467,235"/>
-<area shape="rect" href="a01364.html" title="Definition of the MNE Meas Data (MNEMeasData) Class." alt="" coords="1577,277,1741,317"/>
-<area shape="poly" title=" " alt="" coords="1521,225,1622,274,1619,279,1519,230"/>
-<area shape="poly" title=" " alt="" coords="1565,222,1754,267,1783,274,1782,279,1753,272,1564,227"/>
-<area shape="rect" href="a01742.html" title="Definition of the InvMinimumNorm Class." alt="" coords="1139,372,1363,427"/>
-<area shape="poly" title=" " alt="" coords="1253,338,1253,372,1248,372,1248,338"/>
+<div class="center"><img src="a01443.png" border="0" usemap="#asrc_2libraries_2disp3_d_2input_2cameracontroller_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d_2input_2cameracontroller_8cpp" id="asrc_2libraries_2disp3_d_2input_2cameracontroller_8cpp">
+<area shape="rect" title="CameraController class implementation." alt="" coords="912,5,1112,45"/>
+<area shape="rect" href="a01445.html" title="CameraController class declaration." alt="" coords="566,93,710,119"/>
+<area shape="poly" title=" " alt="" coords="923,48,706,93,705,88,922,43"/>
+<area shape="rect" title=" " alt="" coords="955,240,1040,265"/>
+<area shape="poly" title=" " alt="" coords="1014,46,1002,226,997,226,1008,45"/>
+<area shape="rect" title=" " alt="" coords="1050,93,1113,119"/>
+<area shape="poly" title=" " alt="" coords="1031,44,1064,81,1060,84,1027,47"/>
+<area shape="rect" href="a01418.html" title="disp3D library export/import macros." alt="" coords="79,313,218,339"/>
+<area shape="poly" title=" " alt="" coords="566,114,425,126,258,149,178,166,107,187,50,212,30,226,14,242,9,252,9,262,14,271,23,280,50,295,84,307,82,312,48,300,19,284,9,274,4,263,4,251,10,238,26,222,48,207,105,182,176,161,257,144,425,121,565,109"/>
+<area shape="rect" href="a01559.html" title="ViewState declarations — per&#45;view data structures and conversion helpers." alt="" coords="383,167,514,192"/>
+<area shape="poly" title=" " alt="" coords="608,121,493,164,491,159,606,116"/>
+<area shape="rect" title=" " alt="" coords="24,240,128,265"/>
+<area shape="poly" title=" " alt="" coords="582,121,372,169,127,239,125,233,370,164,581,116"/>
+<area shape="rect" title=" " alt="" coords="812,240,903,265"/>
+<area shape="poly" title=" " alt="" coords="620,121,601,136,583,154,573,173,574,182,578,190,800,237,798,242,575,194,569,183,568,172,578,151,597,132,617,117"/>
+<area shape="rect" title=" " alt="" coords="588,167,687,192"/>
+<area shape="poly" title=" " alt="" coords="640,119,640,153,635,153,635,119"/>
+<area shape="rect" title=" " alt="" coords="711,167,802,192"/>
+<area shape="poly" title=" " alt="" coords="658,116,726,157,724,162,655,121"/>
+<area shape="rect" title=" " alt="" coords="826,167,892,192"/>
+<area shape="poly" title=" " alt="" coords="674,116,814,161,812,166,672,121"/>
+<area shape="rect" title=" " alt="" coords="916,167,975,192"/>
+<area shape="poly" title=" " alt="" coords="692,116,904,164,904,164,903,169,902,169,691,121"/>
+<area shape="rect" title=" " alt="" coords="8,387,139,412"/>
+<area shape="poly" title=" " alt="" coords="138,341,97,379,94,375,134,337"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="163,387,286,412"/>
+<area shape="poly" title=" " alt="" coords="162,337,204,375,200,379,159,341"/>
+<area shape="rect" title=" " alt="" coords="191,460,258,485"/>
+<area shape="poly" title=" " alt="" coords="227,412,227,446,222,446,222,412"/>
+<area shape="poly" title=" " alt="" coords="383,183,337,188,287,198,237,215,193,242,170,270,157,301,152,299,166,267,189,238,235,211,285,193,336,183,382,178"/>
+<area shape="rect" href="a01568.html" title="Lightweight render&#45;related enums shared across the disp3D library." alt="" coords="203,240,315,265"/>
+<area shape="poly" title=" " alt="" coords="419,195,304,237,302,232,417,190"/>
+<area shape="rect" title=" " alt="" coords="338,240,409,265"/>
+<area shape="poly" title=" " alt="" coords="438,194,397,232,394,229,434,190"/>
+<area shape="rect" title=" " alt="" coords="433,240,493,265"/>
+<area shape="poly" title=" " alt="" coords="453,192,460,226,455,227,448,193"/>
+<area shape="poly" title=" " alt="" coords="389,195,143,241,142,236,388,189"/>
+<area shape="poly" title=" " alt="" coords="514,189,799,237,798,242,513,194"/>
+<area shape="rect" title=" " alt="" coords="517,240,596,265"/>
+<area shape="poly" title=" " alt="" coords="467,190,529,230,526,235,464,194"/>
+<area shape="rect" title=" " alt="" coords="620,240,687,265"/>
+<area shape="poly" title=" " alt="" coords="482,189,608,233,607,238,480,195"/>
+<area shape="poly" title=" " alt="" coords="514,186,915,237,942,241,941,246,915,243,513,191"/>
+<area shape="rect" title=" " alt="" coords="711,240,788,265"/>
+<area shape="poly" title=" " alt="" coords="497,189,698,237,697,242,496,195"/>
+<area shape="poly" title=" " alt="" coords="243,268,179,308,177,303,240,263"/>
+<area shape="rect" title=" " alt="" coords="242,313,308,339"/>
+<area shape="poly" title=" " alt="" coords="264,265,272,300,267,301,259,266"/>
 </map>
 </div>
 </div>
 <p><a href="a01442_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:FSLIB_3A_3AFsAnnotationSet" id="r_FSLIB_3A_3AFsAnnotationSet"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02557.html">FSLIB::FsAnnotationSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02553.html" title="Free surfer annotation.">FsAnnotation</a> set.  <a href="a02557.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:FSLIB" id="r_FSLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a01809.html">FSLIB</a></td></tr>
-<tr class="memdesc:a01809"><td class="mdescLeft">&#160;</td><td class="mdescRight">FreeSurfer surface and annotation I/O. <br /></td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>FsAnnotationSet class declaration. </p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>July, 2012</dd></dl>
+<div class="textblock"><p><a class="el" href="a02186.html" title="Camera state and matrix computation.">CameraController</a> class implementation. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2012, Lorenz Esch, Matti Hamalainen, Christoph Dinh. All rights reserved.</p>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
@@ -341,7 +329,7 @@ LICENSE</h1>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-<p class="definition">Definition in file <a class="el" href="a01442_source.html">fs_annotationset.h</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01442_source.html">cameracontroller.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

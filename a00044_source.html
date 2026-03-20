@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/rtprocessing/rthpis.h Source File</title>
+    <title>MNE-CPP: src/libraries/inv/dipole_fit/inv_ecd.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,183 +243,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_be5bb3afcb9a3543d066161be7c6cdb9.html">rtprocessing</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_b121f4639c206225e3550e4e3ca83e37.html">inv</a></li><li class="navelem"><a href="dir_6766aec9894208e082cb4af25489fcdb.html">dipole_fit</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">rthpis.h</div></div>
+  <div class="headertitle"><div class="title">inv_ecd.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00044.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#ifndef RTHPIS_RTPROCESSING_H</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#define RTHPIS_RTPROCESSING_H</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;<a class="code" href="a00008.html">rtprocessing_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;<a class="code" href="a01760.html">inverse/hpi/inv_sensor_set.h</a>&gt;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;<a class="code" href="a01778.html">inverse/hpi/inv_signal_model.h</a>&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">// EIGEN INCLUDES</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &quot;<a class="code" href="a00071.html">inv_ecd.h</a>&quot;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01781.html">INVLIB</a>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#include &lt;QThread&gt;</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &lt;QMutex&gt;</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &lt;QVector&gt;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">// FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01810.html">FIFFLIB</a> {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">class </span><a class="code hl_class" href="a02509.html">FiffInfo</a>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01819.html">INVLIB</a> {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">class </span><a class="code hl_class" href="a02725.html">InvSensorSet</a>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">class </span><a class="code hl_class" href="a02705.html">InvHpiFit</a>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">struct </span><a class="code hl_struct" href="a02701.html">HpiFitResult</a>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">class </span><a class="code hl_class" href="a02721.html">InvHpiModelParameters</a>;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">// DEFINE NAMESPACE RTPROCESSINGLIB</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a02690.html#aeb25c2590a782b000409d2533f18ff49">   54</a></span><a class="code hl_function" href="a02690.html#aeb25c2590a782b000409d2533f18ff49">InvEcd::InvEcd</a>()</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>: <a class="code hl_variable" href="a02690.html#af60bfd7de826f5d339d604b8c77f9692">valid</a>(false)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>, <a class="code hl_variable" href="a02690.html#a14389297c59689fcbf0a1a69aa39c17c">time</a>(-1)</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>, <a class="code hl_variable" href="a02690.html#a1e6ef44b7011b4e957e852201742d801">rd</a>(Vector3f::Zero(3))</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>, <a class="code hl_variable" href="a02690.html#a1e3af7a0b02ed12a9e821b29574ae81a">Q</a>(Vector3f::Zero(3))</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>, <a class="code hl_variable" href="a02690.html#a0531472d2db03f27baf4dc6b608961dd">good</a>(0)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>, <a class="code hl_variable" href="a02690.html#aa7f125d5ef0c845125bf8dd6d5f050e7">khi2</a>(0)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>, <a class="code hl_variable" href="a02690.html#a05cdd89403e21e5a96a09a9dae9c6444">nfree</a>(0)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>, <a class="code hl_variable" href="a02690.html#a73e2848f50f376282836d2d9c6a5aa7d">neval</a>(-1)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a02690.html#a4435c7ae1e3bf21eb27fd4307780a250">   68</a></span><a class="code hl_function" href="a02690.html#aeb25c2590a782b000409d2533f18ff49">InvEcd::InvEcd</a>(<span class="keyword">const</span> <a class="code hl_function" href="a02690.html#aeb25c2590a782b000409d2533f18ff49">InvEcd</a>&amp; p_ECD)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>: <a class="code hl_variable" href="a02690.html#af60bfd7de826f5d339d604b8c77f9692">valid</a>(p_ECD.<a class="code hl_variable" href="a02690.html#af60bfd7de826f5d339d604b8c77f9692">valid</a>)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>, <a class="code hl_variable" href="a02690.html#a14389297c59689fcbf0a1a69aa39c17c">time</a>(p_ECD.<a class="code hl_variable" href="a02690.html#a14389297c59689fcbf0a1a69aa39c17c">time</a>)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>, <a class="code hl_variable" href="a02690.html#a1e6ef44b7011b4e957e852201742d801">rd</a>(p_ECD.<a class="code hl_variable" href="a02690.html#a1e6ef44b7011b4e957e852201742d801">rd</a>)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>, <a class="code hl_variable" href="a02690.html#a1e3af7a0b02ed12a9e821b29574ae81a">Q</a>(p_ECD.<a class="code hl_variable" href="a02690.html#a1e3af7a0b02ed12a9e821b29574ae81a">Q</a>)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>, <a class="code hl_variable" href="a02690.html#a0531472d2db03f27baf4dc6b608961dd">good</a>(p_ECD.<a class="code hl_variable" href="a02690.html#a0531472d2db03f27baf4dc6b608961dd">good</a>)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>, <a class="code hl_variable" href="a02690.html#aa7f125d5ef0c845125bf8dd6d5f050e7">khi2</a>(p_ECD.<a class="code hl_variable" href="a02690.html#aa7f125d5ef0c845125bf8dd6d5f050e7">khi2</a>)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>, <a class="code hl_variable" href="a02690.html#a05cdd89403e21e5a96a09a9dae9c6444">nfree</a>(p_ECD.<a class="code hl_variable" href="a02690.html#a05cdd89403e21e5a96a09a9dae9c6444">nfree</a>)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>, <a class="code hl_variable" href="a02690.html#a73e2848f50f376282836d2d9c6a5aa7d">neval</a>(p_ECD.<a class="code hl_variable" href="a02690.html#a73e2848f50f376282836d2d9c6a5aa7d">neval</a>)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>{</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
+</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01815.html">RTPROCESSINGLIB</a></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00089" data-start="{" data-end="};">
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a03157.html">   89</a></span><span class="keyword">class </span><a class="code hl_define" href="a00008.html#a04b5cbf3ede66c5d7093618723cbb36f">RTPROCESSINGSHARED_EXPORT</a> <a class="code hl_function" href="a03157.html#a0e06f3b48e10f60a9304c56053773890">RtHpiWorker</a> : <span class="keyword">public</span> QObject</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    Q_OBJECT</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a02690.html#a6b49d656c6d2de7cc36cceb3239eeecc">   82</a></span><a class="code hl_function" href="a02690.html#a6b49d656c6d2de7cc36cceb3239eeecc">InvEcd::~InvEcd</a>()</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a02690.html#a446d44dc386926e36bb545d8d68f2d8d">   88</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02690.html#a446d44dc386926e36bb545d8d68f2d8d">InvEcd::print</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">if</span> (!this-&gt;<a class="code hl_variable" href="a02690.html#af60bfd7de826f5d339d604b8c77f9692">valid</a>)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a03157.html#a0e06f3b48e10f60a9304c56053773890">RtHpiWorker</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02725.html">INVLIB::InvSensorSet</a> sensorSet);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03157.html#ab730795def30c2de51659a6619fd148f">doWork</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData,</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                <span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectors,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                <span class="keyword">const</span> <a class="code hl_class" href="a02721.html">INVLIB::InvHpiModelParameters</a>&amp; hpiModelParameters,</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a03157.html#ae85520bf5549199716ae14e89e0fc948">  119</a></span>    QSharedPointer&lt;INVLIB::InvHpiFit&gt;              <a class="code hl_variable" href="a03157.html#ae85520bf5549199716ae14e89e0fc948">m_pHpiFit</a>;             </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>signals:</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a03157.html#ac823bb34a4be9aad5585e13334eb3a17">  122</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03157.html#ac823bb34a4be9aad5585e13334eb3a17">resultReady</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a02701.html">INVLIB::HpiFitResult</a> &amp;fitResult);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>};</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    qInfo(<span class="stringliteral">&quot;%6.1f %7.2f %7.2f %7.2f %6.2f %6.2f %6.2f %6.2f %6.2f %6.2f %d&quot;</span>,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>          1000*this-&gt;<a class="code hl_variable" href="a02690.html#a14389297c59689fcbf0a1a69aa39c17c">time</a>,                              <span class="comment">/* Time */</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>          1000*this-&gt;<a class="code hl_variable" href="a02690.html#a1e6ef44b7011b4e957e852201742d801">rd</a>[0],                             <span class="comment">/* Dipole location */</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>          1000*this-&gt;<a class="code hl_variable" href="a02690.html#a1e6ef44b7011b4e957e852201742d801">rd</a>[1],</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>          1000*this-&gt;<a class="code hl_variable" href="a02690.html#a1e6ef44b7011b4e957e852201742d801">rd</a>[2],</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>          1e9*this-&gt;<a class="code hl_variable" href="a02690.html#a1e3af7a0b02ed12a9e821b29574ae81a">Q</a>.norm(),                           <span class="comment">/* Dipole moment */</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>          1e9*this-&gt;Q[0],1e9*this-&gt;Q[1],1e9*this-&gt;Q[2],</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>          this-&gt;khi2/this-&gt;nfree,                       <span class="comment">/* This is the reduced khi^2 value */</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>          100*this-&gt;good,                               <span class="comment">/* Goodness of fit */</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>          this-&gt;neval);                                 <span class="comment">/* Number of function evaluations required */</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
 </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00131" data-start="{" data-end="};">
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="a03161.html">  131</a></span><span class="keyword">class </span><a class="code hl_define" href="a00008.html#a04b5cbf3ede66c5d7093618723cbb36f">RTPROCESSINGSHARED_EXPORT</a> <a class="code hl_function" href="a03161.html#a7edeb6fde0cf0f60b54bfc0cdb3a9ddb">RtHpi</a> : <span class="keyword">public</span> QObject</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>{</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    Q_OBJECT</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="a03161.html#a32e091d2ad230d3d8056bc7519152622">  136</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;RtHpi&gt; <a class="code hl_typedef" href="a03161.html#a32e091d2ad230d3d8056bc7519152622">SPtr</a>;             </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a03161.html#a1596d6f958bc1450de540f3ad4611ead">  137</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const RtHpi&gt; <a class="code hl_typedef" href="a03161.html#a1596d6f958bc1450de540f3ad4611ead">ConstSPtr</a>;  </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a03161.html#a7edeb6fde0cf0f60b54bfc0cdb3a9ddb">RtHpi</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02725.html">INVLIB::InvSensorSet</a> sensorSet,</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                   QObject *parent = 0);</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <a class="code hl_function" href="a03161.html#a7edeb6fde0cf0f60b54bfc0cdb3a9ddb">~RtHpi</a>();</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03161.html#a7c4861e4b0de8291ab83051ece9bd486">append</a>(<span class="keyword">const</span> Eigen::MatrixXd &amp;data);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03161.html#ac1f2e0ac4b1116ea4e0446371a04d822">setModelParameters</a>(<a class="code hl_class" href="a02721.html">INVLIB::InvHpiModelParameters</a> hpiModelParameters);</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03161.html#a865b60cf9d5e8f202c44cddbb429a2ad">setProjectionMatrix</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectors);</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03161.html#a4b85ded6594de84b3c04139378cebe48">setHpiDigitizer</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03161.html#a161490a62c167eac1f54e4a6a58b0873">restart</a>();</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03161.html#aac10d3cadb1565855ec4dcc203894ad3">stop</a>();</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03161.html#acabe050fa7c5016708178d9a47a15d6b">handleResults</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a02701.html">INVLIB::HpiFitResult</a> &amp;fitResult);</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="a03161.html#a29838f6dcd6193e0cbebbce0da957571">  206</a></span>    QThread <a class="code hl_variable" href="a03161.html#a29838f6dcd6193e0cbebbce0da957571">m_workerThread</a>;         </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="a03161.html#a3e97612a1a9741d7585bd9fd714df9a9">  207</a></span>    Eigen::MatrixXd <a class="code hl_variable" href="a03161.html#a3e97612a1a9741d7585bd9fd714df9a9">m_matCoilsHead</a>;           </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="a03161.html#a903d86ba701b0428c29596af25001217">  208</a></span>    Eigen::MatrixXd <a class="code hl_variable" href="a03161.html#a903d86ba701b0428c29596af25001217">m_matProjectors</a>;        </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="a03161.html#a14a5232984cbf214323d52bb409665f8">  209</a></span>    <a class="code hl_class" href="a02725.html">INVLIB::InvSensorSet</a> <a class="code hl_variable" href="a03161.html#a14a5232984cbf214323d52bb409665f8">m_sensorSet</a>;</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="a03161.html#a25f3e309fe83158d07392e65893cc971">  210</a></span>    <a class="code hl_class" href="a02721.html">INVLIB::InvHpiModelParameters</a> <a class="code hl_variable" href="a03161.html#a25f3e309fe83158d07392e65893cc971">m_modelParameters</a>;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>signals:</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="a03161.html#a1e4567a6ca5373f94b50edab31f2adb7">  213</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03161.html#a1e4567a6ca5373f94b50edab31f2adb7">newHpiFitResultAvailable</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a02701.html">INVLIB::HpiFitResult</a> &amp;fitResult);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="a03161.html#ae3b5ea3a59dff3aeef991569ed39bf95">  214</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03161.html#ae3b5ea3a59dff3aeef991569ed39bf95">operate</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData,</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                 <span class="keyword">const</span> Eigen::MatrixXd&amp; matProjectors,</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>                 <span class="keyword">const</span> <a class="code hl_class" href="a02721.html">INVLIB::InvHpiModelParameters</a>&amp; hpiModelParameters,</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                 <span class="keyword">const</span> Eigen::MatrixXd&amp; matCoilsHead);</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>};</div>
-</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">// INLINE DEFINITIONS</span></div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>} <span class="comment">// NAMESPACE</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="preprocessor">#endif </span><span class="comment">// RTHPIS_RTPROCESSING_H</span></div>
-<div class="ttc" id="aa00008_html"><div class="ttname"><a href="a00008.html">rtprocessing_global.h</a></div><div class="ttdoc">realtime library export/import macros.</div></div>
-<div class="ttc" id="aa00008_html_a04b5cbf3ede66c5d7093618723cbb36f"><div class="ttname"><a href="a00008.html#a04b5cbf3ede66c5d7093618723cbb36f">RTPROCESSINGSHARED_EXPORT</a></div><div class="ttdeci">#define RTPROCESSINGSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00008_source.html#l00051">rtprocessing_global.h:51</a></div></div>
-<div class="ttc" id="aa01760_html"><div class="ttname"><a href="a01760.html">inv_sensor_set.h</a></div><div class="ttdoc">InvSensorSet class declaration.</div></div>
-<div class="ttc" id="aa01778_html"><div class="ttname"><a href="a01778.html">inv_signal_model.h</a></div><div class="ttdoc">InvSignalModel class declaration.</div></div>
-<div class="ttc" id="aa01810_html"><div class="ttname"><a href="a01810.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa01815_html"><div class="ttname"><a href="a01815.html">RTPROCESSINGLIB</a></div><div class="ttdoc">Real-time signal processing (filtering, averaging, HPI fitting, noise reduction).</div><div class="ttdef"><b>Definition</b> <a href="a00317_source.html#l00064">rtfiffrawviewdelegate.h:64</a></div></div>
-<div class="ttc" id="aa01819_html"><div class="ttname"><a href="a01819.html">INVLIB</a></div><div class="ttdoc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting).</div><div class="ttdef"><b>Definition</b> <a href="a00791_source.html#l00055">braintreemodel.h:55</a></div></div>
-<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">FIFFLIB::FiffInfo</a></div><div class="ttdoc">FIFF measurement file information.</div><div class="ttdef"><b>Definition</b> <a href="a00455_source.html#l00084">fiff_info.h:85</a></div></div>
-<div class="ttc" id="aa02701_html"><div class="ttname"><a href="a02701.html">INVLIB::HpiFitResult</a></div><div class="ttdoc">Complete HPI fit output: per-coil dipole parameters, head-to-device transform, fit error,...</div><div class="ttdef"><b>Definition</b> <a href="a01775_source.html#l00116">inv_hpi_fit.h:116</a></div></div>
-<div class="ttc" id="aa02705_html"><div class="ttname"><a href="a02705.html">INVLIB::InvHpiFit</a></div><div class="ttdoc">HPI Fit algorithms.</div><div class="ttdef"><b>Definition</b> <a href="a01775_source.html#l00138">inv_hpi_fit.h:139</a></div></div>
-<div class="ttc" id="aa02721_html"><div class="ttname"><a href="a02721.html">INVLIB::InvHpiModelParameters</a></div><div class="ttdoc">Configuration parameters for the HPI signal model (line frequency, coil frequencies,...</div><div class="ttdef"><b>Definition</b> <a href="a01766_source.html#l00075">inv_hpi_model_parameters.h:76</a></div></div>
-<div class="ttc" id="aa02725_html"><div class="ttname"><a href="a02725.html">INVLIB::InvSensorSet</a></div><div class="ttdoc">Stores MEG sensor geometry (positions, orientations, weights, coil count) for a single sensor type.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00083">inv_sensor_set.h:83</a></div></div>
-<div class="ttc" id="aa03157_html_a0e06f3b48e10f60a9304c56053773890"><div class="ttname"><a href="a03157.html#a0e06f3b48e10f60a9304c56053773890">RTPROCESSINGLIB::RtHpiWorker::RtHpiWorker</a></div><div class="ttdeci">RtHpiWorker(const INVLIB::InvSensorSet sensorSet)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00068">rthpis.cpp:68</a></div></div>
-<div class="ttc" id="aa03157_html_ab730795def30c2de51659a6619fd148f"><div class="ttname"><a href="a03157.html#ab730795def30c2de51659a6619fd148f">RTPROCESSINGLIB::RtHpiWorker::doWork</a></div><div class="ttdeci">void doWork(const Eigen::MatrixXd &amp;matData, const Eigen::MatrixXd &amp;matProjectors, const INVLIB::InvHpiModelParameters &amp;hpiModelParameters, const Eigen::MatrixXd &amp;matCoilsHead)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00073">rthpis.cpp:73</a></div></div>
-<div class="ttc" id="aa03157_html_ac823bb34a4be9aad5585e13334eb3a17"><div class="ttname"><a href="a03157.html#ac823bb34a4be9aad5585e13334eb3a17">RTPROCESSINGLIB::RtHpiWorker::resultReady</a></div><div class="ttdeci">void resultReady(const INVLIB::HpiFitResult &amp;fitResult)</div></div>
-<div class="ttc" id="aa03157_html_ae85520bf5549199716ae14e89e0fc948"><div class="ttname"><a href="a03157.html#ae85520bf5549199716ae14e89e0fc948">RTPROCESSINGLIB::RtHpiWorker::m_pHpiFit</a></div><div class="ttdeci">QSharedPointer&lt; INVLIB::InvHpiFit &gt; m_pHpiFit</div><div class="ttdef"><b>Definition</b> <a href="#l00119">rthpis.h:119</a></div></div>
-<div class="ttc" id="aa03161_html_a14a5232984cbf214323d52bb409665f8"><div class="ttname"><a href="a03161.html#a14a5232984cbf214323d52bb409665f8">RTPROCESSINGLIB::RtHpi::m_sensorSet</a></div><div class="ttdeci">INVLIB::InvSensorSet m_sensorSet</div><div class="ttdef"><b>Definition</b> <a href="#l00209">rthpis.h:209</a></div></div>
-<div class="ttc" id="aa03161_html_a1596d6f958bc1450de540f3ad4611ead"><div class="ttname"><a href="a03161.html#a1596d6f958bc1450de540f3ad4611ead">RTPROCESSINGLIB::RtHpi::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const RtHpi &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00137">rthpis.h:137</a></div></div>
-<div class="ttc" id="aa03161_html_a161490a62c167eac1f54e4a6a58b0873"><div class="ttname"><a href="a03161.html#a161490a62c167eac1f54e4a6a58b0873">RTPROCESSINGLIB::RtHpi::restart</a></div><div class="ttdeci">void restart()</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00175">rthpis.cpp:175</a></div></div>
-<div class="ttc" id="aa03161_html_a1e4567a6ca5373f94b50edab31f2adb7"><div class="ttname"><a href="a03161.html#a1e4567a6ca5373f94b50edab31f2adb7">RTPROCESSINGLIB::RtHpi::newHpiFitResultAvailable</a></div><div class="ttdeci">void newHpiFitResultAvailable(const INVLIB::HpiFitResult &amp;fitResult)</div></div>
-<div class="ttc" id="aa03161_html_a25f3e309fe83158d07392e65893cc971"><div class="ttname"><a href="a03161.html#a25f3e309fe83158d07392e65893cc971">RTPROCESSINGLIB::RtHpi::m_modelParameters</a></div><div class="ttdeci">INVLIB::InvHpiModelParameters m_modelParameters</div><div class="ttdef"><b>Definition</b> <a href="#l00210">rthpis.h:210</a></div></div>
-<div class="ttc" id="aa03161_html_a29838f6dcd6193e0cbebbce0da957571"><div class="ttname"><a href="a03161.html#a29838f6dcd6193e0cbebbce0da957571">RTPROCESSINGLIB::RtHpi::m_workerThread</a></div><div class="ttdeci">QThread m_workerThread</div><div class="ttdef"><b>Definition</b> <a href="#l00206">rthpis.h:206</a></div></div>
-<div class="ttc" id="aa03161_html_a32e091d2ad230d3d8056bc7519152622"><div class="ttname"><a href="a03161.html#a32e091d2ad230d3d8056bc7519152622">RTPROCESSINGLIB::RtHpi::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; RtHpi &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00136">rthpis.h:136</a></div></div>
-<div class="ttc" id="aa03161_html_a3e97612a1a9741d7585bd9fd714df9a9"><div class="ttname"><a href="a03161.html#a3e97612a1a9741d7585bd9fd714df9a9">RTPROCESSINGLIB::RtHpi::m_matCoilsHead</a></div><div class="ttdeci">Eigen::MatrixXd m_matCoilsHead</div><div class="ttdef"><b>Definition</b> <a href="#l00207">rthpis.h:207</a></div></div>
-<div class="ttc" id="aa03161_html_a4b85ded6594de84b3c04139378cebe48"><div class="ttname"><a href="a03161.html#a4b85ded6594de84b3c04139378cebe48">RTPROCESSINGLIB::RtHpi::setHpiDigitizer</a></div><div class="ttdeci">void setHpiDigitizer(const Eigen::MatrixXd &amp;matCoilsHead)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00161">rthpis.cpp:161</a></div></div>
-<div class="ttc" id="aa03161_html_a7c4861e4b0de8291ab83051ece9bd486"><div class="ttname"><a href="a03161.html#a7c4861e4b0de8291ab83051ece9bd486">RTPROCESSINGLIB::RtHpi::append</a></div><div class="ttdeci">void append(const Eigen::MatrixXd &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00133">rthpis.cpp:133</a></div></div>
-<div class="ttc" id="aa03161_html_a7edeb6fde0cf0f60b54bfc0cdb3a9ddb"><div class="ttname"><a href="a03161.html#a7edeb6fde0cf0f60b54bfc0cdb3a9ddb">RTPROCESSINGLIB::RtHpi::RtHpi</a></div><div class="ttdeci">RtHpi(const INVLIB::InvSensorSet sensorSet, QObject *parent=0)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00100">rthpis.cpp:100</a></div></div>
-<div class="ttc" id="aa03161_html_a865b60cf9d5e8f202c44cddbb429a2ad"><div class="ttname"><a href="a03161.html#a865b60cf9d5e8f202c44cddbb429a2ad">RTPROCESSINGLIB::RtHpi::setProjectionMatrix</a></div><div class="ttdeci">void setProjectionMatrix(const Eigen::MatrixXd &amp;matProjectors)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00154">rthpis.cpp:154</a></div></div>
-<div class="ttc" id="aa03161_html_a903d86ba701b0428c29596af25001217"><div class="ttname"><a href="a03161.html#a903d86ba701b0428c29596af25001217">RTPROCESSINGLIB::RtHpi::m_matProjectors</a></div><div class="ttdeci">Eigen::MatrixXd m_matProjectors</div><div class="ttdef"><b>Definition</b> <a href="#l00208">rthpis.h:208</a></div></div>
-<div class="ttc" id="aa03161_html_aac10d3cadb1565855ec4dcc203894ad3"><div class="ttname"><a href="a03161.html#aac10d3cadb1565855ec4dcc203894ad3">RTPROCESSINGLIB::RtHpi::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00196">rthpis.cpp:196</a></div></div>
-<div class="ttc" id="aa03161_html_ac1f2e0ac4b1116ea4e0446371a04d822"><div class="ttname"><a href="a03161.html#ac1f2e0ac4b1116ea4e0446371a04d822">RTPROCESSINGLIB::RtHpi::setModelParameters</a></div><div class="ttdeci">void setModelParameters(INVLIB::InvHpiModelParameters hpiModelParameters)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00147">rthpis.cpp:147</a></div></div>
-<div class="ttc" id="aa03161_html_acabe050fa7c5016708178d9a47a15d6b"><div class="ttname"><a href="a03161.html#acabe050fa7c5016708178d9a47a15d6b">RTPROCESSINGLIB::RtHpi::handleResults</a></div><div class="ttdeci">void handleResults(const INVLIB::HpiFitResult &amp;fitResult)</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00168">rthpis.cpp:168</a></div></div>
-<div class="ttc" id="aa03161_html_ae3b5ea3a59dff3aeef991569ed39bf95"><div class="ttname"><a href="a03161.html#ae3b5ea3a59dff3aeef991569ed39bf95">RTPROCESSINGLIB::RtHpi::operate</a></div><div class="ttdeci">void operate(const Eigen::MatrixXd &amp;matData, const Eigen::MatrixXd &amp;matProjectors, const INVLIB::InvHpiModelParameters &amp;hpiModelParameters, const Eigen::MatrixXd &amp;matCoilsHead)</div></div>
+<div class="ttc" id="aa00071_html"><div class="ttname"><a href="a00071.html">inv_ecd.h</a></div><div class="ttdoc">Electric Current Dipole (InvEcd) class declaration.</div></div>
+<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">INVLIB</a></div><div class="ttdoc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting).</div><div class="ttdef"><b>Definition</b> <a href="a01574_source.html#l00055">braintreemodel.h:55</a></div></div>
+<div class="ttc" id="aa02690_html_a0531472d2db03f27baf4dc6b608961dd"><div class="ttname"><a href="a02690.html#a0531472d2db03f27baf4dc6b608961dd">INVLIB::InvEcd::good</a></div><div class="ttdeci">float good</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00109">inv_ecd.h:109</a></div></div>
+<div class="ttc" id="aa02690_html_a05cdd89403e21e5a96a09a9dae9c6444"><div class="ttname"><a href="a02690.html#a05cdd89403e21e5a96a09a9dae9c6444">INVLIB::InvEcd::nfree</a></div><div class="ttdeci">int nfree</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00111">inv_ecd.h:111</a></div></div>
+<div class="ttc" id="aa02690_html_a14389297c59689fcbf0a1a69aa39c17c"><div class="ttname"><a href="a02690.html#a14389297c59689fcbf0a1a69aa39c17c">INVLIB::InvEcd::time</a></div><div class="ttdeci">float time</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00106">inv_ecd.h:106</a></div></div>
+<div class="ttc" id="aa02690_html_a1e3af7a0b02ed12a9e821b29574ae81a"><div class="ttname"><a href="a02690.html#a1e3af7a0b02ed12a9e821b29574ae81a">INVLIB::InvEcd::Q</a></div><div class="ttdeci">Eigen::Vector3f Q</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00108">inv_ecd.h:108</a></div></div>
+<div class="ttc" id="aa02690_html_a1e6ef44b7011b4e957e852201742d801"><div class="ttname"><a href="a02690.html#a1e6ef44b7011b4e957e852201742d801">INVLIB::InvEcd::rd</a></div><div class="ttdeci">Eigen::Vector3f rd</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00107">inv_ecd.h:107</a></div></div>
+<div class="ttc" id="aa02690_html_a446d44dc386926e36bb545d8d68f2d8d"><div class="ttname"><a href="a02690.html#a446d44dc386926e36bb545d8d68f2d8d">INVLIB::InvEcd::print</a></div><div class="ttdeci">void print() const</div><div class="ttdef"><b>Definition</b> <a href="#l00088">inv_ecd.cpp:88</a></div></div>
+<div class="ttc" id="aa02690_html_a6b49d656c6d2de7cc36cceb3239eeecc"><div class="ttname"><a href="a02690.html#a6b49d656c6d2de7cc36cceb3239eeecc">INVLIB::InvEcd::~InvEcd</a></div><div class="ttdeci">~InvEcd()</div><div class="ttdef"><b>Definition</b> <a href="#l00082">inv_ecd.cpp:82</a></div></div>
+<div class="ttc" id="aa02690_html_a73e2848f50f376282836d2d9c6a5aa7d"><div class="ttname"><a href="a02690.html#a73e2848f50f376282836d2d9c6a5aa7d">INVLIB::InvEcd::neval</a></div><div class="ttdeci">int neval</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00112">inv_ecd.h:112</a></div></div>
+<div class="ttc" id="aa02690_html_aa7f125d5ef0c845125bf8dd6d5f050e7"><div class="ttname"><a href="a02690.html#aa7f125d5ef0c845125bf8dd6d5f050e7">INVLIB::InvEcd::khi2</a></div><div class="ttdeci">float khi2</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00110">inv_ecd.h:110</a></div></div>
+<div class="ttc" id="aa02690_html_aeb25c2590a782b000409d2533f18ff49"><div class="ttname"><a href="a02690.html#aeb25c2590a782b000409d2533f18ff49">INVLIB::InvEcd::InvEcd</a></div><div class="ttdeci">InvEcd()</div><div class="ttdef"><b>Definition</b> <a href="#l00054">inv_ecd.cpp:54</a></div></div>
+<div class="ttc" id="aa02690_html_af60bfd7de826f5d339d604b8c77f9692"><div class="ttname"><a href="a02690.html#af60bfd7de826f5d339d604b8c77f9692">INVLIB::InvEcd::valid</a></div><div class="ttdeci">bool valid</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00105">inv_ecd.h:105</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp3D_rhi/model/items/surfacetreeitem.h File Reference</title>
+    <title>MNE-CPP: src/libraries/com/rt_command/raw_command.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -66,9 +66,44 @@
                 '1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 ' +
                 '22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>';
             var pn = document.getElementById('projectnumber');
-            var badge = document.createElement('span');
-            badge.className = 'version-badge';
-            badge.textContent = pn ? pn.textContent.trim() : '';
+            var versionText = pn ? pn.textContent.trim() : '';
+            /* Auto-detect dev vs stable from current URL */
+            var isDevPage = window.location.pathname.indexOf('/dev/') !== -1
+                         || window.location.pathname.endsWith('/dev');
+            /* Version switcher dropdown (mirrors Docusaurus) */
+            var versionDropdown = document.createElement('div');
+            versionDropdown.className = 'version-dropdown';
+            var versionBtn = document.createElement('button');
+            versionBtn.className = 'version-badge version-dropdown-btn';
+            versionBtn.textContent = isDevPage ? 'dev (latest)' : versionText;
+            versionBtn.setAttribute('type', 'button');
+            versionBtn.setAttribute('aria-expanded', 'false');
+            var versionMenu = document.createElement('ul');
+            versionMenu.className = 'version-dropdown-menu';
+            [
+                { label: versionText + ' (Stable)', href: 'https://mne-cpp.github.io/doxygen-api/', active: !isDevPage },
+                { label: 'dev (Latest Development)', href: 'https://mne-cpp.github.io/doxygen-api/dev/', active: isDevPage }
+            ].forEach(function (item) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                a.href = item.href;
+                a.textContent = item.label;
+                if (item.active) a.className = 'active';
+                li.appendChild(a);
+                versionMenu.appendChild(li);
+            });
+            versionDropdown.appendChild(versionBtn);
+            versionDropdown.appendChild(versionMenu);
+            versionBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                var expanded = versionBtn.getAttribute('aria-expanded') === 'true';
+                versionBtn.setAttribute('aria-expanded', String(!expanded));
+                versionMenu.style.display = expanded ? 'none' : 'block';
+            });
+            document.addEventListener('click', function () {
+                versionBtn.setAttribute('aria-expanded', 'false');
+                versionMenu.style.display = 'none';
+            });
             var darkToggle = null;
             /* -- Helpers --------------------------------------------- */
             /* Find the hamburger wrapper: div.sm.sm-dox that is a
@@ -83,13 +118,13 @@
                     darkToggle = document.querySelector('doxygen-awesome-dark-mode-toggle');
                 }
                 /* Move nodes (appendChild/insertBefore moves if already in DOM) */
-                if (badge.parentNode !== container) {
+                if (versionDropdown.parentNode !== container) {
                     /* On desktop (sp2): insert at start.
                        On mobile (hamburger wrapper): insert before hamburger btn. */
-                    container.insertBefore(badge, container.firstChild);
+                    container.insertBefore(versionDropdown, container.firstChild);
                 }
                 if (gh.parentNode !== container) {
-                    container.insertBefore(gh, badge.nextSibling);
+                    container.insertBefore(gh, versionDropdown.nextSibling);
                 }
                 if (darkToggle && darkToggle.parentNode !== container) {
                     container.insertBefore(darkToggle, gh.nextSibling);
@@ -208,114 +243,52 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_ceb91b0558e305478f9a6f250cbf6c42.html">disp3D_rhi</a></li><li class="navelem"><a href="dir_aec169a2768c88bdc449b05bc58ddb38.html">model</a></li><li class="navelem"><a href="dir_f3afdc2d9c89bc5b9a878d47957ea6fd.html">items</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_9ac5db4157cb6bd811e477c349c3e12b.html">com</a></li><li class="navelem"><a href="dir_978fb10a8bfb7d34a8d98ab57abc884e.html">rt_command</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">surfacetreeitem.h File Reference</div></div>
+  <div class="headertitle"><div class="title">raw_command.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><a class="el" href="a02273.html" title="Tree item representing a FreeSurfer cortical surface in the 3-D scene hierarchy.">SurfaceTreeItem</a> class declaration.  
-<a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00632_source.html">../../disp3D_rhi_global.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00800_source.html">abstracttreeitem.h</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a01430_source.html">fs/fs_surface.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01457_source.html">fs/fs_annotation.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00803_source.html">raw_command.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for surfacetreeitem.h:</div>
+Include dependency graph for raw_command.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00798.png" border="0" usemap="#asrc_2libraries_2disp3_d__rhi_2model_2items_2surfacetreeitem_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2disp3_d__rhi_2model_2items_2surfacetreeitem_8h" id="asrc_2libraries_2disp3_d__rhi_2model_2items_2surfacetreeitem_8h">
-<area shape="rect" title="SurfaceTreeItem class declaration." alt="" coords="349,5,601,45"/>
-<area shape="rect" href="a00632.html" title="disp3D_rhi library export/import macros." alt="" coords="599,240,773,265"/>
-<area shape="poly" title=" " alt="" coords="482,45,507,114,529,155,557,190,592,215,630,233,628,238,589,220,553,194,524,157,502,117,477,46"/>
-<area shape="rect" href="a00800.html" title="AbstractTreeItem class declaration." alt="" coords="736,93,879,119"/>
-<area shape="poly" title=" " alt="" coords="555,43,746,88,745,93,554,48"/>
-<area shape="rect" href="a01430.html" title="FsSurface class declaration." alt="" coords="79,167,197,192"/>
-<area shape="poly" title=" " alt="" coords="420,48,296,96,228,130,171,162,168,157,226,125,294,91,418,43"/>
-<area shape="rect" href="a01457.html" title="FsAnnotation class declaration." alt="" coords="307,93,446,119"/>
-<area shape="poly" title=" " alt="" coords="453,48,404,87,401,82,450,43"/>
-<area shape="rect" title=" " alt="" coords="529,313,659,339"/>
-<area shape="poly" title=" " alt="" coords="673,267,621,307,618,303,670,263"/>
-<area shape="rect" href="a01001.html" title="build information utils" alt="" coords="290,313,413,339"/>
-<area shape="poly" title=" " alt="" coords="633,268,419,313,418,308,632,263"/>
-<area shape="rect" title=" " alt="" coords="318,387,385,412"/>
-<area shape="poly" title=" " alt="" coords="354,339,354,373,349,373,349,339"/>
-<area shape="poly" title=" " alt="" coords="879,108,947,115,1011,129,1035,140,1050,155,1054,173,1043,194,1026,207,1002,219,937,235,862,246,787,251,787,246,861,240,936,230,1000,214,1023,203,1039,190,1048,172,1045,157,1032,145,1009,134,946,120,878,113"/>
-<area shape="rect" title=" " alt="" coords="567,167,687,192"/>
-<area shape="poly" title=" " alt="" coords="779,121,670,164,668,159,777,116"/>
-<area shape="rect" title=" " alt="" coords="712,167,791,192"/>
-<area shape="poly" title=" " alt="" coords="800,121,771,157,767,154,796,117"/>
-<area shape="rect" title=" " alt="" coords="815,167,914,192"/>
-<area shape="poly" title=" " alt="" coords="819,117,849,154,845,158,815,121"/>
-<area shape="rect" title=" " alt="" coords="938,167,1029,192"/>
-<area shape="poly" title=" " alt="" coords="837,116,943,159,941,164,835,121"/>
-<area shape="rect" href="a01424.html" title="Fs library export/import macros." alt="" coords="122,240,215,265"/>
-<area shape="poly" title=" " alt="" coords="146,191,161,227,156,229,141,193"/>
-<area shape="rect" title=" " alt="" coords="357,240,479,265"/>
-<area shape="poly" title=" " alt="" coords="184,189,360,234,359,239,182,195"/>
-<area shape="rect" title=" " alt="" coords="5,240,97,265"/>
-<area shape="poly" title=" " alt="" coords="126,194,78,233,74,229,122,190"/>
-<area shape="poly" title=" " alt="" coords="216,261,228,263,516,310,515,315,227,268,215,266"/>
-<area shape="poly" title=" " alt="" coords="199,263,310,306,308,311,197,268"/>
-<area shape="poly" title=" " alt="" coords="350,121,307,142,261,169,222,200,190,231,187,228,219,196,258,164,304,137,348,116"/>
-<area shape="poly" title=" " alt="" coords="385,118,405,166,417,226,412,227,399,167,380,120"/>
-<area shape="poly" title=" " alt="" coords="307,114,241,121,170,132,108,148,85,157,69,169,60,181,55,196,52,226,46,226,50,194,56,179,65,165,82,153,107,143,169,127,240,116,307,109"/>
-<area shape="rect" href="a01433.html" title="FsColortable class declaration." alt="" coords="272,167,391,192"/>
-<area shape="poly" title=" " alt="" coords="371,120,348,157,344,154,367,118"/>
-<area shape="rect" title=" " alt="" coords="504,240,575,265"/>
-<area shape="poly" title=" " alt="" coords="392,117,518,229,514,233,388,121"/>
-<area shape="poly" title=" " alt="" coords="306,194,209,237,207,232,304,190"/>
-<area shape="poly" title=" " alt="" coords="347,190,395,229,392,233,344,194"/>
-<area shape="poly" title=" " alt="" coords="287,195,110,239,109,234,286,189"/>
-<area shape="poly" title=" " alt="" coords="366,189,493,233,492,238,364,195"/>
-<area shape="rect" title=" " alt="" coords="239,240,333,265"/>
-<area shape="poly" title=" " alt="" coords="326,194,303,230,298,227,322,191"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00799.png" border="0" usemap="#asrc_2libraries_2disp3_d__rhi_2model_2items_2surfacetreeitem_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2disp3_d__rhi_2model_2items_2surfacetreeitem_8hdep" id="asrc_2libraries_2disp3_d__rhi_2model_2items_2surfacetreeitem_8hdep">
-<area shape="rect" title="SurfaceTreeItem class declaration." alt="" coords="260,5,512,45"/>
-<area shape="rect" href="a00848.html" title="BrainTreeModel class definition." alt="" coords="5,93,228,133"/>
-<area shape="poly" title=" " alt="" coords="315,52,176,96,175,91,313,47"/>
-<area shape="rect" href="a00812.html" title="SurfaceTreeItem class definition." alt="" coords="253,93,519,133"/>
-<area shape="poly" title=" " alt="" coords="389,59,389,93,383,93,383,59"/>
-<area shape="rect" href="a00755.html" title="BrainView class definition." alt="" coords="544,93,719,133"/>
-<area shape="poly" title=" " alt="" coords="454,47,578,91,577,96,452,52"/>
+<div class="center"><img src="a00798.png" border="0" usemap="#asrc_2libraries_2com_2rt__command_2raw__command_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2com_2rt__command_2raw__command_8cpp" id="asrc_2libraries_2com_2rt__command_2raw__command_8cpp">
+<area shape="rect" title=" " alt="" coords="400,5,621,45"/>
+<area shape="rect" href="a00803.html" title=" " alt="" coords="445,93,576,119"/>
+<area shape="poly" title=" " alt="" coords="513,46,513,79,508,79,508,46"/>
+<area shape="rect" href="a00824.html" title=" " alt="" coords="13,240,134,265"/>
+<area shape="poly" title=" " alt="" coords="445,115,329,132,264,148,201,169,144,200,99,233,95,229,141,195,199,164,262,143,328,127,444,110"/>
+<area shape="rect" href="a00947.html" title="Contains declarations of the command design pattern: ICommand interface." alt="" coords="212,167,449,192"/>
+<area shape="poly" title=" " alt="" coords="483,121,374,164,372,159,481,116"/>
+<area shape="rect" title=" " alt="" coords="473,167,548,192"/>
+<area shape="poly" title=" " alt="" coords="513,119,513,153,508,153,508,119"/>
+<area shape="rect" title=" " alt="" coords="573,167,627,192"/>
+<area shape="poly" title=" " alt="" coords="527,117,576,156,573,160,523,121"/>
+<area shape="rect" title=" " alt="" coords="651,167,730,192"/>
+<area shape="poly" title=" " alt="" coords="541,116,650,159,648,164,539,121"/>
+<area shape="rect" title=" " alt="" coords="5,313,136,339"/>
+<area shape="poly" title=" " alt="" coords="76,266,74,300,69,300,70,266"/>
+<area shape="rect" href="a00959.html" title="build information utils" alt="" coords="160,313,283,339"/>
+<area shape="poly" title=" " alt="" coords="98,263,186,305,184,310,96,268"/>
+<area shape="rect" title=" " alt="" coords="188,387,255,412"/>
+<area shape="poly" title=" " alt="" coords="224,339,224,373,219,373,219,339"/>
+<area shape="rect" href="a00965.html" title="utils library export/import macros." alt="" coords="158,240,279,265"/>
+<area shape="poly" title=" " alt="" coords="314,194,250,235,247,230,311,190"/>
+<area shape="rect" title=" " alt="" coords="304,240,427,265"/>
+<area shape="poly" title=" " alt="" coords="339,191,356,226,351,229,334,194"/>
+<area shape="rect" title=" " alt="" coords="451,240,522,265"/>
+<area shape="poly" title=" " alt="" coords="357,190,450,232,448,237,355,194"/>
+<area shape="poly" title=" " alt="" coords="196,268,108,310,106,305,194,263"/>
+<area shape="poly" title=" " alt="" coords="222,266,223,300,218,300,216,266"/>
 </map>
 </div>
 </div>
 <p><a href="a00797_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:SurfaceTreeItem" id="r_SurfaceTreeItem"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02273.html">SurfaceTreeItem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tree item representing a FreeSurfer cortical surface in the 3-D scene hierarchy.  <a href="a02273.html#details">More...</a><br /></td></tr>
-</table>
-<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02273.html" title="Tree item representing a FreeSurfer cortical surface in the 3-D scene hierarchy.">SurfaceTreeItem</a> class declaration. </p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
-<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
-LICENSE</h1>
-<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
-<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
-<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
-<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
-
-<p class="definition">Definition in file <a class="el" href="a00797_source.html">surfacetreeitem.h</a>.</p>
-</div></div><!-- contents -->
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1
