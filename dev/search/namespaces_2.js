@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['fifflib_0',['FIFFLIB',['../a01771.html',1,'']]],
-  ['fslib_1',['FSLIB',['../a01770.html',1,'']]],
-  ['fwdlib_2',['FWDLIB',['../a01786.html',1,'']]]
+  ['disp3dlib_0',['DISP3DLIB',['../a01855.html',1,'']]],
+  ['displib_1',['DISPLIB',['../a01848.html',1,'']]],
+  ['displib_3a_3achannelinfomodelroles_2',['ChannelInfoModelRoles',['../a01850.html',1,'DISPLIB']]],
+  ['displib_3a_3aevokedsetmodelroles_3',['EvokedSetModelRoles',['../a01851.html',1,'DISPLIB']]],
+  ['dsplib_4',['DSPLIB',['../a01861.html',1,'']]]
 ];

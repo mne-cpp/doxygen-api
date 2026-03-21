@@ -4,8 +4,8 @@ var searchData=
   ['imagcoherence_2eh_1',['imagcoherence.h',['../a00833.html',1,'']]],
   ['imagesc_2ecpp_2',['imagesc.cpp',['../a00458.html',1,'']]],
   ['imagesc_2eh_3',['imagesc.h',['../a00491.html',1,'']]],
-  ['interpolation_2ecpp_4',['interpolation.cpp',['../a01529.html',1,'']]],
-  ['interpolation_2eh_5',['interpolation.h',['../a01535.html',1,'']]],
+  ['interpolation_2ecpp_4',['interpolation.cpp',['../a01601.html',1,'']]],
+  ['interpolation_2eh_5',['interpolation.h',['../a01607.html',1,'']]],
   ['inv_5fconnectivity_2eh_6',['inv_connectivity.h',['../a00005.html',1,'']]],
   ['inv_5fdipole_2ecpp_7',['inv_dipole.cpp',['../a00017.html',1,'']]],
   ['inv_5fdipole_2eh_8',['inv_dipole.h',['../a00023.html',1,'']]],
@@ -52,6 +52,6 @@ var searchData=
   ['inv_5fsource_5festimate_5ftoken_2eh_49',['inv_source_estimate_token.h',['../a00077.html',1,'']]],
   ['inv_5ftoken_2eh_50',['inv_token.h',['../a00074.html',1,'']]],
   ['inv_5ftypes_2eh_51',['inv_types.h',['../a00134.html',1,'']]],
-  ['ioutils_2ecpp_52',['ioutils.cpp',['../a00932.html',1,'']]],
-  ['ioutils_2eh_53',['ioutils.h',['../a00929.html',1,'']]]
+  ['ioutils_2ecpp_52',['ioutils.cpp',['../a01004.html',1,'']]],
+  ['ioutils_2eh_53',['ioutils.h',['../a01001.html',1,'']]]
 ];

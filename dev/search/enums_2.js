@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['guimode_0',['GuiMode',['../a01946.html#a4758d14e067b1f8207526dca12903cf6',1,'DISPLIB::AbstractView']]]
+  ['channelformat_0',['ChannelFormat',['../a01869.html#a22b8a5da4e9e3947843244e040a7ff22',1,'LSLLIB']]],
+  ['colormaps_1',['ColorMaps',['../a01848.html#a53c600771742063d0826523495db22f3',1,'DISPLIB']]]
 ];
