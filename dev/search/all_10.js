@@ -3,7 +3,7 @@ var searchData=
   ['objectkey_0',['objectKey',['../a02222.html#a1b3cf0dafd0eedb50101c769fb723d74',1,'NetworkTreeItem']]],
   ['objectvisiblefortarget_1',['objectVisibleForTarget',['../a02310.html#a7566bc1b81e23377e6bc2ddf65ff95f7',1,'BrainView']]],
   ['observernumdebug_2',['observerNumDebug',['../a03166.html#a5f046b83765a76a80a8998206704140e',1,'UTILSLIB::Subject']]],
-  ['observerpattern_2ecpp_3',['observerpattern.cpp',['../a00944.html',1,'']]],
+  ['observerpattern_2ecpp_3',['observerpattern.cpp',['../a00938.html',1,'']]],
   ['observerpattern_2eh_4',['observerpattern.h',['../a00950.html',1,'']]],
   ['observers_5',['observers',['../a03166.html#a174e5931ac2b56858c2e1c6b96113f34',1,'UTILSLIB::Subject']]],
   ['of_20free_20blocks_6',['of free blocks.',['../a00650.html#autotoc_md0',1,'']]],

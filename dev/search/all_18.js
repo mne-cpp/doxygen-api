@@ -50,7 +50,7 @@ var searchData=
   ['write_5frt_5fcommand_47',['write_rt_command',['../a02554.html#a7ad0fa9e01aab96b4768b0e540bdf1b5',1,'FIFFLIB::FiffStream']]],
   ['write_5fsource_5fspaces_5fto_5ffid_20function_48',['MNE toolbox root function ###: Definition of the write_source_spaces_to_fid function',['../a03094.html#autotoc_md27',1,'']]],
   ['write_5fstring_49',['write_string',['../a02434.html#afb52897f63614e65fd940db2af97b74c',1,'FIFFLIB::Fiff::write_string()'],['../a02554.html#abd22502dc06986b3005e6f6c1becf902',1,'FIFFLIB::FiffStream::write_string(fiff_int_t kind, const QString &amp;data)']]],
-  ['write_5ftag_50',['write_tag',['../a02554.html#a008d914b36f73c992dd47bc464352f70',1,'FIFFLIB::FiffStream']]],
+  ['write_5ftag_50',['write_tag',['../a02554.html#a3ea83386b36ffb15f0bd889e8f52b331',1,'FIFFLIB::FiffStream']]],
   ['write_5fto_5fascii_51',['write_to_ascii',['../a02486.html#a08617458b834936cb5ac5f33d7906215',1,'FIFFLIB::FiffEvents']]],
   ['write_5fto_5ffif_52',['write_to_fif',['../a02486.html#a32b6b6c7f74d31bb8b2cc27bb9bd612c',1,'FIFFLIB::FiffEvents']]],
   ['writebrainstormmonfiles_53',['writeBrainstormMonFiles',['../a03186.html#a51a9cf10eddbc02d7753a06394e63e71',1,'UTILSLIB::SelectionIO::writeBrainstormMonFiles(QString path, const QMultiMap&lt; QString, QStringList &gt; &amp;selectionMap)'],['../a03186.html#a8416397ad1d164b72e12d18a6bbab5cc',1,'UTILSLIB::SelectionIO::writeBrainstormMonFiles(const std::string &amp;path, const std::map&lt; std::string, std::vector&lt; std::string &gt; &gt; &amp;selectionMap)']]],
