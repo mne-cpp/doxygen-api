@@ -13,7 +13,7 @@ var searchData=
   ['orient_5fprior_10',['orient_prior',['../a03249.html#a4a8d5f0fd42e900d2c73fe476cb9002e',1,'MNELIB::MNEInverseOperator']]],
   ['orientationtype_11',['orientationType',['../a03057.html#ab106f399f8b333f497a2b6f9909229d6',1,'INVLIB::InvSourceEstimate']]],
   ['orig_5ftab_12',['orig_tab',['../a02853.html#a3803511f79b5bcb5307d963313bd634d',1,'FSLIB::FsColortable']]],
-  ['origin_13',['origin',['../a02705.html#a0f174924720996cb48a5ee7d7567c9ad',1,'UTILSLIB::SSS::Params::origin'],['../a03401.html#aea50ee7d8581f91b79516fb5039dd815',1,'MNELIB::MNESssData::origin']]],
+  ['origin_13',['origin',['../a02701.html#af8a74dd7c6a88779b10144158f366c61',1,'UTILSLIB::SSSParams::origin'],['../a03401.html#aea50ee7d8581f91b79516fb5039dd815',1,'MNELIB::MNESssData::origin']]],
   ['out_5fnuse_14',['out_nuse',['../a03401.html#a1babdac902521e8fc689a8269de7f51d',1,'MNELIB::MNESssData']]],
   ['out_5forder_15',['out_order',['../a03401.html#a7c9cacf473bb763baa12f3a5efb2cda8',1,'MNELIB::MNESssData']]],
   ['overlay_5fcolor_5fmode_16',['overlay_color_mode',['../a03289.html#af71dc4f93176833aa62cfb8046b399d1',1,'MNELIB::MNEMshDisplaySurface']]],

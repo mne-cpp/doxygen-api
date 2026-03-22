@@ -10,7 +10,7 @@ var searchData=
   ['badlist_7',['badlist',['../a03261.html#a754229242857aa0e8886b7ced11c54a1',1,'MNELIB::MNEMeasData::badlist'],['../a03377.html#a5f7280b092a392f638d5fbdbb9c41c21',1,'MNELIB::MNERawData::badlist']]],
   ['badname_8',['badname',['../a02977.html#a7c92e3e75cfb162bcd195d606ea3aa51',1,'INVLIB::InvDipoleFitSettings']]],
   ['bads_9',['bads',['../a02733.html#ab8dc4bd79129bad78d569e17a4a7bf8f',1,'FIFFLIB::FiffCov::bads'],['../a02805.html#abb2b7b298afe7439c1012962c2a8c43c',1,'FIFFLIB::FiffInfoBase::bads'],['../a03173.html#a0efcac6bf0e53a7961cc91bb7b74c589',1,'MNELIB::MNECovMatrix::bads']]],
-  ['bapplybaseline_10',['bApplyBaseline',['../a02589.html#a3e46d0a0c95838af14571b4275feb852',1,'UTILSLIB::EpochExtractor::Params']]],
+  ['bapplybaseline_10',['bApplyBaseline',['../a02585.html#aebc478ede8e946ed99616339a63e30c2',1,'UTILSLIB::EpochExtractorParams']]],
   ['base_11',['base',['../a02901.html#ab1523d29d2a38620be699d1d34abaca7',1,'FWDLIB::FwdCoil']]],
   ['base_5farr_12',['base_arr',['../a03021.html#af33cd2c9adae95af834bcf8ac1910087',1,'INVLIB::HPISortStruct']]],
   ['baseline_13',['baseline',['../a02769.html#ad96440f9c4fdf5791897a631f0123cdc',1,'FIFFLIB::FiffEvoked']]],

@@ -137,7 +137,7 @@ var searchData=
   ['compute_5fsurface_5fcm_134',['compute_surface_cm',['../a03409.html#aa237ab05be63b9ab0f309abeb4a81a28',1,'MNELIB::MNESurfaceOrVolume']]],
   ['computeaverage_135',['computeAverage',['../a03209.html#aa9937843de18e5154337d7393a9c7e32',1,'MNELIB::MNEEpochDataList']]],
   ['computeaverages_136',['computeAverages',['../a02785.html#a5aa6a8342196789c969dcaec59db99a8',1,'FIFFLIB::FiffEvokedSet']]],
-  ['computebasis_137',['computeBasis',['../a02701.html#a686f9abb599b1eee9928a426191abfc8',1,'UTILSLIB::SSS']]],
+  ['computebasis_137',['computeBasis',['../a02705.html#a686f9abb599b1eee9928a426191abfc8',1,'UTILSLIB::SSS']]],
   ['computebeamformer_138',['computeBeamformer',['../a02949.html#aadc457027440f5891a4e6c20011b6c59',1,'INVLIB::InvBeamformerCompute']]],
   ['computedswpli_139',['computeDSWPLI',['../a02089.html#afb4b8290211b3e7a2e271a1deae2c189',1,'CONNLIB::DebiasedSquaredWeightedPhaseLagIndex']]],
   ['computeeegmapping_140',['computeEegMapping',['../a02937.html#a1469c2066e60389a13231fce2e8ade8b',1,'FWDLIB::FwdFieldMap::computeEegMapping(const FwdCoilSet &amp;coils, const Eigen::MatrixX3f &amp;vertices, const Eigen::Vector3f &amp;origin, float intrad=0.06f, float miss=1e-3f)'],['../a02937.html#ae200b5e7c6e2709b2d42e0c529d86e61',1,'FWDLIB::FwdFieldMap::computeEegMapping(const FwdCoilSet &amp;coils, const Eigen::MatrixX3f &amp;vertices, const Eigen::Vector3f &amp;origin, const FIFFLIB::FiffInfo &amp;info, const QStringList &amp;chNames, float intrad=0.06f, float miss=1e-3f)']]],

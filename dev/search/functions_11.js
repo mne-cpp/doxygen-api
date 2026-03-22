@@ -81,7 +81,7 @@ var searchData=
   ['reduce_5fforward_5fsolution_78',['reduce_forward_solution',['../a03233.html#a386a9827dac83d1ff5de765add21688a',1,'MNELIB::MNEForwardSolution']]],
   ['regchanged_79',['regChanged',['../a02217.html#a3bc4d3acfd424a06058285ccf68de219',1,'DISPLIB::DipoleFitView']]],
   ['regularize_80',['regularize',['../a02733.html#a458b412a6e4a7aeeb8d07fd1461eb035',1,'FIFFLIB::FiffCov::regularize()'],['../a03173.html#a2c2ec24091ed31eec05c3aeead4232b7',1,'MNELIB::MNECovMatrix::regularize()']]],
-  ['rejectmarked_81',['rejectMarked',['../a02585.html#a573b383f74ae0b50820f57a6f28d1d5c',1,'UTILSLIB::EpochExtractor']]],
+  ['rejectmarked_81',['rejectMarked',['../a02589.html#a573b383f74ae0b50820f57a6f28d1d5c',1,'UTILSLIB::EpochExtractor']]],
   ['remez2_82',['Remez2',['../a02625.html#a24bf1d5664840dd641b2f02a2d14d69f',1,'UTILSLIB::ParksMcClellan']]],
   ['removefirst_83',['removeFirst',['../a02057.html#a5a7efeecc30f782480e9513cfed8d327',1,'CONNLIB::ConnectivitySettings']]],
   ['removeitem_84',['removeItem',['../a02185.html#accac74b1b522fe20631b4f016ff42caa',1,'DISPLIB::BidsView::removeItem()'],['../a02245.html#a5486e146c56e7140e02b079d0301a9d3',1,'DISPLIB::BidsViewModel::removeItem()']]],

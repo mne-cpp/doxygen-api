@@ -118,7 +118,7 @@ var searchData=
   ['orientloose_115',['OrientLoose',['../a01932.html#af1ffe934a77f18c6a7260b1975016387ab91485911008243c584224482d8073f6',1,'INVLIB']]],
   ['orientunknown_116',['OrientUnknown',['../a01932.html#af1ffe934a77f18c6a7260b1975016387a09289bdf9b4ed514f2089b4ee46b6767',1,'INVLIB']]],
   ['orig_5ftab_117',['orig_tab',['../a02853.html#a3803511f79b5bcb5307d963313bd634d',1,'FSLIB::FsColortable']]],
-  ['origin_118',['origin',['../a02705.html#a0f174924720996cb48a5ee7d7567c9ad',1,'UTILSLIB::SSS::Params::origin'],['../a03401.html#aea50ee7d8581f91b79516fb5039dd815',1,'MNELIB::MNESssData::origin']]],
+  ['origin_118',['origin',['../a02701.html#af8a74dd7c6a88779b10144158f366c61',1,'UTILSLIB::SSSParams::origin'],['../a03401.html#aea50ee7d8581f91b79516fb5039dd815',1,'MNELIB::MNESssData::origin']]],
   ['out_5fnuse_119',['out_nuse',['../a03401.html#a1babdac902521e8fc689a8269de7f51d',1,'MNELIB::MNESssData']]],
   ['out_5forder_120',['out_order',['../a03401.html#a7c9cacf473bb763baa12f3a5efb2cda8',1,'MNELIB::MNESssData']]],
   ['overlay_121',['overlay',['../a02509.html#a9c9e9b980c7544800a76235b1fc57930',1,'SourceEstimateManager']]],

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['rowmajormatrixxf_0',['RowMajorMatrixXf',['../a03353.html#a859451a9af3b41a64e7b29fec628b606',1,'MNELIB::MNEProjOp::RowMajorMatrixXf'],['../a03361.html#a7a8dc650092fdf3c3704769c07bd3607',1,'MNELIB::MNERawBufDef::RowMajorMatrixXf']]],
-  ['rowvectorpair_1',['RowVectorPair',['../a01923.html#ae1ddfa37a3893969aef05a73116d5b06',1,'DISPLIB']]]
+  ['pair_0',['Pair',['../a01932.html#ab73ffd56b5ac1f2f48996828fdc4aade',1,'INVLIB']]],
+  ['params_1',['Params',['../a02577.html#a1df1f022069524300bfda6b51ec0e317',1,'UTILSLIB::BadChannelDetect::Params'],['../a02589.html#ace37525f24b617c4c5374d57dee1eb22',1,'UTILSLIB::EpochExtractor::Params'],['../a02705.html#a3a2f6a6a484558ef1e9281eb991c3ff7',1,'UTILSLIB::SSS::Params']]],
+  ['pointst_2',['PointsT',['../a03409.html#af81aaf5835dd37e8043aa1ad0669b515',1,'MNELIB::MNESurfaceOrVolume']]]
 ];

@@ -36,6 +36,6 @@ var searchData=
   ['explain_5fblock_33',['explain_block',['../a02761.html#a90e0b3e6965cd3c0fea4923de1e7f244',1,'FIFFLIB::FiffDirNode']]],
   ['explain_5fcomp_34',['explain_comp',['../a03185.html#a62e8dffa481a8f35c45cbb1dd254fc27',1,'MNELIB::MNECTFCompDataSet']]],
   ['extension_35',['extension',['../a01981.html#a810d91858b8eb68f21b61c295560c016',1,'BIDSLIB::BIDSPath']]],
-  ['extract_36',['extract',['../a02585.html#a7d34ee3be64eb9d2621b8f3bbd434f91',1,'UTILSLIB::EpochExtractor']]],
+  ['extract_36',['extract',['../a02589.html#a7d34ee3be64eb9d2621b8f3bbd434f91',1,'UTILSLIB::EpochExtractor']]],
   ['ez_37',['ez',['../a03033.html#af66fd6f670b8f980935a9bda79cffe3c',1,'INVLIB::InvSensorSet::ez(int iSensor) const'],['../a03033.html#a82c472ce513ce822b3d6c1e713e3c806',1,'INVLIB::InvSensorSet::ez() const']]]
 ];

@@ -122,7 +122,7 @@ var searchData=
   ['regularize_119',['regularize',['../a02733.html#a458b412a6e4a7aeeb8d07fd1461eb035',1,'FIFFLIB::FiffCov::regularize()'],['../a03173.html#a2c2ec24091ed31eec05c3aeead4232b7',1,'MNELIB::MNECovMatrix::regularize()']]],
   ['rej_120',['rej',['../a02781.html#a7e54be6751d262c6ed290e04bb19d40d',1,'FIFFLIB::AverageDescription::rej'],['../a03333.html#af8313636eebd4740bf85892c72e43fee',1,'MNELIB::CovDescription::rej'],['../a03613.html#a7e54be6751d262c6ed290e04bb19d40d',1,'MNELIB::AverageDescription::rej']]],
   ['rejectionparams_121',['RejectionParams',['../a02773.html',1,'FIFFLIB::RejectionParams'],['../a03605.html',1,'MNELIB::RejectionParams']]],
-  ['rejectmarked_122',['rejectMarked',['../a02585.html#a573b383f74ae0b50820f57a6f28d1d5c',1,'UTILSLIB::EpochExtractor']]],
+  ['rejectmarked_122',['rejectMarked',['../a02589.html#a573b383f74ae0b50820f57a6f28d1d5c',1,'UTILSLIB::EpochExtractor']]],
   ['rel_5frad_123',['rel_rad',['../a02913.html#ab0ba8ec8e92953d133860e3e232c8133',1,'FWDLIB::FwdEegSphereLayer']]],
   ['relative_124',['relative',['../a03285.html#a31947cf66a25bfa0b8da9df0e092ca8a',1,'MNELIB::MNEMshColorScaleDef']]],
   ['remez2_125',['Remez2',['../a02625.html#a24bf1d5664840dd641b2f02a2d14d69f',1,'UTILSLIB::ParksMcClellan']]],

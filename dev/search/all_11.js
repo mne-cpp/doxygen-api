@@ -10,7 +10,7 @@ var searchData=
   ['pair_7',['Pair',['../a03085.html',1,'INVLIB::Pair'],['../a01932.html#ab73ffd56b5ac1f2f48996828fdc4aade',1,'INVLIB::Pair']]],
   ['pan_8',['pan',['../a02381.html#a8a404e70357099091977347c9672ab6c',1,'SubView']]],
   ['pantriggered_9',['panTriggered',['../a02273.html#a5c631532a397d55654a5990f0a0bcf3a',1,'DISPLIB::LayoutScene']]],
-  ['params_10',['Params',['../a02577.html',1,'UTILSLIB::BadChannelDetect::Params'],['../a02589.html',1,'UTILSLIB::EpochExtractor::Params'],['../a02705.html',1,'UTILSLIB::SSS::Params']]],
+  ['params_10',['Params',['../a02577.html#a1df1f022069524300bfda6b51ec0e317',1,'UTILSLIB::BadChannelDetect::Params'],['../a02589.html#ace37525f24b617c4c5374d57dee1eb22',1,'UTILSLIB::EpochExtractor::Params'],['../a02705.html#a3a2f6a6a484558ef1e9281eb991c3ff7',1,'UTILSLIB::SSS::Params']]],
   ['parent_11',['parent',['../a02761.html#a61be4ffb889df9484b639cc5d97ae53e',1,'FIFFLIB::FiffDirNode']]],
   ['parent_5fid_12',['parent_id',['../a02761.html#aa6be70169e9cdf539a29dcac55248896',1,'FIFFLIB::FiffDirNode']]],
   ['parksmcclellan_13',['ParksMcClellan',['../a02625.html',1,'UTILSLIB::ParksMcClellan'],['../a02605.html#a9d1232180f4d7c976a92b178ada91bc4a0cf0c82c9b3fef3cbaa42b24d456f689',1,'UTILSLIB::FirFilter::ParksMcClellan'],['../a02625.html#a57bb37018324d677d7c0f48549570799',1,'UTILSLIB::ParksMcClellan::ParksMcClellan()'],['../a02625.html#ab1523f9f731823cc0ea62b9ea42faa9d',1,'UTILSLIB::ParksMcClellan::ParksMcClellan(int NumTaps, double OmegaC, double BW, double ParksWidth, TPassType PassType)']]],
