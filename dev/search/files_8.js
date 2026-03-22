@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['ica_2ecpp_0',['ica.cpp',['../a00728.html',1,'']]],
-  ['ica_2eh_1',['ica.h',['../a00725.html',1,'']]],
-  ['iirfilter_2ecpp_2',['iirfilter.cpp',['../a00818.html',1,'']]],
-  ['iirfilter_2eh_3',['iirfilter.h',['../a00746.html',1,'']]],
-  ['imagcoherence_2ecpp_4',['imagcoherence.cpp',['../a00932.html',1,'']]],
-  ['imagcoherence_2eh_5',['imagcoherence.h',['../a00908.html',1,'']]],
+  ['ica_2ecpp_0',['ica.cpp',['../a00731.html',1,'']]],
+  ['ica_2eh_1',['ica.h',['../a00728.html',1,'']]],
+  ['iirfilter_2ecpp_2',['iirfilter.cpp',['../a00821.html',1,'']]],
+  ['iirfilter_2eh_3',['iirfilter.h',['../a00749.html',1,'']]],
+  ['imagcoherence_2ecpp_4',['imagcoherence.cpp',['../a00944.html',1,'']]],
+  ['imagcoherence_2eh_5',['imagcoherence.h',['../a00920.html',1,'']]],
   ['imagesc_2ecpp_6',['imagesc.cpp',['../a00485.html',1,'']]],
   ['imagesc_2eh_7',['imagesc.h',['../a00518.html',1,'']]],
-  ['interpolation_2ecpp_8',['interpolation.cpp',['../a01676.html',1,'']]],
-  ['interpolation_2eh_9',['interpolation.h',['../a01682.html',1,'']]],
+  ['interpolation_2ecpp_8',['interpolation.cpp',['../a01688.html',1,'']]],
+  ['interpolation_2eh_9',['interpolation.h',['../a01694.html',1,'']]],
   ['inv_5fbeamformer_2ecpp_10',['inv_beamformer.cpp',['../a00134.html',1,'']]],
   ['inv_5fbeamformer_2eh_11',['inv_beamformer.h',['../a00137.html',1,'']]],
   ['inv_5fbeamformer_5fcompute_2ecpp_12',['inv_beamformer_compute.cpp',['../a00149.html',1,'']]],
@@ -65,6 +65,6 @@ var searchData=
   ['inv_5fsource_5festimate_5ftoken_2eh_62',['inv_source_estimate_token.h',['../a00077.html',1,'']]],
   ['inv_5ftoken_2eh_63',['inv_token.h',['../a00074.html',1,'']]],
   ['inv_5ftypes_2eh_64',['inv_types.h',['../a00161.html',1,'']]],
-  ['ioutils_2ecpp_65',['ioutils.cpp',['../a01079.html',1,'']]],
-  ['ioutils_2eh_66',['ioutils.h',['../a01076.html',1,'']]]
+  ['ioutils_2ecpp_65',['ioutils.cpp',['../a01091.html',1,'']]],
+  ['ioutils_2eh_66',['ioutils.h',['../a01088.html',1,'']]]
 ];

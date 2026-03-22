@@ -16,7 +16,7 @@ var searchData=
   ['bids_5fsession_13',['BIDS_SESSION',['../a00419.html#a72aa6e4cae6cbd154aa4aceac6b47a92',1,'bidsviewmodel.h']]],
   ['bids_5fsubject_14',['BIDS_SUBJECT',['../a00419.html#a60e2591a1b7628870bebf6901c3cf876',1,'bidsviewmodel.h']]],
   ['bids_5funknown_15',['BIDS_UNKNOWN',['../a00419.html#abde145b2a87d4e777ce5eb7b87cd597d',1,'bidsviewmodel.h']]],
-  ['bidsshared_5fexport_16',['BIDSSHARED_EXPORT',['../a01061.html#a68e465929baaf8ffa9eac262a4145447',1,'bids_global.h']]],
-  ['big_17',['BIG',['../a00740.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'parksmcclellan.cpp']]],
+  ['bidsshared_5fexport_16',['BIDSSHARED_EXPORT',['../a01073.html#a68e465929baaf8ffa9eac262a4145447',1,'bids_global.h']]],
+  ['big_17',['BIG',['../a00743.html#a38eb76aa0a9a1bb1dac30c75be4a05b6',1,'parksmcclellan.cpp']]],
   ['big_5ftime_18',['BIG_TIME',['../a00065.html#a9b7eb62aa0860447484765b33902ea95',1,'inv_dipole_fit_settings.h']]]
 ];
