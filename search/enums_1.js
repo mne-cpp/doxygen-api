@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['channelformat_0',['ChannelFormat',['../a01793.html#a22b8a5da4e9e3947843244e040a7ff22',1,'LSLLIB']]],
-  ['colormaps_1',['ColorMaps',['../a01772.html#a53c600771742063d0826523495db22f3',1,'DISPLIB']]]
+  ['beamformerinversion_0',['BeamformerInversion',['../a01884.html#a47ab1cf2117131a81270531eceea53a0',1,'INVLIB']]],
+  ['beamformerpickori_1',['BeamformerPickOri',['../a01884.html#ad713f1a7895bfdb0bb447b2776528f18',1,'INVLIB']]],
+  ['beamformerweightnorm_2',['BeamformerWeightNorm',['../a01884.html#aeda8279f8dbf11d6a1bff261bbfea009',1,'INVLIB']]],
+  ['bvbinaryformat_3',['BVBinaryFormat',['../a01867.html#a999deb50c931b525947ebb5adf18a3f2',1,'BIDSLIB']]],
+  ['bvorientation_4',['BVOrientation',['../a01867.html#a08b38c1eae05e9a5a2c570416588b918',1,'BIDSLIB']]]
 ];
