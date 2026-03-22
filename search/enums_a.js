@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['viewmode_0',['ViewMode',['../a02474.html#aa3d141044493fd3001bf21b70c9dbfe4',1,'BrainView']]],
-  ['visualizationmode_1',['VisualizationMode',['../a01667.html#acde6478628a967ffbc4bf2604d954cf8',1,'rendertypes.h']]],
-  ['visualizationtype_2',['VisualizationType',['../a02502.html#a89820f353dedbdbee0c7af5b07d97663',1,'DISP3DLIB::RtSourceInterpolationMatWorker']]]
+  ['shadermode_0',['ShaderMode',['../a01715.html#a9a65336a07fa3c9b4b13e6d52e3a612c',1,'rendertypes.h']]],
+  ['splitterhit_1',['SplitterHit',['../a01694.html#aa760f37b1c504a57961771013387fcf9',1,'multiviewlayout.h']]],
+  ['stylemode_2',['StyleMode',['../a02161.html#a36141ad3b6f880d2d82a3dd69d6e2e29',1,'DISPLIB::AbstractView']]],
+  ['surfacerole_3',['SurfaceRole',['../a02449.html#a4428acbaaf56d9874c19e82819f3baa8',1,'SurfaceTreeItem']]]
 ];

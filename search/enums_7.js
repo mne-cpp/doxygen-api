@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['pointkind_0',['PointKind',['../a02378.html#a440916d47e7eb32391128b4641666ab8',1,'DigitizerTreeItem']]],
-  ['processingmode_1',['ProcessingMode',['../a02110.html#ac60b3fec00fc454e4e14c344855222a4',1,'DISPLIB::AbstractView']]]
+  ['kmeansdistance_0',['KMeansDistance',['../a01928.html#a5eceb806e5a783c30efd572246abe4df',1,'UTILSLIB']]],
+  ['kmeansemptyaction_1',['KMeansEmptyAction',['../a01928.html#acde2a5498c30dc44b98126dbbafec884',1,'UTILSLIB']]],
+  ['kmeansstart_2',['KMeansStart',['../a01928.html#af418e20a365c0decd25b1aba899200cb',1,'UTILSLIB']]]
 ];

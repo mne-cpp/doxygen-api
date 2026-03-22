@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['kmeansdistance_0',['KMeansDistance',['../a01880.html#a5eceb806e5a783c30efd572246abe4df',1,'UTILSLIB']]],
-  ['kmeansemptyaction_1',['KMeansEmptyAction',['../a01880.html#acde2a5498c30dc44b98126dbbafec884',1,'UTILSLIB']]],
-  ['kmeansstart_2',['KMeansStart',['../a01880.html#af418e20a365c0decd25b1aba899200cb',1,'UTILSLIB']]]
+  ['guimode_0',['GuiMode',['../a02161.html#a4758d14e067b1f8207526dca12903cf6',1,'DISPLIB::AbstractView']]]
 ];

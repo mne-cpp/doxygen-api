@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['guimode_0',['GuiMode',['../a02110.html#a4758d14e067b1f8207526dca12903cf6',1,'DISPLIB::AbstractView']]]
+  ['designmethod_0',['DesignMethod',['../a02605.html#a9d1232180f4d7c976a92b178ada91bc4',1,'UTILSLIB::FirFilter']]]
 ];
