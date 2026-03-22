@@ -40,5 +40,5 @@ var searchData=
   ['momy_37',['MomY',['../a01944.html#af1ffe934a77f18c6a7260b1975016387a33a2bba1a0071d7cc371a7c0e9c1f83d',1,'INVLIB']]],
   ['momz_38',['MomZ',['../a01944.html#af1ffe934a77f18c6a7260b1975016387a977a22a5d4c67c120b70d688da3cf381',1,'INVLIB']]],
   ['multiplexed_39',['MULTIPLEXED',['../a01927.html#a08b38c1eae05e9a5a2c570416588b918a4dff0567344b9a5b1504eec1b6b545ca',1,'BIDSLIB']]],
-  ['multiview_40',['MultiView',['../a02537.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]]
+  ['multiview_40',['MultiView',['../a02539.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]]
 ];
