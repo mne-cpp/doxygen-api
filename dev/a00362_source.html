@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp/viewers/helpers/rtfiffrawviewmodel.h Source File</title>
+    <title>MNE-CPP: src/libraries/disp/viewers/helpers/scalecontrol.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -248,613 +248,327 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">rtfiffrawviewmodel.h</div></div>
+  <div class="headertitle"><div class="title">scalecontrol.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00362.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#ifndef RTFIFFRAWVIEWMODEL_H</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#define RTFIFFRAWVIEWMODEL_H</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &quot;<a class="code" href="a00374.html">scalecontrol.h</a>&quot;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;ui_scalecontrol.h&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &lt;QInputDialog&gt;</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &quot;<a class="code" href="a00497.html">../../disp_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;<a class="code" href="a00653.html">fiff/fiff_types.h</a>&gt;</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">fiff/fiff_proj.h</a>&gt;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;<a class="code" href="a00722.html">dsp/filterkernel.h</a>&gt;</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a01875.html">DISPLIB</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">float</span>  m_dDefaultMin(0.0f);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">float</span>  m_dDefaultMax(1.0f);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">float</span>  m_dDefaultMaxSensitivityPoint((m_dDefaultMin+m_dDefaultMax)/2.0f);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">float</span>  m_dDefaultSensitivity(0.3f);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span>    m_iDefaultSliderMin(1);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span>    m_iDefaultSliderMax(1000);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span>    m_iDefaultSliderStep(1);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">const</span> <span class="keyword">static</span> <span class="keywordtype">int</span>    m_iDefaultSliderPageStep(10);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// QT INCLUDES</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#include &lt;QAbstractTableModel&gt;</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &lt;QColor&gt;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a02238.html#ae069cc7a740d442e72d4ca9750b5af32">   54</a></span><a class="code hl_function" href="a02238.html#ae069cc7a740d442e72d4ca9750b5af32">ScaleControl::ScaleControl</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* label)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>: <a class="code hl_function" href="a02238.html#ae069cc7a740d442e72d4ca9750b5af32">ScaleControl</a>(label, nullptr, m_dDefaultMin, m_dDefaultMax)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{ }</div>
+</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a02238.html#a71706889ec1eb1ee58afa834fc803a3b">   60</a></span><a class="code hl_function" href="a02238.html#ae069cc7a740d442e72d4ca9750b5af32">ScaleControl::ScaleControl</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* label,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                           QWidget* parent)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>: <a class="code hl_function" href="a02238.html#ae069cc7a740d442e72d4ca9750b5af32">ScaleControl</a>(label, parent, m_dDefaultMin, m_dDefaultMax)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{ }</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#include &lt;Eigen/SparseCore&gt;</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">// FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01847.html">FIFFLIB</a> {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">class </span><a class="code hl_class" href="a02658.html">FiffInfo</a>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">// DEFINE NAMESPACE DISPLIB</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a01848.html">DISPLIB</a></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>{</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">// DISPLIB FORWARD DECLARATIONS</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">// DEFINE TYPEDEFS</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword">typedef</span> QPair&lt;const double*,qint32&gt; <a class="code hl_typedef" href="a01848.html#ae1ddfa37a3893969aef05a73116d5b06">RowVectorPair</a>;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">typedef</span> Eigen::Matrix&lt;double,Eigen::Dynamic,Eigen::Dynamic,Eigen::RowMajor&gt; <a class="code hl_typedef" href="a01848.html#aa92ebf45614e24145966232d70b942bd">MatrixXdR</a>;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00102" data-start="{" data-end="};">
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a02206.html">  102</a></span><span class="keyword">class </span><a class="code hl_define" href="a00497.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a> <a class="code hl_function" href="a02206.html#a43194dd385a6122ea53bdb7b9e5962d5">RtFiffRawViewModel</a> : <span class="keyword">public</span> QAbstractTableModel</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    Q_OBJECT</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a02206.html#a388a36522a3c58c3614902a99714adf2">  107</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;RtFiffRawViewModel&gt; <a class="code hl_typedef" href="a02206.html#a388a36522a3c58c3614902a99714adf2">SPtr</a>;              </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a02206.html#a38fbd123636b449efb36c87ab473c78b">  108</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const RtFiffRawViewModel&gt; <a class="code hl_typedef" href="a02206.html#a38fbd123636b449efb36c87ab473c78b">ConstSPtr</a>;   </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a02238.html#a0d9f24cdc2dba3873c2ac3712ee67ad7">   67</a></span><a class="code hl_function" href="a02238.html#ae069cc7a740d442e72d4ca9750b5af32">ScaleControl::ScaleControl</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* label,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                           QWidget* parent,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                           <span class="keywordtype">double</span> min,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                           <span class="keywordtype">double</span> max)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>: QWidget(parent)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>, m_pUi(new Ui::ScaleControlWidget)</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>, m_bManagingSpinBoxChange(false)</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>, m_bManagingSliderChange(false)</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>, m_fSensitivity(m_dDefaultSensitivity)</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>, m_fMaxSensitivityPoint(m_dDefaultMaxSensitivityPoint)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>, m_fMapYconstant(0.0f)</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>, m_fMapKconstant(0.0f)</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>, m_bSliderInverted(false)</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>{</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    m_pUi-&gt;setupUi(<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    initLabel(label);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    initSpinBox();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    initSlider();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    initMenu();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    updateNLMapConstants();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="a02238.html#a884f598bd737e17b69ee56cabc825395">setRange</a>(min, max);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keywordtype">void</span> ScaleControl::initLabel(<span class="keyword">const</span> <span class="keywordtype">char</span>* charTextLabel)</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>{</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    m_pUi-&gt;label-&gt;setText(charTextLabel);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keywordtype">void</span> ScaleControl::initSpinBox()</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>{</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    m_pUi-&gt;spinBox-&gt;setKeyboardTracking(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    m_pUi-&gt;spinBox-&gt;setPrefix(<span class="stringliteral">&quot;+/- &quot;</span>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    connect(m_pUi-&gt;spinBox,<span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span> (QDoubleSpinBox::*)(<span class="keywordtype">double</span>)<span class="keyword">&gt;</span>(&amp;QDoubleSpinBox::valueChanged),</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keyword">this</span>,&amp;ScaleControl::spinBoxChanged);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <a class="code hl_function" href="a02206.html#a43194dd385a6122ea53bdb7b9e5962d5">RtFiffRawViewModel</a>(QObject *parent = 0);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <a class="code hl_function" href="a02206.html#a43194dd385a6122ea53bdb7b9e5962d5">~RtFiffRawViewModel</a>();</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a5ea85652eb500210fe4cee015332f0b2">rowCount</a>(<span class="keyword">const</span> QModelIndex &amp;parent = QModelIndex()) <span class="keyword">const</span> ;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">void</span> ScaleControl::initSlider()</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>{</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    m_pUi-&gt;slider-&gt;setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred));</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    m_pUi-&gt;slider-&gt;setSingleStep(m_iDefaultSliderStep);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    m_pUi-&gt;slider-&gt;setPageStep(m_iDefaultSliderPageStep);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    setSliderRange(m_iDefaultSliderMin, m_iDefaultSliderMax);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    connect(m_pUi-&gt;slider,<span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span> (QSlider::*)(<span class="keywordtype">int</span>)<span class="keyword">&gt;</span>(&amp;QSlider::valueChanged),</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keyword">this</span>,&amp;ScaleControl::sliderChanged);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a02238.html#a0c0330f37581f7d7941300d21fafdcb4">  123</a></span>Ui::ScaleControlWidget* <a class="code hl_function" href="a02238.html#a0c0330f37581f7d7941300d21fafdcb4">ScaleControl::getUI</a>()</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">return</span> m_pUi;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="foldopen" id="foldopen00130" data-start="{" data-end="}">
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="a02238.html#af1875d9538be8985b09e7740a7a5024a">  130</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a02238.html#af1875d9538be8985b09e7740a7a5024a">ScaleControl::setValue</a>(<span class="keywordtype">double</span> dScale)</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>{</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    m_pUi-&gt;spinBox-&gt;setValue(dScale);</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a8a19a39a6101a2593c54516f8b154727">columnCount</a>(<span class="keyword">const</span> QModelIndex &amp;parent = QModelIndex()) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keyword">virtual</span> QVariant <a class="code hl_function" href="a02206.html#ae4fe81ef705a6defaf04b2c6b3ceaf45">data</a>(<span class="keyword">const</span> QModelIndex &amp;index, <span class="keywordtype">int</span> role = Qt::DisplayRole) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keyword">virtual</span> QVariant <a class="code hl_function" href="a02206.html#aa5ec2999baf393642e132249828dc5ff">headerData</a>(<span class="keywordtype">int</span> section, Qt::Orientation orientation, <span class="keywordtype">int</span> role = Qt::DisplayRole) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a5db30fb124933383790766912219debb">setFiffInfo</a>(QSharedPointer&lt;FIFFLIB::FiffInfo&gt;&amp; p_pFiffInfo);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a3db8b5fed134c5ca17937ff05ec7dc1a">setSamplingInfo</a>(<span class="keywordtype">float</span> sps, <span class="keywordtype">int</span> T, <span class="keywordtype">bool</span> bSetZero = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    Eigen::MatrixXd <a class="code hl_function" href="a02206.html#a59ccc7a85a42c5712846ccb86e197adc">getLastBlock</a>();</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#af67345f3ef557d57fe4aa416f9a74da3">addData</a>(<span class="keyword">const</span> QList&lt;Eigen::MatrixXd&gt; &amp;<a class="code hl_function" href="a02206.html#ae4fe81ef705a6defaf04b2c6b3ceaf45">data</a>);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <a class="code hl_typedef" href="a01847.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a> <a class="code hl_function" href="a02206.html#a36677b672f32cacb965c5093b48da900">getKind</a>(qint32 row) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <a class="code hl_typedef" href="a01847.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a> <a class="code hl_function" href="a02206.html#ac9f66fbd58e3bb2c08c31a9f6048be5b">getUnit</a>(qint32 row) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <a class="code hl_typedef" href="a01847.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a> <a class="code hl_function" href="a02206.html#a8d8e978c6f869cae39eb0d5c610664c2">getCoil</a>(qint32 row) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keyword">inline</span> qint32 <a class="code hl_function" href="a02206.html#a3df05aa58e26e53d3653929ec22f2098">getMaxSamples</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">inline</span> qint32 <a class="code hl_function" href="a02206.html#af57bb311167d09ad175c10b6c1116f5b">getCurrentSampleIndex</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code hl_function" href="a02206.html#a14675d93a93dc24f1ca9869f9eab736d">getLastBlockFirstValue</a>(<span class="keywordtype">int</span> row) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keyword">inline</span> <span class="keyword">const</span> QMap&lt;qint32,qint32&gt;&amp; <a class="code hl_function" href="a02206.html#ab727bdfa02f18dcfb0fbb09b40f3f9d8">getIdxSelMap</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a2c244ef7cc4f0d5d1e5d36dda245180d">selectRows</a>(<span class="keyword">const</span> QList&lt;qint32&gt; &amp;selection);</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a6b30e6b3693f4fbbded4c8e3d32660fd">hideRows</a>(<span class="keyword">const</span> QList&lt;qint32&gt; &amp;selection);</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a7aa50b2a9ff413a5e586c9be8dbad705">resetSelection</a>();</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a647ceda28062f7ab5050d216230fea27">toggleFreeze</a>(<span class="keyword">const</span> QModelIndex &amp;index);</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span> </div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a71fede2543035c0094f758455671dff8">setScaling</a>(<span class="keyword">const</span> QMap&lt; qint32,float &gt;&amp; p_qMapChScaling);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a02238.html#ab1db58d37166223121800ce82fe64f6c">  137</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02238.html#ab1db58d37166223121800ce82fe64f6c">ScaleControl::setMaxSensitivityPoint</a>(<span class="keywordtype">double</span> s)</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>{</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordflow">if</span>(m_pUi-&gt;spinBox-&gt;minimum() &lt; s &amp;&amp; s &lt; m_pUi-&gt;spinBox-&gt;maximum())</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        m_fMaxSensitivityPoint = s;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        updateNLMapConstants();</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>}</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="foldopen" id="foldopen00148" data-start="{" data-end="}">
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="a02238.html#a6c444498004b2d09fbc43f5a9178b533">  148</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02238.html#a6c444498004b2d09fbc43f5a9178b533">ScaleControl::setSensitivity</a>(<span class="keywordtype">double</span> s)</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>{</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">if</span>(0.0 &lt; s &amp;&amp; s &lt; 1.0)</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        m_fSensitivity = s;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        updateNLMapConstants();</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    }</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="a02238.html#a884f598bd737e17b69ee56cabc825395">  159</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02238.html#a884f598bd737e17b69ee56cabc825395">ScaleControl::setRange</a>(<span class="keywordtype">double</span> min,</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                            <span class="keywordtype">double</span> max)</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>{</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    m_pUi-&gt;spinBox-&gt;setRange(min, max);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordflow">if</span>(m_fMaxSensitivityPoint &lt; m_pUi-&gt;spinBox-&gt;minimum() || m_pUi-&gt;spinBox-&gt;maximum() &lt; m_fMaxSensitivityPoint)</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        m_fMaxSensitivityPoint = (m_pUi-&gt;spinBox-&gt;minimum() + m_pUi-&gt;spinBox-&gt;maximum())/2;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    }</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    updateNLMapConstants();</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>
+</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="a02238.html#a6a711542357fceb6d8cb6b6da542a1ca">  172</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02238.html#a6a711542357fceb6d8cb6b6da542a1ca">ScaleControl::invertSlider</a>(<span class="keywordtype">bool</span> inverted)</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>{</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    m_bSliderInverted = inverted;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>}</div>
+</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="keywordtype">void</span> ScaleControl::setSliderRange(<span class="keywordtype">int</span> min,</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                                  <span class="keywordtype">int</span> max)</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>{</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">if</span>( (0 &lt; min) &amp;&amp; (min &lt; max) )</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        m_pUi-&gt;slider-&gt;setRange(min, max);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        updateNLMapConstants();</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    }</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>}</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="a02238.html#ad22c67545dbde9114c2c59308b63d8c5">  191</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02238.html#ad22c67545dbde9114c2c59308b63d8c5">ScaleControl::setDecimals</a>(<span class="keywordtype">int</span> d)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>{</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    m_pUi-&gt;spinBox-&gt;setDecimals(d);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>}</div>
+</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="keywordtype">void</span> ScaleControl::spinBoxChanged(<span class="keywordtype">double</span> dScale)</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>{</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    m_bManagingSpinBoxChange = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">if</span>(!m_bManagingSliderChange)</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    {</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        m_pUi-&gt;slider-&gt;setValue(mapSpinBoxToSlider(dScale));</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    m_bManagingSpinBoxChange = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    emit <a class="code hl_signal" href="a02238.html#aecb48e5eb0919ff52d254d8599f4bfaa">valueChanged</a>(dScale);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>}</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keywordtype">void</span> ScaleControl::sliderChanged(<span class="keywordtype">int</span> dScale)</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>{</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    m_bManagingSliderChange = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">if</span>(!m_bManagingSpinBoxChange)</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        m_pUi-&gt;spinBox-&gt;setValue(mapSliderToSpinBox(dScale));</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    m_bManagingSliderChange = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>}</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">inline</span> <span class="keywordtype">float</span> ScaleControl::weightedSensitivity(<span class="keywordtype">float</span> s)</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>{</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordflow">return</span> s * s * s * 100 / m_pUi-&gt;spinBox-&gt;maximum();</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>}</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keywordtype">void</span> ScaleControl::updateNLMapConstants()</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>{</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    m_fMapYconstant = atanf(weightedSensitivity(m_fSensitivity) * (m_pUi-&gt;spinBox-&gt;minimum() - m_fMaxSensitivityPoint));</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    m_fMapKconstant = (m_pUi-&gt;slider-&gt;maximum() - m_pUi-&gt;slider-&gt;minimum()) / (atanf(weightedSensitivity(m_fSensitivity) * (m_pUi-&gt;spinBox-&gt;maximum() - m_fMaxSensitivityPoint)) - m_fMapYconstant);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>}</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="keywordtype">int</span> ScaleControl::mapSpinBoxToSlider(<span class="keywordtype">double</span> dScale)</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>{</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordtype">float</span> map = m_fMapKconstant * (atanf(weightedSensitivity(m_fSensitivity) * (<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(dScale) - m_fMaxSensitivityPoint)) - m_fMapYconstant);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordtype">int</span> out;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">if</span>(m_bSliderInverted)</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        out = m_pUi-&gt;slider-&gt;maximum() - <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(map));</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        out = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span> (roundf(map));</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    }</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">return</span> out;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>}</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span><span class="keywordtype">double</span> ScaleControl::mapSliderToSpinBox(<span class="keywordtype">int</span> dScale)</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>{</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keywordtype">int</span> valueCorrected = m_bSliderInverted? m_pUi-&gt;slider-&gt;maximum() - dScale : dScale;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordtype">float</span> map = (1/weightedSensitivity(m_fSensitivity)) * tanf((<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(valueCorrected) / m_fMapKconstant) + m_fMapYconstant) + m_fMaxSensitivityPoint;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(map);</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>}</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="foldopen" id="foldopen00262" data-start="{" data-end="}">
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno"><a class="line" href="a02238.html#a4a3ef6914f7cd5241caf6c57aebb9d54">  262</a></span><span class="keywordtype">double</span> <a class="code hl_function" href="a02238.html#a4a3ef6914f7cd5241caf6c57aebb9d54">ScaleControl::value</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordflow">return</span> m_pUi-&gt;spinBox-&gt;value();</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>}</div>
+</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="keywordtype">void</span> ScaleControl::initMenu()</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>{</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    m_pSettingsMenu = <span class="keyword">new</span> QMenu(<span class="keyword">this</span>); <span class="comment">//Scale Control takes ownership of this QMenu and will trigger its deletion.</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    QAction* minVal = <span class="keyword">new</span> QAction(<span class="stringliteral">&quot;Edit minimum value&quot;</span>);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    connect(minVal, &amp;QAction::triggered,</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <span class="keyword">this</span>, &amp;ScaleControl::promptMinValueChange,</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            Qt::UniqueConnection);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    m_pSettingsMenu-&gt;addAction(minVal);<span class="comment">//takes ownership</span></div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    QAction* maxVal = <span class="keyword">new</span> QAction(<span class="stringliteral">&quot;Edit maximum value&quot;</span>);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    connect(maxVal, &amp;QAction::triggered,</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            <span class="keyword">this</span>, &amp;ScaleControl::promptMaxValueChange,</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            Qt::UniqueConnection);</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    m_pSettingsMenu-&gt;addAction(maxVal);<span class="comment">//takes ownership</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    m_pUi-&gt;toolButton-&gt;setMenu(m_pSettingsMenu);</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    m_pUi-&gt;toolButton-&gt;setPopupMode(QToolButton::InstantPopup);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    m_pUi-&gt;toolButton-&gt;setArrowType(Qt::ArrowType::NoArrow);</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>}</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="keywordtype">void</span> ScaleControl::promptMinValueChange()</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>{</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordtype">bool</span> ok;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keywordtype">double</span> min = QInputDialog::getDouble(<span class="keyword">this</span>, tr(<span class="stringliteral">&quot;Minimum Value&quot;</span>),</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                                         tr(<span class="stringliteral">&quot;Please input a new minumum value:&quot;</span>),</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                                         m_pUi-&gt;spinBox-&gt;minimum(), 0.01, 100000,</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                                         2, &amp;ok, Qt::WindowFlags(), 1);</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="keywordflow">if</span>(ok &amp;&amp; min &lt;= m_pUi-&gt;spinBox-&gt;maximum()){</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <a class="code hl_function" href="a02238.html#a884f598bd737e17b69ee56cabc825395">setRange</a>(min, m_pUi-&gt;spinBox-&gt;maximum());</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    }</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>}</div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#ae499ebd483a0bfb64fd1bc64e408b6cf">updateProjection</a>(<span class="keyword">const</span> QList&lt;FIFFLIB::FiffProj&gt;&amp; projs);</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#aaae4b384d2770ad9d1425675826d6f9f">updateCompensator</a>(<span class="keywordtype">int</span> to);</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a05e8374b8b8edf48bf73f5101066e1de">updateSpharaActivation</a>(<span class="keywordtype">bool</span> state);</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a6f3fcaabb4d1c340ac21e3a973cd1a4d">updateSpharaOptions</a>(<span class="keyword">const</span> QString&amp; sSytemType, <span class="keywordtype">int</span> nBaseFctsFirst, <span class="keywordtype">int</span> nBaseFctsSecond);</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a212055dff74284cc761f9c387ffeb61c">setFilter</a>(QList&lt;UTILSLIB::FilterKernel&gt; filterData);</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a7b19c9d5f6436d0c0fd1eb52ff7988a4">setFilterActive</a>(<span class="keywordtype">bool</span> state);</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a181fcd9dca1312d505bb87bcfd764d6d">setBackgroundColor</a>(<span class="keyword">const</span> QColor&amp; color);</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a57942a4278c0dc5b00fc4394ca5d714e">setFilterChannelType</a>(<span class="keyword">const</span> QString &amp;channelType);</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a52902912d20bf6fcad56091179e0cf4c">createFilterChannelList</a>(QStringList channelNames);</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a412d78616016e9d76e85611a773e7cd2">markChBad</a>(QModelIndex ch, <span class="keywordtype">bool</span> status);</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a412d78616016e9d76e85611a773e7cd2">markChBad</a>(QModelIndexList chlist, <span class="keywordtype">bool</span> status);</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#ad6db0941849828241ac107077ef66f3b">triggerInfoChanged</a>(<span class="keyword">const</span> QMap&lt;double, QColor&gt;&amp; colorMap, <span class="keywordtype">bool</span> active, QString triggerCh, <span class="keywordtype">double</span> threshold);</div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span> </div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a1d5c3625adaee2533385f6d6e9148ff0">distanceTimeSpacerChanged</a>(<span class="keywordtype">int</span> value);</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#ad90ae324ecc181261568b76f50a0b328">resetTriggerCounter</a>();</div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span> </div>
-<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    <span class="keyword">inline</span> qint32 <a class="code hl_function" href="a02206.html#a0a80fc8ad85168c43c79f396ce27f6a5">numVLines</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span> </div>
-<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a02206.html#a436391c74dc36d461aad80809dbd3011">isFreezed</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span> </div>
-<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>    <span class="keyword">inline</span> <span class="keyword">const</span> QMap&lt; qint32,float &gt;&amp; <a class="code hl_function" href="a02206.html#a177651bd3e3e75f5ae8137a074ae5264">getScaling</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span> </div>
-<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>    <span class="keyword">inline</span> QList&lt;QPair&lt;int,double&gt; &gt; <a class="code hl_function" href="a02206.html#a5eb49a2453ecdb3719aac5babd22a3b1">getDetectedTriggers</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span> </div>
-<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>    <span class="keyword">inline</span> QList&lt;QPair&lt;int, double&gt; &gt; <a class="code hl_function" href="a02206.html#af5b4e7768fca835adb5eb014c999fde5">getDetectedTriggersOld</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span> </div>
-<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>    <span class="keyword">inline</span> QMap&lt;double, QColor&gt; <a class="code hl_function" href="a02206.html#ac57fc2bd4fabe8db2893d8f9cdd86e2d">getTriggerColor</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span> </div>
-<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a10f06b3ebf028116ad6c6b9ed9800c22">getNumberOfTimeSpacers</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span> </div>
-<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00483" name="l00483"></a><span class="lineno">  483</span>    <span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code hl_function" href="a02206.html#a083193ab5f57cbc06175c8e772308986">getTriggerThreshold</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span> </div>
-<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>    <span class="keyword">inline</span> QString <a class="code hl_function" href="a02206.html#a7e5af8a5b358ccf3791387120cbf6c09">getTriggerName</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span> </div>
-<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a7dc8d6309785e24058c509ce760ee7d0">getCurrentTriggerIndex</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span> </div>
-<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a02206.html#a630a507bde70d25b0c9c2244a5d01362">triggerDetectionActive</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span> </div>
-<div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a17c0e0d4d0622d3e85c1624fe878f8ad">getCurrentOverlapAddDelay</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span> </div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    <span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#aa910d0f50af6e4b3bf32705df3b76022">getFirstSampleOffset</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span> </div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a02206.html#afd5b27a93f51969a99cbe8f2a555b1ec">getMaxValueFromRawViewModel</a>(<span class="keywordtype">int</span> row) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span> </div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a0a7ba8f03a96193578adb471ad6a4adc">addEvent</a>(<span class="keywordtype">int</span> iSample);</div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span> </div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>    std::vector&lt;int&gt; <a class="code hl_function" href="a02206.html#ad1d37e0ab4601d8e33107c00b98af7e6">getEventsToDisplay</a>(<span class="keywordtype">int</span> iBegin, <span class="keywordtype">int</span> iEnd) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span> </div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02206.html#a6e933039f9c541236b5b1d74ce477b08">setEventCallbacks</a>(std::function&lt;<span class="keywordtype">void</span>(<span class="keywordtype">int</span>)&gt; addFn,</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>                           std::function&lt;std::vector&lt;int&gt;(<span class="keywordtype">int</span>, <span class="keywordtype">int</span>)&gt; getFn);</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span> </div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    <span class="keywordtype">void</span> initSphara();</div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span> </div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> doFilterPerChannelRTMSA(QPair&lt;QList&lt;UTILSLIB::FilterKernel&gt;,QPair&lt;int,Eigen::RowVectorXd&gt; &gt; &amp;channelDataTime);</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span> </div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    <span class="keywordtype">void</span> filterDataBlock();</div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span> </div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    <span class="keywordtype">void</span> filterDataBlock(<span class="keyword">const</span> Eigen::MatrixXd &amp;<a class="code hl_function" href="a02206.html#ae4fe81ef705a6defaf04b2c6b3ceaf45">data</a>, <span class="keywordtype">int</span> iDataIndex);</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span> </div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    <span class="keywordtype">void</span> clearModel();</div>
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span> </div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    <span class="keywordtype">bool</span>                                m_bProjActivated;                           </div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    <span class="keywordtype">bool</span>                                m_bCompActivated;                           </div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>    <span class="keywordtype">bool</span>                                m_bSpharaActivated;                         </div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    <span class="keywordtype">bool</span>                                m_bIsFreezed;                               </div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>    <span class="keywordtype">bool</span>                                m_bDrawFilterFront;                         </div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    <span class="keywordtype">bool</span>                                m_bPerformFiltering;                        </div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    <span class="keywordtype">bool</span>                                m_bTriggerDetectionActive;                  </div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    <span class="keywordtype">float</span>                               m_fSps;                                     </div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    <span class="keywordtype">double</span>                              m_dTriggerThreshold;                        </div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>    qint32                              m_iT;                                       </div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    qint32                              m_iDownsampling;                            </div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    qint32                              m_iMaxSamples;                              </div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>    qint32                              m_iCurrentSample;                           </div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    qint32                              m_iCurrentStartingSample;                   </div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    qint32                              m_iCurrentSampleFreeze;                     </div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    qint32                              m_iMaxFilterLength;                         </div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    qint32                              m_iCurrentBlockSize;                        </div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    qint32                              m_iResidual;                                </div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    <span class="keywordtype">int</span>                                 m_iCurrentTriggerChIndex;                   </div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    <span class="keywordtype">int</span>                                 m_iDistanceTimerSpacer;                     </div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    <span class="keywordtype">int</span>                                 m_iDetectedTriggers;                        </div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span> </div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    QString                             m_sCurrentTriggerCh;                        </div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    QString                             m_sFilterChannelType;                       </div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    QSharedPointer&lt;FIFFLIB::FiffInfo&gt;   m_pFiffInfo;                                </div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    Eigen::RowVectorXi                  m_vecBadIdcs;                               </div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    Eigen::VectorXd                     m_vecLastBlockFirstValuesFiltered;          </div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    Eigen::VectorXd                     m_vecLastBlockFirstValuesRaw;               </div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span> </div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    <a class="code hl_typedef" href="a01848.html#aa92ebf45614e24145966232d70b942bd">MatrixXdR</a>                           m_matDataRaw;                               </div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>    <a class="code hl_typedef" href="a01848.html#aa92ebf45614e24145966232d70b942bd">MatrixXdR</a>                           m_matDataFiltered;                          </div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>    <a class="code hl_typedef" href="a01848.html#aa92ebf45614e24145966232d70b942bd">MatrixXdR</a>                           m_matDataRawFreeze;                         </div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>    <a class="code hl_typedef" href="a01848.html#aa92ebf45614e24145966232d70b942bd">MatrixXdR</a>                           m_matDataFilteredFreeze;                    </div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    Eigen::MatrixXd                     m_matOverlap;                               </div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span> </div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>    Eigen::VectorXi                     m_vecIndicesFirstVV;                        </div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>    Eigen::VectorXi                     m_vecIndicesSecondVV;                       </div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    Eigen::VectorXi                     m_vecIndicesFirstBabyMEG;                   </div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    Eigen::VectorXi                     m_vecIndicesSecondBabyMEG;                  </div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    Eigen::VectorXi                     m_vecIndicesFirstEEG;                       </div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span> </div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    Eigen::SparseMatrix&lt;double&gt;         m_matSparseSpharaMult;                      </div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>    Eigen::SparseMatrix&lt;double&gt;         m_matSparseProjCompMult;                    </div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>    Eigen::SparseMatrix&lt;double&gt;         m_matSparseProjMult;                        </div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>    Eigen::SparseMatrix&lt;double&gt;         m_matSparseCompMult;                        </div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span> </div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>    Eigen::MatrixXd                     m_matProj;                                  </div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    Eigen::MatrixXd                     m_matComp;                                  </div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span> </div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>    Eigen::MatrixXd                     m_matSpharaVVGradLoaded;                    </div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>    Eigen::MatrixXd                     m_matSpharaVVMagLoaded;                     </div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    Eigen::MatrixXd                     m_matSpharaBabyMEGInnerLoaded;              </div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>    Eigen::MatrixXd                     m_matSpharaBabyMEGOuterLoaded;              </div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>    Eigen::MatrixXd                     m_matSpharaEEGLoaded;                       </div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span> </div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>    QMap&lt;double, QColor&gt;                m_qMapTriggerColor;                         </div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>    QMap&lt;int,QList&lt;QPair&lt;int,double&gt; &gt; &gt;m_qMapDetectedTrigger;                      </div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>    QList&lt;int&gt;                          m_lTriggerChannelIndices;                   </div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    QMap&lt;int,QList&lt;QPair&lt;int,double&gt; &gt; &gt;m_qMapDetectedTriggerFreeze;                </div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>    QMap&lt;int,QList&lt;QPair&lt;int,double&gt; &gt; &gt;m_qMapDetectedTriggerOld;                   </div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    QMap&lt;int,QList&lt;QPair&lt;int,double&gt; &gt; &gt;m_qMapDetectedTriggerOldFreeze;             </div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>    QMap&lt;qint32,float&gt;                  m_qMapChScaling;                            </div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    QList&lt;UTILSLIB::FilterKernel&gt;m_filterKernel;                             </div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    QStringList                         m_filterChannelList;                        </div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>    QStringList                         m_visibleChannelList;                       </div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>    QMap&lt;qint32,qint32&gt;                 m_qMapIdxRowSelection;                      </div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span> </div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    QColor                              m_colBackground;                            </div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span> </div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    std::function&lt;void(<span class="keywordtype">int</span>)&gt;             m_fnAddEvent;                               </div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>    std::function&lt;std::vector&lt;int&gt;(<span class="keywordtype">int</span>, <span class="keywordtype">int</span>)&gt; m_fnGetEventSamples;                  </div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span> </div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>signals:</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno"><a class="line" href="a02206.html#a2c803cf02aeb93c2baed118ccc4f4290">  674</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02206.html#a2c803cf02aeb93c2baed118ccc4f4290">newSelection</a>(<span class="keyword">const</span> QList&lt;qint32&gt;&amp; selection);</div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span> </div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno"><a class="line" href="a02206.html#a439eab2dfcb684461a651ddc8473064f">  682</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02206.html#a439eab2dfcb684461a651ddc8473064f">windowSizeChanged</a>(<span class="keywordtype">int</span> windowSize);</div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span> </div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno"><a class="line" href="a02206.html#abddd69b34ca0da70e44fb60b6099e0fb">  688</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a02206.html#abddd69b34ca0da70e44fb60b6099e0fb">triggerDetected</a>(<span class="keywordtype">int</span> numberDetectedTriggers, <span class="keyword">const</span> QMap&lt;<span class="keywordtype">int</span>,QList&lt;QPair&lt;int,double&gt; &gt; &gt;&amp; mapDetectedTriggers);</div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>};</div>
-</div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span> </div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span><span class="comment">// INLINE DEFINITIONS</span></div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span> </div>
-<div class="foldopen" id="foldopen00695" data-start="{" data-end="}">
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno"><a class="line" href="a02206.html#a3df05aa58e26e53d3653929ec22f2098">  695</a></span><span class="keyword">inline</span> qint32 <a class="code hl_function" href="a02206.html#a3df05aa58e26e53d3653929ec22f2098">RtFiffRawViewModel::getMaxSamples</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    <span class="keywordflow">return</span> m_iMaxSamples;</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>}</div>
-</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span> </div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span> </div>
-<div class="foldopen" id="foldopen00702" data-start="{" data-end="}">
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno"><a class="line" href="a02206.html#af57bb311167d09ad175c10b6c1116f5b">  702</a></span><span class="keyword">inline</span> qint32 <a class="code hl_function" href="a02206.html#af57bb311167d09ad175c10b6c1116f5b">RtFiffRawViewModel::getCurrentSampleIndex</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>    <span class="keywordflow">if</span>(m_bIsFreezed) {</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        <span class="keywordflow">return</span> m_iCurrentSampleFreeze;</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>    }</div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span> </div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>    <span class="keywordflow">if</span>(!m_filterKernel.isEmpty() &amp;&amp; m_bPerformFiltering) {</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>        <span class="keywordflow">return</span> m_iCurrentSample-m_iMaxFilterLength/2;</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>    }</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span> </div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>    <span class="keywordflow">return</span> m_iCurrentSample;</div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>}</div>
-</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span> </div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span> </div>
-<div class="foldopen" id="foldopen00717" data-start="{" data-end="}">
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno"><a class="line" href="a02206.html#a14675d93a93dc24f1ca9869f9eab736d">  717</a></span><span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code hl_function" href="a02206.html#a14675d93a93dc24f1ca9869f9eab736d">RtFiffRawViewModel::getLastBlockFirstValue</a>(<span class="keywordtype">int</span> row)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>    <span class="keywordflow">if</span>(row&gt;m_vecLastBlockFirstValuesFiltered.rows() || row&gt;m_vecLastBlockFirstValuesRaw.rows())</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span> </div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>    <span class="keywordflow">if</span>(!m_filterKernel.isEmpty())</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>        <span class="keywordflow">return</span> m_vecLastBlockFirstValuesFiltered[row];</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span> </div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>    <span class="keywordflow">return</span> m_vecLastBlockFirstValuesRaw[row];</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>}</div>
-</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span> </div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span> </div>
-<div class="foldopen" id="foldopen00730" data-start="{" data-end="}">
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno"><a class="line" href="a02206.html#ab727bdfa02f18dcfb0fbb09b40f3f9d8">  730</a></span><span class="keyword">inline</span> <span class="keyword">const</span> QMap&lt;qint32,qint32&gt;&amp; <a class="code hl_function" href="a02206.html#ab727bdfa02f18dcfb0fbb09b40f3f9d8">RtFiffRawViewModel::getIdxSelMap</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>    <span class="keywordflow">return</span> m_qMapIdxRowSelection;</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>}</div>
-</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span> </div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span> </div>
-<div class="foldopen" id="foldopen00737" data-start="{" data-end="}">
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno"><a class="line" href="a02206.html#a0a80fc8ad85168c43c79f396ce27f6a5">  737</a></span><span class="keyword">inline</span> qint32 <a class="code hl_function" href="a02206.html#a0a80fc8ad85168c43c79f396ce27f6a5">RtFiffRawViewModel::numVLines</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>    <span class="keywordflow">return</span> (m_iT - 1);</div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>}</div>
-</div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span> </div>
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span> </div>
-<div class="foldopen" id="foldopen00744" data-start="{" data-end="}">
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno"><a class="line" href="a02206.html#a436391c74dc36d461aad80809dbd3011">  744</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a02206.html#a436391c74dc36d461aad80809dbd3011">RtFiffRawViewModel::isFreezed</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    <span class="keywordflow">return</span> m_bIsFreezed;</div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>}</div>
-</div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span> </div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span> </div>
-<div class="foldopen" id="foldopen00751" data-start="{" data-end="}">
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno"><a class="line" href="a02206.html#a177651bd3e3e75f5ae8137a074ae5264">  751</a></span><span class="keyword">inline</span> <span class="keyword">const</span> QMap&lt;qint32,float&gt;&amp; <a class="code hl_function" href="a02206.html#a177651bd3e3e75f5ae8137a074ae5264">RtFiffRawViewModel::getScaling</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>    <span class="keywordflow">return</span> m_qMapChScaling;</div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>}</div>
-</div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span> </div>
-<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span> </div>
-<div class="foldopen" id="foldopen00758" data-start="{" data-end="}">
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno"><a class="line" href="a02206.html#ac57fc2bd4fabe8db2893d8f9cdd86e2d">  758</a></span><span class="keyword">inline</span> QMap&lt;double, QColor&gt; <a class="code hl_function" href="a02206.html#ac57fc2bd4fabe8db2893d8f9cdd86e2d">RtFiffRawViewModel::getTriggerColor</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>    <span class="keywordflow">if</span>(m_bTriggerDetectionActive) {</div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>        <span class="keywordflow">return</span> m_qMapTriggerColor;</div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>    }</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span> </div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>    QMap&lt;double, QColor&gt; map;</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>    <span class="keywordflow">return</span> map;</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>}</div>
-</div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span> </div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>
-<div class="foldopen" id="foldopen00770" data-start="{" data-end="}">
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno"><a class="line" href="a02206.html#a5eb49a2453ecdb3719aac5babd22a3b1">  770</a></span><span class="keyword">inline</span> QList&lt;QPair&lt;int,double&gt; &gt;  <a class="code hl_function" href="a02206.html#a5eb49a2453ecdb3719aac5babd22a3b1">RtFiffRawViewModel::getDetectedTriggers</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>    QList&lt;QPair&lt;int,double&gt; &gt; triggerIndices;</div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span> </div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>    <span class="keywordflow">if</span>(m_bIsFreezed)</div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>        <span class="keywordflow">return</span> m_qMapDetectedTriggerFreeze[m_iCurrentTriggerChIndex];</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span> </div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>    <span class="keywordflow">if</span>(m_bTriggerDetectionActive) {</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>        <span class="keywordflow">return</span> m_qMapDetectedTrigger[m_iCurrentTriggerChIndex];</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>    }</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>        <span class="keywordflow">return</span> triggerIndices;</div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>}</div>
-</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span> </div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span> </div>
-<div class="foldopen" id="foldopen00786" data-start="{" data-end="}">
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno"><a class="line" href="a02206.html#af5b4e7768fca835adb5eb014c999fde5">  786</a></span><span class="keyword">inline</span> QList&lt;QPair&lt;int,double&gt; &gt; <a class="code hl_function" href="a02206.html#af5b4e7768fca835adb5eb014c999fde5">RtFiffRawViewModel::getDetectedTriggersOld</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span>    QList&lt;QPair&lt;int,double&gt; &gt; triggerIndices;</div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span> </div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>    <span class="keywordflow">if</span>(m_bIsFreezed)</div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>        <span class="keywordflow">return</span> m_qMapDetectedTriggerOldFreeze[m_iCurrentTriggerChIndex];</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span> </div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>    <span class="keywordflow">if</span>(m_bTriggerDetectionActive) {</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>        <span class="keywordflow">return</span> m_qMapDetectedTriggerOld[m_iCurrentTriggerChIndex];</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>    }</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>        <span class="keywordflow">return</span> triggerIndices;</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>}</div>
-</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span> </div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span> </div>
-<div class="foldopen" id="foldopen00802" data-start="{" data-end="}">
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno"><a class="line" href="a02206.html#a10f06b3ebf028116ad6c6b9ed9800c22">  802</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a10f06b3ebf028116ad6c6b9ed9800c22">RtFiffRawViewModel::getNumberOfTimeSpacers</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>    <span class="comment">//qDebug()&lt;&lt;((m_iT*1000)/m_iDistanceTimerSpacer)-1;</span></div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>    <span class="keywordflow">return</span> ((1000)/m_iDistanceTimerSpacer)-1;</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>}</div>
-</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span> </div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span> </div>
-<div class="foldopen" id="foldopen00810" data-start="{" data-end="}">
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno"><a class="line" href="a02206.html#a083193ab5f57cbc06175c8e772308986">  810</a></span><span class="keyword">inline</span> <span class="keywordtype">double</span> <a class="code hl_function" href="a02206.html#a083193ab5f57cbc06175c8e772308986">RtFiffRawViewModel::getTriggerThreshold</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>    <span class="keywordflow">return</span> m_dTriggerThreshold;</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>}</div>
-</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span> </div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span> </div>
-<div class="foldopen" id="foldopen00817" data-start="{" data-end="}">
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno"><a class="line" href="a02206.html#a7e5af8a5b358ccf3791387120cbf6c09">  817</a></span><span class="keyword">inline</span> QString <a class="code hl_function" href="a02206.html#a7e5af8a5b358ccf3791387120cbf6c09">RtFiffRawViewModel::getTriggerName</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    <span class="keywordflow">return</span> m_sCurrentTriggerCh;</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>}</div>
-</div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span> </div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span> </div>
-<div class="foldopen" id="foldopen00824" data-start="{" data-end="}">
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno"><a class="line" href="a02206.html#a7dc8d6309785e24058c509ce760ee7d0">  824</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a7dc8d6309785e24058c509ce760ee7d0">RtFiffRawViewModel::getCurrentTriggerIndex</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>    <span class="keywordflow">return</span> m_iCurrentTriggerChIndex;</div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>}</div>
-</div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span> </div>
-<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span> </div>
-<div class="foldopen" id="foldopen00831" data-start="{" data-end="}">
-<div class="line"><a id="l00831" name="l00831"></a><span class="lineno"><a class="line" href="a02206.html#a630a507bde70d25b0c9c2244a5d01362">  831</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a02206.html#a630a507bde70d25b0c9c2244a5d01362">RtFiffRawViewModel::triggerDetectionActive</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>    <span class="keywordflow">return</span> m_bTriggerDetectionActive;</div>
-<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>}</div>
-</div>
-<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span> </div>
-<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span> </div>
-<div class="foldopen" id="foldopen00838" data-start="{" data-end="}">
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno"><a class="line" href="a02206.html#a17c0e0d4d0622d3e85c1624fe878f8ad">  838</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#a17c0e0d4d0622d3e85c1624fe878f8ad">RtFiffRawViewModel::getCurrentOverlapAddDelay</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span>    <span class="keywordflow">if</span>(!m_filterKernel.isEmpty())</div>
-<div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span>        <span class="keywordflow">return</span> m_iMaxFilterLength/2;</div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>}</div>
-</div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span> </div>
-<div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span> </div>
-<div class="foldopen" id="foldopen00848" data-start="{" data-end="}">
-<div class="line"><a id="l00848" name="l00848"></a><span class="lineno"><a class="line" href="a02206.html#aa910d0f50af6e4b3bf32705df3b76022">  848</a></span><span class="keyword">inline</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a02206.html#aa910d0f50af6e4b3bf32705df3b76022">RtFiffRawViewModel::getFirstSampleOffset</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>    <span class="keywordflow">return</span> m_iCurrentStartingSample;</div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>}</div>
-</div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>} <span class="comment">// NAMESPACE</span></div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span> </div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span><span class="preprocessor">#if QT_VERSION &lt; QT_VERSION_CHECK(6, 0, 0)</span></div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span><span class="preprocessor">#ifndef metatype_rowvectorpair</span></div>
-<div class="line"><a id="l00856" name="l00856"></a><span class="lineno">  856</span><span class="preprocessor">#define metatype_rowvectorpair</span></div>
-<div class="line"><a id="l00857" name="l00857"></a><span class="lineno">  857</span><a class="code hl_function" href="a00791.html#a7fee6e56a316cd0690c26c2bf01d57b9">Q_DECLARE_METATYPE</a>(<a class="code hl_typedef" href="a01848.html#ae1ddfa37a3893969aef05a73116d5b06">DISPLIB::RowVectorPair</a>);</div>
-<div class="line"><a id="l00858" name="l00858"></a><span class="lineno">  858</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00859" name="l00859"></a><span class="lineno">  859</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00860" name="l00860"></a><span class="lineno">  860</span> </div>
-<div class="line"><a id="l00861" name="l00861"></a><span class="lineno">  861</span><span class="preprocessor">#endif </span><span class="comment">// RTFIFFRAWVIEWMODEL_H</span></div>
-<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">disp_global.h</a></div><div class="ttdoc">disp library export/import macros.</div></div>
-<div class="ttc" id="aa00497_html_aded49b96c9ac1f92dc1381a1d7845c28"><div class="ttname"><a href="a00497.html#aded49b96c9ac1f92dc1381a1d7845c28">DISPSHARED_EXPORT</a></div><div class="ttdeci">#define DISPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00497_source.html#l00051">disp_global.h:51</a></div></div>
-<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">fiff_proj.h</a></div><div class="ttdoc">FiffProj class declaration.</div></div>
-<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">fiff_types.h</a></div><div class="ttdoc">Old fiff_type declarations - replace them.</div></div>
-<div class="ttc" id="aa00722_html"><div class="ttname"><a href="a00722.html">filterkernel.h</a></div><div class="ttdoc">The FilterKernel class represents a filter object that generates the FIR filter coefficients using Pa...</div></div>
-<div class="ttc" id="aa00791_html_a7fee6e56a316cd0690c26c2bf01d57b9"><div class="ttname"><a href="a00791.html#a7fee6e56a316cd0690c26c2bf01d57b9">Q_DECLARE_METATYPE</a></div><div class="ttdeci">Q_DECLARE_METATYPE(Eigen::MatrixXf)</div></div>
-<div class="ttc" id="aa01847_html"><div class="ttname"><a href="a01847.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00926_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa01847_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a01847.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00653_source.html#l00089">fiff_types.h:89</a></div></div>
-<div class="ttc" id="aa01848_html"><div class="ttname"><a href="a01848.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
-<div class="ttc" id="aa01848_html_aa92ebf45614e24145966232d70b942bd"><div class="ttname"><a href="a01848.html#aa92ebf45614e24145966232d70b942bd">DISPLIB::MatrixXdR</a></div><div class="ttdeci">Eigen::Matrix&lt; double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor &gt; MatrixXdR</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00090">evokedsetmodel.h:90</a></div></div>
-<div class="ttc" id="aa01848_html_ae1ddfa37a3893969aef05a73116d5b06"><div class="ttname"><a href="a01848.html#ae1ddfa37a3893969aef05a73116d5b06">DISPLIB::RowVectorPair</a></div><div class="ttdeci">QPair&lt; const double *, qint32 &gt; RowVectorPair</div><div class="ttdef"><b>Definition</b> <a href="a00320_source.html#l00071">averagesceneitem.h:71</a></div></div>
-<div class="ttc" id="aa02206_html_a05e8374b8b8edf48bf73f5101066e1de"><div class="ttname"><a href="a02206.html#a05e8374b8b8edf48bf73f5101066e1de">DISPLIB::RtFiffRawViewModel::updateSpharaActivation</a></div><div class="ttdeci">void updateSpharaActivation(bool state)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00811">rtfiffrawviewmodel.cpp:811</a></div></div>
-<div class="ttc" id="aa02206_html_a083193ab5f57cbc06175c8e772308986"><div class="ttname"><a href="a02206.html#a083193ab5f57cbc06175c8e772308986">DISPLIB::RtFiffRawViewModel::getTriggerThreshold</a></div><div class="ttdeci">double getTriggerThreshold() const</div><div class="ttdef"><b>Definition</b> <a href="#l00810">rtfiffrawviewmodel.h:810</a></div></div>
-<div class="ttc" id="aa02206_html_a0a7ba8f03a96193578adb471ad6a4adc"><div class="ttname"><a href="a02206.html#a0a7ba8f03a96193578adb471ad6a4adc">DISPLIB::RtFiffRawViewModel::addEvent</a></div><div class="ttdeci">void addEvent(int iSample)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01386">rtfiffrawviewmodel.cpp:1386</a></div></div>
-<div class="ttc" id="aa02206_html_a0a80fc8ad85168c43c79f396ce27f6a5"><div class="ttname"><a href="a02206.html#a0a80fc8ad85168c43c79f396ce27f6a5">DISPLIB::RtFiffRawViewModel::numVLines</a></div><div class="ttdeci">qint32 numVLines() const</div><div class="ttdef"><b>Definition</b> <a href="#l00737">rtfiffrawviewmodel.h:737</a></div></div>
-<div class="ttc" id="aa02206_html_a10f06b3ebf028116ad6c6b9ed9800c22"><div class="ttname"><a href="a02206.html#a10f06b3ebf028116ad6c6b9ed9800c22">DISPLIB::RtFiffRawViewModel::getNumberOfTimeSpacers</a></div><div class="ttdeci">int getNumberOfTimeSpacers() const</div><div class="ttdef"><b>Definition</b> <a href="#l00802">rtfiffrawviewmodel.h:802</a></div></div>
-<div class="ttc" id="aa02206_html_a14675d93a93dc24f1ca9869f9eab736d"><div class="ttname"><a href="a02206.html#a14675d93a93dc24f1ca9869f9eab736d">DISPLIB::RtFiffRawViewModel::getLastBlockFirstValue</a></div><div class="ttdeci">double getLastBlockFirstValue(int row) const</div><div class="ttdef"><b>Definition</b> <a href="#l00717">rtfiffrawviewmodel.h:717</a></div></div>
-<div class="ttc" id="aa02206_html_a177651bd3e3e75f5ae8137a074ae5264"><div class="ttname"><a href="a02206.html#a177651bd3e3e75f5ae8137a074ae5264">DISPLIB::RtFiffRawViewModel::getScaling</a></div><div class="ttdeci">const QMap&lt; qint32, float &gt; &amp; getScaling() const</div><div class="ttdef"><b>Definition</b> <a href="#l00751">rtfiffrawviewmodel.h:751</a></div></div>
-<div class="ttc" id="aa02206_html_a17c0e0d4d0622d3e85c1624fe878f8ad"><div class="ttname"><a href="a02206.html#a17c0e0d4d0622d3e85c1624fe878f8ad">DISPLIB::RtFiffRawViewModel::getCurrentOverlapAddDelay</a></div><div class="ttdeci">int getCurrentOverlapAddDelay() const</div><div class="ttdef"><b>Definition</b> <a href="#l00838">rtfiffrawviewmodel.h:838</a></div></div>
-<div class="ttc" id="aa02206_html_a181fcd9dca1312d505bb87bcfd764d6d"><div class="ttname"><a href="a02206.html#a181fcd9dca1312d505bb87bcfd764d6d">DISPLIB::RtFiffRawViewModel::setBackgroundColor</a></div><div class="ttdeci">void setBackgroundColor(const QColor &amp;color)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00926">rtfiffrawviewmodel.cpp:926</a></div></div>
-<div class="ttc" id="aa02206_html_a1d5c3625adaee2533385f6d6e9148ff0"><div class="ttname"><a href="a02206.html#a1d5c3625adaee2533385f6d6e9148ff0">DISPLIB::RtFiffRawViewModel::distanceTimeSpacerChanged</a></div><div class="ttdeci">void distanceTimeSpacerChanged(int value)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01067">rtfiffrawviewmodel.cpp:1067</a></div></div>
-<div class="ttc" id="aa02206_html_a212055dff74284cc761f9c387ffeb61c"><div class="ttname"><a href="a02206.html#a212055dff74284cc761f9c387ffeb61c">DISPLIB::RtFiffRawViewModel::setFilter</a></div><div class="ttdeci">void setFilter(QList&lt; UTILSLIB::FilterKernel &gt; filterData)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00897">rtfiffrawviewmodel.cpp:897</a></div></div>
-<div class="ttc" id="aa02206_html_a2c244ef7cc4f0d5d1e5d36dda245180d"><div class="ttname"><a href="a02206.html#a2c244ef7cc4f0d5d1e5d36dda245180d">DISPLIB::RtFiffRawViewModel::selectRows</a></div><div class="ttdeci">void selectRows(const QList&lt; qint32 &gt; &amp;selection)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00612">rtfiffrawviewmodel.cpp:612</a></div></div>
-<div class="ttc" id="aa02206_html_a2c803cf02aeb93c2baed118ccc4f4290"><div class="ttname"><a href="a02206.html#a2c803cf02aeb93c2baed118ccc4f4290">DISPLIB::RtFiffRawViewModel::newSelection</a></div><div class="ttdeci">void newSelection(const QList&lt; qint32 &gt; &amp;selection)</div></div>
-<div class="ttc" id="aa02206_html_a36677b672f32cacb965c5093b48da900"><div class="ttname"><a href="a02206.html#a36677b672f32cacb965c5093b48da900">DISPLIB::RtFiffRawViewModel::getKind</a></div><div class="ttdeci">FIFFLIB::fiff_int_t getKind(qint32 row) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00576">rtfiffrawviewmodel.cpp:576</a></div></div>
-<div class="ttc" id="aa02206_html_a388a36522a3c58c3614902a99714adf2"><div class="ttname"><a href="a02206.html#a388a36522a3c58c3614902a99714adf2">DISPLIB::RtFiffRawViewModel::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; RtFiffRawViewModel &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00107">rtfiffrawviewmodel.h:107</a></div></div>
-<div class="ttc" id="aa02206_html_a38fbd123636b449efb36c87ab473c78b"><div class="ttname"><a href="a02206.html#a38fbd123636b449efb36c87ab473c78b">DISPLIB::RtFiffRawViewModel::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const RtFiffRawViewModel &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00108">rtfiffrawviewmodel.h:108</a></div></div>
-<div class="ttc" id="aa02206_html_a3db8b5fed134c5ca17937ff05ec7dc1a"><div class="ttname"><a href="a02206.html#a3db8b5fed134c5ca17937ff05ec7dc1a">DISPLIB::RtFiffRawViewModel::setSamplingInfo</a></div><div class="ttdeci">void setSamplingInfo(float sps, int T, bool bSetZero=false)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00377">rtfiffrawviewmodel.cpp:377</a></div></div>
-<div class="ttc" id="aa02206_html_a3df05aa58e26e53d3653929ec22f2098"><div class="ttname"><a href="a02206.html#a3df05aa58e26e53d3653929ec22f2098">DISPLIB::RtFiffRawViewModel::getMaxSamples</a></div><div class="ttdeci">qint32 getMaxSamples() const</div><div class="ttdef"><b>Definition</b> <a href="#l00695">rtfiffrawviewmodel.h:695</a></div></div>
-<div class="ttc" id="aa02206_html_a412d78616016e9d76e85611a773e7cd2"><div class="ttname"><a href="a02206.html#a412d78616016e9d76e85611a773e7cd2">DISPLIB::RtFiffRawViewModel::markChBad</a></div><div class="ttdeci">void markChBad(QModelIndex ch, bool status)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01013">rtfiffrawviewmodel.cpp:1013</a></div></div>
-<div class="ttc" id="aa02206_html_a43194dd385a6122ea53bdb7b9e5962d5"><div class="ttname"><a href="a02206.html#a43194dd385a6122ea53bdb7b9e5962d5">DISPLIB::RtFiffRawViewModel::RtFiffRawViewModel</a></div><div class="ttdeci">RtFiffRawViewModel(QObject *parent=0)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00087">rtfiffrawviewmodel.cpp:87</a></div></div>
-<div class="ttc" id="aa02206_html_a436391c74dc36d461aad80809dbd3011"><div class="ttname"><a href="a02206.html#a436391c74dc36d461aad80809dbd3011">DISPLIB::RtFiffRawViewModel::isFreezed</a></div><div class="ttdeci">bool isFreezed() const</div><div class="ttdef"><b>Definition</b> <a href="#l00744">rtfiffrawviewmodel.h:744</a></div></div>
-<div class="ttc" id="aa02206_html_a439eab2dfcb684461a651ddc8473064f"><div class="ttname"><a href="a02206.html#a439eab2dfcb684461a651ddc8473064f">DISPLIB::RtFiffRawViewModel::windowSizeChanged</a></div><div class="ttdeci">void windowSizeChanged(int windowSize)</div></div>
-<div class="ttc" id="aa02206_html_a52902912d20bf6fcad56091179e0cf4c"><div class="ttname"><a href="a02206.html#a52902912d20bf6fcad56091179e0cf4c">DISPLIB::RtFiffRawViewModel::createFilterChannelList</a></div><div class="ttdeci">void createFilterChannelList(QStringList channelNames)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00972">rtfiffrawviewmodel.cpp:972</a></div></div>
-<div class="ttc" id="aa02206_html_a57942a4278c0dc5b00fc4394ca5d714e"><div class="ttname"><a href="a02206.html#a57942a4278c0dc5b00fc4394ca5d714e">DISPLIB::RtFiffRawViewModel::setFilterChannelType</a></div><div class="ttdeci">void setFilterChannelType(const QString &amp;channelType)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00933">rtfiffrawviewmodel.cpp:933</a></div></div>
-<div class="ttc" id="aa02206_html_a59ccc7a85a42c5712846ccb86e197adc"><div class="ttname"><a href="a02206.html#a59ccc7a85a42c5712846ccb86e197adc">DISPLIB::RtFiffRawViewModel::getLastBlock</a></div><div class="ttdeci">Eigen::MatrixXd getLastBlock()</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00408">rtfiffrawviewmodel.cpp:408</a></div></div>
-<div class="ttc" id="aa02206_html_a5db30fb124933383790766912219debb"><div class="ttname"><a href="a02206.html#a5db30fb124933383790766912219debb">DISPLIB::RtFiffRawViewModel::setFiffInfo</a></div><div class="ttdeci">void setFiffInfo(QSharedPointer&lt; FIFFLIB::FiffInfo &gt; &amp;p_pFiffInfo)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00300">rtfiffrawviewmodel.cpp:300</a></div></div>
-<div class="ttc" id="aa02206_html_a5ea85652eb500210fe4cee015332f0b2"><div class="ttname"><a href="a02206.html#a5ea85652eb500210fe4cee015332f0b2">DISPLIB::RtFiffRawViewModel::rowCount</a></div><div class="ttdeci">virtual int rowCount(const QModelIndex &amp;parent=QModelIndex()) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00124">rtfiffrawviewmodel.cpp:124</a></div></div>
-<div class="ttc" id="aa02206_html_a5eb49a2453ecdb3719aac5babd22a3b1"><div class="ttname"><a href="a02206.html#a5eb49a2453ecdb3719aac5babd22a3b1">DISPLIB::RtFiffRawViewModel::getDetectedTriggers</a></div><div class="ttdeci">QList&lt; QPair&lt; int, double &gt; &gt; getDetectedTriggers() const</div><div class="ttdef"><b>Definition</b> <a href="#l00770">rtfiffrawviewmodel.h:770</a></div></div>
-<div class="ttc" id="aa02206_html_a630a507bde70d25b0c9c2244a5d01362"><div class="ttname"><a href="a02206.html#a630a507bde70d25b0c9c2244a5d01362">DISPLIB::RtFiffRawViewModel::triggerDetectionActive</a></div><div class="ttdeci">bool triggerDetectionActive() const</div><div class="ttdef"><b>Definition</b> <a href="#l00831">rtfiffrawviewmodel.h:831</a></div></div>
-<div class="ttc" id="aa02206_html_a647ceda28062f7ab5050d216230fea27"><div class="ttname"><a href="a02206.html#a647ceda28062f7ab5050d216230fea27">DISPLIB::RtFiffRawViewModel::toggleFreeze</a></div><div class="ttdeci">void toggleFreeze(const QModelIndex &amp;index)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00665">rtfiffrawviewmodel.cpp:665</a></div></div>
-<div class="ttc" id="aa02206_html_a6b30e6b3693f4fbbded4c8e3d32660fd"><div class="ttname"><a href="a02206.html#a6b30e6b3693f4fbbded4c8e3d32660fd">DISPLIB::RtFiffRawViewModel::hideRows</a></div><div class="ttdeci">void hideRows(const QList&lt; qint32 &gt; &amp;selection)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00633">rtfiffrawviewmodel.cpp:633</a></div></div>
-<div class="ttc" id="aa02206_html_a6e933039f9c541236b5b1d74ce477b08"><div class="ttname"><a href="a02206.html#a6e933039f9c541236b5b1d74ce477b08">DISPLIB::RtFiffRawViewModel::setEventCallbacks</a></div><div class="ttdeci">void setEventCallbacks(std::function&lt; void(int)&gt; addFn, std::function&lt; std::vector&lt; int &gt;(int, int)&gt; getFn)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01405">rtfiffrawviewmodel.cpp:1405</a></div></div>
-<div class="ttc" id="aa02206_html_a6f3fcaabb4d1c340ac21e3a973cd1a4d"><div class="ttname"><a href="a02206.html#a6f3fcaabb4d1c340ac21e3a973cd1a4d">DISPLIB::RtFiffRawViewModel::updateSpharaOptions</a></div><div class="ttdeci">void updateSpharaOptions(const QString &amp;sSytemType, int nBaseFctsFirst, int nBaseFctsSecond)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00818">rtfiffrawviewmodel.cpp:818</a></div></div>
-<div class="ttc" id="aa02206_html_a71fede2543035c0094f758455671dff8"><div class="ttname"><a href="a02206.html#a71fede2543035c0094f758455671dff8">DISPLIB::RtFiffRawViewModel::setScaling</a></div><div class="ttdeci">void setScaling(const QMap&lt; qint32, float &gt; &amp;p_qMapChScaling)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00688">rtfiffrawviewmodel.cpp:688</a></div></div>
-<div class="ttc" id="aa02206_html_a7aa50b2a9ff413a5e586c9be8dbad705"><div class="ttname"><a href="a02206.html#a7aa50b2a9ff413a5e586c9be8dbad705">DISPLIB::RtFiffRawViewModel::resetSelection</a></div><div class="ttdeci">void resetSelection()</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00650">rtfiffrawviewmodel.cpp:650</a></div></div>
-<div class="ttc" id="aa02206_html_a7b19c9d5f6436d0c0fd1eb52ff7988a4"><div class="ttname"><a href="a02206.html#a7b19c9d5f6436d0c0fd1eb52ff7988a4">DISPLIB::RtFiffRawViewModel::setFilterActive</a></div><div class="ttdeci">void setFilterActive(bool state)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00919">rtfiffrawviewmodel.cpp:919</a></div></div>
-<div class="ttc" id="aa02206_html_a7dc8d6309785e24058c509ce760ee7d0"><div class="ttname"><a href="a02206.html#a7dc8d6309785e24058c509ce760ee7d0">DISPLIB::RtFiffRawViewModel::getCurrentTriggerIndex</a></div><div class="ttdeci">int getCurrentTriggerIndex() const</div><div class="ttdef"><b>Definition</b> <a href="#l00824">rtfiffrawviewmodel.h:824</a></div></div>
-<div class="ttc" id="aa02206_html_a7e5af8a5b358ccf3791387120cbf6c09"><div class="ttname"><a href="a02206.html#a7e5af8a5b358ccf3791387120cbf6c09">DISPLIB::RtFiffRawViewModel::getTriggerName</a></div><div class="ttdeci">QString getTriggerName() const</div><div class="ttdef"><b>Definition</b> <a href="#l00817">rtfiffrawviewmodel.h:817</a></div></div>
-<div class="ttc" id="aa02206_html_a8a19a39a6101a2593c54516f8b154727"><div class="ttname"><a href="a02206.html#a8a19a39a6101a2593c54516f8b154727">DISPLIB::RtFiffRawViewModel::columnCount</a></div><div class="ttdeci">virtual int columnCount(const QModelIndex &amp;parent=QModelIndex()) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00135">rtfiffrawviewmodel.cpp:135</a></div></div>
-<div class="ttc" id="aa02206_html_a8d8e978c6f869cae39eb0d5c610664c2"><div class="ttname"><a href="a02206.html#a8d8e978c6f869cae39eb0d5c610664c2">DISPLIB::RtFiffRawViewModel::getCoil</a></div><div class="ttdeci">FIFFLIB::fiff_int_t getCoil(qint32 row) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00600">rtfiffrawviewmodel.cpp:600</a></div></div>
-<div class="ttc" id="aa02206_html_aa5ec2999baf393642e132249828dc5ff"><div class="ttname"><a href="a02206.html#aa5ec2999baf393642e132249828dc5ff">DISPLIB::RtFiffRawViewModel::headerData</a></div><div class="ttdeci">virtual QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00208">rtfiffrawviewmodel.cpp:208</a></div></div>
-<div class="ttc" id="aa02206_html_aa910d0f50af6e4b3bf32705df3b76022"><div class="ttname"><a href="a02206.html#aa910d0f50af6e4b3bf32705df3b76022">DISPLIB::RtFiffRawViewModel::getFirstSampleOffset</a></div><div class="ttdeci">int getFirstSampleOffset() const</div><div class="ttdef"><b>Definition</b> <a href="#l00848">rtfiffrawviewmodel.h:848</a></div></div>
-<div class="ttc" id="aa02206_html_aaae4b384d2770ad9d1425675826d6f9f"><div class="ttname"><a href="a02206.html#aaae4b384d2770ad9d1425675826d6f9f">DISPLIB::RtFiffRawViewModel::updateCompensator</a></div><div class="ttdeci">void updateCompensator(int to)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00757">rtfiffrawviewmodel.cpp:757</a></div></div>
-<div class="ttc" id="aa02206_html_ab727bdfa02f18dcfb0fbb09b40f3f9d8"><div class="ttname"><a href="a02206.html#ab727bdfa02f18dcfb0fbb09b40f3f9d8">DISPLIB::RtFiffRawViewModel::getIdxSelMap</a></div><div class="ttdeci">const QMap&lt; qint32, qint32 &gt; &amp; getIdxSelMap() const</div><div class="ttdef"><b>Definition</b> <a href="#l00730">rtfiffrawviewmodel.h:730</a></div></div>
-<div class="ttc" id="aa02206_html_abddd69b34ca0da70e44fb60b6099e0fb"><div class="ttname"><a href="a02206.html#abddd69b34ca0da70e44fb60b6099e0fb">DISPLIB::RtFiffRawViewModel::triggerDetected</a></div><div class="ttdeci">void triggerDetected(int numberDetectedTriggers, const QMap&lt; int, QList&lt; QPair&lt; int, double &gt; &gt; &gt; &amp;mapDetectedTriggers)</div></div>
-<div class="ttc" id="aa02206_html_ac57fc2bd4fabe8db2893d8f9cdd86e2d"><div class="ttname"><a href="a02206.html#ac57fc2bd4fabe8db2893d8f9cdd86e2d">DISPLIB::RtFiffRawViewModel::getTriggerColor</a></div><div class="ttdeci">QMap&lt; double, QColor &gt; getTriggerColor() const</div><div class="ttdef"><b>Definition</b> <a href="#l00758">rtfiffrawviewmodel.h:758</a></div></div>
-<div class="ttc" id="aa02206_html_ac9f66fbd58e3bb2c08c31a9f6048be5b"><div class="ttname"><a href="a02206.html#ac9f66fbd58e3bb2c08c31a9f6048be5b">DISPLIB::RtFiffRawViewModel::getUnit</a></div><div class="ttdeci">FIFFLIB::fiff_int_t getUnit(qint32 row) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00588">rtfiffrawviewmodel.cpp:588</a></div></div>
-<div class="ttc" id="aa02206_html_ad1d37e0ab4601d8e33107c00b98af7e6"><div class="ttname"><a href="a02206.html#ad1d37e0ab4601d8e33107c00b98af7e6">DISPLIB::RtFiffRawViewModel::getEventsToDisplay</a></div><div class="ttdeci">std::vector&lt; int &gt; getEventsToDisplay(int iBegin, int iEnd) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01395">rtfiffrawviewmodel.cpp:1395</a></div></div>
-<div class="ttc" id="aa02206_html_ad6db0941849828241ac107077ef66f3b"><div class="ttname"><a href="a02206.html#ad6db0941849828241ac107077ef66f3b">DISPLIB::RtFiffRawViewModel::triggerInfoChanged</a></div><div class="ttdeci">void triggerInfoChanged(const QMap&lt; double, QColor &gt; &amp;colorMap, bool active, QString triggerCh, double threshold)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01040">rtfiffrawviewmodel.cpp:1040</a></div></div>
-<div class="ttc" id="aa02206_html_ad90ae324ecc181261568b76f50a0b328"><div class="ttname"><a href="a02206.html#ad90ae324ecc181261568b76f50a0b328">DISPLIB::RtFiffRawViewModel::resetTriggerCounter</a></div><div class="ttdeci">void resetTriggerCounter()</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01078">rtfiffrawviewmodel.cpp:1078</a></div></div>
-<div class="ttc" id="aa02206_html_ae499ebd483a0bfb64fd1bc64e408b6cf"><div class="ttname"><a href="a02206.html#ae499ebd483a0bfb64fd1bc64e408b6cf">DISPLIB::RtFiffRawViewModel::updateProjection</a></div><div class="ttdeci">void updateProjection(const QList&lt; FIFFLIB::FiffProj &gt; &amp;projs)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00697">rtfiffrawviewmodel.cpp:697</a></div></div>
-<div class="ttc" id="aa02206_html_ae4fe81ef705a6defaf04b2c6b3ceaf45"><div class="ttname"><a href="a02206.html#ae4fe81ef705a6defaf04b2c6b3ceaf45">DISPLIB::RtFiffRawViewModel::data</a></div><div class="ttdeci">virtual QVariant data(const QModelIndex &amp;index, int role=Qt::DisplayRole) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00142">rtfiffrawviewmodel.cpp:142</a></div></div>
-<div class="ttc" id="aa02206_html_af57bb311167d09ad175c10b6c1116f5b"><div class="ttname"><a href="a02206.html#af57bb311167d09ad175c10b6c1116f5b">DISPLIB::RtFiffRawViewModel::getCurrentSampleIndex</a></div><div class="ttdeci">qint32 getCurrentSampleIndex() const</div><div class="ttdef"><b>Definition</b> <a href="#l00702">rtfiffrawviewmodel.h:702</a></div></div>
-<div class="ttc" id="aa02206_html_af5b4e7768fca835adb5eb014c999fde5"><div class="ttname"><a href="a02206.html#af5b4e7768fca835adb5eb014c999fde5">DISPLIB::RtFiffRawViewModel::getDetectedTriggersOld</a></div><div class="ttdeci">QList&lt; QPair&lt; int, double &gt; &gt; getDetectedTriggersOld() const</div><div class="ttdef"><b>Definition</b> <a href="#l00786">rtfiffrawviewmodel.h:786</a></div></div>
-<div class="ttc" id="aa02206_html_af67345f3ef557d57fe4aa416f9a74da3"><div class="ttname"><a href="a02206.html#af67345f3ef557d57fe4aa416f9a74da3">DISPLIB::RtFiffRawViewModel::addData</a></div><div class="ttdeci">void addData(const QList&lt; Eigen::MatrixXd &gt; &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l00419">rtfiffrawviewmodel.cpp:419</a></div></div>
-<div class="ttc" id="aa02206_html_afd5b27a93f51969a99cbe8f2a555b1ec"><div class="ttname"><a href="a02206.html#afd5b27a93f51969a99cbe8f2a555b1ec">DISPLIB::RtFiffRawViewModel::getMaxValueFromRawViewModel</a></div><div class="ttdeci">double getMaxValueFromRawViewModel(int row) const</div><div class="ttdef"><b>Definition</b> <a href="a00311_source.html#l01323">rtfiffrawviewmodel.cpp:1323</a></div></div>
-<div class="ttc" id="aa02658_html"><div class="ttname"><a href="a02658.html">FIFFLIB::FiffInfo</a></div><div class="ttdoc">FIFF measurement file information.</div><div class="ttdef"><b>Definition</b> <a href="a00509_source.html#l00085">fiff_info.h:86</a></div></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="keywordtype">void</span> ScaleControl::promptMaxValueChange()</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>{</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordtype">bool</span> ok;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keywordtype">double</span> max = QInputDialog::getDouble(<span class="keyword">this</span>, tr(<span class="stringliteral">&quot;Maximum Value&quot;</span>),</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                                         tr(<span class="stringliteral">&quot;Please input a new maximum value:&quot;</span>),</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                                         m_pUi-&gt;spinBox-&gt;maximum(), 0.01, 100000,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                                         2, &amp;ok, Qt::WindowFlags(), 1);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordflow">if</span>(ok &amp;&amp; max &gt;= m_pUi-&gt;spinBox-&gt;minimum()){</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        <a class="code hl_function" href="a02238.html#a884f598bd737e17b69ee56cabc825395">setRange</a>(m_pUi-&gt;spinBox-&gt;minimum(), max);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    }</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>}</div>
+<div class="ttc" id="aa00374_html"><div class="ttname"><a href="a00374.html">scalecontrol.h</a></div><div class="ttdoc">Declaration of the ScaleControl Class.</div></div>
+<div class="ttc" id="aa01875_html"><div class="ttname"><a href="a01875.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
+<div class="ttc" id="aa02238_html_a0c0330f37581f7d7941300d21fafdcb4"><div class="ttname"><a href="a02238.html#a0c0330f37581f7d7941300d21fafdcb4">DISPLIB::ScaleControl::getUI</a></div><div class="ttdeci">Ui::ScaleControlWidget * getUI()</div><div class="ttdef"><b>Definition</b> <a href="#l00123">scalecontrol.cpp:123</a></div></div>
+<div class="ttc" id="aa02238_html_a4a3ef6914f7cd5241caf6c57aebb9d54"><div class="ttname"><a href="a02238.html#a4a3ef6914f7cd5241caf6c57aebb9d54">DISPLIB::ScaleControl::value</a></div><div class="ttdeci">double value() const</div><div class="ttdef"><b>Definition</b> <a href="#l00262">scalecontrol.cpp:262</a></div></div>
+<div class="ttc" id="aa02238_html_a6a711542357fceb6d8cb6b6da542a1ca"><div class="ttname"><a href="a02238.html#a6a711542357fceb6d8cb6b6da542a1ca">DISPLIB::ScaleControl::invertSlider</a></div><div class="ttdeci">void invertSlider(bool inverted)</div><div class="ttdef"><b>Definition</b> <a href="#l00172">scalecontrol.cpp:172</a></div></div>
+<div class="ttc" id="aa02238_html_a6c444498004b2d09fbc43f5a9178b533"><div class="ttname"><a href="a02238.html#a6c444498004b2d09fbc43f5a9178b533">DISPLIB::ScaleControl::setSensitivity</a></div><div class="ttdeci">void setSensitivity(double s)</div><div class="ttdef"><b>Definition</b> <a href="#l00148">scalecontrol.cpp:148</a></div></div>
+<div class="ttc" id="aa02238_html_a884f598bd737e17b69ee56cabc825395"><div class="ttname"><a href="a02238.html#a884f598bd737e17b69ee56cabc825395">DISPLIB::ScaleControl::setRange</a></div><div class="ttdeci">void setRange(double min, double max)</div><div class="ttdef"><b>Definition</b> <a href="#l00159">scalecontrol.cpp:159</a></div></div>
+<div class="ttc" id="aa02238_html_ab1db58d37166223121800ce82fe64f6c"><div class="ttname"><a href="a02238.html#ab1db58d37166223121800ce82fe64f6c">DISPLIB::ScaleControl::setMaxSensitivityPoint</a></div><div class="ttdeci">void setMaxSensitivityPoint(double s)</div><div class="ttdef"><b>Definition</b> <a href="#l00137">scalecontrol.cpp:137</a></div></div>
+<div class="ttc" id="aa02238_html_ad22c67545dbde9114c2c59308b63d8c5"><div class="ttname"><a href="a02238.html#ad22c67545dbde9114c2c59308b63d8c5">DISPLIB::ScaleControl::setDecimals</a></div><div class="ttdeci">void setDecimals(int d)</div><div class="ttdef"><b>Definition</b> <a href="#l00191">scalecontrol.cpp:191</a></div></div>
+<div class="ttc" id="aa02238_html_ae069cc7a740d442e72d4ca9750b5af32"><div class="ttname"><a href="a02238.html#ae069cc7a740d442e72d4ca9750b5af32">DISPLIB::ScaleControl::ScaleControl</a></div><div class="ttdeci">ScaleControl(const char *label)</div><div class="ttdef"><b>Definition</b> <a href="#l00054">scalecontrol.cpp:54</a></div></div>
+<div class="ttc" id="aa02238_html_aecb48e5eb0919ff52d254d8599f4bfaa"><div class="ttname"><a href="a02238.html#aecb48e5eb0919ff52d254d8599f4bfaa">DISPLIB::ScaleControl::valueChanged</a></div><div class="ttdeci">void valueChanged(double dScale)</div></div>
+<div class="ttc" id="aa02238_html_af1875d9538be8985b09e7740a7a5024a"><div class="ttname"><a href="a02238.html#af1875d9538be8985b09e7740a7a5024a">DISPLIB::ScaleControl::setValue</a></div><div class="ttdeci">void setValue(double dScale)</div><div class="ttdef"><b>Definition</b> <a href="#l00130">scalecontrol.cpp:130</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

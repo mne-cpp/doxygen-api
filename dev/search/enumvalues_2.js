@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['cardinal_0',['Cardinal',['../a02350.html#a440916d47e7eb32391128b4641666ab8a991923f3d6f29253a97cfbab056d6e3f',1,'DigitizerTreeItem']]],
-  ['chisquared_1',['ChiSquared',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a3faa6453e3ad6bab6a476a3ca641690f',1,'INVLIB']]],
-  ['cityblock_2',['CityBlock',['../a01853.html#a5eceb806e5a783c30efd572246abe4dfa28845b89c7cab4d654718cb953dd1f87',1,'UTILSLIB']]],
-  ['clinical_3',['Clinical',['../a02082.html#a4758d14e067b1f8207526dca12903cf6a359378ef172d7e980675b3b8e21c65be',1,'DISPLIB::AbstractView']]],
-  ['cluster_4',['Cluster',['../a01853.html#af418e20a365c0decd25b1aba899200cba249694a485fc5d3289c38986b4f8e887',1,'UTILSLIB']]],
-  ['colorrole_5',['ColorRole',['../a02338.html#ae941378b7f6d564b5c34d9b68d1c4203aa9766d76a0278fd15684825c71802bda',1,'AbstractTreeItem']]],
-  ['connbegin_6',['ConnBegin',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a22581b205cbd072b116ae0cb1ffaf8e0',1,'INVLIB']]],
-  ['connend_7',['ConnEnd',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a1e555ad1a80b990989f90a6318120598',1,'INVLIB']]],
-  ['connentrybegin_8',['ConnEntryBegin',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a8bc33999d32bfe69623b0d860df22d58',1,'INVLIB']]],
-  ['connentryend_9',['ConnEntryEnd',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a0d73536ae77fb60f60fe169acd1b682f',1,'INVLIB']]],
-  ['connvalue_10',['ConnValue',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a09b76d7a0b9378ee27e382fdb2c74fef',1,'INVLIB']]],
-  ['correlation_11',['Correlation',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a5f750c3076b1c419d3d1684019d36b16',1,'INVLIB::Correlation'],['../a01853.html#a5eceb806e5a783c30efd572246abe4dfa5f750c3076b1c419d3d1684019d36b16',1,'UTILSLIB::Correlation']]],
-  ['cosine_12',['Cosine',['../a01853.html#a5eceb806e5a783c30efd572246abe4dfa46ff06ae696616afdf3a695efd3db84c',1,'UTILSLIB']]],
-  ['couplingbegin_13',['CouplingBegin',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a5f06100584b67bc369c76984f463291d',1,'INVLIB']]],
-  ['couplingend_14',['CouplingEnd',['../a01857.html#af1ffe934a77f18c6a7260b1975016387a5856d4416bd271249dc129d6b748da63',1,'INVLIB']]]
+  ['cardinal_0',['Cardinal',['../a02378.html#a440916d47e7eb32391128b4641666ab8a991923f3d6f29253a97cfbab056d6e3f',1,'DigitizerTreeItem']]],
+  ['chisquared_1',['ChiSquared',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a3faa6453e3ad6bab6a476a3ca641690f',1,'INVLIB']]],
+  ['cityblock_2',['CityBlock',['../a01880.html#a5eceb806e5a783c30efd572246abe4dfa28845b89c7cab4d654718cb953dd1f87',1,'UTILSLIB']]],
+  ['clinical_3',['Clinical',['../a02110.html#a4758d14e067b1f8207526dca12903cf6a359378ef172d7e980675b3b8e21c65be',1,'DISPLIB::AbstractView']]],
+  ['cluster_4',['Cluster',['../a01880.html#af418e20a365c0decd25b1aba899200cba249694a485fc5d3289c38986b4f8e887',1,'UTILSLIB']]],
+  ['colorrole_5',['ColorRole',['../a02366.html#ae941378b7f6d564b5c34d9b68d1c4203aa9766d76a0278fd15684825c71802bda',1,'AbstractTreeItem']]],
+  ['connbegin_6',['ConnBegin',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a22581b205cbd072b116ae0cb1ffaf8e0',1,'INVLIB']]],
+  ['connend_7',['ConnEnd',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a1e555ad1a80b990989f90a6318120598',1,'INVLIB']]],
+  ['connentrybegin_8',['ConnEntryBegin',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a8bc33999d32bfe69623b0d860df22d58',1,'INVLIB']]],
+  ['connentryend_9',['ConnEntryEnd',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a0d73536ae77fb60f60fe169acd1b682f',1,'INVLIB']]],
+  ['connvalue_10',['ConnValue',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a09b76d7a0b9378ee27e382fdb2c74fef',1,'INVLIB']]],
+  ['correlation_11',['Correlation',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a5f750c3076b1c419d3d1684019d36b16',1,'INVLIB::Correlation'],['../a01880.html#a5eceb806e5a783c30efd572246abe4dfa5f750c3076b1c419d3d1684019d36b16',1,'UTILSLIB::Correlation']]],
+  ['cosine_12',['Cosine',['../a01880.html#a5eceb806e5a783c30efd572246abe4dfa46ff06ae696616afdf3a695efd3db84c',1,'UTILSLIB']]],
+  ['couplingbegin_13',['CouplingBegin',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a5f06100584b67bc369c76984f463291d',1,'INVLIB']]],
+  ['couplingend_14',['CouplingEnd',['../a01884.html#af1ffe934a77f18c6a7260b1975016387a5856d4416bd271249dc129d6b748da63',1,'INVLIB']]]
 ];
