@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['x_0',['X',['../a01874.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01211.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp']]],
+  ['x_0',['X',['../a01547.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a00263.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp']]],
   ['x_1',['x',['../a01994.html#ae6c991802829b6c6f1be431204ccdacb',1,'BIDSLIB::BidsElectrode']]],
   ['x1_2',['x1',['../a03130.html#accc2647ae98b82f7dd45dbea0e039cc2',1,'INVLIB::Pair']]],
   ['x2_3',['x2',['../a03130.html#a3c608ee980958d3d008cff84dd09f83e',1,'INVLIB::Pair']]],

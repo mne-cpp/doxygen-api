@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['packabgr_0',['packABGR',['../a01733.html#a1b5a9d452e93189d1ff91b997d0a0518',1,'rendertypes.h']]],
+  ['packabgr_0',['packABGR',['../a01691.html#a1b5a9d452e93189d1ff91b997d0a0518',1,'rendertypes.h']]],
   ['paint_1',['paint',['../a02262.html#a2d7431142d0f4e187390f3e12ec3e1f8',1,'DISPLIB::AverageSceneItem::paint()'],['../a02286.html#ae2fb91435643972c94146d52c7a4ae11',1,'DISPLIB::FrequencySpectrumDelegate::paint()'],['../a02302.html#af9d9b653c6209e8bfaa598cac33147b5',1,'DISPLIB::RtFiffRawViewDelegate::paint()'],['../a02322.html#a84799c0ebd2f3efbc658b0ce54a0d84d',1,'DISPLIB::SelectionSceneItem::paint()']]],
   ['paintaveragepath_2',['paintAveragePath',['../a02262.html#a59bf22044e8c9a2390f36827269061bd',1,'DISPLIB::AverageSceneItem']]],
   ['paintevent_3',['paintEvent',['../a02150.html#a817ac151a960b4176f9c83bfa0949b9c',1,'DISPLIB::Bar::paintEvent()'],['../a02162.html#a23d812229e65cd535ac7fcefb5b51bc5',1,'DISPLIB::ImageSc::paintEvent()'],['../a02166.html#a1c675821c983fe10bb1e37232706fad0',1,'DISPLIB::LinePlot::paintEvent()'],['../a02170.html#aae60118ab1af798d4fd3fcd7326eb5b8',1,'DISPLIB::Plot::paintEvent()'],['../a02174.html#ae50b0b726602cb44c4442f31a3fe18b0',1,'DISPLIB::Spline::paintEvent()']]],
@@ -16,7 +16,7 @@ var searchData=
   ['pdescriptions_13',['pDescriptions',['../a02058.html#a0f5a19579dcae9b241ec9670d91fdc0d',1,'COMLIB::Command']]],
   ['performdipolefit_14',['performDipoleFit',['../a02238.html#a400fad5d2d8680f4c7f1f859fc4ec681',1,'DISPLIB::DipoleFitView']]],
   ['performicp_15',['performIcp',['../a01938.html#a14de206624fbed86dacba7832ef31ff7',1,'MNELIB']]],
-  ['perspectivepresetrotation_16',['perspectivePresetRotation',['../a01730.html#ad4a9ee775f380f1e92dfc3deb7cdf902',1,'perspectivePresetRotation():&#160;viewstate.cpp'],['../a01724.html#a2123a2fb1b79dacc3842b0a1d6fbb954',1,'perspectivePresetRotation():&#160;viewstate.cpp']]],
+  ['perspectivepresetrotation_16',['perspectivePresetRotation',['../a01682.html#ad4a9ee775f380f1e92dfc3deb7cdf902',1,'perspectivePresetRotation():&#160;viewstate.cpp'],['../a01685.html#a2123a2fb1b79dacc3842b0a1d6fbb954',1,'perspectivePresetRotation():&#160;viewstate.cpp']]],
   ['phaselagindex_17',['PhaseLagIndex',['../a02118.html#ae6c27778ad556fdaf3fc355bd2578d12',1,'CONNLIB::PhaseLagIndex']]],
   ['phaselockingvalue_18',['PhaseLockingValue',['../a02122.html#a7fd3d93c658c858073c12ef6a654d5d7',1,'CONNLIB::PhaseLockingValue']]],
   ['phi_5fx_19',['phi_x',['../a03118.html#a88ee5ad8c2a377319b200a5724acb3bc',1,'INVLIB::InvDipole::phi_x()'],['../a03118.html#a039ca3951957150346e6660be5df11e7',1,'INVLIB::InvDipole::phi_x() const']]],
@@ -59,7 +59,7 @@ var searchData=
   ['preparedataandprojectors_56',['prepareDataAndProjectors',['../a03046.html#aaf4eb73399e266228b31f9f5bcd141f2',1,'INVLIB::InvHpiDataUpdater']]],
   ['preparefilter_57',['prepareFilter',['../a02622.html#a97d1c3500af1a1448e2b3af16b433079',1,'UTILSLIB::FilterKernel']]],
   ['print_58',['print',['../a02770.html#adbdb800da98f2525b855d7c2eb8752c0',1,'FIFFLIB::FiffCoordTrans::print()'],['../a02798.html#a21663931c4f9fd55c680c337f4a375df',1,'FIFFLIB::FiffDigitizerData::print()'],['../a02806.html#abfb6fa4257d226ade2c7594eb85922e1',1,'FIFFLIB::FiffDirNode::print()'],['../a02842.html#ad11cbcecff972b3ea7a6b26497338ff3',1,'FIFFLIB::FiffId::print()'],['../a02846.html#a1810fc7f598d5be84ff1220e6621d620',1,'FIFFLIB::FiffInfo::print()'],['../a03030.html#a446d44dc386926e36bb545d8d68f2d8d',1,'INVLIB::InvEcd::print()'],['../a03446.html#a772b4ce1233bcbdf357c992b85e137e6',1,'MNELIB::MNESssData::print()'],['../a03662.html#adbdb800da98f2525b855d7c2eb8752c0',1,'FiffCoordTrans::print()']]],
-  ['print_5ffields_59',['print_fields',['../a00035.html#a71338869677872c0ab4434d365a7ec55',1,'inv_dipole_fit_data.cpp']]],
+  ['print_5ffields_59',['print_fields',['../a00005.html#a71338869677872c0ab4434d365a7ec55',1,'inv_dipole_fit_data.cpp']]],
   ['probeevokedsets_60',['probeEvokedSets',['../a02390.html#a3f6492243df70be8956d26768ca0d499',1,'DataLoader::probeEvokedSets()'],['../a02546.html#ab929958aa666036636384e47cd50585a',1,'BrainView::probeEvokedSets()']]],
   ['process_61',['process',['../a02578.html#a64951380ef0a50ef8d6d4664852b5c4b',1,'StcLoadingWorker']]],
   ['processing_62',['processing',['../a02002.html#ac87c86493a34023e23b8f6b3f482575c',1,'BIDSLIB::BIDSPath']]],

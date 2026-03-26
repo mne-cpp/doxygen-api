@@ -49,8 +49,8 @@ var searchData=
   ['hitpoint_46',['hitPoint',['../a02426.html#a8ba0a7a820edc2d067fac84cef856f35',1,'PickResult']]],
   ['hittestsplitter_47',['hitTestSplitter',['../a02550.html#a4b69c8d5e2d77ce40f94157e427303dc',1,'MultiViewLayout']]],
   ['hittolerancepx_48',['hitTolerancePx',['../a02550.html#a80b37690bfaaf1c8ee584802dee2e42a',1,'MultiViewLayout']]],
-  ['holographic_49',['Holographic',['../a02538.html#a574725a315454d4019853633b00ad5a5',1,'BrainRenderer::Holographic'],['../a01733.html#a9a65336a07fa3c9b4b13e6d52e3a612cadb4c9a54c480868af2ecc15779323f41',1,'Holographic:&#160;rendertypes.h']]],
-  ['horizontal_50',['Horizontal',['../a01712.html#aa760f37b1c504a57961771013387fcf9ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'multiviewlayout.h']]],
+  ['holographic_49',['Holographic',['../a02538.html#a574725a315454d4019853633b00ad5a5',1,'BrainRenderer::Holographic'],['../a01691.html#a9a65336a07fa3c9b4b13e6d52e3a612cadb4c9a54c480868af2ecc15779323f41',1,'Holographic:&#160;rendertypes.h']]],
+  ['horizontal_50',['Horizontal',['../a01613.html#aa760f37b1c504a57961771013387fcf9ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'multiviewlayout.h']]],
   ['hostname_51',['hostname',['../a03138.html#a160cca89028af908013a76758f1e867e',1,'LSLLIB::stream_info']]],
   ['hot_52',['Hot',['../a01941.html#a53c600771742063d0826523495db22f3ad051758fbfbcd886f8272b74ccaa9c46',1,'DISPLIB']]],
   ['hotb_53',['hotB',['../a02158.html#ac943f066da416006a699ff1474231939',1,'DISPLIB::ColorMap']]],
@@ -70,7 +70,7 @@ var searchData=
   ['hpifitresult_67',['HpiFitResult',['../a03054.html',1,'INVLIB']]],
   ['hpifreqs_68',['hpiFreqs',['../a03054.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
   ['hpisettingsview_69',['HpiSettingsView',['../a02326.html',1,'DISPLIB::HpiSettingsView'],['../a02326.html#ac41ac5d39a70eb635f4a7f6bf64b0119',1,'DISPLIB::HpiSettingsView::HpiSettingsView()']]],
-  ['hpisettingsview_2ecpp_70',['hpisettingsview.cpp',['../a00302.html',1,'']]],
-  ['hpisettingsview_2eh_71',['hpisettingsview.h',['../a00245.html',1,'']]],
+  ['hpisettingsview_2ecpp_70',['hpisettingsview.cpp',['../a01229.html',1,'']]],
+  ['hpisettingsview_2eh_71',['hpisettingsview.h',['../a01451.html',1,'']]],
   ['hpisortstruct_72',['HPISortStruct',['../a03066.html',1,'INVLIB']]]
 ];

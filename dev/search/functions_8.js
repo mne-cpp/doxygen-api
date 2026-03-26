@@ -96,7 +96,7 @@ var searchData=
   ['isselectionempty_93',['isSelectionEmpty',['../a02214.html#a8ef7faf6d6f1a9bb30b0337e8de83b9d',1,'DISPLIB::ChannelSelectionView']]],
   ['issparse_94',['issparse',['../a03166.html#a926c1e4cd9e58fa52723ab65b405f78d',1,'UTILSLIB::Numerics']]],
   ['isstreaming_95',['isStreaming',['../a02522.html#a26652d8922cc5c99c2320a999fbd7304',1,'RtSensorStreamManager::isStreaming()'],['../a02530.html#a7f6c40151a747d632439545dcbcff9b6',1,'SourceEstimateManager::isStreaming()'],['../a02554.html#ad6964206232cbd12c107df43c3c91a38',1,'RtSensorDataController::isStreaming()'],['../a02566.html#a75ef5b93125ff44a52bd6e4800781b41',1,'RtSourceDataController::isStreaming()']]],
-  ['istrue_96',['isTrue',['../a01724.html#aa1ecf762994d097a0450b5e2b7c60eaa',1,'viewstate.h']]],
+  ['istrue_96',['isTrue',['../a01685.html#aa1ecf762994d097a0450b5e2b7c60eaa',1,'viewstate.h']]],
   ['isvalid_97',['isValid',['../a02006.html#a599598d32fbc62a4b714798b59c0f7c2',1,'BIDSLIB::BidsRawData::isValid()'],['../a02990.html#af987cd1c5d05aed6afa06540a28da4f6',1,'INVLIB::InvBeamformer::isValid()'],['../a03486.html#a4d3a83b834ed3045ee666274ebec8494',1,'MRILIB::MriVolData::isValid()']]],
   ['isvalideeg_98',['isValidEeg',['../a02762.html#a137f12b3d5ca5b2bb9eb71b3b70025f8',1,'FIFFLIB::FiffChInfo']]],
   ['isvalidentityvalue_99',['isValidEntityValue',['../a02002.html#a68353919d111acf21638813d66c9b115',1,'BIDSLIB::BIDSPath']]],

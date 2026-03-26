@@ -20,7 +20,7 @@ var searchData=
   ['ndir_17',['ndir',['../a03426.html#ad4c75686b5600b4e52264fe1bad46e00',1,'MNELIB::MNERawInfo']]],
   ['nearest_18',['nearest',['../a03366.html#aec74cfe17f5b7da05f4e403c2c1a3d4e',1,'MNELIB::MNENearest::nearest'],['../a03454.html#a67465c41504f9c13be6524710171380b',1,'MNELIB::MNESurfaceOrVolume::nearest']]],
   ['neeg_19',['neeg',['../a03018.html#a8a4b8fd5de0093c67d2784ba655d5f5b',1,'INVLIB::InvDipoleFitData']]],
-  ['neg_5fcurv_5fcolor_20',['NEG_CURV_COLOR',['../a01340.html#a26b6a5599f08211f79830120e84ef727',1,'mne_msh_display_surface.cpp']]],
+  ['neg_5fcurv_5fcolor_20',['NEG_CURV_COLOR',['../a00371.html#a26b6a5599f08211f79830120e84ef727',1,'mne_msh_display_surface.cpp']]],
   ['neighbor_5ftri_21',['neighbor_tri',['../a03454.html#a05f0f0290006572ef7e2d9596569fe6a',1,'MNELIB::MNESurfaceOrVolume']]],
   ['neighbor_5fvert_22',['neighbor_vert',['../a03454.html#a2698db4095c868c3de1e3ec553ea79d5',1,'MNELIB::MNESurfaceOrVolume']]],
   ['nent_5ftree_23',['nent_tree',['../a02806.html#af9674af1e26a74c0568e29af8e412c43',1,'FIFFLIB::FiffDirNode']]],

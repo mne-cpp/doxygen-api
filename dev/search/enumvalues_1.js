@@ -6,6 +6,6 @@ var searchData=
   ['blackman_3',['Blackman',['../a02746.html#a5a43e5f9aaa1add98f9e1d2871f4603da19cf8c43f46bf6ac2f1456a4376adcba',1,'UTILSLIB::WelchPsd']]],
   ['bone_4',['Bone',['../a01941.html#a53c600771742063d0826523495db22f3ad687c3e410f57a8375480774232cb0cc',1,'DISPLIB']]],
   ['bos_5',['Bos',['../a01950.html#af1ffe934a77f18c6a7260b1975016387abe233ff11df2249ac43b26739e293d8b',1,'INVLIB']]],
-  ['both_6',['Both',['../a01712.html#aa760f37b1c504a57961771013387fcf9a130c5b3473c57faa76e2a1c54e26f88e',1,'multiviewlayout.h']]],
+  ['both_6',['Both',['../a01613.html#aa760f37b1c504a57961771013387fcf9a130c5b3473c57faa76e2a1c54e26f88e',1,'multiviewlayout.h']]],
   ['bpf_7',['BPF',['../a02602.html#a2a90eeea1af21a4c8d5d8f987b297a34aac5e1fb3af7675008999709b7be3f1b6',1,'UTILSLIB::CosineFilter::BPF'],['../a02654.html#a5cc46b61e85230db24f52030d1c71eeaad2940a677b525b7296ae9983e8becd18',1,'UTILSLIB::ParksMcClellan::BPF']]]
 ];
