@@ -41,7 +41,7 @@ var searchData=
   ['digitizersettreeitem_38',['DigitizerSetTreeItem',['../a02482.html#aefb6974997e85f71f9ed04fa3377ed0c',1,'DigitizerSetTreeItem']]],
   ['digitizertreeitem_39',['DigitizerTreeItem',['../a02486.html#a5b2151a56b5f9dd1306afe4e9bd31d00',1,'DigitizerTreeItem']]],
   ['dipfiterror_40',['dipfitError',['../a03106.html#a4699a91c43ab941c09e8dec262d0c799',1,'INVLIB::InvHpiFitData']]],
-  ['dipole_5fforward_41',['dipole_forward',['../a00035.html#a52de33dccd788941e3c14f2062103af2',1,'inv_dipole_fit_data.cpp']]],
+  ['dipole_5fforward_41',['dipole_forward',['../a00005.html#a52de33dccd788941e3c14f2062103af2',1,'inv_dipole_fit_data.cpp']]],
   ['dipole_5fforward_5fone_42',['dipole_forward_one',['../a03054.html#a7c21c7d42363bec12560418a534be7d3',1,'INVLIB::InvDipoleFitData']]],
   ['dipolefitview_43',['DipoleFitView',['../a02262.html#ad37883ce5802fedb4503adf165fb66e1',1,'DISPLIB::DipoleFitView']]],
   ['dipoleobject_44',['DipoleObject',['../a02526.html#abd0a53421dd547c6e234f2c979a9a521',1,'DipoleObject']]],

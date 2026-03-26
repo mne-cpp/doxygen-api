@@ -27,6 +27,6 @@ var searchData=
   ['visiblesamplecount_24',['visibleSampleCount',['../a02306.html#a9f356284f2daf06a8e93a37ea197fb96',1,'DISPLIB::ChannelRhiView']]],
   ['visualizationedittarget_25',['visualizationEditTarget',['../a02582.html#a60e9ee0180a1da44a20d42f534e89ab7',1,'BrainView']]],
   ['visualizationedittargetchanged_26',['visualizationEditTargetChanged',['../a02582.html#a7beadae3762201a0945bb3cc9fd0dc50',1,'BrainView']]],
-  ['visualizationmodefromname_27',['visualizationModeFromName',['../a01748.html#a43d88a3d83ded247f4aba23a7f09b60a',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp'],['../a01742.html#a8dc1b87cace3de8d26a1eafca6a355d0',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp']]],
-  ['visualizationmodename_28',['visualizationModeName',['../a01748.html#a45a9a8f45cec27d2205ae5e729866f75',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp'],['../a01742.html#a1ad9728c5d65a4e33f470245535e467b',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp']]]
+  ['visualizationmodefromname_27',['visualizationModeFromName',['../a01700.html#a43d88a3d83ded247f4aba23a7f09b60a',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp'],['../a01703.html#a8dc1b87cace3de8d26a1eafca6a355d0',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp']]],
+  ['visualizationmodename_28',['visualizationModeName',['../a01700.html#a45a9a8f45cec27d2205ae5e729866f75',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp'],['../a01703.html#a1ad9728c5d65a4e33f470245535e467b',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp']]]
 ];

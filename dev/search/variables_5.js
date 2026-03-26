@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['fail_0',['FAIL',['../a01892.html#a1cdd98216f9d0ebd0ac2a79a63219560',1,'FAIL:&#160;compute_fwd.cpp'],['../a00035.html#a1cdd98216f9d0ebd0ac2a79a63219560',1,'FAIL:&#160;inv_dipole_fit_data.cpp'],['../a01229.html#a1cdd98216f9d0ebd0ac2a79a63219560',1,'FAIL:&#160;mne_forward_solution.cpp']]],
+  ['fail_0',['FAIL',['../a01565.html#a1cdd98216f9d0ebd0ac2a79a63219560',1,'FAIL:&#160;compute_fwd.cpp'],['../a00005.html#a1cdd98216f9d0ebd0ac2a79a63219560',1,'FAIL:&#160;inv_dipole_fit_data.cpp'],['../a00263.html#a1cdd98216f9d0ebd0ac2a79a63219560',1,'FAIL:&#160;mne_forward_solution.cpp']]],
   ['fheadmovementangle_1',['fHeadMovementAngle',['../a03090.html#a62d991e00480367fb22f6e94c8c8a346',1,'INVLIB::HpiFitResult']]],
   ['fheadmovementdistance_2',['fHeadMovementDistance',['../a03090.html#a3ef9f7e0c644fd97ea6bc4945538b0c0',1,'INVLIB::HpiFitResult']]],
   ['field_3',['field',['../a02990.html#a76f589abf25a6c42ed09fe648f7e36b7',1,'FWDLIB::FwdCompData']]],
