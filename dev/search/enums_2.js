@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['channelformat_0',['ChannelFormat',['../a01989.html#a22b8a5da4e9e3947843244e040a7ff22',1,'LSLLIB']]],
-  ['colormaps_1',['ColorMaps',['../a01959.html#a53c600771742063d0826523495db22f3',1,'DISPLIB']]]
+  ['channelformat_0',['ChannelFormat',['../a02003.html#a22b8a5da4e9e3947843244e040a7ff22',1,'LSLLIB']]],
+  ['colormaps_1',['ColorMaps',['../a01971.html#a53c600771742063d0826523495db22f3',1,'DISPLIB']]]
 ];

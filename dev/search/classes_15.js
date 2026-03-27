@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['warp_0',['Warp',['../a03226.html',1,'UTILSLIB']]],
-  ['weightedphaselagindex_1',['WeightedPhaseLagIndex',['../a02150.html',1,'CONNLIB']]],
-  ['welchpsd_2',['WelchPsd',['../a02782.html',1,'UTILSLIB']]],
-  ['welchpsdresult_3',['WelchPsdResult',['../a02778.html',1,'UTILSLIB']]],
-  ['writeoptions_4',['WriteOptions',['../a02030.html',1,'BIDSLIB::BidsRawData']]]
+  ['warp_0',['Warp',['../a03256.html',1,'UTILSLIB']]],
+  ['weightedphaselagindex_1',['WeightedPhaseLagIndex',['../a02164.html',1,'CONNLIB']]],
+  ['welchpsd_2',['WelchPsd',['../a02812.html',1,'UTILSLIB']]],
+  ['welchpsdresult_3',['WelchPsdResult',['../a02808.html',1,'UTILSLIB']]],
+  ['writeoptions_4',['WriteOptions',['../a02044.html',1,'BIDSLIB::BidsRawData']]]
 ];

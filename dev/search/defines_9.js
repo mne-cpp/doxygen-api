@@ -29,9 +29,9 @@ var searchData=
   ['metatype_5ffilterkernel_26',['metatype_filterkernel',['../a00824.html#aba9a90d82661c13ac7012b76ab21be53',1,'metatype_filterkernel:&#160;filterkernel.h'],['../a00824.html#ae261d1b7f6a32536b9642e7a80d601c8',1,'metatype_filterkernel:&#160;filterkernel.h']]],
   ['metatype_5fhpifitresult_27',['metatype_HpiFitResult',['../a00062.html#ae1ae9ef418db876a7758bb31e62dab35',1,'inv_hpi_fit.h']]],
   ['metatype_5flabel_28',['metatype_label',['../a00188.html#adb600c26114f1697248184a31bdcffdb',1,'fs_label.h']]],
-  ['metatype_5flistrowvectorpair_29',['metatype_listrowvectorpair',['../a01391.html#a980083542c81c05fd3524c5256831e7a',1,'evokedsetmodel.h']]],
-  ['metatype_5flistrowvectorxd_30',['metatype_listrowvectorxd',['../a01391.html#a7fb56b3f7a0974c0af6d12ea5a6765ec',1,'evokedsetmodel.h']]],
-  ['metatype_5fmatrixxf_31',['metatype_matrixxf',['../a01517.html#a27347b82864c0dab4d2be38f49e00645',1,'rt_client.h']]],
+  ['metatype_5flistrowvectorpair_29',['metatype_listrowvectorpair',['../a01397.html#a980083542c81c05fd3524c5256831e7a',1,'evokedsetmodel.h']]],
+  ['metatype_5flistrowvectorxd_30',['metatype_listrowvectorxd',['../a01397.html#a7fb56b3f7a0974c0af6d12ea5a6765ec',1,'evokedsetmodel.h']]],
+  ['metatype_5fmatrixxf_31',['metatype_matrixxf',['../a01529.html#a27347b82864c0dab4d2be38f49e00645',1,'rt_client.h']]],
   ['metatype_5fmneinverseoperators_32',['metatype_mneinverseoperators',['../a00377.html#a67958adba10bb470163be79342d10589',1,'mne_inverse_operator.h']]],
   ['metatype_5fmneinverseoperatorsptr_33',['metatype_mneinverseoperatorsptr',['../a00377.html#aec23238e863684e23da30af2c8b83031',1,'mne_inverse_operator.h']]],
   ['metatype_5fnetworks_34',['metatype_networks',['../a00668.html#a6a4178efed492365d372b5b57fc62f26',1,'network.h']]],
@@ -67,5 +67,5 @@ var searchData=
   ['mne_5fsource_5fspace_5fvolume_64',['MNE_SOURCE_SPACE_VOLUME',['../a00416.html#afb0f6e4bbe964535bac6bf0d1690157e',1,'mne_types.h']]],
   ['mnefilterdef_65',['MNEFILTERDEF',['../a00257.html#a8fe4a4f0a745fc5034257e89e2ab14d0',1,'mne_filter_def.h']]],
   ['mneshared_5fexport_66',['MNESHARED_EXPORT',['../a00362.html#ae182e5976a87d895a5eecf737aafefc3',1,'mne_global.h']]],
-  ['mrishared_5fexport_67',['MRISHARED_EXPORT',['../a01934.html#ade1e3b49d4525d9ae7247550c0a5ad9d',1,'mri_global.h']]]
+  ['mrishared_5fexport_67',['MRISHARED_EXPORT',['../a01946.html#ade1e3b49d4525d9ae7247550c0a5ad9d',1,'mri_global.h']]]
 ];
