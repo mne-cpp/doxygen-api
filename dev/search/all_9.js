@@ -31,7 +31,7 @@ var searchData=
   ['helmetsurface_28',['helmetSurface',['../a02460.html#a67e7c3a364e4199d1565c00531f496d0',1,'DataLoader::SensorLoadResult']]],
   ['hemi_29',['hemi',['../a02968.html#a55f6140beed0ff3243af315deb47ddbe',1,'FSLIB::FsLabel::hemi'],['../a02548.html#a988055d3d7a12e5e0cd73f4f835ca9a6',1,'BrainSurface::hemi()'],['../a02956.html#a10bcad371fa995eefed769211165796f',1,'FSLIB::FsAnnotation::hemi()'],['../a02972.html#a38c5f2b2375bd25cede442a9d4022d31',1,'FSLIB::FsSurface::hemi()']]],
   ['hemisphereat_30',['hemisphereAt',['../a03500.html#a6ada5381d573e466983e57554ca38678',1,'MNELIB::MNESourceSpaces::hemisphereAt(qint32 idx)'],['../a03500.html#a8e60c212dde57228df30ef28a4b1cf9e',1,'MNELIB::MNESourceSpaces::hemisphereAt(qint32 idx) const']]],
-  ['hidebadchannels_31',['hideBadChannels',['../a02248.html#aade8ba41d0d3efb528e7a68fcf691c94',1,'DISPLIB::ChannelDataView::hideBadChannels()'],['../a02428.html#aa09cc33df180cf33f488b55392a6cb48',1,'DISPLIB::RtFiffRawView::hideBadChannels()']]],
+  ['hidebadchannels_31',['hideBadChannels',['../a02248.html#aade8ba41d0d3efb528e7a68fcf691c94',1,'DISPLIB::ChannelDataView::hideBadChannels()'],['../a02324.html#a6e5009f3d84d66cc17ad13e4e9827e0e',1,'DISPLIB::ChannelRhiView::hideBadChannels()'],['../a02428.html#aa09cc33df180cf33f488b55392a6cb48',1,'DISPLIB::RtFiffRawView::hideBadChannels()']]],
   ['hidefilenameui_32',['hideFileNameUi',['../a02420.html#a38e2537c5df75c6ce82df82269133647',1,'DISPLIB::ProjectSettingsView']]],
   ['hideitems_33',['hideItems',['../a02376.html#ae73b6caeab85d620857cdce4205ee04f',1,'DISPLIB::SelectionScene']]],
   ['hideparadigmui_34',['hideParadigmUi',['../a02420.html#a38b278e71078b0b52fb3a7a0801f8138',1,'DISPLIB::ProjectSettingsView']]],
