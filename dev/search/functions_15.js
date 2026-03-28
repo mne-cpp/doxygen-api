@@ -22,12 +22,13 @@ var searchData=
   ['viewmode_19',['viewMode',['../a02624.html#a12515bbe75d5366331621959e99afb51',1,'BrainView']]],
   ['viewportcamerapreset_20',['viewportCameraPreset',['../a02624.html#ae241349720bd556a49266f4b05826090',1,'BrainView']]],
   ['viewportindexat_21',['viewportIndexAt',['../a02628.html#a75befdffd689d22398e46296167f63f1',1,'MultiViewLayout']]],
-  ['visiblechannelcount_22',['visibleChannelCount',['../a02328.html#a6c1d8a1e68569aaee6f81a2c61b20f43',1,'DISPLIB::ChannelRhiView']]],
-  ['visiblefirstsample_23',['visibleFirstSample',['../a02328.html#a6d403d3a8412dd49b84983504b14d35d',1,'DISPLIB::ChannelRhiView']]],
-  ['visiblerowschanged_24',['visibleRowsChanged',['../a02440.html#a2e6e8ff2a791abfe6d669f417936a868',1,'DISPLIB::RtFiffRawView']]],
-  ['visiblesamplecount_25',['visibleSampleCount',['../a02328.html#a9f356284f2daf06a8e93a37ea197fb96',1,'DISPLIB::ChannelRhiView']]],
-  ['visualizationedittarget_26',['visualizationEditTarget',['../a02624.html#a60e9ee0180a1da44a20d42f534e89ab7',1,'BrainView']]],
-  ['visualizationedittargetchanged_27',['visualizationEditTargetChanged',['../a02624.html#a7beadae3762201a0945bb3cc9fd0dc50',1,'BrainView']]],
-  ['visualizationmodefromname_28',['visualizationModeFromName',['../a01712.html#a43d88a3d83ded247f4aba23a7f09b60a',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp'],['../a01715.html#a8dc1b87cace3de8d26a1eafca6a355d0',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp']]],
-  ['visualizationmodename_29',['visualizationModeName',['../a01712.html#a45a9a8f45cec27d2205ae5e729866f75',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp'],['../a01715.html#a1ad9728c5d65a4e33f470245535e467b',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp']]]
+  ['viewresized_22',['viewResized',['../a02328.html#a007cd1aab99698f234353986e9089e4f',1,'DISPLIB::ChannelRhiView']]],
+  ['visiblechannelcount_23',['visibleChannelCount',['../a02328.html#a6c1d8a1e68569aaee6f81a2c61b20f43',1,'DISPLIB::ChannelRhiView']]],
+  ['visiblefirstsample_24',['visibleFirstSample',['../a02328.html#a6d403d3a8412dd49b84983504b14d35d',1,'DISPLIB::ChannelRhiView']]],
+  ['visiblerowschanged_25',['visibleRowsChanged',['../a02440.html#a2e6e8ff2a791abfe6d669f417936a868',1,'DISPLIB::RtFiffRawView']]],
+  ['visiblesamplecount_26',['visibleSampleCount',['../a02328.html#a9f356284f2daf06a8e93a37ea197fb96',1,'DISPLIB::ChannelRhiView']]],
+  ['visualizationedittarget_27',['visualizationEditTarget',['../a02624.html#a60e9ee0180a1da44a20d42f534e89ab7',1,'BrainView']]],
+  ['visualizationedittargetchanged_28',['visualizationEditTargetChanged',['../a02624.html#a7beadae3762201a0945bb3cc9fd0dc50',1,'BrainView']]],
+  ['visualizationmodefromname_29',['visualizationModeFromName',['../a01712.html#a43d88a3d83ded247f4aba23a7f09b60a',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp'],['../a01715.html#a8dc1b87cace3de8d26a1eafca6a355d0',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp']]],
+  ['visualizationmodename_30',['visualizationModeName',['../a01712.html#a45a9a8f45cec27d2205ae5e729866f75',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp'],['../a01715.html#a1ad9728c5d65a4e33f470245535e467b',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp']]]
 ];
