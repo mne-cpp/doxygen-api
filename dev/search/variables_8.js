@@ -46,8 +46,9 @@ var searchData=
   ['isdipole_43',['isDipole',['../a02508.html#ac1c38af26d5f64e91569e8b5724a0fcd',1,'PickResult']]],
   ['isfreori_44',['isFreOri',['../a03072.html#a1058c4eec7d5ec8d4148c51db2e6b44c',1,'INVLIB::InvBeamformer']]],
   ['ismeasurement_45',['isMeasurement',['../a02068.html#a8f11bb4a94d66e9e7fcf4270ad92ab16',1,'BIDSLIB::EDFChannelInfo']]],
-  ['itargetevent_46',['iTargetEvent',['../a02832.html#a68c61c639f552b096d0dfd3f061a8e33',1,'UTILSLIB::XdawnResult']]],
-  ['item_47',['item',['../a02508.html#a9f5995d42cb34e8a8e942ea86d312f4f',1,'PickResult']]],
-  ['items_48',['items',['../a03480.html#aef17460aa45f51d3ac5afa08c8cf9113',1,'MNELIB::MNEProjOp']]],
-  ['itris_49',['itris',['../a03536.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]]
+  ['isvirtualchannel_46',['isVirtualChannel',['../a02312.html#ac0bce84003408bd2003dc9e66d245b21',1,'DISPLIB::ChannelDisplayInfo']]],
+  ['itargetevent_47',['iTargetEvent',['../a02832.html#a68c61c639f552b096d0dfd3f061a8e33',1,'UTILSLIB::XdawnResult']]],
+  ['item_48',['item',['../a02508.html#a9f5995d42cb34e8a8e942ea86d312f4f',1,'PickResult']]],
+  ['items_49',['items',['../a03480.html#aef17460aa45f51d3ac5afa08c8cf9113',1,'MNELIB::MNEProjOp']]],
+  ['itris_50',['itris',['../a03536.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]]
 ];
