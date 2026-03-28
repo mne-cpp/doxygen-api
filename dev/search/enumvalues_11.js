@@ -2,15 +2,15 @@ var searchData=
 [
   ['sam_0',['SAM',['../a01984.html#a29bb5b206858a4db67919400558e5a99a9f1b3be4a82b11d104e4ef7f7ccb1c19',1,'INVLIB']]],
   ['sample_1',['Sample',['../a01980.html#af418e20a365c0decd25b1aba899200cbac5dd1b2697720fe692c529688d3f4f8d',1,'UTILSLIB']]],
-  ['sensoritem_2',['SensorItem',['../a02508.html#a7804788c78ce642387ab26f50d3dda68a71763a759a309d47115344912eac51fa',1,'AbstractTreeItem']]],
+  ['sensoritem_2',['SensorItem',['../a02520.html#a7804788c78ce642387ab26f50d3dda68a71763a759a309d47115344912eac51fa',1,'AbstractTreeItem']]],
   ['sep_3',['Sep',['../a01984.html#af1ffe934a77f18c6a7260b1975016387af04aa7019c490474fa3ce16e93501b57',1,'INVLIB']]],
-  ['shadermoderole_4',['ShaderModeRole',['../a02540.html#a4428acbaaf56d9874c19e82819f3baa8aba408734b138da92ad05177f043d9be9',1,'SurfaceTreeItem']]],
+  ['shadermoderole_4',['ShaderModeRole',['../a02552.html#a4428acbaaf56d9874c19e82819f3baa8aba408734b138da92ad05177f043d9be9',1,'SurfaceTreeItem']]],
   ['shownormals_5',['ShowNormals',['../a01721.html#a9a65336a07fa3c9b4b13e6d52e3a612caee33357d890bdafe66ce0ac3dfe0bbc9',1,'rendertypes.h']]],
   ['single_6',['Single',['../a01984.html#a47ab1cf2117131a81270531eceea53a0a66ba162102bbf6ae31b522aec561735e',1,'INVLIB']]],
   ['singleton_7',['Singleton',['../a01980.html#acde2a5498c30dc44b98126dbbafec884a6ff5f73c8b5ebd311406568c8ef50bfd',1,'UTILSLIB']]],
-  ['singleview_8',['SingleView',['../a02616.html#aa3d141044493fd3001bf21b70c9dbfe4ad3ffb81dca285cc917e96c84cf7617e8',1,'BrainView']]],
+  ['singleview_8',['SingleView',['../a02628.html#aa3d141044493fd3001bf21b70c9dbfe4ad3ffb81dca285cc917e96c84cf7617e8',1,'BrainView']]],
   ['sloreta_9',['sLORETA',['../a01984.html#a29bb5b206858a4db67919400558e5a99ab715ed259d4a6da05c9591016507159c',1,'INVLIB']]],
-  ['sourcespaceitem_10',['SourceSpaceItem',['../a02508.html#a7804788c78ce642387ab26f50d3dda68a4033c0bb8d2fda6213b54e2229f02645',1,'AbstractTreeItem']]],
+  ['sourcespaceitem_10',['SourceSpaceItem',['../a02520.html#a7804788c78ce642387ab26f50d3dda68a4033c0bb8d2fda6213b54e2229f02645',1,'AbstractTreeItem']]],
   ['spacediscrete_11',['SpaceDiscrete',['../a01984.html#af1ffe934a77f18c6a7260b1975016387aeef60ec45c3ce6bdcb5431d658b5b2b7',1,'INVLIB']]],
   ['spacemixed_12',['SpaceMixed',['../a01984.html#af1ffe934a77f18c6a7260b1975016387a5abdb6aed4796d8d6f72b010f2c62c96',1,'INVLIB']]],
   ['spacesurface_13',['SpaceSurface',['../a01984.html#af1ffe934a77f18c6a7260b1975016387a71cd70411174f4085d9fd5efe1bd9668',1,'INVLIB']]],
@@ -20,6 +20,6 @@ var searchData=
   ['standard_17',['Standard',['../a01721.html#a9a65336a07fa3c9b4b13e6d52e3a612ca57f9bf199e30a749a03be1dac2f5f624',1,'rendertypes.h']]],
   ['string_18',['String',['../a02003.html#a22b8a5da4e9e3947843244e040a7ff22a27118326006d3829667a400ad23d5d98',1,'LSLLIB']]],
   ['surface_19',['Surface',['../a01984.html#a9249e8f0994be81fbcf6d5b3760ad349aaa0d528ba11ea1485d466dfe1ea40819',1,'INVLIB']]],
-  ['surfacedatarole_20',['SurfaceDataRole',['../a02540.html#a4428acbaaf56d9874c19e82819f3baa8a8237f17c932261c40d73d311e83b3b6c',1,'SurfaceTreeItem']]],
-  ['surfaceitem_21',['SurfaceItem',['../a02508.html#a7804788c78ce642387ab26f50d3dda68a06fc0c50075752b58051f54bd6a234d9',1,'AbstractTreeItem']]]
+  ['surfacedatarole_20',['SurfaceDataRole',['../a02552.html#a4428acbaaf56d9874c19e82819f3baa8a8237f17c932261c40d73d311e83b3b6c',1,'SurfaceTreeItem']]],
+  ['surfaceitem_21',['SurfaceItem',['../a02520.html#a7804788c78ce642387ab26f50d3dda68a06fc0c50075752b58051f54bd6a234d9',1,'AbstractTreeItem']]]
 ];
