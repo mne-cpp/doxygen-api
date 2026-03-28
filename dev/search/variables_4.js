@@ -59,11 +59,12 @@ var searchData=
   ['eventfiles_56',['eventFiles',['../a03468.html#ae671b74c7109f0487fa64977fa7247c8',1,'MNELIB::ProcessingSettings']]],
   ['eventidmap_57',['eventIdMap',['../a02040.html#a92bbbe553228e6958b6b1fd0e92258dd',1,'BIDSLIB::BidsRawData']]],
   ['events_58',['events',['../a02040.html#ad7136ec9fea6f8082485256aad42813a',1,'BIDSLIB::BidsRawData::events'],['../a02892.html#a53fd1556fa27a45da6cf4a84f6ae555b',1,'FIFFLIB::FiffEvents::events'],['../a02904.html#ace74e4919f4e33b20bd7468aa2b7f3af',1,'FIFFLIB::AverageCategory::events'],['../a03344.html#a430bb690060deb260e9cef945ef2841a',1,'MNELIB::MNEEventList::events'],['../a03456.html#a0c566c00c36b7920e9a980e0e43049a4',1,'MNELIB::CovDefinition::events'],['../a03736.html#ace74e4919f4e33b20bd7468aa2b7f3af',1,'MNELIB::AverageCategory::events']]],
-  ['eventsoutfiles_59',['eventsOutFiles',['../a03468.html#a5b10b4e2e79752598625ee7582690a54',1,'MNELIB::ProcessingSettings']]],
-  ['evoked_60',['evoked',['../a02912.html#aec48fff116de710b554d21f7f89f8fe6',1,'FIFFLIB::FiffEvokedSet']]],
-  ['ex_61',['ex',['../a02848.html#af2b7fe047a95dd173508bcb5219d3d17',1,'FIFFLIB::FiffChPos::ex'],['../a03028.html#ad20cf694d6ca05287316d877d9fc5841',1,'FWDLIB::FwdCoil::ex'],['../a03544.html#a99dfc98ea9f7e44f30750e5623cc2629',1,'MNELIB::MNETriangle::ex']]],
-  ['experimenter_62',['experimenter',['../a02928.html#adf074fe2195cc27c01aec632d5ae89eb',1,'FIFFLIB::FiffInfo']]],
-  ['ey_63',['ey',['../a02848.html#ae11bf8ad62d9325ccdf928f90173d6f9',1,'FIFFLIB::FiffChPos::ey'],['../a03028.html#a513e29b9f22f0ecd41931bc71a3870db',1,'FWDLIB::FwdCoil::ey'],['../a03544.html#adbb2fa827352fcfcfaa8a1802387c8e0',1,'MNELIB::MNETriangle::ey']]],
-  ['eye_64',['eye',['../a03416.html#aaab567f6db10c37fd9e9ecf59869cde8',1,'MNELIB::MNEMshDisplaySurface::eye'],['../a03420.html#ab8f3fa11d91d480be109b909236ff4c3',1,'MNELIB::MNEMshDisplaySurfaceSet::eye']]],
-  ['ez_65',['ez',['../a02848.html#af782fcbb6eae438e86849d8d33a780b5',1,'FIFFLIB::FiffChPos::ez'],['../a03028.html#ad98c9cdeab4e3ae73e475a10e9d0e1c0',1,'FWDLIB::FwdCoil::ez']]]
+  ['eventsample_59',['eventSample',['../a03328.html#ae93fe92975327096c5b39f11c79c1a04',1,'MNELIB::MNEEpochData']]],
+  ['eventsoutfiles_60',['eventsOutFiles',['../a03468.html#a5b10b4e2e79752598625ee7582690a54',1,'MNELIB::ProcessingSettings']]],
+  ['evoked_61',['evoked',['../a02912.html#aec48fff116de710b554d21f7f89f8fe6',1,'FIFFLIB::FiffEvokedSet']]],
+  ['ex_62',['ex',['../a02848.html#af2b7fe047a95dd173508bcb5219d3d17',1,'FIFFLIB::FiffChPos::ex'],['../a03028.html#ad20cf694d6ca05287316d877d9fc5841',1,'FWDLIB::FwdCoil::ex'],['../a03544.html#a99dfc98ea9f7e44f30750e5623cc2629',1,'MNELIB::MNETriangle::ex']]],
+  ['experimenter_63',['experimenter',['../a02928.html#adf074fe2195cc27c01aec632d5ae89eb',1,'FIFFLIB::FiffInfo']]],
+  ['ey_64',['ey',['../a02848.html#ae11bf8ad62d9325ccdf928f90173d6f9',1,'FIFFLIB::FiffChPos::ey'],['../a03028.html#a513e29b9f22f0ecd41931bc71a3870db',1,'FWDLIB::FwdCoil::ey'],['../a03544.html#adbb2fa827352fcfcfaa8a1802387c8e0',1,'MNELIB::MNETriangle::ey']]],
+  ['eye_65',['eye',['../a03416.html#aaab567f6db10c37fd9e9ecf59869cde8',1,'MNELIB::MNEMshDisplaySurface::eye'],['../a03420.html#ab8f3fa11d91d480be109b909236ff4c3',1,'MNELIB::MNEMshDisplaySurfaceSet::eye']]],
+  ['ez_66',['ez',['../a02848.html#af782fcbb6eae438e86849d8d33a780b5',1,'FIFFLIB::FiffChPos::ez'],['../a03028.html#ad98c9cdeab4e3ae73e475a10e9d0e1c0',1,'FWDLIB::FwdCoil::ez']]]
 ];

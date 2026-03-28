@@ -106,7 +106,7 @@ var searchData=
   ['atlasdirchanged_103',['atlasDirChanged',['../a02296.html#a9098b6fe45c679f17e3f15a4278aae11',1,'DISPLIB::FwdSettingsView']]],
   ['attach_104',['attach',['../a03588.html#a3cfa2a26196d2fcd78a578ceda09d993',1,'UTILSLIB::Subject']]],
   ['attach_5fenv_105',['attach_env',['../a02960.html#ae5e87edcba0d3ef3d0dc2bdc000b6547',1,'FIFFLIB::FiffStream']]],
-  ['average_106',['average',['../a02692.html#ad660d5cac79eb9eaa37363c45e9afdd3',1,'UTILSLIB::EpochExtractor::average()'],['../a03336.html#a0deb106f494ffd48fede836c25058695',1,'MNELIB::MNEEpochDataList::average()']]],
+  ['average_106',['average',['../a02692.html#ad660d5cac79eb9eaa37363c45e9afdd3',1,'UTILSLIB::EpochExtractor::average()'],['../a03336.html#a18c60344a1b914104a476e206be16169',1,'MNELIB::MNEEpochDataList::average()']]],
   ['averageartifactreductionchanged_107',['averageArtifactReductionChanged',['../a02748.html#a6e78bd5d4f9339277075ea833e6e3359',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['averagebaselineactivechanged_108',['averageBaselineActiveChanged',['../a02748.html#a111fa5e6b65d35d98093edf8f9603f9a',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['averagebaselinefromchanged_109',['averageBaselineFromChanged',['../a02748.html#ad259524707e6b5f575dd9368ead233a5',1,'RTPROCESSINGLIB::RtAveraging']]],

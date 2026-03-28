@@ -44,6 +44,7 @@ var searchData=
   ['brejected_41',['bRejected',['../a03332.html#ad2578737f6b842d3ff7ab5d6df062a94',1,'MNELIB::ArtifactRejectionData']]],
   ['buf_5fsize_42',['buf_size',['../a03508.html#a9437aaa9c2bdbfffe8d15ea1990c1820',1,'MNELIB::MNERawInfo']]],
   ['bufs_43',['bufs',['../a03504.html#acc0eb73ff62f8687e61a8d37361ac22c',1,'MNELIB::MNERawData']]],
-  ['busewhitened_44',['bUseWhitened',['../a03356.html#ac07dace828b0d887cebb5e350635690d',1,'MNELIB::RegionData']]],
-  ['bvalid_45',['bValid',['../a02832.html#ab8983178770dda4f5cab32df209f8386',1,'UTILSLIB::XdawnResult']]]
+  ['buserreject_44',['bUserReject',['../a03328.html#a1eb2438ba6d3146eccd33f990bb0192c',1,'MNELIB::MNEEpochData']]],
+  ['busewhitened_45',['bUseWhitened',['../a03356.html#ac07dace828b0d887cebb5e350635690d',1,'MNELIB::RegionData']]],
+  ['bvalid_46',['bValid',['../a02832.html#ab8983178770dda4f5cab32df209f8386',1,'UTILSLIB::XdawnResult']]]
 ];

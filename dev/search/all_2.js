@@ -161,7 +161,7 @@ var searchData=
   ['ave_5fnn_158',['ave_nn',['../a03452.html#ae2500511430d4723b7b7dd200e2a0fbd',1,'MNELIB::MNEPatchInfo']]],
   ['avefiles_159',['aveFiles',['../a03468.html#a53bf4c150e286c74ce7dc3b638d66194',1,'MNELIB::ProcessingSettings']]],
   ['average_160',['AVERAGE',['../a02372.html#a1301ff5030da86565fa015e24da90dc7af17437cb3f65760c714f4f2a5211f820',1,'DISPLIB::MNEOperator']]],
-  ['average_161',['average',['../a02692.html#ad660d5cac79eb9eaa37363c45e9afdd3',1,'UTILSLIB::EpochExtractor::average()'],['../a03336.html#a0deb106f494ffd48fede836c25058695',1,'MNELIB::MNEEpochDataList::average()']]],
+  ['average_161',['average',['../a02692.html#ad660d5cac79eb9eaa37363c45e9afdd3',1,'UTILSLIB::EpochExtractor::average()'],['../a03336.html#a18c60344a1b914104a476e206be16169',1,'MNELIB::MNEEpochDataList::average()']]],
   ['averageartifactreductionchanged_162',['averageArtifactReductionChanged',['../a02748.html#a6e78bd5d4f9339277075ea833e6e3359',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['averagebaselineactivechanged_163',['averageBaselineActiveChanged',['../a02748.html#a111fa5e6b65d35d98093edf8f9603f9a',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['averagebaselinefromchanged_164',['averageBaselineFromChanged',['../a02748.html#ad259524707e6b5f575dd9368ead233a5',1,'RTPROCESSINGLIB::RtAveraging']]],

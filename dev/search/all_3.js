@@ -171,11 +171,12 @@ var searchData=
   ['buildinfo_2eh_168',['buildinfo.h',['../a00857.html',1,'']]],
   ['buildlabel_169',['buildLabel',['../a02512.html#a25a540649c6bf023ccae84366a5ee71e',1,'RayPicker']]],
   ['buildmapping_170',['buildMapping',['../a02608.html#acafaaf52b96ac9e9b53cd4547626f45a',1,'SensorFieldMapper']]],
-  ['busewhitened_171',['bUseWhitened',['../a03356.html#ac07dace828b0d887cebb5e350635690d',1,'MNELIB::RegionData']]],
-  ['butterflyview_172',['ButterflyView',['../a02244.html',1,'DISPLIB::ButterflyView'],['../a02244.html#adabcc8eefc5e9133689879fae4e1858f',1,'DISPLIB::ButterflyView::ButterflyView()']]],
-  ['butterflyview_2ecpp_173',['butterflyview.cpp',['../a01490.html',1,'']]],
-  ['butterflyview_2eh_174',['butterflyview.h',['../a01448.html',1,'']]],
-  ['bvalid_175',['bValid',['../a02832.html#ab8983178770dda4f5cab32df209f8386',1,'UTILSLIB::XdawnResult']]],
-  ['bvbinaryformat_176',['BVBinaryFormat',['../a01963.html#a999deb50c931b525947ebb5adf18a3f2',1,'BIDSLIB']]],
-  ['bvorientation_177',['BVOrientation',['../a01963.html#a08b38c1eae05e9a5a2c570416588b918',1,'BIDSLIB']]]
+  ['buserreject_171',['bUserReject',['../a03328.html#a1eb2438ba6d3146eccd33f990bb0192c',1,'MNELIB::MNEEpochData']]],
+  ['busewhitened_172',['bUseWhitened',['../a03356.html#ac07dace828b0d887cebb5e350635690d',1,'MNELIB::RegionData']]],
+  ['butterflyview_173',['ButterflyView',['../a02244.html',1,'DISPLIB::ButterflyView'],['../a02244.html#adabcc8eefc5e9133689879fae4e1858f',1,'DISPLIB::ButterflyView::ButterflyView()']]],
+  ['butterflyview_2ecpp_174',['butterflyview.cpp',['../a01490.html',1,'']]],
+  ['butterflyview_2eh_175',['butterflyview.h',['../a01448.html',1,'']]],
+  ['bvalid_176',['bValid',['../a02832.html#ab8983178770dda4f5cab32df209f8386',1,'UTILSLIB::XdawnResult']]],
+  ['bvbinaryformat_177',['BVBinaryFormat',['../a01963.html#a999deb50c931b525947ebb5adf18a3f2',1,'BIDSLIB']]],
+  ['bvorientation_178',['BVOrientation',['../a01963.html#a08b38c1eae05e9a5a2c570416588b918',1,'BIDSLIB']]]
 ];
