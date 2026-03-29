@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['hpifitresult_0',['HpiFitResult',['../a03140.html',1,'INVLIB']]],
-  ['hpisettingsview_1',['HpiSettingsView',['../a02412.html',1,'DISPLIB']]],
-  ['hpisortstruct_2',['HPISortStruct',['../a03152.html',1,'INVLIB']]]
+  ['hpifitresult_0',['HpiFitResult',['../a03144.html',1,'INVLIB']]],
+  ['hpisettingsview_1',['HpiSettingsView',['../a02416.html',1,'DISPLIB']]],
+  ['hpisortstruct_2',['HPISortStruct',['../a03156.html',1,'INVLIB']]]
 ];
