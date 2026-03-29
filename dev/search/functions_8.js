@@ -104,6 +104,7 @@ var searchData=
   ['isvalidentityvalue_101',['isValidEntityValue',['../a02036.html#a68353919d111acf21638813d66c9b115',1,'BIDSLIB::BIDSPath']]],
   ['isviewportenabled_102',['isViewportEnabled',['../a02636.html#ac9a59c43b9ccf9a4fd57cd672e471d3a',1,'BrainView']]],
   ['isvisible_103',['isVisible',['../a02528.html#a61099ddf4dd5495d544d46d946836635',1,'AbstractTreeItem::isVisible()'],['../a02572.html#ae784ad68bbf799c7325833c082f1b5ff',1,'BrainSurface::isVisible()'],['../a02580.html#aebcaf23da3aca8202266cb2ec015b5a5',1,'DipoleObject::isVisible()'],['../a02596.html#a678f6f9eb8579b0889f0628c9937c667',1,'NetworkObject::isVisible()']]],
-  ['iterate_5falignment_5fonce_104',['iterate_alignment_once',['../a03424.html#ae88b8f56f33dd8046fb35fd214393548',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['iterativedijkstra_105',['iterativeDijkstra',['../a02500.html#a9c47eef6d6d4c3cab48b707b1ba8d25d',1,'DISP3DLIB::GeometryInfo']]]
+  ['itemtypeid_104',['itemTypeId',['../a02528.html#aa129e7983c84a747ef14cd4097f0d547',1,'AbstractTreeItem']]],
+  ['iterate_5falignment_5fonce_105',['iterate_alignment_once',['../a03424.html#ae88b8f56f33dd8046fb35fd214393548',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['iterativedijkstra_106',['iterativeDijkstra',['../a02500.html#a9c47eef6d6d4c3cab48b707b1ba8d25d',1,'DISP3DLIB::GeometryInfo']]]
 ];

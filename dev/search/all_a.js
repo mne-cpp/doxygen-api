@@ -257,8 +257,9 @@ var searchData=
   ['itemrole_254',['ItemRole',['../a02528.html#ae941378b7f6d564b5c34d9b68d1c4203',1,'AbstractTreeItem::ItemRole'],['../a01974.html#a926ca49699be694dba55a9e23002e840',1,'DISPLIB::ChannelInfoModelRoles::ItemRole'],['../a01977.html#af8473446140c50be634d662a7a0062fc',1,'DISPLIB::EvokedSetModelRoles::ItemRole']]],
   ['items_255',['items',['../a03488.html#aef17460aa45f51d3ac5afa08c8cf9113',1,'MNELIB::MNEProjOp']]],
   ['itemtype_256',['ItemType',['../a02528.html#a7804788c78ce642387ab26f50d3dda68',1,'AbstractTreeItem']]],
-  ['iterate_5falignment_5fonce_257',['iterate_alignment_once',['../a03424.html#ae88b8f56f33dd8046fb35fd214393548',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['iterativedijkstra_258',['iterativeDijkstra',['../a02500.html#a9c47eef6d6d4c3cab48b707b1ba8d25d',1,'DISP3DLIB::GeometryInfo']]],
-  ['itris_259',['itris',['../a03544.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['itrmax_260',['ITRMAX',['../a00713.html#a056d176a605f44b8b29878100fcb2be8',1,'parksmcclellan.cpp']]]
+  ['itemtypeid_257',['itemTypeId',['../a02528.html#aa129e7983c84a747ef14cd4097f0d547',1,'AbstractTreeItem']]],
+  ['iterate_5falignment_5fonce_258',['iterate_alignment_once',['../a03424.html#ae88b8f56f33dd8046fb35fd214393548',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['iterativedijkstra_259',['iterativeDijkstra',['../a02500.html#a9c47eef6d6d4c3cab48b707b1ba8d25d',1,'DISP3DLIB::GeometryInfo']]],
+  ['itris_260',['itris',['../a03544.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]],
+  ['itrmax_261',['ITRMAX',['../a00713.html#a056d176a605f44b8b29878100fcb2be8',1,'parksmcclellan.cpp']]]
 ];
