@@ -75,7 +75,7 @@ var searchData=
   ['loadtrans_72',['loadTrans',['../a02272.html#aa39531284b760d9513a805c86d280e7e',1,'DISPLIB::CoregSettingsView']]],
   ['loadtransformation_73',['loadTransformation',['../a02636.html#a21b7bf2a59715f54dcf702d68876eb21',1,'BrainView']]],
   ['log2_74',['log2',['../a03256.html#ad55da77c3d78487e4c81a1600cd5bf56',1,'UTILSLIB::Numerics']]],
-  ['logfile_75',['logFile',['../a02916.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a03468.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a03748.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
+  ['logfile_75',['logFile',['../a02916.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a03468.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a03744.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
   ['logno_76',['logNo',['../a02852.html#a7b5c40b0a6fea48bd71623a0124118c7',1,'FIFFLIB::FiffChInfo']]],
   ['lookat_77',['lookAt',['../a02508.html#a1f8585252f95a48e4e1da3ab4f3a790a',1,'CameraResult']]],
   ['loose_78',['Loose',['../a01984.html#a8ee66830d3efbe8f53405dfb0e1a0ba7a08d78f099561104c2015d19ea7d9d41e',1,'INVLIB']]],

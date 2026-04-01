@@ -3,7 +3,7 @@ var searchData=
   ['fiff_0',['Fiff',['../a02848.html',1,'FIFFLIB']]],
   ['fiffchinfo_1',['FiffChInfo',['../a02852.html',1,'FIFFLIB']]],
   ['fiffchpos_2',['FiffChPos',['../a02856.html',1,'FIFFLIB']]],
-  ['fiffcoordtrans_3',['FiffCoordTrans',['../a03752.html',1,'FiffCoordTrans'],['../a02860.html',1,'FIFFLIB::FiffCoordTrans']]],
+  ['fiffcoordtrans_3',['FiffCoordTrans',['../a03748.html',1,'FiffCoordTrans'],['../a02860.html',1,'FIFFLIB::FiffCoordTrans']]],
   ['fiffcoordtransset_4',['FiffCoordTransSet',['../a02864.html',1,'FIFFLIB']]],
   ['fiffcov_5',['FiffCov',['../a02868.html',1,'FIFFLIB']]],
   ['fiffctfcomp_6',['FiffCtfComp',['../a02872.html',1,'FIFFLIB']]],

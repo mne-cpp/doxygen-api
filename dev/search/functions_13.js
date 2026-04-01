@@ -67,7 +67,7 @@ var searchData=
   ['transform_5fsource_5fspace_5fto_64',['transform_source_space_to',['../a03288.html#a34d769e8b915c50b689ac76dc80123ef',1,'MNELIB::MNE::transform_source_space_to()'],['../a03524.html#a4e3996a46416f6bde02e9d8dab4b9111',1,'MNELIB::MNESourceSpaces::transform_source_space_to()']]],
   ['transform_5fsource_5fspaces_5fto_65',['transform_source_spaces_to',['../a03520.html#addb2a90f52e689d2a75d800ea51dbcfd',1,'MNELIB::MNESourceSpace']]],
   ['translatex_66',['translateX',['../a02572.html#a03775b27b45e44e7af5f42b0ab4826e9',1,'BrainSurface']]],
-  ['translationto_67',['translationTo',['../a02860.html#a599beb9a930ae4ea58488c7737886238',1,'FIFFLIB::FiffCoordTrans::translationTo()'],['../a03752.html#a599beb9a930ae4ea58488c7737886238',1,'FiffCoordTrans::translationTo()']]],
+  ['translationto_67',['translationTo',['../a02860.html#a599beb9a930ae4ea58488c7737886238',1,'FIFFLIB::FiffCoordTrans::translationTo()'],['../a03748.html#a599beb9a930ae4ea58488c7737886238',1,'FiffCoordTrans::translationTo()']]],
   ['transparamchanged_68',['transParamChanged',['../a02272.html#a0166b4a553ebcf9e071083f52b1f1273',1,'DISPLIB::CoregSettingsView']]],
   ['transpose_5fnamed_5fmatrix_69',['transpose_named_matrix',['../a02948.html#acfc42a46812792ab7b36a5de046c37b6',1,'FIFFLIB::FiffNamedMatrix::transpose_named_matrix()'],['../a03288.html#a67fef84dc514ac2eb4012c4fe2cef912',1,'MNELIB::MNE::transpose_named_matrix()']]],
   ['triangle_5fcoords_70',['triangle_coords',['../a03540.html#a69bd7372f2f58c69c5b252478188d914',1,'MNELIB::MNESurface']]],

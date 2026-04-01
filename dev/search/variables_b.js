@@ -20,7 +20,7 @@ var searchData=
   ['lights_17',['lights',['../a03428.html#a439c863ba338664c12de87dee13be3ff',1,'MNELIB::MNEMshDisplaySurfaceSet::lights'],['../a03440.html#ac412655c0def570e53dee522d516e919',1,'MNELIB::MNEMshLightSet::lights']]],
   ['limit_18',['limit',['../a03104.html#a6efbad55de468bb165bac7d0f9c94747',1,'INVLIB::FitDipUserRec::limit'],['../a03284.html#a26036f16baf52a8cd3cd1e47b44c4e4c',1,'MNELIB::FilterThreadArg::limit']]],
   ['linefreq_19',['linefreq',['../a02936.html#ae79636f3ce9a14a1b845da8dc58aeaeb',1,'FIFFLIB::FiffInfo']]],
-  ['logfile_20',['logFile',['../a02916.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a03468.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a03748.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
+  ['logfile_20',['logFile',['../a02916.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a03468.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a03744.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
   ['logno_21',['logNo',['../a02852.html#a7b5c40b0a6fea48bd71623a0124118c7',1,'FIFFLIB::FiffChInfo']]],
   ['lookat_22',['lookAt',['../a02508.html#a1f8585252f95a48e4e1da3ab4f3a790a',1,'CameraResult']]],
   ['lowcutoff_23',['lowCutoff',['../a02016.html#a842e76105ca4bd9fee9a3a95f5b5be69',1,'BIDSLIB::BidsChannel']]],

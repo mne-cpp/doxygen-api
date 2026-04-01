@@ -81,7 +81,7 @@ var searchData=
   ['state_78',['state',['../a03436.html#aeeb0172818460ad0c9259f5edf416840',1,'MNELIB::MNEMshLight']]],
   ['status_79',['status',['../a02016.html#a1979e86ea21e0aae3ecf912c40aeb584',1,'BIDSLIB::BidsChannel']]],
   ['stim14_80',['stim14',['../a03400.html#a3d66597d719dfa7b1c47776bd9d2d0ba',1,'MNELIB::MNEMeasDataSet']]],
-  ['stimignore_81',['stimIgnore',['../a02908.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'FIFFLIB::RejectionParams::stimIgnore'],['../a03740.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'MNELIB::RejectionParams::stimIgnore']]],
+  ['stimignore_81',['stimIgnore',['../a02908.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'FIFFLIB::RejectionParams::stimIgnore'],['../a03736.html#a67c8417cf4c1b2a51fd09ba4418f7226',1,'MNELIB::RejectionParams::stimIgnore']]],
   ['stream_82',['stream',['../a03512.html#aceab2140ababd8e3935e57f02fc4ae42',1,'MNELIB::MNERawData']]],
   ['struct_5fnames_83',['struct_names',['../a02988.html#a18c9e7fec718c0738cc6ae31ed618213',1,'FSLIB::FsColortable']]],
   ['subj_84',['subj',['../a03424.html#aaa6869e796573f3891587df3813213a1',1,'MNELIB::MNEMshDisplaySurface::subj'],['../a03428.html#a28ff3da8607d6e9bb9c0910173511dba',1,'MNELIB::MNEMshDisplaySurfaceSet::subj']]],
