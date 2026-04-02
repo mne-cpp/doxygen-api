@@ -38,5 +38,6 @@ var searchData=
   ['buildlabel_35',['buildLabel',['../a02538.html#a25a540649c6bf023ccae84366a5ee71e',1,'RayPicker']]],
   ['buildmapping_36',['buildMapping',['../a02634.html#acafaaf52b96ac9e9b53cd4547626f45a',1,'SensorFieldMapper']]],
   ['butterflymode_37',['butterflyMode',['../a02258.html#a9c02a6085f348142c39a58fe77334dbc',1,'DISPLIB::ChannelDataView::butterflyMode()'],['../a02338.html#acf773080df0b75e2104cc40e8df66247',1,'DISPLIB::ChannelRhiView::butterflyMode()']]],
-  ['butterflyview_38',['ButterflyView',['../a02250.html#adabcc8eefc5e9133689879fae4e1858f',1,'DISPLIB::ButterflyView']]]
+  ['butterflytoggled_38',['butterflyToggled',['../a02258.html#ab1f9649a004115f35675c35ccd8b8dec',1,'DISPLIB::ChannelDataView']]],
+  ['butterflyview_39',['ButterflyView',['../a02250.html#adabcc8eefc5e9133689879fae4e1858f',1,'DISPLIB::ButterflyView']]]
 ];
