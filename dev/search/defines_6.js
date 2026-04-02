@@ -718,7 +718,7 @@ var searchData=
   ['fiffv_5fxfit_5fproj_5fitem_5fhomog_5ffield_715',['FIFFV_XFIT_PROJ_ITEM_HOMOG_FIELD',['../a01010.html#a8b0da4613d65dcbca0cc7f33f1f26130',1,'fiff_file.h']]],
   ['fiffv_5fxfit_5fproj_5fitem_5fhomog_5fgrad_716',['FIFFV_XFIT_PROJ_ITEM_HOMOG_GRAD',['../a01010.html#aadff894090096855d099718254e031fc',1,'fiff_file.h']]],
   ['fiffv_5fxfit_5fproj_5fitem_5fnone_717',['FIFFV_XFIT_PROJ_ITEM_NONE',['../a01010.html#af48303b81a68a03de88a5439255f4303',1,'fiff_file.h']]],
-  ['float_5finfinity_718',['FLOAT_INFINITY',['../a01784.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;geometryinfo.h'],['../a01787.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;interpolation.h']]],
+  ['float_5finfinity_718',['FLOAT_INFINITY',['../a01790.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;geometryinfo.h'],['../a01793.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;interpolation.h']]],
   ['free_5f16_719',['FREE_16',['../a00002.html#a5b3ded98dadd0b95960b4ffae6e40c71',1,'inv_guess_data.cpp']]],
   ['free_5f17_720',['FREE_17',['../a00371.html#a4357ae1b62a055ff218ed7d503832f56',1,'FREE_17:&#160;mne_msh_display_surface.cpp'],['../a00566.html#a4357ae1b62a055ff218ed7d503832f56',1,'FREE_17:&#160;mne_source_space.cpp'],['../a00536.html#a4357ae1b62a055ff218ed7d503832f56',1,'FREE_17:&#160;mne_surface_or_volume.cpp']]],
   ['free_5f23_721',['FREE_23',['../a00440.html#a95a60d45c2d62a38c8fbcce5f65956ca',1,'mne_proj_op.cpp']]],
@@ -730,5 +730,5 @@ var searchData=
   ['free_5fcmatrix_5f36_727',['FREE_CMATRIX_36',['../a00446.html#a173f77d30481c9485cde328290b81b30',1,'mne_raw_data.cpp']]],
   ['free_5ficmatrix_5f17_728',['FREE_ICMATRIX_17',['../a00566.html#aa005095f527bf4fffefe8e575a44fdcf',1,'FREE_ICMATRIX_17:&#160;mne_source_space.cpp'],['../a00536.html#aa005095f527bf4fffefe8e575a44fdcf',1,'FREE_ICMATRIX_17:&#160;mne_surface_or_volume.cpp']]],
   ['fsshared_5fexport_729',['FSSHARED_EXPORT',['../a00182.html#a8e4f08d490ea850b4b6631d7772df965',1,'fs_global.h']]],
-  ['fwdshared_5fexport_730',['FWDSHARED_EXPORT',['../a01619.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]]
+  ['fwdshared_5fexport_730',['FWDSHARED_EXPORT',['../a01625.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]]
 ];
