@@ -91,5 +91,7 @@ var searchData=
   ['orientation_88',['orientation',['../a02570.html#afa7d42ebae2b5248e84cf2311fb71788',1,'SensorTreeItem']]],
   ['overlay_89',['overlay',['../a02638.html#a9c9e9b980c7544800a76235b1fc57930',1,'SourceEstimateManager']]],
   ['overlaymodefortarget_90',['overlayModeForTarget',['../a02654.html#a67d63289d795abcd89980be77952afa4',1,'BrainView']]],
-  ['overviewbarwidget_91',['OverviewBarWidget',['../a02394.html#af3b8bbd14d19adec4f263659b5d9a82e',1,'DISPLIB::OverviewBarWidget']]]
+  ['overviewbartoggled_91',['overviewBarToggled',['../a02258.html#ab54f320f67a171844fb3a05a80578f37',1,'DISPLIB::ChannelDataView']]],
+  ['overviewbarvisible_92',['overviewBarVisible',['../a02258.html#a8c5e22dfb159003124491304a42a13d4',1,'DISPLIB::ChannelDataView']]],
+  ['overviewbarwidget_93',['OverviewBarWidget',['../a02394.html#af3b8bbd14d19adec4f263659b5d9a82e',1,'DISPLIB::OverviewBarWidget']]]
 ];

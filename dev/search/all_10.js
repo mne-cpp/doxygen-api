@@ -129,8 +129,10 @@ var searchData=
   ['overlaymodefortarget_126',['overlayModeForTarget',['../a02654.html#a67d63289d795abcd89980be77952afa4',1,'BrainView']]],
   ['overview_127',['Overview',['../index.html',1,'']]],
   ['overview_2emd_128',['overview.md',['../a01964.html',1,'']]],
-  ['overviewbarwidget_129',['OverviewBarWidget',['../a02394.html',1,'DISPLIB::OverviewBarWidget'],['../a02394.html#af3b8bbd14d19adec4f263659b5d9a82e',1,'DISPLIB::OverviewBarWidget::OverviewBarWidget()']]],
-  ['overviewbarwidget_2ecpp_130',['overviewbarwidget.cpp',['../a01310.html',1,'']]],
-  ['overviewbarwidget_2eh_131',['overviewbarwidget.h',['../a01415.html',1,'']]],
-  ['overwrite_132',['overwrite',['../a02050.html#a153766c7b75275bb7aaef3610a2dc872',1,'BIDSLIB::BidsRawData::WriteOptions']]]
+  ['overviewbartoggled_129',['overviewBarToggled',['../a02258.html#ab54f320f67a171844fb3a05a80578f37',1,'DISPLIB::ChannelDataView']]],
+  ['overviewbarvisible_130',['overviewBarVisible',['../a02258.html#a8c5e22dfb159003124491304a42a13d4',1,'DISPLIB::ChannelDataView']]],
+  ['overviewbarwidget_131',['OverviewBarWidget',['../a02394.html',1,'DISPLIB::OverviewBarWidget'],['../a02394.html#af3b8bbd14d19adec4f263659b5d9a82e',1,'DISPLIB::OverviewBarWidget::OverviewBarWidget()']]],
+  ['overviewbarwidget_2ecpp_132',['overviewbarwidget.cpp',['../a01310.html',1,'']]],
+  ['overviewbarwidget_2eh_133',['overviewbarwidget.h',['../a01415.html',1,'']]],
+  ['overwrite_134',['overwrite',['../a02050.html#a153766c7b75275bb7aaef3610a2dc872',1,'BIDSLIB::BidsRawData::WriteOptions']]]
 ];
