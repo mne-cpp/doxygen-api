@@ -11,5 +11,7 @@ var searchData=
   ['zoom_8',['zoom',['../a02510.html#af2dfae7a90fad04e9ea67e42458344c3',1,'SubView::zoom'],['../a02258.html#a2cdacc5acaea0ee45226dec817c6de77',1,'DISPLIB::ChannelDataView::zoom()'],['../a02530.html#af5bfc67a76c35d61154a0df66c96595c',1,'CameraController::zoom()']]],
   ['zoomchanged_9',['zoomChanged',['../a02290.html#aeedb53d7b3f4b2c56f2fc690b7971813',1,'DISPLIB::FiffRawViewSettings']]],
   ['zoomto_10',['zoomTo',['../a02338.html#af489ead92aeac1783beff3802fbec7bf',1,'DISPLIB::ChannelRhiView']]],
-  ['zsize_11',['zsize',['../a03574.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a03594.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
+  ['zscoremode_11',['zScoreMode',['../a02258.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'DISPLIB::ChannelDataView::zScoreMode()'],['../a02338.html#ad4bad855a6831ac8068e0f01f67fe3d9',1,'DISPLIB::ChannelRhiView::zScoreMode()']]],
+  ['zscoremodetoggled_12',['zScoreModeToggled',['../a02258.html#a642bfc928bfe34f65862314f30a128b9',1,'DISPLIB::ChannelDataView']]],
+  ['zsize_13',['zsize',['../a03574.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a03594.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
 ];
