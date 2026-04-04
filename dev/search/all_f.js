@@ -125,7 +125,7 @@ var searchData=
   ['noisenorm_122',['noisenorm',['../a03402.html#a420ccf50b97f1443382c3dea6c75a48e',1,'MNELIB::MNEInverseOperator']]],
   ['nominal_5fsrate_123',['nominal_srate',['../a03246.html#a0d7bec4dffce0ec58098bb81f3b8cbc7',1,'LSLLIB::stream_info']]],
   ['non_20superuser_124',['of free blocks available to non-superuser.',['../a01010.html#autotoc_md1',1,'']]],
-  ['none_125',['None',['../a01649.html#aa760f37b1c504a57961771013387fcf9a6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;multiviewlayout.h'],['../a01990.html#aeda8279f8dbf11d6a1bff261bbfea009a6adf97f83acf6453d4a6a4b1070f3754',1,'INVLIB::None'],['../a01990.html#ad713f1a7895bfdb0bb447b2776528f18a6adf97f83acf6453d4a6a4b1070f3754',1,'INVLIB::None']]],
+  ['none_125',['None',['../a01977.html#a1e044143e471f8d501763accc39e8951a6adf97f83acf6453d4a6a4b1070f3754',1,'DISPLIB::None'],['../a01649.html#aa760f37b1c504a57961771013387fcf9a6adf97f83acf6453d4a6a4b1070f3754',1,'None:&#160;multiviewlayout.h'],['../a01990.html#aeda8279f8dbf11d6a1bff261bbfea009a6adf97f83acf6453d4a6a4b1070f3754',1,'INVLIB::None'],['../a01990.html#ad713f1a7895bfdb0bb447b2776528f18a6adf97f83acf6453d4a6a4b1070f3754',1,'INVLIB::None']]],
   ['norient_126',['nOrient',['../a03098.html#adb178649d384cc2061f98eae2892d639',1,'INVLIB::InvBeamformer']]],
   ['norm_127',['norm',['../a02586.html#a63f1c3977d445ed9194822fab1731376',1,'VertexData']]],
   ['normal_128',['Normal',['../a01990.html#ad713f1a7895bfdb0bb447b2776528f18a960b44c579bc2f6818d2daaf9e4c16f0',1,'INVLIB']]],
