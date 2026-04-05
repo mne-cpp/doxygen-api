@@ -95,7 +95,7 @@ var searchData=
   ['tojsonobject_92',['toJsonObject',['../a02098.html#a0d6ffe7da98a63c56f2817fd6a7870d8',1,'COMLIB::Command']]],
   ['tojulian_93',['toJulian',['../a02990.html#a3863685593986e8a8a726b4efbede77e',1,'FIFFLIB::FiffTag']]],
   ['tokenids_94',['tokenIds',['../a01990.html#af15198faf6dadd440c055e5bb4acc163',1,'INVLIB']]],
-  ['tokenize_95',['tokenize',['../a00122.html#a0571799798978be974430658e388be5c',1,'tokenize():&#160;inv_source_estimate_token.cpp'],['../a01990.html#aaa767fd2894424de1a262042791f1730',1,'INVLIB::tokenize(const InvSourceEstimate &amp;estimate, const InvTokenizeOptions &amp;options=InvTokenizeOptions())']]],
+  ['tokenize_95',['tokenize',['../a01990.html#aaa767fd2894424de1a262042791f1730',1,'INVLIB']]],
   ['tokenvalues_96',['tokenValues',['../a01990.html#abfa8b4c63f8ff5624bc11d63582c3db4',1,'INVLIB']]],
   ['tolabels_97',['toLabels',['../a02998.html#afaaae6f62c4db116942d0fadf81fb6df',1,'FSLIB::FsAnnotation::toLabels()'],['../a03002.html#a69becc3c5dbb4cf4c38e5513d4189437',1,'FSLIB::FsAnnotationSet::toLabels()']]],
   ['tomachidstring_98',['toMachidString',['../a02950.html#a5247bc2bc176a624078d0962812198cb',1,'FIFFLIB::FiffId']]],

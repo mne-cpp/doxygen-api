@@ -1028,7 +1028,7 @@ var searchData=
   ['frominteigenmatrix_5f16_1025',['fromIntEigenMatrix_16',['../a00002.html#a44888dc91000272c17cc3d68f40eccaa',1,'fromIntEigenMatrix_16(const Eigen::MatrixXi &amp;from_mat, int **&amp;to_mat, const int m, const int n):&#160;inv_guess_data.cpp'],['../a00002.html#ae0db78088b95433dd832f55926abc75d',1,'fromIntEigenMatrix_16(const Eigen::MatrixXi &amp;from_mat, int **&amp;to_mat):&#160;inv_guess_data.cpp']]],
   ['frominteigenmatrix_5f17_1026',['fromIntEigenMatrix_17',['../a00536.html#a18a05e44fe52e30fb7c5cf2b9c973c9b',1,'fromIntEigenMatrix_17(const Eigen::MatrixXi &amp;from_mat, int **&amp;to_mat, const int m, const int n):&#160;mne_surface_or_volume.cpp'],['../a00536.html#a306cfda17c0c657c70559739f207cf31',1,'fromIntEigenMatrix_17(const Eigen::MatrixXi &amp;from_mat, int **&amp;to_mat):&#160;mne_surface_or_volume.cpp']]],
   ['fromsurface_1027',['fromSurface',['../a02590.html#a0c5abddf32e8ae72d08e3c3d3a818f13',1,'BrainSurface']]],
-  ['fromtokens_1028',['fromTokens',['../a00122.html#a948d747603b2d4ce196343a4ee5a46db',1,'fromTokens():&#160;inv_source_estimate_token.cpp'],['../a01990.html#a5a611f07cc684b544d3d6e71f7d7f95d',1,'INVLIB::fromTokens()']]],
+  ['fromtokens_1028',['fromTokens',['../a01990.html#a5a611f07cc684b544d3d6e71f7d7f95d',1,'INVLIB']]],
   ['fs_5fannotation_2ecpp_1029',['fs_annotation.cpp',['../a00185.html',1,'']]],
   ['fs_5fannotation_2eh_1030',['fs_annotation.h',['../a00200.html',1,'']]],
   ['fs_5fannotationset_2ecpp_1031',['fs_annotationset.cpp',['../a00179.html',1,'']]],
