@@ -68,7 +68,7 @@ var searchData=
   ['comp_5fnow_65',['comp_now',['../a03530.html#ae0249bcc631e3ca540ec0bedcd6ac530',1,'MNELIB::MNERawData']]],
   ['comp_5fstatus_66',['comp_status',['../a03514.html#af95cae4eddf081f3dfe00dcb25925ca4',1,'MNELIB::MNERawBufDef']]],
   ['compensateto_67',['compensateTo',['../a03494.html#af91d4cf7d2b719ada3381d05454600e4',1,'MNELIB::ProcessingSettings']]],
-  ['comps_68',['comps',['../a02954.html#abe1b8e3c8986cba9e001f96480f905e9',1,'FIFFLIB::FiffInfo::comps'],['../a03338.html#ad77bd27832e7c22807aef11dde331fd6',1,'MNELIB::MNECTFCompDataSet::comps']]],
+  ['comps_68',['comps',['../a02954.html#abe1b8e3c8986cba9e001f96480f905e9',1,'FIFFLIB::FiffInfo::comps'],['../a03338.html#a5e096ca6c87a07bcfebfe3a1fb0ae630',1,'MNELIB::MNECTFCompDataSet::comps']]],
   ['compute_5fgrad_69',['compute_grad',['../a03026.html#aba70456b3c60ea0817d0a0070712c582',1,'FWDLIB::ComputeFwdSettings']]],
   ['conf_5fvol_70',['conf_vol',['../a03142.html#a5b54cd87b683a75c9b88062c5d91432b',1,'INVLIB::bdipEcd']]],
   ['connectivity_71',['connectivity',['../a03210.html#ad600d00971780ae7b67bf9b24eaf89dc',1,'INVLIB::InvSourceEstimate']]],
