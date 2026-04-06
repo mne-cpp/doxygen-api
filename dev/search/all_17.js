@@ -5,7 +5,7 @@ var searchData=
   ['valid_2',['valid',['../a03138.html#af60bfd7de826f5d339d604b8c77f9692',1,'INVLIB::InvEcd::valid'],['../a03202.html#ad4fd350726758090bbd8c4b26ac2b4ef',1,'INVLIB::InvFocalDipole::valid'],['../a03342.html#a0e9145b7e3cf6478b2c688f3e9d16677',1,'MNELIB::MNEDeriv::valid'],['../a03514.html#a3d368a33d7d4d675b3027cad0865cdfd',1,'MNELIB::MNERawBufDef::valid'],['../a03574.html#aacb89a3eb5f7330fec2eb07458cc4c3f',1,'MNELIB::MNEVolGeom::valid']]],
   ['validfalse_3',['ValidFalse',['../a01990.html#af1ffe934a77f18c6a7260b1975016387ad9fd74845cac574ab0ef89205d6f6dfc',1,'INVLIB']]],
   ['validtrue_4',['ValidTrue',['../a01990.html#af1ffe934a77f18c6a7260b1975016387a22d0f51e017f3748d080bc346df6273a',1,'INVLIB']]],
-  ['vals_5',['vals',['../a03514.html#aabfb43174b1ad0f7bfb3d7ab869cc9b9',1,'MNELIB::MNERawBufDef']]],
+  ['vals_5',['vals',['../a03514.html#ada1f5b817f3c8be3e935629fed748ba3',1,'MNELIB::MNERawBufDef']]],
   ['value_6',['value',['../a02038.html#a3953b02df8fd833de39f6f87f85e7871',1,'BIDSLIB::BidsEvent::value'],['../a03214.html#a75664a6514eabf14fd94fadaec6b5f81',1,'INVLIB::InvToken::value'],['../a02406.html#a4a3ef6914f7cd5241caf6c57aebb9d54',1,'DISPLIB::ScaleControl::value() const']]],
   ['valuechanged_7',['valueChanged',['../a02406.html#aecb48e5eb0919ff52d254d8599f4bfaa',1,'DISPLIB::ScaleControl']]],
   ['values_8',['values',['../a03010.html#a133aa181c57f947f5c2c2c364591be6b',1,'FSLIB::FsLabel']]],

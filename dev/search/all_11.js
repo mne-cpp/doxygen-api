@@ -130,7 +130,7 @@ var searchData=
   ['progressview_2ecpp_127',['progressview.cpp',['../a01211.html',1,'']]],
   ['progressview_2eh_128',['progressview.h',['../a01292.html',1,'']]],
   ['proj_129',['proj',['../a02922.html#a1ec4116f9b969be2f28a68b1bf2e4336',1,'FIFFLIB::FiffEvoked::proj'],['../a02974.html#a5f1bc9d008fe884b7d495321f866396f',1,'FIFFLIB::FiffRawData::proj'],['../a03098.html#a281f397c7e28b1c72c3b6b7ea7049998',1,'INVLIB::InvBeamformer::proj'],['../a03126.html#a6f71a1f4d1d7f19053449b2895f42516',1,'INVLIB::InvDipoleFitData::proj'],['../a03326.html#a5dbb005854db84098b9666a4fb0d0e17',1,'MNELIB::MNECovMatrix::proj'],['../a03402.html#a100968ca2d3ffe1819c693f8082b2baf',1,'MNELIB::MNEInverseOperator::proj'],['../a03414.html#ad15c54835087abda4d7893a5b25d523d',1,'MNELIB::MNEMeasData::proj'],['../a03530.html#a15b0b3528450833f71aa2727327c41e1',1,'MNELIB::MNERawData::proj']]],
-  ['proj_5fdata_130',['proj_data',['../a03506.html#a16bd730cf4778957115189ce740f9475',1,'MNELIB::MNEProjOp']]],
+  ['proj_5fdata_130',['proj_data',['../a03506.html#a05b2b9fc54c4d48ca3da7769ae178624',1,'MNELIB::MNEProjOp']]],
   ['proj_5fid_131',['proj_id',['../a02954.html#ae8ce00809e595f83e1270d3cd56f5b76',1,'FIFFLIB::FiffInfo']]],
   ['proj_5fname_132',['proj_name',['../a02954.html#a3e761c04e68d072d794422f02e25a122',1,'FIFFLIB::FiffInfo']]],
   ['project_5fdvector_133',['project_dvector',['../a03506.html#a660c287e1742eda1033f8f99511adaaf',1,'MNELIB::MNEProjOp']]],

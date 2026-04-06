@@ -3,7 +3,7 @@ var searchData=
   ['v0_0',['v0',['../a03046.html#af508a3ac07b113e4617d4a05ca33f6c5',1,'FWDLIB::FwdBemModel']]],
   ['val_1',['val',['../a03562.html#afe5479b6f7e7bc5cee309b3598cd07d0',1,'MNELIB::MNESurfaceOrVolume']]],
   ['valid_2',['valid',['../a03138.html#af60bfd7de826f5d339d604b8c77f9692',1,'INVLIB::InvEcd::valid'],['../a03202.html#ad4fd350726758090bbd8c4b26ac2b4ef',1,'INVLIB::InvFocalDipole::valid'],['../a03342.html#a0e9145b7e3cf6478b2c688f3e9d16677',1,'MNELIB::MNEDeriv::valid'],['../a03514.html#a3d368a33d7d4d675b3027cad0865cdfd',1,'MNELIB::MNERawBufDef::valid'],['../a03574.html#aacb89a3eb5f7330fec2eb07458cc4c3f',1,'MNELIB::MNEVolGeom::valid']]],
-  ['vals_3',['vals',['../a03514.html#aabfb43174b1ad0f7bfb3d7ab869cc9b9',1,'MNELIB::MNERawBufDef']]],
+  ['vals_3',['vals',['../a03514.html#ada1f5b817f3c8be3e935629fed748ba3',1,'MNELIB::MNERawBufDef']]],
   ['value_4',['value',['../a02038.html#a3953b02df8fd833de39f6f87f85e7871',1,'BIDSLIB::BidsEvent::value'],['../a03214.html#a75664a6514eabf14fd94fadaec6b5f81',1,'INVLIB::InvToken::value']]],
   ['values_5',['values',['../a03010.html#a133aa181c57f947f5c2c2c364591be6b',1,'FSLIB::FsLabel']]],
   ['vec_5ffield_6',['vec_field',['../a03062.html#a3bade4afcfed37a8751fb23d520d7077',1,'FWDLIB::FwdCompData']]],

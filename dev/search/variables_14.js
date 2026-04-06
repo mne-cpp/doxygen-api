@@ -18,7 +18,7 @@ var searchData=
   ['use_5ftri_5fnn_15',['use_tri_nn',['../a03390.html#abd4cfb0a520bc400116093d9ebcbf87b',1,'MNELIB::MNEHemisphere']]],
   ['use_5ftris_16',['use_tris',['../a03562.html#afeef29bc8e562a95cee47f4d04030df4',1,'MNELIB::MNESurfaceOrVolume']]],
   ['usecs_17',['usecs',['../a02994.html#ad6382ae4db9ecfab329aa468388bc8c9',1,'FIFFLIB::FiffTime']]],
-  ['user_18',['user',['../a03126.html#af95557683a226c1b4d92d7083011d0f1',1,'INVLIB::InvDipoleFitData::user'],['../a03522.html#abcb75228061c56c1ab57a1728fcc4517',1,'MNELIB::RingBuffer::Entry::user']]],
+  ['user_18',['user',['../a03126.html#af95557683a226c1b4d92d7083011d0f1',1,'INVLIB::InvDipoleFitData::user'],['../a03522.html#a6f2b2a1e53e32f59ff1cd8cf30c07c27',1,'MNELIB::RingBuffer::Entry::user']]],
   ['user_5fdata_19',['user_data',['../a03058.html#a1aa4f82508729b2434b2ec3cc4f763c2',1,'FWDLIB::FwdCoilSet::user_data'],['../a03442.html#a17457813f8c86a6ac5f62f66ca582013',1,'MNELIB::MNEMshDisplaySurface::user_data']]],
   ['user_5fdata_5ffree_20',['user_data_free',['../a03442.html#a4c7d5f1a402096aaa0f83f7eb64fe3f3',1,'MNELIB::MNEMshDisplaySurface']]],
   ['utc_5foffset_21',['utc_offset',['../a02954.html#a9b3261af6fb7330d5f58764a87626040',1,'FIFFLIB::FiffInfo']]],

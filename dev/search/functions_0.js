@@ -58,7 +58,7 @@ var searchData=
   ['affect_55',['affect',['../a03502.html#a56eab82f6c26823c07b225bf21015831',1,'MNELIB::MNEProjItem::affect()'],['../a03506.html#a8d31621a917b5154a615e79d3135c93d',1,'MNELIB::MNEProjOp::affect(const QStringList &amp;list, int nlist)']]],
   ['affect_5fchs_56',['affect_chs',['../a03506.html#ae08623e58cc1043e6cf819f8256cd024',1,'MNELIB::MNEProjOp']]],
   ['align_5ffiducials_57',['align_fiducials',['../a03442.html#ac00c68136d85859da7dc3eb7fd916b7b',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['allocate_58',['allocate',['../a03518.html#ab56892dff31969d7fec1b096db35d337',1,'MNELIB::RingBuffer']]],
+  ['allocate_58',['allocate',['../a03518.html#a86890217576c60f21663d004ea3a9048',1,'MNELIB::RingBuffer']]],
   ['alloweddatatypes_59',['allowedDatatypes',['../a01969.html#a732997d90bb76243df76cd884b7a8ca4',1,'BIDSLIB']]],
   ['allowedelectrophysiologydatatypes_60',['allowedElectrophysiologyDatatypes',['../a01969.html#a516be73422ffce5133194d4e892accdf',1,'BIDSLIB']]],
   ['allowedmeanerrordistchanged_61',['allowedMeanErrorDistChanged',['../a02434.html#ac4973280572a97280df0e39296b965b7',1,'DISPLIB::HpiSettingsView']]],

@@ -205,7 +205,7 @@ var searchData=
   ['rowcals_202',['rowcals',['../a02890.html#a21bf8cd43bee78ee5ef5a494a4fa1191',1,'FIFFLIB::FiffCtfComp']]],
   ['rowcount_203',['rowCount',['../a02326.html#af6f11df1b185fbf8d22c2dfd1ef09629',1,'DISPLIB::ChannelInfoModel::rowCount()'],['../a02370.html#af9cd4cf61023d9e2d8b0beb806b26812',1,'DISPLIB::EvokedSetModel::rowCount()'],['../a02382.html#adb381118a8b4127373f2719f42b2e0a9',1,'DISPLIB::FrequencySpectrumModel::rowCount()'],['../a02402.html#a5ea85652eb500210fe4cee015332f0b2',1,'DISPLIB::RtFiffRawViewModel::rowCount()']]],
   ['rowlist_204',['rowlist',['../a03466.html#a896f85880835db146d939c29e84d9778',1,'MNELIB::MNENamedMatrix::rowlist'],['../a03546.html#afa9920bb21f700e48152b1e40a3566dd',1,'MNELIB::MNESparseNamedMatrix::rowlist']]],
-  ['rowmajormatrixxf_205',['RowMajorMatrixXf',['../a03506.html#a859451a9af3b41a64e7b29fec628b606',1,'MNELIB::MNEProjOp::RowMajorMatrixXf'],['../a03514.html#a7a8dc650092fdf3c3704769c07bd3607',1,'MNELIB::MNERawBufDef::RowMajorMatrixXf']]],
+  ['rowmajormatrixxf_205',['RowMajorMatrixXf',['../a01974.html#ae43e706a3d74ae7333bb6ff910bce16a',1,'MNELIB']]],
   ['rowvectorpair_206',['RowVectorPair',['../a01977.html#ae1ddfa37a3893969aef05a73116d5b06',1,'DISPLIB']]],
   ['rr_207',['rr',['../a03150.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a03290.html#a137245b4a4c887daee71940e310dd358',1,'UTILSLIB::FitUser::rr'],['../a03562.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a03626.html#abe84a54eccb98f09876e7ff7c4e50de9',1,'UTILSLIB::fitUser::rr'],['../a03014.html#a7af7a95dd0a8d40c10c6f5bfec860ccc',1,'FSLIB::FsSurface::rr()']]],
   ['rt_5faveraging_2ecpp_208',['rt_averaging.cpp',['../a00731.html',1,'']]],
