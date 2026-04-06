@@ -893,61 +893,50 @@ $(function() {
 <div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span> </div>
 <div class="foldopen" id="foldopen00622" data-start="{" data-end="}">
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno"><a class="line" href="a02878.html#a5692d916ff1a6c2da11b2f2009572c5b">  622</a></span><a class="code hl_function" href="a02878.html#a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5">FiffCoordTrans</a> <a class="code hl_function" href="a02878.html#a5692d916ff1a6c2da11b2f2009572c5b">FiffCoordTrans::procrustesAlign</a>(<span class="keywordtype">int</span>   from_frame,</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno"><a class="line" href="a02878.html#a6655ac3f81706ccfcd76b95802984d34">  622</a></span><a class="code hl_function" href="a02878.html#a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5">FiffCoordTrans</a> <a class="code hl_function" href="a02878.html#a6655ac3f81706ccfcd76b95802984d34">FiffCoordTrans::procrustesAlign</a>(<span class="keywordtype">int</span>   from_frame,</div>
 <div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>                                                <span class="keywordtype">int</span>   to_frame,</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>                                                <span class="keywordtype">float</span> **fromp,</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>                                                <span class="keywordtype">float</span> **top,</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>                                                <span class="keywordtype">float</span> *w,</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>                                                <span class="keywordtype">int</span>   np,</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>                                                <span class="keywordtype">float</span> max_diff)</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>{</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>    <span class="comment">/*</span></div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span><span class="comment">     * Map the raw C arrays into Eigen matrices for the computation.</span></div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span><span class="comment">     * fromp and top are np×3 C matrices (float**)</span></div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    Eigen::MatrixXf fromPts(np, 3), toPts(np, 3);</div>
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; np; ++j)</div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; 3; ++c) {</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>            fromPts(j, c) = fromp[j][c];</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>            toPts(j, c)   = top[j][c];</div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>        }</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span> </div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>    <span class="comment">/* Calculate centroids and subtract */</span></div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    Eigen::Vector3f from0 = fromPts.colwise().mean();</div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>    Eigen::Vector3f to0   = toPts.colwise().mean();</div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span> </div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>    Eigen::MatrixXf fromC = fromPts.rowwise() - from0.transpose();</div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    Eigen::MatrixXf toC   = toPts.rowwise() - to0.transpose();</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span> </div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>    <span class="comment">/* Compute the cross-covariance matrix S */</span></div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>    Eigen::Matrix3f S;</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>    <span class="keywordflow">if</span> (w) {</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>        Eigen::VectorXf wVec = Eigen::Map&lt;Eigen::VectorXf&gt;(w, np);</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>        S = fromC.transpose() * wVec.asDiagonal() * toC;</div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>        S = fromC.transpose() * toC;</div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    }</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span> </div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>    <span class="comment">/* SVD of S to solve the orthogonal Procrustes problem */</span></div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>    Eigen::JacobiSVD&lt;Eigen::Matrix3f&gt; svd(S, Eigen::ComputeFullU | Eigen::ComputeFullV);</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>    Eigen::Matrix3f R = svd.matrixV() * svd.matrixU().transpose();</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span> </div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>    <span class="comment">/* Translation */</span></div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    Eigen::Vector3f moveVec = to0 - R * from0;</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>                                                <span class="keyword">const</span> Eigen::MatrixXf&amp; fromPts,</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>                                                <span class="keyword">const</span> Eigen::MatrixXf&amp; toPts,</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>                                                <span class="keyword">const</span> Eigen::VectorXf&amp; w,</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>                                                <span class="keywordtype">float</span> max_diff)</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>{</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>    <span class="keywordtype">int</span> np = fromPts.rows();</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span> </div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>    <span class="comment">/* Calculate centroids and subtract */</span></div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    Eigen::Vector3f from0 = fromPts.colwise().mean();</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    Eigen::Vector3f to0   = toPts.colwise().mean();</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>    Eigen::MatrixXf fromC = fromPts.rowwise() - from0.transpose();</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    Eigen::MatrixXf toC   = toPts.rowwise() - to0.transpose();</div>
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span> </div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>    <span class="comment">/* Compute the cross-covariance matrix S */</span></div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>    Eigen::Matrix3f S;</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>    <span class="keywordflow">if</span> (w.size() &gt; 0) {</div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>        S = fromC.transpose() * w.asDiagonal() * toC;</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>        S = fromC.transpose() * toC;</div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>    }</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span> </div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>    <span class="comment">/* SVD of S to solve the orthogonal Procrustes problem */</span></div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>    Eigen::JacobiSVD&lt;Eigen::Matrix3f&gt; svd(S, Eigen::ComputeFullU | Eigen::ComputeFullV);</div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>    Eigen::Matrix3f R = svd.matrixV() * svd.matrixU().transpose();</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span> </div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>    <span class="comment">/* Translation */</span></div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>    Eigen::Vector3f moveVec = to0 - R * from0;</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    <span class="comment">/* Test the transformation */</span></div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> p = 0; p &lt; np; ++p) {</div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>        Eigen::Vector3f rr = R * fromPts.row(p).transpose() + moveVec;</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        <span class="keywordtype">float</span> diff = (toPts.row(p).transpose() - rr).norm();</div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        <span class="keywordflow">if</span> (diff &gt; max_diff) {</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>            qWarning(<span class="stringliteral">&quot;Too large difference in matching : %7.1f &gt; %7.1f mm&quot;</span>,</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>                   1000.0f * diff, 1000.0f * max_diff);</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="a02878.html#a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5">FiffCoordTrans</a>();</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        }</div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>    }</div>
 <div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span> </div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    <span class="comment">/* Test the transformation */</span></div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> p = 0; p &lt; np; ++p) {</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>        Eigen::Vector3f rr = R * fromPts.row(p).transpose() + moveVec;</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>        <span class="keywordtype">float</span> diff = (toPts.row(p).transpose() - rr).norm();</div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>        <span class="keywordflow">if</span> (diff &gt; max_diff) {</div>
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>            qWarning(<span class="stringliteral">&quot;Too large difference in matching : %7.1f &gt; %7.1f mm&quot;</span>,</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>                   1000.0f * diff, 1000.0f * max_diff);</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="a02878.html#a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5">FiffCoordTrans</a>();</div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>        }</div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>    }</div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span> </div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a02878.html#a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5">FiffCoordTrans</a>(from_frame, to_frame, R, moveVec);</div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>}</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a02878.html#a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5">FiffCoordTrans</a>(from_frame, to_frame, R, moveVec);</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>}</div>
 </div>
 <div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">fiff_dir_node.h</a></div><div class="ttdoc">FiffDirNode class declaration, which provides fiff dir tree processing methods.</div></div>
 <div class="ttc" id="aa00908_html_a18480c5ba6f7614be4e663f7a6ef32ad"><div class="ttname"><a href="a00908.html#a18480c5ba6f7614be4e663f7a6ef32ad">FIFFV_MNE_COORD_MNI_TAL</a></div><div class="ttdeci">#define FIFFV_MNE_COORD_MNI_TAL</div><div class="ttdef"><b>Definition</b> <a href="a00908_source.html#l00495">fiff_constants.h:495</a></div></div>
@@ -982,8 +971,8 @@ $(function() {
 <div class="ttc" id="aa02878_html_a43b7e9092e386c33b165e09bc8e5d4c1"><div class="ttname"><a href="a02878.html#a43b7e9092e386c33b165e09bc8e5d4c1">FIFFLIB::FiffCoordTrans::readMeasTransform</a></div><div class="ttdeci">static FiffCoordTrans readMeasTransform(const QString &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="#l00486">fiff_coord_trans.cpp:486</a></div></div>
 <div class="ttc" id="aa02878_html_a4a258913a8b23cb3c05858449ff25370"><div class="ttname"><a href="a02878.html#a4a258913a8b23cb3c05858449ff25370">FIFFLIB::FiffCoordTrans::invert_transform</a></div><div class="ttdeci">bool invert_transform()</div><div class="ttdef"><b>Definition</b> <a href="#l00124">fiff_coord_trans.cpp:124</a></div></div>
 <div class="ttc" id="aa02878_html_a4fdc879d5074584d6045c0b141492c28"><div class="ttname"><a href="a02878.html#a4fdc879d5074584d6045c0b141492c28">FIFFLIB::FiffCoordTrans::write</a></div><div class="ttdeci">void write(QIODevice &amp;p_IODevice)</div><div class="ttdoc">Writes the transformation to file.</div><div class="ttdef"><b>Definition</b> <a href="#l00169">fiff_coord_trans.cpp:169</a></div></div>
-<div class="ttc" id="aa02878_html_a5692d916ff1a6c2da11b2f2009572c5b"><div class="ttname"><a href="a02878.html#a5692d916ff1a6c2da11b2f2009572c5b">FIFFLIB::FiffCoordTrans::procrustesAlign</a></div><div class="ttdeci">static FiffCoordTrans procrustesAlign(int from_frame, int to_frame, float **fromp, float **top, float *w, int np, float max_diff)</div><div class="ttdef"><b>Definition</b> <a href="#l00622">fiff_coord_trans.cpp:622</a></div></div>
 <div class="ttc" id="aa02878_html_a599beb9a930ae4ea58488c7737886238"><div class="ttname"><a href="a02878.html#a599beb9a930ae4ea58488c7737886238">FIFFLIB::FiffCoordTrans::translationTo</a></div><div class="ttdeci">float translationTo(Eigen::MatrixX4f mTransDest)</div><div class="ttdef"><b>Definition</b> <a href="#l00315">fiff_coord_trans.cpp:315</a></div></div>
+<div class="ttc" id="aa02878_html_a6655ac3f81706ccfcd76b95802984d34"><div class="ttname"><a href="a02878.html#a6655ac3f81706ccfcd76b95802984d34">FIFFLIB::FiffCoordTrans::procrustesAlign</a></div><div class="ttdeci">static FiffCoordTrans procrustesAlign(int from_frame, int to_frame, const Eigen::MatrixXf &amp;fromp, const Eigen::MatrixXf &amp;top, const Eigen::VectorXf &amp;w, float max_diff)</div><div class="ttdef"><b>Definition</b> <a href="#l00622">fiff_coord_trans.cpp:622</a></div></div>
 <div class="ttc" id="aa02878_html_a74d470aec18b4dd9c878d9faf0370145"><div class="ttname"><a href="a02878.html#a74d470aec18b4dd9c878d9faf0370145">FIFFLIB::FiffCoordTrans::fromCardinalPoints</a></div><div class="ttdeci">static FiffCoordTrans fromCardinalPoints(int from, int to, const float *rL, const float *rN, const float *rR)</div><div class="ttdef"><b>Definition</b> <a href="#l00414">fiff_coord_trans.cpp:414</a></div></div>
 <div class="ttc" id="aa02878_html_a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5"><div class="ttname"><a href="a02878.html#a76eeba5b0c9c6bf9f8fb7df9eaa8dbb5">FIFFLIB::FiffCoordTrans::FiffCoordTrans</a></div><div class="ttdeci">FiffCoordTrans()</div><div class="ttdef"><b>Definition</b> <a href="#l00073">fiff_coord_trans.cpp:73</a></div></div>
 <div class="ttc" id="aa02878_html_a80176ac270e098ac8d248243456663ec"><div class="ttname"><a href="a02878.html#a80176ac270e098ac8d248243456663ec">FIFFLIB::FiffCoordTrans::readTransform</a></div><div class="ttdeci">static FiffCoordTrans readTransform(const QString &amp;name, int from, int to)</div><div class="ttdef"><b>Definition</b> <a href="#l00445">fiff_coord_trans.cpp:445</a></div></div>

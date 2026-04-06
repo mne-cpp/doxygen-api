@@ -124,7 +124,7 @@ var searchData=
   ['processingdescription_121',['processingDescription',['../a02026.html#a42d6151450f5a7ea5ab73f8004563fc1',1,'BIDSLIB::BidsCoordinateSystem']]],
   ['processingmode_122',['ProcessingMode',['../a02222.html#ac60b3fec00fc454e4e14c344855222a4',1,'DISPLIB::AbstractView']]],
   ['processingsettings_123',['ProcessingSettings',['../a03494.html',1,'MNELIB']]],
-  ['procrustesalign_124',['procrustesAlign',['../a02878.html#a5692d916ff1a6c2da11b2f2009572c5b',1,'FIFFLIB::FiffCoordTrans::procrustesAlign()'],['../a03766.html#a5692d916ff1a6c2da11b2f2009572c5b',1,'FiffCoordTrans::procrustesAlign()']]],
+  ['procrustesalign_124',['procrustesAlign',['../a02878.html#a6655ac3f81706ccfcd76b95802984d34',1,'FIFFLIB::FiffCoordTrans::procrustesAlign()'],['../a03766.html#a6655ac3f81706ccfcd76b95802984d34',1,'FiffCoordTrans::procrustesAlign()']]],
   ['progress_125',['progress',['../a02686.html#a2704a11baf2527c017ff3991df67710c',1,'StcLoadingWorker']]],
   ['progressview_126',['ProgressView',['../a02454.html',1,'DISPLIB::ProgressView'],['../a02454.html#af08ec004948446f6118c0fd39fe809ad',1,'DISPLIB::ProgressView::ProgressView()']]],
   ['progressview_2ecpp_127',['progressview.cpp',['../a01211.html',1,'']]],

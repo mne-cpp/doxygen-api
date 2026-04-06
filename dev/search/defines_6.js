@@ -719,16 +719,6 @@ var searchData=
   ['fiffv_5fxfit_5fproj_5fitem_5fhomog_5fgrad_716',['FIFFV_XFIT_PROJ_ITEM_HOMOG_GRAD',['../a01010.html#aadff894090096855d099718254e031fc',1,'fiff_file.h']]],
   ['fiffv_5fxfit_5fproj_5fitem_5fnone_717',['FIFFV_XFIT_PROJ_ITEM_NONE',['../a01010.html#af48303b81a68a03de88a5439255f4303',1,'fiff_file.h']]],
   ['float_5finfinity_718',['FLOAT_INFINITY',['../a01790.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;geometryinfo.h'],['../a01793.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;interpolation.h']]],
-  ['free_5f16_719',['FREE_16',['../a00002.html#a5b3ded98dadd0b95960b4ffae6e40c71',1,'inv_guess_data.cpp']]],
-  ['free_5f17_720',['FREE_17',['../a00371.html#a4357ae1b62a055ff218ed7d503832f56',1,'FREE_17:&#160;mne_msh_display_surface.cpp'],['../a00566.html#a4357ae1b62a055ff218ed7d503832f56',1,'FREE_17:&#160;mne_source_space.cpp'],['../a00536.html#a4357ae1b62a055ff218ed7d503832f56',1,'FREE_17:&#160;mne_surface_or_volume.cpp']]],
-  ['free_5f23_721',['FREE_23',['../a00440.html#a95a60d45c2d62a38c8fbcce5f65956ca',1,'mne_proj_op.cpp']]],
-  ['free_5f34_722',['FREE_34',['../a00461.html#a1e3573adeae955ad0f42b84ae9e94579',1,'mne_raw_buf_def.cpp']]],
-  ['free_5f36_723',['FREE_36',['../a00446.html#aeed17654ae8ba004a443f5261ffd9d73',1,'mne_raw_data.cpp']]],
-  ['free_5fcmatrix_5f16_724',['FREE_CMATRIX_16',['../a00002.html#adc292f4cf51711d0beacaed8c371b387',1,'inv_guess_data.cpp']]],
-  ['free_5fcmatrix_5f17_725',['FREE_CMATRIX_17',['../a00371.html#a66bdc23aa346d5f6bf1717d5d01b3c8a',1,'FREE_CMATRIX_17:&#160;mne_msh_display_surface.cpp'],['../a00566.html#a66bdc23aa346d5f6bf1717d5d01b3c8a',1,'FREE_CMATRIX_17:&#160;mne_source_space.cpp'],['../a00536.html#a66bdc23aa346d5f6bf1717d5d01b3c8a',1,'FREE_CMATRIX_17:&#160;mne_surface_or_volume.cpp']]],
-  ['free_5fcmatrix_5f23_726',['FREE_CMATRIX_23',['../a00440.html#aa438ca5d7e51899144c0b7791b110457',1,'mne_proj_op.cpp']]],
-  ['free_5fcmatrix_5f36_727',['FREE_CMATRIX_36',['../a00446.html#a173f77d30481c9485cde328290b81b30',1,'mne_raw_data.cpp']]],
-  ['free_5ficmatrix_5f17_728',['FREE_ICMATRIX_17',['../a00566.html#aa005095f527bf4fffefe8e575a44fdcf',1,'FREE_ICMATRIX_17:&#160;mne_source_space.cpp'],['../a00536.html#aa005095f527bf4fffefe8e575a44fdcf',1,'FREE_ICMATRIX_17:&#160;mne_surface_or_volume.cpp']]],
-  ['fsshared_5fexport_729',['FSSHARED_EXPORT',['../a00182.html#a8e4f08d490ea850b4b6631d7772df965',1,'fs_global.h']]],
-  ['fwdshared_5fexport_730',['FWDSHARED_EXPORT',['../a01625.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]]
+  ['fsshared_5fexport_719',['FSSHARED_EXPORT',['../a00182.html#a8e4f08d490ea850b4b6631d7772df965',1,'fs_global.h']]],
+  ['fwdshared_5fexport_720',['FWDSHARED_EXPORT',['../a01625.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]]
 ];

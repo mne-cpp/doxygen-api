@@ -205,7 +205,7 @@ var searchData=
   ['m_5fpmodel_202',['m_pModel',['../a02470.html#a06d7a4bac37542f2c4a7d3e347bff98b',1,'DISPLIB::RtFiffRawView']]],
   ['m_5fppixmapcolorbar_203',['m_pPixmapColorbar',['../a02202.html#adeabc0534db773e21bdab85b7ebd7268',1,'DISPLIB::ImageSc']]],
   ['m_5fppixmapdata_204',['m_pPixmapData',['../a02202.html#aa01a3742f706750bbfbf9b55efceb5ee',1,'DISPLIB::ImageSc']]],
-  ['m_5fpppairidxcombinations_205',['m_ppPairIdxCombinations',['../a03242.html#ab5be61da685d08280424f0d679797ebf',1,'INVLIB::InvRapMusic']]],
+  ['m_5fpppairidxcombinations_205',['m_ppPairIdxCombinations',['../a03242.html#ac02a97fa869b60d484edd1365fcc2b0b',1,'INVLIB::InvRapMusic']]],
   ['m_5fpprojs_206',['m_pProjs',['../a02458.html#afabd630655f87f294b83055574e62b45',1,'DISPLIB::ProjectorsView']]],
   ['m_5fpsliderlowerbound_207',['m_pSliderLowerBound',['../a02478.html#aa9f332c853db5ad336ae988ea4612167',1,'DISPLIB::SpectrumSettingsView']]],
   ['m_5fpsliderupperbound_208',['m_pSliderUpperBound',['../a02478.html#a5c978c153cd5a2b9035b0991f1e04974',1,'DISPLIB::SpectrumSettingsView']]],

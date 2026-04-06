@@ -62,7 +62,7 @@ var searchData=
   ['probeevokedsets_59',['probeEvokedSets',['../a02498.html#a3f6492243df70be8956d26768ca0d499',1,'DataLoader::probeEvokedSets()'],['../a02654.html#ab929958aa666036636384e47cd50585a',1,'BrainView::probeEvokedSets()']]],
   ['process_60',['process',['../a02686.html#a64951380ef0a50ef8d6d4664852b5c4b',1,'StcLoadingWorker']]],
   ['processing_61',['processing',['../a02042.html#ac87c86493a34023e23b8f6b3f482575c',1,'BIDSLIB::BIDSPath']]],
-  ['procrustesalign_62',['procrustesAlign',['../a02878.html#a5692d916ff1a6c2da11b2f2009572c5b',1,'FIFFLIB::FiffCoordTrans::procrustesAlign()'],['../a03766.html#a5692d916ff1a6c2da11b2f2009572c5b',1,'FiffCoordTrans::procrustesAlign()']]],
+  ['procrustesalign_62',['procrustesAlign',['../a02878.html#a6655ac3f81706ccfcd76b95802984d34',1,'FIFFLIB::FiffCoordTrans::procrustesAlign()'],['../a03766.html#a6655ac3f81706ccfcd76b95802984d34',1,'FiffCoordTrans::procrustesAlign()']]],
   ['progress_63',['progress',['../a02686.html#a2704a11baf2527c017ff3991df67710c',1,'StcLoadingWorker']]],
   ['progressview_64',['ProgressView',['../a02454.html#af08ec004948446f6118c0fd39fe809ad',1,'DISPLIB::ProgressView']]],
   ['project_5fdvector_65',['project_dvector',['../a03506.html#a660c287e1742eda1033f8f99511adaaf',1,'MNELIB::MNEProjOp']]],
