@@ -78,7 +78,7 @@ var searchData=
   ['getdistancetimespacer_75',['getDistanceTimeSpacer',['../a02290.html#acc1f02dfe5f8c24abb72fb2af7060b52',1,'DISPLIB::FiffRawViewSettings::getDistanceTimeSpacer()'],['../a02470.html#ae5d6a90a4def0cfdc3dc08fbda2cb78a',1,'DISPLIB::RtFiffRawView::getDistanceTimeSpacer()']]],
   ['getdoartifactthresholdrejection_76',['getDoArtifactThresholdRejection',['../a02230.html#ac59e8d3142a89b67f6eb4b8104ee2543',1,'DISPLIB::ArtifactSettingsView']]],
   ['getdobaselinecorrection_77',['getDoBaselineCorrection',['../a02242.html#a4829aa0d842978f3e2cb3cfa9782eaea',1,'DISPLIB::AveragingSettingsView']]],
-  ['getedgeat_78',['getEdgeAt',['../a02178.html#a1e49924467fcf51b62835c6c1e80c63d',1,'CONNLIB::Network']]],
+  ['getedgeat_78',['getEdgeAt',['../a02178.html#a22b4fa622a798a6203db210856c75615',1,'CONNLIB::Network']]],
   ['getendnodeid_79',['getEndNodeID',['../a02182.html#a6c0d9350ba0e4c0f93c42b8832cbb565',1,'CONNLIB::NetworkEdge']]],
   ['geteventstodisplay_80',['getEventsToDisplay',['../a02402.html#ad1d37e0ab4601d8e33107c00b98af7e6',1,'DISPLIB::RtFiffRawViewModel']]],
   ['getevokedset_81',['getEvokedSet',['../a02370.html#af333fe072ae8b755eb0d9bbf8c238075',1,'DISPLIB::EvokedSetModel']]],
