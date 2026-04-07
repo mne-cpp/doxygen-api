@@ -6,7 +6,7 @@ var searchData=
   ['b1_3',['b1',['../a02746.html#a32dcaa261b90b5e9f3a131405efe622d',1,'UTILSLIB::IirBiquad']]],
   ['b2_4',['B2',['../a03122.html#a716e0b034cdd6f22e680489b3df3ba1d',1,'INVLIB::FitDipUserRec']]],
   ['b2_5',['b2',['../a02746.html#a251dbb38b886bdf28d56fc08618cf282',1,'UTILSLIB::IirBiquad']]],
-  ['bad_6',['bad',['../a02318.html#ad45b520b35e99b5ec9dbdeaae808d1b5',1,'DISPLIB::ChannelDisplayInfo::bad'],['../a03414.html#a30e560ff790c732d4eeee7eb202ebf4c',1,'MNELIB::MNEMeasData::bad'],['../a03530.html#a4ef183028111ca49bb00b2b17aa35e65',1,'MNELIB::MNERawData::bad']]],
+  ['bad_6',['bad',['../a02318.html#ad45b520b35e99b5ec9dbdeaae808d1b5',1,'DISPLIB::ChannelDisplayInfo::bad'],['../a03414.html#ad506c9a405aee3849e906dfc08b50340',1,'MNELIB::MNEMeasData::bad'],['../a03530.html#a4ef183028111ca49bb00b2b17aa35e65',1,'MNELIB::MNERawData::bad']]],
   ['badlist_7',['badlist',['../a03414.html#a754229242857aa0e8886b7ced11c54a1',1,'MNELIB::MNEMeasData::badlist'],['../a03530.html#a5f7280b092a392f638d5fbdbb9c41c21',1,'MNELIB::MNERawData::badlist']]],
   ['badname_8',['badname',['../a03130.html#a7c92e3e75cfb162bcd195d606ea3aa51',1,'INVLIB::InvDipoleFitSettings']]],
   ['bads_9',['bads',['../a02886.html#ab8dc4bd79129bad78d569e17a4a7bf8f',1,'FIFFLIB::FiffCov::bads'],['../a02958.html#abb2b7b298afe7439c1012962c2a8c43c',1,'FIFFLIB::FiffInfoBase::bads'],['../a03326.html#a0efcac6bf0e53a7961cc91bb7b74c589',1,'MNELIB::MNECovMatrix::bads']]],

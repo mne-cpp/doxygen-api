@@ -8,7 +8,7 @@ var searchData=
   ['b2_5',['b2',['../a02746.html#a251dbb38b886bdf28d56fc08618cf282',1,'UTILSLIB::IirBiquad']]],
   ['backgroundcolor_6',['backgroundColor',['../a02258.html#aece7c3d261b69b9ffbd4a58e691ef147',1,'DISPLIB::ChannelDataView::backgroundColor()'],['../a02338.html#a910f7e710f4670b5212ee543a6a1c58f',1,'DISPLIB::ChannelRhiView::backgroundColor()']]],
   ['backgroundcolorchanged_7',['backgroundColorChanged',['../a02290.html#a298505bab4703dfd487f9edcbea8948d',1,'DISPLIB::FiffRawViewSettings']]],
-  ['bad_8',['bad',['../a02318.html#ad45b520b35e99b5ec9dbdeaae808d1b5',1,'DISPLIB::ChannelDisplayInfo::bad'],['../a03414.html#a30e560ff790c732d4eeee7eb202ebf4c',1,'MNELIB::MNEMeasData::bad'],['../a03530.html#a4ef183028111ca49bb00b2b17aa35e65',1,'MNELIB::MNERawData::bad']]],
+  ['bad_8',['bad',['../a02318.html#ad45b520b35e99b5ec9dbdeaae808d1b5',1,'DISPLIB::ChannelDisplayInfo::bad'],['../a03414.html#ad506c9a405aee3849e906dfc08b50340',1,'MNELIB::MNEMeasData::bad'],['../a03530.html#a4ef183028111ca49bb00b2b17aa35e65',1,'MNELIB::MNERawData::bad']]],
   ['bad_5fchannel_5fdetect_2ecpp_9',['bad_channel_detect.cpp',['../a00800.html',1,'']]],
   ['bad_5fchannel_5fdetect_2eh_10',['bad_channel_detect.h',['../a00791.html',1,'']]],
   ['badchanneldetect_11',['BadChannelDetect',['../a02706.html',1,'UTILSLIB']]],
