@@ -134,7 +134,7 @@ var searchData=
   ['translationto_131',['translationTo',['../a02878.html#a599beb9a930ae4ea58488c7737886238',1,'FIFFLIB::FiffCoordTrans::translationTo()'],['../a03766.html#a599beb9a930ae4ea58488c7737886238',1,'FiffCoordTrans::translationTo()']]],
   ['transname_132',['transname',['../a03026.html#a5ef11d6b206c68ced2762e51dfaec223',1,'FWDLIB::ComputeFwdSettings']]],
   ['transparamchanged_133',['transParamChanged',['../a02278.html#a0166b4a553ebcf9e071083f52b1f1273',1,'DISPLIB::CoregSettingsView']]],
-  ['transparent_134',['transparent',['../a03442.html#a7b872730720781856d298754f022600f',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['transparent_134',['transparent',['../a03442.html#ad09d9f3b2abd0536b2b2093131648cc8',1,'MNELIB::MNEMshDisplaySurface']]],
   ['transpose_5fnamed_5fmatrix_135',['transpose_named_matrix',['../a02966.html#acfc42a46812792ab7b36a5de046c37b6',1,'FIFFLIB::FiffNamedMatrix::transpose_named_matrix()'],['../a03306.html#a67fef84dc514ac2eb4012c4fe2cef912',1,'MNELIB::MNE::transpose_named_matrix()']]],
   ['tri_136',['tri',['../a03566.html#a5eafa9232706aca15293aef7dcf86422',1,'MNELIB::MNESurfacePatch']]],
   ['tri_5farea_137',['tri_area',['../a03314.html#a18f94370910d09215e8b0b3264ef1d54',1,'MNELIB::MNEBemSurface::tri_area'],['../a03390.html#acf981baefb126ad38fe70e0f7849e87a',1,'MNELIB::MNEHemisphere::tri_area']]],

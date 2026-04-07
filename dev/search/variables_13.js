@@ -23,7 +23,7 @@ var searchData=
   ['trans_20',['trans',['../a02878.html#ad242d17144fb35580f53260d82d4a102',1,'FIFFLIB::FiffCoordTrans::trans'],['../a03442.html#aa8fbb6a974522cb36620613fb3403d9e',1,'MNELIB::MNEMshDisplaySurface::trans'],['../a03534.html#ad02a4f31cc1d0d7ca46042e517c1cc53',1,'MNELIB::MNERawInfo::trans'],['../a03590.html#a3cfbaea6592a592fccec4ac09c398452',1,'MRILIB::MriSlice::trans'],['../a03766.html#ad242d17144fb35580f53260d82d4a102',1,'FiffCoordTrans::trans']]],
   ['transducertype_21',['transducerType',['../a02074.html#a647bcded97b76d2a0f226883ce841587',1,'BIDSLIB::EDFChannelInfo']]],
   ['transname_22',['transname',['../a03026.html#a5ef11d6b206c68ced2762e51dfaec223',1,'FWDLIB::ComputeFwdSettings']]],
-  ['transparent_23',['transparent',['../a03442.html#a7b872730720781856d298754f022600f',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['transparent_23',['transparent',['../a03442.html#ad09d9f3b2abd0536b2b2093131648cc8',1,'MNELIB::MNEMshDisplaySurface']]],
   ['tri_24',['tri',['../a03566.html#a5eafa9232706aca15293aef7dcf86422',1,'MNELIB::MNESurfacePatch']]],
   ['tri_5farea_25',['tri_area',['../a03314.html#a18f94370910d09215e8b0b3264ef1d54',1,'MNELIB::MNEBemSurface::tri_area'],['../a03390.html#acf981baefb126ad38fe70e0f7849e87a',1,'MNELIB::MNEHemisphere::tri_area']]],
   ['tri_5fcent_26',['tri_cent',['../a03314.html#ac1acc5d3102aa082f9a63fe148b05116',1,'MNELIB::MNEBemSurface::tri_cent'],['../a03390.html#a0e426a02e587fd35236223b65d31e867',1,'MNELIB::MNEHemisphere::tri_cent']]],

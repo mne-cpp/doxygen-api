@@ -16,7 +16,7 @@ var searchData=
   ['load_5fone_5fbuffer_13',['load_one_buffer',['../a03530.html#abcbd4e9f5ee9a263c19e6a1a81f21676',1,'MNELIB::MNERawData']]],
   ['load_5fone_5ffilt_5fbuf_14',['load_one_filt_buf',['../a03530.html#a074c9c18aa60e1753919107300cdf618',1,'MNELIB::MNERawData']]],
   ['load_5fsurface_15',['load_surface',['../a03538.html#a236c91f61a08f6cff77a48f9e7cf48f3',1,'MNELIB::MNESourceSpace']]],
-  ['load_5fsurface_5fgeom_16',['load_surface_geom',['../a03538.html#a15816ea4d4230ea0fa07c3c5f62b2af9',1,'MNELIB::MNESourceSpace']]],
+  ['load_5fsurface_5fgeom_16',['load_surface_geom',['../a03538.html#a87c2565d6941c39440b169b20104e690',1,'MNELIB::MNESourceSpace']]],
   ['loadannotation_17',['loadAnnotation',['../a02590.html#a6530813a6dc1d8d9b0a0e679cb67bcb3',1,'BrainSurface']]],
   ['loadcoilpresets_18',['loadCoilPresets',['../a02434.html#a444517cd2d0cd557ac4bf6c97bf491ca',1,'DISPLIB::HpiSettingsView']]],
   ['loaddipoles_19',['loadDipoles',['../a02498.html#adb44194e4cb6b6afdf89263a140ceb00',1,'DataLoader::loadDipoles()'],['../a02654.html#a2292a4bd15b853b73d7180456e238687',1,'BrainView::loadDipoles()']]],

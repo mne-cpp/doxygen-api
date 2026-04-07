@@ -55,7 +55,7 @@ var searchData=
   ['use_5fequiv_5feeg_52',['use_equiv_eeg',['../a03026.html#ac2f1e060a8161f33affe27886ea4195d',1,'FWDLIB::ComputeFwdSettings']]],
   ['use_5fip_5fapproach_53',['use_ip_approach',['../a03046.html#af5eb7f2709d501609bc319447a7841c5',1,'FWDLIB::FwdBemModel']]],
   ['use_5fitris_54',['use_itris',['../a03562.html#a1a2555002bcfdb270fa478864ebf9d15',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['use_5fpatches_55',['use_patches',['../a03446.html#a101d8f6aef0a0f92c7ba23c0fe19712d',1,'MNELIB::MNEMshDisplaySurfaceSet']]],
+  ['use_5fpatches_55',['use_patches',['../a03446.html#ac93e6ecd34fb010ef34fdd92dee59d5e',1,'MNELIB::MNEMshDisplaySurfaceSet']]],
   ['use_5fthreads_56',['use_threads',['../a03026.html#a7875fa202fd665b09d78a8191fa33e4f',1,'FWDLIB::ComputeFwdSettings']]],
   ['use_5ftri_5farea_57',['use_tri_area',['../a03390.html#a2f8e1b43cb501fa51aa811272914fe41',1,'MNELIB::MNEHemisphere']]],
   ['use_5ftri_5fcent_58',['use_tri_cent',['../a03390.html#a416c9f6d7c8ec65da0fa437a06e70251',1,'MNELIB::MNEHemisphere']]],

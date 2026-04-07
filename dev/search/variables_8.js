@@ -42,7 +42,7 @@ var searchData=
   ['irangelow_39',['iRangeLow',['../a02830.html#a53a3514f99e56e20464ce5bb02a6e370',1,'UTILSLIB::SpectogramInputData']]],
   ['irow_40',['iRow',['../a02794.html#a0ee790660c4630ae80c6fa8d509d8f69',1,'RTPROCESSINGLIB::FilterObject']]],
   ['is_5fraw_41',['is_raw',['../a03130.html#a075d65b5395a4fcced6b9f5b8f03a286',1,'INVLIB::InvDipoleFitSettings']]],
-  ['is_5fskip_42',['is_skip',['../a03514.html#af84ca4d4d153dfc94831b6a414230842',1,'MNELIB::MNERawBufDef']]],
+  ['is_5fskip_42',['is_skip',['../a03514.html#a613c3a877af0833b1fc54df2c66d9189',1,'MNELIB::MNERawBufDef']]],
   ['isdipole_43',['isDipole',['../a02534.html#ac1c38af26d5f64e91569e8b5724a0fcd',1,'PickResult']]],
   ['isfreori_44',['isFreOri',['../a03098.html#a1058c4eec7d5ec8d4148c51db2e6b44c',1,'INVLIB::InvBeamformer']]],
   ['ismeasurement_45',['isMeasurement',['../a02074.html#a8f11bb4a94d66e9e7fcf4270ad92ab16',1,'BIDSLIB::EDFChannelInfo']]],

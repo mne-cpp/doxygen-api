@@ -26,7 +26,7 @@ var searchData=
   ['regionname_23',['regionName',['../a02534.html#a9dc93a733530a4a226c8f35341c1b8a2',1,'PickResult']]],
   ['rej_24',['rej',['../a02934.html#a7e54be6751d262c6ed290e04bb19d40d',1,'FIFFLIB::AverageDescription::rej'],['../a03486.html#af8313636eebd4740bf85892c72e43fee',1,'MNELIB::CovDescription::rej'],['../a03762.html#a7e54be6751d262c6ed290e04bb19d40d',1,'MNELIB::AverageDescription::rej']]],
   ['rel_5frad_25',['rel_rad',['../a03066.html#ab0ba8ec8e92953d133860e3e232c8133',1,'FWDLIB::FwdEegSphereLayer']]],
-  ['relative_26',['relative',['../a03438.html#a31947cf66a25bfa0b8da9df0e092ca8a',1,'MNELIB::MNEMshColorScaleDef']]],
+  ['relative_26',['relative',['../a03438.html#a04d4f4ebec3950297b15e1f5eceee612',1,'MNELIB::MNEMshColorScaleDef']]],
   ['removesamplemean_27',['removeSampleMean',['../a03486.html#afc4adff0b4779270f38bdb85f185cd05',1,'MNELIB::CovDescription']]],
   ['report_28',['report',['../a03290.html#a4e9fe7b79b1b0331d783e8df1376ecc6',1,'UTILSLIB::FitUser::report'],['../a03626.html#abef5aca98096fff6189259ad7f12dc51',1,'UTILSLIB::fitUser::report']]],
   ['report_5fdim_29',['report_dim',['../a03122.html#a8ec3a35ee0089237b2ed90a6677dbe0f',1,'INVLIB::FitDipUserRec']]],

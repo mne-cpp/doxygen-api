@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['has_5feeg_0',['has_eeg',['../a03502.html#a1d1d1bceeabe506c4af09aa760af8e68',1,'MNELIB::MNEProjItem']]],
-  ['has_5fmeg_1',['has_meg',['../a03502.html#afbe80cca7113c521e8825a42f59b1769',1,'MNELIB::MNEProjItem']]],
+  ['has_5feeg_0',['has_eeg',['../a03502.html#a80f085be65845172497ea51fecc67777',1,'MNELIB::MNEProjItem']]],
+  ['has_5fmeg_1',['has_meg',['../a03502.html#a7c7a4517e9acecc2ebbc2bb6838d95b4',1,'MNELIB::MNEProjItem']]],
   ['hasdevhead_2',['hasDevHead',['../a02502.html#ad94615a97634b2781d753f273e827311',1,'DataLoader::SensorLoadResult']]],
   ['hasdigitizer_3',['hasDigitizer',['../a02502.html#afb94b2d0ff0a8a73ec4a3e956798b059',1,'DataLoader::SensorLoadResult']]],
   ['hasinfo_4',['hasInfo',['../a02502.html#aaf310358b5de0fe0c4b9a6cba34e28a2',1,'DataLoader::SensorLoadResult']]],

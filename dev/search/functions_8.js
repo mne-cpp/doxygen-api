@@ -70,7 +70,7 @@ var searchData=
   ['is_5feeg_5felectrode_67',['is_eeg_electrode',['../a03054.html#a6dc9ab4cf0abefba4606b889af2e9ce0',1,'FWDLIB::FwdCoil']]],
   ['is_5feeg_5felectrode_5ftype_68',['is_eeg_electrode_type',['../a03058.html#abe30e70d9396ba43a6298cda086f4b5e',1,'FWDLIB::FwdCoilSet']]],
   ['is_5fempty_69',['is_empty',['../a02918.html#af5d8b3ae959a53b9932ca1bb228a8932',1,'FIFFLIB::FiffEvents::is_empty()'],['../a02982.html#a848072b182b4ddfcd91fb90815c44d52',1,'FIFFLIB::FiffSparseMatrix::is_empty()']]],
-  ['is_5fleft_5fhemi_70',['is_left_hemi',['../a03538.html#ada74f25b09d771b19169702b9d7f032a',1,'MNELIB::MNESourceSpace']]],
+  ['is_5fleft_5fhemi_70',['is_left_hemi',['../a03538.html#a652ccec1f37e4eac549b839d2c800921',1,'MNELIB::MNESourceSpace']]],
   ['is_5fmagnetometer_5fcoil_71',['is_magnetometer_coil',['../a03054.html#ad809e0072a6d492bfcbf3df61d39c5db',1,'FWDLIB::FwdCoil']]],
   ['is_5fmagnetometer_5fcoil_5ftype_72',['is_magnetometer_coil_type',['../a03058.html#a8079521a32b41a3a73d53b7013628266',1,'FWDLIB::FwdCoilSet']]],
   ['is_5fplanar_5fcoil_73',['is_planar_coil',['../a03054.html#a929f6a9ef42c815f6c6094942eae364c',1,'FWDLIB::FwdCoil']]],
