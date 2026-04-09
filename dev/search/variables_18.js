@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['y_0',['Y',['../a01175.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a01469.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp']]],
+  ['y_0',['Y',['../a01583.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a00263.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp']]],
   ['y_1',['y',['../a02034.html#abfea271844f25d1cd86708a32a4b63d7',1,'BIDSLIB::BidsElectrode::y'],['../a03074.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y']]],
   ['y_5fras_2',['y_ras',['../a03574.html#a0b245033bee29e63134e056a21907ecd',1,'MNELIB::MNEVolGeom::y_ras'],['../a03594.html#a1226779fdae15a96ce0e45a39b5bf2e5',1,'MRILIB::MriVolData::y_ras']]],
   ['ymax_3',['ymax',['../a03406.html#a1572cf4baf34ef14fb5a68cfcbca770c',1,'MNELIB::MNELayout::ymax'],['../a03410.html#ae691ffab1b93a4a54a068e99775bc1d5',1,'MNELIB::MNELayoutPort::ymax']]],
