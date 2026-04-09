@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quad_5ffile_5fmagic_5fnumber_0',['QUAD_FILE_MAGIC_NUMBER',['../a01463.html#a22fe97fb5f2426a242f09290a5c363eb',1,'mne_surface_or_volume.h']]]
+  ['rh_5flabel_5ftag_0',['RH_LABEL_TAG',['../a01601.html#ae346ee5152226850ea9ad879d4429efd',1,'mne_source_space.cpp']]]
 ];
