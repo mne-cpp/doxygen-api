@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ok_0',['OK',['../a00002.html#aba51915c87d64af47fb1cc59348961c9',1,'inv_guess_data.cpp']]]
+  ['quad_5ffile_5fmagic_5fnumber_0',['QUAD_FILE_MAGIC_NUMBER',['../a01688.html#a22fe97fb5f2426a242f09290a5c363eb',1,'mne_surface_or_volume.h']]]
 ];
