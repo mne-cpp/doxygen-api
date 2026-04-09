@@ -93,8 +93,9 @@ var searchData=
   ['surf_5fras_5fras_5ft_90',['surf_RAS_RAS_t',['../a02882.html#a4d6b6b5353355cb11b688a0487456452',1,'FIFFLIB::FiffCoordTransSet']]],
   ['surf_5ftri_91',['surf_tri',['../a03566.html#af092e2ed18d9b9fca1081ae56f9c8cc3',1,'MNELIB::MNESurfacePatch']]],
   ['surf_5fvert_92',['surf_vert',['../a03566.html#aaa6e27822810952ce35489bafd7be625',1,'MNELIB::MNESurfacePatch']]],
-  ['surfacekey_93',['surfaceKey',['../a02534.html#a5bf425e9c4de910d09fa36018eba89a7',1,'PickResult']]],
-  ['surfacetype_94',['surfaceType',['../a02510.html#abfd59f36c16122ddad6e0de635612e08',1,'SubView']]],
-  ['surfs_95',['surfs',['../a03046.html#a6bfbe92a92b0af2329fd508c257e9536',1,'FWDLIB::FwdBemModel::surfs'],['../a03446.html#ab81fbebc7c921ab0eecce4a200aecd53',1,'MNELIB::MNEMshDisplaySurfaceSet::surfs']]],
-  ['system_96',['system',['../a02026.html#a1e519893f8f91f0836be6a887a4120ad',1,'BIDSLIB::BidsCoordinateSystem']]]
+  ['surfaceid_93',['surfaceId',['../a02586.html#af7a3ee0b08129c0a6bba72668bdeb4ac',1,'VertexData']]],
+  ['surfacekey_94',['surfaceKey',['../a02534.html#a5bf425e9c4de910d09fa36018eba89a7',1,'PickResult']]],
+  ['surfacetype_95',['surfaceType',['../a02510.html#abfd59f36c16122ddad6e0de635612e08',1,'SubView']]],
+  ['surfs_96',['surfs',['../a03046.html#a6bfbe92a92b0af2329fd508c257e9536',1,'FWDLIB::FwdBemModel::surfs'],['../a03446.html#ab81fbebc7c921ab0eecce4a200aecd53',1,'MNELIB::MNEMshDisplaySurfaceSet::surfs']]],
+  ['system_97',['system',['../a02026.html#a1e519893f8f91f0836be6a887a4120ad',1,'BIDSLIB::BidsCoordinateSystem']]]
 ];

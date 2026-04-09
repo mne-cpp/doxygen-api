@@ -68,10 +68,11 @@ var searchData=
   ['dragsplitter_65',['dragSplitter',['../a02658.html#a8991393395ca854405393b34180285a5',1,'MultiViewLayout']]],
   ['drawcrosshair_66',['drawCrosshair',['../a02338.html#a9f899d57af62dd696d256e64eee2bfff',1,'DISPLIB::ChannelRhiView']]],
   ['drawlabels_67',['drawLabels',['../a02194.html#ae4dff910e045b93fe4fa5339338377a7',1,'DISPLIB::Graph']]],
-  ['drawruleroverlay_68',['drawRulerOverlay',['../a02338.html#aeb8acae9bc341f7b11222440f7ad36fb',1,'DISPLIB::ChannelRhiView']]],
-  ['drawscalebars_69',['drawScalebars',['../a02338.html#a53eaca214fb7fd8a1a0e2a32adf9f03a',1,'DISPLIB::ChannelRhiView']]],
-  ['droprejected_70',['dropRejected',['../a03362.html#a2be58d48d6e2358d91119bceb4b4f733',1,'MNELIB::MNEEpochDataList']]],
-  ['dup_71',['dup',['../a03326.html#a70e6b0c2d7a8d41cf9db332358d1ceee',1,'MNELIB::MNECovMatrix::dup()'],['../a03506.html#acb7b9003a859965d73dcf7893f34195d',1,'MNELIB::MNEProjOp::dup()']]],
-  ['dup_5fcoil_5fset_72',['dup_coil_set',['../a03058.html#af57626d7ef8c2f59db761160740adf94',1,'FWDLIB::FwdCoilSet']]],
-  ['dup_5flight_5fset_73',['dup_light_set',['../a03446.html#a4b61b344f0b058200a1ace6ca0ee06ea',1,'MNELIB::MNEMshDisplaySurfaceSet']]]
+  ['drawmergedsurfaces_68',['drawMergedSurfaces',['../a02646.html#af4bcfd26f5aecab5548c8d5841702afb',1,'BrainRenderer']]],
+  ['drawruleroverlay_69',['drawRulerOverlay',['../a02338.html#aeb8acae9bc341f7b11222440f7ad36fb',1,'DISPLIB::ChannelRhiView']]],
+  ['drawscalebars_70',['drawScalebars',['../a02338.html#a53eaca214fb7fd8a1a0e2a32adf9f03a',1,'DISPLIB::ChannelRhiView']]],
+  ['droprejected_71',['dropRejected',['../a03362.html#a2be58d48d6e2358d91119bceb4b4f733',1,'MNELIB::MNEEpochDataList']]],
+  ['dup_72',['dup',['../a03326.html#a70e6b0c2d7a8d41cf9db332358d1ceee',1,'MNELIB::MNECovMatrix::dup()'],['../a03506.html#acb7b9003a859965d73dcf7893f34195d',1,'MNELIB::MNEProjOp::dup()']]],
+  ['dup_5fcoil_5fset_73',['dup_coil_set',['../a03058.html#af57626d7ef8c2f59db761160740adf94',1,'FWDLIB::FwdCoilSet']]],
+  ['dup_5flight_5fset_74',['dup_light_set',['../a03446.html#a4b61b344f0b058200a1ace6ca0ee06ea',1,'MNELIB::MNEMshDisplaySurfaceSet']]]
 ];
