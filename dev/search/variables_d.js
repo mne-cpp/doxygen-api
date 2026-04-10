@@ -72,7 +72,7 @@ var searchData=
   ['ntri_69',['ntri',['../a03363.html#a910a8fe1e85086bbb258a1c8d9cf47cc',1,'FWDLIB::FwdBemModel::ntri'],['../a03963.html#a8871bfee7010090497a0e5a8392f1ec7',1,'MNELIB::MNESurfaceOrVolume::ntri']]],
   ['numentries_70',['numEntries',['../a03323.html#af8d63f0967ed817c35c7447c08cbba5e',1,'FSLIB::FsColortable']]],
   ['numiterations_71',['numIterations',['../a03487.html#afe708c72c62e392b844822fd828be53e',1,'INVLIB::DipFitError']]],
-  ['numsources_72',['numSources',['../a03547.html#aff2e8bb79a2e0887d26eb125b39911aa',1,'INVLIB::InvCmneSettings']]],
+  ['numsources_72',['numSources',['../a03547.html#a249d28ea438e0fff13b6fc3736a6925b',1,'INVLIB::InvCMNESettings']]],
   ['nuse_73',['nuse',['../a03963.html#ab96bce853d9f7df52fa441f54a090f44',1,'MNELIB::MNESurfaceOrVolume']]],
   ['nuse_5ftri_74',['nuse_tri',['../a03963.html#a44a75d919c611c700b1a91d97b9ce400',1,'MNELIB::MNESurfaceOrVolume']]],
   ['nvec_75',['nvec',['../a03871.html#a70b61a205ca34abf591c12d8b714eb27',1,'MNELIB::MNENamedVector::nvec'],['../a03903.html#a7fad91722874557c9dd2395d46f94f14',1,'MNELIB::MNEProjItem::nvec'],['../a03907.html#a7a9539b1149228cd39e4064617ef0396',1,'MNELIB::MNEProjOp::nvec']]],

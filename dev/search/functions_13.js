@@ -70,7 +70,7 @@ var searchData=
   ['tounsignedshort_67',['toUnsignedShort',['../a03303.html#a62860f1f28b273931a88743faf93d223',1,'FIFFLIB::FiffTag']]],
   ['tovector_68',['toVector',['../a03179.html#a353e35e5096aa3e67a18f2ff80f83e04',1,'FIFFLIB::FiffAnnotations']]],
   ['tra_69',['tra',['../a03503.html#ad2df8b39abb94597ec74fce430b3f6d7',1,'INVLIB::InvSensorSet::tra(int iSensor) const'],['../a03503.html#a71a940f66bdfff4f7a495d814ce46356',1,'INVLIB::InvSensorSet::tra() const']]],
-  ['trainlstm_70',['trainLstm',['../a03543.html#a08cd5698bde80a43da79926818b775fb',1,'INVLIB::InvCmne']]],
+  ['trainlstm_70',['trainLstm',['../a03543.html#aa1bffd7477d5f497fee590e5e21c7793',1,'INVLIB::InvCMNE']]],
   ['transform_71',['transform',['../a02791.html#aa57dfb9b03e286c2194ee1783ad4d1ac',1,'AbstractTreeItem::transform()'],['../a02835.html#a6b9e52d08bb941a30d1b65775e47b014',1,'BrainSurface::transform()'],['../a03663.html#a2610ddabecb9b67523cede2cd6d5aeba',1,'MLLIB::MlScaler::transform()'],['../a03711.html#a4fe2c49b27283f6fdcf9fbf0933b9a16',1,'MNELIB::MNEBem::transform()']]],
   ['transform_5fhemisphere_5fto_72',['transform_hemisphere_to',['../a03791.html#ab0af9ce470d965279617aeb704e459af',1,'MNELIB::MNEHemisphere']]],
   ['transform_5fsource_5fspace_73',['transform_source_space',['../a03939.html#ac214999cbf0202a3d876b42ec209278b',1,'MNELIB::MNESourceSpace']]],

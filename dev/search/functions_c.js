@@ -49,7 +49,7 @@ var searchData=
   ['mlpipeline_46',['MlPipeline',['../a03659.html#af6d0c1c42f6eb75cd616f2eabe7b81d0',1,'MLLIB::MlPipeline']]],
   ['mlscaler_47',['MlScaler',['../a03663.html#a265081d7e72d81632acbd82c7dfa10eb',1,'MLLIB::MlScaler']]],
   ['mltensor_48',['MlTensor',['../a03667.html#a96d9658985b02512998736222fd1e867',1,'MLLIB::MlTensor::MlTensor()'],['../a03667.html#a6bac219ff2764a0863ea6a2b00619f99',1,'MLLIB::MlTensor::MlTensor(std::vector&lt; float &gt; &amp;&amp;data, std::vector&lt; int64_t &gt; shape)'],['../a03667.html#a8e0a3fe2d1a897732aa41a7d7674933c',1,'MLLIB::MlTensor::MlTensor(const float *data, std::vector&lt; int64_t &gt; shape)'],['../a03667.html#ab7111f2d5db879901c54f46d3668c821',1,'MLLIB::MlTensor::MlTensor(const Eigen::MatrixXf &amp;mat)'],['../a03667.html#a71c0fb065ffa05e2c025c715c1fc5cf0',1,'MLLIB::MlTensor::MlTensor(const Eigen::MatrixXd &amp;mat)']]],
-  ['mltrainer_49',['MlTrainer',['../a03671.html#a8a8dbc292e6f507d1c152187cc805a1d',1,'MLLIB::MlTrainer::MlTrainer()'],['../a03671.html#a3af091c80433f5b5f7920329f7cef9e1',1,'MLLIB::MlTrainer::MlTrainer(const UTILSLIB::PythonRunnerConfig &amp;config)']]],
+  ['mltrainer_49',['MLTrainer',['../a03671.html#a1cbed2e1963631742dfe9141214fea0b',1,'MLLIB::MLTrainer::MLTrainer()'],['../a03671.html#a614dfaae835c50980a70a6dc38931390',1,'MLLIB::MLTrainer::MLTrainer(const UTILSLIB::PythonRunnerConfig &amp;config)']]],
   ['mnafilerolefromstring_50',['mnaFileRoleFromString',['../a02256.html#acc52c9282de11ef19dd6fb4130e302cb',1,'MNALIB']]],
   ['mnafileroletostring_51',['mnaFileRoleToString',['../a02256.html#afd2f6b4d324cfb66cf0613630d4e5607',1,'MNALIB']]],
   ['mnaproject_52',['MnaProject',['../a03683.html#ac0d8f70039db7a94763ee0ee6beb3507',1,'MNALIB::MnaProject']]],

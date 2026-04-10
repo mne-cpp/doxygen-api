@@ -71,7 +71,7 @@ var searchData=
   ['onmovesession_68',['onMoveSession',['../a02491.html#a1732099cf328e932328ee0c1ff1bd239',1,'DISPLIB::BidsView']]],
   ['onnumbertrialrowchanged_69',['onNumberTrialRowChanged',['../a02735.html#ac75248320050eda79a7cdb2e39a7fa65',1,'DISPLIB::TfSettingsView']]],
   ['onnumbertrialschanged_70',['onNumberTrialsChanged',['../a02515.html#a74dd1b085fab0b373f7bc37ccc4fdaa3',1,'DISPLIB::ConnectivitySettingsView']]],
-  ['onnxmodelpath_71',['onnxModelPath',['../a03547.html#ad2f9d62b12a1393fbb6d49d6950f0597',1,'INVLIB::InvCmneSettings']]],
+  ['onnxmodelpath_71',['onnxModelPath',['../a03547.html#a92a3c7c74eb5e00a79504ed181522c1c',1,'INVLIB::InvCMNESettings']]],
   ['onnxruntime_72',['OnnxRuntime',['../a02255.html#a6a610e9e843b9393ceda09ef3cb64977a85b963c026f9e767bd8ef5a633a510d2',1,'MLLIB']]],
   ['onopacitychange_73',['onOpacityChange',['../a02519.html#a464ea3461d2b04322d808b8b979acb85',1,'DISPLIB::Control3DView::onOpacityChange()'],['../a02711.html#ad49906fb6be9a259af6cf6372d488b29',1,'DISPLIB::QuickControlView::onOpacityChange()']]],
   ['onrealtimetriggercolorchanged_74',['onRealTimeTriggerColorChanged',['../a02739.html#a634bae94637d7d9f6f84e0994336d8c3',1,'DISPLIB::TriggerDetectionView']]],

@@ -167,7 +167,7 @@ var searchData=
   ['numerics_2ecpp_164',['numerics.cpp',['../a00845.html',1,'']]],
   ['numerics_2eh_165',['numerics.h',['../a00854.html',1,'']]],
   ['numiterations_166',['numIterations',['../a03487.html#afe708c72c62e392b844822fd828be53e',1,'INVLIB::DipFitError']]],
-  ['numsources_167',['numSources',['../a03547.html#aff2e8bb79a2e0887d26eb125b39911aa',1,'INVLIB::InvCmneSettings']]],
+  ['numsources_167',['numSources',['../a03547.html#a249d28ea438e0fff13b6fc3736a6925b',1,'INVLIB::InvCMNESettings']]],
   ['numtimepoints_168',['numTimePoints',['../a02883.html#abd52550929b61c54f3a84b5a123daf5d',1,'SourceEstimateOverlay::numTimePoints()'],['../a02895.html#adede3a1c7efa2b9b931ab41165b2394d',1,'SourceEstimateManager::numTimePoints()']]],
   ['numvlines_169',['numVLines',['../a02615.html#af1d1a7aa4e25af386035553eb82d6aca',1,'DISPLIB::EvokedSetModel::numVLines()'],['../a02647.html#a0a80fc8ad85168c43c79f396ce27f6a5',1,'DISPLIB::RtFiffRawViewModel::numVLines()']]],
   ['nuse_170',['nuse',['../a03963.html#ab96bce853d9f7df52fa441f54a090f44',1,'MNELIB::MNESurfaceOrVolume']]],

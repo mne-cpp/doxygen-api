@@ -118,7 +118,7 @@ var searchData=
   ['applylcmv_115',['applyLCMV',['../a03427.html#ac2c39b1c955dcd24d2f8e859990bde12',1,'INVLIB::InvLCMV']]],
   ['applylcmvcov_116',['applyLCMVCov',['../a03427.html#a0b16a732d811ba21a85236ffe9a27a95',1,'INVLIB::InvLCMV']]],
   ['applylcmvraw_117',['applyLCMVRaw',['../a03427.html#ad6b8292b0e0ce9eae4f5cdc7825cbb7b',1,'INVLIB::InvLCMV']]],
-  ['applylstmcorrection_118',['applyLstmCorrection',['../a03543.html#a62e508ce9733d480434888e35738fb5d',1,'INVLIB::InvCmne']]],
+  ['applylstmcorrection_118',['applyLstmCorrection',['../a03543.html#a5cc90e49149c76f1cfa682c754296adc',1,'INVLIB::InvCMNE']]],
   ['applymousepan_119',['applyMousePan',['../a02775.html#a58dcc1d4d5b79cc0ccf3a9ae443da6ff',1,'CameraController']]],
   ['applymouserotation_120',['applyMouseRotation',['../a02775.html#a42406b2931a053ba5d8c0eac83a9cbbb',1,'CameraController']]],
   ['applyoverlaytosurfaces_121',['applyOverlayToSurfaces',['../a02755.html#a38a2e6e909b23bec809a1221dde3fb0a',1,'SubView']]],

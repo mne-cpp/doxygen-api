@@ -8,7 +8,7 @@ var searchData=
   ['omit_5fsamp_5',['omit_samp',['../a03931.html#afc9323320ab41324f1b99f5554b635d9',1,'MNELIB::MNERawData']]],
   ['omit_5fsamp_5fold_6',['omit_samp_old',['../a03931.html#ab5236bb840d324676a4ebfee55e16387',1,'MNELIB::MNERawData']]],
   ['omitsubjectinfo_7',['omitSubjectInfo',['../a03895.html#ae4e5b92affabe6aca9e3fb0cb28a012c',1,'MNELIB::ProcessingSettings']]],
-  ['onnxmodelpath_8',['onnxModelPath',['../a03547.html#ad2f9d62b12a1393fbb6d49d6950f0597',1,'INVLIB::InvCmneSettings']]],
+  ['onnxmodelpath_8',['onnxModelPath',['../a03547.html#a92a3c7c74eb5e00a79504ed181522c1c',1,'INVLIB::InvCMNESettings']]],
   ['onset_9',['onset',['../a02283.html#a372a3fc24786c5716558ad69bbc3e68e',1,'BIDSLIB::BidsEvent::onset'],['../a03175.html#a231720cc1e283ee8ec017ea8e3c0669d',1,'FIFFLIB::FiffAnnotation::onset']]],
   ['op_10',['op',['../a03815.html#a2c78be9c49dbe0b719727c5e579e972d',1,'MNELIB::MNEMeasData']]],
   ['orient_5fprior_11',['orient_prior',['../a03803.html#a4a8d5f0fd42e900d2c73fe476cb9002e',1,'MNELIB::MNEInverseOperator']]],

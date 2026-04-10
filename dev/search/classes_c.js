@@ -10,7 +10,7 @@ var searchData=
   ['mlpipeline_7',['MlPipeline',['../a03659.html',1,'MLLIB']]],
   ['mlscaler_8',['MlScaler',['../a03663.html',1,'MLLIB']]],
   ['mltensor_9',['MlTensor',['../a03667.html',1,'MLLIB']]],
-  ['mltrainer_10',['MlTrainer',['../a03671.html',1,'MLLIB']]],
+  ['mltrainer_10',['MLTrainer',['../a03671.html',1,'MLLIB']]],
   ['mnafileref_11',['MnaFileRef',['../a03675.html',1,'MNALIB']]],
   ['mnaio_12',['MnaIO',['../a03679.html',1,'MNALIB']]],
   ['mnaproject_13',['MnaProject',['../a03683.html',1,'MNALIB']]],
