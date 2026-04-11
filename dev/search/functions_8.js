@@ -89,7 +89,7 @@ var searchData=
   ['isinfopanelvisible_86',['isInfoPanelVisible',['../a02911.html#afb8ac1f43048fc52bfeb571fe56552cf',1,'BrainView']]],
   ['isinit_87',['isInit',['../a02615.html#aac8fba62cb2a0c2210b1925e33e68456',1,'DISPLIB::EvokedSetModel']]],
   ['isjson_88',['isJson',['../a02343.html#a92b81dd8c5829647fda4e79bcb38e34a',1,'COMLIB::Command::isJson()'],['../a02355.html#a3d8875adda0e5064d0331c915b24f2bc',1,'COMLIB::RawCommand::isJson()']]],
-  ['isloaded_89',['isLoaded',['../a02883.html#a1a575043de49f7c670f82e1a5462955a',1,'SourceEstimateOverlay::isLoaded()'],['../a02891.html#a8a372b8441b153676ea6e1a49886c1e4',1,'SensorFieldMapper::isLoaded()'],['../a02895.html#aad63f8e66497d6ddabfe79cbec06abac',1,'SourceEstimateManager::isLoaded()'],['../a03319.html#ac115d7c5317019b51390b5896ec71516',1,'FSLIB::FsAtlasLookup::isLoaded()']]],
+  ['isloaded_89',['isLoaded',['../a02883.html#a1a575043de49f7c670f82e1a5462955a',1,'SourceEstimateOverlay::isLoaded()'],['../a02891.html#a8a372b8441b153676ea6e1a49886c1e4',1,'SensorFieldMapper::isLoaded()'],['../a02895.html#aad63f8e66497d6ddabfe79cbec06abac',1,'SourceEstimateManager::isLoaded()'],['../a03319.html#ac115d7c5317019b51390b5896ec71516',1,'FSLIB::FsAtlasLookup::isLoaded()'],['../a03655.html#af9b9bb1af2fdbeca2c7d8d9b725417f0',1,'MLLIB::MlOnnxModel::isLoaded()']]],
   ['isloading_90',['isLoading',['../a02895.html#ae3bad3ada5b7d7088f55ac12fe4ba760',1,'SourceEstimateManager']]],
   ['ismatrix_91',['isMatrix',['../a03303.html#aafaa3edbe779c362fb63f4309e09d783',1,'FIFFLIB::FiffTag']]],
   ['isobjectvisible_92',['isObjectVisible',['../a02751.html#ae46099390b76051f3e830f2f1eb2c24a',1,'ViewVisibilityProfile']]],
