@@ -2,8 +2,8 @@ var searchData=
 [
   ['dataloader_2ecpp_0',['dataloader.cpp',['../a00071.html',1,'']]],
   ['dataloader_2eh_1',['dataloader.h',['../a00080.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_2ecpp_2',['debiasedsquaredweightedphaselagindex.cpp',['../a02096.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_2eh_3',['debiasedsquaredweightedphaselagindex.h',['../a02093.html',1,'']]],
+  ['debiasedsquaredweightedphaselagindex_2ecpp_2',['debiasedsquaredweightedphaselagindex.cpp',['../a02162.html',1,'']]],
+  ['debiasedsquaredweightedphaselagindex_2eh_3',['debiasedsquaredweightedphaselagindex.h',['../a02159.html',1,'']]],
   ['digitizersettreeitem_2ecpp_4',['digitizersettreeitem.cpp',['../a00254.html',1,'']]],
   ['digitizersettreeitem_2eh_5',['digitizersettreeitem.h',['../a00239.html',1,'']]],
   ['digitizertreeitem_2ecpp_6',['digitizertreeitem.cpp',['../a00272.html',1,'']]],
@@ -18,10 +18,10 @@ var searchData=
   ['disp3d_5fglobal_2eh_15',['disp3D_global.h',['../a00131.html',1,'']]],
   ['disp_5fglobal_2ecpp_16',['disp_global.cpp',['../a00719.html',1,'']]],
   ['disp_5fglobal_2eh_17',['disp_global.h',['../a00326.html',1,'']]],
-  ['dpss_2ecpp_18',['dpss.cpp',['../a01115.html',1,'']]],
-  ['dpss_2eh_19',['dpss.h',['../a01286.html',1,'']]],
+  ['dpss_2ecpp_18',['dpss.cpp',['../a01181.html',1,'']]],
+  ['dpss_2eh_19',['dpss.h',['../a01352.html',1,'']]],
   ['draggableframelesswidget_2ecpp_20',['draggableframelesswidget.cpp',['../a00512.html',1,'']]],
   ['draggableframelesswidget_2eh_21',['draggableframelesswidget.h',['../a00482.html',1,'']]],
-  ['dsp_5fglobal_2ecpp_22',['dsp_global.cpp',['../a01121.html',1,'']]],
-  ['dsp_5fglobal_2eh_23',['dsp_global.h',['../a01247.html',1,'']]]
+  ['dsp_5fglobal_2ecpp_22',['dsp_global.cpp',['../a01187.html',1,'']]],
+  ['dsp_5fglobal_2eh_23',['dsp_global.h',['../a01313.html',1,'']]]
 ];
