@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['z_0',['Z',['../a01469.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a01775.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp']]],
-  ['z_1',['z',['../a02345.html#a6000c4e374daa8ab8f117fc0a04044ef',1,'BIDSLIB::BidsElectrode']]],
-  ['z_5fras_2',['z_ras',['../a04105.html#a634163daaf57c07a8de773081efe2cc2',1,'MNELIB::MNEVolGeom::z_ras'],['../a04133.html#aaacc6e42c6af08234cfed5aa0d27273b',1,'MRILIB::MriVolData::z_ras']]],
-  ['zoom_3',['zoom',['../a02821.html#af2dfae7a90fad04e9ea67e42458344c3',1,'SubView']]],
-  ['zsize_4',['zsize',['../a04105.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04133.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
+  ['z_0',['Z',['../a01481.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a01787.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp']]],
+  ['z_1',['z',['../a02357.html#a6000c4e374daa8ab8f117fc0a04044ef',1,'BIDSLIB::BidsElectrode']]],
+  ['z_5fras_2',['z_ras',['../a04129.html#a634163daaf57c07a8de773081efe2cc2',1,'MNELIB::MNEVolGeom::z_ras'],['../a04157.html#aaacc6e42c6af08234cfed5aa0d27273b',1,'MRILIB::MriVolData::z_ras']]],
+  ['zoom_3',['zoom',['../a02833.html#af2dfae7a90fad04e9ea67e42458344c3',1,'SubView']]],
+  ['zsize_4',['zsize',['../a04129.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04157.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
 ];
