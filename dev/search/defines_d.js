@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['small_0',['SMALL',['../a01304.html#a09c78d2f8feb311dd9fc969a0bf84979',1,'parksmcclellan.cpp']]],
-  ['stsshared_5fexport_1',['STSSHARED_EXPORT',['../a00296.html#acfe3fcbfaf8dbb3d7a06bc9245267f64',1,'sts_global.h']]]
+  ['rh_5flabel_5ftag_0',['RH_LABEL_TAG',['../a01907.html#ae346ee5152226850ea9ad879d4429efd',1,'mne_source_space.cpp']]]
 ];

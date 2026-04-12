@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['lh_5flabel_5ftag_0',['LH_LABEL_TAG',['../a01907.html#a8d6b4e2f7a87164cf645bc8d66e7660a',1,'mne_source_space.cpp']]],
-  ['lslshared_5fexport_1',['LSLSHARED_EXPORT',['../a01523.html#ad05fbecba6dcaf235964f3885b1ef731',1,'lsl_global.h']]]
+  ['invshared_5fexport_0',['INVSHARED_EXPORT',['../a01022.html#abf8a4c9503f2c284931c293bad8e0a7c',1,'inv_global.h']]],
+  ['is_5fmatrix_1',['IS_MATRIX',['../a01643.html#a7cf27e738b24f611af8c649c11fcbbdb',1,'fiff_tag.h']]],
+  ['is_5ftransposed_2',['IS_TRANSPOSED',['../a01160.html#ac18202c2d588eee60087ed889794a5ff',1,'IS_TRANSPOSED:&#160;inv_pwl_rap_music.h'],['../a01145.html#ac18202c2d588eee60087ed889794a5ff',1,'IS_TRANSPOSED:&#160;inv_rap_music.h']]],
+  ['itrmax_3',['ITRMAX',['../a01304.html#a056d176a605f44b8b29878100fcb2be8',1,'parksmcclellan.cpp']]]
 ];
