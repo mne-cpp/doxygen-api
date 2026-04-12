@@ -452,52 +452,68 @@ $(function() {
 <div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keywordflow">return</span> matData;</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    }</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="comment">// Project to source space</span></div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    MatrixXd matSources = <a class="code hl_function" href="a03097.html#ac93e99d24b466a161ec1694e02e60627">applyUnmixing</a>(matData, result);</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="comment">// Zero the excluded components</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> idx : excludedComponents) {</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        <span class="keywordflow">if</span> (idx &gt;= 0 &amp;&amp; idx &lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(matSources.rows())) {</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            matSources.row(idx).setZero();</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>        }</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    }</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="comment">// Back-project and add mean</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    MatrixXd matRecon = result.<a class="code hl_variable" href="a03093.html#aa6a8e3a8728b576da06d0a0f0f5b309e">matMixing</a> * matSources;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keywordflow">return</span> matRecon.colwise() + result.<a class="code hl_variable" href="a03093.html#aa998695cc1b7be030f857e6f2500612b">vecMean</a>;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>}</div>
-</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="comment">// Subtract only the contribution of excluded components from the original data:</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="comment">//   artifact = A[:, excluded] * W[excluded, :] * (data - mean)</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="comment">//   cleaned  = data - artifact</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="comment">// This preserves the full-rank original signal and removes only the estimated</span></div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="comment">// artifact, matching the approach used by MNE-Python&#39;s ica.apply().</span></div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    MatrixXd matCentered = matData.colwise() - result.<a class="code hl_variable" href="a03093.html#aa998695cc1b7be030f857e6f2500612b">vecMean</a>;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="comment">// Build partial mixing and partial sources for only the excluded components</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nExcl  = excludedComponents.size();</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nCh    = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(result.<a class="code hl_variable" href="a03093.html#aa6a8e3a8728b576da06d0a0f0f5b309e">matMixing</a>.rows());</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSamps = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(matCentered.cols());</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    MatrixXd partialMixing(nCh, nExcl);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    MatrixXd partialSources(nExcl, nSamps);</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>MatrixXd ICA::whiten(<span class="keyword">const</span> MatrixXd&amp; matCentered,</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                      <span class="keywordtype">int</span>             nComponents,</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                      MatrixXd&amp;       matWhitening,</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                      MatrixXd&amp;       matDewhitening)</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>{</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSamples = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(matCentered.cols());</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="comment">// Sample covariance (unscaled)</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    MatrixXd cov = matCentered * matCentered.transpose() / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(nSamples);</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">// Eigendecomposition — SelfAdjointEigenSolver returns eigenvalues in ascending order</span></div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    SelfAdjointEigenSolver&lt;MatrixXd&gt; eig(cov);</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nCh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(cov.rows());</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="comment">// Take the nComponents largest eigenvalues/vectors (rightmost columns)</span></div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    VectorXd eigenvalues  = eig.eigenvalues().tail(nComponents).cwiseMax(1e-12);</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    MatrixXd eigenvectors = eig.eigenvectors().rightCols(nComponents);   <span class="comment">// n_ch x n_comp</span></div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment">// Whitening  : W_w = D^{-1/2} * V^T   (n_comp x n_ch)</span></div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="comment">// Dewhitening: W_d = V * D^{1/2}       (n_ch   x n_comp)</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    VectorXd sqrtEig    = eigenvalues.cwiseSqrt();</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    VectorXd invSqrtEig = sqrtEig.cwiseInverse();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; nExcl; ++i) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="keywordtype">int</span> idx = excludedComponents[i];</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keywordflow">if</span> (idx &gt;= 0 &amp;&amp; idx &lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(result.<a class="code hl_variable" href="a03093.html#a678b7804a205306529da578ccf54b053">matUnmixing</a>.rows())) {</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            partialMixing.col(i)  = result.<a class="code hl_variable" href="a03093.html#aa6a8e3a8728b576da06d0a0f0f5b309e">matMixing</a>.col(idx);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            partialSources.row(i) = result.<a class="code hl_variable" href="a03093.html#a678b7804a205306529da578ccf54b053">matUnmixing</a>.row(idx) * matCentered;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            partialMixing.col(i).setZero();</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            partialSources.row(i).setZero();</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        }</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    }</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">return</span> matData - partialMixing * partialSources;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>}</div>
+</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>MatrixXd ICA::whiten(<span class="keyword">const</span> MatrixXd&amp; matCentered,</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>                      <span class="keywordtype">int</span>             nComponents,</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                      MatrixXd&amp;       matWhitening,</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                      MatrixXd&amp;       matDewhitening)</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>{</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSamples = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(matCentered.cols());</div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    matWhitening   = invSqrtEig.asDiagonal() * eigenvectors.transpose();</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    matDewhitening = eigenvectors * sqrtEig.asDiagonal();</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="comment">// Sample covariance (unscaled)</span></div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    MatrixXd cov = matCentered * matCentered.transpose() / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(nSamples);</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordflow">return</span> matWhitening * matCentered;</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>}</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="comment">// Eigendecomposition — SelfAdjointEigenSolver returns eigenvalues in ascending order</span></div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    SelfAdjointEigenSolver&lt;MatrixXd&gt; eig(cov);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nCh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(cov.rows());</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="comment">// Take the nComponents largest eigenvalues/vectors (rightmost columns)</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    VectorXd eigenvalues  = eig.eigenvalues().tail(nComponents).cwiseMax(1e-12);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    MatrixXd eigenvectors = eig.eigenvectors().rightCols(nComponents);   <span class="comment">// n_ch x n_comp</span></div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="comment">// Whitening  : W_w = D^{-1/2} * V^T   (n_comp x n_ch)</span></div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="comment">// Dewhitening: W_d = V * D^{1/2}       (n_ch   x n_comp)</span></div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    VectorXd sqrtEig    = eigenvalues.cwiseSqrt();</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    VectorXd invSqrtEig = sqrtEig.cwiseInverse();</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    matWhitening   = invSqrtEig.asDiagonal() * eigenvectors.transpose();</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    matDewhitening = eigenvectors * sqrtEig.asDiagonal();</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordflow">return</span> matWhitening * matCentered;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>}</div>
 <div class="ttc" id="aa01322_html"><div class="ttname"><a href="a01322.html">ica.h</a></div><div class="ttdoc">Declaration of the ICA class providing FastICA-based independent component analysis for artifact remo...</div></div>
 <div class="ttc" id="aa02292_html"><div class="ttname"><a href="a02292.html">UTILSLIB</a></div><div class="ttdoc">Shared utilities (I/O helpers, spectral analysis, layout management, warp algorithms).</div><div class="ttdef"><b>Definition</b> <a href="a00611_source.html#l00072">rtfiffrawview.h:72</a></div></div>
 <div class="ttc" id="aa03093_html"><div class="ttname"><a href="a03093.html">UTILSLIB::IcaResult</a></div><div class="ttdoc">Result of an ICA decomposition.</div><div class="ttdef"><b>Definition</b> <a href="a01322_source.html#l00075">ica.h:76</a></div></div>
