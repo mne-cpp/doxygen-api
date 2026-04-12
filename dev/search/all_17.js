@@ -111,7 +111,8 @@ var searchData=
   ['volume_108',['Volume',['../a02308.html#a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298',1,'INVLIB::Volume'],['../a02334.html#aff2df5a82a2d98871c0ceb6dff9713f6abd7a9717d29c5ddcab1bc175eda1e298',1,'MNALIB::Volume']]],
   ['voxel_5fsize_109',['voxel_size',['../a04117.html#a75ad70a4705c461780c42ab19c3020ed',1,'MNELIB::MNESurfaceOrVolume']]],
   ['voxel_5fsurf_5fras_5ft_110',['voxel_surf_RAS_t',['../a04117.html#af46bc559ce53b982738bf714baac4bfd',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['voxelsurfrast_111',['voxelSurfRasT',['../a04157.html#a0cb896a1f7fc368c268bd88591e9db8d',1,'MRILIB::MriVolData']]],
-  ['voxeltoras_112',['voxelToRas',['../a04149.html#aef85d7291cbad2157840cf408b157ac9',1,'MRILIB::MriSlicer']]],
-  ['vv_113',['vv',['../a03477.html#a49bf93b1001c6627a6b60291d1b99a43',1,'FWDLIB::fitUserRec::vv'],['../a03537.html#a36113d49345f323371c6f45afeeef9d3',1,'INVLIB::InvDipoleForward::vv']]]
+  ['voxeldataasfloat_111',['voxelDataAsFloat',['../a04157.html#acce6fdb96d995e0788de0d10e200884e',1,'MRILIB::MriVolData']]],
+  ['voxelsurfrast_112',['voxelSurfRasT',['../a04157.html#a0cb896a1f7fc368c268bd88591e9db8d',1,'MRILIB::MriVolData']]],
+  ['voxeltoras_113',['voxelToRas',['../a04149.html#a1f2af9198f5a39d9f4ead1f394b38959',1,'MRILIB::MriSlicer::voxelToRas(const Eigen::Matrix4f &amp;vox2ras, const Eigen::Vector3i &amp;voxel)'],['../a04149.html#a2cb634ed63385e47fe046636b4bd3e94',1,'MRILIB::MriSlicer::voxelToRas(const MriVolData &amp;vol, const Eigen::Vector3i &amp;voxel)']]],
+  ['vv_114',['vv',['../a03477.html#a49bf93b1001c6627a6b60291d1b99a43',1,'FWDLIB::fitUserRec::vv'],['../a03537.html#a36113d49345f323371c6f45afeeef9d3',1,'INVLIB::InvDipoleForward::vv']]]
 ];

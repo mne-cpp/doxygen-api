@@ -36,5 +36,6 @@ var searchData=
   ['visualizationedittargetchanged_33',['visualizationEditTargetChanged',['../a02997.html#a7beadae3762201a0945bb3cc9fd0dc50',1,'BrainView']]],
   ['visualizationmodefromname_34',['visualizationModeFromName',['../a00086.html#a43d88a3d83ded247f4aba23a7f09b60a',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp'],['../a00074.html#a8dc1b87cace3de8d26a1eafca6a355d0',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp']]],
   ['visualizationmodename_35',['visualizationModeName',['../a00086.html#a45a9a8f45cec27d2205ae5e729866f75',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp'],['../a00074.html#a1ad9728c5d65a4e33f470245535e467b',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp']]],
-  ['voxeltoras_36',['voxelToRas',['../a04149.html#aef85d7291cbad2157840cf408b157ac9',1,'MRILIB::MriSlicer']]]
+  ['voxeldataasfloat_36',['voxelDataAsFloat',['../a04157.html#acce6fdb96d995e0788de0d10e200884e',1,'MRILIB::MriVolData']]],
+  ['voxeltoras_37',['voxelToRas',['../a04149.html#a1f2af9198f5a39d9f4ead1f394b38959',1,'MRILIB::MriSlicer::voxelToRas(const Eigen::Matrix4f &amp;vox2ras, const Eigen::Vector3i &amp;voxel)'],['../a04149.html#a2cb634ed63385e47fe046636b4bd3e94',1,'MRILIB::MriSlicer::voxelToRas(const MriVolData &amp;vol, const Eigen::Vector3i &amp;voxel)']]]
 ];

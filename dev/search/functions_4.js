@@ -55,7 +55,7 @@ var searchData=
   ['explain_5fcomp_52',['explain_comp',['../a03893.html#a62e8dffa481a8f35c45cbb1dd254fc27',1,'MNELIB::MNECTFCompDataSet']]],
   ['extension_53',['extension',['../a02365.html#a810d91858b8eb68f21b61c295560c016',1,'BIDSLIB::BIDSPath']]],
   ['extract_54',['extract',['../a03085.html#a7d34ee3be64eb9d2621b8f3bbd434f91',1,'UTILSLIB::EpochExtractor']]],
-  ['extractorthogonal_55',['extractOrthogonal',['../a04149.html#aee0b02b490ccd5d816e17d82a38ce5eb',1,'MRILIB::MriSlicer']]],
-  ['extractslice_56',['extractSlice',['../a04149.html#a85e4f4d7b59bc015b94b4fa343133443',1,'MRILIB::MriSlicer']]],
+  ['extractorthogonal_55',['extractOrthogonal',['../a04149.html#aaaf01e97cb1db415af759fc33c8e0fd5',1,'MRILIB::MriSlicer::extractOrthogonal(const QVector&lt; float &gt; &amp;volData, const QVector&lt; int &gt; &amp;dims, const Eigen::Matrix4f &amp;vox2ras, const Eigen::Vector3f &amp;rasPoint)'],['../a04149.html#a3a81c77a9cfa8bbcf3ddfb08b1e139ff',1,'MRILIB::MriSlicer::extractOrthogonal(const MriVolData &amp;vol, const Eigen::Vector3f &amp;rasPoint)']]],
+  ['extractslice_56',['extractSlice',['../a04149.html#a340a03ceebe24b5b4699d4270cd555c5',1,'MRILIB::MriSlicer::extractSlice(const QVector&lt; float &gt; &amp;volData, const QVector&lt; int &gt; &amp;dims, const Eigen::Matrix4f &amp;vox2ras, SliceOrientation orientation, int sliceIndex)'],['../a04149.html#a2fcdaec7a22ce728ae0bb6b901795eff',1,'MRILIB::MriSlicer::extractSlice(const MriVolData &amp;vol, SliceOrientation orientation, int sliceIndex)']]],
   ['ez_57',['ez',['../a03589.html#af66fd6f670b8f980935a9bda79cffe3c',1,'INVLIB::InvSensorSet::ez(int iSensor) const'],['../a03589.html#a82c472ce513ce822b3d6c1e713e3c806',1,'INVLIB::InvSensorSet::ez() const']]]
 ];
