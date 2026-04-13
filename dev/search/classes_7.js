@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['geometryinfo_0',['GeometryInfo',['../a02835.html',1,'DISP3DLIB']]],
-  ['gpubuffers_1',['GpuBuffers',['../a02899.html',1,'BrainSurface::GpuBuffers'],['../a02911.html',1,'DipoleObject::GpuBuffers'],['../a02927.html',1,'DISP3DLIB::ElectrodeObject::GpuBuffers'],['../a02943.html',1,'NetworkObject::GpuBuffers']]],
-  ['graph_2',['Graph',['../a02511.html',1,'DISPLIB']]]
+  ['hpifitresult_0',['HpiFitResult',['../a03559.html',1,'INVLIB']]],
+  ['hpisettingsview_1',['HpiSettingsView',['../a02751.html',1,'DISPLIB']]],
+  ['hpisortstruct_2',['HPISortStruct',['../a03571.html',1,'INVLIB']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['unbiasedsquaredphaselagindex_0',['UnbiasedSquaredPhaseLagIndex',['../a02483.html',1,'CONNLIB']]]
+  ['vertexdata_0',['VertexData',['../a02903.html',1,'']]],
+  ['viewvisibilityprofile_1',['ViewVisibilityProfile',['../a02823.html',1,'']]],
+  ['visualizationinfo_2',['VisualizationInfo',['../a02491.html',1,'CONNLIB']]]
 ];

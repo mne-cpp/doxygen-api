@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['y_0',['Y',['../a01049.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;inv_ecd_set.cpp'],['../a01901.html#a798e4073d613ca5ba9618e1b3253df14',1,'Y:&#160;mne_sss_data.cpp'],['../a01475.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a01781.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp']]],
+  ['y_0',['Y',['../a01475.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a01049.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;inv_ecd_set.cpp'],['../a01781.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp'],['../a01901.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_sss_data.cpp']]],
   ['y_1',['y',['../a02351.html#abfea271844f25d1cd86708a32a4b63d7',1,'BIDSLIB::BidsElectrode::y'],['../a03471.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y'],['../a03635.html#a6a2b7f6f1221352c915eb6f7436095c1',1,'INVLIB::InvDipole::y()'],['../a03635.html#acc3f7f01ff801a33c468d20d09a28ecd',1,'INVLIB::InvDipole::y() const']]],
   ['y_5f16_2',['Y_16',['../a01067.html#afab828c9760002b1e77065412b5f3c49',1,'inv_guess_data.cpp']]],
   ['y_5f17_3',['Y_17',['../a01859.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_msh_display_surface.cpp'],['../a01913.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_source_space.cpp'],['../a02003.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface.cpp'],['../a01829.html#a47b48caefd868ca40c0ba573e710fc94',1,'Y_17:&#160;mne_surface_or_volume.cpp']]],

@@ -58,7 +58,7 @@ var searchData=
   ['dimy_55',['dimy',['../a04143.html#a106ec8196aa83cb8fa73c6ad992b3b5e',1,'MRILIB::MriSlice']]],
   ['dipname_56',['dipname',['../a03527.html#a8c736e6c0a2323751db1a587b95901a5',1,'INVLIB::InvDipoleFitSettings']]],
   ['dipole_57',['Dipole',['../a02983.html#ab0f9c5ba5926f32300bb4ebd01f073c0',1,'BrainRenderer']]],
-  ['dipole_58',['dipole',['../a03539.html#ac3af0d4b341e59904638a7df18c387af',1,'INVLIB::bdipEcd']]],
+  ['dipole_58',['dipole',['../a03539.html#a3be1ef09a925f374cac6f66772eaf101',1,'INVLIB::bdipEcdRec']]],
   ['dipoleindex_59',['dipoleIndex',['../a02851.html#a0618170c6a4050555ec77ba945ac9039',1,'PickResult']]],
   ['dipoles_60',['dipoles',['../a02823.html#a4977d4e425ec9d2421626ddfa51895cb',1,'ViewVisibilityProfile']]],
   ['dir_61',['dir',['../a03307.html#adda002a0fbc1293c3411e16b0a31c1cf',1,'FIFFLIB::FiffDirNode']]],

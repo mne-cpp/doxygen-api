@@ -81,7 +81,7 @@ var searchData=
   ['compilerinfo_78',['compilerInfo',['../a03839.html#a73e4ed07959161ed2b25d905cd7cd5ff',1,'MNALIB::MnaProvenance']]],
   ['comps_79',['comps',['../a03347.html#abe1b8e3c8986cba9e001f96480f905e9',1,'FIFFLIB::FiffInfo::comps'],['../a03883.html#a1f8e8968a3f3f4938449ffc7d9195412',1,'MNELIB::MNECTFCompDataSet::comps']]],
   ['compute_5fgrad_80',['compute_grad',['../a03423.html#aba70456b3c60ea0817d0a0070712c582',1,'FWDLIB::ComputeFwdSettings']]],
-  ['conf_5fvol_81',['conf_vol',['../a03539.html#a5b54cd87b683a75c9b88062c5d91432b',1,'INVLIB::bdipEcd']]],
+  ['conf_5fvol_81',['conf_vol',['../a03539.html#a1cdcebec8af9a6a14f09f2a9c02fb179',1,'INVLIB::bdipEcdRec']]],
   ['connectivity_82',['connectivity',['../a03607.html#ad600d00971780ae7b67bf9b24eaf89dc',1,'INVLIB::InvSourceEstimate']]],
   ['contacts_83',['contacts',['../a02935.html#a9779ac00f61153e305ebf10d77441d1b',1,'DISP3DLIB::ElectrodeShaft']]],
   ['converged_84',['converged',['../a03083.html#aeeabec40968a47bb9454ec9f5f5f19ea',1,'UTILSLIB::InfomaxResult']]],

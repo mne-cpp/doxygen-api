@@ -299,6 +299,5 @@ var searchData=
   ['itemtypeid_296',['itemTypeId',['../a02863.html#aa129e7983c84a747ef14cd4097f0d547',1,'AbstractTreeItem']]],
   ['iterate_5falignment_5fonce_297',['iterate_alignment_once',['../a03987.html#ae88b8f56f33dd8046fb35fd214393548',1,'MNELIB::MNEMshDisplaySurface']]],
   ['iterativedijkstra_298',['iterativeDijkstra',['../a02835.html#a9c47eef6d6d4c3cab48b707b1ba8d25d',1,'DISP3DLIB::GeometryInfo']]],
-  ['itris_299',['itris',['../a04107.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['itrmax_300',['ITRMAX',['../a01310.html#a056d176a605f44b8b29878100fcb2be8',1,'parksmcclellan.cpp']]]
+  ['itris_299',['itris',['../a04107.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]]
 ];

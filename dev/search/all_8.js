@@ -269,7 +269,7 @@ var searchData=
   ['gof_266',['GoF',['../a03559.html#a6c4c49f0df5fb0cf22e01ab49d6ab19a',1,'INVLIB::HpiFitResult']]],
   ['good_267',['good',['../a03535.html#a0531472d2db03f27baf4dc6b608961dd',1,'INVLIB::InvEcd']]],
   ['goodness_268',['Goodness',['../a02302.html#af1ffe934a77f18c6a7260b1975016387a4a09c27a03b8df96510846cd37468079',1,'INVLIB']]],
-  ['goodness_269',['goodness',['../a03539.html#acdeeb519ef9b4c3299b8fb0dc76224da',1,'INVLIB::bdipEcd::goodness'],['../a03599.html#a87bc21ccd40b0368289f0c8b3064f333',1,'INVLIB::InvFocalDipole::goodness']]],
+  ['goodness_269',['goodness',['../a03539.html#a9cc0635d5e22808b5941864f7784b85c',1,'INVLIB::bdipEcdRec::goodness'],['../a03599.html#a87bc21ccd40b0368289f0c8b3064f333',1,'INVLIB::InvFocalDipole::goodness']]],
   ['gpubuffers_270',['GpuBuffers',['../a02899.html',1,'BrainSurface::GpuBuffers'],['../a02911.html',1,'DipoleObject::GpuBuffers'],['../a02927.html',1,'DISP3DLIB::ElectrodeObject::GpuBuffers'],['../a02943.html',1,'NetworkObject::GpuBuffers']]],
   ['grad_5fcomp_271',['grad_comp',['../a02099.html#a07b1203222ba80fb8ee8f05c0237a377',1,'mne_ctf_comp_data_set.cpp']]],
   ['grad_5freg_272',['grad_reg',['../a03527.html#aee49d19cb9fdf4d4102cc5b1d5275072',1,'INVLIB::InvDipoleFitSettings']]],

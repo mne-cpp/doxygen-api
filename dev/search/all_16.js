@@ -65,14 +65,13 @@ var searchData=
   ['use_5ftris_62',['use_tris',['../a04107.html#afeef29bc8e562a95cee47f4d04030df4',1,'MNELIB::MNESurfaceOrVolume']]],
   ['usecs_63',['usecs',['../a03387.html#ad6382ae4db9ecfab329aa468388bc8c9',1,'FIFFLIB::FiffTime']]],
   ['usefullrank_64',['useFullRank',['../a03651.html#a92d14534b5e186cebc50e462feccc221',1,'INVLIB::InvRapMusic']]],
-  ['usenew_65',['USENEW',['../a00035.html#a5a7956ee46c0c386e6143317327a319a',1,'rt_cmd_client.cpp']]],
-  ['user_66',['user',['../a03523.html#af95557683a226c1b4d92d7083011d0f1',1,'INVLIB::InvDipoleFitData::user'],['../a04067.html#a6f2b2a1e53e32f59ff1cd8cf30c07c27',1,'MNELIB::RingBuffer::Entry::user']]],
-  ['user_5fdata_67',['user_data',['../a03455.html#a1aa4f82508729b2434b2ec3cc4f763c2',1,'FWDLIB::FwdCoilSet::user_data'],['../a03987.html#a17457813f8c86a6ac5f62f66ca582013',1,'MNELIB::MNEMshDisplaySurface::user_data']]],
-  ['user_5fdata_5ffree_68',['user_data_free',['../a03987.html#a4c7d5f1a402096aaa0f83f7eb64fe3f3',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['utc_5foffset_69',['utc_offset',['../a03347.html#a9b3261af6fb7330d5f58764a87626040',1,'FIFFLIB::FiffInfo']]],
-  ['utils_5fglobal_2ecpp_70',['utils_global.cpp',['../a00827.html',1,'']]],
-  ['utils_5fglobal_2eh_71',['utils_global.h',['../a00803.html',1,'']]],
-  ['utilslib_72',['UTILSLIB',['../a02298.html',1,'']]],
-  ['utilsshared_5fexport_73',['UTILSSHARED_EXPORT',['../a00803.html#a66e92968c1d28ba0dcd8b83fd51f6c95',1,'utils_global.h']]],
-  ['uu_74',['uu',['../a03471.html#a5367016863602a601d1e9f382adfdbf1',1,'FWDLIB::fitUserRec::uu'],['../a03531.html#a0f27b272bcc000a0a38a41758d40bf1c',1,'INVLIB::InvDipoleForward::uu']]]
+  ['user_65',['user',['../a03523.html#af95557683a226c1b4d92d7083011d0f1',1,'INVLIB::InvDipoleFitData::user'],['../a04067.html#a6f2b2a1e53e32f59ff1cd8cf30c07c27',1,'MNELIB::RingBuffer::Entry::user']]],
+  ['user_5fdata_66',['user_data',['../a03455.html#a1aa4f82508729b2434b2ec3cc4f763c2',1,'FWDLIB::FwdCoilSet::user_data'],['../a03987.html#a17457813f8c86a6ac5f62f66ca582013',1,'MNELIB::MNEMshDisplaySurface::user_data']]],
+  ['user_5fdata_5ffree_67',['user_data_free',['../a03987.html#a4c7d5f1a402096aaa0f83f7eb64fe3f3',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['utc_5foffset_68',['utc_offset',['../a03347.html#a9b3261af6fb7330d5f58764a87626040',1,'FIFFLIB::FiffInfo']]],
+  ['utils_5fglobal_2ecpp_69',['utils_global.cpp',['../a00827.html',1,'']]],
+  ['utils_5fglobal_2eh_70',['utils_global.h',['../a00803.html',1,'']]],
+  ['utilslib_71',['UTILSLIB',['../a02298.html',1,'']]],
+  ['utilsshared_5fexport_72',['UTILSSHARED_EXPORT',['../a00803.html#a66e92968c1d28ba0dcd8b83fd51f6c95',1,'utils_global.h']]],
+  ['uu_73',['uu',['../a03471.html#a5367016863602a601d1e9f382adfdbf1',1,'FWDLIB::fitUserRec::uu'],['../a03531.html#a0f27b272bcc000a0a38a41758d40bf1c',1,'INVLIB::InvDipoleForward::uu']]]
 ];

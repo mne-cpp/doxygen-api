@@ -10,7 +10,7 @@ var searchData=
   ['taskdescription_7',['taskDescription',['../a02363.html#a1bd4bfd4d554fbaddd3ea67b6aee8d88',1,'BIDSLIB::BidsRawData']]],
   ['tc_5fmult_8',['tc_mult',['../a03983.html#af0be1a8e91b73f5e312aa35249d621d2',1,'MNELIB::MNEMshColorScaleDef']]],
   ['te_9',['TE',['../a04147.html#ad7dc7b7a4a55e597f2695262d3023b51',1,'MRILIB::MriVolData']]],
-  ['text_10',['text',['../a03335.html#a7c82b1659e1d32b76898f18cb82c2981',1,'FIFFLIB::_fiffExp']]],
+  ['text_10',['text',['../a03335.html#a18b55f4f044b5a3b0a130049343e92ee',1,'FIFFLIB::FiffExplainEntry']]],
   ['text_5fcolor_11',['text_color',['../a03991.html#ad6eb6357b8272f3a7522a12174d3d892',1,'MNELIB::MNEMshDisplaySurfaceSet']]],
   ['tfrdata_12',['tfrData',['../a03139.html#a30679942fc28c4be100e083afc6ac7c3',1,'UTILSLIB::MultitaperTfrResult']]],
   ['ti_13',['TI',['../a04147.html#a9b74d2b0361dc3359125a1f85ca9be40',1,'MRILIB::MriVolData']]],

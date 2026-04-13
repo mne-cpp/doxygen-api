@@ -1,4 +1,21 @@
 var searchData=
 [
-  ['_5ffiffexp_0',['_fiffExp',['../a03335.html',1,'FIFFLIB']]]
+  ['abstractformatreader_0',['AbstractFormatReader',['../a02375.html',1,'BIDSLIB']]],
+  ['abstractmetric_1',['AbstractMetric',['../a02447.html',1,'CONNLIB']]],
+  ['abstracttreeitem_2',['AbstractTreeItem',['../a02863.html',1,'']]],
+  ['abstractview_3',['AbstractView',['../a02539.html',1,'DISPLIB']]],
+  ['annotationspan_4',['AnnotationSpan',['../a02663.html',1,'DISPLIB::ChannelRhiView']]],
+  ['applytoview_5',['ApplyToView',['../a02543.html',1,'DISPLIB']]],
+  ['artifactdetect_6',['ArtifactDetect',['../a03035.html',1,'UTILSLIB']]],
+  ['artifactdetectecgparams_7',['ArtifactDetectEcgParams',['../a03027.html',1,'UTILSLIB']]],
+  ['artifactdetecteogparams_8',['ArtifactDetectEogParams',['../a03031.html',1,'UTILSLIB']]],
+  ['artifactrejectiondata_9',['ArtifactRejectionData',['../a03903.html',1,'MNELIB']]],
+  ['artifactsettingsview_10',['ArtifactSettingsView',['../a02547.html',1,'DISPLIB']]],
+  ['averagecategory_11',['AverageCategory',['../a03323.html',1,'FIFFLIB::AverageCategory'],['../a04367.html',1,'MNELIB::AverageCategory']]],
+  ['averagedescription_12',['AverageDescription',['../a03327.html',1,'FIFFLIB::AverageDescription'],['../a04371.html',1,'MNELIB::AverageDescription']]],
+  ['averagelayoutview_13',['AverageLayoutView',['../a02551.html',1,'DISPLIB']]],
+  ['averagescene_14',['AverageScene',['../a02623.html',1,'DISPLIB']]],
+  ['averagesceneitem_15',['AverageSceneItem',['../a02627.html',1,'DISPLIB']]],
+  ['averageselectionview_16',['AverageSelectionView',['../a02555.html',1,'DISPLIB']]],
+  ['averagingsettingsview_17',['AveragingSettingsView',['../a02559.html',1,'DISPLIB']]]
 ];

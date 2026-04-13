@@ -52,7 +52,7 @@ var searchData=
   ['preset_49',['preset',['../a02827.html#ae1fdb53368161a413147c82e7510ffec',1,'SubView']]],
   ['prevevent_50',['prevEvent',['../a03323.html#a27dc109d27718aad97e6b923a17ad8fa',1,'FIFFLIB::AverageCategory::prevEvent'],['../a04367.html#a27dc109d27718aad97e6b923a17ad8fa',1,'MNELIB::AverageCategory::prevEvent']]],
   ['prevignore_51',['prevIgnore',['../a03323.html#a8c28fb45a98df2fec287ffb9ca82943a',1,'FIFFLIB::AverageCategory::prevIgnore'],['../a04367.html#a8c28fb45a98df2fec287ffb9ca82943a',1,'MNELIB::AverageCategory::prevIgnore']]],
-  ['prob_52',['prob',['../a03539.html#a429f57a0b1e4853393e6fb97a86337d3',1,'INVLIB::bdipEcd']]],
+  ['prob_52',['prob',['../a03539.html#a1b686056b752810a4c5b6936cbe00692',1,'INVLIB::bdipEcdRec']]],
   ['processingdescription_53',['processingDescription',['../a02343.html#a42d6151450f5a7ea5ab73f8004563fc1',1,'BIDSLIB::BidsCoordinateSystem']]],
   ['progresspct_54',['progressPct',['../a04227.html#abcf1594483821ae555cc89c6089f2640',1,'UTILSLIB::PythonRunnerResult']]],
   ['proj_55',['proj',['../a03315.html#a1ec4116f9b969be2f28a68b1bf2e4336',1,'FIFFLIB::FiffEvoked::proj'],['../a03367.html#a5f1bc9d008fe884b7d495321f866396f',1,'FIFFLIB::FiffRawData::proj'],['../a03495.html#a281f397c7e28b1c72c3b6b7ea7049998',1,'INVLIB::InvBeamformer::proj'],['../a03523.html#a6f71a1f4d1d7f19053449b2895f42516',1,'INVLIB::InvDipoleFitData::proj'],['../a03871.html#a5dbb005854db84098b9666a4fb0d0e17',1,'MNELIB::MNECovMatrix::proj'],['../a03947.html#a100968ca2d3ffe1819c693f8082b2baf',1,'MNELIB::MNEInverseOperator::proj'],['../a03959.html#ad15c54835087abda4d7893a5b25d523d',1,'MNELIB::MNEMeasData::proj'],['../a04075.html#a15b0b3528450833f71aa2727327c41e1',1,'MNELIB::MNERawData::proj']]],

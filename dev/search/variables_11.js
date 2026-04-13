@@ -1,7 +1,7 @@
 var searchData=
 [
   ['r_0',['r',['../a03291.html#a64b69cce614706909a1def619cc150aa',1,'FIFFLIB::FiffDigPoint']]],
-  ['r0_1',['r0',['../a03267.html#a4338daef3663ce5eeea7a37fcded5f3e',1,'FIFFLIB::FiffChPos::r0'],['../a03423.html#a74171a17122b7dde7320827fc2d7fed5',1,'FWDLIB::ComputeFwdSettings::r0'],['../a03451.html#ad28ef98171575cc3cddd1ed0d7a1ffd9',1,'FWDLIB::FwdCoil::r0'],['../a03475.html#aaf903941a5c3d00b34d7e4a625bdf7aa',1,'FWDLIB::FwdEegSphereModel::r0'],['../a03523.html#a4f201102f271b21de1c220e39964bbc3',1,'INVLIB::InvDipoleFitData::r0'],['../a03527.html#a99905f9fce272f42b9c43f4dc9fc7ea0',1,'INVLIB::InvDipoleFitSettings::r0'],['../a03539.html#a612f3440941dc8a64a8b0f68060bc298',1,'INVLIB::bdipEcd::r0']]],
+  ['r0_1',['r0',['../a03267.html#a4338daef3663ce5eeea7a37fcded5f3e',1,'FIFFLIB::FiffChPos::r0'],['../a03423.html#a74171a17122b7dde7320827fc2d7fed5',1,'FWDLIB::ComputeFwdSettings::r0'],['../a03451.html#ad28ef98171575cc3cddd1ed0d7a1ffd9',1,'FWDLIB::FwdCoil::r0'],['../a03475.html#aaf903941a5c3d00b34d7e4a625bdf7aa',1,'FWDLIB::FwdEegSphereModel::r0'],['../a03523.html#a4f201102f271b21de1c220e39964bbc3',1,'INVLIB::InvDipoleFitData::r0'],['../a03527.html#a99905f9fce272f42b9c43f4dc9fc7ea0',1,'INVLIB::InvDipoleFitSettings::r0'],['../a03539.html#a01956b043db8f9a9993957eab0c5e4fb',1,'INVLIB::bdipEcdRec::r0']]],
   ['r1_2',['r1',['../a04115.html#a99be28185ba41676c1960f8d57c6d3c3',1,'MNELIB::MNETriangle']]],
   ['r12_3',['r12',['../a04115.html#ab31ee46db87f326929ae6b8a6e6aff42',1,'MNELIB::MNETriangle']]],
   ['r13_4',['r13',['../a04115.html#a5fcd08838c93745b6c96cd6faa930f96',1,'MNELIB::MNETriangle']]],
@@ -18,7 +18,7 @@ var searchData=
   ['rawdir_15',['rawDir',['../a04079.html#a29e34045ffe0bbe6f3155f3b0dd114df',1,'MNELIB::MNERawInfo']]],
   ['rawdir_16',['rawdir',['../a03367.html#aa907af5de89694ca190356aec73a796e',1,'FIFFLIB::FiffRawData']]],
   ['rawfiles_17',['rawFiles',['../a04039.html#a8a1f7e5dc6ff3df9427f5bdf8070380e',1,'MNELIB::ProcessingSettings']]],
-  ['rd_18',['rd',['../a03531.html#a3b5d38c3f09ca4021ea90947ec56d9fc',1,'INVLIB::InvDipoleForward::rd'],['../a03535.html#a1e6ef44b7011b4e957e852201742d801',1,'INVLIB::InvEcd::rd'],['../a03539.html#ac97f47cd00fc485a601d54c166d0f72d',1,'INVLIB::bdipEcd::rd']]],
+  ['rd_18',['rd',['../a03531.html#a3b5d38c3f09ca4021ea90947ec56d9fc',1,'INVLIB::InvDipoleForward::rd'],['../a03535.html#a1e6ef44b7011b4e957e852201742d801',1,'INVLIB::InvEcd::rd'],['../a03539.html#abbdba442f5d5f146f2049f8591de65af',1,'INVLIB::bdipEcdRec::rd']]],
   ['reader_19',['reader',['../a02363.html#a7552958403bfca95b5d5241c7b2224fa',1,'BIDSLIB::BidsRawData']]],
   ['recordings_20',['recordings',['../a03823.html#ac2089679b49d1e50dd0d86a3bd18fc1e',1,'MNALIB::MnaSession']]],
   ['recordingtype_21',['recordingType',['../a02363.html#ac83421c2b51b7bf56eba14ed5f9e6676',1,'BIDSLIB::BidsRawData']]],
@@ -31,7 +31,7 @@ var searchData=
   ['rel_5frad_28',['rel_rad',['../a03463.html#ab0ba8ec8e92953d133860e3e232c8133',1,'FWDLIB::FwdEegSphereLayer']]],
   ['relative_29',['relative',['../a03983.html#a04d4f4ebec3950297b15e1f5eceee612',1,'MNELIB::MNEMshColorScaleDef']]],
   ['removesamplemean_30',['removeSampleMean',['../a04031.html#afc4adff0b4779270f38bdb85f185cd05',1,'MNELIB::CovDescription']]],
-  ['report_31',['report',['../a03715.html#a4e9fe7b79b1b0331d783e8df1376ecc6',1,'UTILSLIB::FitUser::report'],['../a04219.html#abef5aca98096fff6189259ad7f12dc51',1,'UTILSLIB::fitUser::report']]],
+  ['report_31',['report',['../a03715.html#a4e9fe7b79b1b0331d783e8df1376ecc6',1,'UTILSLIB::FitUser::report'],['../a04219.html#af8cb710dbe90bbd8523c3bcbf6ed6db7',1,'UTILSLIB::fitUserRec::report']]],
   ['report_5fdim_32',['report_dim',['../a03519.html#a8ec3a35ee0089237b2ed90a6677dbe0f',1,'INVLIB::FitDipUserRec']]],
   ['required_33',['required',['../a03783.html#a317edc52542b26a4aa611516eabc1e43',1,'MNALIB::MnaOpSchemaPort::required'],['../a03787.html#aedde27c8a5cd9e5aa5b25b1a4cd232c1',1,'MNALIB::MnaOpSchemaAttr::required']]],
   ['requirementsfile_34',['requirementsFile',['../a04231.html#ad5af51529c600f71daa159f5006fb456',1,'UTILSLIB::PythonRunnerConfig']]],
@@ -54,5 +54,5 @@ var searchData=
   ['row_5fnames_51',['row_names',['../a03359.html#ae3e205f52a45955739f2d6c711a52150',1,'FIFFLIB::FiffNamedMatrix']]],
   ['rowcals_52',['rowcals',['../a03283.html#a21bf8cd43bee78ee5ef5a494a4fa1191',1,'FIFFLIB::FiffCtfComp']]],
   ['rowlist_53',['rowlist',['../a04011.html#a896f85880835db146d939c29e84d9778',1,'MNELIB::MNENamedMatrix::rowlist'],['../a04091.html#afa9920bb21f700e48152b1e40a3566dd',1,'MNELIB::MNESparseNamedMatrix::rowlist']]],
-  ['rr_54',['rr',['../a03547.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a03715.html#a137245b4a4c887daee71940e310dd358',1,'UTILSLIB::FitUser::rr'],['../a04107.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a04219.html#abe84a54eccb98f09876e7ff7c4e50de9',1,'UTILSLIB::fitUser::rr']]]
+  ['rr_54',['rr',['../a03547.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a03715.html#a137245b4a4c887daee71940e310dd358',1,'UTILSLIB::FitUser::rr'],['../a04107.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a04219.html#abff3d0b9ad663f6d849c87d09a4608fc',1,'UTILSLIB::fitUserRec::rr']]]
 ];

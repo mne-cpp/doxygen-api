@@ -127,7 +127,7 @@ var searchData=
   ['dipfiterror_124',['dipfitError',['../a03575.html#a4699a91c43ab941c09e8dec262d0c799',1,'INVLIB::InvHpiFitData']]],
   ['dipname_125',['dipname',['../a03527.html#a8c736e6c0a2323751db1a587b95901a5',1,'INVLIB::InvDipoleFitSettings']]],
   ['dipole_126',['Dipole',['../a02983.html#ab0f9c5ba5926f32300bb4ebd01f073c0',1,'BrainRenderer::Dipole'],['../a00077.html#a9a65336a07fa3c9b4b13e6d52e3a612ca5efa28befb847e237e1aacaa160743eb',1,'Dipole:&#160;rendertypes.h']]],
-  ['dipole_127',['dipole',['../a03539.html#ac3af0d4b341e59904638a7df18c387af',1,'INVLIB::bdipEcd']]],
+  ['dipole_127',['dipole',['../a03539.html#a3be1ef09a925f374cac6f66772eaf101',1,'INVLIB::bdipEcdRec']]],
   ['dipole_5fforward_128',['dipole_forward',['../a01034.html#a52de33dccd788941e3c14f2062103af2',1,'inv_dipole_fit_data.cpp']]],
   ['dipole_5fforward_5fone_129',['dipole_forward_one',['../a03523.html#a7c21c7d42363bec12560418a534be7d3',1,'INVLIB::InvDipoleFitData']]],
   ['dipole_5fsources_130',['DIPOLE_SOURCES',['../a01157.html#af36304aa9edd0617641287a0755effb6',1,'inv_dipole.cpp']]],

@@ -17,7 +17,7 @@ var searchData=
   ['baselines_14',['baselines',['../a03963.html#a42489ef018224fe29904df750349ffce',1,'MNELIB::MNEMeasDataSet']]],
   ['bconverged_15',['bConverged',['../a03107.html#ab919b4404548ee5d21d2207b55c2ec87',1,'UTILSLIB::IcaResult']]],
   ['bdipname_16',['bdipname',['../a03527.html#a594c1e959e33c143a3eea25d94d82adc',1,'INVLIB::InvDipoleFitSettings']]],
-  ['begin_17',['begin',['../a03539.html#a281adfe50e5918b4f311d2a53f98b9ae',1,'INVLIB::bdipEcd']]],
+  ['begin_17',['begin',['../a03539.html#ae0be6b3d4c2a1e7618b9950b53a11fe7',1,'INVLIB::bdipEcdRec']]],
   ['bem_5ffuncs_18',['bem_funcs',['../a03523.html#aaa2454cba37fd10094c2a8566cc309fe',1,'INVLIB::InvDipoleFitData']]],
   ['bem_5fmethod_19',['bem_method',['../a03443.html#a447e6e31fba15c2e963a4fc60ce6ed9c',1,'FWDLIB::FwdBemModel']]],
   ['bem_5fmodel_20',['bem_model',['../a03523.html#adbcc04754317bf742ad3a8b4cd53f639',1,'INVLIB::InvDipoleFitData']]],

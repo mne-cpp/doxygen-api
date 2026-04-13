@@ -54,7 +54,7 @@ var searchData=
   ['shownormals_51',['ShowNormals',['../a02983.html#a6ab64dde2f49ef5c765c29c2da5f8e76',1,'BrainRenderer']]],
   ['sigma_52',['sigma',['../a03443.html#af0de36bf32e70dc1d17abf99ac33b074',1,'FWDLIB::FwdBemModel::sigma'],['../a03463.html#a872558cb39457fc8376a8bfb42f53800',1,'FWDLIB::FwdEegSphereLayer::sigma'],['../a04107.html#acb1f5f9879b0c5691cc57a1ad186e35f',1,'MNELIB::MNESurfaceOrVolume::sigma']]],
   ['sing_53',['sing',['../a03471.html#af005e83267e05a7cebdc615397d18127',1,'FWDLIB::fitUserRec::sing'],['../a03531.html#a28d88d6ecc87c26ca9ae2849feb6ccef',1,'INVLIB::InvDipoleForward::sing'],['../a03947.html#a7ddb5040c4d5d39013c58be177906a43',1,'MNELIB::MNEInverseOperator::sing']]],
-  ['single_5ferrors_54',['single_errors',['../a03539.html#ac121e0df4022e48a1f17ebc2afc29ccc',1,'INVLIB::bdipEcd']]],
+  ['single_5ferrors_54',['single_errors',['../a03539.html#a8e3fdfbe1b23c07c99d0d8e03217dc18',1,'INVLIB::bdipEcdRec']]],
   ['size_55',['size',['../a02351.html#a86a5d6693dfda2c7e5e054d0f72c402a',1,'BIDSLIB::BidsElectrode::size'],['../a03287.html#a5d5cd551c20d41da36300405e665cda7',1,'FIFFLIB::FiffDataRef::size'],['../a03303.html#a1282e02113b2ab4f3fde07227bb42d37',1,'FIFFLIB::FiffDirEntry::size'],['../a03451.html#a070cec8e623cfb10eb7cfd2dab9fa262',1,'FWDLIB::FwdCoil::size'],['../a03919.html#a02d77c389d95043dcd5d12b76d75c280',1,'MNELIB::MNEFilterDef::size']]],
   ['sizebytes_56',['sizeBytes',['../a03755.html#aa7d42089118a9826f75e942ec03f2fbe',1,'MNALIB::MnaFileRef']]],
   ['sketch_57',['sketch',['../a03987.html#a9d152bcdf2a176cb079ccc1256fd6c63',1,'MNELIB::MNEMshDisplaySurface']]],
