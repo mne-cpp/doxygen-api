@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rowmajormatrixmap_0',['RowMajorMatrixMap',['../a03753.html#a171028109e8eee307f705dc1a621e177',1,'MLLIB::MlTensor']]],
-  ['rowmajormatrixxf_1',['RowMajorMatrixXf',['../a03753.html#a29db16406881f787f20ddc1deab13b79',1,'MLLIB::MlTensor::RowMajorMatrixXf'],['../a02292.html#ae43e706a3d74ae7333bb6ff910bce16a',1,'MNELIB::RowMajorMatrixXf']]],
-  ['rowvectorpair_2',['RowVectorPair',['../a02295.html#ae1ddfa37a3893969aef05a73116d5b06',1,'DISPLIB']]]
+  ['rowmajormatrixmap_0',['RowMajorMatrixMap',['../a03747.html#a171028109e8eee307f705dc1a621e177',1,'MLLIB::MlTensor']]],
+  ['rowmajormatrixxf_1',['RowMajorMatrixXf',['../a03747.html#a29db16406881f787f20ddc1deab13b79',1,'MLLIB::MlTensor::RowMajorMatrixXf'],['../a02286.html#ae43e706a3d74ae7333bb6ff910bce16a',1,'MNELIB::RowMajorMatrixXf']]],
+  ['rowvectorpair_2',['RowVectorPair',['../a02289.html#ae1ddfa37a3893969aef05a73116d5b06',1,'DISPLIB']]]
 ];
