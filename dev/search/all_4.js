@@ -475,10 +475,11 @@ var searchData=
   ['cursorforhit_472',['cursorForHit',['../a02995.html#af470a55d287ee28de391923cdf41a713',1,'MultiViewLayout']]],
   ['curv_473',['curv',['../a04107.html#aebfc5b8c8cc0b7f4702369d281f746d4',1,'MNELIB::MNESurfaceOrVolume::curv'],['../a03411.html#a8510053230eb028f7ea0737d4fed1467',1,'FSLIB::FsSurface::curv()']]],
   ['curvature_5fcolor_5fmode_474',['curvature_color_mode',['../a03987.html#afd96cd1bd31251fd3ac093bdfe3c33b2',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['custom_475',['Custom',['../a02328.html#acec300107fc488331fcaddae5894abfca90589c47f06eb971d548591f23c285af',1,'MNALIB::Custom'],['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6a90589c47f06eb971d548591f23c285af',1,'MNALIB::Custom']]],
-  ['customlogwriter_476',['customLogWriter',['../a04199.html#a81485ae6addbe3357f03dbb8c1b8cf4c',1,'UTILSLIB::MNELogger']]],
-  ['cxmax_477',['cxmax',['../a03951.html#afd2bc21c22f5d03300d349ac3d9b638a',1,'MNELIB::MNELayout']]],
-  ['cxmin_478',['cxmin',['../a03951.html#a6fc9bd72b6260814d2b173942716e48a',1,'MNELIB::MNELayout']]],
-  ['cymax_479',['cymax',['../a03951.html#a513ca59931b1866312bc07d17b051694',1,'MNELIB::MNELayout']]],
-  ['cymin_480',['cymin',['../a03951.html#ad4ac053000ae4ed1185ecff10bdbd1d1',1,'MNELIB::MNELayout']]]
+  ['curvature_5ffile_5fmagic_5fnumber_475',['CURVATURE_FILE_MAGIC_NUMBER',['../a01913.html#a2d0a58187814e2bcff513e8a01e2b4d0',1,'mne_source_space.cpp']]],
+  ['custom_476',['Custom',['../a02328.html#acec300107fc488331fcaddae5894abfca90589c47f06eb971d548591f23c285af',1,'MNALIB::Custom'],['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6a90589c47f06eb971d548591f23c285af',1,'MNALIB::Custom']]],
+  ['customlogwriter_477',['customLogWriter',['../a04199.html#a81485ae6addbe3357f03dbb8c1b8cf4c',1,'UTILSLIB::MNELogger']]],
+  ['cxmax_478',['cxmax',['../a03951.html#afd2bc21c22f5d03300d349ac3d9b638a',1,'MNELIB::MNELayout']]],
+  ['cxmin_479',['cxmin',['../a03951.html#a6fc9bd72b6260814d2b173942716e48a',1,'MNELIB::MNELayout']]],
+  ['cymax_480',['cymax',['../a03951.html#a513ca59931b1866312bc07d17b051694',1,'MNELIB::MNELayout']]],
+  ['cymin_481',['cymin',['../a03951.html#ad4ac053000ae4ed1185ecff10bdbd1d1',1,'MNELIB::MNELayout']]]
 ];

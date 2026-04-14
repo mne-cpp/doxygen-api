@@ -111,8 +111,9 @@ var searchData=
   ['currentuniformoffset_108',['currentUniformOffset',['../a02979.html#a12959d85255be305a7f9fa76d1f2399d',1,'BrainRenderer::Impl']]],
   ['curv_109',['curv',['../a04107.html#aebfc5b8c8cc0b7f4702369d281f746d4',1,'MNELIB::MNESurfaceOrVolume']]],
   ['curvature_5fcolor_5fmode_110',['curvature_color_mode',['../a03987.html#afd96cd1bd31251fd3ac093bdfe3c33b2',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['cxmax_111',['cxmax',['../a03951.html#afd2bc21c22f5d03300d349ac3d9b638a',1,'MNELIB::MNELayout']]],
-  ['cxmin_112',['cxmin',['../a03951.html#a6fc9bd72b6260814d2b173942716e48a',1,'MNELIB::MNELayout']]],
-  ['cymax_113',['cymax',['../a03951.html#a513ca59931b1866312bc07d17b051694',1,'MNELIB::MNELayout']]],
-  ['cymin_114',['cymin',['../a03951.html#ad4ac053000ae4ed1185ecff10bdbd1d1',1,'MNELIB::MNELayout']]]
+  ['curvature_5ffile_5fmagic_5fnumber_111',['CURVATURE_FILE_MAGIC_NUMBER',['../a01913.html#a2d0a58187814e2bcff513e8a01e2b4d0',1,'mne_source_space.cpp']]],
+  ['cxmax_112',['cxmax',['../a03951.html#afd2bc21c22f5d03300d349ac3d9b638a',1,'MNELIB::MNELayout']]],
+  ['cxmin_113',['cxmin',['../a03951.html#a6fc9bd72b6260814d2b173942716e48a',1,'MNELIB::MNELayout']]],
+  ['cymax_114',['cymax',['../a03951.html#a513ca59931b1866312bc07d17b051694',1,'MNELIB::MNELayout']]],
+  ['cymin_115',['cymin',['../a03951.html#ad4ac053000ae4ed1185ecff10bdbd1d1',1,'MNELIB::MNELayout']]]
 ];

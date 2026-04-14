@@ -19,9 +19,10 @@ var searchData=
   ['use_5ftri_5fnn_16',['use_tri_nn',['../a03935.html#abd4cfb0a520bc400116093d9ebcbf87b',1,'MNELIB::MNEHemisphere']]],
   ['use_5ftris_17',['use_tris',['../a04107.html#afeef29bc8e562a95cee47f4d04030df4',1,'MNELIB::MNESurfaceOrVolume']]],
   ['usecs_18',['usecs',['../a03387.html#ad6382ae4db9ecfab329aa468388bc8c9',1,'FIFFLIB::FiffTime']]],
-  ['user_19',['user',['../a03523.html#af95557683a226c1b4d92d7083011d0f1',1,'INVLIB::InvDipoleFitData::user'],['../a04067.html#a6f2b2a1e53e32f59ff1cd8cf30c07c27',1,'MNELIB::RingBuffer::Entry::user']]],
-  ['user_5fdata_20',['user_data',['../a03455.html#a1aa4f82508729b2434b2ec3cc4f763c2',1,'FWDLIB::FwdCoilSet::user_data'],['../a03987.html#a17457813f8c86a6ac5f62f66ca582013',1,'MNELIB::MNEMshDisplaySurface::user_data']]],
-  ['user_5fdata_5ffree_21',['user_data_free',['../a03987.html#a4c7d5f1a402096aaa0f83f7eb64fe3f3',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['utc_5foffset_22',['utc_offset',['../a03347.html#a9b3261af6fb7330d5f58764a87626040',1,'FIFFLIB::FiffInfo']]],
-  ['uu_23',['uu',['../a03471.html#a5367016863602a601d1e9f382adfdbf1',1,'FWDLIB::fitUserRec::uu'],['../a03531.html#a0f27b272bcc000a0a38a41758d40bf1c',1,'INVLIB::InvDipoleForward::uu']]]
+  ['usenew_19',['USENEW',['../a00035.html#a8443527be8402eece5d7e6a712c7e62c',1,'rt_cmd_client.cpp']]],
+  ['user_20',['user',['../a03523.html#af95557683a226c1b4d92d7083011d0f1',1,'INVLIB::InvDipoleFitData::user'],['../a04067.html#a6f2b2a1e53e32f59ff1cd8cf30c07c27',1,'MNELIB::RingBuffer::Entry::user']]],
+  ['user_5fdata_21',['user_data',['../a03455.html#a1aa4f82508729b2434b2ec3cc4f763c2',1,'FWDLIB::FwdCoilSet::user_data'],['../a03987.html#a17457813f8c86a6ac5f62f66ca582013',1,'MNELIB::MNEMshDisplaySurface::user_data']]],
+  ['user_5fdata_5ffree_22',['user_data_free',['../a03987.html#a4c7d5f1a402096aaa0f83f7eb64fe3f3',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['utc_5foffset_23',['utc_offset',['../a03347.html#a9b3261af6fb7330d5f58764a87626040',1,'FIFFLIB::FiffInfo']]],
+  ['uu_24',['uu',['../a03471.html#a5367016863602a601d1e9f382adfdbf1',1,'FWDLIB::fitUserRec::uu'],['../a03531.html#a0f27b272bcc000a0a38a41758d40bf1c',1,'INVLIB::InvDipoleForward::uu']]]
 ];
