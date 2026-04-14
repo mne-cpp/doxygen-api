@@ -78,7 +78,7 @@ var searchData=
   ['drawruleroverlay_75',['drawRulerOverlay',['../a02655.html#aeb8acae9bc341f7b11222440f7ad36fb',1,'DISPLIB::ChannelRhiView']]],
   ['drawscalebars_76',['drawScalebars',['../a02655.html#a53eaca214fb7fd8a1a0e2a32adf9f03a',1,'DISPLIB::ChannelRhiView']]],
   ['droprejected_77',['dropRejected',['../a03907.html#a2be58d48d6e2358d91119bceb4b4f733',1,'MNELIB::MNEEpochDataList']]],
-  ['dup_78',['dup',['../a03871.html#a70e6b0c2d7a8d41cf9db332358d1ceee',1,'MNELIB::MNECovMatrix::dup()'],['../a04051.html#acb7b9003a859965d73dcf7893f34195d',1,'MNELIB::MNEProjOp::dup()']]],
+  ['dup_78',['dup',['../a03871.html#a70e6b0c2d7a8d41cf9db332358d1ceee',1,'MNELIB::MNECovMatrix::dup()'],['../a04051.html#ae203eebac3edfa13e3b3e7261d308062',1,'MNELIB::MNEProjOp::dup()']]],
   ['dup_5fcoil_5fset_79',['dup_coil_set',['../a03455.html#af57626d7ef8c2f59db761160740adf94',1,'FWDLIB::FwdCoilSet']]],
   ['dup_5flight_5fset_80',['dup_light_set',['../a03991.html#a4b61b344f0b058200a1ace6ca0ee06ea',1,'MNELIB::MNEMshDisplaySurfaceSet']]]
 ];

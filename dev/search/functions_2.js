@@ -216,7 +216,7 @@ var searchData=
   ['count_213',['count',['../a02415.html#a20a4b7e413373d21405103b1533035b1',1,'COMLIB::Command::count()'],['../a02427.html#accc29b45a2da671441c8e0f544c26af8',1,'COMLIB::RawCommand::count()']]],
   ['covariancesettingsview_214',['CovarianceSettingsView',['../a02599.html#a1ae252aa18443a17a5e85b1519ab248f',1,'DISPLIB::CovarianceSettingsView']]],
   ['create_215',['create',['../a03871.html#aac55daaba4a5ee8fe1efc01722193e99',1,'MNELIB::MNECovMatrix']]],
-  ['create_5faverage_5feeg_5fref_216',['create_average_eeg_ref',['../a04051.html#a45351d49f1df78a05a1eee29f0e2d04b',1,'MNELIB::MNEProjOp']]],
+  ['create_5faverage_5feeg_5fref_216',['create_average_eeg_ref',['../a04051.html#ae3db80625791529a08ecc174628e0bcf',1,'MNELIB::MNEProjOp']]],
   ['create_5fdense_217',['create_dense',['../a03871.html#a686613ad9d4e35a3af69d0d7992828d0',1,'MNELIB::MNECovMatrix']]],
   ['create_5fdiag_218',['create_diag',['../a03871.html#a5eed753db7ea97d612d539445faebd3b',1,'MNELIB::MNECovMatrix']]],
   ['create_5feeg_5fel_219',['create_eeg_el',['../a03451.html#a9023889a242e2091723d42b9673cbab5',1,'FWDLIB::FwdCoil']]],

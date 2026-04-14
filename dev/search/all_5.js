@@ -227,7 +227,7 @@ var searchData=
   ['dthresholdv_224',['dThresholdV',['../a03031.html#a2e8c38c971630ff1b517fcc0ee0f9e95',1,'UTILSLIB::ArtifactDetectEogParams']]],
   ['dtmax_225',['dTmax',['../a03075.html#ad23120736743b924d6e4568b04b61e5d',1,'UTILSLIB::EpochExtractorParams']]],
   ['dtmin_226',['dTmin',['../a03075.html#a8f3d9084311664cdf233e4c11544491d',1,'UTILSLIB::EpochExtractorParams']]],
-  ['dup_227',['dup',['../a03871.html#a70e6b0c2d7a8d41cf9db332358d1ceee',1,'MNELIB::MNECovMatrix::dup()'],['../a04051.html#acb7b9003a859965d73dcf7893f34195d',1,'MNELIB::MNEProjOp::dup()']]],
+  ['dup_227',['dup',['../a03871.html#a70e6b0c2d7a8d41cf9db332358d1ceee',1,'MNELIB::MNECovMatrix::dup()'],['../a04051.html#ae203eebac3edfa13e3b3e7261d308062',1,'MNELIB::MNEProjOp::dup()']]],
   ['dup_5fcoil_5fset_228',['dup_coil_set',['../a03455.html#af57626d7ef8c2f59db761160740adf94',1,'FWDLIB::FwdCoilSet']]],
   ['dup_5flight_5fset_229',['dup_light_set',['../a03991.html#a4b61b344f0b058200a1ace6ca0ee06ea',1,'MNELIB::MNEMshDisplaySurfaceSet']]],
   ['duration_230',['duration',['../a02355.html#a355d9aaff1334b1aa5396305ddead3ad',1,'BIDSLIB::BidsEvent::duration'],['../a02379.html#a63377c017f53f5e37581bdc690e89052',1,'BIDSLIB::BrainVisionMarker::duration'],['../a03255.html#a69b09eae00ebdec6d9f6937d61671c82',1,'FIFFLIB::FiffAnnotation::duration']]],
