@@ -282,8 +282,4 @@ var menudata={children:[
 {text:"r",url:"globals_defs_r.html#index_r"},
 {text:"s",url:"globals_defs_s.html#index_s"},
 {text:"t",url:"globals_defs_t.html#index_t"},
-{text:"u",url:"globals_defs_u.html#index_u"},
-{text:"v",url:"globals_defs_v.html#index_v"},
-{text:"x",url:"globals_defs_x.html#index_x"},
-{text:"y",url:"globals_defs_y.html#index_y"},
-{text:"z",url:"globals_defs_z.html#index_z"}]}]}]}]}
+{text:"u",url:"globals_defs_u.html#index_u"}]}]}]}]}

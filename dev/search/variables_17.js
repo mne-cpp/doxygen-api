@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['x_0',['X',['../a01475.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01049.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;inv_ecd_set.cpp'],['../a01781.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp'],['../a01901.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_sss_data.cpp']]],
+  ['x_0',['X',['../a01475.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a01049.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;inv_ecd_set.cpp'],['../a01781.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp'],['../a01859.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_msh_display_surface.cpp'],['../a01946.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_patch_info.cpp'],['../a01913.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_source_space.cpp'],['../a02003.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_surface.cpp'],['../a01829.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_surface_or_volume.cpp']]],
   ['x_1',['x',['../a02351.html#ae6c991802829b6c6f1be431204ccdacb',1,'BIDSLIB::BidsElectrode']]],
   ['x1_2',['x1',['../a03651.html#accc2647ae98b82f7dd45dbea0e039cc2',1,'INVLIB::Pair']]],
   ['x2_3',['x2',['../a03651.html#a3c608ee980958d3d008cff84dd09f83e',1,'INVLIB::Pair']]],
