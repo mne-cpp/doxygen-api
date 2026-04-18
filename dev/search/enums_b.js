@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['scalertype_0',['ScalerType',['../a03743.html#a916aa0b87a873ce39c8efa11cefc80ee',1,'MLLIB::MlScaler']]],
+  ['scalertype_0',['ScalerType',['../a03747.html#a916aa0b87a873ce39c8efa11cefc80ee',1,'MLLIB::MlScaler']]],
   ['shadermode_1',['ShaderMode',['../a00077.html#a9a65336a07fa3c9b4b13e6d52e3a612c',1,'rendertypes.h']]],
   ['sliceorientation_2',['SliceOrientation',['../a02300.html#a8b3261ce685682009d5ea95c5cbf12e2',1,'DISP3DLIB::SliceOrientation'],['../a02333.html#aeb6147e07f11b6c5b2ace35cb7a486cc',1,'MRILIB::SliceOrientation']]],
   ['splitterhit_3',['SplitterHit',['../a00155.html#aa760f37b1c504a57961771013387fcf9',1,'multiviewlayout.h']]],

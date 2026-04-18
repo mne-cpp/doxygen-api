@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['taperedspectrainputdata_0',['TaperedSpectraInputData',['../a03707.html',1,'UTILSLIB']]],
+  ['taperedspectrainputdata_0',['TaperedSpectraInputData',['../a03711.html',1,'UTILSLIB']]],
   ['tfplot_1',['TFplot',['../a02535.html',1,'DISPLIB']]],
   ['tfsettingsview_2',['TfSettingsView',['../a02807.html',1,'DISPLIB']]],
   ['timerulereventmark_3',['TimeRulerEventMark',['../a02739.html',1,'DISPLIB']]],

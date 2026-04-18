@@ -16,7 +16,7 @@ var searchData=
   ['connvalue_13',['ConnValue',['../a02302.html#af1ffe934a77f18c6a7260b1975016387a09b76d7a0b9378ee27e382fdb2c74fef',1,'INVLIB']]],
   ['coronal_14',['Coronal',['../a02300.html#a8b3261ce685682009d5ea95c5cbf12e2a28e8426a6ea4d80cad5e2efc00a85a9a',1,'DISP3DLIB::Coronal'],['../a02333.html#aeb6147e07f11b6c5b2ace35cb7a486cca28e8426a6ea4d80cad5e2efc00a85a9a',1,'MRILIB::Coronal']]],
   ['correlation_15',['Correlation',['../a02302.html#af1ffe934a77f18c6a7260b1975016387a5f750c3076b1c419d3d1684019d36b16',1,'INVLIB::Correlation'],['../a02298.html#a5eceb806e5a783c30efd572246abe4dfa5f750c3076b1c419d3d1684019d36b16',1,'UTILSLIB::Correlation']]],
-  ['cosine_16',['Cosine',['../a03103.html#a9d1232180f4d7c976a92b178ada91bc4a4c01320c15d364c077288962e374df19',1,'UTILSLIB::FirFilter::Cosine'],['../a02298.html#a5eceb806e5a783c30efd572246abe4dfa46ff06ae696616afdf3a695efd3db84c',1,'UTILSLIB::Cosine']]],
+  ['cosine_16',['Cosine',['../a03107.html#a9d1232180f4d7c976a92b178ada91bc4a4c01320c15d364c077288962e374df19',1,'UTILSLIB::FirFilter::Cosine'],['../a02298.html#a5eceb806e5a783c30efd572246abe4dfa46ff06ae696616afdf3a695efd3db84c',1,'UTILSLIB::Cosine']]],
   ['couplingbegin_17',['CouplingBegin',['../a02302.html#af1ffe934a77f18c6a7260b1975016387a5f06100584b67bc369c76984f463291d',1,'INVLIB']]],
   ['couplingend_18',['CouplingEnd',['../a02302.html#af1ffe934a77f18c6a7260b1975016387a5856d4416bd271249dc129d6b748da63',1,'INVLIB']]],
   ['covariance_19',['Covariance',['../a02328.html#acec300107fc488331fcaddae5894abfcac85e970a5e572ce85a95b62bf8711b4d',1,'MNALIB::Covariance'],['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6ac85e970a5e572ce85a95b62bf8711b4d',1,'MNALIB::Covariance']]],
