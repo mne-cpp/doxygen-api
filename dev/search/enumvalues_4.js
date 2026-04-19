@@ -5,6 +5,6 @@ var searchData=
   ['eos_2',['Eos',['../a02302.html#af1ffe934a77f18c6a7260b1975016387a86d16d93f97145c1c4532ada5501eaeb',1,'INVLIB']]],
   ['epochs_3',['Epochs',['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6ad7ca258b9b0687d278b7ab980674d4c8',1,'MNALIB']]],
   ['error_4',['Error',['../a02298.html#acde2a5498c30dc44b98126dbbafec884a902b0d55fddef6f8d651fe1035b7d4bd',1,'UTILSLIB']]],
-  ['evoked_5',['Evoked',['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6ae8840f224a93f73443c611e22d6903c6',1,'MNALIB']]],
+  ['evoked_5',['Evoked',['../a02328.html#acec300107fc488331fcaddae5894abfcae8840f224a93f73443c611e22d6903c6',1,'MNALIB::Evoked'],['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6ae8840f224a93f73443c611e22d6903c6',1,'MNALIB::Evoked']]],
   ['extra_6',['Extra',['../a02875.html#a440916d47e7eb32391128b4641666ab8a005519b0c56f970e91dfdd89662cf215',1,'DigitizerTreeItem']]]
 ];

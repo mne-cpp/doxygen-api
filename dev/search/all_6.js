@@ -120,7 +120,7 @@ var searchData=
   ['eventstsvpath_117',['eventsTsvPath',['../a02359.html#aeb1422d46113a614e9db627d142d976d',1,'BIDSLIB::BIDSPath']]],
   ['eventsvisible_118',['eventsVisible',['../a02575.html#ad8a46c88de690b6bdd508a744da028f1',1,'DISPLIB::ChannelDataView::eventsVisible()'],['../a02655.html#ab85f870e3dac9cb0677d1759ebd6b3e4',1,'DISPLIB::ChannelRhiView::eventsVisible()']]],
   ['eventsvisibletoggled_119',['eventsVisibleToggled',['../a02575.html#a2606dfc8aea4fd43aa7c639e9b9c560e',1,'DISPLIB::ChannelDataView']]],
-  ['evoked_120',['Evoked',['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6ae8840f224a93f73443c611e22d6903c6',1,'MNALIB']]],
+  ['evoked_120',['Evoked',['../a02328.html#acec300107fc488331fcaddae5894abfcae8840f224a93f73443c611e22d6903c6',1,'MNALIB::Evoked'],['../a02328.html#aff2df5a82a2d98871c0ceb6dff9713f6ae8840f224a93f73443c611e22d6903c6',1,'MNALIB::Evoked']]],
   ['evoked_121',['evoked',['../a03335.html#aec48fff116de710b554d21f7f89f8fe6',1,'FIFFLIB::FiffEvokedSet::evoked'],['../a02971.html#a93574be0c0d4fec1fa1f56be2408de33',1,'SensorFieldMapper::evoked()']]],
   ['evokedsetmodel_122',['EvokedSetModel',['../a02687.html',1,'DISPLIB::EvokedSetModel'],['../a02687.html#af74607d311b71eadb3b4cf24d570052f',1,'DISPLIB::EvokedSetModel::EvokedSetModel()']]],
   ['evokedsetmodel_2ecpp_123',['evokedsetmodel.cpp',['../a00578.html',1,'']]],
