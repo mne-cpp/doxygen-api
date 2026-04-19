@@ -3043,6 +3043,303 @@ $(function() {
 <div class="line"><a id="l02650" name="l02650"></a><span class="lineno"> 2650</span>    updateOverlayLayout();</div>
 <div class="line"><a id="l02651" name="l02651"></a><span class="lineno"> 2651</span>    update();</div>
 <div class="line"><a id="l02652" name="l02652"></a><span class="lineno"> 2652</span>}</div>
+<div class="line"><a id="l02653" name="l02653"></a><span class="lineno"> 2653</span> </div>
+<div class="line"><a id="l02654" name="l02654"></a><span class="lineno"> 2654</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02655" name="l02655"></a><span class="lineno"> 2655</span><span class="comment">// Data removal</span></div>
+<div class="line"><a id="l02656" name="l02656"></a><span class="lineno"> 2656</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02657" name="l02657"></a><span class="lineno"> 2657</span></div>
+<div class="line"><a id="l02662" name="l02662"></a><span class="lineno"> 2662</span><span class="keywordtype">void</span> BrainView::removeSurfacesByPrefix(<span class="keyword">const</span> QString &amp;prefix)</div>
+<div class="line"><a id="l02663" name="l02663"></a><span class="lineno"> 2663</span>{</div>
+<div class="line"><a id="l02664" name="l02664"></a><span class="lineno"> 2664</span>    <span class="comment">// Collect keys first to avoid modifying the map while iterating</span></div>
+<div class="line"><a id="l02665" name="l02665"></a><span class="lineno"> 2665</span>    QStringList keysToRemove;</div>
+<div class="line"><a id="l02666" name="l02666"></a><span class="lineno"> 2666</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
+<div class="line"><a id="l02667" name="l02667"></a><span class="lineno"> 2667</span>        <span class="keywordflow">if</span> (it.key().startsWith(prefix))</div>
+<div class="line"><a id="l02668" name="l02668"></a><span class="lineno"> 2668</span>            keysToRemove &lt;&lt; it.key();</div>
+<div class="line"><a id="l02669" name="l02669"></a><span class="lineno"> 2669</span>    }</div>
+<div class="line"><a id="l02670" name="l02670"></a><span class="lineno"> 2670</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove)</div>
+<div class="line"><a id="l02671" name="l02671"></a><span class="lineno"> 2671</span>        m_surfaces.remove(key);</div>
+<div class="line"><a id="l02672" name="l02672"></a><span class="lineno"> 2672</span> </div>
+<div class="line"><a id="l02673" name="l02673"></a><span class="lineno"> 2673</span>    <span class="comment">// Remove corresponding itemSurfaceMap entries + model rows</span></div>
+<div class="line"><a id="l02674" name="l02674"></a><span class="lineno"> 2674</span>    QList&lt;const QStandardItem*&gt; itemsToRemove;</div>
+<div class="line"><a id="l02675" name="l02675"></a><span class="lineno"> 2675</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemSurfaceMap.cbegin(); it != m_itemSurfaceMap.cend(); ++it) {</div>
+<div class="line"><a id="l02676" name="l02676"></a><span class="lineno"> 2676</span>        <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02677" name="l02677"></a><span class="lineno"> 2677</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove) {</div>
+<div class="line"><a id="l02678" name="l02678"></a><span class="lineno"> 2678</span>            <span class="comment">// Check if this item&#39;s surface matches any removed surface</span></div>
+<div class="line"><a id="l02679" name="l02679"></a><span class="lineno"> 2679</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span> sit = m_surfaces.cbegin(); sit != m_surfaces.cend(); ++sit) {</div>
+<div class="line"><a id="l02680" name="l02680"></a><span class="lineno"> 2680</span>                <span class="keywordflow">if</span> (sit.value() == it.value()) { found = <span class="keyword">true</span>; <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l02681" name="l02681"></a><span class="lineno"> 2681</span>            }</div>
+<div class="line"><a id="l02682" name="l02682"></a><span class="lineno"> 2682</span>        }</div>
+<div class="line"><a id="l02683" name="l02683"></a><span class="lineno"> 2683</span>        <span class="comment">// If the surface is no longer in m_surfaces, it was removed</span></div>
+<div class="line"><a id="l02684" name="l02684"></a><span class="lineno"> 2684</span>        <span class="keywordtype">bool</span> stillPresent = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02685" name="l02685"></a><span class="lineno"> 2685</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> sit = m_surfaces.cbegin(); sit != m_surfaces.cend(); ++sit) {</div>
+<div class="line"><a id="l02686" name="l02686"></a><span class="lineno"> 2686</span>            <span class="keywordflow">if</span> (sit.value() == it.value()) { stillPresent = <span class="keyword">true</span>; <span class="keywordflow">break</span>; }</div>
+<div class="line"><a id="l02687" name="l02687"></a><span class="lineno"> 2687</span>        }</div>
+<div class="line"><a id="l02688" name="l02688"></a><span class="lineno"> 2688</span>        <span class="keywordflow">if</span> (!stillPresent)</div>
+<div class="line"><a id="l02689" name="l02689"></a><span class="lineno"> 2689</span>            itemsToRemove &lt;&lt; it.key();</div>
+<div class="line"><a id="l02690" name="l02690"></a><span class="lineno"> 2690</span>    }</div>
+<div class="line"><a id="l02691" name="l02691"></a><span class="lineno"> 2691</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QStandardItem *item : itemsToRemove) {</div>
+<div class="line"><a id="l02692" name="l02692"></a><span class="lineno"> 2692</span>        m_itemSurfaceMap.remove(item);</div>
+<div class="line"><a id="l02693" name="l02693"></a><span class="lineno"> 2693</span>        <span class="comment">// Remove from model</span></div>
+<div class="line"><a id="l02694" name="l02694"></a><span class="lineno"> 2694</span>        <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l02695" name="l02695"></a><span class="lineno"> 2695</span>            QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(item);</div>
+<div class="line"><a id="l02696" name="l02696"></a><span class="lineno"> 2696</span>            <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
+<div class="line"><a id="l02697" name="l02697"></a><span class="lineno"> 2697</span>                mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02698" name="l02698"></a><span class="lineno"> 2698</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l02699" name="l02699"></a><span class="lineno"> 2699</span>                m_model-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02700" name="l02700"></a><span class="lineno"> 2700</span>        }</div>
+<div class="line"><a id="l02701" name="l02701"></a><span class="lineno"> 2701</span>    }</div>
+<div class="line"><a id="l02702" name="l02702"></a><span class="lineno"> 2702</span>}</div>
+<div class="line"><a id="l02703" name="l02703"></a><span class="lineno"> 2703</span> </div>
+<div class="line"><a id="l02704" name="l02704"></a><span class="lineno"> 2704</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02705" name="l02705"></a><span class="lineno"> 2705</span> </div>
+<div class="foldopen" id="foldopen02706" data-start="{" data-end="}">
+<div class="line"><a id="l02706" name="l02706"></a><span class="lineno"><a class="line" href="a03041.html#a5aa4164a73949f3f94cc19fc56f0fdf9"> 2706</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#a5aa4164a73949f3f94cc19fc56f0fdf9">BrainView::clearSurfaces</a>()</div>
+<div class="line"><a id="l02707" name="l02707"></a><span class="lineno"> 2707</span>{</div>
+<div class="line"><a id="l02708" name="l02708"></a><span class="lineno"> 2708</span>    <span class="comment">// Remove brain surfaces (lh_*, rh_*)</span></div>
+<div class="line"><a id="l02709" name="l02709"></a><span class="lineno"> 2709</span>    QStringList keysToRemove;</div>
+<div class="line"><a id="l02710" name="l02710"></a><span class="lineno"> 2710</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
+<div class="line"><a id="l02711" name="l02711"></a><span class="lineno"> 2711</span>        <span class="keywordflow">if</span> (it.key().startsWith(<span class="stringliteral">&quot;lh_&quot;</span>) || it.key().startsWith(<span class="stringliteral">&quot;rh_&quot;</span>))</div>
+<div class="line"><a id="l02712" name="l02712"></a><span class="lineno"> 2712</span>            keysToRemove &lt;&lt; it.key();</div>
+<div class="line"><a id="l02713" name="l02713"></a><span class="lineno"> 2713</span>    }</div>
+<div class="line"><a id="l02714" name="l02714"></a><span class="lineno"> 2714</span> </div>
+<div class="line"><a id="l02715" name="l02715"></a><span class="lineno"> 2715</span>    <span class="comment">// Clean up itemSurfaceMap</span></div>
+<div class="line"><a id="l02716" name="l02716"></a><span class="lineno"> 2716</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemSurfaceMap.begin(); it != m_itemSurfaceMap.end(); ) {</div>
+<div class="line"><a id="l02717" name="l02717"></a><span class="lineno"> 2717</span>        <span class="keywordtype">bool</span> remove = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02718" name="l02718"></a><span class="lineno"> 2718</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove) {</div>
+<div class="line"><a id="l02719" name="l02719"></a><span class="lineno"> 2719</span>            <span class="keywordflow">if</span> (m_surfaces.contains(key) &amp;&amp; m_surfaces[key] == it.value()) {</div>
+<div class="line"><a id="l02720" name="l02720"></a><span class="lineno"> 2720</span>                remove = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l02721" name="l02721"></a><span class="lineno"> 2721</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l02722" name="l02722"></a><span class="lineno"> 2722</span>            }</div>
+<div class="line"><a id="l02723" name="l02723"></a><span class="lineno"> 2723</span>        }</div>
+<div class="line"><a id="l02724" name="l02724"></a><span class="lineno"> 2724</span>        <span class="keywordflow">if</span> (remove) {</div>
+<div class="line"><a id="l02725" name="l02725"></a><span class="lineno"> 2725</span>            <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l02726" name="l02726"></a><span class="lineno"> 2726</span>                QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(it.key());</div>
+<div class="line"><a id="l02727" name="l02727"></a><span class="lineno"> 2727</span>                <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
+<div class="line"><a id="l02728" name="l02728"></a><span class="lineno"> 2728</span>                    mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02729" name="l02729"></a><span class="lineno"> 2729</span>                <span class="keywordflow">else</span></div>
+<div class="line"><a id="l02730" name="l02730"></a><span class="lineno"> 2730</span>                    m_model-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02731" name="l02731"></a><span class="lineno"> 2731</span>            }</div>
+<div class="line"><a id="l02732" name="l02732"></a><span class="lineno"> 2732</span>            it = m_itemSurfaceMap.erase(it);</div>
+<div class="line"><a id="l02733" name="l02733"></a><span class="lineno"> 2733</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l02734" name="l02734"></a><span class="lineno"> 2734</span>            ++it;</div>
+<div class="line"><a id="l02735" name="l02735"></a><span class="lineno"> 2735</span>        }</div>
+<div class="line"><a id="l02736" name="l02736"></a><span class="lineno"> 2736</span>    }</div>
+<div class="line"><a id="l02737" name="l02737"></a><span class="lineno"> 2737</span> </div>
+<div class="line"><a id="l02738" name="l02738"></a><span class="lineno"> 2738</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove)</div>
+<div class="line"><a id="l02739" name="l02739"></a><span class="lineno"> 2739</span>        m_surfaces.remove(key);</div>
+<div class="line"><a id="l02740" name="l02740"></a><span class="lineno"> 2740</span> </div>
+<div class="line"><a id="l02741" name="l02741"></a><span class="lineno"> 2741</span>    m_activeSurface.reset();</div>
+<div class="line"><a id="l02742" name="l02742"></a><span class="lineno"> 2742</span>    m_activeSurfaceType.clear();</div>
+<div class="line"><a id="l02743" name="l02743"></a><span class="lineno"> 2743</span>    updateSceneBounds();</div>
+<div class="line"><a id="l02744" name="l02744"></a><span class="lineno"> 2744</span>    update();</div>
+<div class="line"><a id="l02745" name="l02745"></a><span class="lineno"> 2745</span>}</div>
+</div>
+<div class="line"><a id="l02746" name="l02746"></a><span class="lineno"> 2746</span> </div>
+<div class="line"><a id="l02747" name="l02747"></a><span class="lineno"> 2747</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02748" name="l02748"></a><span class="lineno"> 2748</span> </div>
+<div class="foldopen" id="foldopen02749" data-start="{" data-end="}">
+<div class="line"><a id="l02749" name="l02749"></a><span class="lineno"><a class="line" href="a03041.html#a8522793c6dd2a90f1a97eaa7d140133b"> 2749</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#a8522793c6dd2a90f1a97eaa7d140133b">BrainView::clearBem</a>()</div>
+<div class="line"><a id="l02750" name="l02750"></a><span class="lineno"> 2750</span>{</div>
+<div class="line"><a id="l02751" name="l02751"></a><span class="lineno"> 2751</span>    QStringList keysToRemove;</div>
+<div class="line"><a id="l02752" name="l02752"></a><span class="lineno"> 2752</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
+<div class="line"><a id="l02753" name="l02753"></a><span class="lineno"> 2753</span>        <span class="keywordflow">if</span> (it.key().startsWith(<span class="stringliteral">&quot;bem_&quot;</span>))</div>
+<div class="line"><a id="l02754" name="l02754"></a><span class="lineno"> 2754</span>            keysToRemove &lt;&lt; it.key();</div>
+<div class="line"><a id="l02755" name="l02755"></a><span class="lineno"> 2755</span>    }</div>
+<div class="line"><a id="l02756" name="l02756"></a><span class="lineno"> 2756</span> </div>
+<div class="line"><a id="l02757" name="l02757"></a><span class="lineno"> 2757</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemSurfaceMap.begin(); it != m_itemSurfaceMap.end(); ) {</div>
+<div class="line"><a id="l02758" name="l02758"></a><span class="lineno"> 2758</span>        <span class="keywordtype">bool</span> remove = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02759" name="l02759"></a><span class="lineno"> 2759</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove) {</div>
+<div class="line"><a id="l02760" name="l02760"></a><span class="lineno"> 2760</span>            <span class="keywordflow">if</span> (m_surfaces.contains(key) &amp;&amp; m_surfaces[key] == it.value()) {</div>
+<div class="line"><a id="l02761" name="l02761"></a><span class="lineno"> 2761</span>                remove = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l02762" name="l02762"></a><span class="lineno"> 2762</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l02763" name="l02763"></a><span class="lineno"> 2763</span>            }</div>
+<div class="line"><a id="l02764" name="l02764"></a><span class="lineno"> 2764</span>        }</div>
+<div class="line"><a id="l02765" name="l02765"></a><span class="lineno"> 2765</span>        <span class="keywordflow">if</span> (remove) {</div>
+<div class="line"><a id="l02766" name="l02766"></a><span class="lineno"> 2766</span>            <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l02767" name="l02767"></a><span class="lineno"> 2767</span>                QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(it.key());</div>
+<div class="line"><a id="l02768" name="l02768"></a><span class="lineno"> 2768</span>                <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
+<div class="line"><a id="l02769" name="l02769"></a><span class="lineno"> 2769</span>                    mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02770" name="l02770"></a><span class="lineno"> 2770</span>                <span class="keywordflow">else</span></div>
+<div class="line"><a id="l02771" name="l02771"></a><span class="lineno"> 2771</span>                    m_model-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02772" name="l02772"></a><span class="lineno"> 2772</span>            }</div>
+<div class="line"><a id="l02773" name="l02773"></a><span class="lineno"> 2773</span>            it = m_itemSurfaceMap.erase(it);</div>
+<div class="line"><a id="l02774" name="l02774"></a><span class="lineno"> 2774</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l02775" name="l02775"></a><span class="lineno"> 2775</span>            ++it;</div>
+<div class="line"><a id="l02776" name="l02776"></a><span class="lineno"> 2776</span>        }</div>
+<div class="line"><a id="l02777" name="l02777"></a><span class="lineno"> 2777</span>    }</div>
+<div class="line"><a id="l02778" name="l02778"></a><span class="lineno"> 2778</span> </div>
+<div class="line"><a id="l02779" name="l02779"></a><span class="lineno"> 2779</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove)</div>
+<div class="line"><a id="l02780" name="l02780"></a><span class="lineno"> 2780</span>        m_surfaces.remove(key);</div>
+<div class="line"><a id="l02781" name="l02781"></a><span class="lineno"> 2781</span> </div>
+<div class="line"><a id="l02782" name="l02782"></a><span class="lineno"> 2782</span>    updateSceneBounds();</div>
+<div class="line"><a id="l02783" name="l02783"></a><span class="lineno"> 2783</span>    update();</div>
+<div class="line"><a id="l02784" name="l02784"></a><span class="lineno"> 2784</span>}</div>
+</div>
+<div class="line"><a id="l02785" name="l02785"></a><span class="lineno"> 2785</span> </div>
+<div class="line"><a id="l02786" name="l02786"></a><span class="lineno"> 2786</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02787" name="l02787"></a><span class="lineno"> 2787</span> </div>
+<div class="foldopen" id="foldopen02788" data-start="{" data-end="}">
+<div class="line"><a id="l02788" name="l02788"></a><span class="lineno"><a class="line" href="a03041.html#a20a2705bc7081a0b0258b983a114a29a"> 2788</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#a20a2705bc7081a0b0258b983a114a29a">BrainView::clearSourceEstimate</a>()</div>
+<div class="line"><a id="l02789" name="l02789"></a><span class="lineno"> 2789</span>{</div>
+<div class="line"><a id="l02790" name="l02790"></a><span class="lineno"> 2790</span>    m_sourceManager.stopStreaming();</div>
+<div class="line"><a id="l02791" name="l02791"></a><span class="lineno"> 2791</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.begin(); it != m_surfaces.end(); ++it) {</div>
+<div class="line"><a id="l02792" name="l02792"></a><span class="lineno"> 2792</span>        <span class="keywordflow">if</span> (it.key().startsWith(<span class="stringliteral">&quot;lh_&quot;</span>) || it.key().startsWith(<span class="stringliteral">&quot;rh_&quot;</span>)) {</div>
+<div class="line"><a id="l02793" name="l02793"></a><span class="lineno"> 2793</span>            it.value()-&gt;clearSourceEstimateColors();</div>
+<div class="line"><a id="l02794" name="l02794"></a><span class="lineno"> 2794</span>        }</div>
+<div class="line"><a id="l02795" name="l02795"></a><span class="lineno"> 2795</span>    }</div>
+<div class="line"><a id="l02796" name="l02796"></a><span class="lineno"> 2796</span>    update();</div>
+<div class="line"><a id="l02797" name="l02797"></a><span class="lineno"> 2797</span>}</div>
+</div>
+<div class="line"><a id="l02798" name="l02798"></a><span class="lineno"> 2798</span> </div>
+<div class="line"><a id="l02799" name="l02799"></a><span class="lineno"> 2799</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02800" name="l02800"></a><span class="lineno"> 2800</span> </div>
+<div class="foldopen" id="foldopen02801" data-start="{" data-end="}">
+<div class="line"><a id="l02801" name="l02801"></a><span class="lineno"><a class="line" href="a03041.html#a081493cdb15ea352b80c9aa886c3e9bb"> 2801</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#a081493cdb15ea352b80c9aa886c3e9bb">BrainView::clearDipoles</a>()</div>
+<div class="line"><a id="l02802" name="l02802"></a><span class="lineno"> 2802</span>{</div>
+<div class="line"><a id="l02803" name="l02803"></a><span class="lineno"> 2803</span>    m_dipoles.reset();</div>
+<div class="line"><a id="l02804" name="l02804"></a><span class="lineno"> 2804</span> </div>
+<div class="line"><a id="l02805" name="l02805"></a><span class="lineno"> 2805</span>    <span class="comment">// Remove dipole items from model and maps</span></div>
+<div class="line"><a id="l02806" name="l02806"></a><span class="lineno"> 2806</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemDipoleMap.begin(); it != m_itemDipoleMap.end(); ) {</div>
+<div class="line"><a id="l02807" name="l02807"></a><span class="lineno"> 2807</span>        <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l02808" name="l02808"></a><span class="lineno"> 2808</span>            QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(it.key());</div>
+<div class="line"><a id="l02809" name="l02809"></a><span class="lineno"> 2809</span>            <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
+<div class="line"><a id="l02810" name="l02810"></a><span class="lineno"> 2810</span>                mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02811" name="l02811"></a><span class="lineno"> 2811</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l02812" name="l02812"></a><span class="lineno"> 2812</span>                m_model-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02813" name="l02813"></a><span class="lineno"> 2813</span>        }</div>
+<div class="line"><a id="l02814" name="l02814"></a><span class="lineno"> 2814</span>        it = m_itemDipoleMap.erase(it);</div>
+<div class="line"><a id="l02815" name="l02815"></a><span class="lineno"> 2815</span>    }</div>
+<div class="line"><a id="l02816" name="l02816"></a><span class="lineno"> 2816</span>    update();</div>
+<div class="line"><a id="l02817" name="l02817"></a><span class="lineno"> 2817</span>}</div>
+</div>
+<div class="line"><a id="l02818" name="l02818"></a><span class="lineno"> 2818</span> </div>
+<div class="line"><a id="l02819" name="l02819"></a><span class="lineno"> 2819</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02820" name="l02820"></a><span class="lineno"> 2820</span> </div>
+<div class="foldopen" id="foldopen02821" data-start="{" data-end="}">
+<div class="line"><a id="l02821" name="l02821"></a><span class="lineno"><a class="line" href="a03041.html#adc9eeefc2f65d049faf14bc6c5618347"> 2821</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#adc9eeefc2f65d049faf14bc6c5618347">BrainView::clearSourceSpace</a>()</div>
+<div class="line"><a id="l02822" name="l02822"></a><span class="lineno"> 2822</span>{</div>
+<div class="line"><a id="l02823" name="l02823"></a><span class="lineno"> 2823</span>    QStringList keysToRemove;</div>
+<div class="line"><a id="l02824" name="l02824"></a><span class="lineno"> 2824</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
+<div class="line"><a id="l02825" name="l02825"></a><span class="lineno"> 2825</span>        <span class="keywordflow">if</span> (it.key().startsWith(<span class="stringliteral">&quot;srcsp_&quot;</span>))</div>
+<div class="line"><a id="l02826" name="l02826"></a><span class="lineno"> 2826</span>            keysToRemove &lt;&lt; it.key();</div>
+<div class="line"><a id="l02827" name="l02827"></a><span class="lineno"> 2827</span>    }</div>
+<div class="line"><a id="l02828" name="l02828"></a><span class="lineno"> 2828</span> </div>
+<div class="line"><a id="l02829" name="l02829"></a><span class="lineno"> 2829</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemSurfaceMap.begin(); it != m_itemSurfaceMap.end(); ) {</div>
+<div class="line"><a id="l02830" name="l02830"></a><span class="lineno"> 2830</span>        <span class="keywordtype">bool</span> remove = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02831" name="l02831"></a><span class="lineno"> 2831</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove) {</div>
+<div class="line"><a id="l02832" name="l02832"></a><span class="lineno"> 2832</span>            <span class="keywordflow">if</span> (m_surfaces.contains(key) &amp;&amp; m_surfaces[key] == it.value()) {</div>
+<div class="line"><a id="l02833" name="l02833"></a><span class="lineno"> 2833</span>                remove = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l02834" name="l02834"></a><span class="lineno"> 2834</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l02835" name="l02835"></a><span class="lineno"> 2835</span>            }</div>
+<div class="line"><a id="l02836" name="l02836"></a><span class="lineno"> 2836</span>        }</div>
+<div class="line"><a id="l02837" name="l02837"></a><span class="lineno"> 2837</span>        <span class="keywordflow">if</span> (remove) {</div>
+<div class="line"><a id="l02838" name="l02838"></a><span class="lineno"> 2838</span>            <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l02839" name="l02839"></a><span class="lineno"> 2839</span>                QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(it.key());</div>
+<div class="line"><a id="l02840" name="l02840"></a><span class="lineno"> 2840</span>                <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
+<div class="line"><a id="l02841" name="l02841"></a><span class="lineno"> 2841</span>                    mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02842" name="l02842"></a><span class="lineno"> 2842</span>                <span class="keywordflow">else</span></div>
+<div class="line"><a id="l02843" name="l02843"></a><span class="lineno"> 2843</span>                    m_model-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02844" name="l02844"></a><span class="lineno"> 2844</span>            }</div>
+<div class="line"><a id="l02845" name="l02845"></a><span class="lineno"> 2845</span>            it = m_itemSurfaceMap.erase(it);</div>
+<div class="line"><a id="l02846" name="l02846"></a><span class="lineno"> 2846</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l02847" name="l02847"></a><span class="lineno"> 2847</span>            ++it;</div>
+<div class="line"><a id="l02848" name="l02848"></a><span class="lineno"> 2848</span>        }</div>
+<div class="line"><a id="l02849" name="l02849"></a><span class="lineno"> 2849</span>    }</div>
+<div class="line"><a id="l02850" name="l02850"></a><span class="lineno"> 2850</span> </div>
+<div class="line"><a id="l02851" name="l02851"></a><span class="lineno"> 2851</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove)</div>
+<div class="line"><a id="l02852" name="l02852"></a><span class="lineno"> 2852</span>        m_surfaces.remove(key);</div>
+<div class="line"><a id="l02853" name="l02853"></a><span class="lineno"> 2853</span> </div>
+<div class="line"><a id="l02854" name="l02854"></a><span class="lineno"> 2854</span>    updateSceneBounds();</div>
+<div class="line"><a id="l02855" name="l02855"></a><span class="lineno"> 2855</span>    update();</div>
+<div class="line"><a id="l02856" name="l02856"></a><span class="lineno"> 2856</span>}</div>
+</div>
+<div class="line"><a id="l02857" name="l02857"></a><span class="lineno"> 2857</span> </div>
+<div class="line"><a id="l02858" name="l02858"></a><span class="lineno"> 2858</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02859" name="l02859"></a><span class="lineno"> 2859</span> </div>
+<div class="foldopen" id="foldopen02860" data-start="{" data-end="}">
+<div class="line"><a id="l02860" name="l02860"></a><span class="lineno"><a class="line" href="a03041.html#af9b6c8e684c30a8a10f4bb2e144f5eef"> 2860</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#af9b6c8e684c30a8a10f4bb2e144f5eef">BrainView::clearSensors</a>()</div>
+<div class="line"><a id="l02861" name="l02861"></a><span class="lineno"> 2861</span>{</div>
+<div class="line"><a id="l02862" name="l02862"></a><span class="lineno"> 2862</span>    QStringList keysToRemove;</div>
+<div class="line"><a id="l02863" name="l02863"></a><span class="lineno"> 2863</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
+<div class="line"><a id="l02864" name="l02864"></a><span class="lineno"> 2864</span>        <span class="keywordflow">if</span> (it.key().startsWith(<span class="stringliteral">&quot;sens_&quot;</span>) || it.key().startsWith(<span class="stringliteral">&quot;dig_&quot;</span>))</div>
+<div class="line"><a id="l02865" name="l02865"></a><span class="lineno"> 2865</span>            keysToRemove &lt;&lt; it.key();</div>
+<div class="line"><a id="l02866" name="l02866"></a><span class="lineno"> 2866</span>    }</div>
+<div class="line"><a id="l02867" name="l02867"></a><span class="lineno"> 2867</span> </div>
+<div class="line"><a id="l02868" name="l02868"></a><span class="lineno"> 2868</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemSurfaceMap.begin(); it != m_itemSurfaceMap.end(); ) {</div>
+<div class="line"><a id="l02869" name="l02869"></a><span class="lineno"> 2869</span>        <span class="keywordtype">bool</span> remove = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02870" name="l02870"></a><span class="lineno"> 2870</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove) {</div>
+<div class="line"><a id="l02871" name="l02871"></a><span class="lineno"> 2871</span>            <span class="keywordflow">if</span> (m_surfaces.contains(key) &amp;&amp; m_surfaces[key] == it.value()) {</div>
+<div class="line"><a id="l02872" name="l02872"></a><span class="lineno"> 2872</span>                remove = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l02873" name="l02873"></a><span class="lineno"> 2873</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l02874" name="l02874"></a><span class="lineno"> 2874</span>            }</div>
+<div class="line"><a id="l02875" name="l02875"></a><span class="lineno"> 2875</span>        }</div>
+<div class="line"><a id="l02876" name="l02876"></a><span class="lineno"> 2876</span>        <span class="keywordflow">if</span> (remove) {</div>
+<div class="line"><a id="l02877" name="l02877"></a><span class="lineno"> 2877</span>            <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l02878" name="l02878"></a><span class="lineno"> 2878</span>                QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(it.key());</div>
+<div class="line"><a id="l02879" name="l02879"></a><span class="lineno"> 2879</span>                <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
+<div class="line"><a id="l02880" name="l02880"></a><span class="lineno"> 2880</span>                    mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02881" name="l02881"></a><span class="lineno"> 2881</span>                <span class="keywordflow">else</span></div>
+<div class="line"><a id="l02882" name="l02882"></a><span class="lineno"> 2882</span>                    m_model-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l02883" name="l02883"></a><span class="lineno"> 2883</span>            }</div>
+<div class="line"><a id="l02884" name="l02884"></a><span class="lineno"> 2884</span>            it = m_itemSurfaceMap.erase(it);</div>
+<div class="line"><a id="l02885" name="l02885"></a><span class="lineno"> 2885</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l02886" name="l02886"></a><span class="lineno"> 2886</span>            ++it;</div>
+<div class="line"><a id="l02887" name="l02887"></a><span class="lineno"> 2887</span>        }</div>
+<div class="line"><a id="l02888" name="l02888"></a><span class="lineno"> 2888</span>    }</div>
+<div class="line"><a id="l02889" name="l02889"></a><span class="lineno"> 2889</span> </div>
+<div class="line"><a id="l02890" name="l02890"></a><span class="lineno"> 2890</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove)</div>
+<div class="line"><a id="l02891" name="l02891"></a><span class="lineno"> 2891</span>        m_surfaces.remove(key);</div>
+<div class="line"><a id="l02892" name="l02892"></a><span class="lineno"> 2892</span> </div>
+<div class="line"><a id="l02893" name="l02893"></a><span class="lineno"> 2893</span>    m_devHeadTrans = QMatrix4x4();</div>
+<div class="line"><a id="l02894" name="l02894"></a><span class="lineno"> 2894</span>    m_hasDevHead = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02895" name="l02895"></a><span class="lineno"> 2895</span>    updateSceneBounds();</div>
+<div class="line"><a id="l02896" name="l02896"></a><span class="lineno"> 2896</span>    update();</div>
+<div class="line"><a id="l02897" name="l02897"></a><span class="lineno"> 2897</span>}</div>
+</div>
+<div class="line"><a id="l02898" name="l02898"></a><span class="lineno"> 2898</span> </div>
+<div class="line"><a id="l02899" name="l02899"></a><span class="lineno"> 2899</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02900" name="l02900"></a><span class="lineno"> 2900</span> </div>
+<div class="foldopen" id="foldopen02901" data-start="{" data-end="}">
+<div class="line"><a id="l02901" name="l02901"></a><span class="lineno"><a class="line" href="a03041.html#af21f080e3be130dc519a359b12dc8a1b"> 2901</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#af21f080e3be130dc519a359b12dc8a1b">BrainView::clearEvoked</a>()</div>
+<div class="line"><a id="l02902" name="l02902"></a><span class="lineno"> 2902</span>{</div>
+<div class="line"><a id="l02903" name="l02903"></a><span class="lineno"> 2903</span>    m_fieldMapper.setEvoked(<a class="code hl_class" href="a03365.html">FIFFLIB::FiffEvoked</a>());</div>
+<div class="line"><a id="l02904" name="l02904"></a><span class="lineno"> 2904</span>    m_sensorStreamManager.stopStreaming();</div>
+<div class="line"><a id="l02905" name="l02905"></a><span class="lineno"> 2905</span>    update();</div>
+<div class="line"><a id="l02906" name="l02906"></a><span class="lineno"> 2906</span>}</div>
+</div>
+<div class="line"><a id="l02907" name="l02907"></a><span class="lineno"> 2907</span> </div>
+<div class="line"><a id="l02908" name="l02908"></a><span class="lineno"> 2908</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02909" name="l02909"></a><span class="lineno"> 2909</span> </div>
+<div class="foldopen" id="foldopen02910" data-start="{" data-end="}">
+<div class="line"><a id="l02910" name="l02910"></a><span class="lineno"><a class="line" href="a03041.html#a685b574c4f1d3dd2f1476e5a77dd1b29"> 2910</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#a685b574c4f1d3dd2f1476e5a77dd1b29">BrainView::clearTransformation</a>()</div>
+<div class="line"><a id="l02911" name="l02911"></a><span class="lineno"> 2911</span>{</div>
+<div class="line"><a id="l02912" name="l02912"></a><span class="lineno"> 2912</span>    m_headToMriTrans = <a class="code hl_class" href="a03321.html">FIFFLIB::FiffCoordTrans</a>();</div>
+<div class="line"><a id="l02913" name="l02913"></a><span class="lineno"> 2913</span>    refreshSensorTransforms();</div>
+<div class="line"><a id="l02914" name="l02914"></a><span class="lineno"> 2914</span>    update();</div>
+<div class="line"><a id="l02915" name="l02915"></a><span class="lineno"> 2915</span>}</div>
+</div>
+<div class="line"><a id="l02916" name="l02916"></a><span class="lineno"> 2916</span> </div>
+<div class="line"><a id="l02917" name="l02917"></a><span class="lineno"> 2917</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l02918" name="l02918"></a><span class="lineno"> 2918</span> </div>
+<div class="foldopen" id="foldopen02919" data-start="{" data-end="}">
+<div class="line"><a id="l02919" name="l02919"></a><span class="lineno"><a class="line" href="a03041.html#a8f33169344f131c924c4969432b491e4"> 2919</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03041.html#a8f33169344f131c924c4969432b491e4">BrainView::clearNetwork</a>()</div>
+<div class="line"><a id="l02920" name="l02920"></a><span class="lineno"> 2920</span>{</div>
+<div class="line"><a id="l02921" name="l02921"></a><span class="lineno"> 2921</span>    m_network.reset();</div>
+<div class="line"><a id="l02922" name="l02922"></a><span class="lineno"> 2922</span>    m_networkVisible = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l02923" name="l02923"></a><span class="lineno"> 2923</span> </div>
+<div class="line"><a id="l02924" name="l02924"></a><span class="lineno"> 2924</span>    <span class="comment">// Remove network items from model</span></div>
+<div class="line"><a id="l02925" name="l02925"></a><span class="lineno"> 2925</span>    <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l02926" name="l02926"></a><span class="lineno"> 2926</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r = m_model-&gt;rowCount() - 1; r &gt;= 0; --r) {</div>
+<div class="line"><a id="l02927" name="l02927"></a><span class="lineno"> 2927</span>            QStandardItem *item = m_model-&gt;item(r);</div>
+<div class="line"><a id="l02928" name="l02928"></a><span class="lineno"> 2928</span>            <span class="keywordflow">if</span> (item &amp;&amp; item-&gt;text() == <span class="stringliteral">&quot;Networks&quot;</span>) {</div>
+<div class="line"><a id="l02929" name="l02929"></a><span class="lineno"> 2929</span>                m_model-&gt;removeRow(r);</div>
+<div class="line"><a id="l02930" name="l02930"></a><span class="lineno"> 2930</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l02931" name="l02931"></a><span class="lineno"> 2931</span>            }</div>
+<div class="line"><a id="l02932" name="l02932"></a><span class="lineno"> 2932</span>        }</div>
+<div class="line"><a id="l02933" name="l02933"></a><span class="lineno"> 2933</span>    }</div>
+<div class="line"><a id="l02934" name="l02934"></a><span class="lineno"> 2934</span>    update();</div>
+<div class="line"><a id="l02935" name="l02935"></a><span class="lineno"> 2935</span>}</div>
+</div>
 <div class="ttc" id="aa00080_html"><div class="ttname"><a href="a00080.html">dataloader.h</a></div><div class="ttdoc">DataLoader — static helpers for loading MNE data files.</div></div>
 <div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">surfacekeys.h</a></div><div class="ttdoc">FsSurface key constants and type-to-key mappings.</div></div>
 <div class="ttc" id="aa00086_html_a4259f460e27bd16cb8268e4dd715cc4c"><div class="ttname"><a href="a00086.html#a4259f460e27bd16cb8268e4dd715cc4c">shaderModeName</a></div><div class="ttdeci">QString shaderModeName(ShaderMode mode)</div><div class="ttdef"><b>Definition</b> <a href="a00086_source.html#l00332">viewstate.cpp:332</a></div></div>
@@ -3193,12 +3490,14 @@ $(function() {
 <div class="ttc" id="aa03037_html_ad2a24871aba7d3896b29229f45fd1697"><div class="ttname"><a href="a03037.html#ad2a24871aba7d3896b29229f45fd1697">BrainRenderer::SceneData::mvp</a></div><div class="ttdeci">QMatrix4x4 mvp</div><div class="ttdef"><b>Definition</b> <a href="a00161_source.html#l00105">brainrenderer.h:105</a></div></div>
 <div class="ttc" id="aa03037_html_ae87c3f7c3448efa60392a48acf5997c0"><div class="ttname"><a href="a03037.html#ae87c3f7c3448efa60392a48acf5997c0">BrainRenderer::SceneData::scissorW</a></div><div class="ttdeci">int scissorW</div><div class="ttdef"><b>Definition</b> <a href="a00161_source.html#l00114">brainrenderer.h:114</a></div></div>
 <div class="ttc" id="aa03041_html_a033ce91f7a4042b25b209d60003b9e69"><div class="ttname"><a href="a03041.html#a033ce91f7a4042b25b209d60003b9e69">BrainView::setBemHighContrast</a></div><div class="ttdeci">void setBemHighContrast(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l00840">brainview.cpp:840</a></div></div>
+<div class="ttc" id="aa03041_html_a081493cdb15ea352b80c9aa886c3e9bb"><div class="ttname"><a href="a03041.html#a081493cdb15ea352b80c9aa886c3e9bb">BrainView::clearDipoles</a></div><div class="ttdeci">void clearDipoles()</div><div class="ttdef"><b>Definition</b> <a href="#l02801">brainview.cpp:2801</a></div></div>
 <div class="ttc" id="aa03041_html_a0b79c01ee3028d12192e8b0fcf7003e4"><div class="ttname"><a href="a03041.html#a0b79c01ee3028d12192e8b0fcf7003e4">BrainView::setSourceColormap</a></div><div class="ttdeci">void setSourceColormap(const QString &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="#l01925">brainview.cpp:1925</a></div></div>
 <div class="ttc" id="aa03041_html_a10241617a8a4fee362b01e2846f26426"><div class="ttname"><a href="a03041.html#a10241617a8a4fee362b01e2846f26426">BrainView::loadMegHelmetSurface</a></div><div class="ttdeci">bool loadMegHelmetSurface(const QString &amp;helmetFilePath)</div><div class="ttdef"><b>Definition</b> <a href="#l02303">brainview.cpp:2303</a></div></div>
 <div class="ttc" id="aa03041_html_a17b0f6d54f196649fea2e27126cc8c3f"><div class="ttname"><a href="a03041.html#a17b0f6d54f196649fea2e27126cc8c3f">BrainView::setHemiVisible</a></div><div class="ttdeci">void setHemiVisible(int hemiIdx, bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l00818">brainview.cpp:818</a></div></div>
 <div class="ttc" id="aa03041_html_a184d54d6744f20c320ea48ce59e09d9e"><div class="ttname"><a href="a03041.html#a184d54d6744f20c320ea48ce59e09d9e">BrainView::setSensorFieldTimePoint</a></div><div class="ttdeci">void setSensorFieldTimePoint(int index)</div><div class="ttdef"><b>Definition</b> <a href="#l02056">brainview.cpp:2056</a></div></div>
 <div class="ttc" id="aa03041_html_a1a452e544d48f94a832ddbab36ee09b6"><div class="ttname"><a href="a03041.html#a1a452e544d48f94a832ddbab36ee09b6">BrainView::sourceThresholdsUpdated</a></div><div class="ttdeci">void sourceThresholdsUpdated(float min, float mid, float max)</div></div>
 <div class="ttc" id="aa03041_html_a1cc0ad2cf7bc4f65f6fc36ed795b2618"><div class="ttname"><a href="a03041.html#a1cc0ad2cf7bc4f65f6fc36ed795b2618">BrainView::setInfoPanelVisible</a></div><div class="ttdeci">void setInfoPanelVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l01294">brainview.cpp:1294</a></div></div>
+<div class="ttc" id="aa03041_html_a20a2705bc7081a0b0258b983a114a29a"><div class="ttname"><a href="a03041.html#a20a2705bc7081a0b0258b983a114a29a">BrainView::clearSourceEstimate</a></div><div class="ttdeci">void clearSourceEstimate()</div><div class="ttdef"><b>Definition</b> <a href="#l02788">brainview.cpp:2788</a></div></div>
 <div class="ttc" id="aa03041_html_a2190b413865060abbc3bf3afefbbeeeb"><div class="ttname"><a href="a03041.html#a2190b413865060abbc3bf3afefbbeeeb">BrainView::stcNumTimePoints</a></div><div class="ttdeci">int stcNumTimePoints() const</div><div class="ttdef"><b>Definition</b> <a href="#l02156">brainview.cpp:2156</a></div></div>
 <div class="ttc" id="aa03041_html_a21b7bf2a59715f54dcf702d68876eb21"><div class="ttname"><a href="a03041.html#a21b7bf2a59715f54dcf702d68876eb21">BrainView::loadTransformation</a></div><div class="ttdeci">bool loadTransformation(const QString &amp;transPath)</div><div class="ttdef"><b>Definition</b> <a href="#l02398">brainview.cpp:2398</a></div></div>
 <div class="ttc" id="aa03041_html_a2292a4bd15b853b73d7180456e238687"><div class="ttname"><a href="a03041.html#a2292a4bd15b853b73d7180456e238687">BrainView::loadDipoles</a></div><div class="ttdeci">bool loadDipoles(const QString &amp;dipPath)</div><div class="ttdef"><b>Definition</b> <a href="#l02319">brainview.cpp:2319</a></div></div>
@@ -3221,11 +3520,13 @@ $(function() {
 <div class="ttc" id="aa03041_html_a54c50893c3508488d73edbe14d0327a2"><div class="ttname"><a href="a03041.html#a54c50893c3508488d73edbe14d0327a2">BrainView::setRealtimeLooping</a></div><div class="ttdeci">void setRealtimeLooping(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l01977">brainview.cpp:1977</a></div></div>
 <div class="ttc" id="aa03041_html_a550e2dd73f5bb7307e4bb78264f549b8"><div class="ttname"><a href="a03041.html#a550e2dd73f5bb7307e4bb78264f549b8">BrainView::setRealtimeInterval</a></div><div class="ttdeci">void setRealtimeInterval(int msec)</div><div class="ttdef"><b>Definition</b> <a href="#l01970">brainview.cpp:1970</a></div></div>
 <div class="ttc" id="aa03041_html_a57b8cac3259882a3129bc67a7a07fd0e"><div class="ttname"><a href="a03041.html#a57b8cac3259882a3129bc67a7a07fd0e">BrainView::showMultiView</a></div><div class="ttdeci">void showMultiView()</div><div class="ttdef"><b>Definition</b> <a href="#l00884">brainview.cpp:884</a></div></div>
+<div class="ttc" id="aa03041_html_a5aa4164a73949f3f94cc19fc56f0fdf9"><div class="ttname"><a href="a03041.html#a5aa4164a73949f3f94cc19fc56f0fdf9">BrainView::clearSurfaces</a></div><div class="ttdeci">void clearSurfaces()</div><div class="ttdef"><b>Definition</b> <a href="#l02706">brainview.cpp:2706</a></div></div>
 <div class="ttc" id="aa03041_html_a5e25e3e6188b90c9be5955b48e8544f1"><div class="ttname"><a href="a03041.html#a5e25e3e6188b90c9be5955b48e8544f1">BrainView::setSensorFieldVisible</a></div><div class="ttdeci">void setSensorFieldVisible(const QString &amp;type, bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l02075">brainview.cpp:2075</a></div></div>
 <div class="ttc" id="aa03041_html_a5f16ae09a73c541e155111dfd68c3e2c"><div class="ttname"><a href="a03041.html#a5f16ae09a73c541e155111dfd68c3e2c">BrainView::stcTmin</a></div><div class="ttdeci">float stcTmin() const</div><div class="ttdef"><b>Definition</b> <a href="#l02149">brainview.cpp:2149</a></div></div>
 <div class="ttc" id="aa03041_html_a60e9ee0180a1da44a20d42f534e89ab7"><div class="ttname"><a href="a03041.html#a60e9ee0180a1da44a20d42f534e89ab7">BrainView::visualizationEditTarget</a></div><div class="ttdeci">int visualizationEditTarget() const</div><div class="ttdef"><b>Definition</b> <a href="#l00594">brainview.cpp:594</a></div></div>
 <div class="ttc" id="aa03041_html_a62fbb726ca3bf332d9895c1524c3f2e4"><div class="ttname"><a href="a03041.html#a62fbb726ca3bf332d9895c1524c3f2e4">BrainView::startRealtimeSensorStreaming</a></div><div class="ttdeci">void startRealtimeSensorStreaming(const QString &amp;modality=QStringLiteral(&quot;MEG&quot;))</div><div class="ttdef"><b>Definition</b> <a href="#l02204">brainview.cpp:2204</a></div></div>
 <div class="ttc" id="aa03041_html_a67d63289d795abcd89980be77952afa4"><div class="ttname"><a href="a03041.html#a67d63289d795abcd89980be77952afa4">BrainView::overlayModeForTarget</a></div><div class="ttdeci">QString overlayModeForTarget(int target) const</div><div class="ttdef"><b>Definition</b> <a href="#l00622">brainview.cpp:622</a></div></div>
+<div class="ttc" id="aa03041_html_a685b574c4f1d3dd2f1476e5a77dd1b29"><div class="ttname"><a href="a03041.html#a685b574c4f1d3dd2f1476e5a77dd1b29">BrainView::clearTransformation</a></div><div class="ttdeci">void clearTransformation()</div><div class="ttdef"><b>Definition</b> <a href="#l02910">brainview.cpp:2910</a></div></div>
 <div class="ttc" id="aa03041_html_a6b8da250951bf0f42aa72970f654257a"><div class="ttname"><a href="a03041.html#a6b8da250951bf0f42aa72970f654257a">BrainView::onRowsInserted</a></div><div class="ttdeci">void onRowsInserted(const QModelIndex &amp;parent, int first, int last)</div><div class="ttdef"><b>Definition</b> <a href="#l00237">brainview.cpp:237</a></div></div>
 <div class="ttc" id="aa03041_html_a6faac273989ef8858a716ea23635ff3c"><div class="ttname"><a href="a03041.html#a6faac273989ef8858a716ea23635ff3c">BrainView::stopRealtimeSensorStreaming</a></div><div class="ttdeci">void stopRealtimeSensorStreaming()</div><div class="ttdef"><b>Definition</b> <a href="#l02211">brainview.cpp:2211</a></div></div>
 <div class="ttc" id="aa03041_html_a720fbabbaa55c8ed043c039622fa88c7"><div class="ttname"><a href="a03041.html#a720fbabbaa55c8ed043c039622fa88c7">BrainView::shaderModeForTarget</a></div><div class="ttdeci">QString shaderModeForTarget(int target) const</div><div class="ttdef"><b>Definition</b> <a href="#l00608">brainview.cpp:608</a></div></div>
@@ -3235,12 +3536,14 @@ $(function() {
 <div class="ttc" id="aa03041_html_a77d0d2960619d1f86f112bf26b30ab45"><div class="ttname"><a href="a03041.html#a77d0d2960619d1f86f112bf26b30ab45">BrainView::mouseMoveEvent</a></div><div class="ttdeci">void mouseMoveEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition</b> <a href="#l01778">brainview.cpp:1778</a></div></div>
 <div class="ttc" id="aa03041_html_a7a16217c5af9f4e9caae1564216ea566"><div class="ttname"><a href="a03041.html#a7a16217c5af9f4e9caae1564216ea566">BrainView::pushRealtimeSourceData</a></div><div class="ttdeci">void pushRealtimeSourceData(const Eigen::VectorXd &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="#l01963">brainview.cpp:1963</a></div></div>
 <div class="ttc" id="aa03041_html_a7beadae3762201a0945bb3cc9fd0dc50"><div class="ttname"><a href="a03041.html#a7beadae3762201a0945bb3cc9fd0dc50">BrainView::visualizationEditTargetChanged</a></div><div class="ttdeci">void visualizationEditTargetChanged(int target)</div></div>
+<div class="ttc" id="aa03041_html_a8522793c6dd2a90f1a97eaa7d140133b"><div class="ttname"><a href="a03041.html#a8522793c6dd2a90f1a97eaa7d140133b">BrainView::clearBem</a></div><div class="ttdeci">void clearBem()</div><div class="ttdef"><b>Definition</b> <a href="#l02749">brainview.cpp:2749</a></div></div>
 <div class="ttc" id="aa03041_html_a852f4940d763c418ad7e6af20c71b2ad"><div class="ttname"><a href="a03041.html#a852f4940d763c418ad7e6af20c71b2ad">BrainView::setVisualizationEditTarget</a></div><div class="ttdeci">void setVisualizationEditTarget(int target)</div><div class="ttdef"><b>Definition</b> <a href="#l00552">brainview.cpp:552</a></div></div>
 <div class="ttc" id="aa03041_html_a85e9df8e797c3c1f303fd38b3e1fc4f0"><div class="ttname"><a href="a03041.html#a85e9df8e797c3c1f303fd38b3e1fc4f0">BrainView::timePointChanged</a></div><div class="ttdeci">void timePointChanged(int index, float time)</div></div>
 <div class="ttc" id="aa03041_html_a879f9c90b21355f6ee573d5ab7fc5ddd"><div class="ttname"><a href="a03041.html#a879f9c90b21355f6ee573d5ab7fc5ddd">BrainView::setSourceSpaceVisible</a></div><div class="ttdeci">void setSourceSpaceVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l02388">brainview.cpp:2388</a></div></div>
 <div class="ttc" id="aa03041_html_a888a6a2654b9362550a24e0076f819ff"><div class="ttname"><a href="a03041.html#a888a6a2654b9362550a24e0076f819ff">BrainView::render</a></div><div class="ttdeci">void render(QRhiCommandBuffer *cb) override</div><div class="ttdef"><b>Definition</b> <a href="#l01321">brainview.cpp:1321</a></div></div>
 <div class="ttc" id="aa03041_html_a894bf5a02aae76a3cdc5ea3687feed37"><div class="ttname"><a href="a03041.html#a894bf5a02aae76a3cdc5ea3687feed37">BrainView::setInitialCameraRotation</a></div><div class="ttdeci">void setInitialCameraRotation(const QQuaternion &amp;rotation)</div><div class="ttdef"><b>Definition</b> <a href="#l00230">brainview.cpp:230</a></div></div>
 <div class="ttc" id="aa03041_html_a8e9afab7af342db85017bfee1a8a9f2b"><div class="ttname"><a href="a03041.html#a8e9afab7af342db85017bfee1a8a9f2b">BrainView::loadSensors</a></div><div class="ttdeci">bool loadSensors(const QString &amp;fifPath)</div><div class="ttdef"><b>Definition</b> <a href="#l02277">brainview.cpp:2277</a></div></div>
+<div class="ttc" id="aa03041_html_a8f33169344f131c924c4969432b491e4"><div class="ttname"><a href="a03041.html#a8f33169344f131c924c4969432b491e4">BrainView::clearNetwork</a></div><div class="ttdeci">void clearNetwork()</div><div class="ttdef"><b>Definition</b> <a href="#l02919">brainview.cpp:2919</a></div></div>
 <div class="ttc" id="aa03041_html_a91a62d74feab07e81e706682450c0bb2"><div class="ttname"><a href="a03041.html#a91a62d74feab07e81e706682450c0bb2">BrainView::setVisualizationMode</a></div><div class="ttdeci">void setVisualizationMode(const QString &amp;mode)</div><div class="ttdef"><b>Definition</b> <a href="#l00793">brainview.cpp:793</a></div></div>
 <div class="ttc" id="aa03041_html_a93b2f6f03d758c88943ec605322e148d"><div class="ttname"><a href="a03041.html#a93b2f6f03d758c88943ec605322e148d">BrainView::initialize</a></div><div class="ttdeci">void initialize(QRhiCommandBuffer *cb) override</div><div class="ttdef"><b>Definition</b> <a href="#l01312">brainview.cpp:1312</a></div></div>
 <div class="ttc" id="aa03041_html_a98ad2d95435afee042c69365ab2da211"><div class="ttname"><a href="a03041.html#a98ad2d95435afee042c69365ab2da211">BrainView::setModel</a></div><div class="ttdeci">void setModel(BrainTreeModel *model)</div><div class="ttdef"><b>Definition</b> <a href="#l00218">brainview.cpp:218</a></div></div>
@@ -3273,6 +3576,7 @@ $(function() {
 <div class="ttc" id="aa03041_html_ad49190731411f643675c231db0176436"><div class="ttname"><a href="a03041.html#ad49190731411f643675c231db0176436">BrainView::sensorFieldTimePointChanged</a></div><div class="ttdeci">void sensorFieldTimePointChanged(int index, float time)</div></div>
 <div class="ttc" id="aa03041_html_ad9158ea67d17823382bb900e322dc8a3"><div class="ttname"><a href="a03041.html#ad9158ea67d17823382bb900e322dc8a3">BrainView::isRealtimeStreaming</a></div><div class="ttdeci">bool isRealtimeStreaming() const</div><div class="ttdef"><b>Definition</b> <a href="#l01956">brainview.cpp:1956</a></div></div>
 <div class="ttc" id="aa03041_html_ada44f677aea1d16c67c2e88a25b68919"><div class="ttname"><a href="a03041.html#ada44f677aea1d16c67c2e88a25b68919">BrainView::setViewCount</a></div><div class="ttdeci">void setViewCount(int count)</div><div class="ttdef"><b>Definition</b> <a href="#l00895">brainview.cpp:895</a></div></div>
+<div class="ttc" id="aa03041_html_adc9eeefc2f65d049faf14bc6c5618347"><div class="ttname"><a href="a03041.html#adc9eeefc2f65d049faf14bc6c5618347">BrainView::clearSourceSpace</a></div><div class="ttdeci">void clearSourceSpace()</div><div class="ttdef"><b>Definition</b> <a href="#l02821">brainview.cpp:2821</a></div></div>
 <div class="ttc" id="aa03041_html_adfd831c356f10cf21cea08c0ed145e2e"><div class="ttname"><a href="a03041.html#adfd831c356f10cf21cea08c0ed145e2e">BrainView::setMegHelmetOverride</a></div><div class="ttdeci">void setMegHelmetOverride(const QString &amp;path)</div><div class="ttdef"><b>Definition</b> <a href="#l00777">brainview.cpp:777</a></div></div>
 <div class="ttc" id="aa03041_html_ae241349720bd556a49266f4b05826090"><div class="ttname"><a href="a03041.html#ae241349720bd556a49266f4b05826090">BrainView::viewportCameraPreset</a></div><div class="ttdeci">int viewportCameraPreset(int index) const</div><div class="ttdef"><b>Definition</b> <a href="#l01285">brainview.cpp:1285</a></div></div>
 <div class="ttc" id="aa03041_html_ae96bebbfc2986b666563fe188641c892"><div class="ttname"><a href="a03041.html#ae96bebbfc2986b666563fe188641c892">BrainView::setDipoleVisible</a></div><div class="ttdeci">void setDipoleVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l00782">brainview.cpp:782</a></div></div>
@@ -3280,9 +3584,11 @@ $(function() {
 <div class="ttc" id="aa03041_html_aef8f7722a622180977f2e72bd15d442f"><div class="ttname"><a href="a03041.html#aef8f7722a622180977f2e72bd15d442f">BrainView::onDataChanged</a></div><div class="ttdeci">void onDataChanged(const QModelIndex &amp;topLeft, const QModelIndex &amp;bottomRight, const QVector&lt; int &gt; &amp;roles)</div><div class="ttdef"><b>Definition</b> <a href="#l00435">brainview.cpp:435</a></div></div>
 <div class="ttc" id="aa03041_html_af07196f74bb7411631b45726329e7311"><div class="ttname"><a href="a03041.html#af07196f74bb7411631b45726329e7311">BrainView::hoveredRegionChanged</a></div><div class="ttdeci">void hoveredRegionChanged(const QString &amp;regionName)</div></div>
 <div class="ttc" id="aa03041_html_af20258da337541bc04015a43d4f20857"><div class="ttname"><a href="a03041.html#af20258da337541bc04015a43d4f20857">BrainView::setLightingEnabled</a></div><div class="ttdeci">void setLightingEnabled(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l00852">brainview.cpp:852</a></div></div>
+<div class="ttc" id="aa03041_html_af21f080e3be130dc519a359b12dc8a1b"><div class="ttname"><a href="a03041.html#af21f080e3be130dc519a359b12dc8a1b">BrainView::clearEvoked</a></div><div class="ttdeci">void clearEvoked()</div><div class="ttdef"><b>Definition</b> <a href="#l02901">brainview.cpp:2901</a></div></div>
 <div class="ttc" id="aa03041_html_af3cd1987a372f02dd247f4074cb51314"><div class="ttname"><a href="a03041.html#af3cd1987a372f02dd247f4074cb51314">BrainView::setNetworkVisible</a></div><div class="ttdeci">void setNetworkVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l02346">brainview.cpp:2346</a></div></div>
 <div class="ttc" id="aa03041_html_af6d4a987c1857c76ee4a01eee25215e5"><div class="ttname"><a href="a03041.html#af6d4a987c1857c76ee4a01eee25215e5">BrainView::sensorFieldLoaded</a></div><div class="ttdeci">void sensorFieldLoaded(int numTimePoints, int initialTimePoint=0)</div></div>
 <div class="ttc" id="aa03041_html_af8663c2ef2b0fd001babd325c8924154"><div class="ttname"><a href="a03041.html#af8663c2ef2b0fd001babd325c8924154">BrainView::setMegFieldMapOnHead</a></div><div class="ttdeci">void setMegFieldMapOnHead(bool useHead)</div><div class="ttdef"><b>Definition</b> <a href="#l02111">brainview.cpp:2111</a></div></div>
+<div class="ttc" id="aa03041_html_af9b6c8e684c30a8a10f4bb2e144f5eef"><div class="ttname"><a href="a03041.html#af9b6c8e684c30a8a10f4bb2e144f5eef">BrainView::clearSensors</a></div><div class="ttdeci">void clearSensors()</div><div class="ttdef"><b>Definition</b> <a href="#l02860">brainview.cpp:2860</a></div></div>
 <div class="ttc" id="aa03041_html_afa7109914f328c283a58459c47f0daac"><div class="ttname"><a href="a03041.html#afa7109914f328c283a58459c47f0daac">BrainView::loadSensorField</a></div><div class="ttdeci">bool loadSensorField(const QString &amp;evokedPath, int aveIndex=0)</div><div class="ttdef"><b>Definition</b> <a href="#l02015">brainview.cpp:2015</a></div></div>
 <div class="ttc" id="aa03041_html_afb8c143cea806929ff155bf7bc91b062"><div class="ttname"><a href="a03041.html#afb8c143cea806929ff155bf7bc91b062">BrainView::setRealtimeSensorColormap</a></div><div class="ttdeci">void setRealtimeSensorColormap(const QString &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="#l02253">brainview.cpp:2253</a></div></div>
 <div class="ttc" id="aa03041_html_afbb122f0b6466f535536cf0eef60ef64"><div class="ttname"><a href="a03041.html#afbb122f0b6466f535536cf0eef60ef64">BrainView::resetMultiViewLayout</a></div><div class="ttdeci">void resetMultiViewLayout()</div><div class="ttdef"><b>Definition</b> <a href="#l00925">brainview.cpp:925</a></div></div>
