@@ -1,9 +1,9 @@
 var searchData=
 [
   ['y_0',['Y',['../a01475.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a01049.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;inv_ecd_set.cpp'],['../a01781.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp'],['../a01859.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_msh_display_surface.cpp'],['../a01952.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_patch_info.cpp'],['../a01916.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_source_space.cpp'],['../a02009.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_surface.cpp'],['../a01829.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_surface_or_volume.cpp']]],
-  ['y_1',['y',['../a02357.html#abfea271844f25d1cd86708a32a4b63d7',1,'BIDSLIB::BidsElectrode::y'],['../a03481.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y']]],
-  ['y_5fras_2',['y_ras',['../a04133.html#a0b245033bee29e63134e056a21907ecd',1,'MNELIB::MNEVolGeom::y_ras'],['../a04161.html#a1226779fdae15a96ce0e45a39b5bf2e5',1,'MRILIB::MriVolData::y_ras']]],
-  ['ymax_3',['ymax',['../a03965.html#a1572cf4baf34ef14fb5a68cfcbca770c',1,'MNELIB::MNELayout::ymax'],['../a03969.html#ae691ffab1b93a4a54a068e99775bc1d5',1,'MNELIB::MNELayoutPort::ymax']]],
-  ['ymin_4',['ymin',['../a03965.html#a862a3501c32cc719c6ee5113bb2bbf6e',1,'MNELIB::MNELayout::ymin'],['../a03969.html#a4fee0abd1fa3e01f1f5a4d9892568e21',1,'MNELIB::MNELayoutPort::ymin']]],
-  ['ysize_5',['ysize',['../a04133.html#a156e3f2f1477f70b0086b9ef237fc373',1,'MNELIB::MNEVolGeom::ysize'],['../a04161.html#a86fd376c72b1af2f91329df469357092',1,'MRILIB::MriVolData::ysize']]]
+  ['y_1',['y',['../a02381.html#abfea271844f25d1cd86708a32a4b63d7',1,'BIDSLIB::BidsElectrode::y'],['../a03521.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y']]],
+  ['y_5fras_2',['y_ras',['../a04177.html#a0b245033bee29e63134e056a21907ecd',1,'MNELIB::MNEVolGeom::y_ras'],['../a04205.html#a1226779fdae15a96ce0e45a39b5bf2e5',1,'MRILIB::MriVolData::y_ras']]],
+  ['ymax_3',['ymax',['../a04009.html#a1572cf4baf34ef14fb5a68cfcbca770c',1,'MNELIB::MNELayout::ymax'],['../a04013.html#ae691ffab1b93a4a54a068e99775bc1d5',1,'MNELIB::MNELayoutPort::ymax']]],
+  ['ymin_4',['ymin',['../a04009.html#a862a3501c32cc719c6ee5113bb2bbf6e',1,'MNELIB::MNELayout::ymin'],['../a04013.html#a4fee0abd1fa3e01f1f5a4d9892568e21',1,'MNELIB::MNELayoutPort::ymin']]],
+  ['ysize_5',['ysize',['../a04177.html#a156e3f2f1477f70b0086b9ef237fc373',1,'MNELIB::MNEVolGeom::ysize'],['../a04205.html#a86fd376c72b1af2f91329df469357092',1,'MRILIB::MriVolData::ysize']]]
 ];

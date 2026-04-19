@@ -198,5 +198,7 @@ var searchData=
   ['multiviewlayout_2ecpp_195',['multiviewlayout.cpp',['../a00164.html',1,'']]],
   ['multiviewlayout_2eh_196',['multiviewlayout.h',['../a00155.html',1,'']]],
   ['multiviewwindow_2ecpp_197',['multiviewwindow.cpp',['../a00371.html',1,'']]],
-  ['multiviewwindow_2eh_198',['multiviewwindow.h',['../a00359.html',1,'']]]
+  ['multiviewwindow_2eh_198',['multiviewwindow.h',['../a00359.html',1,'']]],
+  ['mvar_5fmodel_2ecpp_199',['mvar_model.cpp',['../a02144.html',1,'']]],
+  ['mvar_5fmodel_2eh_200',['mvar_model.h',['../a02177.html',1,'']]]
 ];

@@ -1,17 +1,18 @@
 var searchData=
 [
-  ['pair_0',['Pair',['../a03657.html',1,'INVLIB']]],
-  ['parksmcclellan_1',['ParksMcClellan',['../a03157.html',1,'UTILSLIB']]],
-  ['phaselagindex_2',['PhaseLagIndex',['../a02481.html',1,'CONNLIB']]],
-  ['phaselockingvalue_3',['PhaseLockingValue',['../a02485.html',1,'CONNLIB']]],
-  ['pickresult_4',['PickResult',['../a02857.html',1,'']]],
-  ['plot_5',['Plot',['../a02533.html',1,'DISPLIB']]],
-  ['processingsettings_6',['ProcessingSettings',['../a04053.html',1,'MNELIB']]],
-  ['progressview_7',['ProgressView',['../a02777.html',1,'DISPLIB']]],
-  ['projectorsview_8',['ProjectorsView',['../a02781.html',1,'DISPLIB']]],
-  ['projectsettingsview_9',['ProjectSettingsView',['../a02785.html',1,'DISPLIB']]],
-  ['pythonrunner_10',['PythonRunner',['../a04249.html',1,'UTILSLIB']]],
-  ['pythonrunnerconfig_11',['PythonRunnerConfig',['../a04245.html',1,'UTILSLIB']]],
-  ['pythonrunnerresult_12',['PythonRunnerResult',['../a04241.html',1,'UTILSLIB']]],
-  ['pythontesthelper_13',['PythonTestHelper',['../a04253.html',1,'UTILSLIB']]]
+  ['pair_0',['Pair',['../a03697.html',1,'INVLIB']]],
+  ['parksmcclellan_1',['ParksMcClellan',['../a03197.html',1,'UTILSLIB']]],
+  ['partialdirectedcoherence_2',['PartialDirectedCoherence',['../a02517.html',1,'CONNLIB']]],
+  ['phaselagindex_3',['PhaseLagIndex',['../a02521.html',1,'CONNLIB']]],
+  ['phaselockingvalue_4',['PhaseLockingValue',['../a02525.html',1,'CONNLIB']]],
+  ['pickresult_5',['PickResult',['../a02897.html',1,'']]],
+  ['plot_6',['Plot',['../a02573.html',1,'DISPLIB']]],
+  ['processingsettings_7',['ProcessingSettings',['../a04097.html',1,'MNELIB']]],
+  ['progressview_8',['ProgressView',['../a02817.html',1,'DISPLIB']]],
+  ['projectorsview_9',['ProjectorsView',['../a02821.html',1,'DISPLIB']]],
+  ['projectsettingsview_10',['ProjectSettingsView',['../a02825.html',1,'DISPLIB']]],
+  ['pythonrunner_11',['PythonRunner',['../a04293.html',1,'UTILSLIB']]],
+  ['pythonrunnerconfig_12',['PythonRunnerConfig',['../a04289.html',1,'UTILSLIB']]],
+  ['pythonrunnerresult_13',['PythonRunnerResult',['../a04285.html',1,'UTILSLIB']]],
+  ['pythontesthelper_14',['PythonTestHelper',['../a04297.html',1,'UTILSLIB']]]
 ];
