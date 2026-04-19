@@ -75,6 +75,5 @@ var searchData=
   ['projtmax_72',['projTmax',['../a04097.html#a34e76b65755750164c5035e2ee6b5fb6',1,'MNELIB::ProcessingSettings']]],
   ['projtmin_73',['projTmin',['../a04097.html#a31a5f2df441294cf87125f844d4d537e',1,'MNELIB::ProcessingSettings']]],
   ['provenance_74',['provenance',['../a03897.html#a3612a5fd98d3a82d019e44f849dd6a63',1,'MNALIB::MnaVerification']]],
-  ['ptrs_75',['ptrs',['../a03425.html#a615c07dad8c8e0fce8928b39d39e17a0',1,'FIFFLIB::FiffSparseMatrix']]],
-  ['pythonexe_76',['pythonExe',['../a04289.html#a59180af1e9e96d821ea814daba9b9a99',1,'UTILSLIB::PythonRunnerConfig']]]
+  ['pythonexe_75',['pythonExe',['../a04289.html#a59180af1e9e96d821ea814daba9b9a99',1,'UTILSLIB::PythonRunnerConfig']]]
 ];

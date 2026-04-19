@@ -232,7 +232,7 @@ var searchData=
   ['rowlist_229',['rowlist',['../a04069.html#a896f85880835db146d939c29e84d9778',1,'MNELIB::MNENamedMatrix::rowlist'],['../a04149.html#afa9920bb21f700e48152b1e40a3566dd',1,'MNELIB::MNESparseNamedMatrix::rowlist']]],
   ['rowmajormatrixmap_230',['RowMajorMatrixMap',['../a03797.html#a171028109e8eee307f705dc1a621e177',1,'MLLIB::MlTensor']]],
   ['rowmajormatrixxf_231',['RowMajorMatrixXf',['../a03797.html#a29db16406881f787f20ddc1deab13b79',1,'MLLIB::MlTensor::RowMajorMatrixXf'],['../a02316.html#ae43e706a3d74ae7333bb6ff910bce16a',1,'MNELIB::RowMajorMatrixXf']]],
-  ['rows_232',['rows',['../a03797.html#abfeda6a2bc9f08066fa000cb987fc9b6',1,'MLLIB::MlTensor']]],
+  ['rows_232',['rows',['../a03425.html#a9d3901e78b15f0e6a695d02948ae8a93',1,'FIFFLIB::FiffSparseMatrix::rows()'],['../a03797.html#abfeda6a2bc9f08066fa000cb987fc9b6',1,'MLLIB::MlTensor::rows()']]],
   ['rowvectorpair_233',['RowVectorPair',['../a02319.html#ae1ddfa37a3893969aef05a73116d5b06',1,'DISPLIB']]],
   ['rr_234',['rr',['../a03597.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a03765.html#a137245b4a4c887daee71940e310dd358',1,'UTILSLIB::FitUser::rr'],['../a04165.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a04277.html#abff3d0b9ad663f6d849c87d09a4608fc',1,'UTILSLIB::fitUserRec::rr'],['../a03461.html#a7af7a95dd0a8d40c10c6f5bfec860ccc',1,'FSLIB::FsSurface::rr()']]],
   ['rt_5faveraging_2ecpp_235',['rt_averaging.cpp',['../a01289.html',1,'']]],

@@ -150,7 +150,7 @@ var searchData=
   ['rotationchanged_147',['rotationChanged',['../a02637.html#a54f8c08addee20ee30ba64135779b6b5',1,'DISPLIB::Control3DView']]],
   ['roundedrect_148',['roundedRect',['../a02729.html#a4f01cd37f5467d725154478a42045a11',1,'DISPLIB::DraggableFramelessWidget']]],
   ['rowcount_149',['rowCount',['../a02689.html#af6f11df1b185fbf8d22c2dfd1ef09629',1,'DISPLIB::ChannelInfoModel::rowCount()'],['../a02733.html#af9cd4cf61023d9e2d8b0beb806b26812',1,'DISPLIB::EvokedSetModel::rowCount()'],['../a02745.html#adb381118a8b4127373f2719f42b2e0a9',1,'DISPLIB::FrequencySpectrumModel::rowCount()'],['../a02765.html#a5ea85652eb500210fe4cee015332f0b2',1,'DISPLIB::RtFiffRawViewModel::rowCount()']]],
-  ['rows_150',['rows',['../a03797.html#abfeda6a2bc9f08066fa000cb987fc9b6',1,'MLLIB::MlTensor']]],
+  ['rows_150',['rows',['../a03425.html#a9d3901e78b15f0e6a695d02948ae8a93',1,'FIFFLIB::FiffSparseMatrix::rows()'],['../a03797.html#abfeda6a2bc9f08066fa000cb987fc9b6',1,'MLLIB::MlTensor::rows()']]],
   ['rr_151',['rr',['../a03461.html#a7af7a95dd0a8d40c10c6f5bfec860ccc',1,'FSLIB::FsSurface']]],
   ['rtaveraging_152',['RtAveraging',['../a03209.html#a17f35b2a1e5e5a68653762c9ff7d8e37',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['rtaveragingworker_153',['RtAveragingWorker',['../a03205.html#a7041512bfcd3b21806b5604c0aaa404d',1,'RTPROCESSINGLIB::RtAveragingWorker']]],

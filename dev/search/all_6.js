@@ -34,7 +34,7 @@ var searchData=
   ['eegreject_31',['eegReject',['../a03369.html#a8e2d8ae8fc5526376d89169403cfa722',1,'FIFFLIB::RejectionParams::eegReject'],['../a04421.html#a8e2d8ae8fc5526376d89169403cfa722',1,'MNELIB::RejectionParams::eegReject']]],
   ['eegsurfacekey_32',['eegSurfaceKey',['../a03017.html#ac8af34358ea24abe39211ab76ba9913d',1,'SensorFieldMapper']]],
   ['eig_33',['eig',['../a03329.html#ac810f54346915d9fa64e1350d12235ce',1,'FIFFLIB::FiffCov']]],
-  ['eigen_34',['eigen',['../a03929.html#ab373ba24682359fb5d203ac69badc901',1,'MNELIB::MNECovMatrix']]],
+  ['eigen_34',['eigen',['../a03929.html#ab373ba24682359fb5d203ac69badc901',1,'MNELIB::MNECovMatrix::eigen'],['../a03425.html#a11e77a347ea41695d3a24f3bf07a0377',1,'FIFFLIB::FiffSparseMatrix::eigen()'],['../a03425.html#a97fc6b667d78f553c8a77f2694800502',1,'FIFFLIB::FiffSparseMatrix::eigen() const']]],
   ['eigen_5ffields_35',['eigen_fields',['../a04005.html#afa1e75cae521fc1294566642690dec8f',1,'MNELIB::MNEInverseOperator']]],
   ['eigen_5fleads_36',['eigen_leads',['../a04005.html#a6870a0739253fd78ca58b8e1bbbb98e2',1,'MNELIB::MNEInverseOperator']]],
   ['eigen_5fleads_5fweighted_37',['eigen_leads_weighted',['../a04005.html#a5d27190215db612df4141865f4340e07',1,'MNELIB::MNEInverseOperator']]],

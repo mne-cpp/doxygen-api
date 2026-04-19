@@ -231,7 +231,7 @@ var searchData=
   ['colormaps_228',['ColorMaps',['../a02319.html#a53c600771742063d0826523495db22f3',1,'DISPLIB']]],
   ['colorrole_229',['ColorRole',['../a02909.html#ae941378b7f6d564b5c34d9b68d1c4203aa9766d76a0278fd15684825c71802bda',1,'AbstractTreeItem']]],
   ['colorsavailable_230',['colorsAvailable',['../a03013.html#acfc5da5e0661d8d81382ebfe56de2007',1,'RtSensorStreamManager']]],
-  ['cols_231',['cols',['../a03797.html#a0666e90a6fec9bab0dbdc5f34d1fbfe8',1,'MLLIB::MlTensor']]],
+  ['cols_231',['cols',['../a03425.html#a752bccef0151128f46aae4231023837d',1,'FIFFLIB::FiffSparseMatrix::cols()'],['../a03797.html#a0666e90a6fec9bab0dbdc5f34d1fbfe8',1,'MLLIB::MlTensor::cols()']]],
   ['column_5fnorm_232',['column_norm',['../a03573.html#ac58d0d165a8292bcf6cb26d856ea95f2',1,'INVLIB::InvDipoleFitData']]],
   ['column_5fnorm_5fcomp_233',['COLUMN_NORM_COMP',['../a01046.html#ab57161525a59e616c344cc8753756f52',1,'inv_dipole_fit_data.h']]],
   ['column_5fnorm_5floc_234',['COLUMN_NORM_LOC',['../a01046.html#ad2cac135d19ab5c31b4441a8cf3376e8',1,'inv_dipole_fit_data.h']]],

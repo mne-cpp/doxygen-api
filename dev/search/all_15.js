@@ -84,7 +84,7 @@ var searchData=
   ['todigpoint_81',['toDigPoint',['../a03433.html#a6f6567a5ac871e6393355576aa185606',1,'FIFFLIB::FiffTag']]],
   ['todirentry_82',['toDirEntry',['../a03433.html#afd45ae3cfba8af4a23003485c54cfa4c',1,'FIFFLIB::FiffTag']]],
   ['todouble_83',['toDouble',['../a03433.html#a76d6b0e635076df1853b09265db24b14',1,'FIFFLIB::FiffTag']]],
-  ['toeigensparse_84',['toEigenSparse',['../a03425.html#afd8a3a4f1d4831bac86cef6422ac5e5f',1,'FIFFLIB::FiffSparseMatrix']]],
+  ['toeigensparse_84',['toEigenSparse',['../a03425.html#ab19d72c1944412971311ab07eeaf1694',1,'FIFFLIB::FiffSparseMatrix']]],
   ['toeventmatrix_85',['toEventMatrix',['../a02326.html#a88eadf47c550d4c9ec94b6f14b73d1e7',1,'RTPROCESSINGLIB']]],
   ['tofiffchinfo_86',['toFiffChInfo',['../a02413.html#ab5ce876f060e036bb0867172dbba3db6',1,'BIDSLIB::BrainVisionChannelInfo::toFiffChInfo()'],['../a02421.html#ade9c0d30c643a70d206b9b52f6c6ad47',1,'BIDSLIB::EDFChannelInfo::toFiffChInfo()']]],
   ['tofiffcoordtrans_87',['toFiffCoordTrans',['../a02373.html#acf91e71934cf4bf3c441601040f76010',1,'BIDSLIB::BidsCoordinateSystem']]],

@@ -110,7 +110,7 @@ var searchData=
   ['colormap_107',['ColorMap',['../a02561.html#ae1b5944932c0b018b1faa8d78831f57e',1,'DISPLIB::ColorMap']]],
   ['colormap_108',['colormap',['../a03009.html#a7073f06b00b34c007b0bf6576c928b14',1,'SourceEstimateOverlay::colormap()'],['../a03017.html#a369922d1786ff173b1552fed60c5d798',1,'SensorFieldMapper::colormap()']]],
   ['colorsavailable_109',['colorsAvailable',['../a03013.html#acfc5da5e0661d8d81382ebfe56de2007',1,'RtSensorStreamManager']]],
-  ['cols_110',['cols',['../a03797.html#a0666e90a6fec9bab0dbdc5f34d1fbfe8',1,'MLLIB::MlTensor']]],
+  ['cols_110',['cols',['../a03425.html#a752bccef0151128f46aae4231023837d',1,'FIFFLIB::FiffSparseMatrix::cols()'],['../a03797.html#a0666e90a6fec9bab0dbdc5f34d1fbfe8',1,'MLLIB::MlTensor::cols()']]],
   ['columncount_111',['columnCount',['../a02689.html#afbe4a303ed16187617de2f52b3ec14cc',1,'DISPLIB::ChannelInfoModel::columnCount()'],['../a02733.html#a1d7a41086189bc463c918814acd1341a',1,'DISPLIB::EvokedSetModel::columnCount()'],['../a02745.html#a8dd252a1d31bd279e7e23d583a5eb4d0',1,'DISPLIB::FrequencySpectrumModel::columnCount()'],['../a02765.html#a8a19a39a6101a2593c54516f8b154727',1,'DISPLIB::RtFiffRawViewModel::columnCount()']]],
   ['combine_112',['combine',['../a03321.html#a1410828e30814cf8e57de438dce21775',1,'FIFFLIB::FiffCoordTrans::combine()'],['../a04109.html#aa3a9ddc8804ee73778a5e7bfc12a13bc',1,'MNELIB::MNEProjOp::combine()'],['../a04433.html#a1410828e30814cf8e57de438dce21775',1,'FiffCoordTrans::combine()']]],
   ['combine_5fxyz_113',['combine_xyz',['../a03745.html#a1e9be9dd6ff1752fd802536c8aed7ddf',1,'UTILSLIB::Linalg::combine_xyz()'],['../a03905.html#aa1c2cff53de77f3c39c9224303d80fae',1,'MNELIB::MNE::combine_xyz()']]],
