@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['z_0',['Z',['../a01475.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a01049.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a01781.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a01859.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a01946.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a01913.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02003.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a01829.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
-  ['z_1',['z',['../a02351.html#a6000c4e374daa8ab8f117fc0a04044ef',1,'BIDSLIB::BidsElectrode']]],
-  ['z_5fras_2',['z_ras',['../a04123.html#a634163daaf57c07a8de773081efe2cc2',1,'MNELIB::MNEVolGeom::z_ras'],['../a04151.html#aaacc6e42c6af08234cfed5aa0d27273b',1,'MRILIB::MriVolData::z_ras']]],
-  ['zoom_3',['zoom',['../a02827.html#af2dfae7a90fad04e9ea67e42458344c3',1,'SubView']]],
-  ['zsize_4',['zsize',['../a04123.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04151.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
+  ['z_0',['Z',['../a01475.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a01049.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a01781.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a01859.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a01952.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a01916.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02009.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a01829.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
+  ['z_1',['z',['../a02357.html#a6000c4e374daa8ab8f117fc0a04044ef',1,'BIDSLIB::BidsElectrode']]],
+  ['z_5fras_2',['z_ras',['../a04133.html#a634163daaf57c07a8de773081efe2cc2',1,'MNELIB::MNEVolGeom::z_ras'],['../a04161.html#aaacc6e42c6af08234cfed5aa0d27273b',1,'MRILIB::MriVolData::z_ras']]],
+  ['zoom_3',['zoom',['../a02833.html#af2dfae7a90fad04e9ea67e42458344c3',1,'SubView']]],
+  ['zsize_4',['zsize',['../a04133.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04161.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
 ];

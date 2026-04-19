@@ -7,5 +7,5 @@ var searchData=
   ['color_5freset_4',['COLOR_RESET',['../a00824.html#a17f760256046df23dd0ab46602f04d02',1,'mne_logger.cpp']]],
   ['color_5fwarn_5',['COLOR_WARN',['../a00824.html#a9a3ec041ae9dfe612f4702a85ecc738a',1,'mne_logger.cpp']]],
   ['comshared_5fexport_6',['COMSHARED_EXPORT',['../a00005.html#a8b853ba58435a9b438e30c8585e5ff4f',1,'com_global.h']]],
-  ['connshared_5fexport_7',['CONNSHARED_EXPORT',['../a02129.html#a414dbd8dff878e2cfd1ffe590f9db117',1,'conn_global.h']]]
+  ['connshared_5fexport_7',['CONNSHARED_EXPORT',['../a02135.html#a414dbd8dff878e2cfd1ffe590f9db117',1,'conn_global.h']]]
 ];
