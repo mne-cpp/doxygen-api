@@ -65,7 +65,7 @@ var searchData=
   ['dir_5ftree_62',['dir_tree',['../a03357.html#ae619e7d6485836baca339021e2a359f2',1,'FIFFLIB::FiffDirNode']]],
   ['directed_63',['directed',['../a03645.html#a6ffe6b7b006883b61d424add2da256f7',1,'INVLIB::InvConnectivity']]],
   ['direction_64',['direction',['../a03857.html#a424dd597c738967b1168ba3250680a2d',1,'MNALIB::MnaPort']]],
-  ['dirty_65',['dirty',['../a02945.html#a5b7e88ec0d27b030b6db007318ed08e0',1,'BrainSurface::GpuBuffers::dirty'],['../a02973.html#ad557867bed9cdf2ad425b9a89f38d3a2',1,'DISP3DLIB::ElectrodeObject::GpuBuffers::dirty'],['../a03829.html#a4437eeb3b80d301f76c9cab25b13a6a3',1,'MNALIB::MnaNode::dirty']]],
+  ['dirty_65',['dirty',['../a02945.html#a5b7e88ec0d27b030b6db007318ed08e0',1,'BrainSurface::GpuBuffers::dirty'],['../a02973.html#ad557867bed9cdf2ad425b9a89f38d3a2',1,'DISP3DLIB::ElectrodeObject::GpuBuffers::dirty'],['../a03029.html#a5625ed505a2c4609487769de456268f5',1,'BrainRenderer::Impl::MergedGroup::dirty'],['../a03829.html#a4437eeb3b80d301f76c9cab25b13a6a3',1,'MNALIB::MnaNode::dirty']]],
   ['discard_66',['discard',['../a03349.html#a9cdb9eb839631d98390e7702e1b98133',1,'FIFFLIB::FiffDigitizerData']]],
   ['dist_67',['dist',['../a03349.html#a2517a7a47f606b0eb048c0504f5934be',1,'FIFFLIB::FiffDigitizerData::dist'],['../a04077.html#ad4f33b3a69c7c050d92866da1b9e3234',1,'MNELIB::MNENearest::dist'],['../a04165.html#a5d2e86e43bb636d6b1dd8e9768f80cca',1,'MNELIB::MNESurfaceOrVolume::dist']]],
   ['dist_5flimit_68',['dist_limit',['../a04165.html#a758e17b5065edad6199d91566fdef73a',1,'MNELIB::MNESurfaceOrVolume']]],
@@ -83,11 +83,12 @@ var searchData=
   ['dpfitnumitr_80',['dpfitnumitr',['../a03605.html#aa4a16eea685973b37de567fcfa1eaea9',1,'INVLIB::CoilParam']]],
   ['drawable_81',['drawable',['../a04049.html#af7f21680913cf5b3117cefda9fef47bf',1,'MNELIB::MNEMshDisplaySurfaceSet']]],
   ['dregin_82',['dRegIn',['../a03273.html#a4ff04035e21de8106b204528ae3895b0',1,'UTILSLIB::SSSParams']]],
-  ['dthreshfactor_83',['dThreshFactor',['../a03077.html#a0f8b96cfa3337d0178cbc3b42ae2494e',1,'UTILSLIB::ArtifactDetectEcgParams']]],
-  ['dthreshold_84',['dThreshold',['../a03125.html#ac79dd96b1c827c127e593062f6bde50e',1,'UTILSLIB::EpochExtractorParams::dThreshold'],['../a03961.html#aa84d88e171a1797a4060b706dd68f707',1,'MNELIB::ArtifactRejectionData::dThreshold']]],
-  ['dthresholdv_85',['dThresholdV',['../a03081.html#a2e8c38c971630ff1b517fcc0ee0f9e95',1,'UTILSLIB::ArtifactDetectEogParams']]],
-  ['dtmax_86',['dTmax',['../a03125.html#ad23120736743b924d6e4568b04b61e5d',1,'UTILSLIB::EpochExtractorParams']]],
-  ['dtmin_87',['dTmin',['../a03125.html#a8f3d9084311664cdf233e4c11544491d',1,'UTILSLIB::EpochExtractorParams']]],
-  ['duration_88',['duration',['../a02385.html#a355d9aaff1334b1aa5396305ddead3ad',1,'BIDSLIB::BidsEvent::duration'],['../a02409.html#a63377c017f53f5e37581bdc690e89052',1,'BIDSLIB::BrainVisionMarker::duration'],['../a03305.html#a69b09eae00ebdec6d9f6937d61671c82',1,'FIFFLIB::FiffAnnotation::duration']]],
-  ['dvarzthresh_89',['dVarZThresh',['../a03089.html#a6d2d609a8c4a7ed6fa4f997f5c224a15',1,'UTILSLIB::BadChannelDetectParams']]]
+  ['dsbuffer_83',['dsBuffer',['../a03025.html#a020f9ab85a19a07721fa71c9e0a22c86',1,'BrainRenderer::Impl']]],
+  ['dthreshfactor_84',['dThreshFactor',['../a03077.html#a0f8b96cfa3337d0178cbc3b42ae2494e',1,'UTILSLIB::ArtifactDetectEcgParams']]],
+  ['dthreshold_85',['dThreshold',['../a03125.html#ac79dd96b1c827c127e593062f6bde50e',1,'UTILSLIB::EpochExtractorParams::dThreshold'],['../a03961.html#aa84d88e171a1797a4060b706dd68f707',1,'MNELIB::ArtifactRejectionData::dThreshold']]],
+  ['dthresholdv_86',['dThresholdV',['../a03081.html#a2e8c38c971630ff1b517fcc0ee0f9e95',1,'UTILSLIB::ArtifactDetectEogParams']]],
+  ['dtmax_87',['dTmax',['../a03125.html#ad23120736743b924d6e4568b04b61e5d',1,'UTILSLIB::EpochExtractorParams']]],
+  ['dtmin_88',['dTmin',['../a03125.html#a8f3d9084311664cdf233e4c11544491d',1,'UTILSLIB::EpochExtractorParams']]],
+  ['duration_89',['duration',['../a02385.html#a355d9aaff1334b1aa5396305ddead3ad',1,'BIDSLIB::BidsEvent::duration'],['../a02409.html#a63377c017f53f5e37581bdc690e89052',1,'BIDSLIB::BrainVisionMarker::duration'],['../a03305.html#a69b09eae00ebdec6d9f6937d61671c82',1,'FIFFLIB::FiffAnnotation::duration']]],
+  ['dvarzthresh_90',['dVarZThresh',['../a03089.html#a6d2d609a8c4a7ed6fa4f997f5c224a15',1,'UTILSLIB::BadChannelDetectParams']]]
 ];

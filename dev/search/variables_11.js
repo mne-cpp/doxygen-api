@@ -54,6 +54,12 @@ var searchData=
   ['row_5fnames_51',['row_names',['../a03409.html#ae3e205f52a45955739f2d6c711a52150',1,'FIFFLIB::FiffNamedMatrix']]],
   ['rowcals_52',['rowcals',['../a03333.html#a21bf8cd43bee78ee5ef5a494a4fa1191',1,'FIFFLIB::FiffCtfComp']]],
   ['rowlist_53',['rowlist',['../a04069.html#a896f85880835db146d939c29e84d9778',1,'MNELIB::MNENamedMatrix::rowlist'],['../a04149.html#afa9920bb21f700e48152b1e40a3566dd',1,'MNELIB::MNESparseNamedMatrix::rowlist']]],
-  ['rr_54',['rr',['../a03597.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a03765.html#a137245b4a4c887daee71940e310dd358',1,'UTILSLIB::FitUser::rr'],['../a04165.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a04277.html#abff3d0b9ad663f6d849c87d09a4608fc',1,'UTILSLIB::fitUserRec::rr']]],
-  ['running_55',['running',['../a03821.html#a93c13c5f57acc5bced76ebc8337e3fa9',1,'MNALIB::MnaGraphExecutor::StreamContext']]]
+  ['rpclear_54',['rpClear',['../a03025.html#adb7d51d6c4755857ad9ba2e1f197c29c',1,'BrainRenderer::Impl']]],
+  ['rppreserve_55',['rpPreserve',['../a03025.html#a61d5ed201346d1d7835282dac331bb98',1,'BrainRenderer::Impl']]],
+  ['rr_56',['rr',['../a03597.html#a93b2baa23cf0d6e0c09a1fea22453ef0',1,'INVLIB::InvGuessData::rr'],['../a03765.html#a137245b4a4c887daee71940e310dd358',1,'UTILSLIB::FitUser::rr'],['../a04165.html#af84a1bcf99e6585cd073aeb3cd114b0e',1,'MNELIB::MNESurfaceOrVolume::rr'],['../a04277.html#abff3d0b9ad663f6d849c87d09a4608fc',1,'UTILSLIB::fitUserRec::rr']]],
+  ['rtclear_57',['rtClear',['../a03025.html#ada7d57818d97938767cbd60ae610ce7f',1,'BrainRenderer::Impl']]],
+  ['rtcolortex_58',['rtColorTex',['../a03025.html#a31a2704c4f0d32c08357528f5297dc13',1,'BrainRenderer::Impl']]],
+  ['rtpreserve_59',['rtPreserve',['../a03025.html#a7d994368c31f8b84fae63e984ec20ae4',1,'BrainRenderer::Impl']]],
+  ['rtsize_60',['rtSize',['../a03025.html#a7b2a0f8c7839eaef2cc7ea44929d6a23',1,'BrainRenderer::Impl']]],
+  ['running_61',['running',['../a03821.html#a93c13c5f57acc5bced76ebc8337e3fa9',1,'MNALIB::MnaGraphExecutor::StreamContext']]]
 ];
