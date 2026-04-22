@@ -121,10 +121,11 @@ var searchData=
   ['surf_5fras_5fras_5ft_118',['surf_RAS_RAS_t',['../a03325.html#a4d6b6b5353355cb11b688a0487456452',1,'FIFFLIB::FiffCoordTransSet']]],
   ['surf_5ftri_119',['surf_tri',['../a04169.html#af092e2ed18d9b9fca1081ae56f9c8cc3',1,'MNELIB::MNESurfacePatch']]],
   ['surf_5fvert_120',['surf_vert',['../a04169.html#aaa6e27822810952ce35489bafd7be625',1,'MNELIB::MNESurfacePatch']]],
-  ['surfaceid_121',['surfaceId',['../a02949.html#af7a3ee0b08129c0a6bba72668bdeb4ac',1,'VertexData']]],
-  ['surfacekey_122',['surfaceKey',['../a02897.html#a5bf425e9c4de910d09fa36018eba89a7',1,'PickResult']]],
-  ['surfaces_123',['surfaces',['../a03029.html#a06ade5d1f65c362aa9ef55c1a0a7f92e',1,'BrainRenderer::Impl::MergedGroup']]],
-  ['surfacetype_124',['surfaceType',['../a02873.html#abfd59f36c16122ddad6e0de635612e08',1,'SubView']]],
-  ['surfs_125',['surfs',['../a03493.html#a6bfbe92a92b0af2329fd508c257e9536',1,'FWDLIB::FwdBemModel::surfs'],['../a04049.html#ab81fbebc7c921ab0eecce4a200aecd53',1,'MNELIB::MNEMshDisplaySurfaceSet::surfs']]],
-  ['system_126',['system',['../a02373.html#a1e519893f8f91f0836be6a887a4120ad',1,'BIDSLIB::BidsCoordinateSystem']]]
+  ['surfacegenerations_121',['surfaceGenerations',['../a03029.html#accfab622272bbc03f4f596b694d14cf9',1,'BrainRenderer::Impl::MergedGroup']]],
+  ['surfaceid_122',['surfaceId',['../a02949.html#af7a3ee0b08129c0a6bba72668bdeb4ac',1,'VertexData']]],
+  ['surfacekey_123',['surfaceKey',['../a02897.html#a5bf425e9c4de910d09fa36018eba89a7',1,'PickResult']]],
+  ['surfaces_124',['surfaces',['../a03029.html#a06ade5d1f65c362aa9ef55c1a0a7f92e',1,'BrainRenderer::Impl::MergedGroup']]],
+  ['surfacetype_125',['surfaceType',['../a02873.html#abfd59f36c16122ddad6e0de635612e08',1,'SubView']]],
+  ['surfs_126',['surfs',['../a03493.html#a6bfbe92a92b0af2329fd508c257e9536',1,'FWDLIB::FwdBemModel::surfs'],['../a04049.html#ab81fbebc7c921ab0eecce4a200aecd53',1,'MNELIB::MNEMshDisplaySurfaceSet::surfs']]],
+  ['system_127',['system',['../a02373.html#a1e519893f8f91f0836be6a887a4120ad',1,'BIDSLIB::BidsCoordinateSystem']]]
 ];
