@@ -104,7 +104,7 @@ var searchData=
   ['applyunmixing_101',['applyUnmixing',['../a03161.html#ac93e99d24b466a161ec1694e02e60627',1,'UTILSLIB::ICA']]],
   ['applyzerophase_102',['applyZeroPhase',['../a03153.html#aa1065e997f8f3c6b06ae3d78e961181b',1,'UTILSLIB::FirFilter::applyZeroPhase()'],['../a03169.html#a6689ec7276e5d48e5bbac425b9ae441b',1,'UTILSLIB::IirFilter::applyZeroPhase()']]],
   ['applyzerophasematrix_103',['applyZeroPhaseMatrix',['../a03153.html#a78a95d9982e4b809d9c1684ea7630a19',1,'UTILSLIB::FirFilter::applyZeroPhaseMatrix()'],['../a03169.html#acd285be8ac831eb9545c3c980caf53fa',1,'UTILSLIB::IirFilter::applyZeroPhaseMatrix()']]],
-  ['arsinh_104',['arsinh',['../a01496.html#ac848b31f516664e52f79fc77160777b0',1,'fwd_bem_model.cpp']]],
+  ['arsinh_104',['arsinh',['../a00881.html#ac848b31f516664e52f79fc77160777b0',1,'fwd_bem_model.cpp']]],
   ['artifactsettingsview_105',['ArtifactSettingsView',['../a02593.html#a6256ea8f0270ae22554b55c46f6663de',1,'DISPLIB::ArtifactSettingsView']]],
   ['aspectkindtostring_106',['aspectKindToString',['../a03365.html#a51b10ee52884282ec3a27ffd27353900',1,'FIFFLIB::FiffEvoked']]],
   ['assemble_5fkernel_107',['assemble_kernel',['../a04005.html#abe8a5059f815d880ad019f80fc347c1b',1,'MNELIB::MNEInverseOperator']]],

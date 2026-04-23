@@ -66,7 +66,7 @@ var searchData=
   ['norient_63',['nOrient',['../a03545.html#adb178649d384cc2061f98eae2892d639',1,'INVLIB::InvBeamformer']]],
   ['normal_64',['normal',['../a04165.html#a4472262d49f882e3aa6a8c39d044fbd2',1,'MNELIB::MNESurfaceOrVolume']]],
   ['normalize_65',['normalize',['../a02541.html#a77a2e27df15438bc21d72e62326b95d3',1,'CONNLIB::Network']]],
-  ['normalizedvisualizationtarget_66',['normalizedVisualizationTarget',['../a00086.html#ad3aa85cdf80b1dd0c88d3c395555e3df',1,'normalizedVisualizationTarget(int target, int maxIndex):&#160;viewstate.cpp'],['../a00074.html#ab7683cf1d816bf37e65f3fedfb5d6e36',1,'normalizedVisualizationTarget(int target, int maxIndex=3):&#160;viewstate.cpp']]],
+  ['normalizedvisualizationtarget_66',['normalizedVisualizationTarget',['../a01694.html#ad3aa85cdf80b1dd0c88d3c395555e3df',1,'normalizedVisualizationTarget(int target, int maxIndex):&#160;viewstate.cpp'],['../a01706.html#ab7683cf1d816bf37e65f3fedfb5d6e36',1,'normalizedVisualizationTarget(int target, int maxIndex=3):&#160;viewstate.cpp']]],
   ['notify_67',['notify',['../a04265.html#af104c2baf37c7aa63b2ef6d32c2b3a9c',1,'UTILSLIB::Subject']]],
   ['np_68',['np',['../a03633.html#affcffea08440e0d6e0457f1803f61420',1,'INVLIB::InvSensorSet']]],
   ['nsources_69',['nSources',['../a03545.html#acfc908c4b7eb26ea3cca7162bd3e836e',1,'INVLIB::InvBeamformer']]],
