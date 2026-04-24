@@ -65,5 +65,5 @@ var searchData=
   ['item_62',['item',['../a02897.html#a9f5995d42cb34e8a8e942ea86d312f4f',1,'PickResult']]],
   ['items_63',['items',['../a04109.html#aef17460aa45f51d3ac5afa08c8cf9113',1,'MNELIB::MNEProjOp']]],
   ['itris_64',['itris',['../a04165.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['itrmax_65',['ITRMAX',['../a00077.html#af34898925bbac702dcb9e2bbe1a068ab',1,'parksmcclellan.cpp']]]
+  ['itrmax_65',['ITRMAX',['../a01310.html#af34898925bbac702dcb9e2bbe1a068ab',1,'parksmcclellan.cpp']]]
 ];

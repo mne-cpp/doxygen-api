@@ -35,7 +35,7 @@ var searchData=
   ['bids_5fdatatype_5fieeg_32',['BIDS_DATATYPE_IEEG',['../a02311.html#a2a7f9d3e9d08febda0d006b31d138320',1,'BIDSLIB']]],
   ['bids_5fdatatype_5fmeg_33',['BIDS_DATATYPE_MEG',['../a02311.html#a4a7abb5f70a6e2b998448884b59a18d5',1,'BIDSLIB']]],
   ['bidsversion_34',['bidsVersion',['../a02377.html#a954e3aa722e0ad62221f37b3867b0605',1,'BIDSLIB::BidsDatasetDescription']]],
-  ['big_35',['BIG',['../a00077.html#a4568e4a8d32a680729a9fe1f13fcb3fc',1,'parksmcclellan.cpp']]],
+  ['big_35',['BIG',['../a01310.html#a4568e4a8d32a680729a9fe1f13fcb3fc',1,'parksmcclellan.cpp']]],
   ['big_5ftime_36',['BIG_TIME',['../a02332.html#a4bb7c070a64b2d26fe476c0bc8e3fff3',1,'INVLIB']]],
   ['binding_37',['binding',['../a03845.html#a2c7b3112bcf7bc1e5a949b8e96c2e4f6',1,'MNALIB::MnaOpSchema']]],
   ['bislargeheadmovement_38',['bIsLargeHeadMovement',['../a03609.html#abe10ba2a06103227336c3e89b834a967',1,'INVLIB::HpiFitResult']]],
