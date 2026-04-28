@@ -1,7 +1,7 @@
 var searchData=
 [
   ['m_0',['M',['../a03521.html#a2ea9cb9c671a4ab8c615fc5fb1fca09a',1,'FWDLIB::fitUserRec']]],
-  ['m_5f2pi_1',['M_2PI',['../a01310.html#a07385c8a292ddca19b2e70053888ff6a',1,'parksmcclellan.cpp']]],
+  ['m_5f2pi_1',['M_2PI',['../a00077.html#a07385c8a292ddca19b2e70053888ff6a',1,'parksmcclellan.cpp']]],
   ['m_5faliasnames_2',['m_aliasNames',['../a02689.html#a42e375eba9c20c2dc8c8d3026c8f40de',1,'DISPLIB::ChannelInfoModel']]],
   ['m_5fassignedoperators_3',['m_assignedOperators',['../a02689.html#a4d226f93a703ad994d97ced789c3a9a8',1,'DISPLIB::ChannelInfoModel']]],
   ['m_5fbackgroundcolor_4',['m_backgroundColor',['../a02833.html#a896e2dd0ff38212cf47815e15736ee00',1,'DISPLIB::RtFiffRawView']]],
@@ -355,7 +355,7 @@ var searchData=
   ['mgh_5ftag_5fold_5fmgh_5fxform_352',['MGH_TAG_OLD_MGH_XFORM',['../a02363.html#a2210246d82e2bdd4cdfd9cc10173bffa',1,'MRILIB']]],
   ['mgh_5ftag_5fold_5fsurf_5fgeom_353',['MGH_TAG_OLD_SURF_GEOM',['../a02363.html#a5b935e030edc691f1070733a5a57f39a',1,'MRILIB']]],
   ['mgh_5ftags_354',['mgh_tags',['../a04165.html#aee4c6f99ae16acc6c39e22f3b773be22',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['min_5ftest_5fval_355',['MIN_TEST_VAL',['../a01310.html#a5c5f4a57f9b2dae8c62b0128799f223e',1,'parksmcclellan.cpp']]],
+  ['min_5ftest_5fval_355',['MIN_TEST_VAL',['../a00077.html#a5c5f4a57f9b2dae8c62b0128799f223e',1,'parksmcclellan.cpp']]],
   ['mindist_356',['mindist',['../a03473.html#af4261beb00e4a9dc93685767a514a9b6',1,'FWDLIB::ComputeFwdSettings']]],
   ['mindistoutname_357',['mindistoutname',['../a03473.html#aae0449103146f04f23b814a11c863270',1,'FWDLIB::ComputeFwdSettings']]],
   ['minv_358',['minv',['../a04045.html#a50929bff619e4584d0d71f0e5ed6f5d5',1,'MNELIB::MNEMshDisplaySurface']]],
