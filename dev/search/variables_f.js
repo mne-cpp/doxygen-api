@@ -38,7 +38,7 @@ var searchData=
   ['portno_35',['portno',['../a04013.html#aa3c3a52f7fba06065f57a10a616e0e2a',1,'MNELIB::MNELayoutPort']]],
   ['ports_36',['ports',['../a04009.html#ae4a4df33c07a0ce8154f493cc8307a3b',1,'MNELIB::MNELayout']]],
   ['pos_37',['pos',['../a02949.html#a69f5663da32e39036e76bc1c431d0e0a',1,'VertexData::pos'],['../a03353.html#a9f8411b582913d9fc965d8e07d0a6152',1,'FIFFLIB::FiffDirEntry::pos'],['../a03457.html#aa4a7df310e9e77bd5015f8ad22962dc1',1,'FSLIB::FsLabel::pos'],['../a03605.html#a0d5a26d78231e6ef6fbc75e3fa94ae51',1,'INVLIB::CoilParam::pos'],['../a04057.html#aa958fb91391c4712d525b584db994aa5',1,'MNELIB::MNEMshLight::pos']]],
-  ['pos_5fcurv_5fcolor_38',['POS_CURV_COLOR',['../a00566.html#a781264ba867623a9df51723e02dbd8e4',1,'mne_msh_display_surface.cpp']]],
+  ['pos_5fcurv_5fcolor_38',['POS_CURV_COLOR',['../a01859.html#a781264ba867623a9df51723e02dbd8e4',1,'mne_msh_display_surface.cpp']]],
   ['position_39',['position',['../a02409.html#a20223ad8ff01771f9c6466fb057ab315',1,'BIDSLIB::BrainVisionMarker::position'],['../a02977.html#a2196fa641d777497b15caab33fd89b00',1,'DISP3DLIB::ElectrodeContact::position'],['../a03649.html#a1017ddc45fee3794df43792131684d56',1,'INVLIB::InvFocalDipole::position']]],
   ['positions_40',['positions',['../a03657.html#a182e500612f59f5e7bf08b6d838806d8',1,'INVLIB::InvSourceEstimate']]],
   ['postresults_41',['postResults',['../a03897.html#aba30f3444f7fb878c4c4d5539d48cc59',1,'MNALIB::MnaVerification']]],

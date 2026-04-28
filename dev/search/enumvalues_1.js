@@ -9,7 +9,7 @@ var searchData=
   ['bone_6',['Bone',['../a02319.html#a53c600771742063d0826523495db22f3ad687c3e410f57a8375480774232cb0cc',1,'DISPLIB']]],
   ['bonferroni_7',['Bonferroni',['../a02364.html#af057d7b69affa334e5d7ea447ed8f642a0472c4e87e75747ecd0116f287c2cc2d',1,'STSLIB']]],
   ['bos_8',['Bos',['../a02332.html#af1ffe934a77f18c6a7260b1975016387abe233ff11df2249ac43b26739e293d8b',1,'INVLIB']]],
-  ['both_9',['Both',['../a01637.html#aa760f37b1c504a57961771013387fcf9a130c5b3473c57faa76e2a1c54e26f88e',1,'Both:&#160;multiviewlayout.h'],['../a02364.html#abbb8a81f7502944519ef7b923e514924a130c5b3473c57faa76e2a1c54e26f88e',1,'STSLIB::Both']]],
+  ['both_9',['Both',['../a00155.html#aa760f37b1c504a57961771013387fcf9a130c5b3473c57faa76e2a1c54e26f88e',1,'Both:&#160;multiviewlayout.h'],['../a02364.html#abbb8a81f7502944519ef7b923e514924a130c5b3473c57faa76e2a1c54e26f88e',1,'STSLIB::Both']]],
   ['bpf_10',['BPF',['../a03105.html#a2a90eeea1af21a4c8d5d8f987b297a34aac5e1fb3af7675008999709b7be3f1b6',1,'UTILSLIB::CosineFilter::BPF'],['../a03197.html#a5cc46b61e85230db24f52030d1c71eeaad2940a677b525b7296ae9983e8becd18',1,'UTILSLIB::ParksMcClellan::BPF']]],
   ['builtin_11',['BuiltIn',['../a02357.html#a6a610e9e843b9393ceda09ef3cb64977aca8f2e8d70641ce17b9b304086c19657',1,'MLLIB']]]
 ];
