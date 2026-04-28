@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['usenew_0',['USENEW',['../a00035.html#a5a7956ee46c0c386e6143317327a319a',1,'rt_cmd_client.cpp']]],
-  ['utilsshared_5fexport_1',['UTILSSHARED_EXPORT',['../a00725.html#a66e92968c1d28ba0dcd8b83fd51f6c95',1,'utils_global.h']]]
+  ['tag_5fold_5fsurf_5fgeom_0',['TAG_OLD_SURF_GEOM',['../a00482.html#adff7c2ea61595d5623ae4055ce0d1f7f',1,'mne_surface_or_volume.h']]],
+  ['triangle_5ffile_5fmagic_5fnumber_1',['TRIANGLE_FILE_MAGIC_NUMBER',['../a00482.html#afe35c7ba1ccb6ca15d87ac2cbfb3fc57',1,'mne_surface_or_volume.h']]]
 ];

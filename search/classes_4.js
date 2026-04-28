@@ -1,13 +1,14 @@
 var searchData=
 [
-  ['dataloader_0',['DataLoader',['../a02498.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a02150.html',1,'CONNLIB']]],
-  ['digitizersettreeitem_2',['DigitizerSetTreeItem',['../a02554.html',1,'']]],
-  ['digitizertreeitem_3',['DigitizerTreeItem',['../a02558.html',1,'']]],
-  ['dipfiterror_4',['DipFitError',['../a03170.html',1,'INVLIB']]],
-  ['dipolefitfuncsrec_5',['dipoleFitFuncsRec',['../a03118.html',1,'INVLIB']]],
-  ['dipolefitview_6',['DipoleFitView',['../a02286.html',1,'DISPLIB']]],
-  ['dipoleobject_7',['DipoleObject',['../a02598.html',1,'']]],
-  ['dipoletreeitem_8',['DipoleTreeItem',['../a02562.html',1,'']]],
-  ['draggableframelesswidget_9',['DraggableFramelessWidget',['../a02366.html',1,'DISPLIB']]]
+  ['edfchannelinfo_0',['EDFChannelInfo',['../a02421.html',1,'BIDSLIB']]],
+  ['edfreader_1',['EDFReader',['../a02425.html',1,'BIDSLIB']]],
+  ['electrodecontact_2',['ElectrodeContact',['../a02977.html',1,'DISP3DLIB']]],
+  ['electrodeobject_3',['ElectrodeObject',['../a02985.html',1,'DISP3DLIB']]],
+  ['electrodeshaft_4',['ElectrodeShaft',['../a02981.html',1,'DISP3DLIB']]],
+  ['entry_5',['Entry',['../a04125.html',1,'MNELIB::RingBuffer']]],
+  ['epochextractor_6',['EpochExtractor',['../a03129.html',1,'UTILSLIB']]],
+  ['epochextractorparams_7',['EpochExtractorParams',['../a03125.html',1,'UTILSLIB']]],
+  ['eventmarker_8',['EventMarker',['../a02705.html',1,'DISPLIB::ChannelRhiView']]],
+  ['evokedsetmodel_9',['EvokedSetModel',['../a02733.html',1,'DISPLIB']]],
+  ['extendedinfomax_10',['ExtendedInfomax',['../a03137.html',1,'UTILSLIB']]]
 ];

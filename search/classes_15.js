@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['vertexdata_0',['VertexData',['../a02586.html',1,'']]],
-  ['viewvisibilityprofile_1',['ViewVisibilityProfile',['../a02506.html',1,'']]],
-  ['visualizationinfo_2',['VisualizationInfo',['../a02174.html',1,'CONNLIB']]]
+  ['warp_0',['Warp',['../a03773.html',1,'UTILSLIB']]],
+  ['weightedphaselagindex_1',['WeightedPhaseLagIndex',['../a02533.html',1,'CONNLIB']]],
+  ['welchpsd_2',['WelchPsd',['../a03289.html',1,'UTILSLIB']]],
+  ['welchpsdresult_3',['WelchPsdResult',['../a03285.html',1,'UTILSLIB']]],
+  ['writeoptions_4',['WriteOptions',['../a02397.html',1,'BIDSLIB::BidsRawData']]]
 ];

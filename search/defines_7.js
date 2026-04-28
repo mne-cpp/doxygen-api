@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['invshared_5fexport_0',['INVSHARED_EXPORT',['../a00836.html#abf8a4c9503f2c284931c293bad8e0a7c',1,'inv_global.h']]],
-  ['is_5fmatrix_1',['IS_MATRIX',['../a01349.html#a7cf27e738b24f611af8c649c11fcbbdb',1,'fiff_tag.h']]],
-  ['is_5ftransposed_2',['IS_TRANSPOSED',['../a00950.html#ac18202c2d588eee60087ed889794a5ff',1,'IS_TRANSPOSED:&#160;inv_pwl_rap_music.h'],['../a00935.html#ac18202c2d588eee60087ed889794a5ff',1,'IS_TRANSPOSED:&#160;inv_rap_music.h']]],
-  ['itrmax_3',['ITRMAX',['../a01076.html#a056d176a605f44b8b29878100fcb2be8',1,'parksmcclellan.cpp']]]
+  ['guard_5fpython_0',['GUARD_PYTHON',['../a02252.html#ad8c515e77ece1af5eb8e801316f685ff',1,'python_test_helper.h']]],
+  ['guard_5fpython_5fpackage_1',['GUARD_PYTHON_PACKAGE',['../a02252.html#a3d2d8a8d7058a48387045cd2f585492e',1,'python_test_helper.h']]]
 ];
