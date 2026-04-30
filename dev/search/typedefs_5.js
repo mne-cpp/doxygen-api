@@ -25,7 +25,7 @@ var searchData=
   ['fiffdirentryrec_22',['fiffDirEntryRec',['../a02321.html#a316cff73b37dfbb42754dd037edd282d',1,'FIFFLIB']]],
   ['fiffid_23',['fiffId',['../a02321.html#a5baad7406c5c973b6c527ca77df9c4c2',1,'FIFFLIB']]],
   ['fiffidrec_24',['fiffIdRec',['../a02321.html#a82a459379ab8122666b53bbec5e154ad',1,'FIFFLIB']]],
-  ['fituser_25',['fitUser',['../a02348.html#a69c6d1054fd016da67f35645e4df4799',1,'FWDLIB::fitUser'],['../a02331.html#aa7140d383bd0dd76c5e1888b705d91e8',1,'UTILSLIB::fitUser']]],
+  ['fituser_25',['fitUser',['../a02349.html#a69c6d1054fd016da67f35645e4df4799',1,'FWDLIB::fitUser'],['../a02331.html#aa7140d383bd0dd76c5e1888b705d91e8',1,'UTILSLIB::fitUser']]],
   ['fwdfieldfunc_26',['fwdFieldFunc',['../a01472.html#a912049a624f794e40dd9d4ae3e69e683',1,'fwd_types.h']]],
   ['fwdfieldgradfunc_27',['fwdFieldGradFunc',['../a01472.html#a869b899cfcbe0447d6382e7aa866fc4c',1,'fwd_types.h']]],
   ['fwdvecfieldfunc_28',['fwdVecFieldFunc',['../a01472.html#a25a6814c1f8ef2b508e53e30e155de4d',1,'fwd_types.h']]]

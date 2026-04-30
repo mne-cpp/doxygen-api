@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['kbarheight_0',['kBarHeight',['../a02760.html#aff095585c55f367437e35fedd309e896',1,'DISPLIB::OverviewBarWidget']]],
+  ['kbarheight_0',['kBarHeight',['../a02761.html#aff095585c55f367437e35fedd309e896',1,'DISPLIB::OverviewBarWidget']]],
   ['kbemhead_1',['kBemHead',['../a02332.html#add00739ed8d72350f77496696b8f94f8',1,'SURFACEKEYS']]],
   ['kbemprefix_2',['kBemPrefix',['../a02332.html#ae43b810a73d9e2dc7f089916df1e7070',1,'SURFACEKEYS']]],
   ['kcontoureeg_3',['kContourEeg',['../a02332.html#a108a69861983bbb9bb1d4cfaeacb0a0d',1,'SURFACEKEYS']]],
@@ -10,15 +10,15 @@ var searchData=
   ['kdigextra_7',['kDigExtra',['../a02332.html#a7d8e94649fd7ddbb64b3806b0dd577ab',1,'SURFACEKEYS']]],
   ['kdighpi_8',['kDigHpi',['../a02332.html#ab1a6969e4d1401436d56b4ac8778c97b',1,'SURFACEKEYS']]],
   ['kdigprefix_9',['kDigPrefix',['../a02332.html#a50b39c611c2a993dae49692efa5c5078',1,'SURFACEKEYS']]],
-  ['keeptempfile_10',['keepTempFile',['../a03884.html#a00785f5b69ca41c38ed422d07715fa74',1,'MNALIB::MnaScript']]],
-  ['keypressevent_11',['keyPressEvent',['../a02624.html#ae60e7e5c1d905cbf22b0dc0c90217aa5',1,'DISPLIB::ChannelDataView::keyPressEvent()'],['../a02660.html#a6c2dc3290e41d3feac706707119b9e2d',1,'DISPLIB::FilterDesignView::keyPressEvent()'],['../a02752.html#a02257e20731db442b0c1fe15b9d97b06',1,'DISPLIB::LayoutScene::keyPressEvent()'],['../a03052.html#a52856f8fbc719e1516b62fa1d2657660',1,'BrainView::keyPressEvent()']]],
-  ['keyreleaseevent_12',['keyReleaseEvent',['../a02752.html#ad7097c046857c8d62b9c509af6b91721',1,'DISPLIB::LayoutScene']]],
+  ['keeptempfile_10',['keepTempFile',['../a03885.html#a00785f5b69ca41c38ed422d07715fa74',1,'MNALIB::MnaScript']]],
+  ['keypressevent_11',['keyPressEvent',['../a02625.html#ae60e7e5c1d905cbf22b0dc0c90217aa5',1,'DISPLIB::ChannelDataView::keyPressEvent()'],['../a02661.html#a6c2dc3290e41d3feac706707119b9e2d',1,'DISPLIB::FilterDesignView::keyPressEvent()'],['../a02753.html#a02257e20731db442b0c1fe15b9d97b06',1,'DISPLIB::LayoutScene::keyPressEvent()'],['../a03053.html#a52856f8fbc719e1516b62fa1d2657660',1,'BrainView::keyPressEvent()']]],
+  ['keyreleaseevent_12',['keyReleaseEvent',['../a02753.html#ad7097c046857c8d62b9c509af6b91721',1,'DISPLIB::LayoutScene']]],
   ['khelmet_13',['kHelmet',['../a02332.html#a89dd733ef976e15b05c339c07e9d661c',1,'SURFACEKEYS']]],
-  ['khi2_14',['khi2',['../a03596.html#aa7f125d5ef0c845125bf8dd6d5f050e7',1,'INVLIB::InvEcd::khi2'],['../a03600.html#a0dd71803dfe16e2044bbff43c95f6303',1,'INVLIB::bdipEcdRec::khi2'],['../a03660.html#aab1fcd2ad4fe178c3b56ee3401c9ed10',1,'INVLIB::InvFocalDipole::khi2']]],
-  ['kind_15',['kind',['../a03324.html#a57296252392fa2bb85f00bf4cb0454f6',1,'FIFFLIB::FiffChInfo::kind'],['../a03340.html#a94c5696b1f833a6e81f5e34db7e9f31a',1,'FIFFLIB::FiffCov::kind'],['../a03344.html#a87ce56e229922b8c0b71c0d29a4d8698',1,'FIFFLIB::FiffCtfComp::kind'],['../a03352.html#aae75c4510085c461d6624158a0453c59',1,'FIFFLIB::FiffDigPoint::kind'],['../a03364.html#a5027557278aa7bab1c93801e1e45dcb1',1,'FIFFLIB::FiffDirEntry::kind'],['../a03396.html#ac982b3adbfd7f003aeec367cd16cb198',1,'FIFFLIB::FiffExplainEntry::kind'],['../a03424.html#a02031295a2d7618ff26fd39965406afe',1,'FIFFLIB::FiffProj::kind'],['../a03444.html#a28600eedaead7b0db5d22d71fce1200b',1,'FIFFLIB::FiffTag::kind'],['../a03492.html#a337cd64e69fdd49d4bf5a7e79bbfbe16',1,'FWDLIB::SurfExpl::kind'],['../a03556.html#ad755d576d7f60d70b39d78675bb81c97',1,'INVLIB::InvBeamformer::kind'],['../a03928.html#a1249d6174ece23f5818768d59785cd98',1,'MNELIB::MNEChSelection::kind'],['../a03940.html#a98f084fc3fc6933db1f112248169b7ef',1,'MNELIB::MNECovMatrix::kind'],['../a03944.html#a22ebcba007d5bf346f73cdd096feefb2',1,'MNELIB::MNECTFCompData::kind'],['../a04032.html#aac5d16af7e2cc799b5703563161fa71e',1,'MNELIB::MNEMeasDataSet::kind'],['../a04116.html#a0b6a5e88391716e084461acd0d1d8190',1,'MNELIB::MNEProjItem::kind']]],
+  ['khi2_14',['khi2',['../a03597.html#aa7f125d5ef0c845125bf8dd6d5f050e7',1,'INVLIB::InvEcd::khi2'],['../a03601.html#a0dd71803dfe16e2044bbff43c95f6303',1,'INVLIB::bdipEcdRec::khi2'],['../a03661.html#aab1fcd2ad4fe178c3b56ee3401c9ed10',1,'INVLIB::InvFocalDipole::khi2']]],
+  ['kind_15',['kind',['../a03325.html#a57296252392fa2bb85f00bf4cb0454f6',1,'FIFFLIB::FiffChInfo::kind'],['../a03341.html#a94c5696b1f833a6e81f5e34db7e9f31a',1,'FIFFLIB::FiffCov::kind'],['../a03345.html#a87ce56e229922b8c0b71c0d29a4d8698',1,'FIFFLIB::FiffCtfComp::kind'],['../a03353.html#aae75c4510085c461d6624158a0453c59',1,'FIFFLIB::FiffDigPoint::kind'],['../a03365.html#a5027557278aa7bab1c93801e1e45dcb1',1,'FIFFLIB::FiffDirEntry::kind'],['../a03397.html#ac982b3adbfd7f003aeec367cd16cb198',1,'FIFFLIB::FiffExplainEntry::kind'],['../a03425.html#a02031295a2d7618ff26fd39965406afe',1,'FIFFLIB::FiffProj::kind'],['../a03445.html#a28600eedaead7b0db5d22d71fce1200b',1,'FIFFLIB::FiffTag::kind'],['../a03493.html#a337cd64e69fdd49d4bf5a7e79bbfbe16',1,'FWDLIB::SurfExpl::kind'],['../a03557.html#ad755d576d7f60d70b39d78675bb81c97',1,'INVLIB::InvBeamformer::kind'],['../a03929.html#a1249d6174ece23f5818768d59785cd98',1,'MNELIB::MNEChSelection::kind'],['../a03941.html#a98f084fc3fc6933db1f112248169b7ef',1,'MNELIB::MNECovMatrix::kind'],['../a03945.html#a22ebcba007d5bf346f73cdd096feefb2',1,'MNELIB::MNECTFCompData::kind'],['../a04033.html#aac5d16af7e2cc799b5703563161fa71e',1,'MNELIB::MNEMeasDataSet::kind'],['../a04117.html#a0b6a5e88391716e084461acd0d1d8190',1,'MNELIB::MNEProjItem::kind']]],
   ['klhinflated_16',['kLhInflated',['../a02332.html#afd97a72cb6a324a06e6c5cfd11cdfff5',1,'SURFACEKEYS']]],
   ['klhprefix_17',['kLhPrefix',['../a02332.html#a49884ad3cc6047348cdcb3020565c1bb',1,'SURFACEKEYS']]],
-  ['kmeans_18',['KMeans',['../a03752.html',1,'UTILSLIB::KMeans'],['../a03752.html#a9e118206266aea1c12fd71ff15243dbb',1,'UTILSLIB::KMeans::KMeans(QString distance=QString(&quot;sqeuclidean&quot;), QString start=QString(&quot;sample&quot;), qint32 replicates=1, QString emptyact=QString(&quot;error&quot;), bool online=true, qint32 maxit=100)'],['../a03752.html#af648805e66999ebcf3537bfd6ffd6d26',1,'UTILSLIB::KMeans::KMeans(KMeansDistance distance, KMeansStart start=KMeansStart::Sample, qint32 replicates=1, KMeansEmptyAction emptyact=KMeansEmptyAction::Error, bool online=true, qint32 maxit=100)']]],
+  ['kmeans_18',['KMeans',['../a03753.html',1,'UTILSLIB::KMeans'],['../a03753.html#a9e118206266aea1c12fd71ff15243dbb',1,'UTILSLIB::KMeans::KMeans(QString distance=QString(&quot;sqeuclidean&quot;), QString start=QString(&quot;sample&quot;), qint32 replicates=1, QString emptyact=QString(&quot;error&quot;), bool online=true, qint32 maxit=100)'],['../a03753.html#af648805e66999ebcf3537bfd6ffd6d26',1,'UTILSLIB::KMeans::KMeans(KMeansDistance distance, KMeansStart start=KMeansStart::Sample, qint32 replicates=1, KMeansEmptyAction emptyact=KMeansEmptyAction::Error, bool online=true, qint32 maxit=100)']]],
   ['kmeans_2ecpp_19',['kmeans.cpp',['../a00851.html',1,'']]],
   ['kmeans_2eh_20',['kmeans.h',['../a00833.html',1,'']]],
   ['kmeansdistance_21',['KMeansDistance',['../a02331.html#a5eceb806e5a783c30efd572246abe4df',1,'UTILSLIB']]],
@@ -33,7 +33,7 @@ var searchData=
   ['ksensmegmag_30',['kSensMegMag',['../a02332.html#af355ee1a66d0cf93a72a7c8e2a4b5f29',1,'SURFACEKEYS']]],
   ['ksensprefix_31',['kSensPrefix',['../a02332.html#a4935ed6ed1c20b159023d19434c1a3ee',1,'SURFACEKEYS']]],
   ['ksrcspprefix_32',['kSrcSpPrefix',['../a02332.html#a1efea6ed52431eeacbc35bddf0e43141',1,'SURFACEKEYS']]],
-  ['kstimzoneh_33',['kStimZoneH',['../a02796.html#a644ca3c8608c35f6a4bfbcd7355d6963',1,'DISPLIB::TimeRulerWidget']]],
-  ['ktimezoneh_34',['kTimeZoneH',['../a02796.html#a2c4c4af9644d58397ce51bc347baf7f4',1,'DISPLIB::TimeRulerWidget']]],
-  ['ktotalh_35',['kTotalH',['../a02796.html#a04486c954621b77db5daf2ba66901bb2',1,'DISPLIB::TimeRulerWidget']]]
+  ['kstimzoneh_33',['kStimZoneH',['../a02797.html#a644ca3c8608c35f6a4bfbcd7355d6963',1,'DISPLIB::TimeRulerWidget']]],
+  ['ktimezoneh_34',['kTimeZoneH',['../a02797.html#a2c4c4af9644d58397ce51bc347baf7f4',1,'DISPLIB::TimeRulerWidget']]],
+  ['ktotalh_35',['kTotalH',['../a02797.html#a04486c954621b77db5daf2ba66901bb2',1,'DISPLIB::TimeRulerWidget']]]
 ];

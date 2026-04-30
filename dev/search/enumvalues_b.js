@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['matrix_0',['Matrix',['../a02335.html#a47ab1cf2117131a81270531eceea53a0af53df0293e169f562bc1d9a20e1d2589',1,'INVLIB::Matrix'],['../a02361.html#aff2df5a82a2d98871c0ceb6dff9713f6af53df0293e169f562bc1d9a20e1d2589',1,'MNALIB::Matrix']]],
+  ['matrix_0',['Matrix',['../a02335.html#a47ab1cf2117131a81270531eceea53a0af53df0293e169f562bc1d9a20e1d2589',1,'INVLIB::Matrix'],['../a02362.html#aff2df5a82a2d98871c0ceb6dff9713f6af53df0293e169f562bc1d9a20e1d2589',1,'MNALIB::Matrix']]],
   ['maxpower_1',['MaxPower',['../a02335.html#ad713f1a7895bfdb0bb447b2776528f18ac03742dcadb478ce5f5766c4c183b46c',1,'INVLIB']]],
   ['mean_2',['Mean',['../a02322.html#a1e044143e471f8d501763accc39e8951a3d6c9ac08ada31c184094bbc67afe00d',1,'DISPLIB']]],
   ['meascoh_3',['MeasCoh',['../a02335.html#af1ffe934a77f18c6a7260b1975016387af3ae52c0956b1971e987153f05329f23',1,'INVLIB']]],
@@ -30,7 +30,7 @@ var searchData=
   ['methodsam_27',['MethodSAM',['../a02335.html#af1ffe934a77f18c6a7260b1975016387aa2c79666aea3e2a321ef88bfc799debb',1,'INVLIB']]],
   ['methodsloreta_28',['MethodSLORETA',['../a02335.html#af1ffe934a77f18c6a7260b1975016387a9e07789aaae1b54fe9bd1561a1b79c16',1,'INVLIB']]],
   ['methodunknown_29',['MethodUnknown',['../a02335.html#af1ffe934a77f18c6a7260b1975016387a7dc653e9a823edd8d6ee804357ee9c07',1,'INVLIB']]],
-  ['minmaxscaler_30',['MinMaxScaler',['../a03804.html#a916aa0b87a873ce39c8efa11cefc80eea3c0da6011250ea29d8d71fb6d235e9e1',1,'MLLIB::MlScaler']]],
+  ['minmaxscaler_30',['MinMaxScaler',['../a03805.html#a916aa0b87a873ce39c8efa11cefc80eea3c0da6011250ea29d8d71fb6d235e9e1',1,'MLLIB::MlScaler']]],
   ['mixed_31',['Mixed',['../a02335.html#a9249e8f0994be81fbcf6d5b3760ad349a699b4f79215d191584653efebf156e52',1,'INVLIB']]],
   ['mixednorm_32',['MixedNorm',['../a02335.html#a29bb5b206858a4db67919400558e5a99aaf679a8bd28ff2f736526811aed9ffbd',1,'INVLIB']]],
   ['mne_33',['MNE',['../a02335.html#a29bb5b206858a4db67919400558e5a99aafe15b4f70b85880b119afd1c645daba',1,'INVLIB']]],
@@ -42,5 +42,5 @@ var searchData=
   ['momy_39',['MomY',['../a02335.html#af1ffe934a77f18c6a7260b1975016387a33a2bba1a0071d7cc371a7c0e9c1f83d',1,'INVLIB']]],
   ['momz_40',['MomZ',['../a02335.html#af1ffe934a77f18c6a7260b1975016387a977a22a5d4c67c120b70d688da3cf381',1,'INVLIB']]],
   ['multiplexed_41',['MULTIPLEXED',['../a02314.html#a08b38c1eae05e9a5a2c570416588b918a4dff0567344b9a5b1504eec1b6b545ca',1,'BIDSLIB']]],
-  ['multiview_42',['MultiView',['../a03052.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]]
+  ['multiview_42',['MultiView',['../a03053.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]]
 ];
