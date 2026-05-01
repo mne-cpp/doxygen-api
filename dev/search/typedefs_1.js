@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['bdipecd_0',['bdipEcd',['../a02371.html#a67115617ab5fb626e95696f3732c447c',1,'INVLIB']]],
-  ['bidstsvrow_1',['BidsTsvRow',['../a02350.html#a94c3a8409b7ce0ee4505cbda4f6ef35c',1,'BIDSLIB']]]
+  ['bdipecd_0',['bdipEcd',['../a02389.html#a67115617ab5fb626e95696f3732c447c',1,'INVLIB']]],
+  ['bidstsvrow_1',['BidsTsvRow',['../a02368.html#a94c3a8409b7ce0ee4505cbda4f6ef35c',1,'BIDSLIB']]]
 ];
