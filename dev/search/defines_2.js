@@ -16,5 +16,5 @@ var searchData=
   ['bids_5fsession_13',['BIDS_SESSION',['../a00524.html#a72aa6e4cae6cbd154aa4aceac6b47a92',1,'bidsviewmodel.h']]],
   ['bids_5fsubject_14',['BIDS_SUBJECT',['../a00524.html#a60e2591a1b7628870bebf6901c3cf876',1,'bidsviewmodel.h']]],
   ['bids_5funknown_15',['BIDS_UNKNOWN',['../a00524.html#abde145b2a87d4e777ce5eb7b87cd597d',1,'bidsviewmodel.h']]],
-  ['bidsshared_5fexport_16',['BIDSSHARED_EXPORT',['../a02315.html#a68e465929baaf8ffa9eac262a4145447',1,'bids_global.h']]]
+  ['bidsshared_5fexport_16',['BIDSSHARED_EXPORT',['../a02333.html#a68e465929baaf8ffa9eac262a4145447',1,'bids_global.h']]]
 ];
