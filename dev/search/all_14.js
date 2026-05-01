@@ -52,7 +52,7 @@ var searchData=
   ['scalingview_2eh_49',['scalingview.h',['../a00665.html',1,'']]],
   ['scanno_50',['scanNo',['../a03325.html#a3ecf1ad29a29e9bb9c26a5eda268b2f4',1,'FIFFLIB::FiffChInfo']]],
   ['scdc_51',['scdc',['../a02885.html#af7ffa27b71839cb90ccc84cbd5105a95',1,'DISP3DLIB::GeometryInfo']]],
-  ['scdcinterpolationmat_52',['scdcInterpolationMat',['../a02885.html#a3f9598968b50a546d6e35984ae0d709c',1,'DISP3DLIB::GeometryInfo']]],
+  ['scdcinterpolationmat_52',['scdcInterpolationMat',['../a02885.html#a04224e896e64affec159d0665ccdf634',1,'DISP3DLIB::GeometryInfo']]],
   ['scenecenter_53',['sceneCenter',['../a02897.html#a12617c685a7669cb8db1c4a46b7679a5',1,'CameraController']]],
   ['scenecolorchanged_54',['sceneColorChanged',['../a02641.html#a22791a81ad158d9da0d5bad11b6a714a',1,'DISPLIB::Control3DView']]],
   ['scenedata_55',['SceneData',['../a03049.html',1,'BrainRenderer']]],

@@ -26,7 +26,7 @@ var searchData=
   ['scalingmap_23',['scalingMap',['../a02625.html#ad52dd81dbdfaead768e46654923f991b',1,'DISPLIB::ChannelDataView']]],
   ['scalingview_24',['ScalingView',['../a02841.html#af0f37a13703d639f607285f794f22659',1,'DISPLIB::ScalingView']]],
   ['scdc_25',['scdc',['../a02885.html#af7ffa27b71839cb90ccc84cbd5105a95',1,'DISP3DLIB::GeometryInfo']]],
-  ['scdcinterpolationmat_26',['scdcInterpolationMat',['../a02885.html#a3f9598968b50a546d6e35984ae0d709c',1,'DISP3DLIB::GeometryInfo']]],
+  ['scdcinterpolationmat_26',['scdcInterpolationMat',['../a02885.html#a04224e896e64affec159d0665ccdf634',1,'DISP3DLIB::GeometryInfo']]],
   ['scenecenter_27',['sceneCenter',['../a02897.html#a12617c685a7669cb8db1c4a46b7679a5',1,'CameraController']]],
   ['scenecolorchanged_28',['sceneColorChanged',['../a02641.html#a22791a81ad158d9da0d5bad11b6a714a',1,'DISPLIB::Control3DView']]],
   ['scenesize_29',['sceneSize',['../a02897.html#afd6c9eeb6cc31618b47f9bd97fb79b4f',1,'CameraController']]],
