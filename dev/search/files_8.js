@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['ica_2ecpp_0',['ica.cpp',['../a01211.html',1,'']]],
-  ['ica_2eh_1',['ica.h',['../a01331.html',1,'']]],
-  ['iirfilter_2ecpp_2',['iirfilter.cpp',['../a01232.html',1,'']]],
+  ['ica_2ecpp_0',['ica.cpp',['../a01214.html',1,'']]],
+  ['ica_2eh_1',['ica.h',['../a01343.html',1,'']]],
+  ['iirfilter_2ecpp_2',['iirfilter.cpp',['../a01235.html',1,'']]],
   ['iirfilter_2eh_3',['iirfilter.h',['../a01187.html',1,'']]],
-  ['imagcoherence_2ecpp_4',['imagcoherence.cpp',['../a02174.html',1,'']]],
-  ['imagcoherence_2eh_5',['imagcoherence.h',['../a02177.html',1,'']]],
+  ['imagcoherence_2ecpp_4',['imagcoherence.cpp',['../a02192.html',1,'']]],
+  ['imagcoherence_2eh_5',['imagcoherence.h',['../a02195.html',1,'']]],
   ['imagesc_2ecpp_6',['imagesc.cpp',['../a00695.html',1,'']]],
   ['imagesc_2eh_7',['imagesc.h',['../a00719.html',1,'']]],
   ['interpolation_2ecpp_8',['interpolation.cpp',['../a00143.html',1,'']]],
