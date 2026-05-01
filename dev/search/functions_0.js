@@ -135,7 +135,7 @@ var searchData=
   ['averagebaselinefromchanged_132',['averageBaselineFromChanged',['../a03489.html#ad259524707e6b5f575dd9368ead233a5',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['averagebaselinetochanged_133',['averageBaselineToChanged',['../a03489.html#a03c9bb80d4f19c75dbf71e748f5e6236',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['averagecategories_134',['averageCategories',['../a04333.html#ae6d4dc9498ab6438f80765f6e3d54e23',1,'MNELIB::MNEEpochDataList']]],
-  ['averageepochs_135',['averageEpochs',['../a03657.html#a530306d064422a10785e8f7f2553dccd',1,'FIFFLIB::FiffEpochs']]],
+  ['averageepochs_135',['averageEpochs',['../a03657.html#acdedf64da0cba1852e6a1fa4bc926288',1,'FIFFLIB::FiffEpochs']]],
   ['averagelayoutview_136',['AverageLayoutView',['../a02805.html#ada5bfa981e6add71831e67153f7322a6',1,'DISPLIB::AverageLayoutView']]],
   ['averagenumberchanged_137',['averageNumberChanged',['../a03489.html#a3b1977c21bc8e2a3c77214814e7c7078',1,'RTPROCESSINGLIB::RtAveraging']]],
   ['averagepoststimchanged_138',['averagePostStimChanged',['../a03489.html#a3698ee6630dca9eba590bea22f6e20c5',1,'RTPROCESSINGLIB::RtAveraging']]],

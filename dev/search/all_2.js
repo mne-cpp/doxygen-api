@@ -192,7 +192,7 @@ var searchData=
   ['averagecategories_189',['averageCategories',['../a04333.html#ae6d4dc9498ab6438f80765f6e3d54e23',1,'MNELIB::MNEEpochDataList']]],
   ['averagecategory_190',['AverageCategory',['../a03673.html',1,'FIFFLIB::AverageCategory'],['../a04813.html',1,'MNELIB::AverageCategory']]],
   ['averagedescription_191',['AverageDescription',['../a03677.html',1,'FIFFLIB::AverageDescription'],['../a04817.html',1,'MNELIB::AverageDescription']]],
-  ['averageepochs_192',['averageEpochs',['../a03657.html#a530306d064422a10785e8f7f2553dccd',1,'FIFFLIB::FiffEpochs']]],
+  ['averageepochs_192',['averageEpochs',['../a03657.html#acdedf64da0cba1852e6a1fa4bc926288',1,'FIFFLIB::FiffEpochs']]],
   ['averagelayoutview_193',['AverageLayoutView',['../a02805.html',1,'DISPLIB::AverageLayoutView'],['../a02805.html#ada5bfa981e6add71831e67153f7322a6',1,'DISPLIB::AverageLayoutView::AverageLayoutView()']]],
   ['averagelayoutview_2ecpp_194',['averagelayoutview.cpp',['../a00353.html',1,'']]],
   ['averagelayoutview_2eh_195',['averagelayoutview.h',['../a00473.html',1,'']]],
