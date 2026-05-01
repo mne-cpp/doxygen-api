@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['viewmode_0',['ViewMode',['../a03108.html#aa3d141044493fd3001bf21b70c9dbfe4',1,'BrainView']]],
+  ['viewmode_0',['ViewMode',['../a03115.html#aa3d141044493fd3001bf21b70c9dbfe4',1,'BrainView']]],
   ['visualizationmode_1',['VisualizationMode',['../a00077.html#acde6478628a967ffbc4bf2604d954cf8',1,'rendertypes.h']]],
-  ['visualizationtype_2',['VisualizationType',['../a03136.html#a89820f353dedbdbee0c7af5b07d97663',1,'DISP3DLIB::RtSourceInterpolationMatWorker']]]
+  ['visualizationtype_2',['VisualizationType',['../a03143.html#a89820f353dedbdbee0c7af5b07d97663',1,'DISP3DLIB::RtSourceInterpolationMatWorker']]]
 ];
