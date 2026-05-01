@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['beamformerinversion_0',['BeamformerInversion',['../a02395.html#a47ab1cf2117131a81270531eceea53a0',1,'INVLIB']]],
-  ['beamformerpickori_1',['BeamformerPickOri',['../a02395.html#ad713f1a7895bfdb0bb447b2776528f18',1,'INVLIB']]],
-  ['beamformerweightnorm_2',['BeamformerWeightNorm',['../a02395.html#aeda8279f8dbf11d6a1bff261bbfea009',1,'INVLIB']]],
-  ['bvbinaryformat_3',['BVBinaryFormat',['../a02374.html#a999deb50c931b525947ebb5adf18a3f2',1,'BIDSLIB']]],
-  ['bvorientation_4',['BVOrientation',['../a02374.html#a08b38c1eae05e9a5a2c570416588b918',1,'BIDSLIB']]]
+  ['beamformerinversion_0',['BeamformerInversion',['../a02431.html#a47ab1cf2117131a81270531eceea53a0',1,'INVLIB']]],
+  ['beamformerpickori_1',['BeamformerPickOri',['../a02431.html#ad713f1a7895bfdb0bb447b2776528f18',1,'INVLIB']]],
+  ['beamformerweightnorm_2',['BeamformerWeightNorm',['../a02431.html#aeda8279f8dbf11d6a1bff261bbfea009',1,'INVLIB']]],
+  ['bvbinaryformat_3',['BVBinaryFormat',['../a02410.html#a999deb50c931b525947ebb5adf18a3f2',1,'BIDSLIB']]],
+  ['bvorientation_4',['BVOrientation',['../a02410.html#a08b38c1eae05e9a5a2c570416588b918',1,'BIDSLIB']]]
 ];

@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['parksmcclellan_2ecpp_0',['parksmcclellan.cpp',['../a01355.html',1,'']]],
-  ['parksmcclellan_2eh_1',['parksmcclellan.h',['../a01280.html',1,'']]],
-  ['partial_5fdirected_5fcoherence_2ecpp_2',['partial_directed_coherence.cpp',['../a02246.html',1,'']]],
-  ['partial_5fdirected_5fcoherence_2eh_3',['partial_directed_coherence.h',['../a02258.html',1,'']]],
-  ['peak_5ffinder_2ecpp_4',['peak_finder.cpp',['../a01418.html',1,'']]],
-  ['peak_5ffinder_2eh_5',['peak_finder.h',['../a01409.html',1,'']]],
-  ['phaselagindex_2ecpp_6',['phaselagindex.cpp',['../a02282.html',1,'']]],
-  ['phaselagindex_2eh_7',['phaselagindex.h',['../a02204.html',1,'']]],
-  ['phaselockingvalue_2ecpp_8',['phaselockingvalue.cpp',['../a02261.html',1,'']]],
-  ['phaselockingvalue_2eh_9',['phaselockingvalue.h',['../a02228.html',1,'']]],
+  ['parksmcclellan_2ecpp_0',['parksmcclellan.cpp',['../a01379.html',1,'']]],
+  ['parksmcclellan_2eh_1',['parksmcclellan.h',['../a01304.html',1,'']]],
+  ['partial_5fdirected_5fcoherence_2ecpp_2',['partial_directed_coherence.cpp',['../a02282.html',1,'']]],
+  ['partial_5fdirected_5fcoherence_2eh_3',['partial_directed_coherence.h',['../a02294.html',1,'']]],
+  ['peak_5ffinder_2ecpp_4',['peak_finder.cpp',['../a01451.html',1,'']]],
+  ['peak_5ffinder_2eh_5',['peak_finder.h',['../a01439.html',1,'']]],
+  ['phaselagindex_2ecpp_6',['phaselagindex.cpp',['../a02318.html',1,'']]],
+  ['phaselagindex_2eh_7',['phaselagindex.h',['../a02240.html',1,'']]],
+  ['phaselockingvalue_2ecpp_8',['phaselockingvalue.cpp',['../a02297.html',1,'']]],
+  ['phaselockingvalue_2eh_9',['phaselockingvalue.h',['../a02264.html',1,'']]],
   ['plot_2ecpp_10',['plot.cpp',['../a00713.html',1,'']]],
   ['plot_2eh_11',['plot.h',['../a00680.html',1,'']]],
   ['progressview_2ecpp_12',['progressview.cpp',['../a00464.html',1,'']]],
@@ -18,8 +18,8 @@ var searchData=
   ['projectorsview_2eh_15',['projectorsview.h',['../a00674.html',1,'']]],
   ['projectsettingsview_2ecpp_16',['projectsettingsview.cpp',['../a00641.html',1,'']]],
   ['projectsettingsview_2eh_17',['projectsettingsview.h',['../a00350.html',1,'']]],
-  ['python_5frunner_2ecpp_18',['python_runner.cpp',['../a00809.html',1,'']]],
-  ['python_5frunner_2eh_19',['python_runner.h',['../a00791.html',1,'']]],
-  ['python_5ftest_5fhelper_2ecpp_20',['python_test_helper.cpp',['../a00803.html',1,'']]],
-  ['python_5ftest_5fhelper_2eh_21',['python_test_helper.h',['../a00794.html',1,'']]]
+  ['python_5frunner_2ecpp_18',['python_runner.cpp',['../a00815.html',1,'']]],
+  ['python_5frunner_2eh_19',['python_runner.h',['../a00797.html',1,'']]],
+  ['python_5ftest_5fhelper_2ecpp_20',['python_test_helper.cpp',['../a00809.html',1,'']]],
+  ['python_5ftest_5fhelper_2eh_21',['python_test_helper.h',['../a00800.html',1,'']]]
 ];
