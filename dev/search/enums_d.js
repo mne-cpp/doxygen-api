@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['viewmode_0',['ViewMode',['../a03266.html#aa3d141044493fd3001bf21b70c9dbfe4',1,'BrainView']]],
-  ['visualizationmode_1',['VisualizationMode',['../a00077.html#acde6478628a967ffbc4bf2604d954cf8',1,'rendertypes.h']]],
-  ['visualizationtype_2',['VisualizationType',['../a03294.html#a89820f353dedbdbee0c7af5b07d97663',1,'DISP3DLIB::RtSourceInterpolationMatWorker']]]
+  ['tissuetype_0',['TissueType',['../a03179.html#a7a35e381402ddbce8531f24014867df8',1,'BrainSurface']]],
+  ['tpasstype_1',['TPassType',['../a03379.html#a2a90eeea1af21a4c8d5d8f987b297a34',1,'UTILSLIB::CosineFilter::TPassType'],['../a03499.html#a5cc46b61e85230db24f52030d1c71eea',1,'UTILSLIB::ParksMcClellan::TPassType']]],
+  ['transformmode_2',['TransformMode',['../a02759.html#acb463ede89084e4dc6c956f7bc2c76b3',1,'DECODINGLIB::DecodingCsp::TransformMode'],['../a02771.html#a572da34e3db6e9d85a29b92e744cd6ff',1,'DECODINGLIB::DecodingSpoc::TransformMode']]]
 ];

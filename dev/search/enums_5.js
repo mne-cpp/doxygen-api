@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['guimode_0',['GuiMode',['../a02802.html#a4758d14e067b1f8207526dca12903cf6',1,'DISPLIB::AbstractView']]]
+  ['filtertype_0',['FilterType',['../a03443.html#a28323b991f3faaf0c1aa0b4168a0bf3e',1,'UTILSLIB::FirFilter::FilterType'],['../a03459.html#ad80bf845ff7b34f87a915bd7617d0de8',1,'UTILSLIB::IirFilter::FilterType']]]
 ];

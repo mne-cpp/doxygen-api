@@ -82,9 +82,11 @@ var menudata={children:[
 {text:"b",url:"namespacemembers_enum.html#index_b"},
 {text:"c",url:"namespacemembers_enum.html#index_c"},
 {text:"d",url:"namespacemembers_enum.html#index_d"},
+{text:"e",url:"namespacemembers_enum.html#index_e"},
 {text:"i",url:"namespacemembers_enum.html#index_i"},
 {text:"k",url:"namespacemembers_enum.html#index_k"},
 {text:"m",url:"namespacemembers_enum.html#index_m"},
+{text:"p",url:"namespacemembers_enum.html#index_p"},
 {text:"s",url:"namespacemembers_enum.html#index_s"}]},
 {text:"Enumerator",url:"namespacemembers_eval.html"}]}]},
 {text:"API Reference",url:"annotated.html",children:[
@@ -177,7 +179,8 @@ var menudata={children:[
 {text:"y",url:"functions_vars_y.html#index_y"},
 {text:"z",url:"functions_vars_z.html#index_z"}]},
 {text:"Typedefs",url:"functions_type.html",children:[
-{text:"c",url:"functions_type.html#index_c"},
+{text:"b",url:"functions_type.html#index_b"},
+{text:"c",url:"functions_type_c.html#index_c"},
 {text:"e",url:"functions_type_e.html#index_e"},
 {text:"i",url:"functions_type_i.html#index_i"},
 {text:"l",url:"functions_type_l.html#index_l"},
