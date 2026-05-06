@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['viewmode_0',['ViewMode',['../a03291.html#aa3d141044493fd3001bf21b70c9dbfe4',1,'BrainView']]],
-  ['visualizationmode_1',['VisualizationMode',['../a00086.html#acde6478628a967ffbc4bf2604d954cf8',1,'rendertypes.h']]],
-  ['visualizationtype_2',['VisualizationType',['../a03319.html#a89820f353dedbdbee0c7af5b07d97663',1,'DISP3DLIB::RtSourceInterpolationMatWorker']]]
+  ['units_0',['Units',['../a04692.html#ad796df1ea712052b361fcf996b55a46a',1,'UTILSLIB::FastTrakParser']]]
 ];

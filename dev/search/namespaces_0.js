@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bidslib_0',['BIDSLIB',['../a02509.html',1,'']]]
+  ['bidslib_0',['BIDSLIB',['../a02524.html',1,'']]]
 ];
