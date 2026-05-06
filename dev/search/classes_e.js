@@ -1,20 +1,20 @@
 var searchData=
 [
-  ['pair_0',['Pair',['../a04055.html',1,'INVLIB']]],
-  ['parksmcclellan_1',['ParksMcClellan',['../a03499.html',1,'UTILSLIB']]],
+  ['pair_0',['Pair',['../a04059.html',1,'INVLIB']]],
+  ['parksmcclellan_1',['ParksMcClellan',['../a03503.html',1,'UTILSLIB']]],
   ['partialdirectedcoherence_2',['PartialDirectedCoherence',['../a02723.html',1,'CONNLIB']]],
-  ['peakfinderparams_3',['PeakFinderParams',['../a03503.html',1,'UTILSLIB']]],
+  ['peakfinderparams_3',['PeakFinderParams',['../a03507.html',1,'UTILSLIB']]],
   ['phaselagindex_4',['PhaseLagIndex',['../a02727.html',1,'CONNLIB']]],
   ['phaselockingvalue_5',['PhaseLockingValue',['../a02731.html',1,'CONNLIB']]],
-  ['picardica_6',['PicardIca',['../a03507.html',1,'UTILSLIB']]],
+  ['picardica_6',['PicardIca',['../a03511.html',1,'UTILSLIB']]],
   ['pickresult_7',['PickResult',['../a03251.html',1,'DISP3DLIB::PickResult'],['../a03123.html',1,'PickResult']]],
   ['plot_8',['Plot',['../a02799.html',1,'DISPLIB']]],
-  ['processingsettings_9',['ProcessingSettings',['../a04463.html',1,'MNELIB']]],
+  ['processingsettings_9',['ProcessingSettings',['../a04467.html',1,'MNELIB']]],
   ['progressview_10',['ProgressView',['../a03043.html',1,'DISPLIB']]],
   ['projectorsview_11',['ProjectorsView',['../a03047.html',1,'DISPLIB']]],
   ['projectsettingsview_12',['ProjectSettingsView',['../a03051.html',1,'DISPLIB']]],
-  ['pythonrunner_13',['PythonRunner',['../a04667.html',1,'UTILSLIB']]],
-  ['pythonrunnerconfig_14',['PythonRunnerConfig',['../a04663.html',1,'UTILSLIB']]],
-  ['pythonrunnerresult_15',['PythonRunnerResult',['../a04659.html',1,'UTILSLIB']]],
-  ['pythontesthelper_16',['PythonTestHelper',['../a04671.html',1,'UTILSLIB']]]
+  ['pythonrunner_13',['PythonRunner',['../a04671.html',1,'UTILSLIB']]],
+  ['pythonrunnerconfig_14',['PythonRunnerConfig',['../a04667.html',1,'UTILSLIB']]],
+  ['pythonrunnerresult_15',['PythonRunnerResult',['../a04663.html',1,'UTILSLIB']]],
+  ['pythontesthelper_16',['PythonTestHelper',['../a04675.html',1,'UTILSLIB']]]
 ];

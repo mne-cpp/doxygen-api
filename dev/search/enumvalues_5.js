@@ -5,7 +5,7 @@ var searchData=
   ['fiffraw_2',['FiffRaw',['../a02563.html#aff2df5a82a2d98871c0ceb6dff9713f6a523b22bea4f6cfa980a01d8499645c4d',1,'MNALIB']]],
   ['filter_3',['FILTER',['../a02979.html#a1301ff5030da86565fa015e24da90dc7a16c568a5bd16a3ec9afbf501c68e8557',1,'DISPLIB::MNEOperator']]],
   ['fixed_4',['Fixed',['../a02531.html#a8ee66830d3efbe8f53405dfb0e1a0ba7a4457d440870ad6d42bab9082d9bf9b61',1,'INVLIB']]],
-  ['flattop_5',['FlatTop',['../a03611.html#a5a43e5f9aaa1add98f9e1d2871f4603dad0e5ac7e0508b9e70a70c3682344e72a',1,'UTILSLIB::WelchPsd']]],
+  ['flattop_5',['FlatTop',['../a03615.html#a5a43e5f9aaa1add98f9e1d2871f4603dad0e5ac7e0508b9e70a70c3682344e72a',1,'UTILSLIB::WelchPsd']]],
   ['float32_6',['Float32',['../a02558.html#a22b8a5da4e9e3947843244e040a7ff22a166495adc0d0f53bee6baecc577f5204',1,'LSLLIB::Float32'],['../a02562.html#a772dcc106326f8856b87f0bc08666f7ea166495adc0d0f53bee6baecc577f5204',1,'MLLIB::Float32']]],
   ['float64_7',['Float64',['../a02562.html#a772dcc106326f8856b87f0bc08666f7ead2b556d8a8f5c8ac323f51a4b82e79a0',1,'MLLIB']]],
   ['focalbegin_8',['FocalBegin',['../a02531.html#af1ffe934a77f18c6a7260b1975016387acc31808a0e7f9ecf19213deafec9407e',1,'INVLIB']]],
