@@ -2,8 +2,8 @@ var searchData=
 [
   ['dataloader_2ecpp_0',['dataloader.cpp',['../a00080.html',1,'']]],
   ['dataloader_2eh_1',['dataloader.h',['../a00089.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_2ecpp_2',['debiasedsquaredweightedphaselagindex.cpp',['../a02399.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_2eh_3',['debiasedsquaredweightedphaselagindex.h',['../a02393.html',1,'']]],
+  ['debiasedsquaredweightedphaselagindex_2ecpp_2',['debiasedsquaredweightedphaselagindex.cpp',['../a02405.html',1,'']]],
+  ['debiasedsquaredweightedphaselagindex_2eh_3',['debiasedsquaredweightedphaselagindex.h',['../a02399.html',1,'']]],
   ['decoding_5fcsp_2ecpp_4',['decoding_csp.cpp',['../a00788.html',1,'']]],
   ['decoding_5fcsp_2eh_5',['decoding_csp.h',['../a00782.html',1,'']]],
   ['decoding_5fglobal_2ecpp_6',['decoding_global.cpp',['../a00785.html',1,'']]],
@@ -24,16 +24,16 @@ var searchData=
   ['dipoleobject_2eh_21',['dipoleobject.h',['../a00218.html',1,'']]],
   ['dipoletreeitem_2ecpp_22',['dipoletreeitem.cpp',['../a00266.html',1,'']]],
   ['dipoletreeitem_2eh_23',['dipoletreeitem.h',['../a00278.html',1,'']]],
-  ['directed_5ftransfer_5ffunction_2ecpp_24',['directed_transfer_function.cpp',['../a02414.html',1,'']]],
-  ['directed_5ftransfer_5ffunction_2eh_25',['directed_transfer_function.h',['../a02429.html',1,'']]],
+  ['directed_5ftransfer_5ffunction_2ecpp_24',['directed_transfer_function.cpp',['../a02420.html',1,'']]],
+  ['directed_5ftransfer_5ffunction_2eh_25',['directed_transfer_function.h',['../a02435.html',1,'']]],
   ['disp3d_5fglobal_2ecpp_26',['disp3D_global.cpp',['../a00077.html',1,'']]],
   ['disp3d_5fglobal_2eh_27',['disp3D_global.h',['../a00140.html',1,'']]],
   ['disp_5fglobal_2ecpp_28',['disp_global.cpp',['../a00737.html',1,'']]],
   ['disp_5fglobal_2eh_29',['disp_global.h',['../a00344.html',1,'']]],
-  ['dpss_2ecpp_30',['dpss.cpp',['../a01328.html',1,'']]],
-  ['dpss_2eh_31',['dpss.h',['../a01556.html',1,'']]],
+  ['dpss_2ecpp_30',['dpss.cpp',['../a01334.html',1,'']]],
+  ['dpss_2eh_31',['dpss.h',['../a01562.html',1,'']]],
   ['draggableframelesswidget_2ecpp_32',['draggableframelesswidget.cpp',['../a00530.html',1,'']]],
   ['draggableframelesswidget_2eh_33',['draggableframelesswidget.h',['../a00500.html',1,'']]],
-  ['dsp_5fglobal_2ecpp_34',['dsp_global.cpp',['../a01340.html',1,'']]],
-  ['dsp_5fglobal_2eh_35',['dsp_global.h',['../a01505.html',1,'']]]
+  ['dsp_5fglobal_2ecpp_34',['dsp_global.cpp',['../a01346.html',1,'']]],
+  ['dsp_5fglobal_2eh_35',['dsp_global.h',['../a01511.html',1,'']]]
 ];
