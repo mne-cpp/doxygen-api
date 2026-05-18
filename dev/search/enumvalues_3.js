@@ -6,7 +6,7 @@ var searchData=
   ['dics_3',['DICS',['../a02552.html#a29bb5b206858a4db67919400558e5a99abca3775038822ce0be6483af819485f1',1,'INVLIB']]],
   ['digitizer_4',['Digitizer',['../a02584.html#acec300107fc488331fcaddae5894abfca02d3268c1419bc6522d01c0606e67cb9',1,'MNALIB']]],
   ['digitizeritem_5',['DigitizerItem',['../a03158.html#a7804788c78ce642387ab26f50d3dda68ae90028ad306f3e932ba0d2d4e5d53282',1,'AbstractTreeItem']]],
-  ['dipole_6',['Dipole',['../a00086.html#a9a65336a07fa3c9b4b13e6d52e3a612ca5efa28befb847e237e1aacaa160743eb',1,'Dipole:&#160;rendertypes.h'],['../a02550.html#a43eb99c72f5996d313a1917b2a963c69a7627ce84eadbc3098e818fa89b368c2c',1,'DISP3DLIB::Dipole'],['../a02550.html#a0477e91c4a3a20e47d42b51d8080ff33a7627ce84eadbc3098e818fa89b368c2c',1,'DISP3DLIB::Dipole']]],
+  ['dipole_6',['Dipole',['../a02315.html#a9a65336a07fa3c9b4b13e6d52e3a612ca5efa28befb847e237e1aacaa160743eb',1,'Dipole:&#160;rendertypes.h'],['../a02550.html#a43eb99c72f5996d313a1917b2a963c69a7627ce84eadbc3098e818fa89b368c2c',1,'DISP3DLIB::Dipole'],['../a02550.html#a0477e91c4a3a20e47d42b51d8080ff33a7627ce84eadbc3098e818fa89b368c2c',1,'DISP3DLIB::Dipole']]],
   ['dipolebegin_7',['DipoleBegin',['../a02552.html#af1ffe934a77f18c6a7260b1975016387af17bcbeda3d74cccb6bab987fe37802e',1,'INVLIB']]],
   ['dipoleend_8',['DipoleEnd',['../a02552.html#af1ffe934a77f18c6a7260b1975016387a12bb8ba9ee00a029ff47d8c2e96de750',1,'INVLIB']]],
   ['dipolefit_9',['DipoleFit',['../a02552.html#a29bb5b206858a4db67919400558e5a99aaed2f72a37e53dedcf52fea2c57103ff',1,'INVLIB']]],

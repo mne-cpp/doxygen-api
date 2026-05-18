@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp3D/input/cameracontroller.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/fiff/fiff_annotation_event_utils.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,12 +243,12 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_061a979e1ff4d1f23adfb2165bb6f08f.html">disp3D</a></li><li class="navelem"><a href="dir_450e6e5b5dadff794b6b8fd2000c82b5.html">input</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_adb2409acb15410cca2b1cbb01c919f2.html">fiff</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">cameracontroller.cpp</div></div>
+  <div class="headertitle"><div class="title">fiff_annotation_event_utils.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00185.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
@@ -257,142 +257,139 @@ $(function() {
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a00176.html">cameracontroller.h</a>&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a00221.html">fiff_annotation_event_utils.h</a>&quot;</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><a class="code hl_struct" href="a03138.html">CameraResult</a> CameraController::computeForRotation(<span class="keyword">const</span> QQuaternion &amp;effectiveRotation,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                                    <span class="keywordtype">float</span> vpZoom,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                                    <span class="keyword">const</span> QVector2D &amp;pan,</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                                    <span class="keywordtype">bool</span> applyPan,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                                                    <span class="keywordtype">float</span> aspectRatio)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    CameraResult result;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// Projection</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">float</span> farPlane = std::max(m_sceneSize * 20.0f, 100.0f);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    result.<a class="code hl_variable" href="a03138.html#a42fe6fdd7e79aea7f5aaf995f8559350">projection</a>.perspective(45.0f, aspectRatio, m_sceneSize * 0.01f, farPlane);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;QDebug&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// STL INCLUDES</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02537.html">FIFFLIB</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">using namespace </span>Eigen;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// Camera position from rotation + zoom</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">float</span> baseDistance = m_sceneSize * 1.5f;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    result.<a class="code hl_variable" href="a03138.html#a1ece30e5c5ad6596029defbae1b06f86">distance</a>    = baseDistance - vpZoom * (m_sceneSize * 0.05f);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    result.<a class="code hl_variable" href="a03138.html#a2f27124123450cd0a5f15110e08e496b">cameraPos</a>   = effectiveRotation.rotatedVector(QVector3D(0, 0, result.<a class="code hl_variable" href="a03138.html#a1ece30e5c5ad6596029defbae1b06f86">distance</a>));</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    result.<a class="code hl_variable" href="a03138.html#a8452dbd91d28f04e668d91b02ef770c9">upVector</a>    = effectiveRotation.rotatedVector(QVector3D(0, 1, 0));</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    result.<a class="code hl_variable" href="a03138.html#a1f8585252f95a48e4e1da3ab4f3a790a">lookAt</a>      = QVector3D(0, 0, 0);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// Pan: shift look-at and camera position along the view plane</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">if</span> (applyPan &amp;&amp; (pan.x() != 0.0f || pan.y() != 0.0f)) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">const</span> QVector3D right = effectiveRotation.rotatedVector(QVector3D(1, 0, 0)).normalized();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keyword">const</span> QVector3D up    = result.<a class="code hl_variable" href="a03138.html#a8452dbd91d28f04e668d91b02ef770c9">upVector</a>.normalized();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keyword">const</span> QVector3D offset = right * pan.x() + up * pan.y();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        result.<a class="code hl_variable" href="a03138.html#a1f8585252f95a48e4e1da3ab4f3a790a">lookAt</a>    += offset;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        result.<a class="code hl_variable" href="a03138.html#a2f27124123450cd0a5f15110e08e496b">cameraPos</a> += offset;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// DEFINE FUNCTIONS</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><a class="code hl_class" href="a03658.html">FiffAnnotations</a> <a class="code hl_function" href="a02537.html#afbfccd72f74c43947bb4e5eeef48e120">FIFFLIB::annotationsFromEvents</a>(</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">const</span> MatrixXi&amp; events,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">double</span> sfreq,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">const</span> QMap&lt;int, QString&gt;&amp; eventDescriptions,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">int</span> firstSample)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_class" href="a03658.html">FiffAnnotations</a> annotations;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">if</span> (events.rows() == 0 || events.cols() &lt; 3) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> annotations;</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">// View matrix</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    result.<a class="code hl_variable" href="a03138.html#a2fc7da9d4ed159b0b447ce4e681d82c8">view</a>.lookAt(result.<a class="code hl_variable" href="a03138.html#a2f27124123450cd0a5f15110e08e496b">cameraPos</a>, result.<a class="code hl_variable" href="a03138.html#a1f8585252f95a48e4e1da3ab4f3a790a">lookAt</a>, result.<a class="code hl_variable" href="a03138.html#a8452dbd91d28f04e668d91b02ef770c9">upVector</a>);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">// Model matrix: translate to scene center</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    result.<a class="code hl_variable" href="a03138.html#a318b59a9ccf4e1dad3985f24462b0c01">model</a>.translate(-m_sceneCenter);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">if</span> (sfreq &lt;= 0.0) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        qWarning(<span class="stringliteral">&quot;annotationsFromEvents: sfreq must be positive, got %f&quot;</span>, sfreq);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> annotations;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; static_cast&lt;int&gt;(events.rows()); ++i) {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> sample  = events(i, 0);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> eventId = events(i, 2);</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> onset = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(sample - firstSample) / sfreq;</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a03142.html#acfb4d7a66970f5533463af5b54de3480">   87</a></span><a class="code hl_struct" href="a03138.html">CameraResult</a> <a class="code hl_function" href="a03142.html#acfb4d7a66970f5533463af5b54de3480">CameraController::computeSingleView</a>(<span class="keywordtype">float</span> aspectRatio)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> QQuaternion preset    = <a class="code hl_function" href="a00095.html#ad4a9ee775f380f1e92dfc3deb7cdf902">perspectivePresetRotation</a>();</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> QQuaternion effective = m_cameraRotation * preset;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> computeForRotation(effective, m_zoom, QVector2D(), <span class="keyword">false</span>, aspectRatio);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
-</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        QString description;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span> (eventDescriptions.contains(eventId)) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            description = eventDescriptions.value(eventId);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            description = QString::number(eventId);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        annotations.<a class="code hl_function" href="a03658.html#a989de84ee28bb305823eb56ef5b6a7f1">append</a>(onset, 0.0, description);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a03142.html#a6d6f6ac771f3c5be72cb14dd550da97a">   97</a></span><a class="code hl_struct" href="a03138.html">CameraResult</a> <a class="code hl_function" href="a03142.html#a6d6f6ac771f3c5be72cb14dd550da97a">CameraController::computeMultiView</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03122.html">SubView</a> &amp;subView, <span class="keywordtype">float</span> aspectRatio)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> preset = std::clamp(subView.<a class="code hl_variable" href="a03122.html#ae1fdb53368161a413147c82e7510ffec">preset</a>, 0, 6);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">const</span> QQuaternion presetOffset = <a class="code hl_function" href="a00095.html#a2320a51f693ae69633e78579dd478239">multiViewPresetOffset</a>(preset);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">return</span> annotations;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    QQuaternion effectiveRotation;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a00095.html#a4812d1153e296f994021013b6f64ca18">multiViewPresetIsPerspective</a>(preset)) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        effectiveRotation = subView.<a class="code hl_variable" href="a03122.html#a966a64a6a71e38fb0ea580324f241559">perspectiveRotation</a> * presetOffset;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        effectiveRotation = presetOffset;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> isPlanar = !<a class="code hl_function" href="a00095.html#a4812d1153e296f994021013b6f64ca18">multiViewPresetIsPerspective</a>(preset);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">return</span> computeForRotation(effectiveRotation, subView.<a class="code hl_variable" href="a03122.html#af2dfae7a90fad04e9ea67e42458344c3">zoom</a>, subView.<a class="code hl_variable" href="a03122.html#a8a404e70357099091977347c9672ab6c">pan</a>,</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                              isPlanar, aspectRatio);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
-</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a02537.html#a4818704c28dfcbbe5222a9031b2c5e5e">  102</a></span>MatrixXi <a class="code hl_function" href="a02537.html#a4818704c28dfcbbe5222a9031b2c5e5e">FIFFLIB::eventsFromAnnotations</a>(</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> <a class="code hl_class" href="a03658.html">FiffAnnotations</a>&amp; annotations,</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">double</span> sfreq,</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">const</span> QMap&lt;QString, int&gt;&amp; eventIds,</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">int</span> firstSample)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>{</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">if</span> (annotations.<a class="code hl_function" href="a03658.html#a6edf49490c869b396a80a222e7b99456">isEmpty</a>()) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> MatrixXi(0, 3);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">if</span> (sfreq &lt;= 0.0) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        qWarning(<span class="stringliteral">&quot;eventsFromAnnotations: sfreq must be positive, got %f&quot;</span>, sfreq);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">return</span> MatrixXi(0, 3);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a03142.html#a42406b2931a053ba5d8c0eac83a9cbbb">  117</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03142.html#a42406b2931a053ba5d8c0eac83a9cbbb">CameraController::applyMouseRotation</a>(<span class="keyword">const</span> QPoint &amp;delta,</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                                           QQuaternion &amp;<a class="code hl_function" href="a03142.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a>,</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                                           <span class="keywordtype">float</span> speed)</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> QQuaternion preset = <a class="code hl_function" href="a00095.html#ad4a9ee775f380f1e92dfc3deb7cdf902">perspectivePresetRotation</a>();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    QQuaternion effective    = <a class="code hl_function" href="a03142.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a> * preset;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">const</span> QVector3D upAxis    = effective.rotatedVector(QVector3D(0, 1, 0)).normalized();</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> QVector3D rightAxis = effective.rotatedVector(QVector3D(1, 0, 0)).normalized();</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    QQuaternion yaw   = QQuaternion::fromAxisAndAngle(upAxis,    -delta.x() * speed);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    QQuaternion pitch = QQuaternion::fromAxisAndAngle(rightAxis, -delta.y() * speed);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    effective = yaw * pitch * effective;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <a class="code hl_function" href="a03142.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a>  = effective * preset.conjugated();</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <a class="code hl_function" href="a03142.html#a617f67f057a02d92a59fa7f94e267e67">rotation</a>.normalize();</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> n = annotations.<a class="code hl_function" href="a03658.html#a717d3f2d071dfa2da5ed5e2ce697562a">size</a>();</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    MatrixXi result(n, 3);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; ++i) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keyword">const</span> <a class="code hl_struct" href="a03654.html">FiffAnnotation</a>&amp; a = annotations[i];</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> sample = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::round(a.<a class="code hl_variable" href="a03654.html#a231720cc1e283ee8ec017ea8e3c0669d">onset</a> * sfreq)) + firstSample;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordtype">int</span> eventId = 0;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">if</span> (eventIds.contains(a.<a class="code hl_variable" href="a03654.html#aba38da03f41cbb0f976e715e010cdc92">description</a>)) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            eventId = eventIds.value(a.<a class="code hl_variable" href="a03654.html#aba38da03f41cbb0f976e715e010cdc92">description</a>);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="keywordtype">bool</span> ok = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keyword">const</span> <span class="keywordtype">int</span> parsed = a.<a class="code hl_variable" href="a03654.html#aba38da03f41cbb0f976e715e010cdc92">description</a>.toInt(&amp;ok);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordflow">if</span> (ok) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>                eventId = parsed;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        result(i, 0) = sample;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        result(i, 1) = 0;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        result(i, 2) = eventId;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>}</div>
 </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a03142.html#a58dcc1d4d5b79cc0ccf3a9ae443da6ff">  137</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03142.html#a58dcc1d4d5b79cc0ccf3a9ae443da6ff">CameraController::applyMousePan</a>(<span class="keyword">const</span> QPoint &amp;delta,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                                      QVector2D &amp;pan,</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                      <span class="keywordtype">float</span> <a class="code hl_function" href="a03142.html#afd6c9eeb6cc31618b47f9bd97fb79b4f">sceneSize</a>)</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> panSpeed = <a class="code hl_function" href="a03142.html#afd6c9eeb6cc31618b47f9bd97fb79b4f">sceneSize</a> * 0.002f;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    pan += QVector2D(-delta.x() * panSpeed, delta.y() * panSpeed);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="foldopen" id="foldopen00146" data-start="{" data-end="}">
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="a02537.html#ae24543c46d5526b43a910a7cfce83df4">  146</a></span>QMap&lt;QString, int&gt; <a class="code hl_function" href="a02537.html#ae24543c46d5526b43a910a7cfce83df4">FIFFLIB::countAnnotations</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03658.html">FiffAnnotations</a>&amp; annotations)</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>{</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    QMap&lt;QString, int&gt; counts;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; annotations.<a class="code hl_function" href="a03658.html#a717d3f2d071dfa2da5ed5e2ce697562a">size</a>(); ++i) {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        counts[annotations[i].description] += 1;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">return</span> counts;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
 </div>
-<div class="ttc" id="aa00095_html_a2320a51f693ae69633e78579dd478239"><div class="ttname"><a href="a00095.html#a2320a51f693ae69633e78579dd478239">multiViewPresetOffset</a></div><div class="ttdeci">QQuaternion multiViewPresetOffset(int preset)</div><div class="ttdef"><b>Definition</b> <a href="a00095_source.html#l00257">viewstate.cpp:257</a></div></div>
-<div class="ttc" id="aa00095_html_a4812d1153e296f994021013b6f64ca18"><div class="ttname"><a href="a00095.html#a4812d1153e296f994021013b6f64ca18">multiViewPresetIsPerspective</a></div><div class="ttdeci">bool multiViewPresetIsPerspective(int preset)</div><div class="ttdef"><b>Definition</b> <a href="a00095_source.html#l00287">viewstate.cpp:287</a></div></div>
-<div class="ttc" id="aa00095_html_ad4a9ee775f380f1e92dfc3deb7cdf902"><div class="ttname"><a href="a00095.html#ad4a9ee775f380f1e92dfc3deb7cdf902">perspectivePresetRotation</a></div><div class="ttdeci">QQuaternion perspectivePresetRotation()</div><div class="ttdef"><b>Definition</b> <a href="a00095_source.html#l00234">viewstate.cpp:234</a></div></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">cameracontroller.h</a></div><div class="ttdoc">CameraController class declaration.</div></div>
-<div class="ttc" id="aa03122_html"><div class="ttname"><a href="a03122.html">SubView</a></div><div class="ttdoc">Viewport subdivision holding its own camera, projection, and scissor rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a00083_source.html#l00147">viewstate.h:148</a></div></div>
-<div class="ttc" id="aa03122_html_a8a404e70357099091977347c9672ab6c"><div class="ttname"><a href="a03122.html#a8a404e70357099091977347c9672ab6c">SubView::pan</a></div><div class="ttdeci">QVector2D pan</div><div class="ttdef"><b>Definition</b> <a href="a00083_source.html#l00158">viewstate.h:158</a></div></div>
-<div class="ttc" id="aa03122_html_a966a64a6a71e38fb0ea580324f241559"><div class="ttname"><a href="a03122.html#a966a64a6a71e38fb0ea580324f241559">SubView::perspectiveRotation</a></div><div class="ttdeci">QQuaternion perspectiveRotation</div><div class="ttdef"><b>Definition</b> <a href="a00083_source.html#l00159">viewstate.h:159</a></div></div>
-<div class="ttc" id="aa03122_html_ae1fdb53368161a413147c82e7510ffec"><div class="ttname"><a href="a03122.html#ae1fdb53368161a413147c82e7510ffec">SubView::preset</a></div><div class="ttdeci">int preset</div><div class="ttdef"><b>Definition</b> <a href="a00083_source.html#l00160">viewstate.h:160</a></div></div>
-<div class="ttc" id="aa03122_html_af2dfae7a90fad04e9ea67e42458344c3"><div class="ttname"><a href="a03122.html#af2dfae7a90fad04e9ea67e42458344c3">SubView::zoom</a></div><div class="ttdeci">float zoom</div><div class="ttdef"><b>Definition</b> <a href="a00083_source.html#l00157">viewstate.h:157</a></div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">CameraResult</a></div><div class="ttdoc">Computed camera matrices (projection, view, model) and vectors for a single viewport.</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00060">cameracontroller.h:61</a></div></div>
-<div class="ttc" id="aa03138_html_a1ece30e5c5ad6596029defbae1b06f86"><div class="ttname"><a href="a03138.html#a1ece30e5c5ad6596029defbae1b06f86">CameraResult::distance</a></div><div class="ttdeci">float distance</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00068">cameracontroller.h:68</a></div></div>
-<div class="ttc" id="aa03138_html_a1f8585252f95a48e4e1da3ab4f3a790a"><div class="ttname"><a href="a03138.html#a1f8585252f95a48e4e1da3ab4f3a790a">CameraResult::lookAt</a></div><div class="ttdeci">QVector3D lookAt</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00067">cameracontroller.h:67</a></div></div>
-<div class="ttc" id="aa03138_html_a2f27124123450cd0a5f15110e08e496b"><div class="ttname"><a href="a03138.html#a2f27124123450cd0a5f15110e08e496b">CameraResult::cameraPos</a></div><div class="ttdeci">QVector3D cameraPos</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00065">cameracontroller.h:65</a></div></div>
-<div class="ttc" id="aa03138_html_a2fc7da9d4ed159b0b447ce4e681d82c8"><div class="ttname"><a href="a03138.html#a2fc7da9d4ed159b0b447ce4e681d82c8">CameraResult::view</a></div><div class="ttdeci">QMatrix4x4 view</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00063">cameracontroller.h:63</a></div></div>
-<div class="ttc" id="aa03138_html_a318b59a9ccf4e1dad3985f24462b0c01"><div class="ttname"><a href="a03138.html#a318b59a9ccf4e1dad3985f24462b0c01">CameraResult::model</a></div><div class="ttdeci">QMatrix4x4 model</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00064">cameracontroller.h:64</a></div></div>
-<div class="ttc" id="aa03138_html_a42fe6fdd7e79aea7f5aaf995f8559350"><div class="ttname"><a href="a03138.html#a42fe6fdd7e79aea7f5aaf995f8559350">CameraResult::projection</a></div><div class="ttdeci">QMatrix4x4 projection</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00062">cameracontroller.h:62</a></div></div>
-<div class="ttc" id="aa03138_html_a8452dbd91d28f04e668d91b02ef770c9"><div class="ttname"><a href="a03138.html#a8452dbd91d28f04e668d91b02ef770c9">CameraResult::upVector</a></div><div class="ttdeci">QVector3D upVector</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00066">cameracontroller.h:66</a></div></div>
-<div class="ttc" id="aa03142_html_a42406b2931a053ba5d8c0eac83a9cbbb"><div class="ttname"><a href="a03142.html#a42406b2931a053ba5d8c0eac83a9cbbb">CameraController::applyMouseRotation</a></div><div class="ttdeci">static void applyMouseRotation(const QPoint &amp;delta, QQuaternion &amp;rotation, float speed=0.5f)</div><div class="ttdef"><b>Definition</b> <a href="#l00117">cameracontroller.cpp:117</a></div></div>
-<div class="ttc" id="aa03142_html_a58dcc1d4d5b79cc0ccf3a9ae443da6ff"><div class="ttname"><a href="a03142.html#a58dcc1d4d5b79cc0ccf3a9ae443da6ff">CameraController::applyMousePan</a></div><div class="ttdeci">static void applyMousePan(const QPoint &amp;delta, QVector2D &amp;pan, float sceneSize)</div><div class="ttdef"><b>Definition</b> <a href="#l00137">cameracontroller.cpp:137</a></div></div>
-<div class="ttc" id="aa03142_html_a617f67f057a02d92a59fa7f94e267e67"><div class="ttname"><a href="a03142.html#a617f67f057a02d92a59fa7f94e267e67">CameraController::rotation</a></div><div class="ttdeci">QQuaternion rotation() const</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00105">cameracontroller.h:105</a></div></div>
-<div class="ttc" id="aa03142_html_a6d6f6ac771f3c5be72cb14dd550da97a"><div class="ttname"><a href="a03142.html#a6d6f6ac771f3c5be72cb14dd550da97a">CameraController::computeMultiView</a></div><div class="ttdeci">CameraResult computeMultiView(const SubView &amp;subView, float aspectRatio) const</div><div class="ttdef"><b>Definition</b> <a href="#l00097">cameracontroller.cpp:97</a></div></div>
-<div class="ttc" id="aa03142_html_acfb4d7a66970f5533463af5b54de3480"><div class="ttname"><a href="a03142.html#acfb4d7a66970f5533463af5b54de3480">CameraController::computeSingleView</a></div><div class="ttdeci">CameraResult computeSingleView(float aspectRatio) const</div><div class="ttdef"><b>Definition</b> <a href="#l00087">cameracontroller.cpp:87</a></div></div>
-<div class="ttc" id="aa03142_html_afd6c9eeb6cc31618b47f9bd97fb79b4f"><div class="ttname"><a href="a03142.html#afd6c9eeb6cc31618b47f9bd97fb79b4f">CameraController::sceneSize</a></div><div class="ttdeci">float sceneSize() const</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00099">cameracontroller.h:99</a></div></div>
+<div class="ttc" id="aa00221_html"><div class="ttname"><a href="a00221.html">fiff_annotation_event_utils.h</a></div><div class="ttdoc">Annotation / Event conversion utility functions.</div></div>
+<div class="ttc" id="aa02537_html"><div class="ttname"><a href="a02537.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00776_source.html#l00071">connectivitysettings.h:71</a></div></div>
+<div class="ttc" id="aa02537_html_a4818704c28dfcbbe5222a9031b2c5e5e"><div class="ttname"><a href="a02537.html#a4818704c28dfcbbe5222a9031b2c5e5e">FIFFLIB::eventsFromAnnotations</a></div><div class="ttdeci">Eigen::MatrixXi eventsFromAnnotations(const FiffAnnotations &amp;annotations, double sfreq, const QMap&lt; QString, int &gt; &amp;eventIds=QMap&lt; QString, int &gt;(), int firstSample=0)</div><div class="ttdef"><b>Definition</b> <a href="#l00102">fiff_annotation_event_utils.cpp:102</a></div></div>
+<div class="ttc" id="aa02537_html_ae24543c46d5526b43a910a7cfce83df4"><div class="ttname"><a href="a02537.html#ae24543c46d5526b43a910a7cfce83df4">FIFFLIB::countAnnotations</a></div><div class="ttdeci">QMap&lt; QString, int &gt; countAnnotations(const FiffAnnotations &amp;annotations)</div><div class="ttdef"><b>Definition</b> <a href="#l00146">fiff_annotation_event_utils.cpp:146</a></div></div>
+<div class="ttc" id="aa02537_html_afbfccd72f74c43947bb4e5eeef48e120"><div class="ttname"><a href="a02537.html#afbfccd72f74c43947bb4e5eeef48e120">FIFFLIB::annotationsFromEvents</a></div><div class="ttdeci">FiffAnnotations annotationsFromEvents(const Eigen::MatrixXi &amp;events, double sfreq, const QMap&lt; int, QString &gt; &amp;eventDescriptions=QMap&lt; int, QString &gt;(), int firstSample=0)</div></div>
+<div class="ttc" id="aa03654_html"><div class="ttname"><a href="a03654.html">FIFFLIB::FiffAnnotation</a></div><div class="ttdoc">Single annotation entry.</div><div class="ttdef"><b>Definition</b> <a href="a00146_source.html#l00065">fiff_annotations.h:66</a></div></div>
+<div class="ttc" id="aa03654_html_a231720cc1e283ee8ec017ea8e3c0669d"><div class="ttname"><a href="a03654.html#a231720cc1e283ee8ec017ea8e3c0669d">FIFFLIB::FiffAnnotation::onset</a></div><div class="ttdeci">double onset</div><div class="ttdef"><b>Definition</b> <a href="a00146_source.html#l00067">fiff_annotations.h:67</a></div></div>
+<div class="ttc" id="aa03654_html_aba38da03f41cbb0f976e715e010cdc92"><div class="ttname"><a href="a03654.html#aba38da03f41cbb0f976e715e010cdc92">FIFFLIB::FiffAnnotation::description</a></div><div class="ttdeci">QString description</div><div class="ttdef"><b>Definition</b> <a href="a00146_source.html#l00069">fiff_annotations.h:69</a></div></div>
+<div class="ttc" id="aa03658_html"><div class="ttname"><a href="a03658.html">FIFFLIB::FiffAnnotations</a></div><div class="ttdoc">Container for FIFF annotations with I/O in JSON and CSV formats.</div><div class="ttdef"><b>Definition</b> <a href="a00146_source.html#l00079">fiff_annotations.h:80</a></div></div>
+<div class="ttc" id="aa03658_html_a6edf49490c869b396a80a222e7b99456"><div class="ttname"><a href="a03658.html#a6edf49490c869b396a80a222e7b99456">FIFFLIB::FiffAnnotations::isEmpty</a></div><div class="ttdeci">bool isEmpty() const</div><div class="ttdef"><b>Definition</b> <a href="a00248_source.html#l00076">fiff_annotations.cpp:76</a></div></div>
+<div class="ttc" id="aa03658_html_a717d3f2d071dfa2da5ed5e2ce697562a"><div class="ttname"><a href="a03658.html#a717d3f2d071dfa2da5ed5e2ce697562a">FIFFLIB::FiffAnnotations::size</a></div><div class="ttdeci">int size() const</div><div class="ttdef"><b>Definition</b> <a href="a00248_source.html#l00069">fiff_annotations.cpp:69</a></div></div>
+<div class="ttc" id="aa03658_html_a989de84ee28bb305823eb56ef5b6a7f1"><div class="ttname"><a href="a03658.html#a989de84ee28bb305823eb56ef5b6a7f1">FIFFLIB::FiffAnnotations::append</a></div><div class="ttdeci">void append(const FiffAnnotation &amp;annotation)</div><div class="ttdef"><b>Definition</b> <a href="a00248_source.html#l00097">fiff_annotations.cpp:97</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
