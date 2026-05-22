@@ -12,7 +12,7 @@ var searchData=
   ['height_9',['height',['../a04570.html#ab1b5854366ba8e82645bcd9e248742a2',1,'MNELIB::MNEVolGeom::height'],['../a04586.html#adcf91bd849678be889393276cb79df4a',1,'MRILIB::MriSliceImage::height'],['../a04594.html#acd27e2abd8966d272f303899152a3262',1,'MRILIB::MriSlice::height'],['../a04598.html#a853d5d47a3b4e64088cc606b07181090',1,'MRILIB::MriVolData::height']]],
   ['helmetsurface_10',['helmetSurface',['../a03114.html#a67e7c3a364e4199d1565c00531f496d0',1,'DataLoader::SensorLoadResult']]],
   ['hemi_11',['hemi',['../a03814.html#a55f6140beed0ff3243af315deb47ddbe',1,'FSLIB::FsLabel']]],
-  ['hemisphere_12',['hemisphere',['../a03274.html#ad6afeeafd7f20f192d0575ada90ea0b6',1,'DISP3DLIB::PickResult']]],
+  ['hemisphere_12',['hemisphere',['../a03274.html#ad6afeeafd7f20f192d0575ada90ea0b6',1,'DISP3DLIB::PickResult::hemisphere'],['../a04702.html#a2e639cf8b439eec0496121d29662a154',1,'UTILSLIB::PolhemusSerialConfig::hemisphere']]],
   ['highcutoff_13',['highCutoff',['../a02598.html#aab14c2e92f5dd4c74f9212b0537e78ea',1,'BIDSLIB::BidsChannel']]],
   ['highpass_14',['highpass',['../a03754.html#a19c7faa33c199e6606b7c3f48a613d32',1,'FIFFLIB::FiffInfo::highpass'],['../a04370.html#a714930e61ec01f527942f67dea36a103',1,'MNELIB::MNEFilterDef::highpass'],['../a04410.html#aba270421019952b2e7359db9f2fc9136',1,'MNELIB::MNEMeasData::highpass'],['../a04486.html#a719647d1b6b9251925f2006d16d39ef8',1,'MNELIB::FilterSettings::highpass'],['../a04530.html#a42e1dd6ea06cbee6af4fc231c50deb70',1,'MNELIB::MNERawInfo::highpass']]],
   ['highpass_5fwidth_15',['highpass_width',['../a04370.html#a36938ed7916628b5b04c9a4382501959',1,'MNELIB::MNEFilterDef']]],
