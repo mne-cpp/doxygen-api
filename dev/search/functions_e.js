@@ -100,8 +100,12 @@ var searchData=
   ['order_97',['order',['../a02742.html#abafc4ac183cf09223ea62e0a26fcda31',1,'CONNLIB::MvarModel']]],
   ['orientation_98',['orientation',['../a03182.html#afa7d42ebae2b5248e84cf2311fb71788',1,'SensorTreeItem::orientation()'],['../a03254.html#af52923db802fa904dc2c1e72a604f0ec',1,'DISP3DLIB::SliceObject::orientation()']]],
   ['overlay_99',['overlay',['../a03286.html#a9c9e9b980c7544800a76235b1fc57930',1,'SourceEstimateManager']]],
-  ['overlaymodefortarget_100',['overlayModeForTarget',['../a03314.html#a67d63289d795abcd89980be77952afa4',1,'BrainView']]],
-  ['overviewbartoggled_101',['overviewBarToggled',['../a02870.html#ab54f320f67a171844fb3a05a80578f37',1,'DISPLIB::ChannelDataView']]],
-  ['overviewbarvisible_102',['overviewBarVisible',['../a02870.html#a8c5e22dfb159003124491304a42a13d4',1,'DISPLIB::ChannelDataView']]],
-  ['overviewbarwidget_103',['OverviewBarWidget',['../a03006.html#af3b8bbd14d19adec4f263659b5d9a82e',1,'DISPLIB::OverviewBarWidget']]]
+  ['overlayfmax_100',['overlayFmax',['../a03270.html#aeeef29cea349d48b56ec21dcae60e043',1,'DISP3DLIB::MultimodalScene']]],
+  ['overlayfmid_101',['overlayFmid',['../a03270.html#ab07beb68bb099f41ffb0ac3bace7ced3',1,'DISP3DLIB::MultimodalScene']]],
+  ['overlayfmin_102',['overlayFmin',['../a03270.html#a2b50b05725773845427069871d148fa9',1,'DISP3DLIB::MultimodalScene']]],
+  ['overlaymodefortarget_103',['overlayModeForTarget',['../a03314.html#a67d63289d795abcd89980be77952afa4',1,'BrainView']]],
+  ['overlaythresholdschanged_104',['overlayThresholdsChanged',['../a03270.html#af6e05bf83d22016c72f0dc26fe97d4f4',1,'DISP3DLIB::MultimodalScene']]],
+  ['overviewbartoggled_105',['overviewBarToggled',['../a02870.html#ab54f320f67a171844fb3a05a80578f37',1,'DISPLIB::ChannelDataView']]],
+  ['overviewbarvisible_106',['overviewBarVisible',['../a02870.html#a8c5e22dfb159003124491304a42a13d4',1,'DISPLIB::ChannelDataView']]],
+  ['overviewbarwidget_107',['OverviewBarWidget',['../a03006.html#af3b8bbd14d19adec4f263659b5d9a82e',1,'DISPLIB::OverviewBarWidget']]]
 ];
