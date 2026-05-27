@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['jetb_0',['jetB',['../a02810.html#a673ad66d7244e9e62917b988ec66b2b9',1,'DISPLIB::ColorMap']]],
-  ['jetg_1',['jetG',['../a02810.html#a91b69c49baa2b85d133b2299b57b5ccf',1,'DISPLIB::ColorMap']]],
-  ['jetr_2',['jetR',['../a02810.html#a64173832d6dfb8d2f0130dba4251cab0',1,'DISPLIB::ColorMap']]]
+  ['jetb_0',['jetB',['../a02817.html#a673ad66d7244e9e62917b988ec66b2b9',1,'DISPLIB::ColorMap']]],
+  ['jetg_1',['jetG',['../a02817.html#a91b69c49baa2b85d133b2299b57b5ccf',1,'DISPLIB::ColorMap']]],
+  ['jetr_2',['jetR',['../a02817.html#a64173832d6dfb8d2f0130dba4251cab0',1,'DISPLIB::ColorMap']]]
 ];

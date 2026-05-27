@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['bad_5fchannel_5fdetect_2ecpp_0',['bad_channel_detect.cpp',['../a01532.html',1,'']]],
-  ['bad_5fchannel_5fdetect_2eh_1',['bad_channel_detect.h',['../a01553.html',1,'']]],
-  ['bad_5fchannels_5flof_2ecpp_2',['bad_channels_lof.cpp',['../a01334.html',1,'']]],
-  ['bad_5fchannels_5flof_2eh_3',['bad_channels_lof.h',['../a01469.html',1,'']]],
-  ['bad_5fchannels_5fmaxwell_2ecpp_4',['bad_channels_maxwell.cpp',['../a01598.html',1,'']]],
-  ['bad_5fchannels_5fmaxwell_2eh_5',['bad_channels_maxwell.h',['../a01340.html',1,'']]],
+  ['bad_5fchannel_5fdetect_2ecpp_0',['bad_channel_detect.cpp',['../a01538.html',1,'']]],
+  ['bad_5fchannel_5fdetect_2eh_1',['bad_channel_detect.h',['../a01559.html',1,'']]],
+  ['bad_5fchannels_5flof_2ecpp_2',['bad_channels_lof.cpp',['../a01340.html',1,'']]],
+  ['bad_5fchannels_5flof_2eh_3',['bad_channels_lof.h',['../a01475.html',1,'']]],
+  ['bad_5fchannels_5fmaxwell_2ecpp_4',['bad_channels_maxwell.cpp',['../a01604.html',1,'']]],
+  ['bad_5fchannels_5fmaxwell_2eh_5',['bad_channels_maxwell.h',['../a01346.html',1,'']]],
   ['bar_2ecpp_6',['bar.cpp',['../a00635.html',1,'']]],
   ['bar_2eh_7',['bar.h',['../a00611.html',1,'']]],
   ['bemtreeitem_2ecpp_8',['bemtreeitem.cpp',['../a00935.html',1,'']]],
@@ -46,8 +46,8 @@ var searchData=
   ['braintreemodel_2eh_43',['braintreemodel.h',['../a00941.html',1,'']]],
   ['brainview_2ecpp_44',['brainview.cpp',['../a01007.html',1,'']]],
   ['brainview_2eh_45',['brainview.h',['../a01010.html',1,'']]],
-  ['bridged_5felectrodes_2ecpp_46',['bridged_electrodes.cpp',['../a01544.html',1,'']]],
-  ['bridged_5felectrodes_2eh_47',['bridged_electrodes.h',['../a01460.html',1,'']]],
+  ['bridged_5felectrodes_2ecpp_46',['bridged_electrodes.cpp',['../a01550.html',1,'']]],
+  ['bridged_5felectrodes_2eh_47',['bridged_electrodes.h',['../a01466.html',1,'']]],
   ['buildinfo_2eh_48',['buildinfo.h',['../a00731.html',1,'']]],
   ['butterflyview_2ecpp_49',['butterflyview.cpp',['../a00602.html',1,'']]],
   ['butterflyview_2eh_50',['butterflyview.h',['../a00473.html',1,'']]]
