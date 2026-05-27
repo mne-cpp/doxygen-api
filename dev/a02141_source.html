@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/mne/mne.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/inv/inv_volume_source_estimate.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,117 +243,130 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_aaeba049e8bbc472f18d1508b9ef9ec0.html">mne</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_b121f4639c206225e3550e4e3ca83e37.html">inv</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">mne.cpp</div></div>
+  <div class="headertitle"><div class="title">inv_volume_source_estimate.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a02141.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &quot;<a class="code" href="a02093.html">inv_volume_source_estimate.h</a>&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &quot;<a class="code" href="a01898.html">mne.h</a>&quot;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;<a class="code" href="a00080.html">fiff/fiff.h</a>&gt;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02558.html">INVLIB</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;QDebug&gt;</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02541.html">MNELIB</a>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02543.html">FIFFLIB</a>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">// read_events, read_events_from_fif, read_events_from_ascii, write_events_to_fif,</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">// write_events_to_ascii implementations moved to FiffEvents class in fiff_events.cpp</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a04305.html#a7533a011c41455320dad86af9e7be163">   68</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04305.html#a7533a011c41455320dad86af9e7be163">MNE::setup_compensators</a>(<a class="code hl_class" href="a03781.html">FiffRawData</a>&amp; raw,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                             <a class="code hl_typedef" href="a02543.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> dest_comp,</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                             <span class="keywordtype">bool</span> keep_comp)</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>{</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">// Set up projection</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a03761.html#ae71b753c51dfd23ddd3a8a18e0f19ebe">projs</a>.size() == 0) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        qInfo(<span class="stringliteral">&quot;No projector specified for these data\n&quot;</span>);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="comment">// Activate the projection items</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">for</span> (qint32 k = 0; k &lt; raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a03761.html#ae71b753c51dfd23ddd3a8a18e0f19ebe">projs</a>.size(); ++k) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a03761.html#ae71b753c51dfd23ddd3a8a18e0f19ebe">projs</a>[k].active = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        qInfo(<span class="stringliteral">&quot;%lld projection items activated\n&quot;</span>,raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_variable" href="a03761.html#ae71b753c51dfd23ddd3a8a18e0f19ebe">projs</a>.size());</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// Create the projector</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">//        fiff_int_t nproj = MNE::make_projector_info(raw.info, raw.proj); Using the member function instead</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_typedef" href="a02543.html#a4e10ab6884063666258a119012d6f8a4">fiff_int_t</a> nproj = raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_function" href="a03761.html#a4752929bcda3df52b4002b046078916a">make_projector</a>(raw.<a class="code hl_variable" href="a03781.html#a5f1bc9d008fe884b7d495321f866396f">proj</a>);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">if</span> (nproj == 0)  {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            qInfo(<span class="stringliteral">&quot;The projection vectors do not apply to these channels\n&quot;</span>);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            qInfo(<span class="stringliteral">&quot;Created an SSP operator (subspace dimension = %d)\n&quot;</span>,nproj);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// Set up the CTF compensator</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">//    qint32 current_comp = MNE::get_current_comp(raw.info);</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    qint32 current_comp = raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_function" href="a03761.html#abf6d5e56f0acb167039e2187c093bae0">get_current_comp</a>();</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">if</span> (current_comp &gt; 0)</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        qInfo(<span class="stringliteral">&quot;Current compensation grade : %d\n&quot;</span>,current_comp);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> (keep_comp)</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        dest_comp = current_comp;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">if</span> (current_comp != dest_comp)</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        qDebug() &lt;&lt; <span class="stringliteral">&quot;This part needs to be debugged&quot;</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="a04305.html#a27b55333c517e75aec341a0415e04d7f">MNE::make_compensator</a>(raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>, current_comp, dest_comp, raw.<a class="code hl_variable" href="a03781.html#adbe4741e8ec3c9438da36e627995ef1a">comp</a>))</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="comment">//            raw.info.chs = MNE::set_current_comp(raw.info.chs,dest_comp);</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            raw.<a class="code hl_variable" href="a03781.html#a30074ee25c17578db14b98a473092061">info</a>.<a class="code hl_function" href="a03761.html#a10d48ebfa8dfb2391d6b20c9d927f7ac">set_current_comp</a>(dest_comp);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            qInfo(<span class="stringliteral">&quot;Appropriate compensator added to change to grade %d.\n&quot;</span>,dest_comp);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        }</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            qCritical(<span class="stringliteral">&quot;Could not make the compensator\n&quot;</span>);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        }</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a04053.html#aeea9d788182b91b8b82f72cf12cbb1e1">   51</a></span><a class="code hl_function" href="a04053.html#aeea9d788182b91b8b82f72cf12cbb1e1">InvVolumeSourceEstimate::InvVolumeSourceEstimate</a>()</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>: <a class="code hl_function" href="a04033.html#a422261612f13975936abf531ff6d0efd">InvSourceEstimate</a>()</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_variable" href="a04033.html#a96300268631f51ecd7cb0b0b03596621">sourceSpaceType</a> = <a class="code hl_enumvalue" href="a02558.html#a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298">InvSourceSpaceType::Volume</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><a class="code hl_function" href="a04053.html#aeea9d788182b91b8b82f72cf12cbb1e1">InvVolumeSourceEstimate::InvVolumeSourceEstimate</a>(<span class="keyword">const</span> MatrixXd&amp; p_sol,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                                                   <span class="keyword">const</span> VectorXi&amp; p_vertices,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                                                   <span class="keywordtype">float</span> p_tmin, <span class="keywordtype">float</span> p_tstep)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>: <a class="code hl_class" href="a04033.html">InvSourceEstimate</a>(p_sol, p_vertices, p_tmin, p_tstep)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>{</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_variable" href="a04033.html#a96300268631f51ecd7cb0b0b03596621">sourceSpaceType</a> = <a class="code hl_enumvalue" href="a02558.html#a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298">InvSourceSpaceType::Volume</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a04053.html#a4d41e194f704429814e9c7cbef5c099d">   69</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04053.html#a4d41e194f704429814e9c7cbef5c099d">InvVolumeSourceEstimate::setShape</a>(<span class="keyword">const</span> QVector&lt;int&gt;&amp; <a class="code hl_function" href="a04053.html#ab83cf3535de37ce3c66e96c89b0dbe21">shape</a>)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04053.html#ab83cf3535de37ce3c66e96c89b0dbe21">shape</a>.size() == 3)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        m_shape = <a class="code hl_function" href="a04053.html#ab83cf3535de37ce3c66e96c89b0dbe21">shape</a>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
+</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a04053.html#aa82f9fec1d3c758c82c73b938fc4c3ab">   77</a></span>VectorXd <a class="code hl_function" href="a04053.html#aa82f9fec1d3c758c82c73b938fc4c3ab">InvVolumeSourceEstimate::toVolume</a>(<span class="keywordtype">int</span> timeIdx)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="a04053.html#abe0ca8704f03bdd9e619ad3e12044f6d">hasShape</a>() || timeIdx &lt; 0 || timeIdx &gt;= <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="a04033.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.cols()))</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span> VectorXd();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">int</span> nTotal = m_shape[0] * m_shape[1] * m_shape[2];</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    VectorXd vol = VectorXd::Zero(nTotal);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="a04033.html#aaa4751a06dc2c46750ab2575d5a87064">vertices</a>.size(); ++i) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordtype">int</span> vIdx = <a class="code hl_variable" href="a04033.html#aaa4751a06dc2c46750ab2575d5a87064">vertices</a>[i];</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">if</span> (vIdx &gt;= 0 &amp;&amp; vIdx &lt; nTotal)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            vol[vIdx] = <a class="code hl_variable" href="a04033.html#a1970be346d6e1793422ffb9a8dc48058">data</a>(i, timeIdx);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> vol;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a04053.html#ad482188791b92603c6567fbf40960592">   96</a></span>Vector3d <a class="code hl_function" href="a04053.html#ad482188791b92603c6567fbf40960592">InvVolumeSourceEstimate::centreOfMass</a>(<span class="keywordtype">int</span> timeIdx)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="a04053.html#abe0ca8704f03bdd9e619ad3e12044f6d">hasShape</a>() || timeIdx &lt; 0 || timeIdx &gt;= <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_variable" href="a04033.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.cols()))</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> Vector3d::Zero();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">int</span> ny = m_shape[1];</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">int</span> nz = m_shape[2];</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">double</span> totalWeight = 0.0;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    Vector3d com = Vector3d::Zero();</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="a04033.html#aaa4751a06dc2c46750ab2575d5a87064">vertices</a>.size(); ++i) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordtype">double</span> w = std::abs(<a class="code hl_variable" href="a04033.html#a1970be346d6e1793422ffb9a8dc48058">data</a>(i, timeIdx));</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">if</span> (w &lt; 1e-15)</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordtype">int</span> vIdx = <a class="code hl_variable" href="a04033.html#aaa4751a06dc2c46750ab2575d5a87064">vertices</a>[i];</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">int</span> ix = vIdx / (ny * nz);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordtype">int</span> iy = (vIdx % (ny * nz)) / nz;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordtype">int</span> iz = vIdx % nz;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        com += w * Vector3d(ix, iy, iz);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        totalWeight += w;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">// compute_proj implementation moved to FiffProj::compute_from_raw in fiff_proj.cpp</span></div>
-<div class="ttc" id="aa00080_html"><div class="ttname"><a href="a00080.html">fiff.h</a></div><div class="ttdoc">FIFF class declaration, which provides static wrapper functions to stay consistent with mne matlab to...</div></div>
-<div class="ttc" id="aa01898_html"><div class="ttname"><a href="a01898.html">mne.h</a></div><div class="ttdoc">MNE class declaration, which provides static wrapper functions to stay consistent with mne matlab too...</div></div>
-<div class="ttc" id="aa02541_html"><div class="ttname"><a href="a02541.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00063">connectivitysettings.h:63</a></div></div>
-<div class="ttc" id="aa02543_html"><div class="ttname"><a href="a02543.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00071">connectivitysettings.h:71</a></div></div>
-<div class="ttc" id="aa02543_html_a4e10ab6884063666258a119012d6f8a4"><div class="ttname"><a href="a02543.html#a4e10ab6884063666258a119012d6f8a4">FIFFLIB::fiff_int_t</a></div><div class="ttdeci">qint32 fiff_int_t</div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00089">fiff_types.h:89</a></div></div>
-<div class="ttc" id="aa03761_html_a10d48ebfa8dfb2391d6b20c9d927f7ac"><div class="ttname"><a href="a03761.html#a10d48ebfa8dfb2391d6b20c9d927f7ac">FIFFLIB::FiffInfo::set_current_comp</a></div><div class="ttdeci">void set_current_comp(fiff_int_t value)</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00299">fiff_info.h:299</a></div></div>
-<div class="ttc" id="aa03761_html_a4752929bcda3df52b4002b046078916a"><div class="ttname"><a href="a03761.html#a4752929bcda3df52b4002b046078916a">FIFFLIB::FiffInfo::make_projector</a></div><div class="ttdeci">qint32 make_projector(Eigen::MatrixXd &amp;proj) const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00285">fiff_info.h:285</a></div></div>
-<div class="ttc" id="aa03761_html_abf6d5e56f0acb167039e2187c093bae0"><div class="ttname"><a href="a03761.html#abf6d5e56f0acb167039e2187c093bae0">FIFFLIB::FiffInfo::get_current_comp</a></div><div class="ttdeci">qint32 get_current_comp()</div><div class="ttdef"><b>Definition</b> <a href="a00161_source.html#l00138">fiff_info.cpp:138</a></div></div>
-<div class="ttc" id="aa03761_html_ae71b753c51dfd23ddd3a8a18e0f19ebe"><div class="ttname"><a href="a03761.html#ae71b753c51dfd23ddd3a8a18e0f19ebe">FIFFLIB::FiffInfo::projs</a></div><div class="ttdeci">QList&lt; FiffProj &gt; projs</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00275">fiff_info.h:275</a></div></div>
-<div class="ttc" id="aa03781_html"><div class="ttname"><a href="a03781.html">FIFFLIB::FiffRawData</a></div><div class="ttdoc">FIFF raw measurement data.</div><div class="ttdef"><b>Definition</b> <a href="a00236_source.html#l00080">fiff_raw_data.h:81</a></div></div>
-<div class="ttc" id="aa03781_html_a30074ee25c17578db14b98a473092061"><div class="ttname"><a href="a03781.html#a30074ee25c17578db14b98a473092061">FIFFLIB::FiffRawData::info</a></div><div class="ttdeci">FiffInfo info</div><div class="ttdef"><b>Definition</b> <a href="a00236_source.html#l00221">fiff_raw_data.h:221</a></div></div>
-<div class="ttc" id="aa03781_html_a5f1bc9d008fe884b7d495321f866396f"><div class="ttname"><a href="a03781.html#a5f1bc9d008fe884b7d495321f866396f">FIFFLIB::FiffRawData::proj</a></div><div class="ttdeci">Eigen::MatrixXd proj</div><div class="ttdef"><b>Definition</b> <a href="a00236_source.html#l00226">fiff_raw_data.h:226</a></div></div>
-<div class="ttc" id="aa03781_html_adbe4741e8ec3c9438da36e627995ef1a"><div class="ttname"><a href="a03781.html#adbe4741e8ec3c9438da36e627995ef1a">FIFFLIB::FiffRawData::comp</a></div><div class="ttdeci">FiffCtfComp comp</div><div class="ttdef"><b>Definition</b> <a href="a00236_source.html#l00227">fiff_raw_data.h:227</a></div></div>
-<div class="ttc" id="aa04305_html_a27b55333c517e75aec341a0415e04d7f"><div class="ttname"><a href="a04305.html#a27b55333c517e75aec341a0415e04d7f">MNELIB::MNE::make_compensator</a></div><div class="ttdeci">static bool make_compensator(const FIFFLIB::FiffInfo &amp;info, FIFFLIB::fiff_int_t from, FIFFLIB::fiff_int_t to, FIFFLIB::FiffCtfComp &amp;ctf_comp, bool exclude_comp_chs=false)</div><div class="ttdef"><b>Definition</b> <a href="a01898_source.html#l00198">mne.h:198</a></div></div>
-<div class="ttc" id="aa04305_html_a7533a011c41455320dad86af9e7be163"><div class="ttname"><a href="a04305.html#a7533a011c41455320dad86af9e7be163">MNELIB::MNE::setup_compensators</a></div><div class="ttdeci">static void setup_compensators(FIFFLIB::FiffRawData &amp;raw, FIFFLIB::fiff_int_t dest_comp, bool keep_comp)</div><div class="ttdef"><b>Definition</b> <a href="#l00068">mne.cpp:68</a></div></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (totalWeight &gt; 1e-15)</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        com /= totalWeight;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">return</span> com;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
+</div>
+<div class="ttc" id="aa02093_html"><div class="ttname"><a href="a02093.html">inv_volume_source_estimate.h</a></div><div class="ttdoc">InvVolumeSourceEstimate — volume (voxel-based) source estimate.</div></div>
+<div class="ttc" id="aa02558_html"><div class="ttname"><a href="a02558.html">INVLIB</a></div><div class="ttdoc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting).</div><div class="ttdef"><b>Definition</b> <a href="a02222_source.html#l00055">braintreemodel.h:55</a></div></div>
+<div class="ttc" id="aa02558_html_a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298"><div class="ttname"><a href="a02558.html#a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298">INVLIB::InvSourceSpaceType::Volume</a></div><div class="ttdeci">@ Volume</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00074">inv_types.h:74</a></div></div>
+<div class="ttc" id="aa04033_html"><div class="ttname"><a href="a04033.html">INVLIB::InvSourceEstimate</a></div><div class="ttdoc">Source estimation.</div><div class="ttdef"><b>Definition</b> <a href="a02096_source.html#l00094">inv_source_estimate.h:95</a></div></div>
+<div class="ttc" id="aa04033_html_a1970be346d6e1793422ffb9a8dc48058"><div class="ttname"><a href="a04033.html#a1970be346d6e1793422ffb9a8dc48058">INVLIB::InvSourceEstimate::data</a></div><div class="ttdeci">Eigen::MatrixXd data</div><div class="ttdef"><b>Definition</b> <a href="a02096_source.html#l00235">inv_source_estimate.h:235</a></div></div>
+<div class="ttc" id="aa04033_html_a422261612f13975936abf531ff6d0efd"><div class="ttname"><a href="a04033.html#a422261612f13975936abf531ff6d0efd">INVLIB::InvSourceEstimate::InvSourceEstimate</a></div><div class="ttdeci">InvSourceEstimate()</div><div class="ttdef"><b>Definition</b> <a href="a02048_source.html#l00066">inv_source_estimate.cpp:66</a></div></div>
+<div class="ttc" id="aa04033_html_a96300268631f51ecd7cb0b0b03596621"><div class="ttname"><a href="a04033.html#a96300268631f51ecd7cb0b0b03596621">INVLIB::InvSourceEstimate::sourceSpaceType</a></div><div class="ttdeci">InvSourceSpaceType sourceSpaceType</div><div class="ttdef"><b>Definition</b> <a href="a02096_source.html#l00243">inv_source_estimate.h:243</a></div></div>
+<div class="ttc" id="aa04033_html_aaa4751a06dc2c46750ab2575d5a87064"><div class="ttname"><a href="a04033.html#aaa4751a06dc2c46750ab2575d5a87064">INVLIB::InvSourceEstimate::vertices</a></div><div class="ttdeci">Eigen::VectorXi vertices</div><div class="ttdef"><b>Definition</b> <a href="a02096_source.html#l00236">inv_source_estimate.h:236</a></div></div>
+<div class="ttc" id="aa04053_html_a4d41e194f704429814e9c7cbef5c099d"><div class="ttname"><a href="a04053.html#a4d41e194f704429814e9c7cbef5c099d">INVLIB::InvVolumeSourceEstimate::setShape</a></div><div class="ttdeci">void setShape(const QVector&lt; int &gt; &amp;shape)</div><div class="ttdef"><b>Definition</b> <a href="#l00069">inv_volume_source_estimate.cpp:69</a></div></div>
+<div class="ttc" id="aa04053_html_aa82f9fec1d3c758c82c73b938fc4c3ab"><div class="ttname"><a href="a04053.html#aa82f9fec1d3c758c82c73b938fc4c3ab">INVLIB::InvVolumeSourceEstimate::toVolume</a></div><div class="ttdeci">Eigen::VectorXd toVolume(int timeIdx) const</div><div class="ttdef"><b>Definition</b> <a href="#l00077">inv_volume_source_estimate.cpp:77</a></div></div>
+<div class="ttc" id="aa04053_html_ab83cf3535de37ce3c66e96c89b0dbe21"><div class="ttname"><a href="a04053.html#ab83cf3535de37ce3c66e96c89b0dbe21">INVLIB::InvVolumeSourceEstimate::shape</a></div><div class="ttdeci">const QVector&lt; int &gt; &amp; shape() const</div><div class="ttdef"><b>Definition</b> <a href="a02093_source.html#l00097">inv_volume_source_estimate.h:97</a></div></div>
+<div class="ttc" id="aa04053_html_abe0ca8704f03bdd9e619ad3e12044f6d"><div class="ttname"><a href="a04053.html#abe0ca8704f03bdd9e619ad3e12044f6d">INVLIB::InvVolumeSourceEstimate::hasShape</a></div><div class="ttdeci">bool hasShape() const</div><div class="ttdef"><b>Definition</b> <a href="a02093_source.html#l00103">inv_volume_source_estimate.h:103</a></div></div>
+<div class="ttc" id="aa04053_html_ad482188791b92603c6567fbf40960592"><div class="ttname"><a href="a04053.html#ad482188791b92603c6567fbf40960592">INVLIB::InvVolumeSourceEstimate::centreOfMass</a></div><div class="ttdeci">Eigen::Vector3d centreOfMass(int timeIdx) const</div><div class="ttdef"><b>Definition</b> <a href="#l00096">inv_volume_source_estimate.cpp:96</a></div></div>
+<div class="ttc" id="aa04053_html_aeea9d788182b91b8b82f72cf12cbb1e1"><div class="ttname"><a href="a04053.html#aeea9d788182b91b8b82f72cf12cbb1e1">INVLIB::InvVolumeSourceEstimate::InvVolumeSourceEstimate</a></div><div class="ttdeci">InvVolumeSourceEstimate()</div><div class="ttdef"><b>Definition</b> <a href="#l00051">inv_volume_source_estimate.cpp:51</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
