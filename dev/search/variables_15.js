@@ -31,7 +31,7 @@ var searchData=
   ['vecs_28',['vecs',['../a04498.html#a4c74039241b5c5048eba95ca3f18df35',1,'MNELIB::MNEProjItem']]],
   ['vectapspectra_29',['vecTapSpectra',['../a02698.html#a47370274147977716faef2562d0edf0e',1,'CONNLIB::ConnectivitySettings::IntermediateTrialData']]],
   ['vectimes_30',['vecTimes',['../a03518.html#aa3df622a1f53ba6392d620a4f1b4d072',1,'UTILSLIB::MultitaperTfrResult']]],
-  ['venvdir_31',['venvDir',['../a04722.html#a9bb16387b909a6b55a138342248ae34c',1,'UTILSLIB::PythonRunnerConfig']]],
+  ['venvdir_31',['venvDir',['../a04726.html#a9bb16387b909a6b55a138342248ae34c',1,'UTILSLIB::PythonRunnerConfig']]],
   ['verbose_32',['verbose',['../a03938.html#a388d133652ac3d39de9ba2976ca4bdfc',1,'INVLIB::InvDipoleFitSettings']]],
   ['verification_33',['verification',['../a04222.html#a95540e595d19198be54d86e60efd7409',1,'MNALIB::MnaNode']]],
   ['version_34',['version',['../a03750.html#ace3ce06929c786230382642f8ef596d3',1,'FIFFLIB::FiffId::version'],['../a04238.html#ab8ddab1410c76b26c4d04655aa027211',1,'MNALIB::MnaOpSchema::version'],['../a04598.html#ac74ab8461cc1dd4830e837322fc7850f',1,'MRILIB::MriVolData::version']]],

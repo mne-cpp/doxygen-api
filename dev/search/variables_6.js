@@ -7,7 +7,7 @@ var searchData=
   ['goodness_4',['goodness',['../a03950.html#a9cc0635d5e22808b5941864f7784b85c',1,'INVLIB::bdipEcdRec::goodness'],['../a04010.html#a87bc21ccd40b0368289f0c8b3064f333',1,'INVLIB::InvFocalDipole::goodness']]],
   ['gpuindexdirty_5',['gpuIndexDirty',['../a03294.html#a4e3f96341f7d881e877f41c33acefb82',1,'BrainRenderer::Impl::MergedGroup']]],
   ['gpuvertexdirty_6',['gpuVertexDirty',['../a03294.html#a80b79c14dc3545cc00b320a6acfd616c',1,'BrainRenderer::Impl::MergedGroup']]],
-  ['grad_5fcomp_7',['grad_comp',['../a01013.html#a07b1203222ba80fb8ee8f05c0237a377',1,'mne_ctf_comp_data_set.cpp']]],
+  ['grad_5fcomp_7',['grad_comp',['../a02096.html#a07b1203222ba80fb8ee8f05c0237a377',1,'mne_ctf_comp_data_set.cpp']]],
   ['grad_5freg_8',['grad_reg',['../a03938.html#aee49d19cb9fdf4d4102cc5b1d5275072',1,'INVLIB::InvDipoleFitSettings']]],
   ['grad_5fstd_9',['grad_std',['../a03938.html#a3781c425866ca361dc349e2e8c6d7063',1,'INVLIB::InvDipoleFitSettings']]],
   ['grandavefile_10',['grandAveFile',['../a04490.html#adef5f9837eeb2b6e005865961479f826',1,'MNELIB::ProcessingSettings']]],

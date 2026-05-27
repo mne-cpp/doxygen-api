@@ -22,5 +22,5 @@ var searchData=
   ['holographic_19',['Holographic',['../a03302.html#a574725a315454d4019853633b00ad5a5',1,'BrainRenderer']]],
   ['hostname_20',['hostName',['../a04286.html#a9f8959de0be7b77d4b338dd003658c0c',1,'MNALIB::MnaProvenance']]],
   ['hpifreqs_21',['hpiFreqs',['../a03970.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
-  ['htmlcontent_22',['htmlContent',['../a04734.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
+  ['htmlcontent_22',['htmlContent',['../a04738.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
 ];

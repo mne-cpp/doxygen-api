@@ -4,7 +4,7 @@ var searchData=
   ['scalingview_1',['ScalingView',['../a03086.html',1,'DISPLIB']]],
   ['scenedata_2',['SceneData',['../a03306.html',1,'BrainRenderer']]],
   ['scenelayer_3',['SceneLayer',['../a03266.html',1,'DISP3DLIB']]],
-  ['selectionio_4',['SelectionIO',['../a04742.html',1,'UTILSLIB']]],
+  ['selectionio_4',['SelectionIO',['../a04746.html',1,'UTILSLIB']]],
   ['selectionitem_5',['SelectionItem',['../a03026.html',1,'DISPLIB']]],
   ['selectionscene_6',['SelectionScene',['../a03022.html',1,'DISPLIB']]],
   ['selectionsceneitem_7',['SelectionSceneItem',['../a03030.html',1,'DISPLIB']]],

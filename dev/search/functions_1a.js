@@ -45,7 +45,7 @@ var searchData=
   ['_7efiff_42',['~Fiff',['../a03650.html#a897e94c38f4685fd74f2543ace9c2213',1,'FIFFLIB::Fiff']]],
   ['_7efiffchinfo_43',['~FiffChInfo',['../a03662.html#a41a554f557e9c2f7cb75ff3b4d4627a4',1,'FIFFLIB::FiffChInfo']]],
   ['_7efiffchpos_44',['~FiffChPos',['../a03666.html#aa10127cb7d4b67bc9a817c7a6f418364',1,'FIFFLIB::FiffChPos']]],
-  ['_7efiffcoordtrans_45',['~FiffCoordTrans',['../a03670.html#ab2819e752190b2fd0f27cdef66906ee3',1,'FIFFLIB::FiffCoordTrans::~FiffCoordTrans()'],['../a04878.html#ab2819e752190b2fd0f27cdef66906ee3',1,'FiffCoordTrans::~FiffCoordTrans()']]],
+  ['_7efiffcoordtrans_45',['~FiffCoordTrans',['../a03670.html#ab2819e752190b2fd0f27cdef66906ee3',1,'FIFFLIB::FiffCoordTrans::~FiffCoordTrans()'],['../a04882.html#ab2819e752190b2fd0f27cdef66906ee3',1,'FiffCoordTrans::~FiffCoordTrans()']]],
   ['_7efiffcoordtransset_46',['~FiffCoordTransSet',['../a03674.html#af78f19d9fa2e3faecc4ab4cc3d232c37',1,'FIFFLIB::FiffCoordTransSet']]],
   ['_7efiffcov_47',['~FiffCov',['../a03678.html#a29f05b2a9bd0297cff99a7c508eab0b0',1,'FIFFLIB::FiffCov']]],
   ['_7efiffctfcomp_48',['~FiffCtfComp',['../a03682.html#aacbead08579d7c859a7b1392031a1ce9',1,'FIFFLIB::FiffCtfComp']]],

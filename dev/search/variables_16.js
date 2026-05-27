@@ -8,6 +8,6 @@ var searchData=
   ['width_5',['width',['../a04570.html#a353b3afc027f68f17fa54d72a2322514',1,'MNELIB::MNEVolGeom::width'],['../a04586.html#ab7bb014acdb2d7520074b5979e5ba794',1,'MRILIB::MriSliceImage::width'],['../a04594.html#a2ea97e3d9744f96ef4aea0a3d1b9e691',1,'MRILIB::MriSlice::width'],['../a04598.html#a7bb0982a7b24b4cbccc66b5a93366645',1,'MRILIB::MriVolData::width']]],
   ['window_5fsize_6',['window_size',['../a03606.html#ac725cf99878ad59462cc3caa1ec2c709',1,'UTILSLIB::SpectogramInputData']]],
   ['work_7',['work',['../a03870.html#afeb66c8f80d75234a57f1d434c9e4c4b',1,'FWDLIB::FwdCompData']]],
-  ['workingdir_8',['workingDir',['../a04490.html#a6886ae463946f21f03a3df6a9beb912e',1,'MNELIB::ProcessingSettings::workingDir'],['../a04722.html#a1fb6589b493c10153a9878c5d293fed3',1,'UTILSLIB::PythonRunnerConfig::workingDir']]],
+  ['workingdir_8',['workingDir',['../a04490.html#a6886ae463946f21f03a3df6a9beb912e',1,'MNELIB::ProcessingSettings::workingDir'],['../a04726.html#a1fb6589b493c10153a9878c5d293fed3',1,'UTILSLIB::PythonRunnerConfig::workingDir']]],
   ['world_9',['world',['../a03274.html#a185c0048f798bf1b7542afc65b329290',1,'DISP3DLIB::PickResult']]]
 ];

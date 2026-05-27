@@ -8,7 +8,7 @@ var searchData=
   ['idx_5',['idx',['../a03982.html#a9dad71401a6cb9fa736b355e93432977',1,'INVLIB::HPISortStruct']]],
   ['ieegreference_6',['ieegReference',['../a02622.html#a49921205eb4fe2a4ce91957155f3e2b3',1,'BIDSLIB::BidsRawData']]],
   ['ifilterorder_7',['iFilterOrder',['../a03350.html#a0190483ac64acfbe43a535e1caef76e6',1,'UTILSLIB::AnnotateMusclParams::iFilterOrder'],['../a03358.html#a3fdd1372425d893fe91ba86ad62c5855',1,'UTILSLIB::ArtifactDetectEcgParams::iFilterOrder'],['../a03362.html#ac04fa87ae2d14b4338eef7f44804560f',1,'UTILSLIB::ArtifactDetectEogParams::iFilterOrder'],['../a03446.html#a8e4763cd4f13c650db4b23cce59cdee7',1,'UTILSLIB::FilterChpiParams::iFilterOrder']]],
-  ['ignore_8',['ignore',['../a03730.html#a559bcf3b85393de8c12f8ecb1560e297',1,'FIFFLIB::AverageCategory::ignore'],['../a04478.html#a5e0c4b5996bcff64acac3a3b91d01b36',1,'MNELIB::CovDefinition::ignore'],['../a04870.html#a559bcf3b85393de8c12f8ecb1560e297',1,'MNELIB::AverageCategory::ignore']]],
+  ['ignore_8',['ignore',['../a03730.html#a559bcf3b85393de8c12f8ecb1560e297',1,'FIFFLIB::AverageCategory::ignore'],['../a04478.html#a5e0c4b5996bcff64acac3a3b91d01b36',1,'MNELIB::CovDefinition::ignore'],['../a04874.html#a559bcf3b85393de8c12f8ecb1560e297',1,'MNELIB::AverageCategory::ignore']]],
   ['ilabelidxin_9',['iLabelIdxIn',['../a04378.html#aae8bed760d94e9a52fa5dfd3986ecd1d',1,'MNELIB::RegionData::iLabelIdxIn'],['../a04394.html#a7dd12130c7bf6fe650041a54b1c2b71c',1,'MNELIB::RegionMT::iLabelIdxIn']]],
   ['ilabelidxout_10',['iLabelIdxOut',['../a04374.html#a8b41e24e4f6a8bb2d4def09948f19049',1,'MNELIB::RegionDataOut::iLabelIdxOut'],['../a04390.html#a4f7bddee9c1048091d89fcbc6fdd74e9',1,'MNELIB::RegionMTOut::iLabelIdxOut']]],
   ['imaxiterations_11',['iMaxIterations',['../a04118.html#a467c4dde74029caa4bb61860fc33d3ec',1,'INVLIB::InvTfMxneParams']]],
@@ -52,7 +52,7 @@ var searchData=
   ['inv_5flambda_49',['inv_lambda',['../a04322.html#a0d79435c43209b091e4b1f1011ba73b7',1,'MNELIB::MNECovMatrix']]],
   ['inversion_50',['inversion',['../a03906.html#a45f4b03e87215b53a73187fedde67eab',1,'INVLIB::InvBeamformer']]],
   ['invert_51',['invert',['../a04406.html#a4bcdb9a386fbf8364a1f9a41debb5f68',1,'MNELIB::MNELayoutPort']]],
-  ['invtrans_52',['invtrans',['../a03670.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FIFFLIB::FiffCoordTrans::invtrans'],['../a04878.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FiffCoordTrans::invtrans']]],
+  ['invtrans_52',['invtrans',['../a03670.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FIFFLIB::FiffCoordTrans::invtrans'],['../a04882.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FiffCoordTrans::invtrans']]],
   ['iorderin_53',['iOrderIn',['../a03382.html#abcc45912e86b52882ec95369959ca2fb',1,'UTILSLIB::BadChannelsMaxwellParams::iOrderIn'],['../a03494.html#aa7307e83389f893c9c91084141edace0',1,'UTILSLIB::MaxwellMoveCompParams::iOrderIn'],['../a03614.html#aa29467bb6fddc5596ac76187a54ac6b6',1,'UTILSLIB::SSSParams::iOrderIn'],['../a03622.html#afd7ec3ba395137a5128069a5701f576e',1,'UTILSLIB::SSS::Basis::iOrderIn']]],
   ['iorderout_54',['iOrderOut',['../a03382.html#a14cfda02080c0028d55800dd8632afcd',1,'UTILSLIB::BadChannelsMaxwellParams::iOrderOut'],['../a03494.html#a1ca587daeb9c07cb790b99281f9ba381',1,'UTILSLIB::MaxwellMoveCompParams::iOrderOut'],['../a03614.html#a7211989367aff1786290168b0ea4e081',1,'UTILSLIB::SSSParams::iOrderOut'],['../a03622.html#a401e317d31d9eca6e6ea4278a8fb43d2',1,'UTILSLIB::SSS::Basis::iOrderOut']]],
   ['ip_5fapproach_5flimit_55',['ip_approach_limit',['../a03854.html#ad8ee097eb8997f6edc375495a79292cb',1,'FWDLIB::FwdBemModel']]],
@@ -75,5 +75,5 @@ var searchData=
   ['item_72',['item',['../a03146.html#a9f5995d42cb34e8a8e942ea86d312f4f',1,'PickResult']]],
   ['items_73',['items',['../a04502.html#aef17460aa45f51d3ac5afa08c8cf9113',1,'MNELIB::MNEProjOp']]],
   ['itris_74',['itris',['../a04558.html#a0a3d6882565944e5cb3ee249101d09db',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['itrmax_75',['ITRMAX',['../a01277.html#af34898925bbac702dcb9e2bbe1a068ab',1,'parksmcclellan.cpp']]]
+  ['itrmax_75',['ITRMAX',['../a01394.html#af34898925bbac702dcb9e2bbe1a068ab',1,'parksmcclellan.cpp']]]
 ];

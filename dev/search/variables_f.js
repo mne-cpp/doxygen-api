@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['packagedir_0',['packageDir',['../a04722.html#a244dd472a089b044a77701181a4f6e52',1,'UTILSLIB::PythonRunnerConfig']]],
+  ['packagedir_0',['packageDir',['../a04726.html#a244dd472a089b044a77701181a4f6e52',1,'UTILSLIB::PythonRunnerConfig']]],
   ['pan_1',['pan',['../a03122.html#a8a404e70357099091977347c9672ab6c',1,'SubView']]],
   ['paramtree_2',['paramTree',['../a04202.html#a7b96d9583fea79c803d85cf3c72b7738',1,'MNALIB::MnaGraph']]],
   ['parent_3',['parent',['../a03706.html#a61be4ffb889df9484b639cc5d97ae53e',1,'FIFFLIB::FiffDirNode']]],
@@ -39,7 +39,7 @@ var searchData=
   ['portno_36',['portno',['../a04406.html#aa3c3a52f7fba06065f57a10a616e0e2a',1,'MNELIB::MNELayoutPort']]],
   ['ports_37',['ports',['../a04402.html#ae4a4df33c07a0ce8154f493cc8307a3b',1,'MNELIB::MNELayout']]],
   ['pos_38',['pos',['../a03198.html#a69f5663da32e39036e76bc1c431d0e0a',1,'VertexData::pos'],['../a03702.html#a9f8411b582913d9fc965d8e07d0a6152',1,'FIFFLIB::FiffDirEntry::pos'],['../a03814.html#aa4a7df310e9e77bd5015f8ad22962dc1',1,'FSLIB::FsLabel::pos'],['../a03966.html#a0d5a26d78231e6ef6fbc75e3fa94ae51',1,'INVLIB::CoilParam::pos'],['../a04450.html#aa958fb91391c4712d525b584db994aa5',1,'MNELIB::MNEMshLight::pos'],['../a04678.html#aae9d47367450ed7737fcb62124d60dc3',1,'UTILSLIB::ElectrodePosition::pos']]],
-  ['pos_5fcurv_5fcolor_39',['POS_CURV_COLOR',['../a01043.html#a781264ba867623a9df51723e02dbd8e4',1,'mne_msh_display_surface.cpp']]],
+  ['pos_5fcurv_5fcolor_39',['POS_CURV_COLOR',['../a01877.html#a781264ba867623a9df51723e02dbd8e4',1,'mne_msh_display_surface.cpp']]],
   ['position_40',['position',['../a02638.html#a20223ad8ff01771f9c6466fb057ab315',1,'BIDSLIB::BrainVisionMarker::position'],['../a03226.html#a2196fa641d777497b15caab33fd89b00',1,'DISP3DLIB::ElectrodeContact::position'],['../a03310.html#a8fb59813deb39493f8467bc8346c233f',1,'LiveMarker::position'],['../a04010.html#a1017ddc45fee3794df43792131684d56',1,'INVLIB::InvFocalDipole::position'],['../a04090.html#a187fedc0076cbed8b4971d423c1f95d5',1,'INVLIB::TrapMusicDipole::position'],['../a04686.html#aa2d1b78c992673959ff0d321ae2ae88d',1,'UTILSLIB::DigitizedPoint::position'],['../a04694.html#a8383658c7299eb4cc1c8fc2565f0d466',1,'UTILSLIB::FastrakSample::position']]],
   ['positions_41',['positions',['../a04026.html#a182e500612f59f5e7bf08b6d838806d8',1,'INVLIB::InvSourceEstimate']]],
   ['postresults_42',['postResults',['../a04290.html#aba30f3444f7fb878c4c4d5539d48cc59',1,'MNALIB::MnaVerification']]],
@@ -52,11 +52,11 @@ var searchData=
   ['presel_49',['presel',['../a04326.html#a9ca0007509adb2069764736d1ace3703',1,'MNELIB::MNECTFCompData']]],
   ['presel_5fdata_50',['presel_data',['../a04326.html#ae7e8b219a082366e4ba56e8802b60805',1,'MNELIB::MNECTFCompData']]],
   ['preset_51',['preset',['../a03122.html#ae1fdb53368161a413147c82e7510ffec',1,'SubView']]],
-  ['prevevent_52',['prevEvent',['../a03730.html#a27dc109d27718aad97e6b923a17ad8fa',1,'FIFFLIB::AverageCategory::prevEvent'],['../a04870.html#a27dc109d27718aad97e6b923a17ad8fa',1,'MNELIB::AverageCategory::prevEvent']]],
-  ['prevignore_53',['prevIgnore',['../a03730.html#a8c28fb45a98df2fec287ffb9ca82943a',1,'FIFFLIB::AverageCategory::prevIgnore'],['../a04870.html#a8c28fb45a98df2fec287ffb9ca82943a',1,'MNELIB::AverageCategory::prevIgnore']]],
+  ['prevevent_52',['prevEvent',['../a03730.html#a27dc109d27718aad97e6b923a17ad8fa',1,'FIFFLIB::AverageCategory::prevEvent'],['../a04874.html#a27dc109d27718aad97e6b923a17ad8fa',1,'MNELIB::AverageCategory::prevEvent']]],
+  ['prevignore_53',['prevIgnore',['../a03730.html#a8c28fb45a98df2fec287ffb9ca82943a',1,'FIFFLIB::AverageCategory::prevIgnore'],['../a04874.html#a8c28fb45a98df2fec287ffb9ca82943a',1,'MNELIB::AverageCategory::prevIgnore']]],
   ['prob_54',['prob',['../a03950.html#a1b686056b752810a4c5b6936cbe00692',1,'INVLIB::bdipEcdRec']]],
   ['processingdescription_55',['processingDescription',['../a02602.html#a42d6151450f5a7ea5ab73f8004563fc1',1,'BIDSLIB::BidsCoordinateSystem']]],
-  ['progresspct_56',['progressPct',['../a04718.html#abcf1594483821ae555cc89c6089f2640',1,'UTILSLIB::PythonRunnerResult']]],
+  ['progresspct_56',['progressPct',['../a04722.html#abcf1594483821ae555cc89c6089f2640',1,'UTILSLIB::PythonRunnerResult']]],
   ['proj_57',['proj',['../a03722.html#a1ec4116f9b969be2f28a68b1bf2e4336',1,'FIFFLIB::FiffEvoked::proj'],['../a03774.html#a5f1bc9d008fe884b7d495321f866396f',1,'FIFFLIB::FiffRawData::proj'],['../a03906.html#a281f397c7e28b1c72c3b6b7ea7049998',1,'INVLIB::InvBeamformer::proj'],['../a03934.html#a6f71a1f4d1d7f19053449b2895f42516',1,'INVLIB::InvDipoleFitData::proj'],['../a04322.html#a5dbb005854db84098b9666a4fb0d0e17',1,'MNELIB::MNECovMatrix::proj'],['../a04398.html#a100968ca2d3ffe1819c693f8082b2baf',1,'MNELIB::MNEInverseOperator::proj'],['../a04410.html#ad15c54835087abda4d7893a5b25d523d',1,'MNELIB::MNEMeasData::proj'],['../a04526.html#a15b0b3528450833f71aa2727327c41e1',1,'MNELIB::MNERawData::proj']]],
   ['proj_5fdata_58',['proj_data',['../a04502.html#a05b2b9fc54c4d48ca3da7769ae178624',1,'MNELIB::MNEProjOp']]],
   ['proj_5fid_59',['proj_id',['../a03754.html#ae8ce00809e595f83e1270d3cd56f5b76',1,'FIFFLIB::FiffInfo']]],
@@ -76,5 +76,5 @@ var searchData=
   ['projtmax_73',['projTmax',['../a04490.html#a34e76b65755750164c5035e2ee6b5fb6',1,'MNELIB::ProcessingSettings']]],
   ['projtmin_74',['projTmin',['../a04490.html#a31a5f2df441294cf87125f844d4d537e',1,'MNELIB::ProcessingSettings']]],
   ['provenance_75',['provenance',['../a04290.html#a3612a5fd98d3a82d019e44f849dd6a63',1,'MNALIB::MnaVerification']]],
-  ['pythonexe_76',['pythonExe',['../a04722.html#a59180af1e9e96d821ea814daba9b9a99',1,'UTILSLIB::PythonRunnerConfig']]]
+  ['pythonexe_76',['pythonExe',['../a04726.html#a59180af1e9e96d821ea814daba9b9a99',1,'UTILSLIB::PythonRunnerConfig']]]
 ];

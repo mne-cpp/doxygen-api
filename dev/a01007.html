@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/mne/mne_msh_color_scale_def.h File Reference</title>
+    <title>MNE-CPP: src/libraries/disp3D/view/brainview.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,73 +250,224 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_aaeba049e8bbc472f18d1508b9ef9ec0.html">mne</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_061a979e1ff4d1f23adfb2165bb6f08f.html">disp3D</a></li><li class="navelem"><a href="dir_099a48684373e6af23b12f007f0a5bd7.html">view</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">mne_msh_color_scale_def.h File Reference</div></div>
+  <div class="headertitle"><div class="title">brainview.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>MNEMshColorScaleDef class declaration.  
+<p><a class="el" href="a03314.html" title="Top-level QWidget hosting the QRhi-based 3-D brain visualization with mouse interaction and multi-vie...">BrainView</a> class definition.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01166_source.html">mne_global.h</a>&quot;</code><br />
-<code>#include &lt;QSharedPointer&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01010_source.html">brainview.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01016_source.html">brainrenderer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00857_source.html">renderable/brainsurface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00854_source.html">renderable/dipoleobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00833_source.html">renderable/networkobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00842_source.html">renderable/videooverlay.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00971_source.html">core/surfacekeys.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00980_source.html">core/dataloader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00998_source.html">input/raypicker.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01025_source.html">geometry/meshfactory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00941_source.html">model/braintreemodel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00896_source.html">model/items/surfacetreeitem.h</a>&quot;</code><br />
+<code>#include &lt;rhi/qrhi.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="a00932_source.html">model/items/bemtreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00938_source.html">model/items/sensortreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00923_source.html">model/items/dipoletreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00914_source.html">model/items/sourcespacetreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00893_source.html">model/items/digitizertreeitem.h</a>&quot;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;QMatrix4x4&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QLabel&gt;</code><br />
+<code>#include &lt;QFrame&gt;</code><br />
+<code>#include &lt;QMouseEvent&gt;</code><br />
+<code>#include &lt;QKeyEvent&gt;</code><br />
+<code>#include &lt;QWheelEvent&gt;</code><br />
+<code>#include &lt;QResizeEvent&gt;</code><br />
+<code>#include &lt;QSettings&gt;</code><br />
+<code>#include &lt;QTimer&gt;</code><br />
+<code>#include &lt;QMenu&gt;</code><br />
+<code>#include &lt;QStandardItem&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01868_source.html">mne/mne_bem.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01910_source.html">mne/mne_source_spaces.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00086_source.html">fiff/fiff_evoked_set.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00089_source.html">fiff/fiff_constants.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01766_source.html">conn/network/network.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for mne_msh_color_scale_def.h:</div>
+Include dependency graph for brainview.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01008.png" border="0" usemap="#asrc_2libraries_2mne_2mne__msh__color__scale__def_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2mne_2mne__msh__color__scale__def_8h" id="asrc_2libraries_2mne_2mne__msh__color__scale__def_8h">
-<area shape="rect" title="MNEMshColorScaleDef class declaration." alt="" coords="128,5,304,45"/>
-<area shape="rect" href="a01166.html" title="mne library export/import macros." alt="" coords="90,93,201,119"/>
-<area shape="poly" title=" " alt="" coords="201,47,167,85,163,81,197,44"/>
-<area shape="rect" title=" " alt="" coords="225,93,348,119"/>
-<area shape="poly" title=" " alt="" coords="235,44,269,81,265,85,231,47"/>
-<area shape="rect" title=" " alt="" coords="5,167,136,192"/>
-<area shape="poly" title=" " alt="" coords="135,121,95,159,91,155,132,117"/>
-<area shape="rect" href="a01580.html" title="build information utils" alt="" coords="160,167,283,192"/>
-<area shape="poly" title=" " alt="" coords="159,117,201,155,197,159,156,121"/>
-<area shape="rect" title=" " alt="" coords="188,240,255,265"/>
-<area shape="poly" title=" " alt="" coords="224,192,224,226,219,226,219,192"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a01009.png" border="0" usemap="#asrc_2libraries_2mne_2mne__msh__color__scale__def_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2mne_2mne__msh__color__scale__def_8hdep" id="asrc_2libraries_2mne_2mne__msh__color__scale__def_8hdep">
-<area shape="rect" title="MNEMshColorScaleDef class declaration." alt="" coords="121,5,297,45"/>
-<area shape="rect" href="a01106.html" title="Definition of the MNEMshColorScaleDef Class." alt="" coords="5,93,196,133"/>
-<area shape="poly" title=" " alt="" coords="176,56,126,95,123,91,172,52"/>
-<area shape="rect" href="a01043.html" title="Definition of the MNEMshDisplaySurface Class." alt="" coords="220,93,413,133"/>
-<area shape="poly" title=" " alt="" coords="245,52,294,91,291,95,242,56"/>
+<div class="center"><img src="a01008.png" border="0" usemap="#asrc_2libraries_2disp3_d_2view_2brainview_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d_2view_2brainview_8cpp" id="asrc_2libraries_2disp3_d_2view_2brainview_8cpp">
+<area shape="rect" title="BrainView class definition." alt="" coords="3189,5,3340,45"/>
+<area shape="rect" href="a01010.html" title="BrainView class declaration." alt="" coords="695,93,792,119"/>
+<area shape="poly" title=" " alt="" coords="3189,32,806,105,806,100,3189,26"/>
+<area shape="rect" title=" " alt="" coords="2773,313,2858,339"/>
+<area shape="poly" title=" " alt="" coords="3231,48,3150,96,3084,142,3034,181,2985,221,2918,268,2849,309,2847,304,2915,263,2981,216,3031,177,3081,138,3147,91,3228,43"/>
+<area shape="rect" title=" " alt="" coords="1710,240,1809,265"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2997,32,2726,41,2414,61,2254,76,2097,96,2046,101,2001,102,1923,102,1888,107,1853,117,1818,137,1781,168,1772,181,1766,196,1761,227,1756,226,1761,194,1767,179,1777,165,1815,133,1851,113,1886,101,1923,97,2001,96,2046,96,2096,91,2253,71,2414,56,2726,36,2997,26,3189,24"/>
+<area shape="rect" title=" " alt="" coords="3594,313,3669,339"/>
+<area shape="poly" title=" " alt="" coords="3328,43,3466,91,3492,104,3519,116,3567,129,3613,137,3700,141,3781,136,3856,128,3928,127,3963,131,3997,140,4031,154,4065,175,4098,202,4131,239,4137,252,4134,265,4122,276,4104,285,4050,300,3979,311,3818,323,3682,327,3682,322,3818,318,3978,305,4049,295,4102,280,4119,272,4129,262,4132,253,4126,241,4094,206,4061,179,4029,159,3996,145,3962,137,3928,133,3857,134,3781,141,3700,146,3612,142,3566,134,3517,121,3490,109,3464,96,3327,48"/>
+<area shape="rect" href="a01016.html" title="BrainRenderer class declaration." alt="" coords="1228,167,1349,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,2867,35,2409,47,1946,66,1753,80,1608,96,1532,110,1458,128,1335,165,1334,160,1456,123,1531,105,1607,91,1753,74,1946,61,2409,41,2867,30,3189,25"/>
+<area shape="rect" href="a00857.html" title="BrainSurface class declaration." alt="" coords="2733,167,2922,192"/>
+<area shape="poly" title=" " alt="" coords="3190,35,3070,55,3005,72,2942,96,2891,126,2851,159,2848,155,2888,121,2940,91,3003,67,3069,50,3189,30"/>
+<area shape="rect" href="a01868.html" title="MNEBem class declaration." alt="" coords="2773,240,2905,265"/>
+<area shape="poly" title=" " alt="" coords="3189,32,3142,38,3090,50,3039,68,2993,95,2972,118,2963,141,2955,167,2936,194,2908,217,2878,236,2875,231,2905,213,2932,190,2950,164,2958,139,2968,115,2990,91,3037,64,3089,45,3141,33,3189,27"/>
+<area shape="rect" href="a00854.html" title="DipoleObject class declaration." alt="" coords="1373,167,1561,192"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2882,32,2449,41,2224,49,2013,61,1832,76,1696,96,1643,110,1590,127,1504,163,1502,158,1588,122,1641,104,1695,91,1832,71,2013,56,2224,44,2449,36,2882,27,3189,24"/>
+<area shape="rect" href="a00833.html" title="NetworkObject class declaration." alt="" coords="2458,167,2658,192"/>
+<area shape="poly" title=" " alt="" coords="3189,33,2916,54,2777,72,2720,83,2678,96,2650,109,2624,125,2582,159,2579,155,2621,121,2648,104,2676,91,2719,78,2776,67,2916,49,3189,28"/>
+<area shape="rect" href="a01766.html" title="Network class declaration." alt="" coords="3938,240,4117,265"/>
+<area shape="poly" title=" " alt="" coords="3309,43,3419,91,3447,105,3475,116,3538,134,3588,143,3638,151,3703,164,3974,234,3972,239,3701,169,3637,156,3587,148,3536,139,3473,121,3445,109,3417,96,3307,48"/>
+<area shape="rect" href="a00842.html" title="VideoOverlay class declaration &#45; generic live RGB video texture overlay." alt="" coords="5,313,196,339"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2712,31,1986,40,1599,48,1234,60,919,76,682,96,586,107,511,118,438,136,347,169,282,201,220,239,127,307,124,302,217,234,279,196,345,164,436,131,510,112,585,102,682,91,919,70,1234,55,1599,43,1985,35,2712,26,3189,24"/>
+<area shape="rect" href="a00971.html" title="FsSurface key constants and type&#45;to&#45;key mappings." alt="" coords="1791,167,1935,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3018,34,2781,45,2510,64,2236,96,2148,111,2061,130,1917,166,1916,160,2059,125,2147,106,2235,91,2510,59,2781,39,3018,29,3189,25"/>
+<area shape="rect" href="a00980.html" title="DataLoader — static helpers for loading MNE data files." alt="" coords="3200,167,3335,192"/>
+<area shape="poly" title=" " alt="" coords="3268,46,3270,153,3264,153,3262,46"/>
+<area shape="rect" title=" " alt="" coords="3125,240,3245,265"/>
+<area shape="poly" title=" " alt="" coords="3252,47,3219,100,3202,133,3190,167,3185,197,3185,226,3180,226,3180,197,3185,166,3198,131,3214,97,3248,44"/>
+<area shape="rect" href="a01910.html" title="MNESourceSpaces class declaration." alt="" coords="3319,240,3517,265"/>
+<area shape="poly" title=" " alt="" coords="3278,44,3324,117,3403,227,3399,230,3320,120,3274,47"/>
+<area shape="rect" href="a00998.html" title="RayPicker class declaration — ray casting and intersection testing." alt="" coords="1586,167,1717,192"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2858,32,2403,41,2178,49,1978,61,1825,76,1771,85,1736,96,1716,108,1697,123,1668,157,1664,153,1693,120,1713,103,1734,91,1770,80,1824,71,1978,55,2177,44,2403,36,2858,26,3189,24"/>
+<area shape="rect" href="a01025.html" title="MeshFactory class declaration — static utilities for generating primitive meshes (spheres,..." alt="" coords="1959,167,2141,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3035,33,2826,43,2588,63,2467,78,2349,96,2279,111,2210,129,2096,165,2094,160,2208,124,2278,106,2348,91,2467,72,2588,58,2825,38,3035,28,3189,24"/>
+<area shape="rect" href="a00941.html" title="BrainTreeModel class declaration." alt="" coords="3511,167,3690,192"/>
+<area shape="poly" title=" " alt="" coords="3294,43,3353,79,3424,116,3487,141,3547,160,3545,165,3485,146,3422,121,3351,84,3292,48"/>
+<area shape="rect" href="a00896.html" title="SurfaceTreeItem class declaration." alt="" coords="2159,313,2383,339"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3078,35,2937,46,2782,65,2627,96,2533,123,2494,141,2447,169,2401,202,2357,240,2292,305,2288,301,2354,236,2397,198,2445,164,2492,136,2531,118,2625,91,2781,60,2937,40,3078,30,3189,25"/>
+<area shape="rect" title=" " alt="" coords="3530,93,3610,119"/>
+<area shape="poly" title=" " alt="" coords="3338,43,3517,88,3516,94,3337,48"/>
+<area shape="rect" href="a00932.html" title="BemTreeItem class declaration." alt="" coords="2493,313,2698,339"/>
+<area shape="poly" title=" " alt="" coords="3189,31,3088,40,2966,62,2902,80,2838,103,2778,132,2722,169,2687,201,2656,237,2611,303,2606,300,2651,234,2683,197,2719,165,2775,128,2836,98,2900,75,2965,57,3088,34,3189,25"/>
+<area shape="rect" href="a00938.html" title="SensorTreeItem class declaration." alt="" coords="2165,167,2383,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3010,35,2782,46,2561,65,2470,79,2403,96,2373,109,2345,125,2299,159,2296,155,2342,121,2371,104,2401,91,2469,74,2560,60,2781,40,3010,30,3189,25"/>
+<area shape="rect" href="a00923.html" title="DipoleTreeItem class declaration." alt="" coords="2882,313,3098,339"/>
+<area shape="poly" title=" " alt="" coords="3238,47,3177,95,3125,151,3077,209,3007,304,3003,300,3073,206,3121,147,3174,91,3234,43"/>
+<area shape="rect" href="a00914.html" title="SourceSpaceTreeItem class declaration." alt="" coords="3123,313,3380,339"/>
+<area shape="poly" title=" " alt="" coords="3246,48,3213,81,3176,126,3140,181,3115,241,3112,253,3115,264,3141,290,3174,306,3172,311,3138,294,3110,267,3107,253,3110,239,3136,178,3171,123,3209,77,3242,44"/>
+<area shape="rect" href="a00893.html" title="DigitizerTreeItem class declaration." alt="" coords="3685,240,3914,265"/>
+<area shape="poly" title=" " alt="" coords="3285,44,3323,79,3370,117,3432,159,3500,189,3596,217,3689,235,3688,241,3594,223,3498,195,3430,163,3367,121,3320,83,3282,48"/>
+<area shape="rect" title=" " alt="" coords="3635,93,3737,119"/>
+<area shape="poly" title=" " alt="" coords="3341,38,3622,90,3621,95,3340,43"/>
+<area shape="rect" title=" " alt="" coords="3762,93,3829,119"/>
+<area shape="poly" title=" " alt="" coords="3340,32,3527,55,3749,91,3750,91,3749,96,3748,96,3526,60,3340,37"/>
+<area shape="rect" title=" " alt="" coords="3853,93,3927,119"/>
+<area shape="poly" title=" " alt="" coords="3340,30,3560,52,3698,69,3840,91,3839,96,3697,74,3560,57,3340,35"/>
+<area shape="rect" title=" " alt="" coords="3951,93,4063,119"/>
+<area shape="poly" title=" " alt="" coords="3340,30,3600,53,3938,91,3937,96,3600,58,3340,35"/>
+<area shape="rect" title=" " alt="" coords="4087,93,4181,119"/>
+<area shape="poly" title=" " alt="" coords="3341,27,3656,48,3862,66,4074,91,4073,96,3862,71,3656,53,3340,33"/>
+<area shape="rect" title=" " alt="" coords="4205,93,4316,119"/>
+<area shape="poly" title=" " alt="" coords="3340,27,3703,47,3944,66,4192,91,4191,96,3943,71,3702,52,3340,32"/>
+<area shape="rect" title=" " alt="" coords="4341,93,4453,119"/>
+<area shape="poly" title=" " alt="" coords="3340,26,3756,45,4037,64,4327,91,4327,96,4037,69,3756,50,3340,31"/>
+<area shape="rect" title=" " alt="" coords="4477,93,4562,119"/>
+<area shape="poly" title=" " alt="" coords="3340,24,3534,28,3810,37,4132,57,4299,72,4463,91,4463,96,4298,77,4132,62,3810,43,3534,33,3340,30"/>
+<area shape="rect" title=" " alt="" coords="4587,93,4657,119"/>
+<area shape="poly" title=" " alt="" coords="3340,23,3550,24,3853,32,4208,52,4392,69,4573,91,4573,96,4392,74,4208,57,3853,37,3550,29,3340,28"/>
+<area shape="rect" title=" " alt="" coords="4681,93,4749,119"/>
+<area shape="poly" title=" " alt="" coords="3340,26,3991,46,4375,65,4539,77,4668,91,4667,96,4539,83,4375,71,3990,51,3340,31"/>
+<area shape="rect" title=" " alt="" coords="4773,93,4836,119"/>
+<area shape="poly" title=" " alt="" coords="3340,25,3629,32,4033,44,4446,63,4622,76,4760,91,4759,96,4622,82,4446,69,4033,49,3629,37,3340,31"/>
+<area shape="rect" href="a00086.html" title="FiffEvokedSet class declaration." alt="" coords="4860,93,4992,119"/>
+<area shape="poly" title=" " alt="" coords="3340,24,3588,28,3958,38,4395,58,4622,73,4847,91,4846,96,4622,78,4395,63,3958,43,3588,33,3340,30"/>
+<area shape="rect" href="a00089.html" title="Fiff constants." alt="" coords="5016,93,5137,119"/>
+<area shape="poly" title=" " alt="" coords="3340,24,3610,25,4018,34,4503,54,4754,70,5003,91,5002,96,4754,75,4502,59,4018,39,3610,31,3340,29"/>
+<area shape="rect" href="a01028.html" title="disp3D library export/import macros." alt="" coords="1687,387,1826,412"/>
+<area shape="poly" title=" " alt="" coords="695,110,649,114,597,124,545,141,497,169,472,190,456,212,450,236,458,264,476,293,496,311,521,324,555,336,622,349,737,360,1058,377,1406,388,1674,394,1674,399,1406,394,1057,383,737,366,621,354,553,341,519,329,493,316,472,297,453,266,445,236,451,210,468,186,494,164,542,137,596,119,649,109,694,105"/>
+<area shape="rect" href="a00983.html" title="Lightweight render&#45;related enums shared across the disp3D library." alt="" coords="1284,313,1440,339"/>
+<area shape="poly" title=" " alt="" coords="754,117,786,154,807,173,831,190,886,217,944,240,1062,276,1175,300,1271,314,1270,319,1174,305,1061,282,942,245,884,222,829,194,804,177,782,157,750,121"/>
+<area shape="rect" href="a01019.html" title="MultiViewLayout class declaration — viewport geometry and splitter logic." alt="" coords="567,313,707,339"/>
+<area shape="poly" title=" " alt="" coords="695,114,635,126,568,149,536,165,508,186,484,211,466,241,462,255,464,268,471,279,483,288,515,303,554,313,552,318,513,308,480,292,467,282,459,270,457,255,461,239,479,208,504,182,534,161,566,144,634,121,694,109"/>
+<area shape="rect" href="a00977.html" title="ViewState declarations — per&#45;view data structures and conversion helpers." alt="" coords="1181,240,1311,265"/>
+<area shape="poly" title=" " alt="" coords="760,117,815,153,851,173,888,189,960,211,1034,227,1167,244,1166,249,1033,232,959,216,886,195,848,178,812,158,757,121"/>
+<area shape="rect" href="a00989.html" title="CameraController class declaration." alt="" coords="1022,167,1203,192"/>
+<area shape="poly" title=" " alt="" coords="793,114,1040,161,1039,167,792,119"/>
+<area shape="rect" href="a00944.html" title="SensorFieldMapper class declaration." alt="" coords="577,167,773,192"/>
+<area shape="poly" title=" " alt="" coords="734,121,698,158,694,155,730,117"/>
+<area shape="rect" href="a00257.html" title="FiffCoordTrans class declaration." alt="" coords="735,240,869,265"/>
+<area shape="poly" title=" " alt="" coords="695,115,642,125,592,140,574,150,562,162,559,175,567,190,586,200,626,212,728,235,727,240,624,217,584,205,563,194,554,175,557,159,570,146,590,135,641,119,694,110"/>
+<area shape="rect" href="a00959.html" title="SourceEstimateManager class declaration — owns STC overlay, loading, and real&#45;time streaming." alt="" coords="475,240,710,265"/>
+<area shape="poly" title=" " alt="" coords="695,110,658,114,619,124,583,141,554,168,548,182,551,198,572,228,567,231,546,200,543,182,549,165,580,137,617,119,657,109,694,105"/>
+<area shape="rect" href="a00953.html" title="RtSensorStreamManager class declaration — real&#45;time sensor data streaming." alt="" coords="221,313,453,339"/>
+<area shape="poly" title=" " alt="" coords="695,111,612,115,515,125,427,142,393,154,371,169,350,198,339,233,336,269,336,299,331,300,330,269,334,232,345,196,367,165,391,149,425,137,514,120,611,110,694,106"/>
+<area shape="rect" href="a00206.html" title="FiffDigPoint class declaration." alt="" coords="3541,240,3660,265"/>
+<area shape="poly" title=" " alt="" coords="792,105,1297,109,2098,118,2885,136,3175,149,3278,156,3346,164,3407,178,3466,196,3563,232,3561,237,3464,201,3406,183,3346,169,3278,161,3175,154,2884,141,2098,123,1297,114,792,110"/>
+<area shape="rect" title=" " alt="" coords="899,167,998,192"/>
+<area shape="poly" title=" " alt="" coords="777,116,903,160,902,165,775,121"/>
+<area shape="poly" title=" " alt="" coords="1426,336,1680,382,1679,387,1425,341"/>
+<area shape="poly" title=" " alt="" coords="707,330,801,336,1674,390,1673,396,800,341,707,335"/>
+<area shape="poly" title=" " alt="" coords="1248,265,1253,301,1260,321,1273,337,1302,353,1343,366,1449,384,1568,393,1674,396,1674,401,1567,398,1448,390,1341,371,1299,358,1270,341,1256,323,1248,303,1243,266"/>
+<area shape="poly" title=" " alt="" coords="1266,263,1333,304,1330,308,1263,268"/>
+<area shape="poly" title=" " alt="" coords="1312,253,1999,277,2409,294,2710,311,2759,315,2759,321,2710,316,2409,299,1999,283,1311,259"/>
+<area shape="poly" title=" " alt="" coords="1121,191,1138,223,1166,264,1205,305,1227,323,1251,336,1285,348,1330,358,1443,374,1566,385,1674,392,1673,397,1565,390,1443,379,1329,363,1284,353,1249,341,1224,327,1201,309,1162,267,1134,225,1116,194"/>
+<area shape="poly" title=" " alt="" coords="1135,190,1213,231,1211,236,1133,194"/>
+<area shape="poly" title=" " alt="" coords="1204,188,1216,189,1697,242,1696,247,1215,195,1203,193"/>
+<area shape="poly" title=" " alt="" coords="725,189,799,210,882,238,932,263,1032,296,1136,323,1240,345,1342,362,1530,384,1673,393,1673,398,1529,389,1342,367,1239,350,1134,329,1030,301,930,268,880,242,798,215,723,195"/>
+<area shape="poly" title=" " alt="" coords="767,189,1167,239,1166,244,767,195"/>
+<area shape="poly" title=" " alt="" coords="697,190,771,231,768,235,694,194"/>
+<area shape="poly" title=" " alt="" coords="625,263,740,300,814,320,889,336,998,353,1110,366,1330,384,1525,393,1673,395,1673,401,1525,398,1329,389,1109,372,997,358,888,341,813,325,739,305,623,268"/>
+<area shape="poly" title=" " alt="" coords="453,335,472,336,822,356,1166,373,1674,393,1674,398,1166,378,822,362,471,341,453,340"/>
+<area shape="poly" title=" " alt="" coords="3608,265,3623,300,3619,302,3603,267"/>
+<area shape="poly" title=" " alt="" coords="1314,190,1720,378,1718,383,1312,194"/>
+<area shape="poly" title=" " alt="" coords="1298,191,1326,239,1354,299,1349,301,1321,241,1294,194"/>
+<area shape="poly" title=" " alt="" coords="1350,188,1361,189,1696,239,1696,245,1360,195,1349,193"/>
+<area shape="poly" title=" " alt="" coords="2813,194,2788,215,2763,242,2748,269,2742,295,2733,319,2712,341,2692,350,2661,357,2575,370,2461,380,2330,388,2058,397,1840,400,1840,395,2058,391,2330,382,2461,375,2574,365,2660,352,2690,345,2708,336,2729,316,2737,293,2743,267,2758,238,2784,211,2810,190"/>
+<area shape="poly" title=" " alt="" coords="2733,193,1454,318,1454,313,2732,187"/>
+<area shape="poly" title=" " alt="" coords="2832,192,2838,226,2832,227,2827,193"/>
+<area shape="poly" title=" " alt="" coords="2838,267,2826,301,2821,299,2833,265"/>
+<area shape="poly" title=" " alt="" coords="1484,190,1732,376,1729,380,1481,194"/>
+<area shape="poly" title=" " alt="" coords="1515,189,1700,234,1698,239,1514,195"/>
+<area shape="poly" title=" " alt="" coords="2553,194,2530,225,2495,266,2450,308,2396,341,2351,356,2289,369,2138,386,1976,396,1840,400,1840,394,1976,390,2137,381,2288,364,2349,351,2394,336,2446,304,2491,262,2526,221,2548,190"/>
+<area shape="poly" title=" " alt="" coords="2458,192,1823,248,1822,243,2457,187"/>
+<area shape="poly" title=" " alt="" coords="2658,185,2721,189,3058,203,3321,209,3585,217,3924,237,3924,243,3585,222,3321,215,3057,209,2721,195,2658,191"/>
+<area shape="poly" title=" " alt="" coords="196,335,209,336,641,361,1064,379,1674,394,1673,399,1063,384,640,367,208,341,196,340"/>
+<area shape="poly" title=" " alt="" coords="1860,194,1771,375,1766,373,1855,191"/>
+<area shape="poly" title=" " alt="" coords="1848,194,1789,234,1786,230,1845,190"/>
+<area shape="poly" title=" " alt="" coords="3273,191,3285,226,3295,246,3308,264,3322,275,3340,285,3375,300,3390,307,3400,316,3402,327,3393,341,3369,351,3323,360,3172,374,2962,385,2717,392,2212,400,1840,401,1840,395,2212,394,2717,387,2962,380,3172,369,3322,355,3368,346,3390,337,3396,326,3395,318,3387,312,3373,305,3337,290,3319,280,3304,267,3290,249,3280,228,3268,193"/>
+<area shape="poly" title=" " alt="" coords="3200,187,1822,251,1822,246,3199,181"/>
+<area shape="poly" title=" " alt="" coords="3200,186,2934,195,2051,219,1169,243,883,251,883,246,1169,237,2051,214,2934,189,3200,180"/>
+<area shape="poly" title=" " alt="" coords="3321,189,3534,234,3533,240,3320,195"/>
+<area shape="poly" title=" " alt="" coords="3256,194,3210,233,3207,229,3252,190"/>
+<area shape="poly" title=" " alt="" coords="3293,190,3382,232,3380,236,3290,194"/>
+<area shape="poly" title=" " alt="" coords="3319,265,3117,284,2872,316,2871,311,3116,279,3318,259"/>
+<area shape="poly" title=" " alt="" coords="1659,191,1748,373,1743,375,1655,194"/>
+<area shape="poly" title=" " alt="" coords="1587,195,1325,240,1324,235,1586,189"/>
+<area shape="poly" title=" " alt="" coords="1670,190,1732,230,1729,235,1667,194"/>
+<area shape="poly" title=" " alt="" coords="1717,184,1780,189,2099,208,2348,218,2917,237,3111,246,3111,251,2917,243,2348,223,2099,213,1779,195,1717,190"/>
+<area shape="poly" title=" " alt="" coords="2036,194,1785,381,1781,376,2033,190"/>
+<area shape="poly" title=" " alt="" coords="2004,195,1820,239,1819,234,2003,189"/>
+<area shape="poly" title=" " alt="" coords="3690,178,3836,183,3993,196,4059,206,4109,221,4125,230,4135,241,4138,253,4131,267,4087,310,4043,336,3998,348,3951,350,3848,342,3789,338,3725,341,3550,355,3318,367,2764,384,2219,395,1840,400,1840,394,2219,389,2764,379,3318,361,3549,350,3725,336,3789,333,3848,336,3951,345,3997,342,4041,331,4084,306,4127,264,4132,253,4131,243,4122,234,4107,226,4058,212,3993,201,3836,188,3690,184"/>
+<area shape="poly" title=" " alt="" coords="3603,192,3603,226,3598,226,3598,192"/>
+<area shape="poly" title=" " alt="" coords="3670,189,3946,235,3945,240,3669,195"/>
+<area shape="poly" title=" " alt="" coords="3572,195,3462,237,3460,232,3570,190"/>
+<area shape="poly" title=" " alt="" coords="2189,341,1840,389,1840,384,2188,336"/>
+<area shape="poly" title=" " alt="" coords="2492,340,2474,341,1840,394,1840,389,2474,336,2492,334"/>
+<area shape="poly" title=" " alt="" coords="2248,195,1798,384,1796,379,2246,190"/>
+<area shape="poly" title=" " alt="" coords="2192,195,1823,245,1822,240,2191,189"/>
+<area shape="poly" title=" " alt="" coords="2882,340,2870,341,2280,377,1840,397,1840,392,2280,372,2870,336,2881,335"/>
+<area shape="poly" title=" " alt="" coords="3123,341,3110,341,2738,362,2374,378,1840,398,1839,393,2374,373,2738,356,3110,336,3122,335"/>
+<area shape="poly" title=" " alt="" coords="3790,268,3746,306,3715,326,3682,341,3635,352,3566,361,3368,376,3112,386,2824,394,2248,400,1839,401,1839,396,2248,395,2824,388,3112,381,3367,370,3565,356,3634,346,3680,336,3712,321,3742,302,3786,264"/>
 </map>
 </div>
 </div>
 <p><a href="a01007_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:MNELIB_3A_3AMNEMshColorScaleDef" id="r_MNELIB_3A_3AMNEMshColorScaleDef"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04434.html">MNELIB::MNEMshColorScaleDef</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color scale definition with value range and color mapping for surface visualization.  <a href="a04434.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:MNELIB" id="r_MNELIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02535.html">MNELIB</a></td></tr>
-<tr class="memdesc:a02535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core <a class="el" href="a04298.html" title="The MNE class provides wrapper functions to stay consistent with mne matlab toolbox.">MNE</a> data structures (source spaces, source estimates, hemispheres). <br /></td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>MNEMshColorScaleDef class declaration. </p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>April, 2017</dd></dl>
+<div class="textblock"><p><a class="el" href="a03314.html" title="Top-level QWidget hosting the QRhi-based 3-D brain visualization with mouse interaction and multi-vie...">BrainView</a> class definition. </p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a>; Lars Debor <a href="#" onclick="location.href='mai'+'lto:'+'Lar'+'s.'+'Deb'+'or'+'@tu'+'-i'+'lme'+'na'+'u.d'+'e'; return false;">Lars.<span class="obfuscator">.nosp@m.</span>Debo<span class="obfuscator">.nosp@m.</span>r@tu-<span class="obfuscator">.nosp@m.</span>ilme<span class="obfuscator">.nosp@m.</span>nau.d<span class="obfuscator">.nosp@m.</span>e</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>January, 2026</dd></dl>
 <h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
 LICENSE</h1>
-<p>Copyright (C) 2017, Lorenz Esch, Matti Hamalainen. All rights reserved.</p>
+<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
 <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
 <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
@@ -324,7 +475,7 @@ LICENSE</h1>
 </ul>
 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 
-<p class="definition">Definition in file <a class="el" href="a01007_source.html">mne_msh_color_scale_def.h</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01007_source.html">brainview.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

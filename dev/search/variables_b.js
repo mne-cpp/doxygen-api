@@ -24,7 +24,7 @@ var searchData=
   ['limit_21',['limit',['../a03930.html#a6efbad55de468bb165bac7d0f9c94747',1,'INVLIB::FitDipUserRec::limit'],['../a04294.html#a26036f16baf52a8cd3cd1e47b44c4e4c',1,'MNELIB::FilterThreadArg::limit']]],
   ['linefreq_22',['linefreq',['../a03754.html#ae79636f3ce9a14a1b845da8dc58aeaeb',1,'FIFFLIB::FiffInfo']]],
   ['liveplugins_23',['livePlugins',['../a04214.html#ae98ec6796b64066490d639f20debf4d2',1,'MNALIB::MnaGraphExecutor::StreamContext']]],
-  ['logfile_24',['logFile',['../a03734.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a04482.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a04874.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
+  ['logfile_24',['logFile',['../a03734.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a04482.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a04878.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
   ['logno_25',['logNo',['../a03662.html#a7b5c40b0a6fea48bd71623a0124118c7',1,'FIFFLIB::FiffChInfo']]],
   ['lookat_26',['lookAt',['../a03138.html#a1f8585252f95a48e4e1da3ab4f3a790a',1,'CameraResult']]],
   ['lookback_27',['lookBack',['../a04058.html#afef4de780acecb3d2a919a644c538dba',1,'INVLIB::InvCMNESettings']]],

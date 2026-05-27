@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['unbuffered_0',['unbuffered',['../a04722.html#add6e3046ea09afe6e86dfc4b3701ffbe',1,'UTILSLIB::PythonRunnerConfig']]],
+  ['unbuffered_0',['unbuffered',['../a04726.html#add6e3046ea09afe6e86dfc4b3701ffbe',1,'UTILSLIB::PythonRunnerConfig']]],
   ['undo_1',['undo',['../a04334.html#a2017c6fb8ed5179b495f5f227ce55c47',1,'MNELIB::MNECTFCompDataSet']]],
   ['uniformbuffer_2',['uniformBuffer',['../a03290.html#a7ebaab325f59c893c20ce5d305134203',1,'BrainRenderer::Impl::uniformBuffer'],['../a03298.html#ab43a70572f07108684fe74b26a1d6bd2',1,'BrainRenderer::Impl::VideoOverlayResources::uniformBuffer']]],
   ['uniformbufferoffsetalignment_3',['uniformBufferOffsetAlignment',['../a03290.html#a63b8406cc04b338e646874594224d77f',1,'BrainRenderer::Impl::uniformBufferOffsetAlignment'],['../a03298.html#a84b2605667720bb2c68e905f30589c94',1,'BrainRenderer::Impl::VideoOverlayResources::uniformBufferOffsetAlignment']]],
@@ -20,7 +20,7 @@ var searchData=
   ['use_5ftri_5fnn_17',['use_tri_nn',['../a04386.html#abd4cfb0a520bc400116093d9ebcbf87b',1,'MNELIB::MNEHemisphere']]],
   ['use_5ftris_18',['use_tris',['../a04558.html#afeef29bc8e562a95cee47f4d04030df4',1,'MNELIB::MNESurfaceOrVolume']]],
   ['usecs_19',['usecs',['../a03794.html#ad6382ae4db9ecfab329aa468388bc8c9',1,'FIFFLIB::FiffTime']]],
-  ['usenew_20',['USENEW',['../a00077.html#a8443527be8402eece5d7e6a712c7e62c',1,'rt_cmd_client.cpp']]],
+  ['usenew_20',['USENEW',['../a01625.html#a8443527be8402eece5d7e6a712c7e62c',1,'rt_cmd_client.cpp']]],
   ['user_21',['user',['../a03934.html#af95557683a226c1b4d92d7083011d0f1',1,'INVLIB::InvDipoleFitData::user'],['../a04518.html#a6f2b2a1e53e32f59ff1cd8cf30c07c27',1,'MNELIB::RingBuffer::Entry::user']]],
   ['user_5fdata_22',['user_data',['../a03866.html#a1aa4f82508729b2434b2ec3cc4f763c2',1,'FWDLIB::FwdCoilSet::user_data'],['../a04438.html#a17457813f8c86a6ac5f62f66ca582013',1,'MNELIB::MNEMshDisplaySurface::user_data']]],
   ['user_5fdata_5ffree_23',['user_data_free',['../a04438.html#a4c7d5f1a402096aaa0f83f7eb64fe3f3',1,'MNELIB::MNEMshDisplaySurface']]],
