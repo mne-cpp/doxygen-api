@@ -259,7 +259,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of the <a class="el" href="a03773.html" title="A named matrix.">FiffNamedMatrix</a> Class.  
+<p>Implementation of FiffNamedMatrix: FIFF-serializable matrix paired with row / column name lists.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="a00242_source.html">fiff_named_matrix.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -267,14 +267,14 @@ Include dependency graph for fiff_named_matrix.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="a00165.png" border="0" usemap="#asrc_2libraries_2fiff_2fiff__named__matrix_8cpp" loading="lazy" alt=""/></div>
 <map name="asrc_2libraries_2fiff_2fiff__named__matrix_8cpp" id="asrc_2libraries_2fiff_2fiff__named__matrix_8cpp">
-<area shape="rect" title="Definition of the FiffNamedMatrix Class." alt="" coords="368,5,540,45"/>
-<area shape="rect" href="a00242.html" title="FiffNamedMatrix class declaration." alt="" coords="377,93,530,119"/>
+<area shape="rect" title="Implementation of FiffNamedMatrix: FIFF&#45;serializable matrix paired with row / column name lists." alt="" coords="368,5,540,45"/>
+<area shape="rect" href="a00242.html" title="Matrix paired with row and column name lists, the on&#45;disk form of FIFFB_PROJ_ITEM / FIFFB_MNE_NAMED_M..." alt="" coords="377,93,530,119"/>
 <area shape="poly" title=" " alt="" coords="456,46,456,79,451,79,451,46"/>
-<area shape="rect" href="a00140.html" title="Fiff library export/import macros." alt="" coords="570,313,668,339"/>
+<area shape="rect" href="a00140.html" title="Export/import macros and build&#45;info accessors for the FIFFLIB shared library." alt="" coords="570,313,668,339"/>
 <area shape="poly" title=" " alt="" coords="377,113,245,125,174,136,108,151,54,171,34,182,19,196,10,210,9,226,14,244,29,263,55,276,104,287,250,304,417,315,556,320,556,326,417,320,250,310,103,293,53,281,25,267,10,246,3,226,5,208,15,192,30,178,51,166,106,146,173,130,244,119,376,108"/>
-<area shape="rect" href="a00089.html" title="Fiff constants." alt="" coords="40,240,161,265"/>
+<area shape="rect" href="a00089.html" title="Symbolic FIFF tag, block, value, unit and channel&#45;type constants shared across FIFFLIB." alt="" coords="40,240,161,265"/>
 <area shape="poly" title=" " alt="" coords="416,121,350,142,277,169,200,203,135,236,133,231,198,199,275,164,349,137,414,116"/>
-<area shape="rect" href="a00152.html" title="Old fiff_type declarations &#45; replace them." alt="" coords="321,167,416,192"/>
+<area shape="rect" href="a00152.html" title="Primitive scalar typedefs and forward&#45;compatible aliases backing the FIFF type system." alt="" coords="321,167,416,192"/>
 <area shape="poly" title=" " alt="" coords="442,121,394,160,391,156,438,117"/>
 <area shape="rect" title=" " alt="" coords="185,240,277,265"/>
 <area shape="poly" title=" " alt="" coords="414,121,363,140,311,169,277,199,250,230,246,227,273,195,308,164,361,136,412,116"/>
@@ -295,9 +295,9 @@ Include dependency graph for fiff_named_matrix.cpp:</div>
 <area shape="rect" title=" " alt="" coords="662,460,728,485"/>
 <area shape="poly" title=" " alt="" coords="698,412,698,446,692,446,692,412"/>
 <area shape="poly" title=" " alt="" coords="326,195,157,239,156,234,324,189"/>
-<area shape="rect" href="a00218.html" title="FiffTime class declaration." alt="" coords="699,240,787,265"/>
+<area shape="rect" href="a00218.html" title="Compact seconds + microseconds time record used by FIFF measurement, event and HPI tags." alt="" coords="699,240,787,265"/>
 <area shape="poly" title=" " alt="" coords="416,187,686,237,685,242,415,192"/>
-<area shape="rect" href="a00119.html" title="FiffDataRef class declaration." alt="" coords="564,240,674,265"/>
+<area shape="rect" href="a00119.html" title="External&#45;data reference record describing type, endianness, size and offset of an out&#45;of&#45;file FIFF pa..." alt="" coords="564,240,674,265"/>
 <area shape="poly" title=" " alt="" coords="409,189,566,234,564,239,408,195"/>
 <area shape="poly" title=" " alt="" coords="347,194,267,236,264,231,345,190"/>
 <area shape="rect" title=" " alt="" coords="301,240,356,265"/>
@@ -317,19 +317,11 @@ Include dependency graph for fiff_named_matrix.cpp:</div>
 </div>
 <p><a href="a00164_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of the <a class="el" href="a03773.html" title="A named matrix.">FiffNamedMatrix</a> Class. </p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'les'+'ch'+'@mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">lesch<span class="obfuscator">.nosp@m.</span>@mgh<span class="obfuscator">.nosp@m.</span>.harv<span class="obfuscator">.nosp@m.</span>ard.<span class="obfuscator">.nosp@m.</span>edu</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chd'+'in'+'h@n'+'mr'+'.mg'+'h.'+'har'+'va'+'rd.'+'ed'+'u'; return false;">chdin<span class="obfuscator">.nosp@m.</span>h@nm<span class="obfuscator">.nosp@m.</span>r.mgh<span class="obfuscator">.nosp@m.</span>.har<span class="obfuscator">.nosp@m.</span>vard.<span class="obfuscator">.nosp@m.</span>edu</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>July, 2012</dd></dl>
-<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
-LICENSE</h1>
-<p>Copyright (C) 2012, Lorenz Esch, Matti Hamalainen, Christoph Dinh. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
-<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
-<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
-<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+<div class="textblock"><p>Implementation of FiffNamedMatrix: FIFF-serializable matrix paired with row / column name lists. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2022-2026 MNE-CPP Authors Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a></p>
+<dl class="section since"><dt>Since</dt><dd>2022 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>October 2022 </dd></dl>
+<p>Used by SSP projectors, CTF compensators, forward gain matrices and covariance / inverse operators. </p>
 
 <p class="definition">Definition in file <a class="el" href="a00164_source.html">fiff_named_matrix.cpp</a>.</p>
 </div></div><!-- contents -->

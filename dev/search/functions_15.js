@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['validate_0',['validate',['../a04209.html#a20e313eb965ffcad37eb5fb4a8bebd4a',1,'MNALIB::MnaGraph::validate()'],['../a04245.html#a81d7f7dfd893dca454ad1d2f0283bcea',1,'MNALIB::MnaOpSchema::validate()']]],
+  ['validate_0',['validate',['../a04205.html#a20e313eb965ffcad37eb5fb4a8bebd4a',1,'MNALIB::MnaGraph::validate()'],['../a04241.html#a81d7f7dfd893dca454ad1d2f0283bcea',1,'MNALIB::MnaOpSchema::validate()']]],
   ['value_1',['value',['../a03025.html#a4a3ef6914f7cd5241caf6c57aebb9d54',1,'DISPLIB::ScaleControl']]],
   ['valuechanged_2',['valueChanged',['../a03025.html#aecb48e5eb0919ff52d254d8599f4bfaa',1,'DISPLIB::ScaleControl']]],
   ['valuetobone_3',['valueToBone',['../a02817.html#a3ea6600fe319ede93abde1e58e67ca0a',1,'DISPLIB::ColorMap']]],
@@ -13,18 +13,18 @@ var searchData=
   ['valuetoredblue_10',['valueToRedBlue',['../a02817.html#a8db9c9c6ff90e31de54a9553f53f3b63',1,'DISPLIB::ColorMap']]],
   ['valuetoviridis_11',['valueToViridis',['../a02817.html#a38a49ebefdf9e40f9558176b0f446bb2',1,'DISPLIB::ColorMap']]],
   ['valuetoviridisnegated_12',['valueToViridisNegated',['../a02817.html#a7f35cc8ea29483a08e064a96ac839a4c',1,'DISPLIB::ColorMap']]],
-  ['vechpifreqs_13',['vecHpiFreqs',['../a03997.html#a0ed4cf88f6be42a21d78e4d93de8f9a6',1,'INVLIB::InvHpiModelParameters']]],
-  ['venvpythonpath_14',['venvPythonPath',['../a04741.html#a35f7250cb8a682485ebb29349a1651a6',1,'UTILSLIB::PythonRunner']]],
+  ['vechpifreqs_13',['vecHpiFreqs',['../a03993.html#a0ed4cf88f6be42a21d78e4d93de8f9a6',1,'INVLIB::InvHpiModelParameters']]],
+  ['venvpythonpath_14',['venvPythonPath',['../a04737.html#a35f7250cb8a682485ebb29349a1651a6',1,'UTILSLIB::PythonRunner']]],
   ['vertexbuffer_15',['vertexBuffer',['../a03209.html#a6293e6eb2843a4dfd677d635367de361',1,'BrainSurface::vertexBuffer()'],['../a03217.html#ae05a5098ea661fcdc0b17771b3f41edf',1,'DipoleObject::vertexBuffer()'],['../a03241.html#a745db54ce55e4865cb3b973d31d1640e',1,'DISP3DLIB::ElectrodeObject::vertexBuffer()']]],
   ['vertexcount_16',['vertexCount',['../a03209.html#a959743a3ab8f09dfae19b72a4f033d40',1,'BrainSurface']]],
-  ['vertexdata_17',['vertexData',['../a04049.html#a935dec47ab9a141306aad34c891ecb88',1,'INVLIB::InvVectorSourceEstimate']]],
+  ['vertexdata_17',['vertexData',['../a04045.html#a935dec47ab9a141306aad34c891ecb88',1,'INVLIB::InvVectorSourceEstimate']]],
   ['vertexdataref_18',['vertexDataRef',['../a03209.html#a191e634c047742a8c4fa4c4d28fd0c22',1,'BrainSurface']]],
   ['vertexgeneration_19',['vertexGeneration',['../a03209.html#a8b8dd236035a9a7a2680c3844ceb39e8',1,'BrainSurface']]],
   ['vertexnormals_20',['vertexNormals',['../a03209.html#a4e95641b89f520bf9cc0b5d85e9fbe2c',1,'BrainSurface']]],
   ['vertexpositions_21',['vertexPositions',['../a03209.html#ad29387da7209358eb1966339b0f42b5b',1,'BrainSurface']]],
   ['verticesasmatrix_22',['verticesAsMatrix',['../a03209.html#aee52125406de87e54011cfc9d09c837c',1,'BrainSurface']]],
-  ['videooverlay_23',['VideoOverlay',['../a03269.html#a6ca76bfcc02f3809db55f0f5245896db',1,'DISP3DLIB::VideoOverlay::VideoOverlay()'],['../a04877.html#a6ca76bfcc02f3809db55f0f5245896db',1,'VideoOverlay::VideoOverlay()']]],
-  ['view_24',['view',['../a04197.html#a4542f3712a12ef0eccd51547ebeb4a7b',1,'MLLIB::MlTensor']]],
+  ['videooverlay_23',['VideoOverlay',['../a03269.html#a6ca76bfcc02f3809db55f0f5245896db',1,'DISP3DLIB::VideoOverlay::VideoOverlay()'],['../a04873.html#a6ca76bfcc02f3809db55f0f5245896db',1,'VideoOverlay::VideoOverlay()']]],
+  ['view_24',['view',['../a04193.html#a4542f3712a12ef0eccd51547ebeb4a7b',1,'MLLIB::MlTensor']]],
   ['viewcount_25',['viewCount',['../a03321.html#a870929505c3d5f07712c0bd0ae396d08',1,'BrainView']]],
   ['viewcountchanged_26',['viewCountChanged',['../a03321.html#aa8ba2c1abf239cb8f185f6f21dd96268',1,'BrainView']]],
   ['viewmode_27',['viewMode',['../a03321.html#a12515bbe75d5366331621959e99afb51',1,'BrainView']]],
@@ -40,6 +40,6 @@ var searchData=
   ['visualizationedittargetchanged_37',['visualizationEditTargetChanged',['../a03321.html#a7beadae3762201a0945bb3cc9fd0dc50',1,'BrainView']]],
   ['visualizationmodefromname_38',['visualizationModeFromName',['../a00986.html#a43d88a3d83ded247f4aba23a7f09b60a',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp'],['../a00977.html#a8dc1b87cace3de8d26a1eafca6a355d0',1,'visualizationModeFromName(const QString &amp;name):&#160;viewstate.cpp']]],
   ['visualizationmodename_39',['visualizationModeName',['../a00986.html#a45a9a8f45cec27d2205ae5e729866f75',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp'],['../a00977.html#a1ad9728c5d65a4e33f470245535e467b',1,'visualizationModeName(VisualizationMode mode):&#160;viewstate.cpp']]],
-  ['voxeldataasfloat_40',['voxelDataAsFloat',['../a04609.html#acce6fdb96d995e0788de0d10e200884e',1,'MRILIB::MriVolData']]],
-  ['voxeltoras_41',['voxelToRas',['../a04601.html#a1f2af9198f5a39d9f4ead1f394b38959',1,'MRILIB::MriSlicer::voxelToRas(const Eigen::Matrix4f &amp;vox2ras, const Eigen::Vector3i &amp;voxel)'],['../a04601.html#a2cb634ed63385e47fe046636b4bd3e94',1,'MRILIB::MriSlicer::voxelToRas(const MriVolData &amp;vol, const Eigen::Vector3i &amp;voxel)']]]
+  ['voxeldataasfloat_40',['voxelDataAsFloat',['../a04605.html#acce6fdb96d995e0788de0d10e200884e',1,'MRILIB::MriVolData']]],
+  ['voxeltoras_41',['voxelToRas',['../a04597.html#a1f2af9198f5a39d9f4ead1f394b38959',1,'MRILIB::MriSlicer::voxelToRas(const Eigen::Matrix4f &amp;vox2ras, const Eigen::Vector3i &amp;voxel)'],['../a04597.html#a2cb634ed63385e47fe046636b4bd3e94',1,'MRILIB::MriSlicer::voxelToRas(const MriVolData &amp;vol, const Eigen::Vector3i &amp;voxel)']]]
 ];

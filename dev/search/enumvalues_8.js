@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['idle_0',['Idle',['../a04725.html#af7d629a240dfe8974dcb6e93e8bfdff1ae599161956d626eda4cb0a5ffb85271c',1,'UTILSLIB::PolhemusCoregistration']]],
+  ['idle_0',['Idle',['../a04721.html#af7d629a240dfe8974dcb6e93e8bfdff1ae599161956d626eda4cb0a5ffb85271c',1,'UTILSLIB::PolhemusCoregistration']]],
   ['ieee_5ffloat_5f32_1',['IEEE_FLOAT_32',['../a02536.html#a999deb50c931b525947ebb5adf18a3f2a5dc6a61490376c518e1c9fefb220c40b',1,'BIDSLIB']]],
-  ['inches_2',['Inches',['../a04709.html#a5d015c1877cfe0b795f035826fe9aa6fad73325cdb1cb4f9a1ed11bdab879321d',1,'UTILSLIB::FastrakParser']]],
+  ['inches_2',['Inches',['../a04705.html#a5d015c1877cfe0b795f035826fe9aa6fad73325cdb1cb4f9a1ed11bdab879321d',1,'UTILSLIB::FastrakParser']]],
   ['input_3',['Input',['../a02590.html#aba5ad3c08af9e66f406f0722c8d59ce5a324118a6721dd6b8a9b9f4e327df2bf5',1,'MNALIB']]],
   ['int16_4',['Int16',['../a02585.html#a22b8a5da4e9e3947843244e040a7ff22a39bc2ae44b184207f560ff8619823208',1,'LSLLIB']]],
   ['int32_5',['Int32',['../a02585.html#a22b8a5da4e9e3947843244e040a7ff22ac06129f6e6e15c09328365e553f1dc31',1,'LSLLIB']]],
