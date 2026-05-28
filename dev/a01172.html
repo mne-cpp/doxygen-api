@@ -263,7 +263,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>MriSlicer class declaration.  
+<p>Orthogonal-plane resampler that turns a 3D MriVolData into the 2D textures consumed by the slice viewer.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="a01187_source.html">mri_global.h</a>&quot;</code><br />
 <code>#include &lt;QVector&gt;</code><br />
@@ -273,8 +273,8 @@ Include dependency graph for mri_slicer.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="a01173.png" border="0" usemap="#asrc_2libraries_2mri_2mri__slicer_8h" loading="lazy" alt=""/></div>
 <map name="asrc_2libraries_2mri_2mri__slicer_8h" id="asrc_2libraries_2mri_2mri__slicer_8h">
-<area shape="rect" title="MriSlicer class declaration." alt="" coords="182,5,333,45"/>
-<area shape="rect" href="a01187.html" title="MRI library export/import macros." alt="" coords="94,93,197,119"/>
+<area shape="rect" title="Orthogonal&#45;plane resampler that turns a 3D MriVolData into the 2D textures consumed by the slice view..." alt="" coords="182,5,333,45"/>
+<area shape="rect" href="a01187.html" title="Export/import macros and build&#45;info accessors for MRILIB." alt="" coords="94,93,197,119"/>
 <area shape="poly" title=" " alt="" coords="232,48,175,87,172,83,229,43"/>
 <area shape="rect" title=" " alt="" coords="221,93,294,119"/>
 <area shape="poly" title=" " alt="" coords="260,46,260,79,255,79,255,46"/>
@@ -293,8 +293,8 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="a01174.png" border="0" usemap="#asrc_2libraries_2mri_2mri__slicer_8hdep" loading="lazy" alt=""/></div>
 <map name="asrc_2libraries_2mri_2mri__slicer_8hdep" id="asrc_2libraries_2mri_2mri__slicer_8hdep">
-<area shape="rect" title="MriSlicer class declaration." alt="" coords="5,5,156,45"/>
-<area shape="rect" href="a01181.html" title="MriSlicer class definition." alt="" coords="5,93,156,133"/>
+<area shape="rect" title="Orthogonal&#45;plane resampler that turns a 3D MriVolData into the 2D textures consumed by the slice view..." alt="" coords="5,5,156,45"/>
+<area shape="rect" href="a01181.html" title="Implementation of MRILIB::MriSlicer: per&#45;orientation extraction with on&#45;the&#45;fly type promotion and pe..." alt="" coords="5,93,156,133"/>
 <area shape="poly" title=" " alt="" coords="83,59,83,93,78,93,78,59"/>
 </map>
 </div>
@@ -321,20 +321,35 @@ Enumerations</h2></td></tr>
  }</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>MriSlicer class declaration. </p>
+<div class="textblock"><p>Orthogonal-plane resampler that turns a 3D MriVolData into the 2D textures consumed by the slice viewer. </p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>2.2.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>April, 2026</dd></dl>
-<h1 class="doxsection"><a class="anchor" id="LICENSE"></a>
-LICENSE</h1>
-<p>Copyright (C) 2026, Christoph Dinh. All rights reserved.</p>
-<p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p><ul>
-<li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
-<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
-<li>Neither the name of MNE-CPP authors nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+<pre class="fragment">      The slicer is the bridge between the format-specific MRI
+      readers (@ref MriMghIO, @ref MriNiftiIO, @ref MriCorIO) and
+      the @c MriSlicesPlugin / @c MriSlicesView widgets that
+      render axial / coronal / sagittal cross-sections in
+      @c mne_analyze_studio. Two cooperating types live here:
 
+        - @ref SliceOrientation --- a strong enum picking the slicing
+          axis (Axial / Coronal / Sagittal); used both as the user-
+          facing radio-button value in the slice viewer and as the
+          index-permutation key inside the slicer itself.
+        - @ref MriSliceImage --- the result type: a normalised
+          (0..1) @c Eigen::MatrixXf pixel buffer ready to upload
+          as an OpenGL texture, paired with its own slice-to-RAS
+          4\u00d74 transform so the viewer can overlay surface meshes,
+          source estimates or fiducials in the correct world space
+          without re-deriving the geometry from the volume header.
+
+      The static @ref MriSlicer::extract() method does the actual
+      work: it picks the right axis stride from the volume header,
+      dispatches by on-disk voxel type (UCHAR / SHORT / INT /
+      FLOAT) so quantisation matches the source, normalises by the
+      per-volume max so windowing stays stable across slices, and
+      composes @c sliceToRas from the volume's @c voxToSurfRAS()
+      pre-multiplied by the orientation-specific in-slice affine.
+</pre> 
 <p class="definition">Definition in file <a class="el" href="a01172_source.html">mri_slicer.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
