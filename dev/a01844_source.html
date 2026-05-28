@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/bids/bids_channel.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/conn/metrics/coherency.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,130 +243,120 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_48d10ea24d2b38064074e71dcee178de.html">bids</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_2960015e23681b11126f26d2a32abf5e.html">conn</a></li><li class="navelem"><a href="dir_60f52984fcbd592522f236410d5ed5d2.html">metrics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">bids_channel.cpp</div></div>
+  <div class="headertitle"><div class="title">coherency.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01844.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a01838.html">bids_channel.h</a>&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &quot;<a class="code" href="a01880.html">bids_tsv.h</a>&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#ifndef COHERENCY_H</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#define COHERENCY_H</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02536.html">BIDSLIB</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &quot;<a class="code" href="a01748.html">../conn_global.h</a>&quot;</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// LOCAL HELPERS</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">static</span> <span class="keyword">const</span> QString NA = QStringLiteral(<span class="stringliteral">&quot;n/a&quot;</span>);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>QString naToEmpty(<span class="keyword">const</span> QString&amp; s)</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>{</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> (s == NA) ? QString() : s;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// anonymous namespace</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &quot;<a class="code" href="a01817.html">abstractmetric.h</a>&quot;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &quot;<a class="code" href="a01754.html">../connectivitysettings.h</a>&quot;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#include &lt;QMutex&gt;</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">// STATIC METHODS</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a02605.html#ab62fe991b6bbf2ace7acbce616556a58">   66</a></span>QList&lt;BidsChannel&gt; <a class="code hl_function" href="a02605.html#ab62fe991b6bbf2ace7acbce616556a58">BidsChannel::readTsv</a>(<span class="keyword">const</span> QString&amp; sFilePath)</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    QStringList headers;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    QList&lt;BidsTsvRow&gt; rawRows = <a class="code hl_function" href="a02637.html#ae73ba31d1e9bc005793517fd82019746">BidsTsv::readTsv</a>(sFilePath, headers);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    QList&lt;BidsChannel&gt; channels;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    channels.reserve(rawRows.size());</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// FORWARD DECLARATIONS</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">// DEFINE NAMESPACE CONNLIB</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02540.html">CONNLIB</a> {</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; row : rawRows) {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_struct" href="a02605.html">BidsChannel</a> ch;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        ch.<a class="code hl_variable" href="a02605.html#a8ab267ce6bd93da65faf10285fbe86f0">name</a>         = row.value(QStringLiteral(<span class="stringliteral">&quot;name&quot;</span>));</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        ch.<a class="code hl_variable" href="a02605.html#af209ac78f030229383e3d02c03287d13">type</a>         = row.value(QStringLiteral(<span class="stringliteral">&quot;type&quot;</span>));</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        ch.<a class="code hl_variable" href="a02605.html#a8a2f2267b8435db7daac2ef5e13772b3">units</a>        = row.value(QStringLiteral(<span class="stringliteral">&quot;units&quot;</span>));</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        ch.<a class="code hl_variable" href="a02605.html#ac7bc90cf80b7f8c59b56ab88ade64f62">samplingFreq</a> = naToEmpty(row.value(QStringLiteral(<span class="stringliteral">&quot;sampling_frequency&quot;</span>)));</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        ch.<a class="code hl_variable" href="a02605.html#a842e76105ca4bd9fee9a3a95f5b5be69">lowCutoff</a>    = naToEmpty(row.value(QStringLiteral(<span class="stringliteral">&quot;low_cutoff&quot;</span>)));</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        ch.<a class="code hl_variable" href="a02605.html#aab14c2e92f5dd4c74f9212b0537e78ea">highCutoff</a>   = naToEmpty(row.value(QStringLiteral(<span class="stringliteral">&quot;high_cutoff&quot;</span>)));</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        ch.<a class="code hl_variable" href="a02605.html#a4837493f830bdf016cb268c2b6d9a6d6">notch</a>        = naToEmpty(row.value(QStringLiteral(<span class="stringliteral">&quot;notch&quot;</span>)));</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        ch.<a class="code hl_variable" href="a02605.html#a1979e86ea21e0aae3ecf912c40aeb584">status</a>       = naToEmpty(row.value(QStringLiteral(<span class="stringliteral">&quot;status&quot;</span>)));</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        ch.<a class="code hl_variable" href="a02605.html#afb2064af433e19ae41623eec3988da35">description</a>  = naToEmpty(row.value(QStringLiteral(<span class="stringliteral">&quot;description&quot;</span>)));</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        channels.append(ch);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> channels;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
-</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">// CONNLIB FORWARD DECLARATIONS</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">class </span><a class="code hl_class" href="a02777.html">Network</a>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="};">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a02721.html">   86</a></span><span class="keyword">class </span><a class="code hl_define" href="a01748.html#a414dbd8dff878e2cfd1ffe590f9db117">CONNSHARED_EXPORT</a> <a class="code hl_function" href="a02721.html#a7a4163d3902328d9019486c6541a6172">Coherency</a> : <span class="keyword">public</span> <a class="code hl_function" href="a02713.html#a2832e5d79679b611d40a0b811033c483">AbstractMetric</a></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>{</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a02721.html#a6ae228d71d0b2a8dd2f53724b52c2c72">   90</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;Coherency&gt; <a class="code hl_typedef" href="a02721.html#a6ae228d71d0b2a8dd2f53724b52c2c72">SPtr</a>;            </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a02721.html#a3d7ca9207859b1a0b1ecd004a9955a05">   91</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const Coherency&gt; <a class="code hl_typedef" href="a02721.html#a3d7ca9207859b1a0b1ecd004a9955a05">ConstSPtr</a>; </div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="a02605.html#acb7baac8ed32f29eb5647f2dc1255b4f">   93</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02605.html#acb7baac8ed32f29eb5647f2dc1255b4f">BidsChannel::writeTsv</a>(<span class="keyword">const</span> QString&amp; sFilePath,</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                           <span class="keyword">const</span> QList&lt;BidsChannel&gt;&amp; channels)</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>{</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    QStringList headers = {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        QStringLiteral(<span class="stringliteral">&quot;name&quot;</span>),</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        QStringLiteral(<span class="stringliteral">&quot;type&quot;</span>),</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        QStringLiteral(<span class="stringliteral">&quot;units&quot;</span>),</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        QStringLiteral(<span class="stringliteral">&quot;sampling_frequency&quot;</span>),</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        QStringLiteral(<span class="stringliteral">&quot;low_cutoff&quot;</span>),</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        QStringLiteral(<span class="stringliteral">&quot;high_cutoff&quot;</span>),</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        QStringLiteral(<span class="stringliteral">&quot;notch&quot;</span>),</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        QStringLiteral(<span class="stringliteral">&quot;status&quot;</span>),</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        QStringLiteral(<span class="stringliteral">&quot;description&quot;</span>),</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    };</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    QList&lt;BidsTsvRow&gt; rows;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    rows.reserve(channels.size());</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span>&amp; ch : channels) {</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <a class="code hl_typedef" href="a02536.html#a94c3a8409b7ce0ee4505cbda4f6ef35c">BidsTsvRow</a> row;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        row[QStringLiteral(<span class="stringliteral">&quot;name&quot;</span>)]               = ch.name;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        row[QStringLiteral(<span class="stringliteral">&quot;type&quot;</span>)]                = ch.type;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        row[QStringLiteral(<span class="stringliteral">&quot;units&quot;</span>)]               = ch.units;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        row[QStringLiteral(<span class="stringliteral">&quot;sampling_frequency&quot;</span>)]  = ch.samplingFreq;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        row[QStringLiteral(<span class="stringliteral">&quot;low_cutoff&quot;</span>)]          = ch.lowCutoff;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        row[QStringLiteral(<span class="stringliteral">&quot;high_cutoff&quot;</span>)]         = ch.highCutoff;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        row[QStringLiteral(<span class="stringliteral">&quot;notch&quot;</span>)]               = ch.notch;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        row[QStringLiteral(<span class="stringliteral">&quot;status&quot;</span>)]              = ch.status;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        row[QStringLiteral(<span class="stringliteral">&quot;description&quot;</span>)]         = ch.description;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        rows.append(row);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a02637.html#af023a035c65e1523412b5c0bdc8cf548">BidsTsv::writeTsv</a>(sFilePath, headers, rows);</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a02721.html#a7a4163d3902328d9019486c6541a6172">Coherency</a>();</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02721.html#a495a2af9e73ddcee458e8ed2dfbbc480">calculateAbs</a>(<a class="code hl_class" href="a02777.html">Network</a>&amp; finalNetwork,</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                             <a class="code hl_class" href="a02701.html">ConnectivitySettings</a> &amp;connectivitySettings);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02721.html#a46aad87d5e3ec8837d34844b91f57815">calculateImag</a>(<a class="code hl_class" href="a02777.html">Network</a>&amp; finalNetwork,</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                              <a class="code hl_class" href="a02701.html">ConnectivitySettings</a> &amp;connectivitySettings);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> compute(<a class="code hl_struct" href="a02705.html">ConnectivitySettings::IntermediateTrialData</a>&amp; inputData,</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                        Eigen::MatrixXd&amp; matPsdSum,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                        QVector&lt;QPair&lt;int,Eigen::MatrixXcd&gt; &gt;&amp; vecPairCsdSum,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                        QMutex&amp; mutex,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                        <span class="keywordtype">int</span> iNRows,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                        <span class="keywordtype">int</span> iNFreqs,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                        <span class="keywordtype">int</span> iNfft,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                        <span class="keyword">const</span> QPair&lt;Eigen::MatrixXd, Eigen::VectorXd&gt;&amp; tapers);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> computePSDCSDAbs(QMutex&amp; mutex,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                                 <a class="code hl_class" href="a02777.html">Network</a>&amp; finalNetwork,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                                 <span class="keyword">const</span> QPair&lt;int,Eigen::MatrixXcd&gt;&amp; pairInput,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                                 <span class="keyword">const</span> Eigen::MatrixXd&amp; matPsdSum);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> computePSDCSDImag(QMutex&amp; mutex,</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>                                  <a class="code hl_class" href="a02777.html">Network</a>&amp; finalNetwork,</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                                  <span class="keyword">const</span> QPair&lt;int,Eigen::MatrixXcd&gt;&amp; pairInput,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                                  <span class="keyword">const</span> Eigen::MatrixXd&amp; matPsdSum);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>};</div>
 </div>
-<div class="ttc" id="aa01838_html"><div class="ttname"><a href="a01838.html">bids_channel.h</a></div><div class="ttdoc">BidsChannel struct — channel metadata from *_channels.tsv.</div></div>
-<div class="ttc" id="aa01880_html"><div class="ttname"><a href="a01880.html">bids_tsv.h</a></div><div class="ttdoc">BidsTsv class declaration — generic BIDS TSV file reading and writing.</div></div>
-<div class="ttc" id="aa02536_html"><div class="ttname"><a href="a02536.html">BIDSLIB</a></div><div class="ttdoc">BIDS dataset reading, writing, path construction, and sidecar metadata handling for iEEG/EEG/MEG.</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00055">bids_channel.h:56</a></div></div>
-<div class="ttc" id="aa02536_html_a94c3a8409b7ce0ee4505cbda4f6ef35c"><div class="ttname"><a href="a02536.html#a94c3a8409b7ce0ee4505cbda4f6ef35c">BIDSLIB::BidsTsvRow</a></div><div class="ttdeci">QMap&lt; QString, QString &gt; BidsTsvRow</div><div class="ttdef"><b>Definition</b> <a href="a01880_source.html#l00065">bids_tsv.h:65</a></div></div>
-<div class="ttc" id="aa02605_html"><div class="ttname"><a href="a02605.html">BIDSLIB::BidsChannel</a></div><div class="ttdoc">Channel metadata record corresponding to one row in *_channels.tsv.</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00062">bids_channel.h:63</a></div></div>
-<div class="ttc" id="aa02605_html_a1979e86ea21e0aae3ecf912c40aeb584"><div class="ttname"><a href="a02605.html#a1979e86ea21e0aae3ecf912c40aeb584">BIDSLIB::BidsChannel::status</a></div><div class="ttdeci">QString status</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00071">bids_channel.h:71</a></div></div>
-<div class="ttc" id="aa02605_html_a4837493f830bdf016cb268c2b6d9a6d6"><div class="ttname"><a href="a02605.html#a4837493f830bdf016cb268c2b6d9a6d6">BIDSLIB::BidsChannel::notch</a></div><div class="ttdeci">QString notch</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00070">bids_channel.h:70</a></div></div>
-<div class="ttc" id="aa02605_html_a842e76105ca4bd9fee9a3a95f5b5be69"><div class="ttname"><a href="a02605.html#a842e76105ca4bd9fee9a3a95f5b5be69">BIDSLIB::BidsChannel::lowCutoff</a></div><div class="ttdeci">QString lowCutoff</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00068">bids_channel.h:68</a></div></div>
-<div class="ttc" id="aa02605_html_a8a2f2267b8435db7daac2ef5e13772b3"><div class="ttname"><a href="a02605.html#a8a2f2267b8435db7daac2ef5e13772b3">BIDSLIB::BidsChannel::units</a></div><div class="ttdeci">QString units</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00066">bids_channel.h:66</a></div></div>
-<div class="ttc" id="aa02605_html_a8ab267ce6bd93da65faf10285fbe86f0"><div class="ttname"><a href="a02605.html#a8ab267ce6bd93da65faf10285fbe86f0">BIDSLIB::BidsChannel::name</a></div><div class="ttdeci">QString name</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00064">bids_channel.h:64</a></div></div>
-<div class="ttc" id="aa02605_html_aab14c2e92f5dd4c74f9212b0537e78ea"><div class="ttname"><a href="a02605.html#aab14c2e92f5dd4c74f9212b0537e78ea">BIDSLIB::BidsChannel::highCutoff</a></div><div class="ttdeci">QString highCutoff</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00069">bids_channel.h:69</a></div></div>
-<div class="ttc" id="aa02605_html_ab62fe991b6bbf2ace7acbce616556a58"><div class="ttname"><a href="a02605.html#ab62fe991b6bbf2ace7acbce616556a58">BIDSLIB::BidsChannel::readTsv</a></div><div class="ttdeci">static QList&lt; BidsChannel &gt; readTsv(const QString &amp;sFilePath)</div><div class="ttdoc">Read a BIDS *_channels.tsv file.</div><div class="ttdef"><b>Definition</b> <a href="#l00066">bids_channel.cpp:66</a></div></div>
-<div class="ttc" id="aa02605_html_ac7bc90cf80b7f8c59b56ab88ade64f62"><div class="ttname"><a href="a02605.html#ac7bc90cf80b7f8c59b56ab88ade64f62">BIDSLIB::BidsChannel::samplingFreq</a></div><div class="ttdeci">QString samplingFreq</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00067">bids_channel.h:67</a></div></div>
-<div class="ttc" id="aa02605_html_acb7baac8ed32f29eb5647f2dc1255b4f"><div class="ttname"><a href="a02605.html#acb7baac8ed32f29eb5647f2dc1255b4f">BIDSLIB::BidsChannel::writeTsv</a></div><div class="ttdeci">static bool writeTsv(const QString &amp;sFilePath, const QList&lt; BidsChannel &gt; &amp;channels)</div><div class="ttdoc">Write a BIDS *_channels.tsv file.</div><div class="ttdef"><b>Definition</b> <a href="#l00093">bids_channel.cpp:93</a></div></div>
-<div class="ttc" id="aa02605_html_af209ac78f030229383e3d02c03287d13"><div class="ttname"><a href="a02605.html#af209ac78f030229383e3d02c03287d13">BIDSLIB::BidsChannel::type</a></div><div class="ttdeci">QString type</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00065">bids_channel.h:65</a></div></div>
-<div class="ttc" id="aa02605_html_afb2064af433e19ae41623eec3988da35"><div class="ttname"><a href="a02605.html#afb2064af433e19ae41623eec3988da35">BIDSLIB::BidsChannel::description</a></div><div class="ttdeci">QString description</div><div class="ttdef"><b>Definition</b> <a href="a01838_source.html#l00072">bids_channel.h:72</a></div></div>
-<div class="ttc" id="aa02637_html_ae73ba31d1e9bc005793517fd82019746"><div class="ttname"><a href="a02637.html#ae73ba31d1e9bc005793517fd82019746">BIDSLIB::BidsTsv::readTsv</a></div><div class="ttdeci">static QList&lt; BidsTsvRow &gt; readTsv(const QString &amp;sFilePath, QStringList &amp;headers)</div><div class="ttdef"><b>Definition</b> <a href="a01847_source.html#l00082">bids_tsv.cpp:82</a></div></div>
-<div class="ttc" id="aa02637_html_af023a035c65e1523412b5c0bdc8cf548"><div class="ttname"><a href="a02637.html#af023a035c65e1523412b5c0bdc8cf548">BIDSLIB::BidsTsv::writeTsv</a></div><div class="ttdeci">static bool writeTsv(const QString &amp;sFilePath, const QStringList &amp;headers, const QList&lt; BidsTsvRow &gt; &amp;rows)</div><div class="ttdef"><b>Definition</b> <a href="a01847_source.html#l00123">bids_tsv.cpp:123</a></div></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="comment">// INLINE DEFINITIONS</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>} <span class="comment">// namespace CONNLIB</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="preprocessor">#endif </span><span class="comment">// COHERENCY_H</span></div>
+<div class="ttc" id="aa01748_html"><div class="ttname"><a href="a01748.html">conn_global.h</a></div><div class="ttdoc">conn library export/import macros.</div></div>
+<div class="ttc" id="aa01748_html_a414dbd8dff878e2cfd1ffe590f9db117"><div class="ttname"><a href="a01748.html#a414dbd8dff878e2cfd1ffe590f9db117">CONNSHARED_EXPORT</a></div><div class="ttdeci">#define CONNSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a01748_source.html#l00050">conn_global.h:50</a></div></div>
+<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">connectivitysettings.h</a></div><div class="ttdoc">ConnectivitySettings class declaration.</div></div>
+<div class="ttc" id="aa01817_html"><div class="ttname"><a href="a01817.html">abstractmetric.h</a></div><div class="ttdoc">AbstractMetric class declaration.</div></div>
+<div class="ttc" id="aa02540_html"><div class="ttname"><a href="a02540.html">CONNLIB</a></div><div class="ttdoc">Functional connectivity metrics (coherence, PLV, cross-correlation, etc.).</div></div>
+<div class="ttc" id="aa02701_html"><div class="ttname"><a href="a02701.html">CONNLIB::ConnectivitySettings</a></div><div class="ttdoc">This class is a container for connectivity settings.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00091">connectivitysettings.h:92</a></div></div>
+<div class="ttc" id="aa02705_html"><div class="ttname"><a href="a02705.html">CONNLIB::ConnectivitySettings::IntermediateTrialData</a></div><div class="ttdoc">Per-trial intermediate frequency-domain data used during connectivity computation.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00101">connectivitysettings.h:101</a></div></div>
+<div class="ttc" id="aa02713_html_a2832e5d79679b611d40a0b811033c483"><div class="ttname"><a href="a02713.html#a2832e5d79679b611d40a0b811033c483">CONNLIB::AbstractMetric::AbstractMetric</a></div><div class="ttdeci">AbstractMetric()</div><div class="ttdef"><b>Definition</b> <a href="a01799_source.html#l00067">abstractmetric.cpp:67</a></div></div>
+<div class="ttc" id="aa02721_html_a3d7ca9207859b1a0b1ecd004a9955a05"><div class="ttname"><a href="a02721.html#a3d7ca9207859b1a0b1ecd004a9955a05">CONNLIB::Coherency::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const Coherency &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00091">coherency.h:91</a></div></div>
+<div class="ttc" id="aa02721_html_a46aad87d5e3ec8837d34844b91f57815"><div class="ttname"><a href="a02721.html#a46aad87d5e3ec8837d34844b91f57815">CONNLIB::Coherency::calculateImag</a></div><div class="ttdeci">static void calculateImag(Network &amp;finalNetwork, ConnectivitySettings &amp;connectivitySettings)</div><div class="ttdef"><b>Definition</b> <a href="a01850_source.html#l00156">coherency.cpp:156</a></div></div>
+<div class="ttc" id="aa02721_html_a495a2af9e73ddcee458e8ed2dfbbc480"><div class="ttname"><a href="a02721.html#a495a2af9e73ddcee458e8ed2dfbbc480">CONNLIB::Coherency::calculateAbs</a></div><div class="ttdeci">static void calculateAbs(Network &amp;finalNetwork, ConnectivitySettings &amp;connectivitySettings)</div><div class="ttdef"><b>Definition</b> <a href="a01850_source.html#l00085">coherency.cpp:85</a></div></div>
+<div class="ttc" id="aa02721_html_a6ae228d71d0b2a8dd2f53724b52c2c72"><div class="ttname"><a href="a02721.html#a6ae228d71d0b2a8dd2f53724b52c2c72">CONNLIB::Coherency::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; Coherency &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00090">coherency.h:90</a></div></div>
+<div class="ttc" id="aa02721_html_a7a4163d3902328d9019486c6541a6172"><div class="ttname"><a href="a02721.html#a7a4163d3902328d9019486c6541a6172">CONNLIB::Coherency::Coherency</a></div><div class="ttdeci">Coherency()</div><div class="ttdef"><b>Definition</b> <a href="a01850_source.html#l00079">coherency.cpp:79</a></div></div>
+<div class="ttc" id="aa02777_html"><div class="ttname"><a href="a02777.html">CONNLIB::Network</a></div><div class="ttdoc">This class holds information about a network, can compute a distance table and provide network metric...</div><div class="ttdef"><b>Definition</b> <a href="a01772_source.html#l00091">network.h:92</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

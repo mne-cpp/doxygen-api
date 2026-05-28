@@ -121,7 +121,7 @@ var searchData=
   ['issparse_118',['issparse',['../a04161.html#a926c1e4cd9e58fa52723ab65b405f78d',1,'UTILSLIB::Numerics']]],
   ['isstreaming_119',['isStreaming',['../a03285.html#a26652d8922cc5c99c2320a999fbd7304',1,'RtSensorStreamManager::isStreaming()'],['../a03293.html#a7f6c40151a747d632439545dcbcff9b6',1,'SourceEstimateManager::isStreaming()'],['../a03329.html#ad6964206232cbd12c107df43c3c91a38',1,'RtSensorDataController::isStreaming()'],['../a03341.html#a75ef5b93125ff44a52bd6e4800781b41',1,'RtSourceDataController::isStreaming()']]],
   ['issuesurfacedraw_120',['issueSurfaceDraw',['../a03309.html#a6e86429df8ddfd3e9c01ff80ec2a3f1f',1,'BrainRenderer']]],
-  ['istrue_121',['isTrue',['../a02315.html#aa1ecf762994d097a0450b5e2b7c60eaa',1,'viewstate.h']]],
+  ['istrue_121',['isTrue',['../a00977.html#aa1ecf762994d097a0450b5e2b7c60eaa',1,'viewstate.h']]],
   ['isvalid_122',['isValid',['../a02629.html#a599598d32fbc62a4b714798b59c0f7c2',1,'BIDSLIB::BidsRawData::isValid()'],['../a03913.html#af987cd1c5d05aed6afa06540a28da4f6',1,'INVLIB::InvBeamformer::isValid()'],['../a04609.html#a4d3a83b834ed3045ee666274ebec8494',1,'MRILIB::MriVolData::isValid()']]],
   ['isvalideeg_123',['isValidEeg',['../a03669.html#a137f12b3d5ca5b2bb9eb71b3b70025f8',1,'FIFFLIB::FiffChInfo']]],
   ['isvalidentityvalue_124',['isValidEntityValue',['../a02625.html#a68353919d111acf21638813d66c9b115',1,'BIDSLIB::BIDSPath']]],
