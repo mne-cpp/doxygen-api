@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/decoding/decoding_spoc.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/dsp/filter_chpi.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,286 +243,179 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_871bba211478afe3dfe419918aacdbf1.html">decoding</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_d291838a59ac818b2ab15cba6e7b68a7.html">dsp</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">decoding_spoc.cpp</div></div>
+  <div class="headertitle"><div class="title">filter_chpi.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01325.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a01331.html">decoding_spoc.h</a>&quot;</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &quot;<a class="code" href="a01427.html">filter_chpi.h</a>&quot;</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;<a class="code" href="a01277.html">iirfilter.h</a>&quot;</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// EIGEN INCLUDES</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;Eigen/Eigenvalues&gt;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// STL INCLUDES</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;numeric&gt;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;<a class="code" href="a00296.html">fiff/fiff_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;<a class="code" href="a00143.html">fiff/fiff_constants.h</a>&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;QDebug&gt;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02554.html">UTILSLIB</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02543.html">FIFFLIB</a>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a02544.html">DECODINGLIB</a>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a02801.html#a44d1e85915b0e1fa5aa0306a3823d767">   65</a></span><a class="code hl_function" href="a02801.html#a44d1e85915b0e1fa5aa0306a3823d767">DecodingSpoc::DecodingSpoc</a>(<span class="keywordtype">int</span> nComponents,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                           <a class="code hl_enumeration" href="a02801.html#a572da34e3db6e9d85a29b92e744cd6ff">TransformMode</a> transformInto,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                           <span class="keywordtype">bool</span> useLog)</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    : m_nComponents(nComponents)</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    , m_transformInto(transformInto)</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    , m_useLog(useLog)</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>{</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// STATIC HELPERS</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">static</span> QVector&lt;int&gt; megChannelIndices(<span class="keyword">const</span> <a class="code hl_class" href="a03761.html">FiffInfo</a>&amp; info)</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    QVector&lt;int&gt; indices;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; info.<a class="code hl_variable" href="a03765.html#aa07b3b770d7fe65ac065e01461688e04">chs</a>.size(); ++i) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="a03765.html#aa07b3b770d7fe65ac065e01461688e04">chs</a>[i].kind == <a class="code hl_define" href="a00143.html#a82bbc561af8dabd8aeaa1c389be791fd">FIFFV_MEG_CH</a>) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            indices.append(i);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">return</span> indices;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a02801.html#a3850701d50f3d1644bd47b35a0708356">   76</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02801.html#a3850701d50f3d1644bd47b35a0708356">DecodingSpoc::fit</a>(<span class="keyword">const</span> std::vector&lt;MatrixXd&gt;&amp; epochs,</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                       <span class="keyword">const</span> VectorXd&amp; y)</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">if</span> (epochs.empty()) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;DecodingSpoc::fit: epochs must be non-empty&quot;</span>);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(epochs.size()) != y.size()) {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">throw</span> std::invalid_argument(</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="stringliteral">&quot;DecodingSpoc::fit: epochs and y must have the same length&quot;</span>);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="comment">// Delegate core GED (SPoC algorithm)</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">const</span> <span class="keyword">auto</span> n_epochs = <span class="keyword">static_cast&lt;</span>Index<span class="keyword">&gt;</span>(epochs.size());</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> <span class="keyword">auto</span> n_ch = epochs[0].rows();</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// 1. Normalize target</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">double</span> z_mean = y.mean();</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">double</span> z_std = std::sqrt(</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        (y.array() - z_mean).square().sum()</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(n_epochs - 1));</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    VectorXd z = (y.array() - z_mean).matrix();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (z_std &gt; 1e-15) z /= z_std;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// 2. Per-epoch covariance → C and Cz</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    MatrixXd C  = MatrixXd::Zero(n_ch, n_ch);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    MatrixXd Cz = MatrixXd::Zero(n_ch, n_ch);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">for</span> (Index e = 0; e &lt; n_epochs; ++e) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a> = epochs[<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(e)];</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        MatrixXd Xc = <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a>.colwise() - <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a>.rowwise().mean();</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        MatrixXd cov_e = (Xc * Xc.transpose())</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                         / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(Xc.cols());</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        C  += cov_e;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        Cz += z(e) * cov_e;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    }</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    C  /= <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(n_epochs);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    Cz /= <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(n_epochs);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="comment">// 3. Generalized eigenvalue problem: Cz w = λ C w</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    GeneralizedSelfAdjointEigenSolver&lt;MatrixXd&gt; solver(Cz, C);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">if</span> (solver.info() != Eigen::Success) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">throw</span> std::runtime_error(</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="stringliteral">&quot;DecodingSpoc::fit: eigenvalue decomposition failed&quot;</span>);</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> VectorXd&amp; all_evals = solver.eigenvalues();</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keyword">const</span> MatrixXd&amp; all_evecs = solver.eigenvectors();</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">// 4. Sort by |eigenvalue| descending</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    std::vector&lt;int&gt; idx(<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(n_ch));</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    std::iota(idx.begin(), idx.end(), 0);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    std::sort(idx.begin(), idx.end(), [&amp;](<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b) {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        return std::abs(all_evals(a)) &gt; std::abs(all_evals(b));</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    });</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordtype">int</span> n_comp = std::min(m_nComponents, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(n_ch));</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    m_filters.resize(n_comp, n_ch);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n_comp; ++i) {</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordtype">int</span> j = idx[<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(i)];</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        VectorXd w = all_evecs.col(j);</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordtype">double</span> norm = w.norm();</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">if</span> (norm &gt; 0.0) w /= norm;</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        m_filters.row(i) = w.transpose();</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="comment">// 5. Patterns: A = C W inv(W^T C W)</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    MatrixXd Wt = m_filters.transpose();</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    MatrixXd CW = C * Wt;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    MatrixXd WtCW = Wt.transpose() * CW;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    m_patterns = (CW * WtCW.inverse());  <span class="comment">// (n_ch × n_comp) — already correct shape</span></div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="comment">// Compute mean band power for z-score normalisation</span></div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    MatrixXd powerFeatures = computePowerFeatures(epochs);</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    m_mean = powerFeatures.colwise().mean();</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    m_std = VectorXd(powerFeatures.cols());</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; powerFeatures.cols(); ++c) {</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        VectorXd centered = powerFeatures.col(c).array() - m_mean(c);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        m_std(c) = std::sqrt(centered.squaredNorm()</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                             / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(centered.size()));</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    m_fitted = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="comment">// DEFINITIONS</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">void</span> <a class="code hl_function" href="a02554.html#ab010e23a726fa06030994992b4ff27d0">UTILSLIB::filterChpi</a>(MatrixXd&amp; data,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                           <span class="keyword">const</span> <a class="code hl_class" href="a03761.html">FiffInfo</a>&amp; info,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                           <span class="keywordtype">double</span> sfreq,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                           <span class="keyword">const</span> QVector&lt;double&gt;&amp; hpiFreqs,</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                           <span class="keyword">const</span> <a class="code hl_struct" href="a03453.html">FilterChpiParams</a>&amp; params)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>{</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">if</span> (hpiFreqs.isEmpty()) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">if</span> (sfreq &lt;= 0.0) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;filterChpi: Invalid sampling frequency&quot;</span> &lt;&lt; sfreq &lt;&lt; <span class="stringliteral">&quot;Hz. Skipping.&quot;</span>;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> dNyquist = sfreq / 2.0;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="comment">// Collect valid frequencies</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    QVector&lt;double&gt; validFreqs;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">double</span> freq : hpiFreqs) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> fLow = freq - params.<a class="code hl_variable" href="a03453.html#a215946aacda35515c67080521b8c6e2f">dNotchWidth</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> fHigh = freq + params.<a class="code hl_variable" href="a03453.html#a215946aacda35515c67080521b8c6e2f">dNotchWidth</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">if</span> (freq &lt;= 0.0 || fHigh &gt;= dNyquist) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            qWarning() &lt;&lt; <span class="stringliteral">&quot;filterChpi: Skipping invalid cHPI frequency&quot;</span> &lt;&lt; freq</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                        &lt;&lt; <span class="stringliteral">&quot;Hz (Nyquist =&quot;</span> &lt;&lt; dNyquist &lt;&lt; <span class="stringliteral">&quot;Hz).&quot;</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span> (fLow &lt;= 0.0) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            qWarning() &lt;&lt; <span class="stringliteral">&quot;filterChpi: Skipping cHPI frequency&quot;</span> &lt;&lt; freq</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                        &lt;&lt; <span class="stringliteral">&quot;Hz (notch lower edge &lt;= 0 Hz).&quot;</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        validFreqs.append(freq);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">if</span> (validFreqs.isEmpty()) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">if</span> (params.<a class="code hl_variable" href="a03453.html#a35f825f05bc2ba110c8186510f14b532">bMegOnly</a>) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="comment">// Filter only MEG channels</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keyword">const</span> QVector&lt;int&gt; megIdx = megChannelIndices(info);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">if</span> (megIdx.isEmpty()) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            qWarning() &lt;&lt; <span class="stringliteral">&quot;filterChpi: No MEG channels found in FiffInfo. Nothing to filter.&quot;</span>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        }</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// Extract MEG submatrix</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        MatrixXd megData(megIdx.size(), data.cols());</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; megIdx.size(); ++i) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            megData.row(i) = data.row(megIdx[i]);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="comment">// Apply notch filters sequentially</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">double</span> freq : validFreqs) {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">const</span> <span class="keywordtype">double</span> fLow = freq - params.<a class="code hl_variable" href="a03453.html#a215946aacda35515c67080521b8c6e2f">dNotchWidth</a>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <span class="keyword">const</span> <span class="keywordtype">double</span> fHigh = freq + params.<a class="code hl_variable" href="a03453.html#a215946aacda35515c67080521b8c6e2f">dNotchWidth</a>;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            QVector&lt;IirBiquad&gt; sos = <a class="code hl_function" href="a03493.html#a86f6628e1e72e549a765267ef3958c27">IirFilter::designButterworth</a>(</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                params.<a class="code hl_variable" href="a03453.html#a8e4763cd4f13c650db4b23cce59cdee7">iFilterOrder</a>, <a class="code hl_enumvalue" href="a03493.html#ad80bf845ff7b34f87a915bd7617d0de8a6cf01d60cee7ca0b8ef711b2ca44862a">IirFilter::BandStop</a>, fLow, fHigh, sfreq);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            megData = <a class="code hl_function" href="a03493.html#acd285be8ac831eb9545c3c980caf53fa">IirFilter::applyZeroPhaseMatrix</a>(megData, sos);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="comment">// Write back</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; megIdx.size(); ++i) {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            data.row(megIdx[i]) = megData.row(i);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="comment">// Filter all channels</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">double</span> freq : validFreqs) {</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="keyword">const</span> <span class="keywordtype">double</span> fLow = freq - params.<a class="code hl_variable" href="a03453.html#a215946aacda35515c67080521b8c6e2f">dNotchWidth</a>;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keyword">const</span> <span class="keywordtype">double</span> fHigh = freq + params.<a class="code hl_variable" href="a03453.html#a215946aacda35515c67080521b8c6e2f">dNotchWidth</a>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            QVector&lt;IirBiquad&gt; sos = <a class="code hl_function" href="a03493.html#a86f6628e1e72e549a765267ef3958c27">IirFilter::designButterworth</a>(</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                params.<a class="code hl_variable" href="a03453.html#a8e4763cd4f13c650db4b23cce59cdee7">iFilterOrder</a>, <a class="code hl_enumvalue" href="a03493.html#ad80bf845ff7b34f87a915bd7617d0de8a6cf01d60cee7ca0b8ef711b2ca44862a">IirFilter::BandStop</a>, fLow, fHigh, sfreq);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            data = <a class="code hl_function" href="a03493.html#acd285be8ac831eb9545c3c980caf53fa">IirFilter::applyZeroPhaseMatrix</a>(data, sos);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    }</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>}</div>
-</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="a02801.html#a43075e45990c1d70e42958a8796d5469">  164</a></span>MatrixXd <a class="code hl_function" href="a02801.html#a43075e45990c1d70e42958a8796d5469">DecodingSpoc::transform</a>(<span class="keyword">const</span> std::vector&lt;MatrixXd&gt;&amp; epochs)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">if</span> (!m_fitted) {</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;DecodingSpoc::transform: not fitted&quot;</span>);</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">if</span> (m_transformInto == <a class="code hl_enumvalue" href="a02801.html#a572da34e3db6e9d85a29b92e744cd6ffacfe92d8b3a4d8d2b3e1ae831bd6f5644">TransformMode::CspSpace</a>) {</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> nEpochs = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(epochs.size());</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> nComp = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_filters.rows());</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> nTimes = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(epochs[0].cols());</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        MatrixXd result(nEpochs * nComp, nTimes);</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> e = 0; e &lt; nEpochs; ++e) {</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            result.middleRows(e * nComp, nComp) = m_filters * epochs[<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(e)];</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        }</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="comment">// AveragePower mode</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    MatrixXd <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a> = computePowerFeatures(epochs);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordflow">if</span> (m_useLog) {</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a> = <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a>.array().max(1e-30).log().matrix();</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a>.cols(); ++c) {</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordtype">double</span> s = m_std(c);</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <span class="keywordflow">if</span> (s &lt; 1e-15) s = 1.0;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a>.col(c) = (<a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a>.col(c).array() - m_mean(c)) / s;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    }</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a>;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>}</div>
-</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="foldopen" id="foldopen00200" data-start="{" data-end="}">
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="a02801.html#a0a097b0fe2a48ee4ed8c85899a257daa">  200</a></span>MatrixXd <a class="code hl_function" href="a02801.html#a0a097b0fe2a48ee4ed8c85899a257daa">DecodingSpoc::fitTransform</a>(<span class="keyword">const</span> std::vector&lt;MatrixXd&gt;&amp; epochs,</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                                    <span class="keyword">const</span> VectorXd&amp; y)</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>{</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <a class="code hl_function" href="a02801.html#a3850701d50f3d1644bd47b35a0708356">fit</a>(epochs, y);</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a02801.html#a43075e45990c1d70e42958a8796d5469">transform</a>(epochs);</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>}</div>
-</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="foldopen" id="foldopen00209" data-start="{" data-end="}">
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="a02801.html#a59414c163c38485b6b2652e6ae0ca790">  209</a></span><span class="keyword">const</span> MatrixXd&amp; <a class="code hl_function" href="a02801.html#a59414c163c38485b6b2652e6ae0ca790">DecodingSpoc::filters</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordflow">if</span> (!m_fitted) {</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;DecodingSpoc::filters: not fitted&quot;</span>);</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    }</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">return</span> m_filters;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>}</div>
-</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
-<div class="foldopen" id="foldopen00219" data-start="{" data-end="}">
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="a02801.html#a517ea7aa4196c3458c26734ff0e6802b">  219</a></span><span class="keyword">const</span> MatrixXd&amp; <a class="code hl_function" href="a02801.html#a517ea7aa4196c3458c26734ff0e6802b">DecodingSpoc::patterns</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordflow">if</span> (!m_fitted) {</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;DecodingSpoc::patterns: not fitted&quot;</span>);</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    }</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">return</span> m_patterns;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>}</div>
-</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="foldopen" id="foldopen00229" data-start="{" data-end="}">
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="a02801.html#a4ab10498b27e57dda496526790a210de">  229</a></span><span class="keyword">const</span> VectorXd&amp; <a class="code hl_function" href="a02801.html#a4ab10498b27e57dda496526790a210de">DecodingSpoc::mean</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordflow">if</span> (!m_fitted) {</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;DecodingSpoc::mean: not fitted&quot;</span>);</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    }</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">return</span> m_mean;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>}</div>
-</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="foldopen" id="foldopen00239" data-start="{" data-end="}">
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="a02801.html#ac2c798f03843d7353fcf3a8de84bd69b">  239</a></span><span class="keyword">const</span> VectorXd&amp; <a class="code hl_function" href="a02801.html#ac2c798f03843d7353fcf3a8de84bd69b">DecodingSpoc::stddev</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">if</span> (!m_fitted) {</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;DecodingSpoc::stddev: not fitted&quot;</span>);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    }</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordflow">return</span> m_std;</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>}</div>
-</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="foldopen" id="foldopen00249" data-start="{" data-end="}">
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="a02801.html#a7dbbebffe01928181379c0c44bb073a7">  249</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02801.html#a7dbbebffe01928181379c0c44bb073a7">DecodingSpoc::isFitted</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keywordflow">return</span> m_fitted;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>}</div>
-</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>MatrixXd DecodingSpoc::computePowerFeatures(</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keyword">const</span> std::vector&lt;MatrixXd&gt;&amp; epochs)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nEpochs = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(epochs.size());</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nComp = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_filters.rows());</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    MatrixXd features(nEpochs, nComp);</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> e = 0; e &lt; nEpochs; ++e) {</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        MatrixXd filtered = m_filters * epochs[<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(e)];</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; nComp; ++c) {</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            features(e, c) = filtered.row(c).squaredNorm()</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                            / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(filtered.cols());</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        }</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    }</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keywordflow">return</span> features;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>}</div>
-<div class="ttc" id="aa01331_html"><div class="ttname"><a href="a01331.html">decoding_spoc.h</a></div><div class="ttdoc">DecodingSpoc class declaration.</div></div>
-<div class="ttc" id="aa02501_html_afa1fd63b64a5bef810a309e7a0d909e9"><div class="ttname"><a href="a02501.html#afa1fd63b64a5bef810a309e7a0d909e9">X</a></div><div class="ttdeci">constexpr int X</div><div class="ttdef"><b>Definition</b> <a href="a02501_source.html#l00072">compute_fwd.cpp:72</a></div></div>
-<div class="ttc" id="aa02544_html"><div class="ttname"><a href="a02544.html">DECODINGLIB</a></div><div class="ttdoc">M/EEG signal decoding (CSP, SPoC, SSD, LinearModel).</div><div class="ttdef"><b>Definition</b> <a href="a01304_source.html#l00060">decoding_csp.h:60</a></div></div>
-<div class="ttc" id="aa02801_html_a0a097b0fe2a48ee4ed8c85899a257daa"><div class="ttname"><a href="a02801.html#a0a097b0fe2a48ee4ed8c85899a257daa">DECODINGLIB::DecodingSpoc::fitTransform</a></div><div class="ttdeci">Eigen::MatrixXd fitTransform(const std::vector&lt; Eigen::MatrixXd &gt; &amp;epochs, const Eigen::VectorXd &amp;y)</div><div class="ttdef"><b>Definition</b> <a href="#l00200">decoding_spoc.cpp:200</a></div></div>
-<div class="ttc" id="aa02801_html_a3850701d50f3d1644bd47b35a0708356"><div class="ttname"><a href="a02801.html#a3850701d50f3d1644bd47b35a0708356">DECODINGLIB::DecodingSpoc::fit</a></div><div class="ttdeci">void fit(const std::vector&lt; Eigen::MatrixXd &gt; &amp;epochs, const Eigen::VectorXd &amp;y)</div><div class="ttdef"><b>Definition</b> <a href="#l00076">decoding_spoc.cpp:76</a></div></div>
-<div class="ttc" id="aa02801_html_a43075e45990c1d70e42958a8796d5469"><div class="ttname"><a href="a02801.html#a43075e45990c1d70e42958a8796d5469">DECODINGLIB::DecodingSpoc::transform</a></div><div class="ttdeci">Eigen::MatrixXd transform(const std::vector&lt; Eigen::MatrixXd &gt; &amp;epochs) const</div><div class="ttdef"><b>Definition</b> <a href="#l00164">decoding_spoc.cpp:164</a></div></div>
-<div class="ttc" id="aa02801_html_a44d1e85915b0e1fa5aa0306a3823d767"><div class="ttname"><a href="a02801.html#a44d1e85915b0e1fa5aa0306a3823d767">DECODINGLIB::DecodingSpoc::DecodingSpoc</a></div><div class="ttdeci">DecodingSpoc(int nComponents=4, TransformMode transformInto=TransformMode::AveragePower, bool useLog=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00065">decoding_spoc.cpp:65</a></div></div>
-<div class="ttc" id="aa02801_html_a4ab10498b27e57dda496526790a210de"><div class="ttname"><a href="a02801.html#a4ab10498b27e57dda496526790a210de">DECODINGLIB::DecodingSpoc::mean</a></div><div class="ttdeci">const Eigen::VectorXd &amp; mean() const</div><div class="ttdef"><b>Definition</b> <a href="#l00229">decoding_spoc.cpp:229</a></div></div>
-<div class="ttc" id="aa02801_html_a517ea7aa4196c3458c26734ff0e6802b"><div class="ttname"><a href="a02801.html#a517ea7aa4196c3458c26734ff0e6802b">DECODINGLIB::DecodingSpoc::patterns</a></div><div class="ttdeci">const Eigen::MatrixXd &amp; patterns() const</div><div class="ttdef"><b>Definition</b> <a href="#l00219">decoding_spoc.cpp:219</a></div></div>
-<div class="ttc" id="aa02801_html_a572da34e3db6e9d85a29b92e744cd6ff"><div class="ttname"><a href="a02801.html#a572da34e3db6e9d85a29b92e744cd6ff">DECODINGLIB::DecodingSpoc::TransformMode</a></div><div class="ttdeci">TransformMode</div><div class="ttdef"><b>Definition</b> <a href="a01331_source.html#l00086">decoding_spoc.h:86</a></div></div>
-<div class="ttc" id="aa02801_html_a572da34e3db6e9d85a29b92e744cd6ffacfe92d8b3a4d8d2b3e1ae831bd6f5644"><div class="ttname"><a href="a02801.html#a572da34e3db6e9d85a29b92e744cd6ffacfe92d8b3a4d8d2b3e1ae831bd6f5644">DECODINGLIB::DecodingSpoc::TransformMode::CspSpace</a></div><div class="ttdeci">@ CspSpace</div><div class="ttdef"><b>Definition</b> <a href="a01331_source.html#l00088">decoding_spoc.h:88</a></div></div>
-<div class="ttc" id="aa02801_html_a59414c163c38485b6b2652e6ae0ca790"><div class="ttname"><a href="a02801.html#a59414c163c38485b6b2652e6ae0ca790">DECODINGLIB::DecodingSpoc::filters</a></div><div class="ttdeci">const Eigen::MatrixXd &amp; filters() const</div><div class="ttdef"><b>Definition</b> <a href="#l00209">decoding_spoc.cpp:209</a></div></div>
-<div class="ttc" id="aa02801_html_a7dbbebffe01928181379c0c44bb073a7"><div class="ttname"><a href="a02801.html#a7dbbebffe01928181379c0c44bb073a7">DECODINGLIB::DecodingSpoc::isFitted</a></div><div class="ttdeci">bool isFitted() const</div><div class="ttdef"><b>Definition</b> <a href="#l00249">decoding_spoc.cpp:249</a></div></div>
-<div class="ttc" id="aa02801_html_ac2c798f03843d7353fcf3a8de84bd69b"><div class="ttname"><a href="a02801.html#ac2c798f03843d7353fcf3a8de84bd69b">DECODINGLIB::DecodingSpoc::stddev</a></div><div class="ttdeci">const Eigen::VectorXd &amp; stddev() const</div><div class="ttdef"><b>Definition</b> <a href="#l00239">decoding_spoc.cpp:239</a></div></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="keywordtype">void</span> <a class="code hl_function" href="a02554.html#ab010e23a726fa06030994992b4ff27d0">UTILSLIB::filterChpi</a>(MatrixXd&amp; data,</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                           <span class="keyword">const</span> <a class="code hl_class" href="a03761.html">FiffInfo</a>&amp; info,</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>                           <span class="keywordtype">double</span> sfreq,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                           <span class="keyword">const</span> <a class="code hl_struct" href="a03453.html">FilterChpiParams</a>&amp; params)</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>{</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="comment">// Attempt to extract HPI coil frequencies from FiffInfo.</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="comment">// The HPI frequency information may be stored in various FIFF blocks</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="comment">// (FIFFB_HPI_MEAS, FIFFB_HPI_SUBSYSTEM), but the FiffInfo C++ struct</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">// does not currently expose a parsed list of HPI excitation frequencies.</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="comment">// This overload is provided for API completeness; users should prefer</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="comment">// passing frequencies explicitly.</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    Q_UNUSED(data)</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    Q_UNUSED(info)</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    Q_UNUSED(sfreq)</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    Q_UNUSED(params)</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    qWarning() &lt;&lt; <span class="stringliteral">&quot;filterChpi: Automatic cHPI frequency extraction from FiffInfo is not yet &quot;</span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                  <span class="stringliteral">&quot;implemented. Please provide frequencies explicitly via the hpiFreqs parameter.&quot;</span>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
+<div class="ttc" id="aa00143_html"><div class="ttname"><a href="a00143.html">fiff_constants.h</a></div><div class="ttdoc">Fiff constants.</div></div>
+<div class="ttc" id="aa00143_html_a82bbc561af8dabd8aeaa1c389be791fd"><div class="ttname"><a href="a00143.html#a82bbc561af8dabd8aeaa1c389be791fd">FIFFV_MEG_CH</a></div><div class="ttdeci">#define FIFFV_MEG_CH</div><div class="ttdef"><b>Definition</b> <a href="a00143_source.html#l00265">fiff_constants.h:265</a></div></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">fiff_info.h</a></div><div class="ttdoc">FiffInfo class declaration.</div></div>
+<div class="ttc" id="aa01277_html"><div class="ttname"><a href="a01277.html">iirfilter.h</a></div><div class="ttdoc">Declaration of IirFilter — Butterworth IIR filter design and application using numerically stable sec...</div></div>
+<div class="ttc" id="aa01427_html"><div class="ttname"><a href="a01427.html">filter_chpi.h</a></div><div class="ttdoc">Declaration of filterChpi — cHPI signal removal by notch filtering.</div></div>
+<div class="ttc" id="aa02543_html"><div class="ttname"><a href="a02543.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O and data structures (raw, epochs, evoked, covariance, forward).</div><div class="ttdef"><b>Definition</b> <a href="a00782_source.html#l00071">connectivitysettings.h:71</a></div></div>
+<div class="ttc" id="aa02554_html"><div class="ttname"><a href="a02554.html">UTILSLIB</a></div><div class="ttdoc">Shared utilities (I/O helpers, spectral analysis, layout management, warp algorithms).</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00072">rtfiffrawview.h:72</a></div></div>
+<div class="ttc" id="aa02554_html_ab010e23a726fa06030994992b4ff27d0"><div class="ttname"><a href="a02554.html#ab010e23a726fa06030994992b4ff27d0">UTILSLIB::filterChpi</a></div><div class="ttdeci">DSPSHARED_EXPORT void filterChpi(Eigen::MatrixXd &amp;data, const FIFFLIB::FiffInfo &amp;info, double sfreq, const QVector&lt; double &gt; &amp;hpiFreqs, const FilterChpiParams &amp;params=FilterChpiParams())</div><div class="ttdoc">Remove cHPI excitation signals from MEG data by notch filtering.</div></div>
+<div class="ttc" id="aa03453_html"><div class="ttname"><a href="a03453.html">UTILSLIB::FilterChpiParams</a></div><div class="ttdoc">Parameters for cHPI notch filtering.</div><div class="ttdef"><b>Definition</b> <a href="a01427_source.html#l00076">filter_chpi.h:77</a></div></div>
+<div class="ttc" id="aa03453_html_a215946aacda35515c67080521b8c6e2f"><div class="ttname"><a href="a03453.html#a215946aacda35515c67080521b8c6e2f">UTILSLIB::FilterChpiParams::dNotchWidth</a></div><div class="ttdeci">double dNotchWidth</div><div class="ttdef"><b>Definition</b> <a href="a01427_source.html#l00078">filter_chpi.h:78</a></div></div>
+<div class="ttc" id="aa03453_html_a35f825f05bc2ba110c8186510f14b532"><div class="ttname"><a href="a03453.html#a35f825f05bc2ba110c8186510f14b532">UTILSLIB::FilterChpiParams::bMegOnly</a></div><div class="ttdeci">bool bMegOnly</div><div class="ttdef"><b>Definition</b> <a href="a01427_source.html#l00080">filter_chpi.h:80</a></div></div>
+<div class="ttc" id="aa03453_html_a8e4763cd4f13c650db4b23cce59cdee7"><div class="ttname"><a href="a03453.html#a8e4763cd4f13c650db4b23cce59cdee7">UTILSLIB::FilterChpiParams::iFilterOrder</a></div><div class="ttdeci">int iFilterOrder</div><div class="ttdef"><b>Definition</b> <a href="a01427_source.html#l00079">filter_chpi.h:79</a></div></div>
+<div class="ttc" id="aa03493_html_a86f6628e1e72e549a765267ef3958c27"><div class="ttname"><a href="a03493.html#a86f6628e1e72e549a765267ef3958c27">UTILSLIB::IirFilter::designButterworth</a></div><div class="ttdeci">static QVector&lt; IirBiquad &gt; designButterworth(int iOrder, FilterType type, double dCutoffLow, double dCutoffHigh, double dSFreq)</div><div class="ttdef"><b>Definition</b> <a href="a01424_source.html#l00175">iirfilter.cpp:175</a></div></div>
+<div class="ttc" id="aa03493_html_acd285be8ac831eb9545c3c980caf53fa"><div class="ttname"><a href="a03493.html#acd285be8ac831eb9545c3c980caf53fa">UTILSLIB::IirFilter::applyZeroPhaseMatrix</a></div><div class="ttdeci">static Eigen::MatrixXd applyZeroPhaseMatrix(const Eigen::MatrixXd &amp;matData, const QVector&lt; IirBiquad &gt; &amp;sos)</div><div class="ttdef"><b>Definition</b> <a href="a01424_source.html#l00436">iirfilter.cpp:436</a></div></div>
+<div class="ttc" id="aa03493_html_ad80bf845ff7b34f87a915bd7617d0de8a6cf01d60cee7ca0b8ef711b2ca44862a"><div class="ttname"><a href="a03493.html#ad80bf845ff7b34f87a915bd7617d0de8a6cf01d60cee7ca0b8ef711b2ca44862a">UTILSLIB::IirFilter::BandStop</a></div><div class="ttdeci">@ BandStop</div><div class="ttdef"><b>Definition</b> <a href="a01277_source.html#l00117">iirfilter.h:117</a></div></div>
+<div class="ttc" id="aa03761_html"><div class="ttname"><a href="a03761.html">FIFFLIB::FiffInfo</a></div><div class="ttdoc">FIFF measurement file information.</div><div class="ttdef"><b>Definition</b> <a href="a00296_source.html#l00085">fiff_info.h:86</a></div></div>
+<div class="ttc" id="aa03765_html_aa07b3b770d7fe65ac065e01461688e04"><div class="ttname"><a href="a03765.html#aa07b3b770d7fe65ac065e01461688e04">FIFFLIB::FiffInfoBase::chs</a></div><div class="ttdeci">QList&lt; FiffChInfo &gt; chs</div><div class="ttdef"><b>Definition</b> <a href="a00242_source.html#l00252">fiff_info_base.h:252</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
