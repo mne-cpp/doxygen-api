@@ -263,7 +263,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>MRI volume data from FreeSurfer MGH/MGZ file.  
+<p>Format-agnostic 3D MRI volume: header geometry, voxel buffer (as a vector of <a class="el" href="a04605.html" title="MriSlice">MriSlice</a>), scan parameters and provenance.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="a01157_source.html">mri_vol_data.h</a>&gt;</code></p>
@@ -308,29 +308,13 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a76d4278663c4051cba841c76e88b8e7a" id="r_a76d4278663c4051cba841c76e88b8e7a"><td class="memItemLeft">QVector&lt; <a class="el" href="a04605.html">MriSlice</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a76d4278663c4051cba841c76e88b8e7a">slices</a></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>MRI volume data from FreeSurfer MGH/MGZ file. </p>
-<p>Holds a complete MRI volume loaded from a FreeSurfer MGH/MGZ file.</p>
-<p>This class encapsulates all header geometry, coordinate transforms, scan parameters, and voxel data that describe a 3D MRI volume.</p>
-<p>Based on the FreeSurfer MGH format specification: <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat">https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat</a></p>
-<p>Header structure (all big-endian):</p><ul>
-<li>version (int32): current value is 1</li>
-<li>width (int32): first dimension (fastest-varying)</li>
-<li>height (int32): second dimension</li>
-<li>depth (int32): third dimension (slowest)</li>
-<li>nframes (int32): number of scalar components per voxel</li>
-<li>type (int32): voxel data type (MRI_UCHAR=0, MRI_INT=1, MRI_FLOAT=3, MRI_SHORT=4)</li>
-<li>dof (int32): degrees of freedom</li>
-<li>goodRASflag (int16): if true, direction cosines follow</li>
-<li>spacingX/Y/Z (float32): voxel sizes in mm</li>
-<li>Mdc (9×float32): direction cosine matrix (column-major)</li>
-<li>c_ras (3×float32): center RAS coordinates</li>
-<li>(padding to byte 284)</li>
-</ul>
-<p>Image data starts at byte 284.</p>
-<p>Footer (after data): optional scan parameters (TR, FlipAngle, TE, TI, FoV) and tags (Talairach transform path, provenance info).</p>
-<p>Ported from mneMRIdataRec in MNE C (mne_types_mne-c.h) by Matti Hamalainen. </p>
+<div class="textblock"><p>Format-agnostic 3D MRI volume: header geometry, voxel buffer (as a vector of <a class="el" href="a04605.html" title="MriSlice">MriSlice</a>), scan parameters and provenance. </p>
+<p>The volume is the single in-memory representation every consumer in mne-cpp operates on, regardless of whether it was loaded from MGH/MGZ, NIfTI-1 or a FreeSurfer COR directory. Storage is decomposed into a vector of <a class="el" href="a04605.html" title="MriSlice">MriSlice</a> so the COR.fif writer can serialise without an intermediate copy, while the slice viewer and the BEM coregistration step both index it through the same (column, row, slice) coordinate.</p>
+<p>The header captures FreeSurfer's MGH conventions: voxel sizes (<code>spacingX/Y/Z</code>), direction cosines (<code>Mdc</code>, column-major), centre RAS (<code>c_ras</code>) and voxel data type (<code>MRI_UCHAR</code> / <code>MRI_INT</code> / <code>MRI_FLOAT</code> / <code>MRI_SHORT</code>). Optional scan parameters (TR, flip angle, TE, TI, FoV) and tags (Talairach transform path, provenance) round out the structure. The <code><a class="el" href="#a255fd22e7a97d1ddf375d5d4002a0503">read()</a></code> entry point dispatches on the file extension so callers do not need to branch on format.</p>
+<p>Format reference: <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat">https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat</a></p>
+<p>Ported from <code>mneMRIdataRec</code> in MNE C (<code>mne_types_mne-c.h</code>) by Matti Hamalainen. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00148">148</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00140">140</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a7a1cb8493848e9d6182e6c1581ae6289" name="a7a1cb8493848e9d6182e6c1581ae6289"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7a1cb8493848e9d6182e6c1581ae6289">&#9670;&#160;</a></span>MriVolData()</h2>
@@ -348,7 +332,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Default constructor. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00054">54</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00051">51</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
 
 </div>
 </div>
@@ -371,7 +355,7 @@ Public Attributes</h2></td></tr>
 <p>Following FreeSurfer convention: M = Mdc * diag(xsize, ysize, zsize) P0 = c_ras - M * (dim/2) vox2ras = | M P0 | (in mm, converted to meters for FIFF) | 0 1 |</p>
 <dl class="section return"><dt>Returns</dt><dd>The 4×4 voxel-to-surface-RAS transform in meters. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00134">134</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00131">131</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
 
 </div>
 </div>
@@ -399,7 +383,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Volume dimensions as {dimX, dimY, dimZ}. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00201">201</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00193">193</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -427,7 +411,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>First (x) dimension — fastest-varying axis. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00183">183</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00175">175</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -455,7 +439,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Second (y) dimension. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00189">189</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00181">181</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -483,7 +467,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Third (z) dimension — slowest-varying axis. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00195">195</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00187">187</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -504,7 +488,7 @@ Public Attributes</h2></td></tr>
 <p>Returns whether this volume contains valid data.</p>
 <dl class="section return"><dt>Returns</dt><dd>True if the volume has been loaded successfully. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00080">80</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00077">77</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
 
 </div>
 </div>
@@ -532,7 +516,7 @@ Public Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false on error. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00087">87</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00084">84</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
 
 </div>
 </div>
@@ -554,7 +538,7 @@ Public Attributes</h2></td></tr>
 <p>Mirrors MNE-Python's <span class="tt">img.get_fdata().ravel(order='F')</span>. Regardless of the on-disk type (UCHAR, SHORT, INT, FLOAT) the output is always float. The array length is <span class="tt"><a class="el" href="#a7bb0982a7b24b4cbccc66b5a93366645">width</a> * <a class="el" href="#a853d5d47a3b4e64088cc606b07181090">height</a> * <a class="el" href="#ac49ec8a2a52033c98fb0bf64ebd40ac4">depth</a></span>.</p>
 <dl class="section return"><dt>Returns</dt><dd>Flat voxel data; empty vector if the volume has no slices. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00101">101</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01163_source.html#l00098">98</a> of file <a class="el" href="a01163_source.html">mri_vol_data.cpp</a>.</p>
 
 </div>
 </div>
@@ -572,7 +556,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Center RAS coordinates (cr, ca, cs). Default: (0, 0, 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00248">248</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00240">240</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -589,7 +573,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Third dimension (slowest). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00237">237</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00229">229</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -606,7 +590,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Degrees of freedom. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00240">240</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00232">232</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -623,7 +607,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Name of the source file. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00233">233</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00225">225</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -640,7 +624,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Flip angle (radians). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00261">261</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00253">253</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -657,7 +641,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Field of view (unreliable per FreeSurfer docs). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00264">264</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00256">256</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -674,7 +658,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Second dimension. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00236">236</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00228">228</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -691,7 +675,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Number of frames (scalar components per voxel). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00238">238</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00230">230</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -708,7 +692,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Whether the direction cosines in the header are valid. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00241">241</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00233">233</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -725,7 +709,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Per-slice data (for COR-equivalent representation). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00276">276</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00268">268</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -742,7 +726,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Path to the Talairach .xfm file (from MGH footer tags). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00270">270</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00262">262</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -759,7 +743,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Echo time (ms). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00262">262</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00254">254</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -776,7 +760,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Inversion time (ms). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00263">263</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00255">255</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -793,7 +777,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Repetition time (ms). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00260">260</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00252">252</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -810,7 +794,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Voxel data type (MRI_UCHAR, MRI_INT, MRI_FLOAT, MRI_SHORT). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00239">239</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00231">231</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -827,7 +811,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>MGH format version (should be 1). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00234">234</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00226">226</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -844,7 +828,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Voxel -&gt; surface RAS (MRI) transform. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00254">254</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00246">246</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -861,7 +845,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>First dimension of the image buffer (fastest). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00235">235</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00227">227</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -878,7 +862,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>X-direction cosines (xr, xa, xs). Default: (-1, 0, 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00245">245</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00237">237</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -895,7 +879,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Voxel spacing in X direction (mm). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00242">242</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00234">234</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -912,7 +896,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Y-direction cosines (yr, ya, ys). Default: (0, 0, -1). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00246">246</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00238">238</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -929,7 +913,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Voxel spacing in Y direction (mm). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00243">243</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00235">235</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -946,7 +930,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Z-direction cosines (zr, za, zs). Default: (0, 1, 0). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00247">247</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00239">239</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>
@@ -963,7 +947,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Voxel spacing in Z direction (mm). </p>
 
-<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00244">244</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01157_source.html#l00236">236</a> of file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 
 </div>
 </div>

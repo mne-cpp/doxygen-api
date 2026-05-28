@@ -389,41 +389,24 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:MRILIB_3A_3AMriCorIO" id="r_MRILIB_3A_3AMriCorIO"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04585.html">MRILIB::MriCorIO</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">FreeSurfer COR slice file reader.  <a href="a04585.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stateless reader for the FreeSurfer COR-NNN directory layout.  <a href="a04585.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:MRILIB" id="r_MRILIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02595.html">MRILIB</a></td></tr>
-<tr class="memdesc:a02595"><td class="mdescLeft">&#160;</td><td class="mdescRight">MRI volume and coordinate-system I/O (volumes, voxel geometry, transforms). <br /></td></tr>
+<tr class="memdesc:a02595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Volume I/O, voxel geometry and slice resampling for structural MRI data inside mne-cpp. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Reader for the legacy FreeSurfer COR-NNN per-slice volume layout (256 unsigned-char coronal slices on a 1 mm isotropic grid). </p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
-<pre class="fragment">      COR is the directory-based volume format used by FreeSurfer
-      before MGH became the default. A subject's @c mri/T1 (and
-      historically @c mri/orig, @c mri/brain, ...) directory contains
-      256 files named @c COR-001 through @c COR-256, each a flat
-      65 536-byte (256\u00d7256 unsigned char) coronal slice. While
-      modern FreeSurfer prefers MGH, COR-format trees still appear
-      in legacy subject directories and in mne-c tutorial data, so
-      mne-cpp must read them to keep round-trip parity with the
-      original MNE C tooling.
+<p>COR is the directory-based volume format used by FreeSurfer before MGH became the default. A subject's <code>mri/T1</code> (and historically <code>mri/orig</code>, <code>mri/brain</code>, ...) directory contains 256 files named <code>COR-001</code> through <code>COR-256</code>, each a flat 65 536-byte (256\u00d7256 unsigned char) coronal slice. While modern FreeSurfer prefers MGH, COR-format trees still appear in legacy subject directories and in mne-c tutorial data, so mne-cpp must read them to keep round-trip parity with the original MNE C tooling.</p>
+<p>The reader fans the 256 files into an MriSlice vector with the canonical coronal-to-surface-RAS coordinate transform:</p>
+<ul>
+<li>Origin offset (mm): (128, -128, 128)</li>
+<li>Axis permutation: x \u2192 -x, y \u2192 z, z \u2192 y</li>
+</ul>
+<p>which matches the convention emitted by <code>make_cor_set()</code> in the original <code>mne_make_cor_set</code> C tool and is what every downstream BEM / source-space builder in MNE-CPP expects.</p>
+<p>Ported from <code>make_cor_set()</code> in MNE C <code>mne_make_cor_set</code> by Matti Hamalainen. </p>
 
-      The reader fans the 256 files into an @ref MriSlice vector
-      with the canonical coronal-to-surface-RAS coordinate transform:
-
-        - Origin offset (mm): (128, -128, 128)
-        - Axis permutation:   x \u2192 -x,  y \u2192 z,  z \u2192 y
-
-      which matches the convention emitted by @c make_cor_set() in
-      the original @c mne_make_cor_set C tool and is what every
-      downstream BEM / source-space builder in MNE-CPP expects.
-
-      Ported from @c make_cor_set() in MNE C @c mne_make_cor_set
-      by Matti Hamalainen.
-</pre> 
 <p class="definition">Definition in file <a class="el" href="a01178_source.html">mri_cor_io.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->

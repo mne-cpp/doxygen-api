@@ -407,49 +407,25 @@ This graph shows which files directly or indirectly include this file:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:MRILIB_3A_3AMriSlice" id="r_MRILIB_3A_3AMriSlice"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a04605.html">MRILIB::MriSlice</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single MRI slice data.  <a href="a04605.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single 2D MRI slice (pixels + slice→RAS transform) used as the volume's storage unit.  <a href="a04605.html#details">More...</a><br /></td></tr>
 <tr class="memitem:MRILIB_3A_3AMriVolData" id="r_MRILIB_3A_3AMriVolData"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04609.html">MRILIB::MriVolData</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">MRI volume data from FreeSurfer MGH/MGZ file.  <a href="a04609.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Format-agnostic 3D MRI volume: header geometry, voxel buffer (as a vector of <a class="el" href="a04605.html" title="MriSlice">MriSlice</a>), scan parameters and provenance.  <a href="a04609.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:MRILIB" id="r_MRILIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02595.html">MRILIB</a></td></tr>
-<tr class="memdesc:a02595"><td class="mdescLeft">&#160;</td><td class="mdescRight">MRI volume and coordinate-system I/O (volumes, voxel geometry, transforms). <br /></td></tr>
+<tr class="memdesc:a02595"><td class="mdescLeft">&#160;</td><td class="mdescRight">Volume I/O, voxel geometry and slice resampling for structural MRI data inside mne-cpp. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Format-agnostic in-memory representation of a 3D MRI volume plus its slice decomposition. </p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>February, 2026</dd></dl>
-<pre class="fragment">      Two cooperating types live in this header:
+<p>Two cooperating types live in this header:</p>
+<ul>
+<li>MriSlice &mdash; a single 2D slice with its own pixel buffer (byte / word / float, picked at load time to mirror the on-disk <code>FIFFV_MRI_PIXEL_*</code> encoding) and an explicit slice-to-MRI (surface RAS) <a class="el" href="a03677.html" title="FIFFLIB::FiffCoordTrans">FIFFLIB::FiffCoordTrans</a>. This is the unit the rendering pipeline and the COR.fif writer consume, so every loader (MGH, NIfTI, raw COR) ultimately decomposes its 3D buffer into a vector of these.</li>
+<li>MriVolData &mdash; the full volume bundle: header geometry (width/height/depth, voxel spacing, direction cosines, RAS centre), optional scan parameters (TR / TE / flip-angle / FoV), and the slice vector above. It owns the <code>voxToSurfRAS()</code>, <code>voxToTalairach()</code> and inverse transforms derived from the MGH <code>Mdc</code> / <code>c_ras</code> header fields and any additional transforms attached by the source-file reader (e.g. talairach.xfm).</li>
+</ul>
+<p>The <code>read()</code> convenience method dispatches by file suffix to the matching loader (MriMghIO, MriNiftiIO, COR directory) so application code can stay one-liner clean irrespective of the on-disk format &mdash; the equivalent of <code>nibabel.load()</code> on the Python side.</p>
+<p>Header reference: <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat">https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat</a> Ported from <code>mneMRIdataRec</code> / <code>mneMRIvolumeRec</code> in MNE C (<code>mne_types_mne-c.h</code>) by Matti Hamalainen. </p>
 
-        - @ref MriSlice --- a single 2D slice with its own pixel buffer
-          (byte / word / float, picked at load time to mirror the
-          on-disk @c FIFFV_MRI_PIXEL_* encoding) and an explicit
-          slice-to-MRI (surface RAS) @ref FIFFLIB::FiffCoordTrans.
-          This is the unit the rendering pipeline and the COR.fif
-          writer consume, so every loader (MGH, NIfTI, raw COR)
-          ultimately decomposes its 3D buffer into a vector of these.
-        - @ref MriVolData --- the full volume bundle: header geometry
-          (width/height/depth, voxel spacing, direction cosines,
-          RAS centre), optional scan parameters (TR / TE / flip-angle
-          / FoV), and the slice vector above. It owns the
-          @c voxToSurfRAS(), @c voxToTalairach() and inverse
-          transforms derived from the MGH @c Mdc / @c c_ras header
-          fields and any additional transforms attached by the
-          source-file reader (e.g. talairach.xfm).
-
-      The @c read() convenience method dispatches by file suffix to
-      the matching loader (@ref MriMghIO, @ref MriNiftiIO, COR
-      directory) so application code can stay one-liner clean
-      irrespective of the on-disk format --- the equivalent of
-      @c nibabel.load() on the Python side.
-
-      Header reference:
-      https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat
-      Ported from @c mneMRIdataRec / @c mneMRIvolumeRec in MNE C
-      (@c mne_types_mne-c.h) by Matti Hamalainen.
-</pre> 
 <p class="definition">Definition in file <a class="el" href="a01157_source.html">mri_vol_data.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
