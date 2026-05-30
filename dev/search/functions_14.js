@@ -1,7 +1,7 @@
 var searchData=
 [
   ['uid_0',['uid',['../a04129.html#aa2ee49a6de12896903c4ba333faebad7',1,'LSLLIB::stream_info']]],
-  ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a02765.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNLIB::UnbiasedSquaredPhaseLagIndex']]],
+  ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a02765.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNECTIVITYLIB::UnbiasedSquaredPhaseLagIndex']]],
   ['undolast_2',['undoLast',['../a04697.html#a924f4c22a3418f1a9b7fbea442c06840',1,'UTILSLIB::AcquiredPoints']]],
   ['units_3',['units',['../a04705.html#abe68b71942f50a3d96f894d619ad5c22',1,'UTILSLIB::FastrakParser']]],
   ['unitscale_4',['unitScale',['../a02653.html#aad299690707a272a607455db9c7b9634',1,'BIDSLIB::BrainVisionReader']]],

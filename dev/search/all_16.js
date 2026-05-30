@@ -1,9 +1,9 @@
 var searchData=
 [
   ['uid_0',['uid',['../a04129.html#aa2ee49a6de12896903c4ba333faebad7',1,'LSLLIB::stream_info']]],
-  ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a02765.html',1,'CONNLIB::UnbiasedSquaredPhaseLagIndex'],['../a02765.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNLIB::UnbiasedSquaredPhaseLagIndex::UnbiasedSquaredPhaseLagIndex()']]],
-  ['unbiasedsquaredphaselagindex_2ecpp_2',['unbiasedsquaredphaselagindex.cpp',['../a01826.html',1,'']]],
-  ['unbiasedsquaredphaselagindex_2eh_3',['unbiasedsquaredphaselagindex.h',['../a01841.html',1,'']]],
+  ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a02765.html',1,'CONNECTIVITYLIB::UnbiasedSquaredPhaseLagIndex'],['../a02765.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNECTIVITYLIB::UnbiasedSquaredPhaseLagIndex::UnbiasedSquaredPhaseLagIndex()']]],
+  ['unbiasedsquaredphaselagindex_2ecpp_2',['unbiasedsquaredphaselagindex.cpp',['../a02405.html',1,'']]],
+  ['unbiasedsquaredphaselagindex_2eh_3',['unbiasedsquaredphaselagindex.h',['../a02420.html',1,'']]],
   ['unbuffered_4',['unbuffered',['../a04733.html#add6e3046ea09afe6e86dfc4b3701ffbe',1,'UTILSLIB::PythonRunnerConfig']]],
   ['undefined_5',['Undefined',['../a02585.html#a22b8a5da4e9e3947843244e040a7ff22aec0fc0100c4fc1ce4eea230c3dc10360',1,'LSLLIB']]],
   ['undo_6',['undo',['../a04337.html#a2017c6fb8ed5179b495f5f227ce55c47',1,'MNELIB::MNECTFCompDataSet']]],

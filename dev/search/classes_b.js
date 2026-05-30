@@ -110,5 +110,5 @@ var searchData=
   ['multiview_107',['MultiView',['../a03065.html',1,'DISPLIB']]],
   ['multiviewlayout_108',['MultiViewLayout',['../a03325.html',1,'']]],
   ['multiviewwindow_109',['MultiViewWindow',['../a03069.html',1,'DISPLIB']]],
-  ['mvarmodel_110',['MvarModel',['../a02749.html',1,'CONNLIB']]]
+  ['mvarmodel_110',['MvarModel',['../a02749.html',1,'CONNECTIVITYLIB']]]
 ];

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['abstractformatreader_0',['AbstractFormatReader',['../a02641.html',1,'BIDSLIB']]],
-  ['abstractmetric_1',['AbstractMetric',['../a02713.html',1,'CONNLIB']]],
+  ['abstractmetric_1',['AbstractMetric',['../a02713.html',1,'CONNECTIVITYLIB']]],
   ['abstracttreeitem_2',['AbstractTreeItem',['../a03165.html',1,'']]],
   ['abstractview_3',['AbstractView',['../a02841.html',1,'DISPLIB']]],
   ['acquiredpoints_4',['AcquiredPoints',['../a04697.html',1,'UTILSLIB']]],

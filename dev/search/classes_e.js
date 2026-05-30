@@ -2,10 +2,10 @@ var searchData=
 [
   ['pair_0',['Pair',['../a04085.html',1,'INVLIB']]],
   ['parksmcclellan_1',['ParksMcClellan',['../a03533.html',1,'UTILSLIB']]],
-  ['partialdirectedcoherence_2',['PartialDirectedCoherence',['../a02753.html',1,'CONNLIB']]],
+  ['partialdirectedcoherence_2',['PartialDirectedCoherence',['../a02753.html',1,'CONNECTIVITYLIB']]],
   ['peakfinderparams_3',['PeakFinderParams',['../a03537.html',1,'UTILSLIB']]],
-  ['phaselagindex_4',['PhaseLagIndex',['../a02757.html',1,'CONNLIB']]],
-  ['phaselockingvalue_5',['PhaseLockingValue',['../a02761.html',1,'CONNLIB']]],
+  ['phaselagindex_4',['PhaseLagIndex',['../a02757.html',1,'CONNECTIVITYLIB']]],
+  ['phaselockingvalue_5',['PhaseLockingValue',['../a02761.html',1,'CONNECTIVITYLIB']]],
   ['picardica_6',['PicardIca',['../a03541.html',1,'UTILSLIB']]],
   ['pickresult_7',['PickResult',['../a03281.html',1,'DISP3DLIB::PickResult'],['../a03153.html',1,'PickResult']]],
   ['plot_8',['Plot',['../a02829.html',1,'DISPLIB']]],

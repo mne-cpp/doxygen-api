@@ -1,7 +1,7 @@
 var searchData=
 [
   ['dataloader_0',['DataLoader',['../a03117.html',1,'']]],
-  ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a02733.html',1,'CONNLIB']]],
+  ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a02733.html',1,'CONNECTIVITYLIB']]],
   ['decodingcsp_2',['DecodingCsp',['../a02789.html',1,'DECODINGLIB']]],
   ['decodingspoc_3',['DecodingSpoc',['../a02801.html',1,'DECODINGLIB']]],
   ['decodingssd_4',['DecodingSsd',['../a02805.html',1,'DECODINGLIB']]],
@@ -14,7 +14,7 @@ var searchData=
   ['dipolefitview_11',['DipoleFitView',['../a02905.html',1,'DISPLIB']]],
   ['dipoleobject_12',['DipoleObject',['../a03217.html',1,'']]],
   ['dipoletreeitem_13',['DipoleTreeItem',['../a03181.html',1,'']]],
-  ['directedtransferfunction_14',['DirectedTransferFunction',['../a02737.html',1,'CONNLIB']]],
+  ['directedtransferfunction_14',['DirectedTransferFunction',['../a02737.html',1,'CONNECTIVITYLIB']]],
   ['dpss_15',['Dpss',['../a03429.html',1,'UTILSLIB']]],
   ['dpssresult_16',['DpssResult',['../a03425.html',1,'UTILSLIB']]],
   ['draggableframelesswidget_17',['DraggableFramelessWidget',['../a02985.html',1,'DISPLIB']]]

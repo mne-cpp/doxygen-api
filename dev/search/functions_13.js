@@ -86,7 +86,7 @@ var searchData=
   ['trackertodevicerotation_83',['trackerToDeviceRotation',['../a04721.html#a9e4a84e091c8f3be3f8bfbf37507a2d0',1,'UTILSLIB::PolhemusCoregistration']]],
   ['trackertodevicetranslation_84',['trackerToDeviceTranslation',['../a04721.html#a8ad3609bf0e37e8e6d840db36e655e98',1,'UTILSLIB::PolhemusCoregistration']]],
   ['trainlstm_85',['trainLstm',['../a04057.html#aa1bffd7477d5f497fee590e5e21c7793',1,'INVLIB::InvCMNE']]],
-  ['transferfunction_86',['transferFunction',['../a02749.html#a6d0392454a665a3eded80dfcfb999309',1,'CONNLIB::MvarModel']]],
+  ['transferfunction_86',['transferFunction',['../a02749.html#a6d0392454a665a3eded80dfcfb999309',1,'CONNECTIVITYLIB::MvarModel']]],
   ['transform_87',['transform',['../a02789.html#a7cf7cbc5d9bf17c2366f1df73907f2b3',1,'DECODINGLIB::DecodingCsp::transform()'],['../a02801.html#a43075e45990c1d70e42958a8796d5469',1,'DECODINGLIB::DecodingSpoc::transform()'],['../a02805.html#aa88beb6fadcb7141c4d8ee05585bdcb3',1,'DECODINGLIB::DecodingSsd::transform()'],['../a03165.html#aa57dfb9b03e286c2194ee1783ad4d1ac',1,'AbstractTreeItem::transform()'],['../a03209.html#a6b9e52d08bb941a30d1b65775e47b014',1,'BrainSurface::transform()'],['../a04305.html#a4fe2c49b27283f6fdcf9fbf0933b9a16',1,'MNELIB::MNEBem::transform()']]],
   ['transform_5fhemisphere_5fto_88',['transform_hemisphere_to',['../a04389.html#ab0af9ce470d965279617aeb704e459af',1,'MNELIB::MNEHemisphere']]],
   ['transform_5fsource_5fspace_89',['transform_source_space',['../a04537.html#ac214999cbf0202a3d876b42ec209278b',1,'MNELIB::MNESourceSpace']]],
