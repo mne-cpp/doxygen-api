@@ -14,7 +14,7 @@ var searchData=
   ['directedfalse_11',['DirectedFalse',['../a02558.html#af1ffe934a77f18c6a7260b1975016387afa4135ae406bea6cd875be37b4e04b87',1,'INVLIB']]],
   ['directedtrue_12',['DirectedTrue',['../a02558.html#af1ffe934a77f18c6a7260b1975016387acdc0c3934803a442d2967d30ca33b376',1,'INVLIB']]],
   ['discrete_13',['Discrete',['../a02558.html#a9249e8f0994be81fbcf6d5b3760ad349a4984667940802dedc139aa7a430a6553',1,'INVLIB']]],
-  ['done_14',['Done',['../a04717.html#af7d629a240dfe8974dcb6e93e8bfdff1af92965e2c8a7afb3c1b9a5c09a263636',1,'UTILSLIB::PolhemusCoregistration']]],
+  ['done_14',['Done',['../a04721.html#af7d629a240dfe8974dcb6e93e8bfdff1af92965e2c8a7afb3c1b9a5c09a263636',1,'UTILSLIB::PolhemusCoregistration']]],
   ['double64_15',['Double64',['../a02585.html#a22b8a5da4e9e3947843244e040a7ff22ae076f0da57e855385347609cefabd8e2',1,'LSLLIB']]],
   ['drop_16',['Drop',['../a02554.html#acde2a5498c30dc44b98126dbbafec884a3e679cff5b3a6f6f8f32aead541a0a12',1,'UTILSLIB']]],
   ['dspm_17',['dSPM',['../a02558.html#a29bb5b206858a4db67919400558e5a99aed78cd6a916a4a2831202fb478cfdbe4',1,'INVLIB']]]
