@@ -22,7 +22,7 @@ var searchData=
   ['_7echanneldataview_19',['~ChannelDataView',['../a02877.html#aa488516b5bf561dc56e600d54a7e23f8',1,'DISPLIB::ChannelDataView']]],
   ['_7echannelrhiview_20',['~ChannelRhiView',['../a02957.html#a9f81335dd1087f5c39257b708f78d9e5',1,'DISPLIB::ChannelRhiView']]],
   ['_7echannelselectionview_21',['~ChannelSelectionView',['../a02881.html#aff85426189821bc992cc9acb86dc8b29',1,'DISPLIB::ChannelSelectionView']]],
-  ['_7ecircularbuffer_22',['~CircularBuffer',['../a04649.html#aa95c5e017a2d7b3882982cc6f334b577',1,'UTILSLIB::CircularBuffer']]],
+  ['_7ecircularbuffer_22',['~CircularBuffer',['../a04649.html#addc820d09f43081e28cdc6c4aa9b3422',1,'UTILSLIB::CircularBuffer']]],
   ['_7ecolormap_23',['~ColorMap',['../a02817.html#a6c8d5222750e389108c2e97302d3e8c4',1,'DISPLIB::ColorMap']]],
   ['_7ecommand_24',['~Command',['../a02681.html#ab552bb3a07fdd1acbfd8ea76e69b2278',1,'COMLIB::Command']]],
   ['_7ecommandmanager_25',['~CommandManager',['../a02685.html#ae6a6acf03e200dfc65a7a26fbbfd207d',1,'COMLIB::CommandManager']]],
