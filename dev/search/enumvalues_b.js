@@ -43,6 +43,6 @@ var searchData=
   ['mrislice_40',['MriSlice',['../a02556.html#a43eb99c72f5996d313a1917b2a963c69ac85f8485f1cae8639ce0fcf40603f28b',1,'DISP3DLIB']]],
   ['mrivoxel_41',['MriVoxel',['../a02556.html#a0477e91c4a3a20e47d42b51d8080ff33afc4e2cdfe27574d4aac3de71651e1d09',1,'DISP3DLIB']]],
   ['multiplexed_42',['MULTIPLEXED',['../a02536.html#a08b38c1eae05e9a5a2c570416588b918a4dff0567344b9a5b1504eec1b6b545ca',1,'BIDSLIB']]],
-  ['multiview_43',['MultiView',['../a03321.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]],
+  ['multiview_43',['MultiView',['../a03322.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]],
   ['muscle_44',['Muscle',['../a02544.html#ac235404767badd7c21f0755f4a394ce0a36143fa4f2c24dd4816fd6e238cfd5e3',1,'DECODINGLIB']]]
 ];

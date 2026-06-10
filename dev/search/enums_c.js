@@ -7,7 +7,7 @@ var searchData=
   ['statscorrection_4',['StatsCorrection',['../a02597.html#af057d7b69affa334e5d7ea447ed8f642',1,'STSLIB']]],
   ['statstailtype_5',['StatsTailType',['../a02597.html#abbb8a81f7502944519ef7b923e514924',1,'STSLIB']]],
   ['stimartifactmode_6',['StimArtifactMode',['../a02554.html#ab1638ba568ccd029bb616b04472d1977',1,'UTILSLIB']]],
-  ['stylemode_7',['StyleMode',['../a02841.html#a36141ad3b6f880d2d82a3dd69d6e2e29',1,'DISPLIB::AbstractView']]],
-  ['surfacerole_8',['SurfaceRole',['../a03197.html#a4428acbaaf56d9874c19e82819f3baa8',1,'SurfaceTreeItem']]],
-  ['system_9',['System',['../a04689.html#a1acf2b77594154badedf2f789dd89f6d',1,'UTILSLIB::StandardMontage']]]
+  ['stylemode_7',['StyleMode',['../a02842.html#a36141ad3b6f880d2d82a3dd69d6e2e29',1,'DISPLIB::AbstractView']]],
+  ['surfacerole_8',['SurfaceRole',['../a03198.html#a4428acbaaf56d9874c19e82819f3baa8',1,'SurfaceTreeItem']]],
+  ['system_9',['System',['../a04690.html#a1acf2b77594154badedf2f789dd89f6d',1,'UTILSLIB::StandardMontage']]]
 ];
