@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/fiff/fiff_named_matrix.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/disp3D/view/brainview.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,81 +250,224 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_adb2409acb15410cca2b1cbb01c919f2.html">fiff</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_061a979e1ff4d1f23adfb2165bb6f08f.html">disp3D</a></li><li class="navelem"><a href="dir_099a48684373e6af23b12f007f0a5bd7.html">view</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">fiff_named_matrix.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">brainview.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of FiffNamedMatrix: FIFF-serializable matrix paired with row / column name lists.  
+<p>QRhiWidget event handling, scene-model wiring, camera interaction and live-marker overlay implementation.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00242_source.html">fiff_named_matrix.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00152_source.html">brainview.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00161_source.html">brainrenderer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00068_source.html">renderable/brainsurface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00077_source.html">renderable/dipoleobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00053_source.html">renderable/networkobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00086_source.html">renderable/videooverlay.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00134_source.html">core/surfacekeys.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00143_source.html">core/dataloader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00287_source.html">input/raypicker.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00170_source.html">geometry/meshfactory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00272_source.html">model/braintreemodel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00266_source.html">model/items/surfacetreeitem.h</a>&quot;</code><br />
+<code>#include &lt;rhi/qrhi.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="a00236_source.html">model/items/bemtreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00239_source.html">model/items/sensortreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00221_source.html">model/items/dipoletreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00224_source.html">model/items/sourcespacetreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00218_source.html">model/items/digitizertreeitem.h</a>&quot;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;QMatrix4x4&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QLabel&gt;</code><br />
+<code>#include &lt;QFrame&gt;</code><br />
+<code>#include &lt;QMouseEvent&gt;</code><br />
+<code>#include &lt;QKeyEvent&gt;</code><br />
+<code>#include &lt;QWheelEvent&gt;</code><br />
+<code>#include &lt;QResizeEvent&gt;</code><br />
+<code>#include &lt;QSettings&gt;</code><br />
+<code>#include &lt;QTimer&gt;</code><br />
+<code>#include &lt;QMenu&gt;</code><br />
+<code>#include &lt;QStandardItem&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00647_source.html">mne/mne_bem.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00896_source.html">mne/mne_source_spaces.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01751_source.html">fiff/fiff_evoked_set.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01694_source.html">fiff/fiff_constants.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01520_source.html">connectivity/network/network.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for fiff_named_matrix.cpp:</div>
+Include dependency graph for brainview.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00165.png" border="0" usemap="#asrc_2libraries_2fiff_2fiff__named__matrix_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2fiff_2fiff__named__matrix_8cpp" id="asrc_2libraries_2fiff_2fiff__named__matrix_8cpp">
-<area shape="rect" title="Implementation of FiffNamedMatrix: FIFF&#45;serializable matrix paired with row / column name lists." alt="" coords="368,5,540,45"/>
-<area shape="rect" href="a00242.html" title="Matrix paired with row and column name lists, the on&#45;disk form of FIFFB_PROJ_ITEM / FIFFB_MNE_NAMED_M..." alt="" coords="377,93,530,119"/>
-<area shape="poly" title=" " alt="" coords="456,46,456,79,451,79,451,46"/>
-<area shape="rect" href="a00140.html" title="Export/import macros and build&#45;info accessors for the FIFFLIB shared library." alt="" coords="570,313,668,339"/>
-<area shape="poly" title=" " alt="" coords="377,113,245,125,174,136,108,151,54,171,34,182,19,196,10,210,9,226,14,244,29,263,55,276,104,287,250,304,417,315,556,320,556,326,417,320,250,310,103,293,53,281,25,267,10,246,3,226,5,208,15,192,30,178,51,166,106,146,173,130,244,119,376,108"/>
-<area shape="rect" href="a00089.html" title="Symbolic FIFF tag, block, value, unit and channel&#45;type constants shared across FIFFLIB." alt="" coords="40,240,161,265"/>
-<area shape="poly" title=" " alt="" coords="416,121,350,142,277,169,200,203,135,236,133,231,198,199,275,164,349,137,414,116"/>
-<area shape="rect" href="a00152.html" title="Primitive scalar typedefs and forward&#45;compatible aliases backing the FIFF type system." alt="" coords="321,167,416,192"/>
-<area shape="poly" title=" " alt="" coords="442,121,394,160,391,156,438,117"/>
-<area shape="rect" title=" " alt="" coords="185,240,277,265"/>
-<area shape="poly" title=" " alt="" coords="414,121,363,140,311,169,277,199,250,230,246,227,273,195,308,164,361,136,412,116"/>
-<area shape="rect" title=" " alt="" coords="811,240,904,265"/>
-<area shape="poly" title=" " alt="" coords="456,118,462,155,469,174,482,190,506,204,540,214,625,226,798,237,797,243,625,231,539,219,504,209,478,194,465,177,456,156,451,119"/>
-<area shape="rect" title=" " alt="" coords="492,167,600,192"/>
-<area shape="poly" title=" " alt="" coords="470,117,521,156,518,160,467,121"/>
-<area shape="rect" title=" " alt="" coords="624,167,779,192"/>
-<area shape="poly" title=" " alt="" coords="494,116,649,160,648,165,493,121"/>
-<area shape="rect" title=" " alt="" coords="803,167,926,192"/>
-<area shape="poly" title=" " alt="" coords="520,116,789,162,789,168,519,121"/>
-<area shape="rect" title=" " alt="" coords="950,167,1027,192"/>
-<area shape="poly" title=" " alt="" coords="531,112,712,132,936,164,935,169,711,137,530,117"/>
-<area shape="rect" title=" " alt="" coords="479,387,610,412"/>
-<area shape="poly" title=" " alt="" coords="609,341,568,379,564,375,605,337"/>
-<area shape="rect" href="a00731.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="634,387,756,412"/>
-<area shape="poly" title=" " alt="" coords="633,337,674,375,671,379,629,341"/>
-<area shape="rect" title=" " alt="" coords="662,460,728,485"/>
-<area shape="poly" title=" " alt="" coords="698,412,698,446,692,446,692,412"/>
-<area shape="poly" title=" " alt="" coords="326,195,157,239,156,234,324,189"/>
-<area shape="rect" href="a00218.html" title="Compact seconds + microseconds time record used by FIFF measurement, event and HPI tags." alt="" coords="699,240,787,265"/>
-<area shape="poly" title=" " alt="" coords="416,187,686,237,685,242,415,192"/>
-<area shape="rect" href="a00119.html" title="External&#45;data reference record describing type, endianness, size and offset of an out&#45;of&#45;file FIFF pa..." alt="" coords="564,240,674,265"/>
-<area shape="poly" title=" " alt="" coords="409,189,566,234,564,239,408,195"/>
-<area shape="poly" title=" " alt="" coords="347,194,267,236,264,231,345,190"/>
-<area shape="rect" title=" " alt="" coords="301,240,356,265"/>
-<area shape="poly" title=" " alt="" coords="364,194,344,229,339,227,359,191"/>
-<area shape="poly" title=" " alt="" coords="416,186,435,189,615,212,798,237,797,243,614,218,434,195,415,192"/>
-<area shape="rect" title=" " alt="" coords="380,240,436,265"/>
-<area shape="poly" title=" " alt="" coords="377,191,397,227,393,229,372,194"/>
-<area shape="rect" title=" " alt="" coords="461,240,540,265"/>
-<area shape="poly" title=" " alt="" coords="391,190,468,231,465,236,388,194"/>
-<area shape="poly" title=" " alt="" coords="724,268,652,309,650,304,722,263"/>
-<area shape="rect" title=" " alt="" coords="698,313,777,339"/>
-<area shape="poly" title=" " alt="" coords="745,266,742,300,737,300,739,265"/>
-<area shape="poly" title=" " alt="" coords="622,266,622,300,616,300,616,266"/>
-<area shape="poly" title=" " alt="" coords="639,263,708,304,705,308,637,268"/>
+<div class="center"><img src="a00165.png" border="0" usemap="#asrc_2libraries_2disp3_d_2view_2brainview_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2disp3_d_2view_2brainview_8cpp" id="asrc_2libraries_2disp3_d_2view_2brainview_8cpp">
+<area shape="rect" title="QRhiWidget event handling, scene&#45;model wiring, camera interaction and live&#45;marker overlay implementat..." alt="" coords="3189,5,3340,45"/>
+<area shape="rect" href="a00152.html" title="Top&#45;level QRhiWidget that hosts the 3&#45;D scene, drives camera interaction and exposes the multi&#45;view +..." alt="" coords="695,93,792,119"/>
+<area shape="poly" title=" " alt="" coords="3189,32,806,105,806,100,3189,26"/>
+<area shape="rect" title=" " alt="" coords="2775,328,2861,353"/>
+<area shape="poly" title=" " alt="" coords="3230,48,3150,96,3084,145,3036,188,2987,232,2921,282,2853,324,2850,319,2918,278,2984,228,3032,185,3081,141,3147,91,3227,43"/>
+<area shape="rect" title=" " alt="" coords="1715,247,1814,273"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2997,32,2726,41,2414,61,2254,76,2097,96,2046,101,2001,101,1921,101,1886,105,1852,116,1817,136,1781,168,1772,183,1767,199,1764,234,1759,233,1761,198,1767,181,1777,165,1814,132,1849,111,1885,100,1921,95,2001,96,2046,95,2096,91,2253,71,2414,56,2726,36,2997,26,3189,24"/>
+<area shape="rect" title=" " alt="" coords="3594,328,3669,353"/>
+<area shape="poly" title=" " alt="" coords="3328,43,3466,91,3492,104,3519,116,3565,129,3610,137,3694,141,3772,136,3846,130,3915,129,3949,134,3982,142,4015,156,4047,176,4079,203,4111,239,4120,260,4118,271,4110,282,4088,294,4047,304,3929,320,3683,339,3682,334,3929,315,4046,299,4086,289,4107,278,4113,269,4115,260,4106,241,4075,207,4044,180,4012,161,3980,147,3948,139,3915,135,3846,135,3773,141,3694,146,3609,142,3564,134,3517,121,3490,109,3464,96,3327,48"/>
+<area shape="rect" href="a00161.html" title="Qt&#45;RHI scene renderer: shader pipelines, lighting, dual render targets and per&#45;frame draw orchestrati..." alt="" coords="1228,167,1349,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,2867,35,2409,47,1946,66,1753,80,1608,96,1532,110,1458,128,1335,165,1334,160,1456,123,1531,105,1607,91,1753,74,1946,61,2409,41,2867,30,3189,25"/>
+<area shape="rect" href="a00068.html" title="Renderable cortical / BEM mesh with interleaved vertex attributes and Qt&#45;RHI buffer management." alt="" coords="2733,167,2922,192"/>
+<area shape="poly" title=" " alt="" coords="3190,35,3070,55,3005,72,2942,96,2891,126,2851,159,2848,155,2888,121,2940,91,3003,67,3069,50,3189,30"/>
+<area shape="rect" href="a00647.html" title="Boundary element model bundle (inner skull, outer skull, outer skin) loaded from &#45;bem...." alt="" coords="2776,247,2908,273"/>
+<area shape="poly" title=" " alt="" coords="3189,32,3142,38,3090,50,3039,68,2993,95,2972,118,2963,141,2954,166,2936,194,2906,221,2876,242,2873,238,2903,217,2932,190,2949,164,2958,139,2968,115,2990,91,3037,64,3089,45,3141,33,3189,27"/>
+<area shape="rect" href="a00077.html" title="Instanced&#45;arrow renderable for fitted equivalent current dipoles, driven by QRhi instancing." alt="" coords="1373,167,1561,192"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2882,32,2449,41,2224,49,2013,61,1832,76,1696,96,1643,110,1590,127,1504,163,1502,158,1588,122,1641,104,1695,91,1832,71,2013,56,2224,44,2449,36,2882,27,3189,24"/>
+<area shape="rect" href="a00053.html" title="Instanced connectivity&#45;graph renderable: node spheres and edge cylinders coloured by weight through a..." alt="" coords="2458,167,2658,192"/>
+<area shape="poly" title=" " alt="" coords="3189,33,2916,54,2777,72,2720,83,2678,96,2650,109,2624,125,2582,159,2579,155,2621,121,2648,104,2676,91,2719,78,2776,67,2916,49,3189,28"/>
+<area shape="rect" href="a01520.html" title="Graph container that stores the result of one functional&#45;connectivity metric as nodes (sources/sensor..." alt="" coords="3939,240,4097,280"/>
+<area shape="poly" title=" " alt="" coords="3309,43,3419,91,3447,105,3475,116,3538,134,3588,143,3638,150,3703,164,3832,199,3946,233,3945,238,3831,204,3701,169,3637,156,3587,148,3536,139,3473,121,3445,109,3417,96,3307,48"/>
+<area shape="rect" href="a00086.html" title="Generic live&#45;RGB video texture overlay rendered as a screen&#45;aligned quad with chroma keying." alt="" coords="5,328,196,353"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2712,31,1986,40,1599,48,1234,60,919,76,682,96,585,107,510,116,437,134,347,169,280,204,217,246,125,321,121,317,214,242,277,200,345,164,435,129,509,111,585,101,682,91,919,70,1234,55,1599,43,1985,35,2712,26,3189,24"/>
+<area shape="rect" href="a00134.html" title="String key constants for surfaces in the DISP3DLIB scene map." alt="" coords="1791,167,1935,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3018,34,2781,45,2510,64,2236,96,2148,111,2061,130,1917,166,1916,160,2059,125,2147,106,2235,91,2510,59,2781,39,3018,29,3189,25"/>
+<area shape="rect" href="a00143.html" title="Static helpers for loading FreeSurfer / MNE source&#45;space and BEM data into the disp3D model tree." alt="" coords="3200,167,3335,192"/>
+<area shape="poly" title=" " alt="" coords="3268,46,3270,153,3264,153,3262,46"/>
+<area shape="rect" title=" " alt="" coords="3125,247,3245,273"/>
+<area shape="poly" title=" " alt="" coords="3252,47,3219,100,3202,133,3190,167,3185,201,3185,233,3180,233,3179,201,3185,166,3197,131,3214,97,3248,44"/>
+<area shape="rect" href="a00896.html" title="Container pairing the left and right cortical source spaces of a subject." alt="" coords="3319,247,3517,273"/>
+<area shape="poly" title=" " alt="" coords="3278,44,3324,117,3404,235,3400,238,3320,120,3274,47"/>
+<area shape="rect" href="a00287.html" title="Mouse&#45;ray vs scene&#45;object intersection for picking dipoles, electrodes and surfaces." alt="" coords="1586,167,1717,192"/>
+<area shape="poly" title=" " alt="" coords="3189,29,2858,32,2403,41,2178,49,1978,61,1825,76,1771,85,1736,96,1716,108,1697,123,1668,157,1664,153,1693,120,1713,103,1734,91,1770,80,1824,71,1978,55,2177,44,2403,36,2858,26,3189,24"/>
+<area shape="rect" href="a00170.html" title="Static factory for procedural Qt&#45;RHI meshes (spheres, plates, barbells, cylinders,..." alt="" coords="1959,167,2141,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3035,33,2826,43,2588,63,2467,78,2349,96,2279,111,2210,129,2096,165,2094,160,2208,124,2278,106,2348,91,2467,72,2588,58,2825,38,3035,28,3189,24"/>
+<area shape="rect" href="a00272.html" title="QStandardItemModel hierarchy that organises every 3&#45;D scene object (surfaces, sensors,..." alt="" coords="3511,167,3690,192"/>
+<area shape="poly" title=" " alt="" coords="3294,43,3353,79,3424,116,3487,141,3547,160,3545,165,3485,146,3422,121,3351,84,3292,48"/>
+<area shape="rect" href="a00266.html" title="Tree item wrapping a FreeSurfer FSLIB::FsSurface plus optional FSLIB::FsAnnotation parcellation." alt="" coords="2181,328,2405,353"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3078,35,2937,46,2782,65,2627,96,2532,122,2493,139,2448,169,2404,205,2366,246,2310,318,2306,315,2362,242,2401,201,2444,165,2491,135,2530,117,2625,91,2781,60,2937,40,3078,30,3189,25"/>
+<area shape="rect" title=" " alt="" coords="3530,93,3610,119"/>
+<area shape="poly" title=" " alt="" coords="3338,43,3517,88,3516,94,3337,48"/>
+<area shape="rect" href="a00236.html" title="Tree item wrapping a single MNELIB::MNEBemSurface (brain / inner&#45;skull / outer&#45;skull / scalp shell)." alt="" coords="2495,328,2701,353"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3088,38,2965,59,2901,77,2837,101,2777,131,2722,169,2686,204,2655,245,2612,317,2607,314,2650,242,2682,201,2719,165,2774,127,2835,96,2899,72,2964,54,3087,32,3189,24"/>
+<area shape="rect" href="a00239.html" title="Tree item for a single MEG / EEG sensor with position, optional coil orientation and rendered scale." alt="" coords="2165,167,2383,192"/>
+<area shape="poly" title=" " alt="" coords="3189,30,3010,35,2782,46,2561,65,2470,79,2403,96,2373,109,2345,125,2299,159,2296,155,2342,121,2371,104,2401,91,2469,74,2560,60,2781,40,3010,30,3189,25"/>
+<area shape="rect" href="a00221.html" title="Tree item wrapping a fitted INVLIB::InvEcdSet of equivalent current dipoles." alt="" coords="2885,328,3101,353"/>
+<area shape="poly" title=" " alt="" coords="3237,48,3207,69,3177,95,3124,154,3077,216,3009,317,3005,314,3072,213,3120,151,3173,91,3204,65,3234,43"/>
+<area shape="rect" href="a00224.html" title="Tree item holding one hemisphere of source&#45;space dipole positions rendered as batched spheres." alt="" coords="3125,328,3383,353"/>
+<area shape="poly" title=" " alt="" coords="3246,48,3213,81,3176,126,3140,181,3115,241,3110,261,3110,269,3115,278,3141,304,3175,321,3172,326,3138,309,3110,282,3105,271,3105,261,3110,239,3136,178,3171,123,3209,77,3242,44"/>
+<area shape="rect" href="a00218.html" title="Tree item holding a single category of digitizer points rendered as a batched&#45;sphere mesh." alt="" coords="3685,247,3914,273"/>
+<area shape="poly" title=" " alt="" coords="3285,44,3323,79,3370,117,3432,159,3500,190,3605,222,3706,242,3705,248,3604,227,3498,194,3430,163,3367,121,3320,83,3282,48"/>
+<area shape="rect" title=" " alt="" coords="3635,93,3737,119"/>
+<area shape="poly" title=" " alt="" coords="3341,38,3622,90,3621,95,3340,43"/>
+<area shape="rect" title=" " alt="" coords="3762,93,3829,119"/>
+<area shape="poly" title=" " alt="" coords="3340,32,3527,55,3749,91,3750,91,3749,96,3748,96,3526,60,3340,37"/>
+<area shape="rect" title=" " alt="" coords="3853,93,3927,119"/>
+<area shape="poly" title=" " alt="" coords="3340,30,3560,52,3698,69,3840,91,3839,96,3697,74,3560,57,3340,35"/>
+<area shape="rect" title=" " alt="" coords="3951,93,4063,119"/>
+<area shape="poly" title=" " alt="" coords="3340,30,3600,53,3938,91,3937,96,3600,58,3340,35"/>
+<area shape="rect" title=" " alt="" coords="4087,93,4181,119"/>
+<area shape="poly" title=" " alt="" coords="3341,27,3656,48,3862,66,4074,91,4073,96,3862,71,3656,53,3340,33"/>
+<area shape="rect" title=" " alt="" coords="4205,93,4316,119"/>
+<area shape="poly" title=" " alt="" coords="3340,27,3703,47,3944,66,4192,91,4191,96,3943,71,3702,52,3340,32"/>
+<area shape="rect" title=" " alt="" coords="4341,93,4453,119"/>
+<area shape="poly" title=" " alt="" coords="3340,26,3756,45,4037,64,4327,91,4327,96,4037,69,3756,50,3340,31"/>
+<area shape="rect" title=" " alt="" coords="4477,93,4562,119"/>
+<area shape="poly" title=" " alt="" coords="3340,24,3534,28,3810,37,4132,57,4299,72,4463,91,4463,96,4298,77,4132,62,3810,43,3534,33,3340,30"/>
+<area shape="rect" title=" " alt="" coords="4587,93,4657,119"/>
+<area shape="poly" title=" " alt="" coords="3340,23,3550,24,3853,32,4208,52,4392,69,4573,91,4573,96,4392,74,4208,57,3853,37,3550,29,3340,28"/>
+<area shape="rect" title=" " alt="" coords="4681,93,4749,119"/>
+<area shape="poly" title=" " alt="" coords="3340,26,3991,46,4375,65,4539,77,4668,91,4667,96,4539,83,4375,71,3990,51,3340,31"/>
+<area shape="rect" title=" " alt="" coords="4773,93,4836,119"/>
+<area shape="poly" title=" " alt="" coords="3340,25,3629,32,4033,44,4446,63,4622,76,4760,91,4759,96,4622,82,4446,69,4033,49,3629,37,3340,31"/>
+<area shape="rect" href="a01751.html" title="Set of averaged evoked responses sharing a FiffInfo, plus the ave&#45;style category / rejection descript..." alt="" coords="4860,93,4992,119"/>
+<area shape="poly" title=" " alt="" coords="3340,24,3588,28,3958,38,4395,58,4622,73,4847,91,4846,96,4622,78,4395,63,3958,43,3588,33,3340,30"/>
+<area shape="rect" href="a01694.html" title="Symbolic FIFF tag, block, value, unit and channel&#45;type constants shared across FIFFLIB." alt="" coords="5016,93,5137,119"/>
+<area shape="poly" title=" " alt="" coords="3340,24,3610,25,4018,34,4503,54,4754,70,5003,91,5002,96,4754,75,4502,59,4018,39,3610,31,3340,29"/>
+<area shape="rect" href="a00278.html" title="Library export/import macros and namespace marker for the disp3D library." alt="" coords="1701,401,1839,427"/>
+<area shape="poly" title=" " alt="" coords="695,111,649,115,597,125,545,142,497,169,469,193,451,218,446,246,455,279,474,308,495,326,521,339,555,351,623,364,740,375,1064,392,1417,403,1687,409,1687,414,1417,408,1064,397,740,380,622,369,553,356,519,344,492,331,470,312,450,281,440,247,446,216,465,189,494,164,543,137,596,119,648,110,694,105"/>
+<area shape="rect" href="a00131.html" title="Lightweight render&#45;related enums (ShaderMode, VisualizationMode) shared across disp3D." alt="" coords="1317,328,1473,353"/>
+<area shape="poly" title=" " alt="" coords="754,117,786,153,807,173,831,190,891,220,953,245,1081,285,1202,312,1304,327,1303,333,1201,317,1080,290,951,250,888,225,829,194,804,177,782,157,750,121"/>
+<area shape="rect" href="a00155.html" title="Viewport geometry, splitter logic and per&#45;pane preset assignment for the disp3D multi&#45;view grid." alt="" coords="567,328,707,353"/>
+<area shape="poly" title=" " alt="" coords="695,115,635,126,568,149,536,165,508,186,484,211,466,241,459,261,466,279,483,297,505,311,554,329,552,334,502,316,480,301,461,281,454,261,461,239,479,208,504,182,534,161,566,144,634,121,694,109"/>
+<area shape="rect" href="a00140.html" title="Per&#45;viewport state (camera preset, zoom, pan, visibility filter) and serialisation helpers." alt="" coords="1214,247,1345,273"/>
+<area shape="poly" title=" " alt="" coords="760,116,815,153,851,173,888,189,969,214,1053,232,1200,251,1200,256,1052,237,968,219,886,195,848,178,812,158,757,121"/>
+<area shape="rect" href="a00290.html" title="Camera state and projection / view / model matrix computation for single&#45; and multi&#45;view layouts." alt="" coords="1022,167,1203,192"/>
+<area shape="poly" title=" " alt="" coords="793,114,1040,161,1039,167,792,119"/>
+<area shape="rect" href="a00203.html" title="Builds the dense sensor&#45;to&#45;surface mapping matrix and the iso&#45;contour overlay for MEG / EEG evoked da..." alt="" coords="577,167,773,192"/>
+<area shape="poly" title=" " alt="" coords="734,121,698,158,694,155,730,117"/>
+<area shape="rect" href="a01820.html" title="4x4 affine FIFF coordinate transform (FIFF_COORD_TRANS) annotated with source/destination coordinate&#45;..." alt="" coords="735,247,869,273"/>
+<area shape="poly" title=" " alt="" coords="695,115,642,124,592,140,574,150,563,161,560,175,566,190,631,212,744,241,742,247,629,217,563,194,554,175,558,159,571,145,590,135,641,119,694,110"/>
+<area shape="rect" href="a00191.html" title="Owns the source&#45;time&#45;course overlay together with its loader, real&#45;time controller and target cortica..." alt="" coords="475,247,710,273"/>
+<area shape="poly" title=" " alt="" coords="695,110,658,114,620,124,584,142,555,168,549,184,552,202,561,219,573,235,569,238,557,222,547,203,544,184,550,165,581,137,618,119,657,109,694,105"/>
+<area shape="rect" href="a00200.html" title="Manager that wires real&#45;time sensor data into the scene: owns the data controller,..." alt="" coords="221,328,453,353"/>
+<area shape="poly" title=" " alt="" coords="694,111,612,115,515,125,427,142,393,154,370,169,358,184,348,202,337,241,334,281,336,314,331,314,329,280,332,240,343,200,353,181,367,165,391,149,425,137,514,119,611,110,694,106"/>
+<area shape="rect" href="a01829.html" title="Single digitization point (FIFF_DIG_POINT) with kind (cardinal/HPI/EEG/extra), identifier and 3D coor..." alt="" coords="3541,247,3660,273"/>
+<area shape="poly" title=" " alt="" coords="792,105,1297,108,2098,117,2885,134,3176,148,3278,155,3346,164,3408,179,3468,199,3566,239,3564,244,3467,204,3407,184,3346,169,3278,161,3175,153,2885,140,2098,122,1297,113,792,110"/>
+<area shape="rect" title=" " alt="" coords="899,167,998,192"/>
+<area shape="poly" title=" " alt="" coords="777,116,903,160,902,165,775,121"/>
+<area shape="poly" title=" " alt="" coords="1456,351,1697,396,1696,401,1455,356"/>
+<area shape="poly" title=" " alt="" coords="707,344,801,351,1687,405,1687,410,800,356,707,350"/>
+<area shape="poly" title=" " alt="" coords="1281,273,1285,312,1293,334,1306,351,1333,367,1372,380,1472,398,1585,407,1687,410,1687,415,1585,412,1472,403,1370,385,1331,372,1303,355,1288,336,1280,314,1276,273"/>
+<area shape="poly" title=" " alt="" coords="1298,271,1368,318,1365,322,1295,275"/>
+<area shape="poly" title=" " alt="" coords="1345,262,2713,325,2762,330,2761,335,2712,331,1345,267"/>
+<area shape="poly" title=" " alt="" coords="1122,191,1145,224,1181,270,1229,315,1256,335,1284,351,1317,362,1360,372,1467,388,1687,406,1687,411,1466,393,1359,377,1315,367,1282,356,1253,340,1225,319,1177,273,1140,228,1117,194"/>
+<area shape="poly" title=" " alt="" coords="1138,190,1244,239,1242,244,1136,194"/>
+<area shape="poly" title=" " alt="" coords="1204,189,1702,248,1701,254,1203,194"/>
+<area shape="poly" title=" " alt="" coords="741,189,811,208,882,238,896,248,906,258,915,268,929,278,991,302,1076,323,1177,343,1288,360,1509,387,1687,403,1687,409,1508,392,1287,365,1176,348,1075,328,990,307,926,282,911,272,902,262,893,252,879,242,809,213,740,195"/>
+<area shape="poly" title=" " alt="" coords="764,189,1201,246,1200,251,763,195"/>
+<area shape="poly" title=" " alt="" coords="695,190,773,238,770,242,693,194"/>
+<area shape="poly" title=" " alt="" coords="622,270,738,311,813,333,889,351,1000,369,1114,383,1337,401,1536,409,1686,411,1686,416,1536,414,1337,406,1113,388,999,374,888,356,811,338,736,316,621,275"/>
+<area shape="poly" title=" " alt="" coords="453,349,472,351,826,371,1174,388,1687,407,1687,413,1174,393,826,376,471,356,453,355"/>
+<area shape="poly" title=" " alt="" coords="3608,272,3624,314,3619,316,3603,274"/>
+<area shape="poly" title=" " alt="" coords="1314,190,1735,393,1733,398,1311,195"/>
+<area shape="poly" title=" " alt="" coords="1308,190,1334,211,1359,238,1379,277,1392,314,1387,315,1374,279,1354,242,1330,215,1304,194"/>
+<area shape="poly" title=" " alt="" coords="1350,188,1702,246,1701,251,1349,193"/>
+<area shape="poly" title=" " alt="" coords="2813,194,2789,215,2766,241,2751,273,2746,302,2738,330,2729,343,2714,356,2695,364,2665,372,2580,385,2468,395,2338,403,2069,412,1853,415,1853,410,2069,407,2338,398,2467,390,2579,380,2664,367,2693,359,2711,351,2725,339,2733,328,2740,301,2746,271,2761,239,2785,211,2810,190"/>
+<area shape="poly" title=" " alt="" coords="2733,194,1487,332,1487,327,2732,189"/>
+<area shape="poly" title=" " alt="" coords="2832,192,2840,233,2835,234,2827,193"/>
+<area shape="poly" title=" " alt="" coords="2841,274,2828,315,2823,314,2836,272"/>
+<area shape="poly" title=" " alt="" coords="1487,190,1557,238,1664,321,1748,390,1744,394,1661,325,1554,242,1484,194"/>
+<area shape="poly" title=" " alt="" coords="1511,189,1709,241,1707,246,1510,195"/>
+<area shape="poly" title=" " alt="" coords="2555,193,2537,227,2508,272,2468,319,2444,339,2418,356,2372,373,2310,387,2156,405,1992,413,1853,416,1853,410,1992,408,2156,399,2309,381,2370,368,2415,351,2441,335,2464,315,2504,269,2533,224,2550,191"/>
+<area shape="poly" title=" " alt="" coords="2458,193,1828,255,1827,250,2458,188"/>
+<area shape="poly" title=" " alt="" coords="2658,185,2721,189,2903,197,3058,200,3322,200,3449,202,3586,207,3742,218,3925,237,3925,243,3742,224,3586,213,3449,207,3322,206,3058,206,2903,202,2721,195,2658,191"/>
+<area shape="poly" title=" " alt="" coords="196,350,209,351,645,376,1072,393,1687,409,1687,414,1072,399,645,382,208,356,196,355"/>
+<area shape="poly" title=" " alt="" coords="1862,193,1828,281,1783,390,1778,388,1824,279,1857,191"/>
+<area shape="poly" title=" " alt="" coords="1850,194,1792,241,1788,237,1847,190"/>
+<area shape="poly" title=" " alt="" coords="3272,192,3283,233,3293,257,3308,278,3322,290,3340,300,3377,315,3392,322,3402,330,3404,342,3396,355,3372,366,3326,375,3176,389,2968,399,2725,407,2223,414,1853,415,1853,410,2223,409,2725,401,2968,394,3176,384,3325,369,3371,361,3392,351,3399,341,3398,333,3389,326,3375,320,3338,305,3319,295,3304,282,3289,259,3278,235,3267,193"/>
+<area shape="poly" title=" " alt="" coords="3200,187,1828,258,1828,253,3200,182"/>
+<area shape="poly" title=" " alt="" coords="3200,186,2934,195,2068,217,1689,226,1202,243,883,257,883,252,1202,237,1689,221,2068,212,2934,189,3200,180"/>
+<area shape="poly" title=" " alt="" coords="3320,189,3529,237,3545,241,3544,247,3528,243,3319,195"/>
+<area shape="poly" title=" " alt="" coords="3257,194,3209,240,3205,236,3253,190"/>
+<area shape="poly" title=" " alt="" coords="3291,190,3385,239,3382,243,3288,195"/>
+<area shape="poly" title=" " alt="" coords="3322,275,2875,331,2874,325,3321,270"/>
+<area shape="poly" title=" " alt="" coords="1660,191,1760,388,1756,390,1655,194"/>
+<area shape="poly" title=" " alt="" coords="1598,195,1347,247,1346,242,1597,189"/>
+<area shape="poly" title=" " alt="" coords="1670,190,1738,237,1735,242,1667,194"/>
+<area shape="poly" title=" " alt="" coords="1717,184,1780,189,2100,207,2349,215,2599,222,2919,237,3111,250,3111,256,2919,243,2599,228,2349,220,2100,212,1779,195,1717,190"/>
+<area shape="poly" title=" " alt="" coords="2038,194,1796,394,1793,390,2034,190"/>
+<area shape="poly" title=" " alt="" coords="2009,195,1820,246,1819,241,2008,189"/>
+<area shape="poly" title=" " alt="" coords="3691,182,3811,190,3942,201,4052,217,4090,227,4110,238,4118,249,4120,260,4111,282,4069,323,4027,348,3984,360,3939,363,3841,355,3785,353,3724,356,3550,370,3320,382,2771,399,2230,410,1853,415,1853,409,2230,404,2770,394,3320,377,3550,365,3723,351,3785,348,3841,350,3939,357,3983,355,4025,343,4066,319,4106,278,4115,260,4113,251,4107,242,4088,232,4051,222,3941,206,3810,195,3690,187"/>
+<area shape="poly" title=" " alt="" coords="3603,192,3603,233,3598,233,3598,192"/>
+<area shape="poly" title=" " alt="" coords="3665,189,3925,237,3925,242,3664,195"/>
+<area shape="poly" title=" " alt="" coords="3575,194,3458,244,3456,239,3573,190"/>
+<area shape="poly" title=" " alt="" coords="2209,356,1853,404,1853,399,2208,351"/>
+<area shape="poly" title=" " alt="" coords="2495,354,2477,356,1853,409,1853,403,2476,351,2495,349"/>
+<area shape="poly" title=" " alt="" coords="2250,194,1808,398,1806,393,2248,190"/>
+<area shape="poly" title=" " alt="" coords="2200,195,1828,252,1827,246,2200,189"/>
+<area shape="poly" title=" " alt="" coords="2884,355,2873,356,2290,392,1854,412,1853,407,2290,386,2872,351,2884,350"/>
+<area shape="poly" title=" " alt="" coords="3125,355,3113,356,2745,376,2383,393,1853,413,1853,407,2383,388,2744,371,3113,351,3125,350"/>
+<area shape="poly" title=" " alt="" coords="3791,275,3747,317,3716,339,3682,356,3636,367,3567,377,3371,392,3117,403,2832,410,2260,416,1853,416,1853,410,2260,410,2831,404,3117,397,3370,386,3566,371,3635,362,3680,351,3713,334,3744,313,3787,271"/>
 </map>
 </div>
 </div>
 <p><a href="a00164_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of FiffNamedMatrix: FIFF-serializable matrix paired with row / column name lists. </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2012-2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Juan GPC <a href="#" onclick="location.href='mai'+'lto:'+'jga'+'rc'+'iap'+'ri'+'eto'+'@m'+'gh.'+'ha'+'rva'+'rd'+'.ed'+'u'; return false;">jgarc<span class="obfuscator">.nosp@m.</span>iapr<span class="obfuscator">.nosp@m.</span>ieto@<span class="obfuscator">.nosp@m.</span>mgh.<span class="obfuscator">.nosp@m.</span>harva<span class="obfuscator">.nosp@m.</span>rd.e<span class="obfuscator">.nosp@m.</span>du</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>October 2012 </dd></dl>
-<p>Used by SSP projectors, CTF compensators, forward gain matrices and covariance / inverse operators. </p>
+<div class="textblock"><p>QRhiWidget event handling, scene-model wiring, camera interaction and live-marker overlay implementation. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a00164_source.html">fiff_named_matrix.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00164_source.html">brainview.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
