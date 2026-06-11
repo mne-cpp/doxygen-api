@@ -279,7 +279,7 @@ var searchData=
   ['createfilterchannellist_276',['createFilterChannelList',['../a03022.html#a52902912d20bf6fcad56091179e0cf4c',1,'DISPLIB::RtFiffRawViewModel']]],
   ['createfromdata_277',['createFromData',['../a03210.html#afd7100800d372e91fd895a3b8ad643dc',1,'BrainSurface::createFromData(const Eigen::MatrixX3f &amp;vertices, const Eigen::MatrixX3i &amp;triangles, const QColor &amp;color)'],['../a03210.html#a91a3225b29a4f24c387cdabb884a6306',1,'BrainSurface::createFromData(const Eigen::MatrixX3f &amp;vertices, const Eigen::MatrixX3f &amp;normals, const Eigen::MatrixX3i &amp;triangles, const QColor &amp;color)']]],
   ['createinterpolationmat_278',['createInterpolationMat',['../a03142.html#ae233d9ce2212fd766820317ad3dae2fa',1,'DISP3DLIB::Interpolation']]],
-  ['createpaths_279',['createPaths',['../a01160.html#a8ecb25cfc647ca3c59c9aef92949a484',1,'rtfiffrawviewdelegate.cpp']]],
+  ['createpaths_279',['createPaths',['../a00323.html#a8ecb25cfc647ca3c59c9aef92949a484',1,'rtfiffrawviewdelegate.cpp']]],
   ['createplate_280',['createPlate',['../a03134.html#a476f8ddf78b54d4a14273dec47f2c2b3',1,'MeshFactory']]],
   ['createplotpath_281',['createPlotPath',['../a02870.html#a20d6f9d7472147d4bca051cae8ca1809',1,'DISPLIB::ButterflyView']]],
   ['createreader_282',['createReader',['../a02630.html#a24aa645aaba8b1cbee61773c0b1677fe',1,'BIDSLIB::BidsRawData']]],
