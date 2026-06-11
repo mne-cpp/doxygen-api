@@ -3591,269 +3591,308 @@ $(function() {
 </div>
 <div class="line"><a id="l03149" name="l03149"></a><span class="lineno"> 3149</span> </div>
 <div class="foldopen" id="foldopen03150" data-start="{" data-end="}">
-<div class="line"><a id="l03150" name="l03150"></a><span class="lineno"><a class="line" href="a03322.html#ade31f90ab0e8b9de005364dc909a8244"> 3150</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#ade31f90ab0e8b9de005364dc909a8244">BrainView::setStaticMarkers</a>(<span class="keyword">const</span> QVector&lt;LiveMarker&gt;&amp; markers)</div>
-<div class="line"><a id="l03151" name="l03151"></a><span class="lineno"> 3151</span>{</div>
-<div class="line"><a id="l03152" name="l03152"></a><span class="lineno"> 3152</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.begin(); it != m_surfaces.end(); ) {</div>
-<div class="line"><a id="l03153" name="l03153"></a><span class="lineno"> 3153</span>        <span class="keywordflow">if</span> (it.key().startsWith(QLatin1String(<span class="stringliteral">&quot;dig_static_&quot;</span>)))</div>
-<div class="line"><a id="l03154" name="l03154"></a><span class="lineno"> 3154</span>            it = m_surfaces.erase(it);</div>
-<div class="line"><a id="l03155" name="l03155"></a><span class="lineno"> 3155</span>        <span class="keywordflow">else</span></div>
-<div class="line"><a id="l03156" name="l03156"></a><span class="lineno"> 3156</span>            ++it;</div>
-<div class="line"><a id="l03157" name="l03157"></a><span class="lineno"> 3157</span>    }</div>
-<div class="line"><a id="l03158" name="l03158"></a><span class="lineno"> 3158</span> </div>
-<div class="line"><a id="l03159" name="l03159"></a><span class="lineno"> 3159</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; markers.size(); ++i) {</div>
-<div class="line"><a id="l03160" name="l03160"></a><span class="lineno"> 3160</span>        <span class="keyword">auto</span> surf = <a class="code hl_function" href="a03134.html#a4d3ce3fb13217b1d1812502a2d410653">MeshFactory::createBatchedSpheres</a>(</div>
-<div class="line"><a id="l03161" name="l03161"></a><span class="lineno"> 3161</span>            {markers[i].position}, markers[i].radius, markers[i].color);</div>
-<div class="line"><a id="l03162" name="l03162"></a><span class="lineno"> 3162</span>        surf-&gt;setVisible(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l03163" name="l03163"></a><span class="lineno"> 3163</span>        m_surfaces[QStringLiteral(<span class="stringliteral">&quot;dig_static_%1&quot;</span>).arg(i)] = surf;</div>
-<div class="line"><a id="l03164" name="l03164"></a><span class="lineno"> 3164</span>    }</div>
-<div class="line"><a id="l03165" name="l03165"></a><span class="lineno"> 3165</span> </div>
-<div class="line"><a id="l03166" name="l03166"></a><span class="lineno"> 3166</span>    m_sceneDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03167" name="l03167"></a><span class="lineno"> 3167</span>    update();</div>
-<div class="line"><a id="l03168" name="l03168"></a><span class="lineno"> 3168</span>}</div>
-</div>
+<div class="line"><a id="l03150" name="l03150"></a><span class="lineno"><a class="line" href="a03322.html#a04c43ec08c10a83b27f69c35f3b06ca8"> 3150</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a04c43ec08c10a83b27f69c35f3b06ca8">BrainView::setProbeVisualization</a>(<span class="keyword">const</span> QVector3D&amp; tip, <span class="keyword">const</span> QVector3D&amp; direction,</div>
+<div class="line"><a id="l03151" name="l03151"></a><span class="lineno"> 3151</span>                                       <span class="keywordtype">float</span> length, <span class="keyword">const</span> QColor&amp; color)</div>
+<div class="line"><a id="l03152" name="l03152"></a><span class="lineno"> 3152</span>{</div>
+<div class="line"><a id="l03153" name="l03153"></a><span class="lineno"> 3153</span>    <span class="comment">// Remove previous probe surfaces</span></div>
+<div class="line"><a id="l03154" name="l03154"></a><span class="lineno"> 3154</span>    m_surfaces.remove(QLatin1String(<span class="stringliteral">&quot;dig_probe_shaft&quot;</span>));</div>
+<div class="line"><a id="l03155" name="l03155"></a><span class="lineno"> 3155</span>    m_surfaces.remove(QLatin1String(<span class="stringliteral">&quot;dig_probe_tip&quot;</span>));</div>
+<div class="line"><a id="l03156" name="l03156"></a><span class="lineno"> 3156</span> </div>
+<div class="line"><a id="l03157" name="l03157"></a><span class="lineno"> 3157</span>    <span class="comment">// Shaft: cylinder from tip backwards along direction</span></div>
+<div class="line"><a id="l03158" name="l03158"></a><span class="lineno"> 3158</span>    <span class="keyword">const</span> QVector3D shaftEnd = tip - direction * length;</div>
+<div class="line"><a id="l03159" name="l03159"></a><span class="lineno"> 3159</span>    <span class="keyword">constexpr</span> <span class="keywordtype">float</span> kShaftRadius = 0.0012f; <span class="comment">// 1.2 mm</span></div>
+<div class="line"><a id="l03160" name="l03160"></a><span class="lineno"> 3160</span>    <span class="keyword">auto</span> shaft = <a class="code hl_function" href="a03134.html#ad0538424e2ad510d397460024db4dc42">MeshFactory::createCylinder</a>(tip, shaftEnd, kShaftRadius, color);</div>
+<div class="line"><a id="l03161" name="l03161"></a><span class="lineno"> 3161</span>    shaft-&gt;setVisible(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l03162" name="l03162"></a><span class="lineno"> 3162</span>    m_surfaces[QStringLiteral(<span class="stringliteral">&quot;dig_probe_shaft&quot;</span>)] = shaft;</div>
+<div class="line"><a id="l03163" name="l03163"></a><span class="lineno"> 3163</span> </div>
+<div class="line"><a id="l03164" name="l03164"></a><span class="lineno"> 3164</span>    <span class="comment">// Tip: small sphere at the probe tip</span></div>
+<div class="line"><a id="l03165" name="l03165"></a><span class="lineno"> 3165</span>    <span class="keyword">constexpr</span> <span class="keywordtype">float</span> kTipRadius = 0.0025f; <span class="comment">// 2.5 mm</span></div>
+<div class="line"><a id="l03166" name="l03166"></a><span class="lineno"> 3166</span>    <span class="keyword">auto</span> tipSurf = <a class="code hl_function" href="a03134.html#a4d3ce3fb13217b1d1812502a2d410653">MeshFactory::createBatchedSpheres</a>({tip}, kTipRadius, color);</div>
+<div class="line"><a id="l03167" name="l03167"></a><span class="lineno"> 3167</span>    tipSurf-&gt;setVisible(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l03168" name="l03168"></a><span class="lineno"> 3168</span>    m_surfaces[QStringLiteral(<span class="stringliteral">&quot;dig_probe_tip&quot;</span>)] = tipSurf;</div>
 <div class="line"><a id="l03169" name="l03169"></a><span class="lineno"> 3169</span> </div>
-<div class="foldopen" id="foldopen03170" data-start="{" data-end="}">
-<div class="line"><a id="l03170" name="l03170"></a><span class="lineno"><a class="line" href="a03322.html#a23fc0d38b3da63d0807dfff12c8b86a6"> 3170</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a23fc0d38b3da63d0807dfff12c8b86a6">BrainView::clearStaticMarkers</a>()</div>
-<div class="line"><a id="l03171" name="l03171"></a><span class="lineno"> 3171</span>{</div>
-<div class="line"><a id="l03172" name="l03172"></a><span class="lineno"> 3172</span>    <span class="keywordtype">bool</span> removed = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l03173" name="l03173"></a><span class="lineno"> 3173</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.begin(); it != m_surfaces.end(); ) {</div>
-<div class="line"><a id="l03174" name="l03174"></a><span class="lineno"> 3174</span>        <span class="keywordflow">if</span> (it.key().startsWith(QLatin1String(<span class="stringliteral">&quot;dig_static_&quot;</span>))) {</div>
-<div class="line"><a id="l03175" name="l03175"></a><span class="lineno"> 3175</span>            it = m_surfaces.erase(it);</div>
-<div class="line"><a id="l03176" name="l03176"></a><span class="lineno"> 3176</span>            removed = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03177" name="l03177"></a><span class="lineno"> 3177</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l03178" name="l03178"></a><span class="lineno"> 3178</span>            ++it;</div>
-<div class="line"><a id="l03179" name="l03179"></a><span class="lineno"> 3179</span>        }</div>
-<div class="line"><a id="l03180" name="l03180"></a><span class="lineno"> 3180</span>    }</div>
-<div class="line"><a id="l03181" name="l03181"></a><span class="lineno"> 3181</span>    <span class="keywordflow">if</span> (removed) {</div>
-<div class="line"><a id="l03182" name="l03182"></a><span class="lineno"> 3182</span>        m_sceneDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03183" name="l03183"></a><span class="lineno"> 3183</span>        update();</div>
-<div class="line"><a id="l03184" name="l03184"></a><span class="lineno"> 3184</span>    }</div>
-<div class="line"><a id="l03185" name="l03185"></a><span class="lineno"> 3185</span>}</div>
+<div class="line"><a id="l03170" name="l03170"></a><span class="lineno"> 3170</span>    m_sceneDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03171" name="l03171"></a><span class="lineno"> 3171</span>    update();</div>
+<div class="line"><a id="l03172" name="l03172"></a><span class="lineno"> 3172</span>}</div>
 </div>
-<div class="line"><a id="l03186" name="l03186"></a><span class="lineno"> 3186</span> </div>
-<div class="foldopen" id="foldopen03187" data-start="{" data-end="}">
-<div class="line"><a id="l03187" name="l03187"></a><span class="lineno"><a class="line" href="a03322.html#a1b288a737efdbb54b8607dd7f0980d9f"> 3187</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a1b288a737efdbb54b8607dd7f0980d9f">BrainView::setCameraFocusOverride</a>(<span class="keyword">const</span> QVector3D&amp; center, <span class="keywordtype">float</span> size)</div>
-<div class="line"><a id="l03188" name="l03188"></a><span class="lineno"> 3188</span>{</div>
-<div class="line"><a id="l03189" name="l03189"></a><span class="lineno"> 3189</span>    m_cameraFocusOverride = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03190" name="l03190"></a><span class="lineno"> 3190</span>    m_cameraFocusCenter   = center;</div>
-<div class="line"><a id="l03191" name="l03191"></a><span class="lineno"> 3191</span>    m_cameraFocusSize     = size;</div>
-<div class="line"><a id="l03192" name="l03192"></a><span class="lineno"> 3192</span>    m_sceneDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03193" name="l03193"></a><span class="lineno"> 3193</span>    update();</div>
-<div class="line"><a id="l03194" name="l03194"></a><span class="lineno"> 3194</span>}</div>
+<div class="line"><a id="l03173" name="l03173"></a><span class="lineno"> 3173</span> </div>
+<div class="foldopen" id="foldopen03174" data-start="{" data-end="}">
+<div class="line"><a id="l03174" name="l03174"></a><span class="lineno"><a class="line" href="a03322.html#a1fe04ab3f16bf979b26650e1b853bbe1"> 3174</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a1fe04ab3f16bf979b26650e1b853bbe1">BrainView::clearProbeVisualization</a>()</div>
+<div class="line"><a id="l03175" name="l03175"></a><span class="lineno"> 3175</span>{</div>
+<div class="line"><a id="l03176" name="l03176"></a><span class="lineno"> 3176</span>    <span class="keywordtype">bool</span> removed = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l03177" name="l03177"></a><span class="lineno"> 3177</span>    removed |= m_surfaces.remove(QLatin1String(<span class="stringliteral">&quot;dig_probe_shaft&quot;</span>));</div>
+<div class="line"><a id="l03178" name="l03178"></a><span class="lineno"> 3178</span>    removed |= m_surfaces.remove(QLatin1String(<span class="stringliteral">&quot;dig_probe_tip&quot;</span>));</div>
+<div class="line"><a id="l03179" name="l03179"></a><span class="lineno"> 3179</span>    <span class="keywordflow">if</span> (removed) {</div>
+<div class="line"><a id="l03180" name="l03180"></a><span class="lineno"> 3180</span>        m_sceneDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03181" name="l03181"></a><span class="lineno"> 3181</span>        update();</div>
+<div class="line"><a id="l03182" name="l03182"></a><span class="lineno"> 3182</span>    }</div>
+<div class="line"><a id="l03183" name="l03183"></a><span class="lineno"> 3183</span>}</div>
 </div>
-<div class="line"><a id="l03195" name="l03195"></a><span class="lineno"> 3195</span> </div>
-<div class="foldopen" id="foldopen03196" data-start="{" data-end="}">
-<div class="line"><a id="l03196" name="l03196"></a><span class="lineno"><a class="line" href="a03322.html#ae11b2345bded597ea1ab2f1ff250738f"> 3196</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#ae11b2345bded597ea1ab2f1ff250738f">BrainView::clearCameraFocusOverride</a>()</div>
-<div class="line"><a id="l03197" name="l03197"></a><span class="lineno"> 3197</span>{</div>
-<div class="line"><a id="l03198" name="l03198"></a><span class="lineno"> 3198</span>    <span class="keywordflow">if</span> (!m_cameraFocusOverride)</div>
-<div class="line"><a id="l03199" name="l03199"></a><span class="lineno"> 3199</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03200" name="l03200"></a><span class="lineno"> 3200</span>    m_cameraFocusOverride = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l03201" name="l03201"></a><span class="lineno"> 3201</span>    updateSceneBounds();</div>
-<div class="line"><a id="l03202" name="l03202"></a><span class="lineno"> 3202</span>    m_sceneDirty = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03203" name="l03203"></a><span class="lineno"> 3203</span>    update();</div>
-<div class="line"><a id="l03204" name="l03204"></a><span class="lineno"> 3204</span>}</div>
+<div class="line"><a id="l03184" name="l03184"></a><span class="lineno"> 3184</span> </div>
+<div class="foldopen" id="foldopen03185" data-start="{" data-end="}">
+<div class="line"><a id="l03185" name="l03185"></a><span class="lineno"><a class="line" href="a03322.html#ade31f90ab0e8b9de005364dc909a8244"> 3185</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#ade31f90ab0e8b9de005364dc909a8244">BrainView::setStaticMarkers</a>(<span class="keyword">const</span> QVector&lt;LiveMarker&gt;&amp; markers)</div>
+<div class="line"><a id="l03186" name="l03186"></a><span class="lineno"> 3186</span>{</div>
+<div class="line"><a id="l03187" name="l03187"></a><span class="lineno"> 3187</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.begin(); it != m_surfaces.end(); ) {</div>
+<div class="line"><a id="l03188" name="l03188"></a><span class="lineno"> 3188</span>        <span class="keywordflow">if</span> (it.key().startsWith(QLatin1String(<span class="stringliteral">&quot;dig_static_&quot;</span>)))</div>
+<div class="line"><a id="l03189" name="l03189"></a><span class="lineno"> 3189</span>            it = m_surfaces.erase(it);</div>
+<div class="line"><a id="l03190" name="l03190"></a><span class="lineno"> 3190</span>        <span class="keywordflow">else</span></div>
+<div class="line"><a id="l03191" name="l03191"></a><span class="lineno"> 3191</span>            ++it;</div>
+<div class="line"><a id="l03192" name="l03192"></a><span class="lineno"> 3192</span>    }</div>
+<div class="line"><a id="l03193" name="l03193"></a><span class="lineno"> 3193</span> </div>
+<div class="line"><a id="l03194" name="l03194"></a><span class="lineno"> 3194</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; markers.size(); ++i) {</div>
+<div class="line"><a id="l03195" name="l03195"></a><span class="lineno"> 3195</span>        <span class="keyword">auto</span> surf = <a class="code hl_function" href="a03134.html#a4d3ce3fb13217b1d1812502a2d410653">MeshFactory::createBatchedSpheres</a>(</div>
+<div class="line"><a id="l03196" name="l03196"></a><span class="lineno"> 3196</span>            {markers[i].position}, markers[i].radius, markers[i].color);</div>
+<div class="line"><a id="l03197" name="l03197"></a><span class="lineno"> 3197</span>        surf-&gt;setVisible(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l03198" name="l03198"></a><span class="lineno"> 3198</span>        m_surfaces[QStringLiteral(<span class="stringliteral">&quot;dig_static_%1&quot;</span>).arg(i)] = surf;</div>
+<div class="line"><a id="l03199" name="l03199"></a><span class="lineno"> 3199</span>    }</div>
+<div class="line"><a id="l03200" name="l03200"></a><span class="lineno"> 3200</span> </div>
+<div class="line"><a id="l03201" name="l03201"></a><span class="lineno"> 3201</span>    m_sceneDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03202" name="l03202"></a><span class="lineno"> 3202</span>    update();</div>
+<div class="line"><a id="l03203" name="l03203"></a><span class="lineno"> 3203</span>}</div>
 </div>
-<div class="line"><a id="l03205" name="l03205"></a><span class="lineno"> 3205</span> </div>
-<div class="foldopen" id="foldopen03206" data-start="{" data-end="}">
-<div class="line"><a id="l03206" name="l03206"></a><span class="lineno"><a class="line" href="a03322.html#af9b6c8e684c30a8a10f4bb2e144f5eef"> 3206</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#af9b6c8e684c30a8a10f4bb2e144f5eef">BrainView::clearSensors</a>()</div>
-<div class="line"><a id="l03207" name="l03207"></a><span class="lineno"> 3207</span>{</div>
-<div class="line"><a id="l03208" name="l03208"></a><span class="lineno"> 3208</span>    QStringList keysToRemove;</div>
-<div class="line"><a id="l03209" name="l03209"></a><span class="lineno"> 3209</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
-<div class="line"><a id="l03210" name="l03210"></a><span class="lineno"> 3210</span>        <span class="keywordflow">if</span> (it.key().startsWith(<span class="stringliteral">&quot;sens_&quot;</span>) || it.key().startsWith(<span class="stringliteral">&quot;dig_&quot;</span>))</div>
-<div class="line"><a id="l03211" name="l03211"></a><span class="lineno"> 3211</span>            keysToRemove &lt;&lt; it.key();</div>
-<div class="line"><a id="l03212" name="l03212"></a><span class="lineno"> 3212</span>    }</div>
-<div class="line"><a id="l03213" name="l03213"></a><span class="lineno"> 3213</span> </div>
-<div class="line"><a id="l03214" name="l03214"></a><span class="lineno"> 3214</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemSurfaceMap.begin(); it != m_itemSurfaceMap.end(); ) {</div>
-<div class="line"><a id="l03215" name="l03215"></a><span class="lineno"> 3215</span>        <span class="keywordtype">bool</span> remove = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l03216" name="l03216"></a><span class="lineno"> 3216</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove) {</div>
-<div class="line"><a id="l03217" name="l03217"></a><span class="lineno"> 3217</span>            <span class="keywordflow">if</span> (m_surfaces.contains(key) &amp;&amp; m_surfaces[key] == it.value()) {</div>
-<div class="line"><a id="l03218" name="l03218"></a><span class="lineno"> 3218</span>                remove = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03219" name="l03219"></a><span class="lineno"> 3219</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l03220" name="l03220"></a><span class="lineno"> 3220</span>            }</div>
-<div class="line"><a id="l03221" name="l03221"></a><span class="lineno"> 3221</span>        }</div>
-<div class="line"><a id="l03222" name="l03222"></a><span class="lineno"> 3222</span>        <span class="keywordflow">if</span> (remove) {</div>
-<div class="line"><a id="l03223" name="l03223"></a><span class="lineno"> 3223</span>            <span class="keywordflow">if</span> (m_model) {</div>
-<div class="line"><a id="l03224" name="l03224"></a><span class="lineno"> 3224</span>                QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(it.key());</div>
-<div class="line"><a id="l03225" name="l03225"></a><span class="lineno"> 3225</span>                <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
-<div class="line"><a id="l03226" name="l03226"></a><span class="lineno"> 3226</span>                    mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
-<div class="line"><a id="l03227" name="l03227"></a><span class="lineno"> 3227</span>                <span class="keywordflow">else</span></div>
-<div class="line"><a id="l03228" name="l03228"></a><span class="lineno"> 3228</span>                    m_model-&gt;removeRow(mutableItem-&gt;row());</div>
-<div class="line"><a id="l03229" name="l03229"></a><span class="lineno"> 3229</span>            }</div>
-<div class="line"><a id="l03230" name="l03230"></a><span class="lineno"> 3230</span>            it = m_itemSurfaceMap.erase(it);</div>
-<div class="line"><a id="l03231" name="l03231"></a><span class="lineno"> 3231</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l03232" name="l03232"></a><span class="lineno"> 3232</span>            ++it;</div>
-<div class="line"><a id="l03233" name="l03233"></a><span class="lineno"> 3233</span>        }</div>
-<div class="line"><a id="l03234" name="l03234"></a><span class="lineno"> 3234</span>    }</div>
-<div class="line"><a id="l03235" name="l03235"></a><span class="lineno"> 3235</span> </div>
-<div class="line"><a id="l03236" name="l03236"></a><span class="lineno"> 3236</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove)</div>
-<div class="line"><a id="l03237" name="l03237"></a><span class="lineno"> 3237</span>        m_surfaces.remove(key);</div>
-<div class="line"><a id="l03238" name="l03238"></a><span class="lineno"> 3238</span> </div>
-<div class="line"><a id="l03239" name="l03239"></a><span class="lineno"> 3239</span>    m_devHeadTrans = QMatrix4x4();</div>
-<div class="line"><a id="l03240" name="l03240"></a><span class="lineno"> 3240</span>    m_hasDevHead = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l03241" name="l03241"></a><span class="lineno"> 3241</span>    updateSceneBounds();</div>
-<div class="line"><a id="l03242" name="l03242"></a><span class="lineno"> 3242</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
-<div class="line"><a id="l03243" name="l03243"></a><span class="lineno"> 3243</span>}</div>
+<div class="line"><a id="l03204" name="l03204"></a><span class="lineno"> 3204</span> </div>
+<div class="foldopen" id="foldopen03205" data-start="{" data-end="}">
+<div class="line"><a id="l03205" name="l03205"></a><span class="lineno"><a class="line" href="a03322.html#a23fc0d38b3da63d0807dfff12c8b86a6"> 3205</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a23fc0d38b3da63d0807dfff12c8b86a6">BrainView::clearStaticMarkers</a>()</div>
+<div class="line"><a id="l03206" name="l03206"></a><span class="lineno"> 3206</span>{</div>
+<div class="line"><a id="l03207" name="l03207"></a><span class="lineno"> 3207</span>    <span class="keywordtype">bool</span> removed = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l03208" name="l03208"></a><span class="lineno"> 3208</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.begin(); it != m_surfaces.end(); ) {</div>
+<div class="line"><a id="l03209" name="l03209"></a><span class="lineno"> 3209</span>        <span class="keywordflow">if</span> (it.key().startsWith(QLatin1String(<span class="stringliteral">&quot;dig_static_&quot;</span>))) {</div>
+<div class="line"><a id="l03210" name="l03210"></a><span class="lineno"> 3210</span>            it = m_surfaces.erase(it);</div>
+<div class="line"><a id="l03211" name="l03211"></a><span class="lineno"> 3211</span>            removed = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03212" name="l03212"></a><span class="lineno"> 3212</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l03213" name="l03213"></a><span class="lineno"> 3213</span>            ++it;</div>
+<div class="line"><a id="l03214" name="l03214"></a><span class="lineno"> 3214</span>        }</div>
+<div class="line"><a id="l03215" name="l03215"></a><span class="lineno"> 3215</span>    }</div>
+<div class="line"><a id="l03216" name="l03216"></a><span class="lineno"> 3216</span>    <span class="keywordflow">if</span> (removed) {</div>
+<div class="line"><a id="l03217" name="l03217"></a><span class="lineno"> 3217</span>        m_sceneDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03218" name="l03218"></a><span class="lineno"> 3218</span>        update();</div>
+<div class="line"><a id="l03219" name="l03219"></a><span class="lineno"> 3219</span>    }</div>
+<div class="line"><a id="l03220" name="l03220"></a><span class="lineno"> 3220</span>}</div>
 </div>
-<div class="line"><a id="l03244" name="l03244"></a><span class="lineno"> 3244</span> </div>
-<div class="line"><a id="l03245" name="l03245"></a><span class="lineno"> 3245</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l03246" name="l03246"></a><span class="lineno"> 3246</span> </div>
-<div class="foldopen" id="foldopen03247" data-start="{" data-end="}">
-<div class="line"><a id="l03247" name="l03247"></a><span class="lineno"><a class="line" href="a03322.html#af21f080e3be130dc519a359b12dc8a1b"> 3247</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#af21f080e3be130dc519a359b12dc8a1b">BrainView::clearEvoked</a>()</div>
-<div class="line"><a id="l03248" name="l03248"></a><span class="lineno"> 3248</span>{</div>
-<div class="line"><a id="l03249" name="l03249"></a><span class="lineno"> 3249</span>    m_fieldMapper.setEvoked(<a class="code hl_class" href="a03730.html">FIFFLIB::FiffEvoked</a>());</div>
-<div class="line"><a id="l03250" name="l03250"></a><span class="lineno"> 3250</span>    m_sensorStreamManager.stopStreaming();</div>
-<div class="line"><a id="l03251" name="l03251"></a><span class="lineno"> 3251</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
-<div class="line"><a id="l03252" name="l03252"></a><span class="lineno"> 3252</span>}</div>
+<div class="line"><a id="l03221" name="l03221"></a><span class="lineno"> 3221</span> </div>
+<div class="foldopen" id="foldopen03222" data-start="{" data-end="}">
+<div class="line"><a id="l03222" name="l03222"></a><span class="lineno"><a class="line" href="a03322.html#a1b288a737efdbb54b8607dd7f0980d9f"> 3222</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a1b288a737efdbb54b8607dd7f0980d9f">BrainView::setCameraFocusOverride</a>(<span class="keyword">const</span> QVector3D&amp; center, <span class="keywordtype">float</span> size)</div>
+<div class="line"><a id="l03223" name="l03223"></a><span class="lineno"> 3223</span>{</div>
+<div class="line"><a id="l03224" name="l03224"></a><span class="lineno"> 3224</span>    m_cameraFocusOverride = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03225" name="l03225"></a><span class="lineno"> 3225</span>    m_cameraFocusCenter   = center;</div>
+<div class="line"><a id="l03226" name="l03226"></a><span class="lineno"> 3226</span>    m_cameraFocusSize     = size;</div>
+<div class="line"><a id="l03227" name="l03227"></a><span class="lineno"> 3227</span>    m_sceneDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03228" name="l03228"></a><span class="lineno"> 3228</span>    update();</div>
+<div class="line"><a id="l03229" name="l03229"></a><span class="lineno"> 3229</span>}</div>
 </div>
-<div class="line"><a id="l03253" name="l03253"></a><span class="lineno"> 3253</span> </div>
-<div class="line"><a id="l03254" name="l03254"></a><span class="lineno"> 3254</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l03255" name="l03255"></a><span class="lineno"> 3255</span> </div>
-<div class="foldopen" id="foldopen03256" data-start="{" data-end="}">
-<div class="line"><a id="l03256" name="l03256"></a><span class="lineno"><a class="line" href="a03322.html#a685b574c4f1d3dd2f1476e5a77dd1b29"> 3256</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a685b574c4f1d3dd2f1476e5a77dd1b29">BrainView::clearTransformation</a>()</div>
-<div class="line"><a id="l03257" name="l03257"></a><span class="lineno"> 3257</span>{</div>
-<div class="line"><a id="l03258" name="l03258"></a><span class="lineno"> 3258</span>    m_headToMriTrans = <a class="code hl_class" href="a03678.html">FIFFLIB::FiffCoordTrans</a>();</div>
-<div class="line"><a id="l03259" name="l03259"></a><span class="lineno"> 3259</span>    refreshSensorTransforms();</div>
-<div class="line"><a id="l03260" name="l03260"></a><span class="lineno"> 3260</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
-<div class="line"><a id="l03261" name="l03261"></a><span class="lineno"> 3261</span>}</div>
+<div class="line"><a id="l03230" name="l03230"></a><span class="lineno"> 3230</span> </div>
+<div class="foldopen" id="foldopen03231" data-start="{" data-end="}">
+<div class="line"><a id="l03231" name="l03231"></a><span class="lineno"><a class="line" href="a03322.html#ae11b2345bded597ea1ab2f1ff250738f"> 3231</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#ae11b2345bded597ea1ab2f1ff250738f">BrainView::clearCameraFocusOverride</a>()</div>
+<div class="line"><a id="l03232" name="l03232"></a><span class="lineno"> 3232</span>{</div>
+<div class="line"><a id="l03233" name="l03233"></a><span class="lineno"> 3233</span>    <span class="keywordflow">if</span> (!m_cameraFocusOverride)</div>
+<div class="line"><a id="l03234" name="l03234"></a><span class="lineno"> 3234</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03235" name="l03235"></a><span class="lineno"> 3235</span>    m_cameraFocusOverride = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l03236" name="l03236"></a><span class="lineno"> 3236</span>    updateSceneBounds();</div>
+<div class="line"><a id="l03237" name="l03237"></a><span class="lineno"> 3237</span>    m_sceneDirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03238" name="l03238"></a><span class="lineno"> 3238</span>    update();</div>
+<div class="line"><a id="l03239" name="l03239"></a><span class="lineno"> 3239</span>}</div>
 </div>
-<div class="line"><a id="l03262" name="l03262"></a><span class="lineno"> 3262</span> </div>
-<div class="line"><a id="l03263" name="l03263"></a><span class="lineno"> 3263</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l03264" name="l03264"></a><span class="lineno"> 3264</span> </div>
-<div class="foldopen" id="foldopen03265" data-start="{" data-end="}">
-<div class="line"><a id="l03265" name="l03265"></a><span class="lineno"><a class="line" href="a03322.html#a8f33169344f131c924c4969432b491e4"> 3265</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a8f33169344f131c924c4969432b491e4">BrainView::clearNetwork</a>()</div>
-<div class="line"><a id="l03266" name="l03266"></a><span class="lineno"> 3266</span>{</div>
-<div class="line"><a id="l03267" name="l03267"></a><span class="lineno"> 3267</span>    m_network.reset();</div>
-<div class="line"><a id="l03268" name="l03268"></a><span class="lineno"> 3268</span>    m_networkVisible = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l03269" name="l03269"></a><span class="lineno"> 3269</span> </div>
-<div class="line"><a id="l03270" name="l03270"></a><span class="lineno"> 3270</span>    <span class="comment">// Remove network items from model</span></div>
-<div class="line"><a id="l03271" name="l03271"></a><span class="lineno"> 3271</span>    <span class="keywordflow">if</span> (m_model) {</div>
-<div class="line"><a id="l03272" name="l03272"></a><span class="lineno"> 3272</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r = m_model-&gt;rowCount() - 1; r &gt;= 0; --r) {</div>
-<div class="line"><a id="l03273" name="l03273"></a><span class="lineno"> 3273</span>            QStandardItem *item = m_model-&gt;item(r);</div>
-<div class="line"><a id="l03274" name="l03274"></a><span class="lineno"> 3274</span>            <span class="keywordflow">if</span> (item &amp;&amp; item-&gt;text() == <span class="stringliteral">&quot;Networks&quot;</span>) {</div>
-<div class="line"><a id="l03275" name="l03275"></a><span class="lineno"> 3275</span>                m_model-&gt;removeRow(r);</div>
-<div class="line"><a id="l03276" name="l03276"></a><span class="lineno"> 3276</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l03277" name="l03277"></a><span class="lineno"> 3277</span>            }</div>
-<div class="line"><a id="l03278" name="l03278"></a><span class="lineno"> 3278</span>        }</div>
-<div class="line"><a id="l03279" name="l03279"></a><span class="lineno"> 3279</span>    }</div>
-<div class="line"><a id="l03280" name="l03280"></a><span class="lineno"> 3280</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
-<div class="line"><a id="l03281" name="l03281"></a><span class="lineno"> 3281</span>}</div>
+<div class="line"><a id="l03240" name="l03240"></a><span class="lineno"> 3240</span> </div>
+<div class="foldopen" id="foldopen03241" data-start="{" data-end="}">
+<div class="line"><a id="l03241" name="l03241"></a><span class="lineno"><a class="line" href="a03322.html#af9b6c8e684c30a8a10f4bb2e144f5eef"> 3241</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#af9b6c8e684c30a8a10f4bb2e144f5eef">BrainView::clearSensors</a>()</div>
+<div class="line"><a id="l03242" name="l03242"></a><span class="lineno"> 3242</span>{</div>
+<div class="line"><a id="l03243" name="l03243"></a><span class="lineno"> 3243</span>    QStringList keysToRemove;</div>
+<div class="line"><a id="l03244" name="l03244"></a><span class="lineno"> 3244</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
+<div class="line"><a id="l03245" name="l03245"></a><span class="lineno"> 3245</span>        <span class="keywordflow">if</span> (it.key().startsWith(<span class="stringliteral">&quot;sens_&quot;</span>) || it.key().startsWith(<span class="stringliteral">&quot;dig_&quot;</span>))</div>
+<div class="line"><a id="l03246" name="l03246"></a><span class="lineno"> 3246</span>            keysToRemove &lt;&lt; it.key();</div>
+<div class="line"><a id="l03247" name="l03247"></a><span class="lineno"> 3247</span>    }</div>
+<div class="line"><a id="l03248" name="l03248"></a><span class="lineno"> 3248</span> </div>
+<div class="line"><a id="l03249" name="l03249"></a><span class="lineno"> 3249</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_itemSurfaceMap.begin(); it != m_itemSurfaceMap.end(); ) {</div>
+<div class="line"><a id="l03250" name="l03250"></a><span class="lineno"> 3250</span>        <span class="keywordtype">bool</span> remove = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l03251" name="l03251"></a><span class="lineno"> 3251</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove) {</div>
+<div class="line"><a id="l03252" name="l03252"></a><span class="lineno"> 3252</span>            <span class="keywordflow">if</span> (m_surfaces.contains(key) &amp;&amp; m_surfaces[key] == it.value()) {</div>
+<div class="line"><a id="l03253" name="l03253"></a><span class="lineno"> 3253</span>                remove = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03254" name="l03254"></a><span class="lineno"> 3254</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l03255" name="l03255"></a><span class="lineno"> 3255</span>            }</div>
+<div class="line"><a id="l03256" name="l03256"></a><span class="lineno"> 3256</span>        }</div>
+<div class="line"><a id="l03257" name="l03257"></a><span class="lineno"> 3257</span>        <span class="keywordflow">if</span> (remove) {</div>
+<div class="line"><a id="l03258" name="l03258"></a><span class="lineno"> 3258</span>            <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l03259" name="l03259"></a><span class="lineno"> 3259</span>                QStandardItem *mutableItem = <span class="keyword">const_cast&lt;</span>QStandardItem*<span class="keyword">&gt;</span>(it.key());</div>
+<div class="line"><a id="l03260" name="l03260"></a><span class="lineno"> 3260</span>                <span class="keywordflow">if</span> (mutableItem-&gt;parent())</div>
+<div class="line"><a id="l03261" name="l03261"></a><span class="lineno"> 3261</span>                    mutableItem-&gt;parent()-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l03262" name="l03262"></a><span class="lineno"> 3262</span>                <span class="keywordflow">else</span></div>
+<div class="line"><a id="l03263" name="l03263"></a><span class="lineno"> 3263</span>                    m_model-&gt;removeRow(mutableItem-&gt;row());</div>
+<div class="line"><a id="l03264" name="l03264"></a><span class="lineno"> 3264</span>            }</div>
+<div class="line"><a id="l03265" name="l03265"></a><span class="lineno"> 3265</span>            it = m_itemSurfaceMap.erase(it);</div>
+<div class="line"><a id="l03266" name="l03266"></a><span class="lineno"> 3266</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l03267" name="l03267"></a><span class="lineno"> 3267</span>            ++it;</div>
+<div class="line"><a id="l03268" name="l03268"></a><span class="lineno"> 3268</span>        }</div>
+<div class="line"><a id="l03269" name="l03269"></a><span class="lineno"> 3269</span>    }</div>
+<div class="line"><a id="l03270" name="l03270"></a><span class="lineno"> 3270</span> </div>
+<div class="line"><a id="l03271" name="l03271"></a><span class="lineno"> 3271</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;key : keysToRemove)</div>
+<div class="line"><a id="l03272" name="l03272"></a><span class="lineno"> 3272</span>        m_surfaces.remove(key);</div>
+<div class="line"><a id="l03273" name="l03273"></a><span class="lineno"> 3273</span> </div>
+<div class="line"><a id="l03274" name="l03274"></a><span class="lineno"> 3274</span>    m_devHeadTrans = QMatrix4x4();</div>
+<div class="line"><a id="l03275" name="l03275"></a><span class="lineno"> 3275</span>    m_hasDevHead = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l03276" name="l03276"></a><span class="lineno"> 3276</span>    updateSceneBounds();</div>
+<div class="line"><a id="l03277" name="l03277"></a><span class="lineno"> 3277</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
+<div class="line"><a id="l03278" name="l03278"></a><span class="lineno"> 3278</span>}</div>
 </div>
-<div class="line"><a id="l03282" name="l03282"></a><span class="lineno"> 3282</span> </div>
-<div class="line"><a id="l03283" name="l03283"></a><span class="lineno"> 3283</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l03284" name="l03284"></a><span class="lineno"> 3284</span> </div>
-<div class="foldopen" id="foldopen03285" data-start="{" data-end="}">
-<div class="line"><a id="l03285" name="l03285"></a><span class="lineno"><a class="line" href="a03322.html#aa4c152ff6232244914892354221e451a"> 3285</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#aa4c152ff6232244914892354221e451a">BrainView::stopAllStreaming</a>()</div>
-<div class="line"><a id="l03286" name="l03286"></a><span class="lineno"> 3286</span>{</div>
-<div class="line"><a id="l03287" name="l03287"></a><span class="lineno"> 3287</span>    m_sourceManager.cancelLoading();</div>
-<div class="line"><a id="l03288" name="l03288"></a><span class="lineno"> 3288</span>    m_sourceManager.stopStreaming();</div>
-<div class="line"><a id="l03289" name="l03289"></a><span class="lineno"> 3289</span>    m_sensorStreamManager.stopStreaming();</div>
-<div class="line"><a id="l03290" name="l03290"></a><span class="lineno"> 3290</span>}</div>
+<div class="line"><a id="l03279" name="l03279"></a><span class="lineno"> 3279</span> </div>
+<div class="line"><a id="l03280" name="l03280"></a><span class="lineno"> 3280</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l03281" name="l03281"></a><span class="lineno"> 3281</span> </div>
+<div class="foldopen" id="foldopen03282" data-start="{" data-end="}">
+<div class="line"><a id="l03282" name="l03282"></a><span class="lineno"><a class="line" href="a03322.html#af21f080e3be130dc519a359b12dc8a1b"> 3282</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#af21f080e3be130dc519a359b12dc8a1b">BrainView::clearEvoked</a>()</div>
+<div class="line"><a id="l03283" name="l03283"></a><span class="lineno"> 3283</span>{</div>
+<div class="line"><a id="l03284" name="l03284"></a><span class="lineno"> 3284</span>    m_fieldMapper.setEvoked(<a class="code hl_class" href="a03730.html">FIFFLIB::FiffEvoked</a>());</div>
+<div class="line"><a id="l03285" name="l03285"></a><span class="lineno"> 3285</span>    m_sensorStreamManager.stopStreaming();</div>
+<div class="line"><a id="l03286" name="l03286"></a><span class="lineno"> 3286</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
+<div class="line"><a id="l03287" name="l03287"></a><span class="lineno"> 3287</span>}</div>
 </div>
-<div class="line"><a id="l03291" name="l03291"></a><span class="lineno"> 3291</span> </div>
-<div class="line"><a id="l03292" name="l03292"></a><span class="lineno"> 3292</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l03293" name="l03293"></a><span class="lineno"> 3293</span><span class="comment">// Video overlay public API</span></div>
-<div class="line"><a id="l03294" name="l03294"></a><span class="lineno"> 3294</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l03295" name="l03295"></a><span class="lineno"> 3295</span> </div>
-<div class="foldopen" id="foldopen03296" data-start="{" data-end="}">
-<div class="line"><a id="l03296" name="l03296"></a><span class="lineno"><a class="line" href="a03322.html#a772c441e2f53f40ea1ec6b93a3533142"> 3296</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a772c441e2f53f40ea1ec6b93a3533142">BrainView::setVideoOverlayEnabled</a>(<span class="keywordtype">bool</span> enabled)</div>
-<div class="line"><a id="l03297" name="l03297"></a><span class="lineno"> 3297</span>{</div>
-<div class="line"><a id="l03298" name="l03298"></a><span class="lineno"> 3298</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03299" name="l03299"></a><span class="lineno"> 3299</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled() == enabled) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03300" name="l03300"></a><span class="lineno"> 3300</span>    m_videoOverlay-&gt;setEnabled(enabled);</div>
-<div class="line"><a id="l03301" name="l03301"></a><span class="lineno"> 3301</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
-<div class="line"><a id="l03302" name="l03302"></a><span class="lineno"> 3302</span>}</div>
+<div class="line"><a id="l03288" name="l03288"></a><span class="lineno"> 3288</span> </div>
+<div class="line"><a id="l03289" name="l03289"></a><span class="lineno"> 3289</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l03290" name="l03290"></a><span class="lineno"> 3290</span> </div>
+<div class="foldopen" id="foldopen03291" data-start="{" data-end="}">
+<div class="line"><a id="l03291" name="l03291"></a><span class="lineno"><a class="line" href="a03322.html#a685b574c4f1d3dd2f1476e5a77dd1b29"> 3291</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a685b574c4f1d3dd2f1476e5a77dd1b29">BrainView::clearTransformation</a>()</div>
+<div class="line"><a id="l03292" name="l03292"></a><span class="lineno"> 3292</span>{</div>
+<div class="line"><a id="l03293" name="l03293"></a><span class="lineno"> 3293</span>    m_headToMriTrans = <a class="code hl_class" href="a03678.html">FIFFLIB::FiffCoordTrans</a>();</div>
+<div class="line"><a id="l03294" name="l03294"></a><span class="lineno"> 3294</span>    refreshSensorTransforms();</div>
+<div class="line"><a id="l03295" name="l03295"></a><span class="lineno"> 3295</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
+<div class="line"><a id="l03296" name="l03296"></a><span class="lineno"> 3296</span>}</div>
 </div>
-<div class="line"><a id="l03303" name="l03303"></a><span class="lineno"> 3303</span> </div>
-<div class="foldopen" id="foldopen03304" data-start="{" data-end="}">
-<div class="line"><a id="l03304" name="l03304"></a><span class="lineno"><a class="line" href="a03322.html#a75b936dfe3913a8852fa1e80e0c08446"> 3304</a></span><span class="keywordtype">bool</span> <a class="code hl_slot" href="a03322.html#a75b936dfe3913a8852fa1e80e0c08446">BrainView::isVideoOverlayEnabled</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l03305" name="l03305"></a><span class="lineno"> 3305</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l03306" name="l03306"></a><span class="lineno"> 3306</span>    <span class="keywordflow">return</span> m_videoOverlay &amp;&amp; m_videoOverlay-&gt;isEnabled();</div>
-<div class="line"><a id="l03307" name="l03307"></a><span class="lineno"> 3307</span>}</div>
+<div class="line"><a id="l03297" name="l03297"></a><span class="lineno"> 3297</span> </div>
+<div class="line"><a id="l03298" name="l03298"></a><span class="lineno"> 3298</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l03299" name="l03299"></a><span class="lineno"> 3299</span> </div>
+<div class="foldopen" id="foldopen03300" data-start="{" data-end="}">
+<div class="line"><a id="l03300" name="l03300"></a><span class="lineno"><a class="line" href="a03322.html#a8f33169344f131c924c4969432b491e4"> 3300</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a8f33169344f131c924c4969432b491e4">BrainView::clearNetwork</a>()</div>
+<div class="line"><a id="l03301" name="l03301"></a><span class="lineno"> 3301</span>{</div>
+<div class="line"><a id="l03302" name="l03302"></a><span class="lineno"> 3302</span>    m_network.reset();</div>
+<div class="line"><a id="l03303" name="l03303"></a><span class="lineno"> 3303</span>    m_networkVisible = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l03304" name="l03304"></a><span class="lineno"> 3304</span> </div>
+<div class="line"><a id="l03305" name="l03305"></a><span class="lineno"> 3305</span>    <span class="comment">// Remove network items from model</span></div>
+<div class="line"><a id="l03306" name="l03306"></a><span class="lineno"> 3306</span>    <span class="keywordflow">if</span> (m_model) {</div>
+<div class="line"><a id="l03307" name="l03307"></a><span class="lineno"> 3307</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r = m_model-&gt;rowCount() - 1; r &gt;= 0; --r) {</div>
+<div class="line"><a id="l03308" name="l03308"></a><span class="lineno"> 3308</span>            QStandardItem *item = m_model-&gt;item(r);</div>
+<div class="line"><a id="l03309" name="l03309"></a><span class="lineno"> 3309</span>            <span class="keywordflow">if</span> (item &amp;&amp; item-&gt;text() == <span class="stringliteral">&quot;Networks&quot;</span>) {</div>
+<div class="line"><a id="l03310" name="l03310"></a><span class="lineno"> 3310</span>                m_model-&gt;removeRow(r);</div>
+<div class="line"><a id="l03311" name="l03311"></a><span class="lineno"> 3311</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l03312" name="l03312"></a><span class="lineno"> 3312</span>            }</div>
+<div class="line"><a id="l03313" name="l03313"></a><span class="lineno"> 3313</span>        }</div>
+<div class="line"><a id="l03314" name="l03314"></a><span class="lineno"> 3314</span>    }</div>
+<div class="line"><a id="l03315" name="l03315"></a><span class="lineno"> 3315</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
+<div class="line"><a id="l03316" name="l03316"></a><span class="lineno"> 3316</span>}</div>
 </div>
-<div class="line"><a id="l03308" name="l03308"></a><span class="lineno"> 3308</span> </div>
-<div class="foldopen" id="foldopen03309" data-start="{" data-end="}">
-<div class="line"><a id="l03309" name="l03309"></a><span class="lineno"><a class="line" href="a03322.html#ad43719856a68881bcbe60ad475bd680b"> 3309</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#ad43719856a68881bcbe60ad475bd680b">BrainView::setVideoOverlayFocusPosition</a>(<span class="keyword">const</span> QVector3D &amp;position)</div>
-<div class="line"><a id="l03310" name="l03310"></a><span class="lineno"> 3310</span>{</div>
-<div class="line"><a id="l03311" name="l03311"></a><span class="lineno"> 3311</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03312" name="l03312"></a><span class="lineno"> 3312</span>    m_videoOverlay-&gt;setFocusPosition(position);</div>
-<div class="line"><a id="l03313" name="l03313"></a><span class="lineno"> 3313</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
-<div class="line"><a id="l03314" name="l03314"></a><span class="lineno"> 3314</span>}</div>
+<div class="line"><a id="l03317" name="l03317"></a><span class="lineno"> 3317</span> </div>
+<div class="line"><a id="l03318" name="l03318"></a><span class="lineno"> 3318</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l03319" name="l03319"></a><span class="lineno"> 3319</span> </div>
+<div class="foldopen" id="foldopen03320" data-start="{" data-end="}">
+<div class="line"><a id="l03320" name="l03320"></a><span class="lineno"><a class="line" href="a03322.html#aa4c152ff6232244914892354221e451a"> 3320</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#aa4c152ff6232244914892354221e451a">BrainView::stopAllStreaming</a>()</div>
+<div class="line"><a id="l03321" name="l03321"></a><span class="lineno"> 3321</span>{</div>
+<div class="line"><a id="l03322" name="l03322"></a><span class="lineno"> 3322</span>    m_sourceManager.cancelLoading();</div>
+<div class="line"><a id="l03323" name="l03323"></a><span class="lineno"> 3323</span>    m_sourceManager.stopStreaming();</div>
+<div class="line"><a id="l03324" name="l03324"></a><span class="lineno"> 3324</span>    m_sensorStreamManager.stopStreaming();</div>
+<div class="line"><a id="l03325" name="l03325"></a><span class="lineno"> 3325</span>}</div>
 </div>
-<div class="line"><a id="l03315" name="l03315"></a><span class="lineno"> 3315</span> </div>
-<div class="foldopen" id="foldopen03316" data-start="{" data-end="}">
-<div class="line"><a id="l03316" name="l03316"></a><span class="lineno"><a class="line" href="a03322.html#a5188a8cd5bf25f7d62a320e606316f8d"> 3316</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a5188a8cd5bf25f7d62a320e606316f8d">BrainView::setVideoOverlayUpHint</a>(<span class="keyword">const</span> QVector3D &amp;dir)</div>
-<div class="line"><a id="l03317" name="l03317"></a><span class="lineno"> 3317</span>{</div>
-<div class="line"><a id="l03318" name="l03318"></a><span class="lineno"> 3318</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03319" name="l03319"></a><span class="lineno"> 3319</span>    m_videoOverlay-&gt;setUpHint(dir);</div>
-<div class="line"><a id="l03320" name="l03320"></a><span class="lineno"> 3320</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
-<div class="line"><a id="l03321" name="l03321"></a><span class="lineno"> 3321</span>}</div>
+<div class="line"><a id="l03326" name="l03326"></a><span class="lineno"> 3326</span> </div>
+<div class="line"><a id="l03327" name="l03327"></a><span class="lineno"> 3327</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l03328" name="l03328"></a><span class="lineno"> 3328</span><span class="comment">// Video overlay public API</span></div>
+<div class="line"><a id="l03329" name="l03329"></a><span class="lineno"> 3329</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l03330" name="l03330"></a><span class="lineno"> 3330</span> </div>
+<div class="foldopen" id="foldopen03331" data-start="{" data-end="}">
+<div class="line"><a id="l03331" name="l03331"></a><span class="lineno"><a class="line" href="a03322.html#a772c441e2f53f40ea1ec6b93a3533142"> 3331</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a772c441e2f53f40ea1ec6b93a3533142">BrainView::setVideoOverlayEnabled</a>(<span class="keywordtype">bool</span> enabled)</div>
+<div class="line"><a id="l03332" name="l03332"></a><span class="lineno"> 3332</span>{</div>
+<div class="line"><a id="l03333" name="l03333"></a><span class="lineno"> 3333</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03334" name="l03334"></a><span class="lineno"> 3334</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled() == enabled) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03335" name="l03335"></a><span class="lineno"> 3335</span>    m_videoOverlay-&gt;setEnabled(enabled);</div>
+<div class="line"><a id="l03336" name="l03336"></a><span class="lineno"> 3336</span>    m_sceneDirty = <span class="keyword">true</span>; update();</div>
+<div class="line"><a id="l03337" name="l03337"></a><span class="lineno"> 3337</span>}</div>
 </div>
-<div class="line"><a id="l03322" name="l03322"></a><span class="lineno"> 3322</span> </div>
-<div class="foldopen" id="foldopen03323" data-start="{" data-end="}">
-<div class="line"><a id="l03323" name="l03323"></a><span class="lineno"><a class="line" href="a03322.html#a9583d761887b3d0f2dfb85b7e1bab0dc"> 3323</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a9583d761887b3d0f2dfb85b7e1bab0dc">BrainView::setVideoOverlaySize</a>(<span class="keywordtype">float</span> meters)</div>
-<div class="line"><a id="l03324" name="l03324"></a><span class="lineno"> 3324</span>{</div>
-<div class="line"><a id="l03325" name="l03325"></a><span class="lineno"> 3325</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03326" name="l03326"></a><span class="lineno"> 3326</span>    m_videoOverlay-&gt;setSizeMeters(std::max(0.001f, meters));</div>
-<div class="line"><a id="l03327" name="l03327"></a><span class="lineno"> 3327</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
-<div class="line"><a id="l03328" name="l03328"></a><span class="lineno"> 3328</span>}</div>
-</div>
-<div class="line"><a id="l03329" name="l03329"></a><span class="lineno"> 3329</span> </div>
-<div class="foldopen" id="foldopen03330" data-start="{" data-end="}">
-<div class="line"><a id="l03330" name="l03330"></a><span class="lineno"><a class="line" href="a03322.html#a0101118e883fc72ec05695ae715f0d33"> 3330</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a0101118e883fc72ec05695ae715f0d33">BrainView::setVideoOverlayOpacity</a>(<span class="keywordtype">float</span> opacity)</div>
-<div class="line"><a id="l03331" name="l03331"></a><span class="lineno"> 3331</span>{</div>
-<div class="line"><a id="l03332" name="l03332"></a><span class="lineno"> 3332</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03333" name="l03333"></a><span class="lineno"> 3333</span>    m_videoOverlay-&gt;setOpacity(std::clamp(opacity, 0.0f, 1.0f));</div>
-<div class="line"><a id="l03334" name="l03334"></a><span class="lineno"> 3334</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
-<div class="line"><a id="l03335" name="l03335"></a><span class="lineno"> 3335</span>}</div>
-</div>
-<div class="line"><a id="l03336" name="l03336"></a><span class="lineno"> 3336</span> </div>
-<div class="foldopen" id="foldopen03337" data-start="{" data-end="}">
-<div class="line"><a id="l03337" name="l03337"></a><span class="lineno"><a class="line" href="a03322.html#a4fa7a62ad6b5fabf825de99139585c5c"> 3337</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a4fa7a62ad6b5fabf825de99139585c5c">BrainView::pushVideoOverlayFrame</a>(<span class="keyword">const</span> QImage &amp;frame)</div>
-<div class="line"><a id="l03338" name="l03338"></a><span class="lineno"> 3338</span>{</div>
-<div class="line"><a id="l03339" name="l03339"></a><span class="lineno"> 3339</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l03340" name="l03340"></a><span class="lineno"> 3340</span>    m_videoOverlay-&gt;setFrame(frame);</div>
-<div class="line"><a id="l03341" name="l03341"></a><span class="lineno"> 3341</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
+<div class="line"><a id="l03338" name="l03338"></a><span class="lineno"> 3338</span> </div>
+<div class="foldopen" id="foldopen03339" data-start="{" data-end="}">
+<div class="line"><a id="l03339" name="l03339"></a><span class="lineno"><a class="line" href="a03322.html#a75b936dfe3913a8852fa1e80e0c08446"> 3339</a></span><span class="keywordtype">bool</span> <a class="code hl_slot" href="a03322.html#a75b936dfe3913a8852fa1e80e0c08446">BrainView::isVideoOverlayEnabled</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l03340" name="l03340"></a><span class="lineno"> 3340</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l03341" name="l03341"></a><span class="lineno"> 3341</span>    <span class="keywordflow">return</span> m_videoOverlay &amp;&amp; m_videoOverlay-&gt;isEnabled();</div>
 <div class="line"><a id="l03342" name="l03342"></a><span class="lineno"> 3342</span>}</div>
 </div>
 <div class="line"><a id="l03343" name="l03343"></a><span class="lineno"> 3343</span> </div>
 <div class="foldopen" id="foldopen03344" data-start="{" data-end="}">
-<div class="line"><a id="l03344" name="l03344"></a><span class="lineno"><a class="line" href="a03322.html#a47003d384e5ee161ed0284b3e9c23cf2"> 3344</a></span><span class="keywordtype">bool</span> <a class="code hl_slot" href="a03322.html#a47003d384e5ee161ed0284b3e9c23cf2">BrainView::intersectWorldRay</a>(<span class="keyword">const</span> QVector3D&amp; origin, <span class="keyword">const</span> QVector3D&amp; direction, QVector3D&amp; hitPoint)<span class="keyword"> const</span></div>
-<div class="line"><a id="l03345" name="l03345"></a><span class="lineno"> 3345</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l03346" name="l03346"></a><span class="lineno"> 3346</span>    <span class="comment">// Test against ALL surfaces (no SubView visibility filter) so</span></div>
-<div class="line"><a id="l03347" name="l03347"></a><span class="lineno"> 3347</span>    <span class="comment">// the optical ray always finds the head even if it&#39;s hidden in</span></div>
-<div class="line"><a id="l03348" name="l03348"></a><span class="lineno"> 3348</span>    <span class="comment">// the first SubView of a multi-view layout.</span></div>
-<div class="line"><a id="l03349" name="l03349"></a><span class="lineno"> 3349</span>    <span class="keywordtype">float</span> closestDist = std::numeric_limits&lt;float&gt;::max();</div>
-<div class="line"><a id="l03350" name="l03350"></a><span class="lineno"> 3350</span>    <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l03351" name="l03351"></a><span class="lineno"> 3351</span> </div>
-<div class="line"><a id="l03352" name="l03352"></a><span class="lineno"> 3352</span>    <span class="comment">// Always test the BEM head surface first (even when hidden) — the</span></div>
-<div class="line"><a id="l03353" name="l03353"></a><span class="lineno"> 3353</span>    <span class="comment">// optical projection cares about the outermost physical shell.</span></div>
-<div class="line"><a id="l03354" name="l03354"></a><span class="lineno"> 3354</span>    <span class="keyword">auto</span> headIt = m_surfaces.constFind(QStringLiteral(<span class="stringliteral">&quot;bem_head&quot;</span>));</div>
-<div class="line"><a id="l03355" name="l03355"></a><span class="lineno"> 3355</span>    <span class="keywordflow">if</span> (headIt != m_surfaces.cend() &amp;&amp; headIt.value()) {</div>
-<div class="line"><a id="l03356" name="l03356"></a><span class="lineno"> 3356</span>        <span class="keywordtype">float</span> dist = 0.0f;</div>
-<div class="line"><a id="l03357" name="l03357"></a><span class="lineno"> 3357</span>        <span class="keywordtype">int</span> vertexIdx = -1;</div>
-<div class="line"><a id="l03358" name="l03358"></a><span class="lineno"> 3358</span>        <span class="keywordflow">if</span> (headIt.value()-&gt;intersects(origin, direction, dist, vertexIdx) &amp;&amp; dist &lt; closestDist) {</div>
-<div class="line"><a id="l03359" name="l03359"></a><span class="lineno"> 3359</span>            closestDist = dist;</div>
-<div class="line"><a id="l03360" name="l03360"></a><span class="lineno"> 3360</span>            hitPoint = origin + dist * direction;</div>
-<div class="line"><a id="l03361" name="l03361"></a><span class="lineno"> 3361</span>            found = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03362" name="l03362"></a><span class="lineno"> 3362</span>        }</div>
-<div class="line"><a id="l03363" name="l03363"></a><span class="lineno"> 3363</span>    }</div>
+<div class="line"><a id="l03344" name="l03344"></a><span class="lineno"><a class="line" href="a03322.html#ad43719856a68881bcbe60ad475bd680b"> 3344</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#ad43719856a68881bcbe60ad475bd680b">BrainView::setVideoOverlayFocusPosition</a>(<span class="keyword">const</span> QVector3D &amp;position)</div>
+<div class="line"><a id="l03345" name="l03345"></a><span class="lineno"> 3345</span>{</div>
+<div class="line"><a id="l03346" name="l03346"></a><span class="lineno"> 3346</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03347" name="l03347"></a><span class="lineno"> 3347</span>    m_videoOverlay-&gt;setFocusPosition(position);</div>
+<div class="line"><a id="l03348" name="l03348"></a><span class="lineno"> 3348</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
+<div class="line"><a id="l03349" name="l03349"></a><span class="lineno"> 3349</span>}</div>
+</div>
+<div class="line"><a id="l03350" name="l03350"></a><span class="lineno"> 3350</span> </div>
+<div class="foldopen" id="foldopen03351" data-start="{" data-end="}">
+<div class="line"><a id="l03351" name="l03351"></a><span class="lineno"><a class="line" href="a03322.html#a5188a8cd5bf25f7d62a320e606316f8d"> 3351</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a5188a8cd5bf25f7d62a320e606316f8d">BrainView::setVideoOverlayUpHint</a>(<span class="keyword">const</span> QVector3D &amp;dir)</div>
+<div class="line"><a id="l03352" name="l03352"></a><span class="lineno"> 3352</span>{</div>
+<div class="line"><a id="l03353" name="l03353"></a><span class="lineno"> 3353</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03354" name="l03354"></a><span class="lineno"> 3354</span>    m_videoOverlay-&gt;setUpHint(dir);</div>
+<div class="line"><a id="l03355" name="l03355"></a><span class="lineno"> 3355</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
+<div class="line"><a id="l03356" name="l03356"></a><span class="lineno"> 3356</span>}</div>
+</div>
+<div class="line"><a id="l03357" name="l03357"></a><span class="lineno"> 3357</span> </div>
+<div class="foldopen" id="foldopen03358" data-start="{" data-end="}">
+<div class="line"><a id="l03358" name="l03358"></a><span class="lineno"><a class="line" href="a03322.html#a9583d761887b3d0f2dfb85b7e1bab0dc"> 3358</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a9583d761887b3d0f2dfb85b7e1bab0dc">BrainView::setVideoOverlaySize</a>(<span class="keywordtype">float</span> meters)</div>
+<div class="line"><a id="l03359" name="l03359"></a><span class="lineno"> 3359</span>{</div>
+<div class="line"><a id="l03360" name="l03360"></a><span class="lineno"> 3360</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03361" name="l03361"></a><span class="lineno"> 3361</span>    m_videoOverlay-&gt;setSizeMeters(std::max(0.001f, meters));</div>
+<div class="line"><a id="l03362" name="l03362"></a><span class="lineno"> 3362</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
+<div class="line"><a id="l03363" name="l03363"></a><span class="lineno"> 3363</span>}</div>
+</div>
 <div class="line"><a id="l03364" name="l03364"></a><span class="lineno"> 3364</span> </div>
-<div class="line"><a id="l03365" name="l03365"></a><span class="lineno"> 3365</span>    <span class="comment">// Fall back to any other visible surface if the head wasn&#39;t hit.</span></div>
-<div class="line"><a id="l03366" name="l03366"></a><span class="lineno"> 3366</span>    <span class="keywordflow">if</span> (!found) {</div>
-<div class="line"><a id="l03367" name="l03367"></a><span class="lineno"> 3367</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
-<div class="line"><a id="l03368" name="l03368"></a><span class="lineno"> 3368</span>            <span class="keyword">const</span> <span class="keyword">auto</span> &amp;surf = it.value();</div>
-<div class="line"><a id="l03369" name="l03369"></a><span class="lineno"> 3369</span>            <span class="keywordflow">if</span> (!surf || !surf-&gt;isVisible()) <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l03370" name="l03370"></a><span class="lineno"> 3370</span>            <span class="keywordtype">float</span> dist = 0.0f;</div>
-<div class="line"><a id="l03371" name="l03371"></a><span class="lineno"> 3371</span>            <span class="keywordtype">int</span> vertexIdx = -1;</div>
-<div class="line"><a id="l03372" name="l03372"></a><span class="lineno"> 3372</span>            <span class="keywordflow">if</span> (surf-&gt;intersects(origin, direction, dist, vertexIdx) &amp;&amp; dist &lt; closestDist) {</div>
-<div class="line"><a id="l03373" name="l03373"></a><span class="lineno"> 3373</span>                closestDist = dist;</div>
-<div class="line"><a id="l03374" name="l03374"></a><span class="lineno"> 3374</span>                hitPoint = origin + dist * direction;</div>
-<div class="line"><a id="l03375" name="l03375"></a><span class="lineno"> 3375</span>                found = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l03376" name="l03376"></a><span class="lineno"> 3376</span>            }</div>
-<div class="line"><a id="l03377" name="l03377"></a><span class="lineno"> 3377</span>        }</div>
-<div class="line"><a id="l03378" name="l03378"></a><span class="lineno"> 3378</span>    }</div>
-<div class="line"><a id="l03379" name="l03379"></a><span class="lineno"> 3379</span>    <span class="keywordflow">return</span> found;</div>
-<div class="line"><a id="l03380" name="l03380"></a><span class="lineno"> 3380</span>}</div>
+<div class="foldopen" id="foldopen03365" data-start="{" data-end="}">
+<div class="line"><a id="l03365" name="l03365"></a><span class="lineno"><a class="line" href="a03322.html#a0101118e883fc72ec05695ae715f0d33"> 3365</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a0101118e883fc72ec05695ae715f0d33">BrainView::setVideoOverlayOpacity</a>(<span class="keywordtype">float</span> opacity)</div>
+<div class="line"><a id="l03366" name="l03366"></a><span class="lineno"> 3366</span>{</div>
+<div class="line"><a id="l03367" name="l03367"></a><span class="lineno"> 3367</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03368" name="l03368"></a><span class="lineno"> 3368</span>    m_videoOverlay-&gt;setOpacity(std::clamp(opacity, 0.0f, 1.0f));</div>
+<div class="line"><a id="l03369" name="l03369"></a><span class="lineno"> 3369</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
+<div class="line"><a id="l03370" name="l03370"></a><span class="lineno"> 3370</span>}</div>
+</div>
+<div class="line"><a id="l03371" name="l03371"></a><span class="lineno"> 3371</span> </div>
+<div class="foldopen" id="foldopen03372" data-start="{" data-end="}">
+<div class="line"><a id="l03372" name="l03372"></a><span class="lineno"><a class="line" href="a03322.html#a4fa7a62ad6b5fabf825de99139585c5c"> 3372</a></span><span class="keywordtype">void</span> <a class="code hl_slot" href="a03322.html#a4fa7a62ad6b5fabf825de99139585c5c">BrainView::pushVideoOverlayFrame</a>(<span class="keyword">const</span> QImage &amp;frame)</div>
+<div class="line"><a id="l03373" name="l03373"></a><span class="lineno"> 3373</span>{</div>
+<div class="line"><a id="l03374" name="l03374"></a><span class="lineno"> 3374</span>    <span class="keywordflow">if</span> (!m_videoOverlay) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l03375" name="l03375"></a><span class="lineno"> 3375</span>    m_videoOverlay-&gt;setFrame(frame);</div>
+<div class="line"><a id="l03376" name="l03376"></a><span class="lineno"> 3376</span>    <span class="keywordflow">if</span> (m_videoOverlay-&gt;isEnabled()) { m_sceneDirty = <span class="keyword">true</span>; update(); }</div>
+<div class="line"><a id="l03377" name="l03377"></a><span class="lineno"> 3377</span>}</div>
+</div>
+<div class="line"><a id="l03378" name="l03378"></a><span class="lineno"> 3378</span> </div>
+<div class="foldopen" id="foldopen03379" data-start="{" data-end="}">
+<div class="line"><a id="l03379" name="l03379"></a><span class="lineno"><a class="line" href="a03322.html#a47003d384e5ee161ed0284b3e9c23cf2"> 3379</a></span><span class="keywordtype">bool</span> <a class="code hl_slot" href="a03322.html#a47003d384e5ee161ed0284b3e9c23cf2">BrainView::intersectWorldRay</a>(<span class="keyword">const</span> QVector3D&amp; origin, <span class="keyword">const</span> QVector3D&amp; direction, QVector3D&amp; hitPoint)<span class="keyword"> const</span></div>
+<div class="line"><a id="l03380" name="l03380"></a><span class="lineno"> 3380</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l03381" name="l03381"></a><span class="lineno"> 3381</span>    <span class="comment">// Test against ALL surfaces (no SubView visibility filter) so</span></div>
+<div class="line"><a id="l03382" name="l03382"></a><span class="lineno"> 3382</span>    <span class="comment">// the optical ray always finds the head even if it&#39;s hidden in</span></div>
+<div class="line"><a id="l03383" name="l03383"></a><span class="lineno"> 3383</span>    <span class="comment">// the first SubView of a multi-view layout.</span></div>
+<div class="line"><a id="l03384" name="l03384"></a><span class="lineno"> 3384</span>    <span class="keywordtype">float</span> closestDist = std::numeric_limits&lt;float&gt;::max();</div>
+<div class="line"><a id="l03385" name="l03385"></a><span class="lineno"> 3385</span>    <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l03386" name="l03386"></a><span class="lineno"> 3386</span> </div>
+<div class="line"><a id="l03387" name="l03387"></a><span class="lineno"> 3387</span>    <span class="comment">// Always test the BEM head surface first (even when hidden) — the</span></div>
+<div class="line"><a id="l03388" name="l03388"></a><span class="lineno"> 3388</span>    <span class="comment">// optical projection cares about the outermost physical shell.</span></div>
+<div class="line"><a id="l03389" name="l03389"></a><span class="lineno"> 3389</span>    <span class="keyword">auto</span> headIt = m_surfaces.constFind(QStringLiteral(<span class="stringliteral">&quot;bem_head&quot;</span>));</div>
+<div class="line"><a id="l03390" name="l03390"></a><span class="lineno"> 3390</span>    <span class="keywordflow">if</span> (headIt != m_surfaces.cend() &amp;&amp; headIt.value()) {</div>
+<div class="line"><a id="l03391" name="l03391"></a><span class="lineno"> 3391</span>        <span class="keywordtype">float</span> dist = 0.0f;</div>
+<div class="line"><a id="l03392" name="l03392"></a><span class="lineno"> 3392</span>        <span class="keywordtype">int</span> vertexIdx = -1;</div>
+<div class="line"><a id="l03393" name="l03393"></a><span class="lineno"> 3393</span>        <span class="keywordflow">if</span> (headIt.value()-&gt;intersects(origin, direction, dist, vertexIdx) &amp;&amp; dist &lt; closestDist) {</div>
+<div class="line"><a id="l03394" name="l03394"></a><span class="lineno"> 3394</span>            closestDist = dist;</div>
+<div class="line"><a id="l03395" name="l03395"></a><span class="lineno"> 3395</span>            hitPoint = origin + dist * direction;</div>
+<div class="line"><a id="l03396" name="l03396"></a><span class="lineno"> 3396</span>            found = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03397" name="l03397"></a><span class="lineno"> 3397</span>        }</div>
+<div class="line"><a id="l03398" name="l03398"></a><span class="lineno"> 3398</span>    }</div>
+<div class="line"><a id="l03399" name="l03399"></a><span class="lineno"> 3399</span> </div>
+<div class="line"><a id="l03400" name="l03400"></a><span class="lineno"> 3400</span>    <span class="comment">// Fall back to any other visible surface if the head wasn&#39;t hit.</span></div>
+<div class="line"><a id="l03401" name="l03401"></a><span class="lineno"> 3401</span>    <span class="keywordflow">if</span> (!found) {</div>
+<div class="line"><a id="l03402" name="l03402"></a><span class="lineno"> 3402</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = m_surfaces.cbegin(); it != m_surfaces.cend(); ++it) {</div>
+<div class="line"><a id="l03403" name="l03403"></a><span class="lineno"> 3403</span>            <span class="keyword">const</span> <span class="keyword">auto</span> &amp;surf = it.value();</div>
+<div class="line"><a id="l03404" name="l03404"></a><span class="lineno"> 3404</span>            <span class="keywordflow">if</span> (!surf || !surf-&gt;isVisible()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l03405" name="l03405"></a><span class="lineno"> 3405</span>            <span class="keywordtype">float</span> dist = 0.0f;</div>
+<div class="line"><a id="l03406" name="l03406"></a><span class="lineno"> 3406</span>            <span class="keywordtype">int</span> vertexIdx = -1;</div>
+<div class="line"><a id="l03407" name="l03407"></a><span class="lineno"> 3407</span>            <span class="keywordflow">if</span> (surf-&gt;intersects(origin, direction, dist, vertexIdx) &amp;&amp; dist &lt; closestDist) {</div>
+<div class="line"><a id="l03408" name="l03408"></a><span class="lineno"> 3408</span>                closestDist = dist;</div>
+<div class="line"><a id="l03409" name="l03409"></a><span class="lineno"> 3409</span>                hitPoint = origin + dist * direction;</div>
+<div class="line"><a id="l03410" name="l03410"></a><span class="lineno"> 3410</span>                found = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l03411" name="l03411"></a><span class="lineno"> 3411</span>            }</div>
+<div class="line"><a id="l03412" name="l03412"></a><span class="lineno"> 3412</span>        }</div>
+<div class="line"><a id="l03413" name="l03413"></a><span class="lineno"> 3413</span>    }</div>
+<div class="line"><a id="l03414" name="l03414"></a><span class="lineno"> 3414</span>    <span class="keywordflow">return</span> found;</div>
+<div class="line"><a id="l03415" name="l03415"></a><span class="lineno"> 3415</span>}</div>
 </div>
 <div class="ttc" id="aa00053_html"><div class="ttname"><a href="a00053.html">networkobject.h</a></div><div class="ttdoc">Instanced connectivity-graph renderable: node spheres and edge cylinders coloured by weight through a...</div></div>
 <div class="ttc" id="aa00068_html"><div class="ttname"><a href="a00068.html">brainsurface.h</a></div><div class="ttdoc">Renderable cortical / BEM mesh with interleaved vertex attributes and Qt-RHI buffer management.</div></div>
@@ -4010,22 +4049,24 @@ $(function() {
 <div class="ttc" id="aa03314_html_ab6a3ce27a39401f6fa1f4ccffa47edc6"><div class="ttname"><a href="a03314.html#ab6a3ce27a39401f6fa1f4ccffa47edc6">BrainRenderer::SceneData::scissorY</a></div><div class="ttdeci">int scissorY</div><div class="ttdef"><b>Definition</b> <a href="a00161_source.html#l00112">brainrenderer.h:112</a></div></div>
 <div class="ttc" id="aa03314_html_ad2a24871aba7d3896b29229f45fd1697"><div class="ttname"><a href="a03314.html#ad2a24871aba7d3896b29229f45fd1697">BrainRenderer::SceneData::mvp</a></div><div class="ttdeci">QMatrix4x4 mvp</div><div class="ttdef"><b>Definition</b> <a href="a00161_source.html#l00103">brainrenderer.h:103</a></div></div>
 <div class="ttc" id="aa03314_html_ae87c3f7c3448efa60392a48acf5997c0"><div class="ttname"><a href="a03314.html#ae87c3f7c3448efa60392a48acf5997c0">BrainRenderer::SceneData::scissorW</a></div><div class="ttdeci">int scissorW</div><div class="ttdef"><b>Definition</b> <a href="a00161_source.html#l00112">brainrenderer.h:112</a></div></div>
-<div class="ttc" id="aa03322_html_a0101118e883fc72ec05695ae715f0d33"><div class="ttname"><a href="a03322.html#a0101118e883fc72ec05695ae715f0d33">BrainView::setVideoOverlayOpacity</a></div><div class="ttdeci">void setVideoOverlayOpacity(float opacity)</div><div class="ttdef"><b>Definition</b> <a href="#l03330">brainview.cpp:3330</a></div></div>
+<div class="ttc" id="aa03322_html_a0101118e883fc72ec05695ae715f0d33"><div class="ttname"><a href="a03322.html#a0101118e883fc72ec05695ae715f0d33">BrainView::setVideoOverlayOpacity</a></div><div class="ttdeci">void setVideoOverlayOpacity(float opacity)</div><div class="ttdef"><b>Definition</b> <a href="#l03365">brainview.cpp:3365</a></div></div>
 <div class="ttc" id="aa03322_html_a033ce91f7a4042b25b209d60003b9e69"><div class="ttname"><a href="a03322.html#a033ce91f7a4042b25b209d60003b9e69">BrainView::setBemHighContrast</a></div><div class="ttdeci">void setBemHighContrast(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l00837">brainview.cpp:837</a></div></div>
+<div class="ttc" id="aa03322_html_a04c43ec08c10a83b27f69c35f3b06ca8"><div class="ttname"><a href="a03322.html#a04c43ec08c10a83b27f69c35f3b06ca8">BrainView::setProbeVisualization</a></div><div class="ttdeci">void setProbeVisualization(const QVector3D &amp;tip, const QVector3D &amp;direction, float length, const QColor &amp;color)</div><div class="ttdef"><b>Definition</b> <a href="#l03150">brainview.cpp:3150</a></div></div>
 <div class="ttc" id="aa03322_html_a081493cdb15ea352b80c9aa886c3e9bb"><div class="ttname"><a href="a03322.html#a081493cdb15ea352b80c9aa886c3e9bb">BrainView::clearDipoles</a></div><div class="ttdeci">void clearDipoles()</div><div class="ttdef"><b>Definition</b> <a href="#l03028">brainview.cpp:3028</a></div></div>
 <div class="ttc" id="aa03322_html_a0b79c01ee3028d12192e8b0fcf7003e4"><div class="ttname"><a href="a03322.html#a0b79c01ee3028d12192e8b0fcf7003e4">BrainView::setSourceColormap</a></div><div class="ttdeci">void setSourceColormap(const QString &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="#l02100">brainview.cpp:2100</a></div></div>
 <div class="ttc" id="aa03322_html_a10241617a8a4fee362b01e2846f26426"><div class="ttname"><a href="a03322.html#a10241617a8a4fee362b01e2846f26426">BrainView::loadMegHelmetSurface</a></div><div class="ttdeci">bool loadMegHelmetSurface(const QString &amp;helmetFilePath)</div><div class="ttdef"><b>Definition</b> <a href="#l02526">brainview.cpp:2526</a></div></div>
 <div class="ttc" id="aa03322_html_a17b0f6d54f196649fea2e27126cc8c3f"><div class="ttname"><a href="a03322.html#a17b0f6d54f196649fea2e27126cc8c3f">BrainView::setHemiVisible</a></div><div class="ttdeci">void setHemiVisible(int hemiIdx, bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l00815">brainview.cpp:815</a></div></div>
 <div class="ttc" id="aa03322_html_a184d54d6744f20c320ea48ce59e09d9e"><div class="ttname"><a href="a03322.html#a184d54d6744f20c320ea48ce59e09d9e">BrainView::setSensorFieldTimePoint</a></div><div class="ttdeci">void setSensorFieldTimePoint(int index)</div><div class="ttdef"><b>Definition</b> <a href="#l02231">brainview.cpp:2231</a></div></div>
 <div class="ttc" id="aa03322_html_a1a452e544d48f94a832ddbab36ee09b6"><div class="ttname"><a href="a03322.html#a1a452e544d48f94a832ddbab36ee09b6">BrainView::sourceThresholdsUpdated</a></div><div class="ttdeci">void sourceThresholdsUpdated(float min, float mid, float max)</div></div>
-<div class="ttc" id="aa03322_html_a1b288a737efdbb54b8607dd7f0980d9f"><div class="ttname"><a href="a03322.html#a1b288a737efdbb54b8607dd7f0980d9f">BrainView::setCameraFocusOverride</a></div><div class="ttdeci">void setCameraFocusOverride(const QVector3D &amp;center, float size)</div><div class="ttdef"><b>Definition</b> <a href="#l03187">brainview.cpp:3187</a></div></div>
+<div class="ttc" id="aa03322_html_a1b288a737efdbb54b8607dd7f0980d9f"><div class="ttname"><a href="a03322.html#a1b288a737efdbb54b8607dd7f0980d9f">BrainView::setCameraFocusOverride</a></div><div class="ttdeci">void setCameraFocusOverride(const QVector3D &amp;center, float size)</div><div class="ttdef"><b>Definition</b> <a href="#l03222">brainview.cpp:3222</a></div></div>
 <div class="ttc" id="aa03322_html_a1cc0ad2cf7bc4f65f6fc36ed795b2618"><div class="ttname"><a href="a03322.html#a1cc0ad2cf7bc4f65f6fc36ed795b2618">BrainView::setInfoPanelVisible</a></div><div class="ttdeci">void setInfoPanelVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l01344">brainview.cpp:1344</a></div></div>
+<div class="ttc" id="aa03322_html_a1fe04ab3f16bf979b26650e1b853bbe1"><div class="ttname"><a href="a03322.html#a1fe04ab3f16bf979b26650e1b853bbe1">BrainView::clearProbeVisualization</a></div><div class="ttdeci">void clearProbeVisualization()</div><div class="ttdef"><b>Definition</b> <a href="#l03174">brainview.cpp:3174</a></div></div>
 <div class="ttc" id="aa03322_html_a20a2705bc7081a0b0258b983a114a29a"><div class="ttname"><a href="a03322.html#a20a2705bc7081a0b0258b983a114a29a">BrainView::clearSourceEstimate</a></div><div class="ttdeci">void clearSourceEstimate()</div><div class="ttdef"><b>Definition</b> <a href="#l03015">brainview.cpp:3015</a></div></div>
 <div class="ttc" id="aa03322_html_a2190b413865060abbc3bf3afefbbeeeb"><div class="ttname"><a href="a03322.html#a2190b413865060abbc3bf3afefbbeeeb">BrainView::stcNumTimePoints</a></div><div class="ttdeci">int stcNumTimePoints() const</div><div class="ttdef"><b>Definition</b> <a href="#l02331">brainview.cpp:2331</a></div></div>
 <div class="ttc" id="aa03322_html_a21b7bf2a59715f54dcf702d68876eb21"><div class="ttname"><a href="a03322.html#a21b7bf2a59715f54dcf702d68876eb21">BrainView::loadTransformation</a></div><div class="ttdeci">bool loadTransformation(const QString &amp;transPath)</div><div class="ttdef"><b>Definition</b> <a href="#l02621">brainview.cpp:2621</a></div></div>
 <div class="ttc" id="aa03322_html_a2292a4bd15b853b73d7180456e238687"><div class="ttname"><a href="a03322.html#a2292a4bd15b853b73d7180456e238687">BrainView::loadDipoles</a></div><div class="ttdeci">bool loadDipoles(const QString &amp;dipPath)</div><div class="ttdef"><b>Definition</b> <a href="#l02542">brainview.cpp:2542</a></div></div>
 <div class="ttc" id="aa03322_html_a23364467a018869a970d86b28f7ededd"><div class="ttname"><a href="a03322.html#a23364467a018869a970d86b28f7ededd">BrainView::wheelEvent</a></div><div class="ttdeci">void wheelEvent(QWheelEvent *event) override</div><div class="ttdef"><b>Definition</b> <a href="#l02044">brainview.cpp:2044</a></div></div>
-<div class="ttc" id="aa03322_html_a23fc0d38b3da63d0807dfff12c8b86a6"><div class="ttname"><a href="a03322.html#a23fc0d38b3da63d0807dfff12c8b86a6">BrainView::clearStaticMarkers</a></div><div class="ttdeci">void clearStaticMarkers()</div><div class="ttdef"><b>Definition</b> <a href="#l03170">brainview.cpp:3170</a></div></div>
+<div class="ttc" id="aa03322_html_a23fc0d38b3da63d0807dfff12c8b86a6"><div class="ttname"><a href="a03322.html#a23fc0d38b3da63d0807dfff12c8b86a6">BrainView::clearStaticMarkers</a></div><div class="ttdeci">void clearStaticMarkers()</div><div class="ttdef"><b>Definition</b> <a href="#l03205">brainview.cpp:3205</a></div></div>
 <div class="ttc" id="aa03322_html_a25a6cb87ec4cb9b614d20337c510eee8"><div class="ttname"><a href="a03322.html#a25a6cb87ec4cb9b614d20337c510eee8">BrainView::~BrainView</a></div><div class="ttdeci">~BrainView()</div><div class="ttdef"><b>Definition</b> <a href="#l00198">brainview.cpp:198</a></div></div>
 <div class="ttc" id="aa03322_html_a26f13eab837aa7cae225b2597171378c"><div class="ttname"><a href="a03322.html#a26f13eab837aa7cae225b2597171378c">BrainView::sensorFieldTimeRange</a></div><div class="ttdeci">bool sensorFieldTimeRange(float &amp;tmin, float &amp;tmax) const</div><div class="ttdef"><b>Definition</b> <a href="#l02365">brainview.cpp:2365</a></div></div>
 <div class="ttc" id="aa03322_html_a2a795419e214c2b6118aa90ba96bd302"><div class="ttname"><a href="a03322.html#a2a795419e214c2b6118aa90ba96bd302">BrainView::sourceEstimateLoaded</a></div><div class="ttdeci">void sourceEstimateLoaded(int numTimePoints)</div></div>
@@ -4038,13 +4079,13 @@ $(function() {
 <div class="ttc" id="aa03322_html_a4046af3039a3d7072a309d42ab4cc513"><div class="ttname"><a href="a03322.html#a4046af3039a3d7072a309d42ab4cc513">BrainView::closestSensorFieldIndex</a></div><div class="ttdeci">int closestSensorFieldIndex(float timeSec) const</div><div class="ttdef"><b>Definition</b> <a href="#l02338">brainview.cpp:2338</a></div></div>
 <div class="ttc" id="aa03322_html_a446f437e41d754955b34076a90049e78"><div class="ttname"><a href="a03322.html#a446f437e41d754955b34076a90049e78">BrainView::isRealtimeSensorStreaming</a></div><div class="ttdeci">bool isRealtimeSensorStreaming() const</div><div class="ttdef"><b>Definition</b> <a href="#l02393">brainview.cpp:2393</a></div></div>
 <div class="ttc" id="aa03322_html_a4646f4dbd574b6569bf9f8bdec8b5117"><div class="ttname"><a href="a03322.html#a4646f4dbd574b6569bf9f8bdec8b5117">BrainView::resetAllSubViewState</a></div><div class="ttdeci">void resetAllSubViewState()</div><div class="ttdef"><b>Definition</b> <a href="#l01318">brainview.cpp:1318</a></div></div>
-<div class="ttc" id="aa03322_html_a47003d384e5ee161ed0284b3e9c23cf2"><div class="ttname"><a href="a03322.html#a47003d384e5ee161ed0284b3e9c23cf2">BrainView::intersectWorldRay</a></div><div class="ttdeci">bool intersectWorldRay(const QVector3D &amp;origin, const QVector3D &amp;direction, QVector3D &amp;hitPoint) const</div><div class="ttdoc">Intersect a world-space ray with loaded scene geometry.</div><div class="ttdef"><b>Definition</b> <a href="#l03344">brainview.cpp:3344</a></div></div>
+<div class="ttc" id="aa03322_html_a47003d384e5ee161ed0284b3e9c23cf2"><div class="ttname"><a href="a03322.html#a47003d384e5ee161ed0284b3e9c23cf2">BrainView::intersectWorldRay</a></div><div class="ttdeci">bool intersectWorldRay(const QVector3D &amp;origin, const QVector3D &amp;direction, QVector3D &amp;hitPoint) const</div><div class="ttdoc">Intersect a world-space ray with loaded scene geometry.</div><div class="ttdef"><b>Definition</b> <a href="#l03379">brainview.cpp:3379</a></div></div>
 <div class="ttc" id="aa03322_html_a4c1b004fafa7f33395f8932e0ac618fc"><div class="ttname"><a href="a03322.html#a4c1b004fafa7f33395f8932e0ac618fc">BrainView::resizeEvent</a></div><div class="ttdeci">void resizeEvent(QResizeEvent *event) override</div><div class="ttdef"><b>Definition</b> <a href="#l01353">brainview.cpp:1353</a></div></div>
 <div class="ttc" id="aa03322_html_a4c2804c77991f767f6393ea30ed0dd02"><div class="ttname"><a href="a03322.html#a4c2804c77991f767f6393ea30ed0dd02">BrainView::closestStcIndex</a></div><div class="ttdeci">int closestStcIndex(float timeSec) const</div><div class="ttdef"><b>Definition</b> <a href="#l02358">brainview.cpp:2358</a></div></div>
 <div class="ttc" id="aa03322_html_a4c2b5c0ac245defd0ee48c5026f6a47c"><div class="ttname"><a href="a03322.html#a4c2b5c0ac245defd0ee48c5026f6a47c">BrainView::stcStep</a></div><div class="ttdeci">float stcStep() const</div><div class="ttdef"><b>Definition</b> <a href="#l02317">brainview.cpp:2317</a></div></div>
-<div class="ttc" id="aa03322_html_a4fa7a62ad6b5fabf825de99139585c5c"><div class="ttname"><a href="a03322.html#a4fa7a62ad6b5fabf825de99139585c5c">BrainView::pushVideoOverlayFrame</a></div><div class="ttdeci">void pushVideoOverlayFrame(const QImage &amp;frame)</div><div class="ttdef"><b>Definition</b> <a href="#l03337">brainview.cpp:3337</a></div></div>
+<div class="ttc" id="aa03322_html_a4fa7a62ad6b5fabf825de99139585c5c"><div class="ttname"><a href="a03322.html#a4fa7a62ad6b5fabf825de99139585c5c">BrainView::pushVideoOverlayFrame</a></div><div class="ttdeci">void pushVideoOverlayFrame(const QImage &amp;frame)</div><div class="ttdef"><b>Definition</b> <a href="#l03372">brainview.cpp:3372</a></div></div>
 <div class="ttc" id="aa03322_html_a5152ba27b8617e1a4068f965ef7216b9"><div class="ttname"><a href="a03322.html#a5152ba27b8617e1a4068f965ef7216b9">BrainView::bemShaderModeForTarget</a></div><div class="ttdeci">QString bemShaderModeForTarget(int target) const</div><div class="ttdef"><b>Definition</b> <a href="#l00612">brainview.cpp:612</a></div></div>
-<div class="ttc" id="aa03322_html_a5188a8cd5bf25f7d62a320e606316f8d"><div class="ttname"><a href="a03322.html#a5188a8cd5bf25f7d62a320e606316f8d">BrainView::setVideoOverlayUpHint</a></div><div class="ttdeci">void setVideoOverlayUpHint(const QVector3D &amp;dir)</div><div class="ttdef"><b>Definition</b> <a href="#l03316">brainview.cpp:3316</a></div></div>
+<div class="ttc" id="aa03322_html_a5188a8cd5bf25f7d62a320e606316f8d"><div class="ttname"><a href="a03322.html#a5188a8cd5bf25f7d62a320e606316f8d">BrainView::setVideoOverlayUpHint</a></div><div class="ttdeci">void setVideoOverlayUpHint(const QVector3D &amp;dir)</div><div class="ttdef"><b>Definition</b> <a href="#l03351">brainview.cpp:3351</a></div></div>
 <div class="ttc" id="aa03322_html_a52856f8fbc719e1516b62fa1d2657660"><div class="ttname"><a href="a03322.html#a52856f8fbc719e1516b62fa1d2657660">BrainView::keyPressEvent</a></div><div class="ttdeci">void keyPressEvent(QKeyEvent *event) override</div><div class="ttdef"><b>Definition</b> <a href="#l02062">brainview.cpp:2062</a></div></div>
 <div class="ttc" id="aa03322_html_a54c50893c3508488d73edbe14d0327a2"><div class="ttname"><a href="a03322.html#a54c50893c3508488d73edbe14d0327a2">BrainView::setRealtimeLooping</a></div><div class="ttdeci">void setRealtimeLooping(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l02152">brainview.cpp:2152</a></div></div>
 <div class="ttc" id="aa03322_html_a550e2dd73f5bb7307e4bb78264f549b8"><div class="ttname"><a href="a03322.html#a550e2dd73f5bb7307e4bb78264f549b8">BrainView::setRealtimeInterval</a></div><div class="ttdeci">void setRealtimeInterval(int msec)</div><div class="ttdef"><b>Definition</b> <a href="#l02145">brainview.cpp:2145</a></div></div>
@@ -4056,15 +4097,15 @@ $(function() {
 <div class="ttc" id="aa03322_html_a61c1d8eeebc691374e913d749333671a"><div class="ttname"><a href="a03322.html#a61c1d8eeebc691374e913d749333671a">BrainView::clearLiveRay</a></div><div class="ttdeci">void clearLiveRay()</div><div class="ttdef"><b>Definition</b> <a href="#l03142">brainview.cpp:3142</a></div></div>
 <div class="ttc" id="aa03322_html_a62fbb726ca3bf332d9895c1524c3f2e4"><div class="ttname"><a href="a03322.html#a62fbb726ca3bf332d9895c1524c3f2e4">BrainView::startRealtimeSensorStreaming</a></div><div class="ttdeci">void startRealtimeSensorStreaming(const QString &amp;modality=QStringLiteral(&quot;MEG&quot;))</div><div class="ttdef"><b>Definition</b> <a href="#l02379">brainview.cpp:2379</a></div></div>
 <div class="ttc" id="aa03322_html_a67d63289d795abcd89980be77952afa4"><div class="ttname"><a href="a03322.html#a67d63289d795abcd89980be77952afa4">BrainView::overlayModeForTarget</a></div><div class="ttdeci">QString overlayModeForTarget(int target) const</div><div class="ttdef"><b>Definition</b> <a href="#l00619">brainview.cpp:619</a></div></div>
-<div class="ttc" id="aa03322_html_a685b574c4f1d3dd2f1476e5a77dd1b29"><div class="ttname"><a href="a03322.html#a685b574c4f1d3dd2f1476e5a77dd1b29">BrainView::clearTransformation</a></div><div class="ttdeci">void clearTransformation()</div><div class="ttdef"><b>Definition</b> <a href="#l03256">brainview.cpp:3256</a></div></div>
+<div class="ttc" id="aa03322_html_a685b574c4f1d3dd2f1476e5a77dd1b29"><div class="ttname"><a href="a03322.html#a685b574c4f1d3dd2f1476e5a77dd1b29">BrainView::clearTransformation</a></div><div class="ttdeci">void clearTransformation()</div><div class="ttdef"><b>Definition</b> <a href="#l03291">brainview.cpp:3291</a></div></div>
 <div class="ttc" id="aa03322_html_a6b8da250951bf0f42aa72970f654257a"><div class="ttname"><a href="a03322.html#a6b8da250951bf0f42aa72970f654257a">BrainView::onRowsInserted</a></div><div class="ttdeci">void onRowsInserted(const QModelIndex &amp;parent, int first, int last)</div><div class="ttdef"><b>Definition</b> <a href="#l00224">brainview.cpp:224</a></div></div>
 <div class="ttc" id="aa03322_html_a6faac273989ef8858a716ea23635ff3c"><div class="ttname"><a href="a03322.html#a6faac273989ef8858a716ea23635ff3c">BrainView::stopRealtimeSensorStreaming</a></div><div class="ttdeci">void stopRealtimeSensorStreaming()</div><div class="ttdef"><b>Definition</b> <a href="#l02386">brainview.cpp:2386</a></div></div>
 <div class="ttc" id="aa03322_html_a720fbabbaa55c8ed043c039622fa88c7"><div class="ttname"><a href="a03322.html#a720fbabbaa55c8ed043c039622fa88c7">BrainView::shaderModeForTarget</a></div><div class="ttdeci">QString shaderModeForTarget(int target) const</div><div class="ttdef"><b>Definition</b> <a href="#l00605">brainview.cpp:605</a></div></div>
 <div class="ttc" id="aa03322_html_a748b37b0c1bb958878b9b5a7aa0ea6b1"><div class="ttname"><a href="a03322.html#a748b37b0c1bb958878b9b5a7aa0ea6b1">BrainView::mouseDoubleClickEvent</a></div><div class="ttdeci">void mouseDoubleClickEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition</b> <a href="#l02030">brainview.cpp:2030</a></div></div>
 <div class="ttc" id="aa03322_html_a7566bc1b81e23377e6bc2ddf65ff95f7"><div class="ttname"><a href="a03322.html#a7566bc1b81e23377e6bc2ddf65ff95f7">BrainView::objectVisibleForTarget</a></div><div class="ttdeci">bool objectVisibleForTarget(const QString &amp;object, int target) const</div><div class="ttdef"><b>Definition</b> <a href="#l00661">brainview.cpp:661</a></div></div>
-<div class="ttc" id="aa03322_html_a75b936dfe3913a8852fa1e80e0c08446"><div class="ttname"><a href="a03322.html#a75b936dfe3913a8852fa1e80e0c08446">BrainView::isVideoOverlayEnabled</a></div><div class="ttdeci">bool isVideoOverlayEnabled() const</div><div class="ttdef"><b>Definition</b> <a href="#l03304">brainview.cpp:3304</a></div></div>
+<div class="ttc" id="aa03322_html_a75b936dfe3913a8852fa1e80e0c08446"><div class="ttname"><a href="a03322.html#a75b936dfe3913a8852fa1e80e0c08446">BrainView::isVideoOverlayEnabled</a></div><div class="ttdeci">bool isVideoOverlayEnabled() const</div><div class="ttdef"><b>Definition</b> <a href="#l03339">brainview.cpp:3339</a></div></div>
 <div class="ttc" id="aa03322_html_a76cf19b5780036713996e966c9c41ca7"><div class="ttname"><a href="a03322.html#a76cf19b5780036713996e966c9c41ca7">BrainView::setRealtimeSensorAverages</a></div><div class="ttdeci">void setRealtimeSensorAverages(int numAvr)</div><div class="ttdef"><b>Definition</b> <a href="#l02421">brainview.cpp:2421</a></div></div>
-<div class="ttc" id="aa03322_html_a772c441e2f53f40ea1ec6b93a3533142"><div class="ttname"><a href="a03322.html#a772c441e2f53f40ea1ec6b93a3533142">BrainView::setVideoOverlayEnabled</a></div><div class="ttdeci">void setVideoOverlayEnabled(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l03296">brainview.cpp:3296</a></div></div>
+<div class="ttc" id="aa03322_html_a772c441e2f53f40ea1ec6b93a3533142"><div class="ttname"><a href="a03322.html#a772c441e2f53f40ea1ec6b93a3533142">BrainView::setVideoOverlayEnabled</a></div><div class="ttdeci">void setVideoOverlayEnabled(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l03331">brainview.cpp:3331</a></div></div>
 <div class="ttc" id="aa03322_html_a7757b8bed2a02db1836bad327f8dfd51"><div class="ttname"><a href="a03322.html#a7757b8bed2a02db1836bad327f8dfd51">BrainView::setSourceThresholds</a></div><div class="ttdeci">void setSourceThresholds(float min, float mid, float max)</div><div class="ttdef"><b>Definition</b> <a href="#l02108">brainview.cpp:2108</a></div></div>
 <div class="ttc" id="aa03322_html_a77d0d2960619d1f86f112bf26b30ab45"><div class="ttname"><a href="a03322.html#a77d0d2960619d1f86f112bf26b30ab45">BrainView::mouseMoveEvent</a></div><div class="ttdeci">void mouseMoveEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition</b> <a href="#l01931">brainview.cpp:1931</a></div></div>
 <div class="ttc" id="aa03322_html_a7a16217c5af9f4e9caae1564216ea566"><div class="ttname"><a href="a03322.html#a7a16217c5af9f4e9caae1564216ea566">BrainView::pushRealtimeSourceData</a></div><div class="ttdeci">void pushRealtimeSourceData(const Eigen::VectorXd &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="#l02138">brainview.cpp:2138</a></div></div>
@@ -4077,10 +4118,10 @@ $(function() {
 <div class="ttc" id="aa03322_html_a888a6a2654b9362550a24e0076f819ff"><div class="ttname"><a href="a03322.html#a888a6a2654b9362550a24e0076f819ff">BrainView::render</a></div><div class="ttdeci">void render(QRhiCommandBuffer *cb) override</div><div class="ttdef"><b>Definition</b> <a href="#l01376">brainview.cpp:1376</a></div></div>
 <div class="ttc" id="aa03322_html_a894bf5a02aae76a3cdc5ea3687feed37"><div class="ttname"><a href="a03322.html#a894bf5a02aae76a3cdc5ea3687feed37">BrainView::setInitialCameraRotation</a></div><div class="ttdeci">void setInitialCameraRotation(const QQuaternion &amp;rotation)</div><div class="ttdef"><b>Definition</b> <a href="#l00217">brainview.cpp:217</a></div></div>
 <div class="ttc" id="aa03322_html_a8e9afab7af342db85017bfee1a8a9f2b"><div class="ttname"><a href="a03322.html#a8e9afab7af342db85017bfee1a8a9f2b">BrainView::loadSensors</a></div><div class="ttdeci">bool loadSensors(const QString &amp;fifPath)</div><div class="ttdef"><b>Definition</b> <a href="#l02452">brainview.cpp:2452</a></div></div>
-<div class="ttc" id="aa03322_html_a8f33169344f131c924c4969432b491e4"><div class="ttname"><a href="a03322.html#a8f33169344f131c924c4969432b491e4">BrainView::clearNetwork</a></div><div class="ttdeci">void clearNetwork()</div><div class="ttdef"><b>Definition</b> <a href="#l03265">brainview.cpp:3265</a></div></div>
+<div class="ttc" id="aa03322_html_a8f33169344f131c924c4969432b491e4"><div class="ttname"><a href="a03322.html#a8f33169344f131c924c4969432b491e4">BrainView::clearNetwork</a></div><div class="ttdeci">void clearNetwork()</div><div class="ttdef"><b>Definition</b> <a href="#l03300">brainview.cpp:3300</a></div></div>
 <div class="ttc" id="aa03322_html_a91a62d74feab07e81e706682450c0bb2"><div class="ttname"><a href="a03322.html#a91a62d74feab07e81e706682450c0bb2">BrainView::setVisualizationMode</a></div><div class="ttdeci">void setVisualizationMode(const QString &amp;mode)</div><div class="ttdef"><b>Definition</b> <a href="#l00790">brainview.cpp:790</a></div></div>
 <div class="ttc" id="aa03322_html_a93b2f6f03d758c88943ec605322e148d"><div class="ttname"><a href="a03322.html#a93b2f6f03d758c88943ec605322e148d">BrainView::initialize</a></div><div class="ttdeci">void initialize(QRhiCommandBuffer *cb) override</div><div class="ttdef"><b>Definition</b> <a href="#l01362">brainview.cpp:1362</a></div></div>
-<div class="ttc" id="aa03322_html_a9583d761887b3d0f2dfb85b7e1bab0dc"><div class="ttname"><a href="a03322.html#a9583d761887b3d0f2dfb85b7e1bab0dc">BrainView::setVideoOverlaySize</a></div><div class="ttdeci">void setVideoOverlaySize(float meters)</div><div class="ttdef"><b>Definition</b> <a href="#l03323">brainview.cpp:3323</a></div></div>
+<div class="ttc" id="aa03322_html_a9583d761887b3d0f2dfb85b7e1bab0dc"><div class="ttname"><a href="a03322.html#a9583d761887b3d0f2dfb85b7e1bab0dc">BrainView::setVideoOverlaySize</a></div><div class="ttdeci">void setVideoOverlaySize(float meters)</div><div class="ttdef"><b>Definition</b> <a href="#l03358">brainview.cpp:3358</a></div></div>
 <div class="ttc" id="aa03322_html_a98ad2d95435afee042c69365ab2da211"><div class="ttname"><a href="a03322.html#a98ad2d95435afee042c69365ab2da211">BrainView::setModel</a></div><div class="ttdeci">void setModel(BrainTreeModel *model)</div><div class="ttdef"><b>Definition</b> <a href="#l00205">brainview.cpp:205</a></div></div>
 <div class="ttc" id="aa03322_html_a9ca2741b8c4f882ac008a01f0fe57aea"><div class="ttname"><a href="a03322.html#a9ca2741b8c4f882ac008a01f0fe57aea">BrainView::mouseReleaseEvent</a></div><div class="ttdeci">void mouseReleaseEvent(QMouseEvent *event) override</div><div class="ttdef"><b>Definition</b> <a href="#l01993">brainview.cpp:1993</a></div></div>
 <div class="ttc" id="aa03322_html_a9d31048d69c904e7e51e0893d2950f2c"><div class="ttname"><a href="a03322.html#a9d31048d69c904e7e51e0893d2950f2c">BrainView::BrainView</a></div><div class="ttdeci">BrainView(QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="#l00073">brainview.cpp:73</a></div></div>
@@ -4090,7 +4131,7 @@ $(function() {
 <div class="ttc" id="aa03322_html_aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774"><div class="ttname"><a href="a03322.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774">BrainView::MultiView</a></div><div class="ttdeci">@ MultiView</div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00101">brainview.h:101</a></div></div>
 <div class="ttc" id="aa03322_html_aa3d141044493fd3001bf21b70c9dbfe4ad3ffb81dca285cc917e96c84cf7617e8"><div class="ttname"><a href="a03322.html#aa3d141044493fd3001bf21b70c9dbfe4ad3ffb81dca285cc917e96c84cf7617e8">BrainView::SingleView</a></div><div class="ttdeci">@ SingleView</div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00100">brainview.h:100</a></div></div>
 <div class="ttc" id="aa03322_html_aa46cca73fc3f6ff1d989e8ebb86ef64b"><div class="ttname"><a href="a03322.html#aa46cca73fc3f6ff1d989e8ebb86ef64b">BrainView::syncBemShadersToBrainShaders</a></div><div class="ttdeci">void syncBemShadersToBrainShaders()</div><div class="ttdef"><b>Definition</b> <a href="#l00723">brainview.cpp:723</a></div></div>
-<div class="ttc" id="aa03322_html_aa4c152ff6232244914892354221e451a"><div class="ttname"><a href="a03322.html#aa4c152ff6232244914892354221e451a">BrainView::stopAllStreaming</a></div><div class="ttdeci">void stopAllStreaming()</div><div class="ttdef"><b>Definition</b> <a href="#l03285">brainview.cpp:3285</a></div></div>
+<div class="ttc" id="aa03322_html_aa4c152ff6232244914892354221e451a"><div class="ttname"><a href="a03322.html#aa4c152ff6232244914892354221e451a">BrainView::stopAllStreaming</a></div><div class="ttdeci">void stopAllStreaming()</div><div class="ttdef"><b>Definition</b> <a href="#l03320">brainview.cpp:3320</a></div></div>
 <div class="ttc" id="aa03322_html_aa67a9c7442785ece53561317bd45c984"><div class="ttname"><a href="a03322.html#aa67a9c7442785ece53561317bd45c984">BrainView::setRealtimeSensorLooping</a></div><div class="ttdeci">void setRealtimeSensorLooping(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l02414">brainview.cpp:2414</a></div></div>
 <div class="ttc" id="aa03322_html_aa8ba2c1abf239cb8f185f6f21dd96268"><div class="ttname"><a href="a03322.html#aa8ba2c1abf239cb8f185f6f21dd96268">BrainView::viewCountChanged</a></div><div class="ttdeci">void viewCountChanged(int count)</div></div>
 <div class="ttc" id="aa03322_html_aa9a94a52117ef500cbcd04b876b66da7"><div class="ttname"><a href="a03322.html#aa9a94a52117ef500cbcd04b876b66da7">BrainView::surfacePointDoubleClicked</a></div><div class="ttdeci">void surfacePointDoubleClicked(const QVector3D &amp;worldPos)</div></div>
@@ -4114,16 +4155,16 @@ $(function() {
 <div class="ttc" id="aa03322_html_ac9a59c43b9ccf9a4fd57cd672e471d3a"><div class="ttname"><a href="a03322.html#ac9a59c43b9ccf9a4fd57cd672e471d3a">BrainView::isViewportEnabled</a></div><div class="ttdeci">bool isViewportEnabled(int index) const</div><div class="ttdef"><b>Definition</b> <a href="#l00934">brainview.cpp:934</a></div></div>
 <div class="ttc" id="aa03322_html_ace4571c62ea25269fac0f021129c3391"><div class="ttname"><a href="a03322.html#ace4571c62ea25269fac0f021129c3391">BrainView::loadNetwork</a></div><div class="ttdeci">bool loadNetwork(const CONNECTIVITYLIB::Network &amp;network, const QString &amp;name=&quot;Network&quot;)</div><div class="ttdef"><b>Definition</b> <a href="#l02552">brainview.cpp:2552</a></div></div>
 <div class="ttc" id="aa03322_html_acef713000fffce0e5df90b78d169c386"><div class="ttname"><a href="a03322.html#acef713000fffce0e5df90b78d169c386">BrainView::setActiveSurface</a></div><div class="ttdeci">void setActiveSurface(const QString &amp;type)</div><div class="ttdef"><b>Definition</b> <a href="#l00463">brainview.cpp:463</a></div></div>
-<div class="ttc" id="aa03322_html_ad43719856a68881bcbe60ad475bd680b"><div class="ttname"><a href="a03322.html#ad43719856a68881bcbe60ad475bd680b">BrainView::setVideoOverlayFocusPosition</a></div><div class="ttdeci">void setVideoOverlayFocusPosition(const QVector3D &amp;position)</div><div class="ttdef"><b>Definition</b> <a href="#l03309">brainview.cpp:3309</a></div></div>
+<div class="ttc" id="aa03322_html_ad43719856a68881bcbe60ad475bd680b"><div class="ttname"><a href="a03322.html#ad43719856a68881bcbe60ad475bd680b">BrainView::setVideoOverlayFocusPosition</a></div><div class="ttdeci">void setVideoOverlayFocusPosition(const QVector3D &amp;position)</div><div class="ttdef"><b>Definition</b> <a href="#l03344">brainview.cpp:3344</a></div></div>
 <div class="ttc" id="aa03322_html_ad49190731411f643675c231db0176436"><div class="ttname"><a href="a03322.html#ad49190731411f643675c231db0176436">BrainView::sensorFieldTimePointChanged</a></div><div class="ttdeci">void sensorFieldTimePointChanged(int index, float time)</div></div>
 <div class="ttc" id="aa03322_html_ad9158ea67d17823382bb900e322dc8a3"><div class="ttname"><a href="a03322.html#ad9158ea67d17823382bb900e322dc8a3">BrainView::isRealtimeStreaming</a></div><div class="ttdeci">bool isRealtimeStreaming() const</div><div class="ttdef"><b>Definition</b> <a href="#l02131">brainview.cpp:2131</a></div></div>
 <div class="ttc" id="aa03322_html_ada44f677aea1d16c67c2e88a25b68919"><div class="ttname"><a href="a03322.html#ada44f677aea1d16c67c2e88a25b68919">BrainView::setViewCount</a></div><div class="ttdeci">void setViewCount(int count)</div><div class="ttdef"><b>Definition</b> <a href="#l00892">brainview.cpp:892</a></div></div>
 <div class="ttc" id="aa03322_html_adc9eeefc2f65d049faf14bc6c5618347"><div class="ttname"><a href="a03322.html#adc9eeefc2f65d049faf14bc6c5618347">BrainView::clearSourceSpace</a></div><div class="ttdeci">void clearSourceSpace()</div><div class="ttdef"><b>Definition</b> <a href="#l03048">brainview.cpp:3048</a></div></div>
-<div class="ttc" id="aa03322_html_ade31f90ab0e8b9de005364dc909a8244"><div class="ttname"><a href="a03322.html#ade31f90ab0e8b9de005364dc909a8244">BrainView::setStaticMarkers</a></div><div class="ttdeci">void setStaticMarkers(const QVector&lt; LiveMarker &gt; &amp;markers)</div><div class="ttdef"><b>Definition</b> <a href="#l03150">brainview.cpp:3150</a></div></div>
+<div class="ttc" id="aa03322_html_ade31f90ab0e8b9de005364dc909a8244"><div class="ttname"><a href="a03322.html#ade31f90ab0e8b9de005364dc909a8244">BrainView::setStaticMarkers</a></div><div class="ttdeci">void setStaticMarkers(const QVector&lt; LiveMarker &gt; &amp;markers)</div><div class="ttdef"><b>Definition</b> <a href="#l03185">brainview.cpp:3185</a></div></div>
 <div class="ttc" id="aa03322_html_adf13aefa7fc8c25f6f85c4091727bd03"><div class="ttname"><a href="a03322.html#adf13aefa7fc8c25f6f85c4091727bd03">BrainView::surfacePointClicked</a></div><div class="ttdeci">void surfacePointClicked(const QVector3D &amp;worldPos)</div></div>
 <div class="ttc" id="aa03322_html_adfc28e282603ec4541b0668c79ac1877"><div class="ttname"><a href="a03322.html#adfc28e282603ec4541b0668c79ac1877">BrainView::resetSingleViewCameraState</a></div><div class="ttdeci">void resetSingleViewCameraState()</div><div class="ttdef"><b>Definition</b> <a href="#l01293">brainview.cpp:1293</a></div></div>
 <div class="ttc" id="aa03322_html_adfd831c356f10cf21cea08c0ed145e2e"><div class="ttname"><a href="a03322.html#adfd831c356f10cf21cea08c0ed145e2e">BrainView::setMegHelmetOverride</a></div><div class="ttdeci">void setMegHelmetOverride(const QString &amp;path)</div><div class="ttdef"><b>Definition</b> <a href="#l00774">brainview.cpp:774</a></div></div>
-<div class="ttc" id="aa03322_html_ae11b2345bded597ea1ab2f1ff250738f"><div class="ttname"><a href="a03322.html#ae11b2345bded597ea1ab2f1ff250738f">BrainView::clearCameraFocusOverride</a></div><div class="ttdeci">void clearCameraFocusOverride()</div><div class="ttdef"><b>Definition</b> <a href="#l03196">brainview.cpp:3196</a></div></div>
+<div class="ttc" id="aa03322_html_ae11b2345bded597ea1ab2f1ff250738f"><div class="ttname"><a href="a03322.html#ae11b2345bded597ea1ab2f1ff250738f">BrainView::clearCameraFocusOverride</a></div><div class="ttdeci">void clearCameraFocusOverride()</div><div class="ttdef"><b>Definition</b> <a href="#l03231">brainview.cpp:3231</a></div></div>
 <div class="ttc" id="aa03322_html_ae241349720bd556a49266f4b05826090"><div class="ttname"><a href="a03322.html#ae241349720bd556a49266f4b05826090">BrainView::viewportCameraPreset</a></div><div class="ttdeci">int viewportCameraPreset(int index) const</div><div class="ttdef"><b>Definition</b> <a href="#l01335">brainview.cpp:1335</a></div></div>
 <div class="ttc" id="aa03322_html_ae96bebbfc2986b666563fe188641c892"><div class="ttname"><a href="a03322.html#ae96bebbfc2986b666563fe188641c892">BrainView::setDipoleVisible</a></div><div class="ttdeci">void setDipoleVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l00779">brainview.cpp:779</a></div></div>
 <div class="ttc" id="aa03322_html_aec3937fba292b85e680cc8dfa5962ef6"><div class="ttname"><a href="a03322.html#aec3937fba292b85e680cc8dfa5962ef6">BrainView::clearLiveMarkers</a></div><div class="ttdeci">void clearLiveMarkers()</div><div class="ttdef"><b>Definition</b> <a href="#l03111">brainview.cpp:3111</a></div></div>
@@ -4131,12 +4172,12 @@ $(function() {
 <div class="ttc" id="aa03322_html_aef8f7722a622180977f2e72bd15d442f"><div class="ttname"><a href="a03322.html#aef8f7722a622180977f2e72bd15d442f">BrainView::onDataChanged</a></div><div class="ttdeci">void onDataChanged(const QModelIndex &amp;topLeft, const QModelIndex &amp;bottomRight, const QVector&lt; int &gt; &amp;roles)</div><div class="ttdef"><b>Definition</b> <a href="#l00429">brainview.cpp:429</a></div></div>
 <div class="ttc" id="aa03322_html_af07196f74bb7411631b45726329e7311"><div class="ttname"><a href="a03322.html#af07196f74bb7411631b45726329e7311">BrainView::hoveredRegionChanged</a></div><div class="ttdeci">void hoveredRegionChanged(const QString &amp;regionName)</div></div>
 <div class="ttc" id="aa03322_html_af20258da337541bc04015a43d4f20857"><div class="ttname"><a href="a03322.html#af20258da337541bc04015a43d4f20857">BrainView::setLightingEnabled</a></div><div class="ttdeci">void setLightingEnabled(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l00849">brainview.cpp:849</a></div></div>
-<div class="ttc" id="aa03322_html_af21f080e3be130dc519a359b12dc8a1b"><div class="ttname"><a href="a03322.html#af21f080e3be130dc519a359b12dc8a1b">BrainView::clearEvoked</a></div><div class="ttdeci">void clearEvoked()</div><div class="ttdef"><b>Definition</b> <a href="#l03247">brainview.cpp:3247</a></div></div>
+<div class="ttc" id="aa03322_html_af21f080e3be130dc519a359b12dc8a1b"><div class="ttname"><a href="a03322.html#af21f080e3be130dc519a359b12dc8a1b">BrainView::clearEvoked</a></div><div class="ttdeci">void clearEvoked()</div><div class="ttdef"><b>Definition</b> <a href="#l03282">brainview.cpp:3282</a></div></div>
 <div class="ttc" id="aa03322_html_af3cd1987a372f02dd247f4074cb51314"><div class="ttname"><a href="a03322.html#af3cd1987a372f02dd247f4074cb51314">BrainView::setNetworkVisible</a></div><div class="ttdeci">void setNetworkVisible(bool visible)</div><div class="ttdef"><b>Definition</b> <a href="#l02569">brainview.cpp:2569</a></div></div>
 <div class="ttc" id="aa03322_html_af4bed2bb6b0232279358f90cee0d07e5"><div class="ttname"><a href="a03322.html#af4bed2bb6b0232279358f90cee0d07e5">BrainView::resetViewportCameraState</a></div><div class="ttdeci">void resetViewportCameraState(int index)</div><div class="ttdef"><b>Definition</b> <a href="#l01303">brainview.cpp:1303</a></div></div>
 <div class="ttc" id="aa03322_html_af6d4a987c1857c76ee4a01eee25215e5"><div class="ttname"><a href="a03322.html#af6d4a987c1857c76ee4a01eee25215e5">BrainView::sensorFieldLoaded</a></div><div class="ttdeci">void sensorFieldLoaded(int numTimePoints, int initialTimePoint=0)</div></div>
 <div class="ttc" id="aa03322_html_af8663c2ef2b0fd001babd325c8924154"><div class="ttname"><a href="a03322.html#af8663c2ef2b0fd001babd325c8924154">BrainView::setMegFieldMapOnHead</a></div><div class="ttdeci">void setMegFieldMapOnHead(bool useHead)</div><div class="ttdef"><b>Definition</b> <a href="#l02286">brainview.cpp:2286</a></div></div>
-<div class="ttc" id="aa03322_html_af9b6c8e684c30a8a10f4bb2e144f5eef"><div class="ttname"><a href="a03322.html#af9b6c8e684c30a8a10f4bb2e144f5eef">BrainView::clearSensors</a></div><div class="ttdeci">void clearSensors()</div><div class="ttdef"><b>Definition</b> <a href="#l03206">brainview.cpp:3206</a></div></div>
+<div class="ttc" id="aa03322_html_af9b6c8e684c30a8a10f4bb2e144f5eef"><div class="ttname"><a href="a03322.html#af9b6c8e684c30a8a10f4bb2e144f5eef">BrainView::clearSensors</a></div><div class="ttdeci">void clearSensors()</div><div class="ttdef"><b>Definition</b> <a href="#l03241">brainview.cpp:3241</a></div></div>
 <div class="ttc" id="aa03322_html_afa7109914f328c283a58459c47f0daac"><div class="ttname"><a href="a03322.html#afa7109914f328c283a58459c47f0daac">BrainView::loadSensorField</a></div><div class="ttdeci">bool loadSensorField(const QString &amp;evokedPath, int aveIndex=0)</div><div class="ttdef"><b>Definition</b> <a href="#l02190">brainview.cpp:2190</a></div></div>
 <div class="ttc" id="aa03322_html_afb8c143cea806929ff155bf7bc91b062"><div class="ttname"><a href="a03322.html#afb8c143cea806929ff155bf7bc91b062">BrainView::setRealtimeSensorColormap</a></div><div class="ttdeci">void setRealtimeSensorColormap(const QString &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="#l02428">brainview.cpp:2428</a></div></div>
 <div class="ttc" id="aa03322_html_afbb122f0b6466f535536cf0eef60ef64"><div class="ttname"><a href="a03322.html#afbb122f0b6466f535536cf0eef60ef64">BrainView::resetMultiViewLayout</a></div><div class="ttdeci">void resetMultiViewLayout()</div><div class="ttdef"><b>Definition</b> <a href="#l00923">brainview.cpp:923</a></div></div>
