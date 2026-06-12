@@ -270,7 +270,7 @@ var searchData=
   ['setprefetchfactor_267',['setPrefetchFactor',['../a02958.html#a4e5f4d5ac116ae8a276f0584c5f9b5ba',1,'DISPLIB::ChannelRhiView']]],
   ['setprestim_268',['setPreStim',['../a03550.html#adb3ef41f0a8b0c35aaa59af4ad6599e5',1,'RTPROCESSINGLIB::RtAveragingWorker::setPreStim()'],['../a03554.html#a35263a0985b4f8f7d7d5e7315546032c',1,'RTPROCESSINGLIB::RtAveraging::setPreStim()']]],
   ['setprobestation_269',['setProbeStation',['../a04722.html#a969c56d0bbfb8ab3e92faa05d7008efe',1,'UTILSLIB::PolhemusCoregistration']]],
-  ['setprobevisualization_270',['setProbeVisualization',['../a03322.html#ab950e369e4861ab3567bf9ca3b71096a',1,'BrainView']]],
+  ['setprobevisualization_270',['setProbeVisualization',['../a03322.html#aaef9b9829e4927657f89d295679597e1',1,'BrainView']]],
   ['setprocessing_271',['setProcessing',['../a02626.html#a8f12e5d15591ccd437997f786f28a372',1,'BIDSLIB::BIDSPath']]],
   ['setprocessingmode_272',['setProcessingMode',['../a02842.html#a0b6238b1be9ddb295ea914c9b11169b2',1,'DISPLIB::AbstractView']]],
   ['setprogresscallback_273',['setProgressCallback',['../a04210.html#a0612f9e856fdbe7537815714b73fb433',1,'MNALIB::MnaGraphExecutor::setProgressCallback()'],['../a04738.html#a714857b5f641ab6a8b65b06b4d2532d9',1,'UTILSLIB::PythonRunner::setProgressCallback()']]],
