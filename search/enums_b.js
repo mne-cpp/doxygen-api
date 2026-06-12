@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['scalertype_0',['ScalerType',['../a03793.html#a916aa0b87a873ce39c8efa11cefc80ee',1,'MLLIB::MlScaler']]],
-  ['shadermode_1',['ShaderMode',['../a01697.html#a9a65336a07fa3c9b4b13e6d52e3a612c',1,'rendertypes.h']]],
-  ['sliceorientation_2',['SliceOrientation',['../a02330.html#a8b3261ce685682009d5ea95c5cbf12e2',1,'DISP3DLIB::SliceOrientation'],['../a02363.html#aeb6147e07f11b6c5b2ace35cb7a486cc',1,'MRILIB::SliceOrientation']]],
-  ['splitterhit_3',['SplitterHit',['../a01637.html#aa760f37b1c504a57961771013387fcf9',1,'multiviewlayout.h']]],
-  ['statscorrection_4',['StatsCorrection',['../a02364.html#af057d7b69affa334e5d7ea447ed8f642',1,'STSLIB']]],
-  ['statstailtype_5',['StatsTailType',['../a02364.html#abbb8a81f7502944519ef7b923e514924',1,'STSLIB']]],
-  ['stylemode_6',['StyleMode',['../a02585.html#a36141ad3b6f880d2d82a3dd69d6e2e29',1,'DISPLIB::AbstractView']]],
-  ['surfacerole_7',['SurfaceRole',['../a02941.html#a4428acbaaf56d9874c19e82819f3baa8',1,'SurfaceTreeItem']]]
+  ['pickkind_0',['PickKind',['../a02556.html#a0477e91c4a3a20e47d42b51d8080ff33',1,'DISP3DLIB']]],
+  ['pivotstate_1',['PivotState',['../a04722.html#af7d629a240dfe8974dcb6e93e8bfdff1',1,'UTILSLIB::PolhemusCoregistration']]],
+  ['pointkind_2',['PointKind',['../a03178.html#a440916d47e7eb32391128b4641666ab8',1,'DigitizerTreeItem::PointKind'],['../a02554.html#ac5a7a553f94557cbe57094af2f69ea59',1,'UTILSLIB::PointKind']]],
+  ['processingmode_3',['ProcessingMode',['../a02842.html#ac60b3fec00fc454e4e14c344855222a4',1,'DISPLIB::AbstractView']]]
 ];

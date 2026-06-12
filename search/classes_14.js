@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['vertexdata_0',['VertexData',['../a02949.html',1,'']]],
-  ['viewvisibilityprofile_1',['ViewVisibilityProfile',['../a02869.html',1,'']]],
-  ['visualizationinfo_2',['VisualizationInfo',['../a02537.html',1,'CONNLIB']]]
+  ['vertexdata_0',['VertexData',['../a03206.html',1,'']]],
+  ['videooverlay_1',['VideoOverlay',['../a03270.html',1,'DISP3DLIB::VideoOverlay'],['../a04874.html',1,'VideoOverlay']]],
+  ['videooverlayresources_2',['VideoOverlayResources',['../a03306.html',1,'BrainRenderer::Impl']]],
+  ['viewvisibilityprofile_3',['ViewVisibilityProfile',['../a03126.html',1,'']]],
+  ['visualizationinfo_4',['VisualizationInfo',['../a02774.html',1,'CONNECTIVITYLIB']]]
 ];

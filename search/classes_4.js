@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['edfchannelinfo_0',['EDFChannelInfo',['../a02421.html',1,'BIDSLIB']]],
-  ['edfreader_1',['EDFReader',['../a02425.html',1,'BIDSLIB']]],
-  ['electrodecontact_2',['ElectrodeContact',['../a02977.html',1,'DISP3DLIB']]],
-  ['electrodeobject_3',['ElectrodeObject',['../a02985.html',1,'DISP3DLIB']]],
-  ['electrodeshaft_4',['ElectrodeShaft',['../a02981.html',1,'DISP3DLIB']]],
-  ['entry_5',['Entry',['../a04125.html',1,'MNELIB::RingBuffer']]],
-  ['epochextractor_6',['EpochExtractor',['../a03129.html',1,'UTILSLIB']]],
-  ['epochextractorparams_7',['EpochExtractorParams',['../a03125.html',1,'UTILSLIB']]],
-  ['eventmarker_8',['EventMarker',['../a02705.html',1,'DISPLIB::ChannelRhiView']]],
-  ['evokedsetmodel_9',['EvokedSetModel',['../a02733.html',1,'DISPLIB']]],
-  ['extendedinfomax_10',['ExtendedInfomax',['../a03137.html',1,'UTILSLIB']]]
+  ['edfchannelinfo_0',['EDFChannelInfo',['../a02658.html',1,'BIDSLIB']]],
+  ['edfreader_1',['EDFReader',['../a02662.html',1,'BIDSLIB']]],
+  ['electrodearray_2',['ElectrodeArray',['../a03238.html',1,'DISP3DLIB']]],
+  ['electrodecontact_3',['ElectrodeContact',['../a03234.html',1,'DISP3DLIB']]],
+  ['electrodeobject_4',['ElectrodeObject',['../a03242.html',1,'DISP3DLIB']]],
+  ['electrodeposition_5',['ElectrodePosition',['../a04686.html',1,'UTILSLIB']]],
+  ['entry_6',['Entry',['../a04522.html',1,'MNELIB::RingBuffer']]],
+  ['eogregression_7',['EogRegression',['../a03434.html',1,'UTILSLIB']]],
+  ['epochextractor_8',['EpochExtractor',['../a03442.html',1,'UTILSLIB']]],
+  ['epochextractorparams_9',['EpochExtractorParams',['../a03438.html',1,'UTILSLIB']]],
+  ['eventmarker_10',['EventMarker',['../a02962.html',1,'DISPLIB::ChannelRhiView']]],
+  ['evokedsetmodel_11',['EvokedSetModel',['../a02990.html',1,'DISPLIB']]],
+  ['extendedinfomax_12',['ExtendedInfomax',['../a03450.html',1,'UTILSLIB']]]
 ];
