@@ -124,9 +124,10 @@ var searchData=
   ['pushdata_121',['pushData',['../a03286.html#a0d96c420a54761e3923a23cf55cd5229',1,'RtSensorStreamManager::pushData()'],['../a03294.html#a05c9c6685702b5a0f49c24cfb00088b8',1,'SourceEstimateManager::pushData()']]],
   ['pushrealtimesensordata_122',['pushRealtimeSensorData',['../a03322.html#afd1b4887a3eaed32b53ba43c9792c831',1,'BrainView']]],
   ['pushrealtimesourcedata_123',['pushRealtimeSourceData',['../a03322.html#a7a16217c5af9f4e9caae1564216ea566',1,'BrainView']]],
-  ['pushvideooverlayframe_124',['pushVideoOverlayFrame',['../a03322.html#a4fa7a62ad6b5fabf825de99139585c5c',1,'BrainView']]],
-  ['pvalues_125',['pValues',['../a02682.html#aaa5b95c3455da2c38b3f42407792f097',1,'COMLIB::Command::pValues()'],['../a02694.html#aa4edfba0c076b2de0a2463e217070f7d',1,'COMLIB::RawCommand::pValues()']]],
-  ['pythonrunner_126',['PythonRunner',['../a04738.html#adcacf4e370c2d48e9663e6f821f5a029',1,'UTILSLIB::PythonRunner::PythonRunner(QObject *pParent=nullptr)'],['../a04738.html#a9e1afb3d4686318922c36da6ff24320d',1,'UTILSLIB::PythonRunner::PythonRunner(const PythonRunnerConfig &amp;config, QObject *pParent=nullptr)']]],
-  ['pythontesthelper_127',['PythonTestHelper',['../a04742.html#a2188d11149c6b4e10563246177b1c501',1,'UTILSLIB::PythonTestHelper']]],
-  ['pythonversion_128',['pythonVersion',['../a04738.html#a2e7b8c973141978855a571bf6c5135c0',1,'UTILSLIB::PythonRunner']]]
+  ['pushvideodepthframe_124',['pushVideoDepthFrame',['../a03322.html#a390e43ade3367bc83cdb5d3b882bf1b8',1,'BrainView']]],
+  ['pushvideooverlayframe_125',['pushVideoOverlayFrame',['../a03322.html#a4fa7a62ad6b5fabf825de99139585c5c',1,'BrainView']]],
+  ['pvalues_126',['pValues',['../a02682.html#aaa5b95c3455da2c38b3f42407792f097',1,'COMLIB::Command::pValues()'],['../a02694.html#aa4edfba0c076b2de0a2463e217070f7d',1,'COMLIB::RawCommand::pValues()']]],
+  ['pythonrunner_127',['PythonRunner',['../a04738.html#adcacf4e370c2d48e9663e6f821f5a029',1,'UTILSLIB::PythonRunner::PythonRunner(QObject *pParent=nullptr)'],['../a04738.html#a9e1afb3d4686318922c36da6ff24320d',1,'UTILSLIB::PythonRunner::PythonRunner(const PythonRunnerConfig &amp;config, QObject *pParent=nullptr)']]],
+  ['pythontesthelper_128',['PythonTestHelper',['../a04742.html#a2188d11149c6b4e10563246177b1c501',1,'UTILSLIB::PythonTestHelper']]],
+  ['pythonversion_129',['pythonVersion',['../a04738.html#a2e7b8c973141978855a571bf6c5135c0',1,'UTILSLIB::PythonRunner']]]
 ];
