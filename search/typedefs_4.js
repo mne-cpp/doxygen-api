@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ecgparams_0',['EcgParams',['../a03382.html#ac429782a95079fd1bbbaed9b6f089957',1,'UTILSLIB::ArtifactDetect']]],
-  ['eogparams_1',['EogParams',['../a03382.html#a87c61b51500d557464a41ddb1607e7c1',1,'UTILSLIB::ArtifactDetect']]]
+  ['ecgparams_0',['EcgParams',['../a03383.html#ac429782a95079fd1bbbaed9b6f089957',1,'UTILSLIB::ArtifactDetect']]],
+  ['eogparams_1',['EogParams',['../a03383.html#a87c61b51500d557464a41ddb1607e7c1',1,'UTILSLIB::ArtifactDetect']]]
 ];
