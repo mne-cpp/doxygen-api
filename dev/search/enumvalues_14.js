@@ -7,6 +7,6 @@ var searchData=
   ['vertex_4',['Vertex',['../a02558.html#af1ffe934a77f18c6a7260b1975016387ab22b929ba52471a02d18bb3a4e4472e6',1,'INVLIB']]],
   ['vertical_5',['Vertical',['../a00155.html#aa760f37b1c504a57961771013387fcf9a06ce2a25e5d12c166a36f654dbea6012',1,'multiviewlayout.h']]],
   ['virtualchannel_6',['VirtualChannel',['../a02590.html#acec300107fc488331fcaddae5894abfcab21d1564dad8c0a7702864d987673c82',1,'MNALIB']]],
-  ['visiblerole_7',['VisibleRole',['../a03166.html#ae941378b7f6d564b5c34d9b68d1c4203aa7e3c545271f2b192f71e5c96f9a4690',1,'AbstractTreeItem']]],
+  ['visiblerole_7',['VisibleRole',['../a03167.html#ae941378b7f6d564b5c34d9b68d1c4203aa7e3c545271f2b192f71e5c96f9a4690',1,'AbstractTreeItem']]],
   ['volume_8',['Volume',['../a02558.html#a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298',1,'INVLIB::Volume'],['../a02590.html#aff2df5a82a2d98871c0ceb6dff9713f6abd7a9717d29c5ddcab1bc175eda1e298',1,'MNALIB::Volume']]]
 ];
