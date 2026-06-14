@@ -5,12 +5,12 @@ var searchData=
   ['electrodearray_2',['ElectrodeArray',['../a03238.html',1,'DISP3DLIB']]],
   ['electrodecontact_3',['ElectrodeContact',['../a03234.html',1,'DISP3DLIB']]],
   ['electrodeobject_4',['ElectrodeObject',['../a03242.html',1,'DISP3DLIB']]],
-  ['electrodeposition_5',['ElectrodePosition',['../a04686.html',1,'UTILSLIB']]],
-  ['entry_6',['Entry',['../a04522.html',1,'MNELIB::RingBuffer']]],
-  ['eogregression_7',['EogRegression',['../a03434.html',1,'UTILSLIB']]],
-  ['epochextractor_8',['EpochExtractor',['../a03442.html',1,'UTILSLIB']]],
-  ['epochextractorparams_9',['EpochExtractorParams',['../a03438.html',1,'UTILSLIB']]],
+  ['electrodeposition_5',['ElectrodePosition',['../a04694.html',1,'UTILSLIB']]],
+  ['entry_6',['Entry',['../a04530.html',1,'MNELIB::RingBuffer']]],
+  ['eogregression_7',['EogRegression',['../a03442.html',1,'UTILSLIB']]],
+  ['epochextractor_8',['EpochExtractor',['../a03450.html',1,'UTILSLIB']]],
+  ['epochextractorparams_9',['EpochExtractorParams',['../a03446.html',1,'UTILSLIB']]],
   ['eventmarker_10',['EventMarker',['../a02962.html',1,'DISPLIB::ChannelRhiView']]],
   ['evokedsetmodel_11',['EvokedSetModel',['../a02990.html',1,'DISPLIB']]],
-  ['extendedinfomax_12',['ExtendedInfomax',['../a03450.html',1,'UTILSLIB']]]
+  ['extendedinfomax_12',['ExtendedInfomax',['../a03458.html',1,'UTILSLIB']]]
 ];
