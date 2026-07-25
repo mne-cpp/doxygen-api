@@ -96,7 +96,7 @@ var searchData=
   ['loadtransformation_93',['loadTransformation',['../a03331.html#a21b7bf2a59715f54dcf702d68876eb21',1,'BrainView']]],
   ['lofbadchannelparams_94',['LofBadChannelParams',['../a03395.html',1,'UTILSLIB']]],
   ['log2_95',['log2',['../a04167.html#ad55da77c3d78487e4c81a1600cd5bf56',1,'UTILSLIB::Numerics']]],
-  ['logfile_96',['logFile',['../a03747.html#a7d53e3f2990044549875ea4535a5353d',1,'AverageDescription::logFile'],['../a04495.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile']]],
+  ['logfile_96',['logFile',['../a03747.html#a7d53e3f2990044549875ea4535a5353d',1,'AverageDescription::logFile'],['../a04495.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a04671.html#abe670f4a904bf97f96743bf77f084685',1,'UTILSLIB::MNELogger::logFile()']]],
   ['logno_97',['logNo',['../a03679.html#a7b5c40b0a6fea48bd71623a0124118c7',1,'FIFFLIB::FiffChInfo']]],
   ['lookat_98',['lookAt',['../a03147.html#a1f8585252f95a48e4e1da3ab4f3a790a',1,'CameraResult']]],
   ['lookback_99',['lookBack',['../a04071.html#afef4de780acecb3d2a919a644c538dba',1,'INVLIB::InvCMNESettings']]],

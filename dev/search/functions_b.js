@@ -49,5 +49,6 @@ var searchData=
   ['loadtrans_46',['loadTrans',['../a02899.html#aa39531284b760d9513a805c86d280e7e',1,'DISPLIB::CoregSettingsView']]],
   ['loadtransformation_47',['loadTransformation',['../a03331.html#a21b7bf2a59715f54dcf702d68876eb21',1,'BrainView']]],
   ['log2_48',['log2',['../a04167.html#ad55da77c3d78487e4c81a1600cd5bf56',1,'UTILSLIB::Numerics']]],
-  ['lt_5fpacked_5findex_49',['lt_packed_index',['../a04335.html#ab85a124e16f2c81bfa9e790495691716',1,'MNELIB::MNECovMatrix']]]
+  ['logfile_49',['logFile',['../a04671.html#abe670f4a904bf97f96743bf77f084685',1,'UTILSLIB::MNELogger']]],
+  ['lt_5fpacked_5findex_50',['lt_packed_index',['../a04335.html#ab85a124e16f2c81bfa9e790495691716',1,'MNELIB::MNECovMatrix']]]
 ];
