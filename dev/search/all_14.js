@@ -273,7 +273,7 @@ var searchData=
   ['sethorizontal_270',['setHorizontal',['../a03075.html#a725c8e464de61d68030bc9be8f8c880c',1,'DISPLIB::ProgressView']]],
   ['sethpidigitizer_271',['setHpiDigitizer',['../a03595.html#a4b85ded6594de84b3c04139378cebe48',1,'RTPROCESSINGLIB::RtHpi']]],
   ['sethubstatus_272',['setHubStatus',['../a02787.html#a6df0dab732eb86a54730cb6eef7e5d14',1,'CONNECTIVITYLIB::NetworkNode']]],
-  ['setinfo_273',['setInfo',['../a03003.html#a9bebf202df22989c381582cf89bf161e',1,'DISPLIB::FrequencySpectrumModel::setInfo()'],['../a03739.html#a5196cc21cc6865898d747eacf2934d02',1,'FIFFLIB::FiffEvoked::setInfo()']]],
+  ['setinfo_273',['setInfo',['../a03003.html#a9bebf202df22989c381582cf89bf161e',1,'DISPLIB::FrequencySpectrumModel::setInfo()'],['../a03739.html#aace6deffe31b93e5c1ab959a7588cc2a',1,'FIFFLIB::FiffEvoked::setInfo()']]],
   ['setinfopanelvisible_274',['setInfoPanelVisible',['../a03331.html#a1cc0ad2cf7bc4f65f6fc36ed795b2618',1,'BrainView']]],
   ['setinitialcamerarotation_275',['setInitialCameraRotation',['../a03331.html#a894bf5a02aae76a3cdc5ea3687feed37',1,'BrainView']]],
   ['setinterpolationfunction_276',['setInterpolationFunction',['../a03351.html#acbdea554bc29dca161b91ed185feb844',1,'RtSourceDataController::setInterpolationFunction()'],['../a03359.html#a142adaf540c05992eeb5f608e1f9ace3',1,'DISP3DLIB::RtSourceInterpolationMatWorker::setInterpolationFunction()']]],
