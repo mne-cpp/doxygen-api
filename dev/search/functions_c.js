@@ -3,7 +3,7 @@ var searchData=
   ['magnetic_5fdipole_0',['magnetic_dipole',['../a03999.html#a78ac3527a77d3627a1d99ed53665cb94',1,'INVLIB::InvHpiFitData']]],
   ['magnitude_1',['magnitude',['../a04055.html#a7c76f3943910b31460980725755ad4fd',1,'INVLIB::InvVectorSourceEstimate']]],
   ['make_5fblock_5fdiag_2',['make_block_diag',['../a04163.html#afe011788af59743029a5cd4376d4eeb2',1,'UTILSLIB::Linalg::make_block_diag()'],['../a04311.html#ae77f8087c76d065106e506112eef67ba',1,'MNELIB::MNE::make_block_diag()']]],
-  ['make_5fcomp_3',['make_comp',['../a04347.html#a2315a5652781e0edf6e05ad6b9472675',1,'MNELIB::MNECTFCompDataSet']]],
+  ['make_5fcomp_3',['make_comp',['../a04347.html#a48658fa188ca4e5a8d79e64858c55d35',1,'MNELIB::MNECTFCompDataSet']]],
   ['make_5fcompensator_4',['make_compensator',['../a03767.html#ad1dd2a15d84e0e3130ba2502f77a085e',1,'FIFFLIB::FiffInfo::make_compensator()'],['../a04311.html#a27b55333c517e75aec341a0415e04d7f',1,'MNELIB::MNE::make_compensator()']]],
   ['make_5fguesses_5',['make_guesses',['../a03867.html#ad8021d8094326f243e51537a4ebf81f2',1,'FWDLIB::FwdBemModel']]],
   ['make_5finverse_5foperator_6',['make_inverse_operator',['../a04411.html#a4bec280c95f33fd5365508694c09f8f5',1,'MNELIB::MNEInverseOperator']]],

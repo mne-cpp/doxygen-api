@@ -74,7 +74,7 @@ var searchData=
   ['filtersettingsview_71',['FilterSettingsView',['../a02919.html#a6b3af3dc12e2aea8306d3bb1fb8d2567',1,'DISPLIB::FilterSettingsView']]],
   ['filterthreadarg_72',['FilterThreadArg',['../a04307.html#a19344e765634257683fa72b251c8a97e',1,'MNELIB::FilterThreadArg']]],
   ['find_5fclosest_5fon_5fsurface_73',['find_closest_on_surface',['../a04519.html#af85531a5890c78d2083108f77b346621',1,'MNELIB::MNEProjectToSurface']]],
-  ['find_5fclosest_5fon_5fsurface_5fapprox_74',['find_closest_on_surface_approx',['../a04567.html#a09f6f1d37984b6319e3f6932349ca99d',1,'MNELIB::MNESurface']]],
+  ['find_5fclosest_5fon_5fsurface_5fapprox_74',['find_closest_on_surface_approx',['../a04567.html#a7b440d182aaa962659a30b97b28f722c',1,'MNELIB::MNESurface']]],
   ['find_5fevoked_75',['find_evoked',['../a03667.html#ab8215770690bdde47aec93c6e07bc1c5',1,'FIFFLIB::Fiff::find_evoked()'],['../a03751.html#a310b0194f508a963b708568cfae62e7c',1,'FiffEvokedSet::find_evoked()']]],
   ['find_5fmaxshield_76',['find_maxshield',['../a04543.html#a6251487d5c05955426c2933af3565243',1,'MNELIB::MNERawInfo']]],
   ['find_5fmeas_77',['find_meas',['../a04543.html#aaad583d4cd3ef8e51066f62b8f5ac203',1,'MNELIB::MNERawInfo']]],

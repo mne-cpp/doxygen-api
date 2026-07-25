@@ -146,7 +146,7 @@ var searchData=
   ['sessions_143',['sessions',['../a04287.html#a83cb1229d1f89d155c30fbdf87d39c56',1,'MNALIB::MnaSubject']]],
   ['set_144',['set',['../a03883.html#a213cdcf26eb04c49ff39c34a36e3ddfd',1,'FWDLIB::FwdCompData']]],
   ['set_5fcomp_145',['set_comp',['../a04347.html#a3a7cd78da08eee36d602857f689dea41',1,'MNELIB::MNECTFCompDataSet']]],
-  ['set_5fcompensation_146',['set_compensation',['../a04347.html#aec9dd684c23193704f9f7033ddbb2d0a',1,'MNELIB::MNECTFCompDataSet']]],
+  ['set_5fcompensation_146',['set_compensation',['../a04347.html#a4bf940d95f72b66fcb825df9215e7431',1,'MNELIB::MNECTFCompDataSet']]],
   ['set_5fcurrent_5fcomp_147',['set_current_comp',['../a03767.html#a10d48ebfa8dfb2391d6b20c9d927f7ac',1,'FIFFLIB::FiffInfo::set_current_comp(fiff_int_t value)'],['../a03767.html#a7337512e1030f4c78cc5ce2a3077c224',1,'FIFFLIB::FiffInfo::set_current_comp(QList&lt; FiffChInfo &gt; &amp;listFiffChInfo, fiff_int_t value)'],['../a04311.html#a33dea3e8ae116c0e44c32930cb6be2dd',1,'MNELIB::MNE::set_current_comp()']]],
   ['set_5fdata_5fhost_148',['set_data_host',['../a04139.html#a51e3745bcc57d6747aacedbd3a930dce',1,'LSLLIB::stream_info']]],
   ['set_5fdata_5fport_149',['set_data_port',['../a04139.html#a763e768a204922691b08e5c35c80088b',1,'LSLLIB::stream_info']]],
