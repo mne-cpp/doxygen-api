@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['define_20member_20methods_0',['DEFINE MEMBER METHODS',['../a01679.html#autotoc_md7',1,'']]],
-  ['define_20namespace_20fifflib_1',['DEFINE NAMESPACE FIFFLIB',['../a01721.html#autotoc_md46',1,'DEFINE NAMESPACE FIFFLIB'],['../a01655.html#autotoc_md64',1,'DEFINE NAMESPACE FIFFLIB'],['../a01688.html#autotoc_md73',1,'DEFINE NAMESPACE FIFFLIB'],['../a01832.html#autotoc_md82',1,'DEFINE NAMESPACE FIFFLIB']]],
-  ['define_20namespace_20mnelib_2',['DEFINE NAMESPACE MNELIB',['../a01751.html#autotoc_md55',1,'']]],
+  ['define_20member_20methods_0',['DEFINE MEMBER METHODS',['../a02516.html#autotoc_md7',1,'']]],
+  ['define_20namespace_20fifflib_1',['DEFINE NAMESPACE FIFFLIB',['../a02438.html#autotoc_md46',1,'DEFINE NAMESPACE FIFFLIB'],['../a02501.html#autotoc_md64',1,'DEFINE NAMESPACE FIFFLIB'],['../a02336.html#autotoc_md73',1,'DEFINE NAMESPACE FIFFLIB'],['../a02375.html#autotoc_md82',1,'DEFINE NAMESPACE FIFFLIB']]],
+  ['define_20namespace_20mnelib_2',['DEFINE NAMESPACE MNELIB',['../a02366.html#autotoc_md55',1,'']]],
   ['definition_20of_20the_20mne_5ffind_5fsource_5fspace_5fhemi_20function_3',['MNE toolbox root function ###: Definition of the mne_find_source_space_hemi function',['../a04551.html#autotoc_md110',1,'']]],
   ['definition_20of_20the_20mne_5fpatch_5finfo_20function_4',['MNE toolbox root function ###: Definition of the mne_patch_info function',['../a04551.html#autotoc_md111',1,'']]],
   ['definition_20of_20the_20mne_5fread_5fbem_5fsurface_20function_5',['MNE toolbox root function ###: Definition of the mne_read_bem_surface function',['../a04315.html#autotoc_md106',1,'']]],

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/disp3D/scene/sourceestimatemanager.cpp Source File</title>
+    <title>MNE-CPP: src/libraries/dsp/rt/rt_averaging.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,435 +243,358 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_061a979e1ff4d1f23adfb2165bb6f08f.html">disp3D</a></li><li class="navelem"><a href="dir_72862dfac25f8c4a5bcb21a201ce57b2.html">scene</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_d291838a59ac818b2ab15cba6e7b68a7.html">dsp</a></li><li class="navelem"><a href="dir_b4ffb7a480d8b802ae48c4e90c5a75b0.html">rt</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">sourceestimatemanager.cpp</div></div>
+  <div class="headertitle"><div class="title">rt_averaging.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00197.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a00191.html">sourceestimatemanager.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="a00071.html">../renderable/sourceestimateoverlay.h</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="a00068.html">../renderable/brainsurface.h</a>&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="a00125.html">../workers/stcloadingworker.h</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="a00098.html">../workers/rtsourcedatacontroller.h</a>&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="a00140.html">../core/viewstate.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;QThread&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;QDebug&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;QSet&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a03295.html#afc491440bf9f6553b3e89ef47688e60c">   33</a></span><a class="code hl_function" href="a03295.html#afc491440bf9f6553b3e89ef47688e60c">SourceEstimateManager::SourceEstimateManager</a>(QObject *parent)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    : QObject(parent)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03295.html#a258f68b87fd19c379154f060a3efa1a1">   40</a></span><a class="code hl_function" href="a03295.html#a258f68b87fd19c379154f060a3efa1a1">SourceEstimateManager::~SourceEstimateManager</a>()</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_function" href="a03295.html#ae5dc0cf57ab96960255a602b3d596d25">cancelLoading</a>();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
-</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#ifndef RT_AVERAGING_RTPROCESSING_H</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define RT_AVERAGING_RTPROCESSING_H</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &quot;<a class="code" href="a00272.html">../dsp_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;<a class="code" href="a02366.html">fiff/fiff_evoked_set.h</a>&gt;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;<a class="code" href="a02411.html">fiff/fiff_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// QT INCLUDES</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;QThread&gt;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;QSharedPointer&gt;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;QObject&gt;</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a03295.html#ae5dc0cf57ab96960255a602b3d596d25">   47</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#ae5dc0cf57ab96960255a602b3d596d25">SourceEstimateManager::cancelLoading</a>()</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span> (m_stcWorker)</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        m_stcWorker-&gt;requestCancel();</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (m_loadingThread) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        m_loadingThread-&gt;quit();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        m_loadingThread-&gt;wait();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">// FORWARD DECLARATIONS</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a03295.html#a282dda2e3bab7833fb5928a9a9181219">   59</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03295.html#a282dda2e3bab7833fb5928a9a9181219">SourceEstimateManager::load</a>(<span class="keyword">const</span> QString &amp;lhPath, <span class="keyword">const</span> QString &amp;rhPath,</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                                  <span class="keyword">const</span> QMap&lt;QString, std::shared_ptr&lt;BrainSurface&gt;&gt; &amp;surfaces,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                                  <span class="keyword">const</span> QString &amp;activeSurfaceType)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">// DEFINE NAMESPACE RTPROCESSINGLIB</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02552.html">RTPROCESSINGLIB</a></div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>{</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (m_isLoading) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: STC loading already in progress&quot;</span>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// RTPROCESSINGLIB FORWARD DECLARATIONS</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">// Find surfaces for the active surface type</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="a03211.html">BrainSurface</a> *lhSurface = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_class" href="a03211.html">BrainSurface</a> *rhSurface = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> QString lhKey = <span class="stringliteral">&quot;lh_&quot;</span> + activeSurfaceType;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">const</span> QString rhKey = <span class="stringliteral">&quot;rh_&quot;</span> + activeSurfaceType;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">if</span> (surfaces.contains(lhKey))</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        lhSurface = surfaces[lhKey].get();</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> (surfaces.contains(rhKey))</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        rhSurface = surfaces[rhKey].get();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">// Fallback: search for any lh_*/rh_* brain surface</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span> (!lhSurface || !rhSurface) {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = surfaces.begin(); it != surfaces.end(); ++it) {</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keywordflow">if</span> (it.value() &amp;&amp; it.value()-&gt;tissueType() == <a class="code hl_enumvalue" href="a03211.html#a7a35e381402ddbce8531f24014867df8a9dd94c56727561d251c71cf7db49364f">BrainSurface::TissueBrain</a>) {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <span class="keywordflow">if</span> (!lhSurface &amp;&amp; it.key().startsWith(<span class="stringliteral">&quot;lh_&quot;</span>)) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                    lhSurface = it.value().get();</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                    qDebug() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Using fallback LH surface:&quot;</span> &lt;&lt; it.key();</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!rhSurface &amp;&amp; it.key().startsWith(<span class="stringliteral">&quot;rh_&quot;</span>)) {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                    rhSurface = it.value().get();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                    qDebug() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Using fallback RH surface:&quot;</span> &lt;&lt; it.key();</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                }</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">if</span> (!lhSurface &amp;&amp; !rhSurface) {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: No surfaces available for STC loading.&quot;</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                    &lt;&lt; <span class="stringliteral">&quot;Active surface type:&quot;</span> &lt;&lt; activeSurfaceType</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                    &lt;&lt; <span class="stringliteral">&quot;Available keys:&quot;</span> &lt;&lt; surfaces.keys();</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="comment">// Clean up any previous loading thread</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">if</span> (m_loadingThread) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        m_loadingThread-&gt;quit();</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        m_loadingThread-&gt;wait();</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keyword">delete</span> m_loadingThread;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        m_loadingThread = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="comment">// Create overlay for results</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    m_overlay = std::make_unique&lt;SourceEstimateOverlay&gt;();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">// Create worker and thread</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    m_loadingThread = <span class="keyword">new</span> QThread(<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    m_stcWorker = <span class="keyword">new</span> <a class="code hl_class" href="a03363.html">StcLoadingWorker</a>(lhPath, rhPath, lhSurface, rhSurface);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    m_stcWorker-&gt;moveToThread(m_loadingThread);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    connect(m_loadingThread, &amp;QThread::started, m_stcWorker, &amp;<a class="code hl_slot" href="a03363.html#a64951380ef0a50ef8d6d4664852b5c4b">StcLoadingWorker::process</a>);</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    connect(m_stcWorker, &amp;<a class="code hl_signal" href="a03363.html#a2704a11baf2527c017ff3991df67710c">StcLoadingWorker::progress</a>, <span class="keyword">this</span>, &amp;<a class="code hl_signal" href="a03295.html#a2ada6704fb28f071afed05f40444e063">SourceEstimateManager::loadingProgress</a>);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    connect(m_stcWorker, &amp;<a class="code hl_signal" href="a03363.html#a9f7b0e0032ce77cba6e39cc395f56670">StcLoadingWorker::finished</a>, <span class="keyword">this</span>, &amp;SourceEstimateManager::onStcLoadingFinished);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    connect(m_stcWorker, &amp;<a class="code hl_signal" href="a03363.html#a9f7b0e0032ce77cba6e39cc395f56670">StcLoadingWorker::finished</a>, m_loadingThread, &amp;QThread::quit);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    connect(m_loadingThread, &amp;QThread::finished, m_stcWorker, &amp;QObject::deleteLater);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    m_isLoading = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    m_loadingThread-&gt;start();</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>}</div>
-</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="foldopen" id="foldopen00132" data-start="{" data-end="}">
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="a03295.html#aad63f8e66497d6ddabfe79cbec06abac">  132</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03295.html#aad63f8e66497d6ddabfe79cbec06abac">SourceEstimateManager::isLoaded</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordflow">return</span> m_overlay &amp;&amp; m_overlay-&gt;isLoaded();</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>}</div>
-</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="keywordtype">void</span> SourceEstimateManager::onStcLoadingFinished(<span class="keywordtype">bool</span> success)</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    m_isLoading = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="};">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a03559.html">   74</a></span><span class="keyword">class </span><a class="code hl_define" href="a00272.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a> <a class="code hl_function" href="a03559.html#a7041512bfcd3b21806b5604c0aaa404d">RtAveragingWorker</a> : <span class="keyword">public</span> QObject</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>{</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    Q_OBJECT</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_function" href="a03559.html#a7041512bfcd3b21806b5604c0aaa404d">RtAveragingWorker</a>(quint32 numAverages,</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                      quint32 iPreStimSamples,</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                      quint32 iPostStimSamples,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                      quint32 iBaselineFromMSecs,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                      quint32 iBaselineToMSecs,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                      quint32 iTriggerIndex,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                      <a class="code hl_typedef" href="a03767.html#a66ff3fd5a2330e5b2d793bb847227303">FIFFLIB::FiffInfo::SPtr</a> pFiffInfo);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#ab32f8b659c05716e624decb9a8543719">doWork</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a2cdd67e594db7d8a1bec44b168cd4217">setAverageNumber</a>(qint32 numAve);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#adb3ef41f0a8b0c35aaa59af4ad6599e5">setPreStim</a>(qint32 samples,</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                    qint32 secs);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#aba00f81fd324328f1e9a1e46f71ed8f3">setPostStim</a>(qint32 samples,</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                     qint32 secs);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a37d7c268845c0462d0bad29395dcabdf">setTriggerChIndx</a>(qint32 idx);</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">if</span> (!success || !m_stcWorker) {</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Async STC loading failed&quot;</span>;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        m_overlay.reset();</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="comment">// Transfer data from worker to overlay</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">if</span> (m_stcWorker-&gt;hasLh()) {</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        m_overlay-&gt;setStcData(m_stcWorker-&gt;stcLh(), 0);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="keywordflow">if</span> (m_stcWorker-&gt;interpolationMatLh())</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            m_overlay-&gt;setInterpolationMatrix(m_stcWorker-&gt;interpolationMatLh(), 0);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    }</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">if</span> (m_stcWorker-&gt;hasRh()) {</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        m_overlay-&gt;setStcData(m_stcWorker-&gt;stcRh(), 1);</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="keywordflow">if</span> (m_stcWorker-&gt;interpolationMatRh())</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            m_overlay-&gt;setInterpolationMatrix(m_stcWorker-&gt;interpolationMatRh(), 1);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    }</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    m_overlay-&gt;updateThresholdsFromData();</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    emit <a class="code hl_signal" href="a03295.html#a995337ae37c68bc5caa158d6e2245adf">thresholdsUpdated</a>(m_overlay-&gt;thresholdMin(),</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                           m_overlay-&gt;thresholdMid(),</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>                           m_overlay-&gt;thresholdMax());</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">if</span> (m_overlay-&gt;isLoaded()) {</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        emit <a class="code hl_signal" href="a03295.html#a977a62ed7b97c42b35ec772853d8890a">loaded</a>(m_overlay-&gt;numTimePoints());</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        m_overlay.reset();</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>}</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="foldopen" id="foldopen00176" data-start="{" data-end="}">
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="a03295.html#aa995190b6db4cd0aea7f793b27b1fbab">  176</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#aa995190b6db4cd0aea7f793b27b1fbab">SourceEstimateManager::setTimePoint</a>(<span class="keywordtype">int</span> index,</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                                          <span class="keyword">const</span> QMap&lt;QString, std::shared_ptr&lt;BrainSurface&gt;&gt; &amp;surfaces,</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                                          <span class="keyword">const</span> <a class="code hl_struct" href="a03131.html">SubView</a> &amp;singleView,</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                                          <span class="keyword">const</span> QVector&lt;SubView&gt; &amp;subViews)</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>{</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keywordflow">if</span> (!m_overlay || !m_overlay-&gt;isLoaded()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    m_currentTimePoint = qBound(0, index, m_overlay-&gt;numTimePoints() - 1);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a0bbc47a6ba1906da876ac708ff8ea31f">setArtifactReduction</a>(<span class="keyword">const</span> QMap&lt;QString, double&gt; &amp;mapThresholds);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#ab229eaf98a588580c29f4787a307c888">setBaselineActive</a>(<span class="keywordtype">bool</span> activate);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#ad8d899d8aaf3edcddca2cf35a68c0940">setBaselineFrom</a>(<span class="keywordtype">int</span> fromSamp,</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                         <span class="keywordtype">int</span> fromMSec);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a749bc5670450dff22685a88a3591d68b">setBaselineTo</a>(<span class="keywordtype">int</span> toSamp,</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                       <span class="keywordtype">int</span> toMSec);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a29d21eacac7f3401b975a96797f597de">reset</a>();</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="comment">// Collect all distinct surface types used across single + multi views</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    QSet&lt;QString&gt; activeTypes;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    activeTypes.insert(singleView.<a class="code hl_variable" href="a03131.html#abfd59f36c16122ddad6e0de635612e08">surfaceType</a>);</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; subViews.size(); ++i)</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        activeTypes.insert(subViews[i].surfaceType);</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="comment">// Apply source estimate to surfaces matching ANY active type</span></div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = surfaces.begin(); it != surfaces.end(); ++it) {</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> QString &amp;type : activeTypes) {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            <span class="keywordflow">if</span> (it.key().endsWith(type)) {</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                m_overlay-&gt;applyToSurface(it.value().get(), m_currentTimePoint);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            }</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        }</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    }</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    emit <a class="code hl_signal" href="a03295.html#a7b07d90395f35be3e7caf9a4332458b4">timePointChanged</a>(m_currentTimePoint, m_overlay-&gt;timeAtIndex(m_currentTimePoint));</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>}</div>
-</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
-<div class="foldopen" id="foldopen00206" data-start="{" data-end="}">
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="a03295.html#ac7b19ae592264dec5ea887fc4817ca24">  206</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="a03295.html#ac7b19ae592264dec5ea887fc4817ca24">SourceEstimateManager::tstep</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordflow">return</span> (m_overlay &amp;&amp; m_overlay-&gt;isLoaded()) ? m_overlay-&gt;tstep() : 0.0f;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
-</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="a03295.html#ac6b5f5291e6dec25938816a7214ca669">  213</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="a03295.html#ac6b5f5291e6dec25938816a7214ca669">SourceEstimateManager::tmin</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordflow">return</span> (m_overlay &amp;&amp; m_overlay-&gt;isLoaded()) ? m_overlay-&gt;tmin() : 0.0f;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>}</div>
-</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="foldopen" id="foldopen00220" data-start="{" data-end="}">
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno"><a class="line" href="a03295.html#adede3a1c7efa2b9b931ab41165b2394d">  220</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a03295.html#adede3a1c7efa2b9b931ab41165b2394d">SourceEstimateManager::numTimePoints</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">return</span> (m_overlay &amp;&amp; m_overlay-&gt;isLoaded()) ? m_overlay-&gt;numTimePoints() : 0;</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
-</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a907417f9b33d4b69518115c673373c83">doAveraging</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; rawSegment);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a0c0a3448833a3cc27b3b816a6deca03d">fillFrontBuffer</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; data,</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                         <span class="keywordtype">double</span> dTriggerType);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#a07b350bd0964aeaf1cb3150f41b560c7">emitEvoked</a>(<span class="keywordtype">double</span> dTriggerType,</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                    QStringList&amp; lResponsibleTriggerTypes);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#ad4c4b32f069d07eaf6c97a25d0bd91b1">fillBackBuffer</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; data,</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                        <span class="keywordtype">double</span> dTriggerType);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#aef95d59cc138a1d302e736c60a39ee68">mergeData</a>(<span class="keywordtype">double</span> dTriggerType);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03559.html#aeffecb7f71baebf0e4e723f4c873d386">generateEvoked</a>(<span class="keywordtype">double</span> dTriggerType);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03559.html#a03c33f1f1db6c3d85b1412f2455b8689">controlValuesChanged</a>();</div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="foldopen" id="foldopen00227" data-start="{" data-end="}">
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="a03295.html#ac8d6d95e1a02c64f1d476ac5c12af426">  227</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a03295.html#ac8d6d95e1a02c64f1d476ac5c12af426">SourceEstimateManager::closestIndex</a>(<span class="keywordtype">float</span> timeSec)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordflow">if</span> (!m_overlay || !m_overlay-&gt;isLoaded()) <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> t0 = m_overlay-&gt;tmin();</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> dt = m_overlay-&gt;tstep();</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> numPts = m_overlay-&gt;numTimePoints();</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">if</span> (numPts &lt;= 0 || dt &lt;= 0.0f) <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> idx = qRound((timeSec - t0) / dt);</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordflow">return</span> qBound(0, idx, numPts - 1);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>}</div>
-</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="a03559.html#a4d7d9e3da59f0192b4b0cbe9e124bcaf">  227</a></span>    qint32                                          <a class="code hl_variable" href="a03559.html#a4d7d9e3da59f0192b4b0cbe9e124bcaf">m_iNumAverages</a>;             </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="a03559.html#a5b90b877dd7edbde7088db13907cca09">  229</a></span>    qint32                                          <a class="code hl_variable" href="a03559.html#a5b90b877dd7edbde7088db13907cca09">m_iPreStimSamples</a>;          </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno"><a class="line" href="a03559.html#a1f66b13b443364ba3b73bf06fbfdd17a">  230</a></span>    qint32                                          <a class="code hl_variable" href="a03559.html#a1f66b13b443364ba3b73bf06fbfdd17a">m_iNewPreStimSamples</a>;       </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno"><a class="line" href="a03559.html#a11c3c5f1bbb093e194ed9f047ddaf27c">  232</a></span>    qint32                                          <a class="code hl_variable" href="a03559.html#a11c3c5f1bbb093e194ed9f047ddaf27c">m_iPostStimSamples</a>;         </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno"><a class="line" href="a03559.html#a91f7bb7f70789b43f97b3a1cac9adbfa">  233</a></span>    qint32                                          <a class="code hl_variable" href="a03559.html#a91f7bb7f70789b43f97b3a1cac9adbfa">m_iNewPostStimSamples</a>;      </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno"><a class="line" href="a03559.html#aacf84976b3e00aa5a40c951d8e64e750">  235</a></span>    qint32                                          <a class="code hl_variable" href="a03559.html#aacf84976b3e00aa5a40c951d8e64e750">m_iTriggerChIndex</a>;          </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="a03559.html#a0cdbbd4d5aea275c4925397941064f41">  236</a></span>    qint32                                          <a class="code hl_variable" href="a03559.html#a0cdbbd4d5aea275c4925397941064f41">m_iNewTriggerIndex</a>;         </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno"><a class="line" href="a03559.html#abd4a72411f2c0fa8f8ee87ea904efcbc">  238</a></span>    <span class="keywordtype">float</span>                                           <a class="code hl_variable" href="a03559.html#abd4a72411f2c0fa8f8ee87ea904efcbc">m_fTriggerThreshold</a>;        </div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="a03559.html#a84f381fe998d1e09e2c1723f4212a707">  240</a></span>    <span class="keywordtype">bool</span>                                            <a class="code hl_variable" href="a03559.html#a84f381fe998d1e09e2c1723f4212a707">m_bActivateThreshold</a>;       </div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="foldopen" id="foldopen00242" data-start="{" data-end="}">
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="a03295.html#a333ba7e1a6fddc5165c3337814ce6cae">  242</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#a333ba7e1a6fddc5165c3337814ce6cae">SourceEstimateManager::setColormap</a>(<span class="keyword">const</span> QString &amp;name)</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>{</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordflow">if</span> (m_overlay)</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        m_overlay-&gt;setColormap(name);</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>}</div>
-</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="a03559.html#ae6badd9eac558175f271b812a77e3ca9">  242</a></span>    <span class="keywordtype">bool</span>                                            <a class="code hl_variable" href="a03559.html#ae6badd9eac558175f271b812a77e3ca9">m_bDoBaselineCorrection</a>;    </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a03559.html#a25d312e11c19fa53283522c51f5bd54c">  244</a></span>    QPair&lt;float,float&gt;                              <a class="code hl_variable" href="a03559.html#a25d312e11c19fa53283522c51f5bd54c">m_pairBaselineSec</a>;          </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="a03559.html#a73ce2c47dc80da4f2e4ac752c44fd6b5">  245</a></span>    QPair&lt;float,float&gt;                              <a class="code hl_variable" href="a03559.html#a73ce2c47dc80da4f2e4ac752c44fd6b5">m_pairBaselineSamp</a>;         </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="a03559.html#a14621b9db87333845e88edd270e415cc">  247</a></span>    <a class="code hl_typedef" href="a03767.html#a66ff3fd5a2330e5b2d793bb847227303">FIFFLIB::FiffInfo::SPtr</a>                         <a class="code hl_variable" href="a03559.html#a14621b9db87333845e88edd270e415cc">m_pFiffInfo</a>;                </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="a03559.html#a86a35828030a5fc3801d3b059013a284">  248</a></span>    FIFFLIB::FiffEvokedSet                          <a class="code hl_variable" href="a03559.html#a86a35828030a5fc3801d3b059013a284">m_stimEvokedSet</a>;            </div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
-<div class="foldopen" id="foldopen00250" data-start="{" data-end="}">
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="a03295.html#a32661ed19fa329595e0ade1bf0351587">  250</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#a32661ed19fa329595e0ade1bf0351587">SourceEstimateManager::setThresholds</a>(<span class="keywordtype">float</span> min, <span class="keywordtype">float</span> mid, <span class="keywordtype">float</span> max)</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>{</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keywordflow">if</span> (m_overlay)</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        m_overlay-&gt;setThresholds(min, mid, max);</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keywordflow">if</span> (m_rtController)</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        m_rtController-&gt;setThresholds(min, mid, max);</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>}</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="a03559.html#acd813cbfdf4d41fe90fd643f22d5f213">  250</a></span>    QMap&lt;QString,double&gt;                            <a class="code hl_variable" href="a03559.html#acd813cbfdf4d41fe90fd643f22d5f213">m_mapThresholds</a>;            </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="a03559.html#a9ad4732903a7c01df43cff58208621fe">  251</a></span>    QMap&lt;double,QList&lt;Eigen::MatrixXd&gt; &gt;            <a class="code hl_variable" href="a03559.html#a9ad4732903a7c01df43cff58208621fe">m_mapStimAve</a>;               </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno"><a class="line" href="a03559.html#a9602077880a5d05747fb1aa5074f0321">  252</a></span>    QMap&lt;double,Eigen::MatrixXd&gt;                    <a class="code hl_variable" href="a03559.html#a9602077880a5d05747fb1aa5074f0321">m_mapDataPre</a>;               </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="a03559.html#ab4347840c13aff704e30a63a7500332f">  253</a></span>    QMap&lt;double,Eigen::MatrixXd&gt;                    <a class="code hl_variable" href="a03559.html#ab4347840c13aff704e30a63a7500332f">m_mapDataPost</a>;              </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="a03559.html#a9ee8363725fc1fac5ea280dad5e5d261">  254</a></span>    QMap&lt;double,qint32&gt;                             <a class="code hl_variable" href="a03559.html#a9ee8363725fc1fac5ea280dad5e5d261">m_mapMatDataPostIdx</a>;        </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno"><a class="line" href="a03559.html#a3789b372b334724e0638a852203d5245">  255</a></span>    QMap&lt;double,bool&gt;                               <a class="code hl_variable" href="a03559.html#a3789b372b334724e0638a852203d5245">m_mapFillingBackBuffer</a>;     </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>signals:</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno"><a class="line" href="a03559.html#ad273e55855fa8e8d3404e9c138fdadc6">  265</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03559.html#ad273e55855fa8e8d3404e9c138fdadc6">resultReady</a>(<span class="keyword">const</span> FIFFLIB::FiffEvokedSet&amp; evokedStimSet,</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                     <span class="keyword">const</span> QStringList&amp; lResponsibleTriggerTypes);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>};</div>
 </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
-<div class="foldopen" id="foldopen00261" data-start="{" data-end="}">
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="a03295.html#a5a38b9f0209a911ce87cf5539e90cc58">  261</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#a5a38b9f0209a911ce87cf5539e90cc58">SourceEstimateManager::startStreaming</a>(<span class="keyword">const</span> QMap&lt;QString, std::shared_ptr&lt;BrainSurface&gt;&gt; &amp;surfaces,</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>                                            <span class="keyword">const</span> <a class="code hl_struct" href="a03131.html">SubView</a> &amp;singleView,</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>                                            <span class="keyword">const</span> QVector&lt;SubView&gt; &amp;subViews)</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>{</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    Q_UNUSED(surfaces)</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    Q_UNUSED(singleView)</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    Q_UNUSED(subViews)</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keywordflow">if</span> (m_isStreaming) {</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        qDebug() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Real-time streaming already active&quot;</span>;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    }</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordflow">if</span> (!m_overlay || !m_overlay-&gt;isLoaded()) {</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Cannot start streaming — no source estimate loaded&quot;</span>;</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    }</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00275" data-start="{" data-end="};">
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno"><a class="line" href="a03563.html">  275</a></span><span class="keyword">class </span><a class="code hl_define" href="a00272.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a> <a class="code hl_function" href="a03563.html#a17f35b2a1e5e5a68653762c9ff7d8e37">RtAveraging</a> : <span class="keyword">public</span> QObject</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>{</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    Q_OBJECT</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="comment">// Create controller on first use</span></div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keywordflow">if</span> (!m_rtController) {</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        m_rtController = std::make_unique&lt;RtSourceDataController&gt;(<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        connect(m_rtController.get(), &amp;<a class="code hl_signal" href="a03351.html#aa225dc3d6e0d5a6ecfa2443990400341">RtSourceDataController::newSmoothedDataAvailable</a>,</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>                <span class="keyword">this</span>, &amp;<a class="code hl_signal" href="a03295.html#afbbe298af9ddd1fcc03bc173d3fe54ac">SourceEstimateManager::realtimeColorsAvailable</a>);</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    }</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="comment">// Propagate interpolation matrices from the overlay</span></div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    m_rtController-&gt;setInterpolationMatrixLeft(m_overlay-&gt;interpolationMatLh());</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    m_rtController-&gt;setInterpolationMatrixRight(m_overlay-&gt;interpolationMatRh());</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="comment">// Propagate current visualization parameters</span></div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    m_rtController-&gt;setColormapType(m_overlay-&gt;colormap());</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    m_rtController-&gt;setThresholds(m_overlay-&gt;thresholdMin(),</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>                                   m_overlay-&gt;thresholdMid(),</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>                                   m_overlay-&gt;thresholdMax());</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    m_rtController-&gt;setSFreq(1.0 / m_overlay-&gt;tstep());</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="comment">// Feed all STC time-points into the queue</span></div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nTimePoints = m_overlay-&gt;numTimePoints();</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    qDebug() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Feeding&quot;</span> &lt;&lt; nTimePoints &lt;&lt; <span class="stringliteral">&quot;time points into real-time queue&quot;</span>;</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    m_rtController-&gt;clearData();</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> t = 0; t &lt; nTimePoints; ++t) {</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        Eigen::VectorXd col = m_overlay-&gt;sourceDataColumn(t);</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keywordflow">if</span> (col.size() &gt; 0)</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>            m_rtController-&gt;addData(col);</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    }</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    m_rtController-&gt;setStreamingState(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    m_isStreaming = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno"><a class="line" href="a03563.html#a445b658c859b50edfc26b98591c3eba7">  280</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;RtAveraging&gt; <a class="code hl_typedef" href="a03563.html#a445b658c859b50edfc26b98591c3eba7">SPtr</a>;             </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="a03563.html#a2e04abea5b1b54f415d808025a6154ff">  281</a></span>    <span class="keyword">typedef</span> QSharedPointer&lt;const RtAveraging&gt; <a class="code hl_typedef" href="a03563.html#a2e04abea5b1b54f415d808025a6154ff">ConstSPtr</a>;  </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a03563.html#a17f35b2a1e5e5a68653762c9ff7d8e37">RtAveraging</a>(quint32 numAverages,</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                         quint32 iPreStimSamples,</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                         quint32 iPostStimSamples,</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>                         quint32 iBaselineFromSecs,</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>                         quint32 iBaselineToSecs,</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>                         quint32 iTriggerIndex,</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                         <a class="code hl_typedef" href="a03767.html#a66ff3fd5a2330e5b2d793bb847227303">FIFFLIB::FiffInfo::SPtr</a> pFiffInfo,</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>                         QObject *parent = 0);</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <a class="code hl_function" href="a03563.html#a17f35b2a1e5e5a68653762c9ff7d8e37">~RtAveraging</a>();</div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    qDebug() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Real-time streaming started&quot;</span>;</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>}</div>
-</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
-<div class="foldopen" id="foldopen00316" data-start="{" data-end="}">
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno"><a class="line" href="a03295.html#a4c17ed720c5a23529f63e2b340a6d490">  316</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#a4c17ed720c5a23529f63e2b340a6d490">SourceEstimateManager::stopStreaming</a>()</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>{</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keywordflow">if</span> (!m_isStreaming) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordflow">if</span> (m_rtController)</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        m_rtController-&gt;setStreamingState(<span class="keyword">false</span>);</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    m_isStreaming = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    qDebug() &lt;&lt; <span class="stringliteral">&quot;SourceEstimateManager: Real-time streaming stopped&quot;</span>;</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>}</div>
-</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
-<div class="foldopen" id="foldopen00329" data-start="{" data-end="}">
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="a03295.html#a05c9c6685702b5a0f49c24cfb00088b8">  329</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#a05c9c6685702b5a0f49c24cfb00088b8">SourceEstimateManager::pushData</a>(<span class="keyword">const</span> Eigen::VectorXd &amp;data)</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>{</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordflow">if</span> (m_rtController)</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        m_rtController-&gt;addData(data);</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>}</div>
-</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="foldopen" id="foldopen00337" data-start="{" data-end="}">
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno"><a class="line" href="a03295.html#acb693412ce29a7b9879d1ea33f3479b0">  337</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#acb693412ce29a7b9879d1ea33f3479b0">SourceEstimateManager::setInterval</a>(<span class="keywordtype">int</span> msec)</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>{</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordflow">if</span> (m_rtController)</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        m_rtController-&gt;setTimeInterval(msec);</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>}</div>
-</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#a6c24b7201e260a91bcdf9389630c181f">append</a>(<span class="keyword">const</span> Eigen::MatrixXd &amp;data);</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#aeded49d6092732e8f48378a2a3a94ec7">restart</a>(quint32 numAverages,</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>                 quint32 iPreStimSamples,</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                 quint32 iPostStimSamples,</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                 quint32 iBaselineFromSecs,</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                 quint32 iBaselineToSecs,</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                 quint32 iTriggerIndex,</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>                 <a class="code hl_typedef" href="a03767.html#a66ff3fd5a2330e5b2d793bb847227303">FIFFLIB::FiffInfo::SPtr</a> pFiffInfo);</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#a55bbd578663d2df38397f97dd2b27d42">stop</a>();</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
-<div class="foldopen" id="foldopen00345" data-start="{" data-end="}">
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno"><a class="line" href="a03295.html#a8a254bab16f345df6bafbb4c892e273c">  345</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03295.html#a8a254bab16f345df6bafbb4c892e273c">SourceEstimateManager::setLooping</a>(<span class="keywordtype">bool</span> enabled)</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>{</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordflow">if</span> (m_rtController)</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        m_rtController-&gt;setLoopState(enabled);</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>}</div>
-</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#a5ab4aab92a0027f0c998b6c7c6f42480">setAverageNumber</a>(qint32 numAve);</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
-<div class="foldopen" id="foldopen00353" data-start="{" data-end="}">
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno"><a class="line" href="a03295.html#a9c9e9b980c7544800a76235b1fc57930">  353</a></span><span class="keyword">const</span> <a class="code hl_class" href="a03267.html">SourceEstimateOverlay</a> *<a class="code hl_function" href="a03295.html#a9c9e9b980c7544800a76235b1fc57930">SourceEstimateManager::overlay</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keywordflow">return</span> m_overlay.get();</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>}</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#a35263a0985b4f8f7d7d5e7315546032c">setPreStim</a>(qint32 samples,</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>                    qint32 secs);</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#aa1b9562feec349595aa218464d2bb88c">setPostStim</a>(qint32 samples,</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>                     qint32 secs);</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span> </div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#aacfd37087169aae05f24d7a9a87440f0">setTriggerChIndx</a>(qint32 idx);</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#ac51632bc03aae675f07a740f9e8d580f">setArtifactReduction</a>(<span class="keyword">const</span> QMap&lt;QString, double&gt; &amp;mapThresholds);</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#abd7c260c54cc29e7cb8f1f0305dc4005">setBaselineActive</a>(<span class="keywordtype">bool</span> activate);</div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span> </div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#a058aed793e1a30509bb02c3d44aa66b0">setBaselineFrom</a>(<span class="keywordtype">int</span> fromSamp,</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>                         <span class="keywordtype">int</span> fromMSec);</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span> </div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#a39e718672da7d24b60c51208f62cd6e4">setBaselineTo</a>(<span class="keywordtype">int</span> toSamp,</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>                       <span class="keywordtype">int</span> toMSec);</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#aac4d221a0c320889d45f3de5b6e2bd6a">reset</a>();</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03563.html#a85489fa1fbbf486e3199ed0e0642de84">handleResults</a>(<span class="keyword">const</span> FIFFLIB::FiffEvokedSet&amp; evokedStimSet,</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>                       <span class="keyword">const</span> QStringList&amp; lResponsibleTriggerTypes);</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span> </div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno"><a class="line" href="a03563.html#adbf2dd7f4d787515b1194061a93e6744">  431</a></span>    QThread             <a class="code hl_variable" href="a03563.html#adbf2dd7f4d787515b1194061a93e6744">m_workerThread</a>;         </div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span> </div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>signals:</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno"><a class="line" href="a03563.html#acbd6d2cd7e0727b2eebc2b9f6d42f0f9">  434</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#acbd6d2cd7e0727b2eebc2b9f6d42f0f9">evokedStim</a>(<span class="keyword">const</span> FIFFLIB::FiffEvokedSet&amp; evokedStimSet,</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>                    <span class="keyword">const</span> QStringList&amp; lResponsibleTriggerTypes);</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno"><a class="line" href="a03563.html#affd4927177cde83ca19c2e912012ab52">  436</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#affd4927177cde83ca19c2e912012ab52">operate</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData);</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno"><a class="line" href="a03563.html#a3b1977c21bc8e2a3c77214814e7c7078">  437</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#a3b1977c21bc8e2a3c77214814e7c7078">averageNumberChanged</a>(qint32 numAve);</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno"><a class="line" href="a03563.html#a57dde64f3e6e89f10d7fb8b8092adf3c">  438</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#a57dde64f3e6e89f10d7fb8b8092adf3c">averagePreStimChanged</a>(qint32 samples,</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>                               qint32 secs);</div>
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno"><a class="line" href="a03563.html#a3698ee6630dca9eba590bea22f6e20c5">  440</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#a3698ee6630dca9eba590bea22f6e20c5">averagePostStimChanged</a>(qint32 samples,</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>                                qint32 secs);</div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno"><a class="line" href="a03563.html#ad6f1af3c531fe5df253287d977b99cff">  442</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#ad6f1af3c531fe5df253287d977b99cff">averageTriggerChIdxChanged</a>(qint32 idx);</div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno"><a class="line" href="a03563.html#a6e78bd5d4f9339277075ea833e6e3359">  443</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#a6e78bd5d4f9339277075ea833e6e3359">averageArtifactReductionChanged</a>(<span class="keyword">const</span> QMap&lt;QString, double&gt; &amp;mapThresholds);</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno"><a class="line" href="a03563.html#a111fa5e6b65d35d98093edf8f9603f9a">  444</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#a111fa5e6b65d35d98093edf8f9603f9a">averageBaselineActiveChanged</a>(<span class="keywordtype">bool</span> activate);</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno"><a class="line" href="a03563.html#ad259524707e6b5f575dd9368ead233a5">  445</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#ad259524707e6b5f575dd9368ead233a5">averageBaselineFromChanged</a>(<span class="keywordtype">int</span> fromSamp,</div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span>                                    <span class="keywordtype">int</span> fromMSec);</div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno"><a class="line" href="a03563.html#a03c9bb80d4f19c75dbf71e748f5e6236">  447</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#a03c9bb80d4f19c75dbf71e748f5e6236">averageBaselineToChanged</a>(<span class="keywordtype">int</span> toSamp,</div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span>                                  <span class="keywordtype">int</span> toMSec);</div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno"><a class="line" href="a03563.html#af516c8fc86c73a8ba7b53caf55a651f2">  449</a></span>    <span class="keywordtype">void</span> <a class="code hl_signal" href="a03563.html#af516c8fc86c73a8ba7b53caf55a651f2">averageResetRequested</a>();</div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span>};</div>
 </div>
-<div class="ttc" id="aa00068_html"><div class="ttname"><a href="a00068.html">brainsurface.h</a></div><div class="ttdoc">Renderable cortical / BEM mesh with interleaved vertex attributes and Qt-RHI buffer management.</div></div>
-<div class="ttc" id="aa00071_html"><div class="ttname"><a href="a00071.html">sourceestimateoverlay.h</a></div><div class="ttdoc">Colour-mapped source-time-course overlay that interpolates STC activation onto a cortical mesh and up...</div></div>
-<div class="ttc" id="aa00098_html"><div class="ttname"><a href="a00098.html">rtsourcedatacontroller.h</a></div><div class="ttdoc">Real-time source-estimate streaming controller that owns the data worker and the per-hemisphere inter...</div></div>
-<div class="ttc" id="aa00125_html"><div class="ttname"><a href="a00125.html">stcloadingworker.h</a></div><div class="ttdoc">Background worker that loads source-time-course (.stc) files and prepares per-hemisphere interpolatio...</div></div>
-<div class="ttc" id="aa00140_html"><div class="ttname"><a href="a00140.html">viewstate.h</a></div><div class="ttdoc">Per-viewport state (camera preset, zoom, pan, visibility filter) and serialisation helpers.</div></div>
-<div class="ttc" id="aa00191_html"><div class="ttname"><a href="a00191.html">sourceestimatemanager.h</a></div><div class="ttdoc">Owns the source-time-course overlay together with its loader, real-time controller and target cortica...</div></div>
-<div class="ttc" id="aa03131_html"><div class="ttname"><a href="a03131.html">SubView</a></div><div class="ttdoc">Viewport subdivision holding its own camera, projection, and scissor rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a00140_source.html#l00138">viewstate.h:139</a></div></div>
-<div class="ttc" id="aa03131_html_abfd59f36c16122ddad6e0de635612e08"><div class="ttname"><a href="a03131.html#abfd59f36c16122ddad6e0de635612e08">SubView::surfaceType</a></div><div class="ttdeci">QString surfaceType</div><div class="ttdef"><b>Definition</b> <a href="a00140_source.html#l00141">viewstate.h:141</a></div></div>
-<div class="ttc" id="aa03211_html"><div class="ttname"><a href="a03211.html">BrainSurface</a></div><div class="ttdoc">Renderable cortical surface mesh with per-vertex color, curvature data, and GPU buffer management.</div><div class="ttdef"><b>Definition</b> <a href="a00068_source.html#l00082">brainsurface.h:83</a></div></div>
-<div class="ttc" id="aa03211_html_a7a35e381402ddbce8531f24014867df8a9dd94c56727561d251c71cf7db49364f"><div class="ttname"><a href="a03211.html#a7a35e381402ddbce8531f24014867df8a9dd94c56727561d251c71cf7db49364f">BrainSurface::TissueBrain</a></div><div class="ttdeci">@ TissueBrain</div><div class="ttdef"><b>Definition</b> <a href="a00068_source.html#l00107">brainsurface.h:107</a></div></div>
-<div class="ttc" id="aa03267_html"><div class="ttname"><a href="a03267.html">SourceEstimateOverlay</a></div><div class="ttdoc">Color-mapped source estimate overlay that interpolates activation values onto a cortical surface mesh...</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00057">sourceestimateoverlay.h:58</a></div></div>
-<div class="ttc" id="aa03295_html_a05c9c6685702b5a0f49c24cfb00088b8"><div class="ttname"><a href="a03295.html#a05c9c6685702b5a0f49c24cfb00088b8">SourceEstimateManager::pushData</a></div><div class="ttdeci">void pushData(const Eigen::VectorXd &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="#l00329">sourceestimatemanager.cpp:329</a></div></div>
-<div class="ttc" id="aa03295_html_a258f68b87fd19c379154f060a3efa1a1"><div class="ttname"><a href="a03295.html#a258f68b87fd19c379154f060a3efa1a1">SourceEstimateManager::~SourceEstimateManager</a></div><div class="ttdeci">~SourceEstimateManager() override</div><div class="ttdef"><b>Definition</b> <a href="#l00040">sourceestimatemanager.cpp:40</a></div></div>
-<div class="ttc" id="aa03295_html_a282dda2e3bab7833fb5928a9a9181219"><div class="ttname"><a href="a03295.html#a282dda2e3bab7833fb5928a9a9181219">SourceEstimateManager::load</a></div><div class="ttdeci">bool load(const QString &amp;lhPath, const QString &amp;rhPath, const QMap&lt; QString, std::shared_ptr&lt; BrainSurface &gt; &gt; &amp;surfaces, const QString &amp;activeSurfaceType)</div><div class="ttdef"><b>Definition</b> <a href="#l00059">sourceestimatemanager.cpp:59</a></div></div>
-<div class="ttc" id="aa03295_html_a2ada6704fb28f071afed05f40444e063"><div class="ttname"><a href="a03295.html#a2ada6704fb28f071afed05f40444e063">SourceEstimateManager::loadingProgress</a></div><div class="ttdeci">void loadingProgress(int percent, const QString &amp;message)</div></div>
-<div class="ttc" id="aa03295_html_a32661ed19fa329595e0ade1bf0351587"><div class="ttname"><a href="a03295.html#a32661ed19fa329595e0ade1bf0351587">SourceEstimateManager::setThresholds</a></div><div class="ttdeci">void setThresholds(float min, float mid, float max)</div><div class="ttdef"><b>Definition</b> <a href="#l00250">sourceestimatemanager.cpp:250</a></div></div>
-<div class="ttc" id="aa03295_html_a333ba7e1a6fddc5165c3337814ce6cae"><div class="ttname"><a href="a03295.html#a333ba7e1a6fddc5165c3337814ce6cae">SourceEstimateManager::setColormap</a></div><div class="ttdeci">void setColormap(const QString &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="#l00242">sourceestimatemanager.cpp:242</a></div></div>
-<div class="ttc" id="aa03295_html_a4c17ed720c5a23529f63e2b340a6d490"><div class="ttname"><a href="a03295.html#a4c17ed720c5a23529f63e2b340a6d490">SourceEstimateManager::stopStreaming</a></div><div class="ttdeci">void stopStreaming()</div><div class="ttdef"><b>Definition</b> <a href="#l00316">sourceestimatemanager.cpp:316</a></div></div>
-<div class="ttc" id="aa03295_html_a5a38b9f0209a911ce87cf5539e90cc58"><div class="ttname"><a href="a03295.html#a5a38b9f0209a911ce87cf5539e90cc58">SourceEstimateManager::startStreaming</a></div><div class="ttdeci">void startStreaming(const QMap&lt; QString, std::shared_ptr&lt; BrainSurface &gt; &gt; &amp;surfaces, const SubView &amp;singleView, const QVector&lt; SubView &gt; &amp;subViews)</div><div class="ttdef"><b>Definition</b> <a href="#l00261">sourceestimatemanager.cpp:261</a></div></div>
-<div class="ttc" id="aa03295_html_a7b07d90395f35be3e7caf9a4332458b4"><div class="ttname"><a href="a03295.html#a7b07d90395f35be3e7caf9a4332458b4">SourceEstimateManager::timePointChanged</a></div><div class="ttdeci">void timePointChanged(int index, float time)</div></div>
-<div class="ttc" id="aa03295_html_a8a254bab16f345df6bafbb4c892e273c"><div class="ttname"><a href="a03295.html#a8a254bab16f345df6bafbb4c892e273c">SourceEstimateManager::setLooping</a></div><div class="ttdeci">void setLooping(bool enabled)</div><div class="ttdef"><b>Definition</b> <a href="#l00345">sourceestimatemanager.cpp:345</a></div></div>
-<div class="ttc" id="aa03295_html_a977a62ed7b97c42b35ec772853d8890a"><div class="ttname"><a href="a03295.html#a977a62ed7b97c42b35ec772853d8890a">SourceEstimateManager::loaded</a></div><div class="ttdeci">void loaded(int numTimePoints)</div></div>
-<div class="ttc" id="aa03295_html_a995337ae37c68bc5caa158d6e2245adf"><div class="ttname"><a href="a03295.html#a995337ae37c68bc5caa158d6e2245adf">SourceEstimateManager::thresholdsUpdated</a></div><div class="ttdeci">void thresholdsUpdated(float min, float mid, float max)</div></div>
-<div class="ttc" id="aa03295_html_a9c9e9b980c7544800a76235b1fc57930"><div class="ttname"><a href="a03295.html#a9c9e9b980c7544800a76235b1fc57930">SourceEstimateManager::overlay</a></div><div class="ttdeci">const SourceEstimateOverlay * overlay() const</div><div class="ttdef"><b>Definition</b> <a href="#l00353">sourceestimatemanager.cpp:353</a></div></div>
-<div class="ttc" id="aa03295_html_aa995190b6db4cd0aea7f793b27b1fbab"><div class="ttname"><a href="a03295.html#aa995190b6db4cd0aea7f793b27b1fbab">SourceEstimateManager::setTimePoint</a></div><div class="ttdeci">void setTimePoint(int index, const QMap&lt; QString, std::shared_ptr&lt; BrainSurface &gt; &gt; &amp;surfaces, const SubView &amp;singleView, const QVector&lt; SubView &gt; &amp;subViews)</div><div class="ttdef"><b>Definition</b> <a href="#l00176">sourceestimatemanager.cpp:176</a></div></div>
-<div class="ttc" id="aa03295_html_aad63f8e66497d6ddabfe79cbec06abac"><div class="ttname"><a href="a03295.html#aad63f8e66497d6ddabfe79cbec06abac">SourceEstimateManager::isLoaded</a></div><div class="ttdeci">bool isLoaded() const</div><div class="ttdef"><b>Definition</b> <a href="#l00132">sourceestimatemanager.cpp:132</a></div></div>
-<div class="ttc" id="aa03295_html_ac6b5f5291e6dec25938816a7214ca669"><div class="ttname"><a href="a03295.html#ac6b5f5291e6dec25938816a7214ca669">SourceEstimateManager::tmin</a></div><div class="ttdeci">float tmin() const</div><div class="ttdef"><b>Definition</b> <a href="#l00213">sourceestimatemanager.cpp:213</a></div></div>
-<div class="ttc" id="aa03295_html_ac7b19ae592264dec5ea887fc4817ca24"><div class="ttname"><a href="a03295.html#ac7b19ae592264dec5ea887fc4817ca24">SourceEstimateManager::tstep</a></div><div class="ttdeci">float tstep() const</div><div class="ttdef"><b>Definition</b> <a href="#l00206">sourceestimatemanager.cpp:206</a></div></div>
-<div class="ttc" id="aa03295_html_ac8d6d95e1a02c64f1d476ac5c12af426"><div class="ttname"><a href="a03295.html#ac8d6d95e1a02c64f1d476ac5c12af426">SourceEstimateManager::closestIndex</a></div><div class="ttdeci">int closestIndex(float timeSec) const</div><div class="ttdef"><b>Definition</b> <a href="#l00227">sourceestimatemanager.cpp:227</a></div></div>
-<div class="ttc" id="aa03295_html_acb693412ce29a7b9879d1ea33f3479b0"><div class="ttname"><a href="a03295.html#acb693412ce29a7b9879d1ea33f3479b0">SourceEstimateManager::setInterval</a></div><div class="ttdeci">void setInterval(int msec)</div><div class="ttdef"><b>Definition</b> <a href="#l00337">sourceestimatemanager.cpp:337</a></div></div>
-<div class="ttc" id="aa03295_html_adede3a1c7efa2b9b931ab41165b2394d"><div class="ttname"><a href="a03295.html#adede3a1c7efa2b9b931ab41165b2394d">SourceEstimateManager::numTimePoints</a></div><div class="ttdeci">int numTimePoints() const</div><div class="ttdef"><b>Definition</b> <a href="#l00220">sourceestimatemanager.cpp:220</a></div></div>
-<div class="ttc" id="aa03295_html_ae5dc0cf57ab96960255a602b3d596d25"><div class="ttname"><a href="a03295.html#ae5dc0cf57ab96960255a602b3d596d25">SourceEstimateManager::cancelLoading</a></div><div class="ttdeci">void cancelLoading()</div><div class="ttdef"><b>Definition</b> <a href="#l00047">sourceestimatemanager.cpp:47</a></div></div>
-<div class="ttc" id="aa03295_html_afbbe298af9ddd1fcc03bc173d3fe54ac"><div class="ttname"><a href="a03295.html#afbbe298af9ddd1fcc03bc173d3fe54ac">SourceEstimateManager::realtimeColorsAvailable</a></div><div class="ttdeci">void realtimeColorsAvailable(const QVector&lt; uint32_t &gt; &amp;colorsLh, const QVector&lt; uint32_t &gt; &amp;colorsRh)</div></div>
-<div class="ttc" id="aa03295_html_afc491440bf9f6553b3e89ef47688e60c"><div class="ttname"><a href="a03295.html#afc491440bf9f6553b3e89ef47688e60c">SourceEstimateManager::SourceEstimateManager</a></div><div class="ttdeci">SourceEstimateManager(QObject *parent=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="#l00033">sourceestimatemanager.cpp:33</a></div></div>
-<div class="ttc" id="aa03351_html_aa225dc3d6e0d5a6ecfa2443990400341"><div class="ttname"><a href="a03351.html#aa225dc3d6e0d5a6ecfa2443990400341">RtSourceDataController::newSmoothedDataAvailable</a></div><div class="ttdeci">void newSmoothedDataAvailable(const QVector&lt; uint32_t &gt; &amp;colorsLh, const QVector&lt; uint32_t &gt; &amp;colorsRh)</div></div>
-<div class="ttc" id="aa03363_html"><div class="ttname"><a href="a03363.html">StcLoadingWorker</a></div><div class="ttdoc">Background worker that loads source estimate (STC) files and emits loaded data for visualization.</div><div class="ttdef"><b>Definition</b> <a href="a00125_source.html#l00053">stcloadingworker.h:54</a></div></div>
-<div class="ttc" id="aa03363_html_a2704a11baf2527c017ff3991df67710c"><div class="ttname"><a href="a03363.html#a2704a11baf2527c017ff3991df67710c">StcLoadingWorker::progress</a></div><div class="ttdeci">void progress(int percent, const QString &amp;message)</div></div>
-<div class="ttc" id="aa03363_html_a64951380ef0a50ef8d6d4664852b5c4b"><div class="ttname"><a href="a03363.html#a64951380ef0a50ef8d6d4664852b5c4b">StcLoadingWorker::process</a></div><div class="ttdeci">void process()</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00102">stcloadingworker.cpp:102</a></div></div>
-<div class="ttc" id="aa03363_html_a9f7b0e0032ce77cba6e39cc395f56670"><div class="ttname"><a href="a03363.html#a9f7b0e0032ce77cba6e39cc395f56670">StcLoadingWorker::finished</a></div><div class="ttdeci">void finished(bool success)</div></div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span> </div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span><span class="comment">// INLINE DEFINITIONS</span></div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span> </div>
+<div class="foldopen" id="foldopen00456" data-start="{" data-end="}">
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno"><a class="line" href="a03559.html#a03c33f1f1db6c3d85b1412f2455b8689">  456</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03559.html#a03c33f1f1db6c3d85b1412f2455b8689">RtAveragingWorker::controlValuesChanged</a>()</div>
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>{</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    <span class="keywordtype">bool</span> result = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span> </div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="a03559.html#a1f66b13b443364ba3b73bf06fbfdd17a">m_iNewPreStimSamples</a> != <a class="code hl_variable" href="a03559.html#a5b90b877dd7edbde7088db13907cca09">m_iPreStimSamples</a></div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>       || <a class="code hl_variable" href="a03559.html#a91f7bb7f70789b43f97b3a1cac9adbfa">m_iNewPostStimSamples</a> != <a class="code hl_variable" href="a03559.html#a11c3c5f1bbb093e194ed9f047ddaf27c">m_iPostStimSamples</a></div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span>       || <a class="code hl_variable" href="a03559.html#a0cdbbd4d5aea275c4925397941064f41">m_iNewTriggerIndex</a> != <a class="code hl_variable" href="a03559.html#aacf84976b3e00aa5a40c951d8e64e750">m_iTriggerChIndex</a>) {</div>
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno">  463</span>        result = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>    }</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span> </div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno">  467</span>}</div>
+</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>} <span class="comment">// NAMESPACE</span></div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span> </div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span><span class="preprocessor">#endif </span><span class="comment">// RT_AVERAGING_RTPROCESSING_H</span></div>
+<div class="ttc" id="aa00272_html"><div class="ttname"><a href="a00272.html">dsp_global.h</a></div><div class="ttdoc">Export/import macros and namespace declaration for the DSP library.</div></div>
+<div class="ttc" id="aa00272_html_abb361459cf37ec31dad972356041a014"><div class="ttname"><a href="a00272.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a></div><div class="ttdeci">#define DSPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00050">dsp_global.h:50</a></div></div>
+<div class="ttc" id="aa02366_html"><div class="ttname"><a href="a02366.html">fiff_evoked_set.h</a></div><div class="ttdoc">Set of averaged evoked responses sharing a FiffInfo, plus the ave-style category / rejection descript...</div></div>
+<div class="ttc" id="aa02411_html"><div class="ttname"><a href="a02411.html">fiff_info.h</a></div><div class="ttdoc">Full FIFF measurement metadata: everything from FIFFB_MEAS / FIFFB_MEAS_INFO needed to interpret a re...</div></div>
+<div class="ttc" id="aa02552_html"><div class="ttname"><a href="a02552.html">RTPROCESSINGLIB</a></div><div class="ttdef"><b>Definition</b> <a href="a00617_source.html#l00049">rtfiffrawviewdelegate.h:49</a></div></div>
+<div class="ttc" id="aa03559_html_a03c33f1f1db6c3d85b1412f2455b8689"><div class="ttname"><a href="a03559.html#a03c33f1f1db6c3d85b1412f2455b8689">RTPROCESSINGLIB::RtAveragingWorker::controlValuesChanged</a></div><div class="ttdeci">bool controlValuesChanged()</div><div class="ttdef"><b>Definition</b> <a href="#l00456">rt_averaging.h:456</a></div></div>
+<div class="ttc" id="aa03559_html_a07b350bd0964aeaf1cb3150f41b560c7"><div class="ttname"><a href="a03559.html#a07b350bd0964aeaf1cb3150f41b560c7">RTPROCESSINGLIB::RtAveragingWorker::emitEvoked</a></div><div class="ttdeci">void emitEvoked(double dTriggerType, QStringList &amp;lResponsibleTriggerTypes)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00317">rt_averaging.cpp:317</a></div></div>
+<div class="ttc" id="aa03559_html_a0bbc47a6ba1906da876ac708ff8ea31f"><div class="ttname"><a href="a03559.html#a0bbc47a6ba1906da876ac708ff8ea31f">RTPROCESSINGLIB::RtAveragingWorker::setArtifactReduction</a></div><div class="ttdeci">void setArtifactReduction(const QMap&lt; QString, double &gt; &amp;mapThresholds)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00153">rt_averaging.cpp:153</a></div></div>
+<div class="ttc" id="aa03559_html_a0c0a3448833a3cc27b3b816a6deca03d"><div class="ttname"><a href="a03559.html#a0c0a3448833a3cc27b3b816a6deca03d">RTPROCESSINGLIB::RtAveragingWorker::fillFrontBuffer</a></div><div class="ttdeci">void fillFrontBuffer(const Eigen::MatrixXd &amp;data, double dTriggerType)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00355">rt_averaging.cpp:355</a></div></div>
+<div class="ttc" id="aa03559_html_a0cdbbd4d5aea275c4925397941064f41"><div class="ttname"><a href="a03559.html#a0cdbbd4d5aea275c4925397941064f41">RTPROCESSINGLIB::RtAveragingWorker::m_iNewTriggerIndex</a></div><div class="ttdeci">qint32 m_iNewTriggerIndex</div><div class="ttdef"><b>Definition</b> <a href="#l00236">rt_averaging.h:236</a></div></div>
+<div class="ttc" id="aa03559_html_a11c3c5f1bbb093e194ed9f047ddaf27c"><div class="ttname"><a href="a03559.html#a11c3c5f1bbb093e194ed9f047ddaf27c">RTPROCESSINGLIB::RtAveragingWorker::m_iPostStimSamples</a></div><div class="ttdeci">qint32 m_iPostStimSamples</div><div class="ttdef"><b>Definition</b> <a href="#l00232">rt_averaging.h:232</a></div></div>
+<div class="ttc" id="aa03559_html_a14621b9db87333845e88edd270e415cc"><div class="ttname"><a href="a03559.html#a14621b9db87333845e88edd270e415cc">RTPROCESSINGLIB::RtAveragingWorker::m_pFiffInfo</a></div><div class="ttdeci">FIFFLIB::FiffInfo::SPtr m_pFiffInfo</div><div class="ttdef"><b>Definition</b> <a href="#l00247">rt_averaging.h:247</a></div></div>
+<div class="ttc" id="aa03559_html_a1f66b13b443364ba3b73bf06fbfdd17a"><div class="ttname"><a href="a03559.html#a1f66b13b443364ba3b73bf06fbfdd17a">RTPROCESSINGLIB::RtAveragingWorker::m_iNewPreStimSamples</a></div><div class="ttdeci">qint32 m_iNewPreStimSamples</div><div class="ttdef"><b>Definition</b> <a href="#l00230">rt_averaging.h:230</a></div></div>
+<div class="ttc" id="aa03559_html_a25d312e11c19fa53283522c51f5bd54c"><div class="ttname"><a href="a03559.html#a25d312e11c19fa53283522c51f5bd54c">RTPROCESSINGLIB::RtAveragingWorker::m_pairBaselineSec</a></div><div class="ttdeci">QPair&lt; float, float &gt; m_pairBaselineSec</div><div class="ttdef"><b>Definition</b> <a href="#l00244">rt_averaging.h:244</a></div></div>
+<div class="ttc" id="aa03559_html_a29d21eacac7f3401b975a96797f597de"><div class="ttname"><a href="a03559.html#a29d21eacac7f3401b975a96797f597de">RTPROCESSINGLIB::RtAveragingWorker::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00499">rt_averaging.cpp:499</a></div></div>
+<div class="ttc" id="aa03559_html_a2cdd67e594db7d8a1bec44b168cd4217"><div class="ttname"><a href="a03559.html#a2cdd67e594db7d8a1bec44b168cd4217">RTPROCESSINGLIB::RtAveragingWorker::setAverageNumber</a></div><div class="ttdeci">void setAverageNumber(qint32 numAve)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00098">rt_averaging.cpp:98</a></div></div>
+<div class="ttc" id="aa03559_html_a3789b372b334724e0638a852203d5245"><div class="ttname"><a href="a03559.html#a3789b372b334724e0638a852203d5245">RTPROCESSINGLIB::RtAveragingWorker::m_mapFillingBackBuffer</a></div><div class="ttdeci">QMap&lt; double, bool &gt; m_mapFillingBackBuffer</div><div class="ttdef"><b>Definition</b> <a href="#l00255">rt_averaging.h:255</a></div></div>
+<div class="ttc" id="aa03559_html_a37d7c268845c0462d0bad29395dcabdf"><div class="ttname"><a href="a03559.html#a37d7c268845c0462d0bad29395dcabdf">RTPROCESSINGLIB::RtAveragingWorker::setTriggerChIndx</a></div><div class="ttdeci">void setTriggerChIndx(qint32 idx)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00146">rt_averaging.cpp:146</a></div></div>
+<div class="ttc" id="aa03559_html_a4d7d9e3da59f0192b4b0cbe9e124bcaf"><div class="ttname"><a href="a03559.html#a4d7d9e3da59f0192b4b0cbe9e124bcaf">RTPROCESSINGLIB::RtAveragingWorker::m_iNumAverages</a></div><div class="ttdeci">qint32 m_iNumAverages</div><div class="ttdef"><b>Definition</b> <a href="#l00227">rt_averaging.h:227</a></div></div>
+<div class="ttc" id="aa03559_html_a5b90b877dd7edbde7088db13907cca09"><div class="ttname"><a href="a03559.html#a5b90b877dd7edbde7088db13907cca09">RTPROCESSINGLIB::RtAveragingWorker::m_iPreStimSamples</a></div><div class="ttdeci">qint32 m_iPreStimSamples</div><div class="ttdef"><b>Definition</b> <a href="#l00229">rt_averaging.h:229</a></div></div>
+<div class="ttc" id="aa03559_html_a7041512bfcd3b21806b5604c0aaa404d"><div class="ttname"><a href="a03559.html#a7041512bfcd3b21806b5604c0aaa404d">RTPROCESSINGLIB::RtAveragingWorker::RtAveragingWorker</a></div><div class="ttdeci">RtAveragingWorker(quint32 numAverages, quint32 iPreStimSamples, quint32 iPostStimSamples, quint32 iBaselineFromMSecs, quint32 iBaselineToMSecs, quint32 iTriggerIndex, FIFFLIB::FiffInfo::SPtr pFiffInfo)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00049">rt_averaging.cpp:49</a></div></div>
+<div class="ttc" id="aa03559_html_a73ce2c47dc80da4f2e4ac752c44fd6b5"><div class="ttname"><a href="a03559.html#a73ce2c47dc80da4f2e4ac752c44fd6b5">RTPROCESSINGLIB::RtAveragingWorker::m_pairBaselineSamp</a></div><div class="ttdeci">QPair&lt; float, float &gt; m_pairBaselineSamp</div><div class="ttdef"><b>Definition</b> <a href="#l00245">rt_averaging.h:245</a></div></div>
+<div class="ttc" id="aa03559_html_a749bc5670450dff22685a88a3591d68b"><div class="ttname"><a href="a03559.html#a749bc5670450dff22685a88a3591d68b">RTPROCESSINGLIB::RtAveragingWorker::setBaselineTo</a></div><div class="ttdeci">void setBaselineTo(int toSamp, int toMSec)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00196">rt_averaging.cpp:196</a></div></div>
+<div class="ttc" id="aa03559_html_a84f381fe998d1e09e2c1723f4212a707"><div class="ttname"><a href="a03559.html#a84f381fe998d1e09e2c1723f4212a707">RTPROCESSINGLIB::RtAveragingWorker::m_bActivateThreshold</a></div><div class="ttdeci">bool m_bActivateThreshold</div><div class="ttdef"><b>Definition</b> <a href="#l00240">rt_averaging.h:240</a></div></div>
+<div class="ttc" id="aa03559_html_a86a35828030a5fc3801d3b059013a284"><div class="ttname"><a href="a03559.html#a86a35828030a5fc3801d3b059013a284">RTPROCESSINGLIB::RtAveragingWorker::m_stimEvokedSet</a></div><div class="ttdeci">FIFFLIB::FiffEvokedSet m_stimEvokedSet</div><div class="ttdef"><b>Definition</b> <a href="#l00248">rt_averaging.h:248</a></div></div>
+<div class="ttc" id="aa03559_html_a907417f9b33d4b69518115c673373c83"><div class="ttname"><a href="a03559.html#a907417f9b33d4b69518115c673373c83">RTPROCESSINGLIB::RtAveragingWorker::doAveraging</a></div><div class="ttdeci">void doAveraging(const Eigen::MatrixXd &amp;rawSegment)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00209">rt_averaging.cpp:209</a></div></div>
+<div class="ttc" id="aa03559_html_a91f7bb7f70789b43f97b3a1cac9adbfa"><div class="ttname"><a href="a03559.html#a91f7bb7f70789b43f97b3a1cac9adbfa">RTPROCESSINGLIB::RtAveragingWorker::m_iNewPostStimSamples</a></div><div class="ttdeci">qint32 m_iNewPostStimSamples</div><div class="ttdef"><b>Definition</b> <a href="#l00233">rt_averaging.h:233</a></div></div>
+<div class="ttc" id="aa03559_html_a9602077880a5d05747fb1aa5074f0321"><div class="ttname"><a href="a03559.html#a9602077880a5d05747fb1aa5074f0321">RTPROCESSINGLIB::RtAveragingWorker::m_mapDataPre</a></div><div class="ttdeci">QMap&lt; double, Eigen::MatrixXd &gt; m_mapDataPre</div><div class="ttdef"><b>Definition</b> <a href="#l00252">rt_averaging.h:252</a></div></div>
+<div class="ttc" id="aa03559_html_a9ad4732903a7c01df43cff58208621fe"><div class="ttname"><a href="a03559.html#a9ad4732903a7c01df43cff58208621fe">RTPROCESSINGLIB::RtAveragingWorker::m_mapStimAve</a></div><div class="ttdeci">QMap&lt; double, QList&lt; Eigen::MatrixXd &gt; &gt; m_mapStimAve</div><div class="ttdef"><b>Definition</b> <a href="#l00251">rt_averaging.h:251</a></div></div>
+<div class="ttc" id="aa03559_html_a9ee8363725fc1fac5ea280dad5e5d261"><div class="ttname"><a href="a03559.html#a9ee8363725fc1fac5ea280dad5e5d261">RTPROCESSINGLIB::RtAveragingWorker::m_mapMatDataPostIdx</a></div><div class="ttdeci">QMap&lt; double, qint32 &gt; m_mapMatDataPostIdx</div><div class="ttdef"><b>Definition</b> <a href="#l00254">rt_averaging.h:254</a></div></div>
+<div class="ttc" id="aa03559_html_aacf84976b3e00aa5a40c951d8e64e750"><div class="ttname"><a href="a03559.html#aacf84976b3e00aa5a40c951d8e64e750">RTPROCESSINGLIB::RtAveragingWorker::m_iTriggerChIndex</a></div><div class="ttdeci">qint32 m_iTriggerChIndex</div><div class="ttdef"><b>Definition</b> <a href="#l00235">rt_averaging.h:235</a></div></div>
+<div class="ttc" id="aa03559_html_ab229eaf98a588580c29f4787a307c888"><div class="ttname"><a href="a03559.html#ab229eaf98a588580c29f4787a307c888">RTPROCESSINGLIB::RtAveragingWorker::setBaselineActive</a></div><div class="ttdeci">void setBaselineActive(bool activate)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00166">rt_averaging.cpp:166</a></div></div>
+<div class="ttc" id="aa03559_html_ab32f8b659c05716e624decb9a8543719"><div class="ttname"><a href="a03559.html#ab32f8b659c05716e624decb9a8543719">RTPROCESSINGLIB::RtAveragingWorker::doWork</a></div><div class="ttdeci">void doWork(const Eigen::MatrixXd &amp;matData)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00083">rt_averaging.cpp:83</a></div></div>
+<div class="ttc" id="aa03559_html_ab4347840c13aff704e30a63a7500332f"><div class="ttname"><a href="a03559.html#ab4347840c13aff704e30a63a7500332f">RTPROCESSINGLIB::RtAveragingWorker::m_mapDataPost</a></div><div class="ttdeci">QMap&lt; double, Eigen::MatrixXd &gt; m_mapDataPost</div><div class="ttdef"><b>Definition</b> <a href="#l00253">rt_averaging.h:253</a></div></div>
+<div class="ttc" id="aa03559_html_aba00f81fd324328f1e9a1e46f71ed8f3"><div class="ttname"><a href="a03559.html#aba00f81fd324328f1e9a1e46f71ed8f3">RTPROCESSINGLIB::RtAveragingWorker::setPostStim</a></div><div class="ttdeci">void setPostStim(qint32 samples, qint32 secs)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00137">rt_averaging.cpp:137</a></div></div>
+<div class="ttc" id="aa03559_html_abd4a72411f2c0fa8f8ee87ea904efcbc"><div class="ttname"><a href="a03559.html#abd4a72411f2c0fa8f8ee87ea904efcbc">RTPROCESSINGLIB::RtAveragingWorker::m_fTriggerThreshold</a></div><div class="ttdeci">float m_fTriggerThreshold</div><div class="ttdef"><b>Definition</b> <a href="#l00238">rt_averaging.h:238</a></div></div>
+<div class="ttc" id="aa03559_html_acd813cbfdf4d41fe90fd643f22d5f213"><div class="ttname"><a href="a03559.html#acd813cbfdf4d41fe90fd643f22d5f213">RTPROCESSINGLIB::RtAveragingWorker::m_mapThresholds</a></div><div class="ttdeci">QMap&lt; QString, double &gt; m_mapThresholds</div><div class="ttdef"><b>Definition</b> <a href="#l00250">rt_averaging.h:250</a></div></div>
+<div class="ttc" id="aa03559_html_ad273e55855fa8e8d3404e9c138fdadc6"><div class="ttname"><a href="a03559.html#ad273e55855fa8e8d3404e9c138fdadc6">RTPROCESSINGLIB::RtAveragingWorker::resultReady</a></div><div class="ttdeci">void resultReady(const FIFFLIB::FiffEvokedSet &amp;evokedStimSet, const QStringList &amp;lResponsibleTriggerTypes)</div></div>
+<div class="ttc" id="aa03559_html_ad4c4b32f069d07eaf6c97a25d0bd91b1"><div class="ttname"><a href="a03559.html#ad4c4b32f069d07eaf6c97a25d0bd91b1">RTPROCESSINGLIB::RtAveragingWorker::fillBackBuffer</a></div><div class="ttdeci">void fillBackBuffer(const Eigen::MatrixXd &amp;data, double dTriggerType)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00340">rt_averaging.cpp:340</a></div></div>
+<div class="ttc" id="aa03559_html_ad8d899d8aaf3edcddca2cf35a68c0940"><div class="ttname"><a href="a03559.html#ad8d899d8aaf3edcddca2cf35a68c0940">RTPROCESSINGLIB::RtAveragingWorker::setBaselineFrom</a></div><div class="ttdeci">void setBaselineFrom(int fromSamp, int fromMSec)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00183">rt_averaging.cpp:183</a></div></div>
+<div class="ttc" id="aa03559_html_adb3ef41f0a8b0c35aaa59af4ad6599e5"><div class="ttname"><a href="a03559.html#adb3ef41f0a8b0c35aaa59af4ad6599e5">RTPROCESSINGLIB::RtAveragingWorker::setPreStim</a></div><div class="ttdeci">void setPreStim(qint32 samples, qint32 secs)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00128">rt_averaging.cpp:128</a></div></div>
+<div class="ttc" id="aa03559_html_ae6badd9eac558175f271b812a77e3ca9"><div class="ttname"><a href="a03559.html#ae6badd9eac558175f271b812a77e3ca9">RTPROCESSINGLIB::RtAveragingWorker::m_bDoBaselineCorrection</a></div><div class="ttdeci">bool m_bDoBaselineCorrection</div><div class="ttdef"><b>Definition</b> <a href="#l00242">rt_averaging.h:242</a></div></div>
+<div class="ttc" id="aa03559_html_aef95d59cc138a1d302e736c60a39ee68"><div class="ttname"><a href="a03559.html#aef95d59cc138a1d302e736c60a39ee68">RTPROCESSINGLIB::RtAveragingWorker::mergeData</a></div><div class="ttdeci">void mergeData(double dTriggerType)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00396">rt_averaging.cpp:396</a></div></div>
+<div class="ttc" id="aa03559_html_aeffecb7f71baebf0e4e723f4c873d386"><div class="ttname"><a href="a03559.html#aeffecb7f71baebf0e4e723f4c873d386">RTPROCESSINGLIB::RtAveragingWorker::generateEvoked</a></div><div class="ttdeci">void generateEvoked(double dTriggerType)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00434">rt_averaging.cpp:434</a></div></div>
+<div class="ttc" id="aa03563_html_a03c9bb80d4f19c75dbf71e748f5e6236"><div class="ttname"><a href="a03563.html#a03c9bb80d4f19c75dbf71e748f5e6236">RTPROCESSINGLIB::RtAveraging::averageBaselineToChanged</a></div><div class="ttdeci">void averageBaselineToChanged(int toSamp, int toMSec)</div></div>
+<div class="ttc" id="aa03563_html_a058aed793e1a30509bb02c3d44aa66b0"><div class="ttname"><a href="a03563.html#a058aed793e1a30509bb02c3d44aa66b0">RTPROCESSINGLIB::RtAveraging::setBaselineFrom</a></div><div class="ttdeci">void setBaselineFrom(int fromSamp, int fromMSec)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00710">rt_averaging.cpp:710</a></div></div>
+<div class="ttc" id="aa03563_html_a111fa5e6b65d35d98093edf8f9603f9a"><div class="ttname"><a href="a03563.html#a111fa5e6b65d35d98093edf8f9603f9a">RTPROCESSINGLIB::RtAveraging::averageBaselineActiveChanged</a></div><div class="ttdeci">void averageBaselineActiveChanged(bool activate)</div></div>
+<div class="ttc" id="aa03563_html_a17f35b2a1e5e5a68653762c9ff7d8e37"><div class="ttname"><a href="a03563.html#a17f35b2a1e5e5a68653762c9ff7d8e37">RTPROCESSINGLIB::RtAveraging::RtAveraging</a></div><div class="ttdeci">RtAveraging(quint32 numAverages, quint32 iPreStimSamples, quint32 iPostStimSamples, quint32 iBaselineFromSecs, quint32 iBaselineToSecs, quint32 iTriggerIndex, FIFFLIB::FiffInfo::SPtr pFiffInfo, QObject *parent=0)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00522">rt_averaging.cpp:522</a></div></div>
+<div class="ttc" id="aa03563_html_a2e04abea5b1b54f415d808025a6154ff"><div class="ttname"><a href="a03563.html#a2e04abea5b1b54f415d808025a6154ff">RTPROCESSINGLIB::RtAveraging::ConstSPtr</a></div><div class="ttdeci">QSharedPointer&lt; const RtAveraging &gt; ConstSPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00281">rt_averaging.h:281</a></div></div>
+<div class="ttc" id="aa03563_html_a35263a0985b4f8f7d7d5e7315546032c"><div class="ttname"><a href="a03563.html#a35263a0985b4f8f7d7d5e7315546032c">RTPROCESSINGLIB::RtAveraging::setPreStim</a></div><div class="ttdeci">void setPreStim(qint32 samples, qint32 secs)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00667">rt_averaging.cpp:667</a></div></div>
+<div class="ttc" id="aa03563_html_a3698ee6630dca9eba590bea22f6e20c5"><div class="ttname"><a href="a03563.html#a3698ee6630dca9eba590bea22f6e20c5">RTPROCESSINGLIB::RtAveraging::averagePostStimChanged</a></div><div class="ttdeci">void averagePostStimChanged(qint32 samples, qint32 secs)</div></div>
+<div class="ttc" id="aa03563_html_a39e718672da7d24b60c51208f62cd6e4"><div class="ttname"><a href="a03563.html#a39e718672da7d24b60c51208f62cd6e4">RTPROCESSINGLIB::RtAveraging::setBaselineTo</a></div><div class="ttdeci">void setBaselineTo(int toSamp, int toMSec)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00719">rt_averaging.cpp:719</a></div></div>
+<div class="ttc" id="aa03563_html_a3b1977c21bc8e2a3c77214814e7c7078"><div class="ttname"><a href="a03563.html#a3b1977c21bc8e2a3c77214814e7c7078">RTPROCESSINGLIB::RtAveraging::averageNumberChanged</a></div><div class="ttdeci">void averageNumberChanged(qint32 numAve)</div></div>
+<div class="ttc" id="aa03563_html_a445b658c859b50edfc26b98591c3eba7"><div class="ttname"><a href="a03563.html#a445b658c859b50edfc26b98591c3eba7">RTPROCESSINGLIB::RtAveraging::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; RtAveraging &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="#l00280">rt_averaging.h:280</a></div></div>
+<div class="ttc" id="aa03563_html_a55bbd578663d2df38397f97dd2b27d42"><div class="ttname"><a href="a03563.html#a55bbd578663d2df38397f97dd2b27d42">RTPROCESSINGLIB::RtAveraging::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00651">rt_averaging.cpp:651</a></div></div>
+<div class="ttc" id="aa03563_html_a57dde64f3e6e89f10d7fb8b8092adf3c"><div class="ttname"><a href="a03563.html#a57dde64f3e6e89f10d7fb8b8092adf3c">RTPROCESSINGLIB::RtAveraging::averagePreStimChanged</a></div><div class="ttdeci">void averagePreStimChanged(qint32 samples, qint32 secs)</div></div>
+<div class="ttc" id="aa03563_html_a5ab4aab92a0027f0c998b6c7c6f42480"><div class="ttname"><a href="a03563.html#a5ab4aab92a0027f0c998b6c7c6f42480">RTPROCESSINGLIB::RtAveraging::setAverageNumber</a></div><div class="ttdeci">void setAverageNumber(qint32 numAve)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00660">rt_averaging.cpp:660</a></div></div>
+<div class="ttc" id="aa03563_html_a6c24b7201e260a91bcdf9389630c181f"><div class="ttname"><a href="a03563.html#a6c24b7201e260a91bcdf9389630c181f">RTPROCESSINGLIB::RtAveraging::append</a></div><div class="ttdeci">void append(const Eigen::MatrixXd &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00583">rt_averaging.cpp:583</a></div></div>
+<div class="ttc" id="aa03563_html_a6e78bd5d4f9339277075ea833e6e3359"><div class="ttname"><a href="a03563.html#a6e78bd5d4f9339277075ea833e6e3359">RTPROCESSINGLIB::RtAveraging::averageArtifactReductionChanged</a></div><div class="ttdeci">void averageArtifactReductionChanged(const QMap&lt; QString, double &gt; &amp;mapThresholds)</div></div>
+<div class="ttc" id="aa03563_html_a85489fa1fbbf486e3199ed0e0642de84"><div class="ttname"><a href="a03563.html#a85489fa1fbbf486e3199ed0e0642de84">RTPROCESSINGLIB::RtAveraging::handleResults</a></div><div class="ttdeci">void handleResults(const FIFFLIB::FiffEvokedSet &amp;evokedStimSet, const QStringList &amp;lResponsibleTriggerTypes)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00590">rt_averaging.cpp:590</a></div></div>
+<div class="ttc" id="aa03563_html_aa1b9562feec349595aa218464d2bb88c"><div class="ttname"><a href="a03563.html#aa1b9562feec349595aa218464d2bb88c">RTPROCESSINGLIB::RtAveraging::setPostStim</a></div><div class="ttdeci">void setPostStim(qint32 samples, qint32 secs)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00678">rt_averaging.cpp:678</a></div></div>
+<div class="ttc" id="aa03563_html_aac4d221a0c320889d45f3de5b6e2bd6a"><div class="ttname"><a href="a03563.html#aac4d221a0c320889d45f3de5b6e2bd6a">RTPROCESSINGLIB::RtAveraging::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00728">rt_averaging.cpp:728</a></div></div>
+<div class="ttc" id="aa03563_html_aacfd37087169aae05f24d7a9a87440f0"><div class="ttname"><a href="a03563.html#aacfd37087169aae05f24d7a9a87440f0">RTPROCESSINGLIB::RtAveraging::setTriggerChIndx</a></div><div class="ttdeci">void setTriggerChIndx(qint32 idx)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00689">rt_averaging.cpp:689</a></div></div>
+<div class="ttc" id="aa03563_html_abd7c260c54cc29e7cb8f1f0305dc4005"><div class="ttname"><a href="a03563.html#abd7c260c54cc29e7cb8f1f0305dc4005">RTPROCESSINGLIB::RtAveraging::setBaselineActive</a></div><div class="ttdeci">void setBaselineActive(bool activate)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00703">rt_averaging.cpp:703</a></div></div>
+<div class="ttc" id="aa03563_html_ac51632bc03aae675f07a740f9e8d580f"><div class="ttname"><a href="a03563.html#ac51632bc03aae675f07a740f9e8d580f">RTPROCESSINGLIB::RtAveraging::setArtifactReduction</a></div><div class="ttdeci">void setArtifactReduction(const QMap&lt; QString, double &gt; &amp;mapThresholds)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00696">rt_averaging.cpp:696</a></div></div>
+<div class="ttc" id="aa03563_html_acbd6d2cd7e0727b2eebc2b9f6d42f0f9"><div class="ttname"><a href="a03563.html#acbd6d2cd7e0727b2eebc2b9f6d42f0f9">RTPROCESSINGLIB::RtAveraging::evokedStim</a></div><div class="ttdeci">void evokedStim(const FIFFLIB::FiffEvokedSet &amp;evokedStimSet, const QStringList &amp;lResponsibleTriggerTypes)</div></div>
+<div class="ttc" id="aa03563_html_ad259524707e6b5f575dd9368ead233a5"><div class="ttname"><a href="a03563.html#ad259524707e6b5f575dd9368ead233a5">RTPROCESSINGLIB::RtAveraging::averageBaselineFromChanged</a></div><div class="ttdeci">void averageBaselineFromChanged(int fromSamp, int fromMSec)</div></div>
+<div class="ttc" id="aa03563_html_ad6f1af3c531fe5df253287d977b99cff"><div class="ttname"><a href="a03563.html#ad6f1af3c531fe5df253287d977b99cff">RTPROCESSINGLIB::RtAveraging::averageTriggerChIdxChanged</a></div><div class="ttdeci">void averageTriggerChIdxChanged(qint32 idx)</div></div>
+<div class="ttc" id="aa03563_html_adbf2dd7f4d787515b1194061a93e6744"><div class="ttname"><a href="a03563.html#adbf2dd7f4d787515b1194061a93e6744">RTPROCESSINGLIB::RtAveraging::m_workerThread</a></div><div class="ttdeci">QThread m_workerThread</div><div class="ttdef"><b>Definition</b> <a href="#l00431">rt_averaging.h:431</a></div></div>
+<div class="ttc" id="aa03563_html_aeded49d6092732e8f48378a2a3a94ec7"><div class="ttname"><a href="a03563.html#aeded49d6092732e8f48378a2a3a94ec7">RTPROCESSINGLIB::RtAveraging::restart</a></div><div class="ttdeci">void restart(quint32 numAverages, quint32 iPreStimSamples, quint32 iPostStimSamples, quint32 iBaselineFromSecs, quint32 iBaselineToSecs, quint32 iTriggerIndex, FIFFLIB::FiffInfo::SPtr pFiffInfo)</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00599">rt_averaging.cpp:599</a></div></div>
+<div class="ttc" id="aa03563_html_af516c8fc86c73a8ba7b53caf55a651f2"><div class="ttname"><a href="a03563.html#af516c8fc86c73a8ba7b53caf55a651f2">RTPROCESSINGLIB::RtAveraging::averageResetRequested</a></div><div class="ttdeci">void averageResetRequested()</div></div>
+<div class="ttc" id="aa03563_html_affd4927177cde83ca19c2e912012ab52"><div class="ttname"><a href="a03563.html#affd4927177cde83ca19c2e912012ab52">RTPROCESSINGLIB::RtAveraging::operate</a></div><div class="ttdeci">void operate(const Eigen::MatrixXd &amp;matData)</div></div>
+<div class="ttc" id="aa03767_html_a66ff3fd5a2330e5b2d793bb847227303"><div class="ttname"><a href="a03767.html#a66ff3fd5a2330e5b2d793bb847227303">FIFFLIB::FiffInfo::SPtr</a></div><div class="ttdeci">QSharedPointer&lt; FiffInfo &gt; SPtr</div><div class="ttdef"><b>Definition</b> <a href="a02411_source.html#l00090">fiff_info.h:90</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

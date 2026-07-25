@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['packabgr_0',['packABGR',['../a00131.html#a1b5a9d452e93189d1ff91b997d0a0518',1,'rendertypes.h']]],
+  ['packabgr_0',['packABGR',['../a01988.html#a1b5a9d452e93189d1ff91b997d0a0518',1,'rendertypes.h']]],
   ['paint_1',['paint',['../a02931.html#a2d7431142d0f4e187390f3e12ec3e1f8',1,'DISPLIB::AverageSceneItem::paint()'],['../a02999.html#ae2fb91435643972c94146d52c7a4ae11',1,'DISPLIB::FrequencySpectrumDelegate::paint()'],['../a03019.html#af9d9b653c6209e8bfaa598cac33147b5',1,'DISPLIB::RtFiffRawViewDelegate::paint()'],['../a03039.html#a84799c0ebd2f3efbc658b0ce54a0d84d',1,'DISPLIB::SelectionSceneItem::paint()']]],
   ['paintaveragepath_2',['paintAveragePath',['../a02931.html#a59bf22044e8c9a2390f36827269061bd',1,'DISPLIB::AverageSceneItem']]],
   ['paintevent_3',['paintEvent',['../a02811.html#a817ac151a960b4176f9c83bfa0949b9c',1,'DISPLIB::Bar::paintEvent()'],['../a02823.html#a23d812229e65cd535ac7fcefb5b51bc5',1,'DISPLIB::ImageSc::paintEvent()'],['../a02827.html#a1c675821c983fe10bb1e37232706fad0',1,'DISPLIB::LinePlot::paintEvent()'],['../a02831.html#aae60118ab1af798d4fd3fcd7326eb5b8',1,'DISPLIB::Plot::paintEvent()'],['../a02835.html#ae50b0b726602cb44c4442f31a3fe18b0',1,'DISPLIB::Spline::paintEvent()'],['../a02871.html#a0a36b7ba230b49d8c397296e637583f1',1,'DISPLIB::ButterflyView::paintEvent()'],['../a02875.html#aa105639aa9ae3dbd4f1d42e49e513c7c',1,'RulerHeaderWidget::paintEvent()'],['../a02951.html#abafa6b447d525fb801591a4585ef4bb9',1,'DISPLIB::ChannelLabelPanel::paintEvent()'],['../a02955.html#a9ee57b0aa0508529434d358a6e33a973',1,'CrosshairOverlay::paintEvent()'],['../a02959.html#acbd3c28db2447c139766c2c1f0266283',1,'DISPLIB::ChannelRhiView::paintEvent()'],['../a03015.html#a404bf4374fd821723933c6b78ac76d81',1,'DISPLIB::OverviewBarWidget::paintEvent()'],['../a03051.html#afc962276cc61537f95dc286377cc2f9e',1,'DISPLIB::TimeRulerWidget::paintEvent()']]],
@@ -34,7 +34,7 @@ var searchData=
   ['performdipolefit_31',['performDipoleFit',['../a02907.html#a400fad5d2d8680f4c7f1f859fc4ec681',1,'DISPLIB::DipoleFitView']]],
   ['performicp_32',['performIcp',['../a02541.html#a14de206624fbed86dacba7832ef31ff7',1,'MNELIB']]],
   ['permutationtest_33',['permutationTest',['../a04631.html#a18eda5c2a508d6da7e4befb261b6c461',1,'STSLIB::StatsCluster']]],
-  ['perspectivepresetrotation_34',['perspectivePresetRotation',['../a00137.html#ad4a9ee775f380f1e92dfc3deb7cdf902',1,'perspectivePresetRotation():&#160;viewstate.cpp'],['../a00140.html#a2123a2fb1b79dacc3842b0a1d6fbb954',1,'perspectivePresetRotation():&#160;viewstate.cpp']]],
+  ['perspectivepresetrotation_34',['perspectivePresetRotation',['../a01982.html#ad4a9ee775f380f1e92dfc3deb7cdf902',1,'perspectivePresetRotation():&#160;viewstate.cpp'],['../a01979.html#a2123a2fb1b79dacc3842b0a1d6fbb954',1,'perspectivePresetRotation():&#160;viewstate.cpp']]],
   ['phaselagindex_35',['PhaseLagIndex',['../a02759.html#ae6c27778ad556fdaf3fc355bd2578d12',1,'CONNECTIVITYLIB::PhaseLagIndex']]],
   ['phaselockingvalue_36',['PhaseLockingValue',['../a02763.html#a7fd3d93c658c858073c12ef6a654d5d7',1,'CONNECTIVITYLIB::PhaseLockingValue']]],
   ['phi_5fx_37',['phi_x',['../a04083.html#a88ee5ad8c2a377319b200a5724acb3bc',1,'INVLIB::InvDipole::phi_x()'],['../a04083.html#a039ca3951957150346e6660be5df11e7',1,'INVLIB::InvDipole::phi_x() const']]],
@@ -95,7 +95,7 @@ var searchData=
   ['preparesurfacedraw_92',['prepareSurfaceDraw',['../a03319.html#a80614889c04f0100dff646aea9b67388',1,'BrainRenderer']]],
   ['preparevideooverlay_93',['prepareVideoOverlay',['../a03319.html#ab52e7649bcc2b28099b11da3feefa372',1,'BrainRenderer']]],
   ['print_94',['print',['../a03687.html#a78fcc6788dba2f3648782a0596f09cab',1,'FIFFLIB::FiffCoordTrans::print()'],['../a03715.html#a21663931c4f9fd55c680c337f4a375df',1,'FIFFLIB::FiffDigitizerData::print()'],['../a03723.html#abfb6fa4257d226ade2c7594eb85922e1',1,'FIFFLIB::FiffDirNode::print()'],['../a03763.html#ad11cbcecff972b3ea7a6b26497338ff3',1,'FIFFLIB::FiffId::print()'],['../a03767.html#a1810fc7f598d5be84ff1220e6621d620',1,'FIFFLIB::FiffInfo::print()'],['../a03959.html#a446d44dc386926e36bb545d8d68f2d8d',1,'INVLIB::InvEcd::print()'],['../a04563.html#a772b4ce1233bcbdf357c992b85e137e6',1,'MNELIB::MNESssData::print()'],['../a04891.html#a78fcc6788dba2f3648782a0596f09cab',1,'FiffCoordTrans::print()']]],
-  ['print_5ffields_95',['print_fields',['../a01979.html#a71338869677872c0ab4434d365a7ec55',1,'inv_dipole_fit_data.cpp']]],
+  ['print_5ffields_95',['print_fields',['../a02225.html#a71338869677872c0ab4434d365a7ec55',1,'inv_dipole_fit_data.cpp']]],
   ['probeevokedsets_96',['probeEvokedSets',['../a03119.html#a3f6492243df70be8956d26768ca0d499',1,'DataLoader::probeEvokedSets()'],['../a03331.html#ab929958aa666036636384e47cd50585a',1,'BrainView::probeEvokedSets()']]],
   ['probeorientation_97',['probeOrientation',['../a04735.html#ae414a11938d266ea861a379c8186016d',1,'UTILSLIB::PolhemusCoregistration']]],
   ['probeposechanged_98',['probePoseChanged',['../a04735.html#ae0e7940626884d8c988d986184f0d917',1,'UTILSLIB::PolhemusCoregistration']]],

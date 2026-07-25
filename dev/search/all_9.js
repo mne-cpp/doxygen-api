@@ -78,8 +78,8 @@ var searchData=
   ['hittestsplitter_75',['hitTestSplitter',['../a03335.html#a4b69c8d5e2d77ce40f94157e427303dc',1,'MultiViewLayout']]],
   ['hittolerancepx_76',['hitTolerancePx',['../a03335.html#a80b37690bfaaf1c8ee584802dee2e42a',1,'MultiViewLayout']]],
   ['holmbonferroni_77',['holmBonferroni',['../a04635.html#a0bd2a037982ec4688b5c873c5363ff1b',1,'STSLIB::StatsMcCorrection']]],
-  ['holographic_78',['Holographic',['../a03319.html#a574725a315454d4019853633b00ad5a5',1,'BrainRenderer::Holographic'],['../a00131.html#a9a65336a07fa3c9b4b13e6d52e3a612cadb4c9a54c480868af2ecc15779323f41',1,'Holographic:&#160;rendertypes.h']]],
-  ['horizontal_79',['Horizontal',['../a00155.html#aa760f37b1c504a57961771013387fcf9ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'multiviewlayout.h']]],
+  ['holographic_78',['Holographic',['../a03319.html#a574725a315454d4019853633b00ad5a5',1,'BrainRenderer::Holographic'],['../a01988.html#a9a65336a07fa3c9b4b13e6d52e3a612cadb4c9a54c480868af2ecc15779323f41',1,'Holographic:&#160;rendertypes.h']]],
+  ['horizontal_79',['Horizontal',['../a01964.html#aa760f37b1c504a57961771013387fcf9ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'multiviewlayout.h']]],
   ['hostname_80',['hostName',['../a04299.html#a9f8959de0be7b77d4b338dd003658c0c',1,'MNALIB::MnaProvenance']]],
   ['hostname_81',['hostname',['../a04139.html#a160cca89028af908013a76758f1e867e',1,'LSLLIB::stream_info']]],
   ['hot_82',['Hot',['../a02545.html#a53c600771742063d0826523495db22f3ad051758fbfbcd886f8272b74ccaa9c46',1,'DISPLIB']]],
@@ -100,8 +100,8 @@ var searchData=
   ['hpifitresult_97',['HpiFitResult',['../a03983.html',1,'INVLIB']]],
   ['hpifreqs_98',['hpiFreqs',['../a03983.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
   ['hpisettingsview_99',['HpiSettingsView',['../a03055.html',1,'DISPLIB::HpiSettingsView'],['../a03055.html#ac41ac5d39a70eb635f4a7f6bf64b0119',1,'DISPLIB::HpiSettingsView::HpiSettingsView()']]],
-  ['hpisettingsview_2ecpp_100',['hpisettingsview.cpp',['../a01346.html',1,'']]],
-  ['hpisettingsview_2eh_101',['hpisettingsview.h',['../a01277.html',1,'']]],
+  ['hpisettingsview_2ecpp_100',['hpisettingsview.cpp',['../a00491.html',1,'']]],
+  ['hpisettingsview_2eh_101',['hpisettingsview.h',['../a00533.html',1,'']]],
   ['hpisortstruct_102',['HPISortStruct',['../a03995.html',1,'INVLIB']]],
   ['htmlcontent_103',['htmlContent',['../a04759.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
 ];

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/connectivity/metrics/coherence.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/lsl/lsl_stream_outlet.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,107 +250,98 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_4966471859b0659b2008791a461b6feb.html">connectivity</a></li><li class="navelem"><a href="dir_f5b9a59d67d23c798a9a50c62b2401ad.html">metrics</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_c9e4f61759714e9a13f183fb0943a388.html">lsl</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">coherence.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">lsl_stream_outlet.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of <a class="el" href="a02719.html" title="CONNECTIVITYLIB::Coherence">CONNECTIVITYLIB::Coherence</a> - magnitude-squared coherence between every channel pair, computed from the shared DPSS-tapered cross-spectral cache.  
+<p>Implements the TCP-server / UDP-announcer worker that publishes pushed samples to every connected LSL inlet.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01442_source.html">coherency.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01460_source.html">coherence.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01514_source.html">../network/networknode.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01511_source.html">../network/networkedge.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01520_source.html">../network/network.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01505_source.html">../connectivitysettings.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01502_source.html">lsl_stream_outlet.h</a>&quot;</code><br />
+<code>#include &lt;QTcpServer&gt;</code><br />
+<code>#include &lt;QTcpSocket&gt;</code><br />
+<code>#include &lt;QUdpSocket&gt;</code><br />
+<code>#include &lt;QHostAddress&gt;</code><br />
 <code>#include &lt;QDebug&gt;</code><br />
-<code>#include &lt;QtConcurrent&gt;</code><br />
-<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;atomic&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;queue&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for coherence.cpp:</div>
+Include dependency graph for lsl_stream_outlet.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01485.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2coherence_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2connectivity_2metrics_2coherence_8cpp" id="asrc_2libraries_2connectivity_2metrics_2coherence_8cpp">
-<area shape="rect" title="Implementation of CONNECTIVITYLIB::Coherence &#45; magnitude&#45;squared coherence between every channel pair..." alt="" coords="695,5,878,45"/>
-<area shape="rect" href="a01442.html" title="Complex coherency between every channel pair and its two reductions: magnitude (coherence) and imagin..." alt="" coords="424,93,523,119"/>
-<area shape="poly" title=" " alt="" coords="712,48,533,93,532,87,711,43"/>
-<area shape="rect" href="a01505.html" title="Input&#45;data and parameter container shared by every functional&#45;connectivity metric in CONNECTIVITYLIB." alt="" coords="5,167,184,192"/>
-<area shape="poly" title=" " alt="" coords="695,43,561,66,413,96,268,132,147,165,145,160,266,127,411,91,560,61,695,38"/>
-<area shape="rect" href="a01460.html" title="Magnitude&#45;squared coherence (MSC) between every channel pair, band&#45;averaged over the selected DPSS sp..." alt="" coords="576,93,677,119"/>
-<area shape="poly" title=" " alt="" coords="750,48,664,90,661,85,747,43"/>
-<area shape="rect" href="a01514.html" title="Node of a connectivity Network; carries a 3D position and the lists of incident (in / out,..." alt="" coords="1055,167,1243,192"/>
-<area shape="poly" title=" " alt="" coords="799,44,825,82,843,101,864,116,896,130,943,142,1051,162,1050,167,941,147,895,135,861,121,840,105,821,85,795,47"/>
-<area shape="rect" href="a01511.html" title="Weighted edge between two NetworkNode instances; stores the full per&#45;frequency weight matrix and the ..." alt="" coords="664,167,851,192"/>
-<area shape="poly" title=" " alt="" coords="783,46,771,94,762,153,757,152,765,93,778,45"/>
-<area shape="rect" href="a01520.html" title="Graph container that stores the result of one functional&#45;connectivity metric as nodes (sources/sensor..." alt="" coords="875,167,1031,192"/>
-<area shape="poly" title=" " alt="" coords="791,45,800,81,809,100,821,117,854,142,891,160,889,165,851,147,817,121,804,103,795,83,786,46"/>
-<area shape="rect" title=" " alt="" coords="875,93,949,119"/>
-<area shape="poly" title=" " alt="" coords="818,43,884,84,881,88,816,48"/>
-<area shape="rect" title=" " alt="" coords="974,93,1082,119"/>
-<area shape="poly" title=" " alt="" coords="845,43,980,86,979,92,844,48"/>
-<area shape="rect" title=" " alt="" coords="1107,93,1277,119"/>
-<area shape="poly" title=" " alt="" coords="879,42,1120,88,1119,93,878,47"/>
-<area shape="rect" href="a01499.html" title="Export/import macros for the CONNECTIVITYLIB functional&#45;connectivity library." alt="" coords="781,240,955,265"/>
-<area shape="poly" title=" " alt="" coords="523,111,564,116,697,119,919,122,1034,126,1137,134,1215,146,1242,155,1258,165,1264,179,1258,194,1223,205,1151,217,969,242,968,237,1150,212,1222,199,1254,190,1259,179,1254,168,1239,159,1214,151,1136,139,1034,131,919,127,697,124,564,121,522,117"/>
-<area shape="rect" href="a01433.html" title="Common static knobs shared by every functional&#45;connectivity estimator in CONNECTIVITYLIB." alt="" coords="409,167,538,192"/>
-<area shape="poly" title=" " alt="" coords="476,119,476,153,471,153,471,119"/>
-<area shape="rect" title=" " alt="" coords="412,240,535,265"/>
-<area shape="poly" title=" " alt="" coords="424,112,356,117,288,131,262,142,245,155,240,171,249,190,271,206,308,220,399,239,398,244,307,225,269,211,245,194,234,171,240,152,259,137,286,126,355,112,423,106"/>
-<area shape="rect" title=" " alt="" coords="581,240,673,265"/>
-<area shape="poly" title=" " alt="" coords="492,117,552,165,611,228,607,231,549,169,488,121"/>
-<area shape="poly" title=" " alt="" coords="424,119,169,167,168,162,423,114"/>
-<area shape="rect" title=" " alt="" coords="259,167,333,192"/>
-<area shape="poly" title=" " alt="" coords="446,121,338,164,336,159,444,116"/>
-<area shape="rect" title=" " alt="" coords="727,313,857,339"/>
-<area shape="poly" title=" " alt="" coords="858,267,816,306,813,302,854,263"/>
-<area shape="rect" href="a00377.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="881,313,1004,339"/>
-<area shape="poly" title=" " alt="" coords="882,263,922,302,919,306,878,267"/>
-<area shape="rect" title=" " alt="" coords="909,387,976,412"/>
-<area shape="poly" title=" " alt="" coords="945,339,945,373,940,373,940,339"/>
-<area shape="poly" title=" " alt="" coords="537,189,791,235,790,240,536,195"/>
-<area shape="poly" title=" " alt="" coords="476,192,476,226,471,226,471,192"/>
-<area shape="rect" title=" " alt="" coords="241,240,314,265"/>
-<area shape="poly" title=" " alt="" coords="443,195,323,238,321,233,441,190"/>
-<area shape="poly" title=" " alt="" coords="499,190,590,232,588,237,497,194"/>
-<area shape="poly" title=" " alt="" coords="184,186,768,240,767,245,184,191"/>
-<area shape="poly" title=" " alt="" coords="156,189,399,235,398,240,155,195"/>
-<area shape="poly" title=" " alt="" coords="125,190,236,232,234,237,123,195"/>
-<area shape="poly" title=" " alt="" coords="184,189,547,237,568,240,567,245,546,243,183,195"/>
-<area shape="rect" title=" " alt="" coords="48,240,141,265"/>
-<area shape="poly" title=" " alt="" coords="97,192,97,226,92,226,92,192"/>
-<area shape="poly" title=" " alt="" coords="678,107,1039,130,1216,147,1274,155,1302,165,1308,179,1302,194,1180,215,969,242,968,237,1179,209,1298,190,1303,179,1298,169,1273,161,1215,152,1038,135,677,113"/>
-<area shape="poly" title=" " alt="" coords="603,121,512,163,510,158,601,116"/>
-<area shape="poly" title=" " alt="" coords="576,116,473,135,427,150,410,159,399,168,395,176,395,184,402,201,419,217,439,231,436,235,415,221,398,204,389,185,390,175,395,165,407,154,425,145,471,130,575,111"/>
-<area shape="poly" title=" " alt="" coords="629,119,629,226,624,226,624,119"/>
-<area shape="poly" title=" " alt="" coords="1105,195,927,239,926,234,1103,189"/>
-<area shape="poly" title=" " alt="" coords="1055,193,1044,195,570,243,549,245,548,240,569,237,1044,189,1055,188"/>
-<area shape="poly" title=" " alt="" coords="1066,195,687,246,686,241,1065,189"/>
-<area shape="rect" title=" " alt="" coords="1112,240,1187,265"/>
-<area shape="poly" title=" " alt="" coords="1152,192,1152,226,1147,226,1147,192"/>
-<area shape="poly" title=" " alt="" coords="777,190,840,230,837,235,774,194"/>
-<area shape="poly" title=" " alt="" coords="712,195,533,239,532,234,711,189"/>
-<area shape="poly" title=" " alt="" coords="738,194,661,236,659,231,735,190"/>
-<area shape="poly" title=" " alt="" coords="941,194,894,233,891,229,938,190"/>
-<area shape="poly" title=" " alt="" coords="877,195,549,243,548,238,876,189"/>
-<area shape="poly" title=" " alt="" coords="901,195,687,241,685,236,900,189"/>
-<area shape="rect" title=" " alt="" coords="979,240,1034,265"/>
-<area shape="poly" title=" " alt="" coords="964,191,992,228,988,231,960,194"/>
+<div class="center"><img src="a01485.png" border="0" usemap="#asrc_2libraries_2lsl_2lsl__stream__outlet_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2lsl_2lsl__stream__outlet_8cpp" id="asrc_2libraries_2lsl_2lsl__stream__outlet_8cpp">
+<area shape="rect" title="Implements the TCP&#45;server / UDP&#45;announcer worker that publishes pushed samples to every connected LSL..." alt="" coords="907,5,1053,45"/>
+<area shape="rect" href="a01502.html" title="Declares stream_outlet, the server side of an LSL stream that publishes samples over TCP and advertis..." alt="" coords="217,93,364,119"/>
+<area shape="poly" title=" " alt="" coords="907,38,378,97,377,92,906,32"/>
+<area shape="rect" title=" " alt="" coords="231,387,297,412"/>
+<area shape="poly" title=" " alt="" coords="907,30,799,34,675,44,616,53,563,64,520,78,490,95,473,113,466,131,464,178,464,254,460,281,448,305,431,326,409,344,360,371,311,389,310,384,358,366,406,339,427,322,444,302,455,280,459,254,459,178,461,130,469,110,486,91,518,73,562,59,615,48,675,39,798,29,906,25"/>
+<area shape="rect" title=" " alt="" coords="499,93,594,119"/>
+<area shape="poly" title=" " alt="" coords="907,42,608,96,607,91,906,37"/>
+<area shape="rect" title=" " alt="" coords="619,93,715,119"/>
+<area shape="poly" title=" " alt="" coords="907,48,726,93,725,87,906,42"/>
+<area shape="rect" title=" " alt="" coords="739,93,840,119"/>
+<area shape="poly" title=" " alt="" coords="935,48,831,91,829,86,933,43"/>
+<area shape="rect" title=" " alt="" coords="864,93,979,119"/>
+<area shape="poly" title=" " alt="" coords="968,47,941,84,936,80,964,44"/>
+<area shape="rect" title=" " alt="" coords="1003,93,1077,119"/>
+<area shape="poly" title=" " alt="" coords="997,44,1025,81,1021,84,992,47"/>
+<area shape="rect" title=" " alt="" coords="1101,93,1165,119"/>
+<area shape="poly" title=" " alt="" coords="1018,43,1100,85,1098,89,1016,48"/>
+<area shape="rect" title=" " alt="" coords="1189,93,1253,119"/>
+<area shape="poly" title=" " alt="" coords="1039,43,1177,88,1175,93,1037,48"/>
+<area shape="rect" title=" " alt="" coords="1277,93,1344,119"/>
+<area shape="poly" title=" " alt="" coords="1054,41,1264,90,1263,96,1053,46"/>
+<area shape="rect" title=" " alt="" coords="1369,93,1431,119"/>
+<area shape="poly" title=" " alt="" coords="1054,35,1190,58,1355,91,1354,96,1189,64,1053,41"/>
+<area shape="rect" title=" " alt="" coords="1456,93,1523,119"/>
+<area shape="poly" title=" " alt="" coords="1054,32,1228,55,1443,91,1442,96,1227,60,1053,38"/>
+<area shape="rect" href="a01481.html" title="LSLLIB shared&#45;library export macro and build&#45;stamp accessors used by every public LSL symbol." alt="" coords="19,240,115,265"/>
+<area shape="poly" title=" " alt="" coords="218,114,184,120,150,131,118,146,90,169,81,181,75,196,69,227,64,226,70,195,76,179,86,165,115,142,148,126,183,115,217,109"/>
+<area shape="rect" href="a01493.html" title="Declares stream_info, the LSL metadata descriptor that identifies and routes a stream on the network." alt="" coords="101,167,235,192"/>
+<area shape="poly" title=" " alt="" coords="272,121,201,162,198,157,270,116"/>
+<area shape="rect" title=" " alt="" coords="259,167,322,192"/>
+<area shape="poly" title=" " alt="" coords="293,119,293,153,288,153,288,119"/>
+<area shape="rect" title=" " alt="" coords="347,167,424,192"/>
+<area shape="poly" title=" " alt="" coords="307,117,360,156,357,160,304,121"/>
+<area shape="rect" href="a00371.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="5,313,128,339"/>
+<area shape="poly" title=" " alt="" coords="69,266,69,300,64,300,64,266"/>
+<area shape="rect" title=" " alt="" coords="152,313,283,339"/>
+<area shape="poly" title=" " alt="" coords="92,263,181,305,179,310,90,268"/>
+<area shape="poly" title=" " alt="" coords="99,336,220,379,218,384,97,341"/>
+<area shape="poly" title=" " alt="" coords="153,194,96,234,93,230,150,190"/>
+<area shape="rect" title=" " alt="" coords="139,240,197,265"/>
+<area shape="poly" title=" " alt="" coords="171,192,171,226,165,226,165,192"/>
+<area shape="rect" title=" " alt="" coords="222,240,319,265"/>
+<area shape="poly" title=" " alt="" coords="186,190,244,230,241,234,183,194"/>
 </map>
 </div>
 </div>
 <p><a href="a01484_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:LSLLIB_3A_3AStreamOutletPrivate" id="r_LSLLIB_3A_3AStreamOutletPrivate"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04151.html">LSLLIB::StreamOutletPrivate</a></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of <a class="el" href="a02719.html" title="CONNECTIVITYLIB::Coherence">CONNECTIVITYLIB::Coherence</a> - magnitude-squared coherence between every channel pair, computed from the shared DPSS-tapered cross-spectral cache. </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2018-2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'dan'+'ie'+'l.s'+'tr'+'ohm'+'ei'+'er@'+'gm'+'ail'+'.c'+'om'; return false;">danie<span class="obfuscator">.nosp@m.</span>l.st<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>gmail<span class="obfuscator">.nosp@m.</span>.com</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>April 2018 </dd></dl>
+<div class="textblock"><p>Implements the TCP-server / UDP-announcer worker that publishes pushed samples to every connected LSL inlet. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
+<p>The PIMPL class <code><a class="el" href="a04151.html">StreamOutletPrivate</a></code> spawns a dedicated <code>std::thread</code> that owns a <code>QTcpServer</code> for accepting inlet connections, a <code>QUdpSocket</code> that emits the stream's serialised <a class="el" href="a04139.html" title="LSLLIB::stream_info">LSLLIB::stream_info</a> to the LSL discovery multicast group <code>239.255.172.215</code>:16571 every <code>BROADCAST_INTERVAL_MS</code> milliseconds, and a mutex-protected queue that buffers samples pushed from the producing thread.</p>
+<p>On every loop iteration the worker drains the queue, packs each sample as a contiguous <code>channel_count</code> * <code>sizeof(float)</code> byte block, and writes the result to every currently connected inlet socket; the multicast advertisement keeps firing on its own cadence so that newly started <a class="el" href="a02585.html#a2d76882163179c28c2db43874553a1c6" title="LSLLIB::resolve_streams">LSLLIB::resolve_streams</a> calls discover the outlet within at most one broadcast interval. The destructor signals the worker to stop, joins it, closes all sockets and tears down the server, guaranteeing that no Qt object outlives its owning thread. </p>
 
-<p class="definition">Definition in file <a class="el" href="a01484_source.html">coherence.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01484_source.html">lsl_stream_outlet.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

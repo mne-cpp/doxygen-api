@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['of_20free_20blocks_0',['of free blocks.',['../a01769.html#autotoc_md57',1,'']]],
-  ['of_20free_20blocks_20available_20to_20non_20superuser_1',['of free blocks available to non-superuser.',['../a01769.html#autotoc_md58',1,'']]],
+  ['of_20free_20blocks_0',['of free blocks.',['../a02510.html#autotoc_md57',1,'']]],
+  ['of_20free_20blocks_20available_20to_20non_20superuser_1',['of free blocks available to non-superuser.',['../a02510.html#autotoc_md58',1,'']]],
   ['of_20the_20mne_5ffind_5fsource_5fspace_5fhemi_20function_2',['MNE toolbox root function ###: Definition of the mne_find_source_space_hemi function',['../a04551.html#autotoc_md110',1,'']]],
   ['of_20the_20mne_5fpatch_5finfo_20function_3',['MNE toolbox root function ###: Definition of the mne_patch_info function',['../a04551.html#autotoc_md111',1,'']]],
   ['of_20the_20mne_5fread_5fbem_5fsurface_20function_4',['MNE toolbox root function ###: Definition of the mne_read_bem_surface function',['../a04315.html#autotoc_md106',1,'']]],
