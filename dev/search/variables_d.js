@@ -77,5 +77,6 @@ var searchData=
   ['nuse_5ftri_74',['nuse_tri',['../a04572.html#a44a75d919c611c700b1a91d97b9ce400',1,'MNELIB::MNESurfaceOrVolume']]],
   ['nvec_75',['nvec',['../a04480.html#a70b61a205ca34abf591c12d8b714eb27',1,'MNELIB::MNENamedVector::nvec'],['../a04512.html#a7fad91722874557c9dd2395d46f94f14',1,'MNELIB::MNEProjItem::nvec'],['../a04516.html#a7a9539b1149228cd39e4064617ef0396',1,'MNELIB::MNEProjOp::nvec']]],
   ['nvertex_5fcolors_76',['nvertex_colors',['../a04452.html#a4269bbe4ac200f97974c0b995561bbee',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['nzero_77',['nzero',['../a04336.html#a9314126c21da615ca27ff5179f9f6509',1,'MNELIB::MNECovMatrix']]]
+  ['nverticeslh_77',['nVerticesLh',['../a04040.html#a82621164e07bc416f47d1f99bd24fbce',1,'INVLIB::InvSourceEstimate']]],
+  ['nzero_78',['nzero',['../a04336.html#a9314126c21da615ca27ff5179f9f6509',1,'MNELIB::MNECovMatrix']]]
 ];

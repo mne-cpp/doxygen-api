@@ -182,6 +182,7 @@ var searchData=
   ['nvec_179',['nvec',['../a04480.html#a70b61a205ca34abf591c12d8b714eb27',1,'MNELIB::MNENamedVector::nvec'],['../a04512.html#a7fad91722874557c9dd2395d46f94f14',1,'MNELIB::MNEProjItem::nvec'],['../a04516.html#a7a9539b1149228cd39e4064617ef0396',1,'MNELIB::MNEProjOp::nvec']]],
   ['nvertex_5fcolors_180',['nvertex_colors',['../a04452.html#a4269bbe4ac200f97974c0b995561bbee',1,'MNELIB::MNEMshDisplaySurface']]],
   ['nvertices_181',['nVertices',['../a04056.html#a1983ac7eb2cb46ac3b07d94e9efd4a3d',1,'INVLIB::InvVectorSourceEstimate']]],
-  ['nverticesto_182',['nVerticesTo',['../a04080.html#a1b63e8ece156b33ebd8cd93185fcd44c',1,'INVLIB::SourceMorph']]],
-  ['nzero_183',['nzero',['../a04336.html#a9314126c21da615ca27ff5179f9f6509',1,'MNELIB::MNECovMatrix']]]
+  ['nverticeslh_182',['nVerticesLh',['../a04040.html#a82621164e07bc416f47d1f99bd24fbce',1,'INVLIB::InvSourceEstimate']]],
+  ['nverticesto_183',['nVerticesTo',['../a04080.html#a1b63e8ece156b33ebd8cd93185fcd44c',1,'INVLIB::SourceMorph']]],
+  ['nzero_184',['nzero',['../a04336.html#a9314126c21da615ca27ff5179f9f6509',1,'MNELIB::MNECovMatrix']]]
 ];
