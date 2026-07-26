@@ -68,7 +68,7 @@ var searchData=
   ['channelrhiview_65',['ChannelRhiView',['../a02960.html#a0d0e6465431ccdb715a858b888008511',1,'DISPLIB::ChannelRhiView']]],
   ['channelrms_66',['channelRms',['../a02944.html#a6e5ed932180e75eb19f0b0de181f37d3',1,'DISPLIB::ChannelDataModel']]],
   ['channelscrollrequested_67',['channelScrollRequested',['../a02952.html#a1dece2cbbab7051f64348d8828c147c4',1,'DISPLIB::ChannelLabelPanel']]],
-  ['channelselectionchanged_68',['channelSelectionChanged',['../a02856.html#a11e8728795c9aa865b518234e72bb76b',1,'DISPLIB::AverageLayoutView']]],
+  ['channelselectionchanged_68',['channelSelectionChanged',['../a02856.html#a68e959bbbc0f45bcfbc1a13c84e72239',1,'DISPLIB::AverageLayoutView']]],
   ['channelselectionmanagerchanged_69',['channelSelectionManagerChanged',['../a02856.html#aed0b0f71061435c6f23198970c9dfff2',1,'DISPLIB::AverageLayoutView']]],
   ['channelselectionview_70',['ChannelSelectionView',['../a02884.html#aa6423145c8a3d9600e0d14b401c77cde',1,'DISPLIB::ChannelSelectionView']]],
   ['channelsmappedtolayout_71',['channelsMappedToLayout',['../a02948.html#a024ea9c4c9f35d74af19649f9270d879',1,'DISPLIB::ChannelInfoModel']]],

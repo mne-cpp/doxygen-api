@@ -112,7 +112,7 @@ var searchData=
   ['channelrhiview_2eh_109',['channelrhiview.h',['../a00569.html',1,'']]],
   ['channelrms_110',['channelRms',['../a02944.html#a6e5ed932180e75eb19f0b0de181f37d3',1,'DISPLIB::ChannelDataModel']]],
   ['channelscrollrequested_111',['channelScrollRequested',['../a02952.html#a1dece2cbbab7051f64348d8828c147c4',1,'DISPLIB::ChannelLabelPanel']]],
-  ['channelselectionchanged_112',['channelSelectionChanged',['../a02856.html#a11e8728795c9aa865b518234e72bb76b',1,'DISPLIB::AverageLayoutView']]],
+  ['channelselectionchanged_112',['channelSelectionChanged',['../a02856.html#a68e959bbbc0f45bcfbc1a13c84e72239',1,'DISPLIB::AverageLayoutView']]],
   ['channelselectionmanagerchanged_113',['channelSelectionManagerChanged',['../a02856.html#aed0b0f71061435c6f23198970c9dfff2',1,'DISPLIB::AverageLayoutView']]],
   ['channelselectionview_114',['ChannelSelectionView',['../a02884.html',1,'DISPLIB::ChannelSelectionView'],['../a02884.html#aa6423145c8a3d9600e0d14b401c77cde',1,'DISPLIB::ChannelSelectionView::ChannelSelectionView()']]],
   ['channelselectionview_2ecpp_115',['channelselectionview.cpp',['../a00545.html',1,'']]],
