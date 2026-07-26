@@ -97,11 +97,12 @@ var searchData=
   ['hoveredregionchanged_94',['hoveredRegionChanged',['../a03332.html#af07196f74bb7411631b45726329e7311',1,'BrainView']]],
   ['hpf_95',['HPF',['../a03424.html#a2a90eeea1af21a4c8d5d8f987b297a34a46ec877635a733ce3a33e694babd87ec',1,'UTILSLIB::CosineFilter::HPF'],['../a03544.html#a5cc46b61e85230db24f52030d1c71eeaa7d89e3488433960fb320972f4f9b1126',1,'UTILSLIB::ParksMcClellan::HPF']]],
   ['hpi_96',['HPI',['../a03180.html#a440916d47e7eb32391128b4641666ab8a3d9c8e45731f1f534d83d8a76ca92543',1,'DigitizerTreeItem']]],
-  ['hpifitresult_97',['HpiFitResult',['../a03984.html',1,'INVLIB']]],
-  ['hpifreqs_98',['hpiFreqs',['../a03984.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
-  ['hpisettingsview_99',['HpiSettingsView',['../a03056.html',1,'DISPLIB::HpiSettingsView'],['../a03056.html#ac41ac5d39a70eb635f4a7f6bf64b0119',1,'DISPLIB::HpiSettingsView::HpiSettingsView()']]],
-  ['hpisettingsview_2ecpp_100',['hpisettingsview.cpp',['../a00491.html',1,'']]],
-  ['hpisettingsview_2eh_101',['hpisettingsview.h',['../a00533.html',1,'']]],
-  ['hpisortstruct_102',['HPISortStruct',['../a03996.html',1,'INVLIB']]],
-  ['htmlcontent_103',['htmlContent',['../a04760.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
+  ['hpi_5fcoil_5ffreqs_97',['hpi_coil_freqs',['../a03768.html#a9b8a56df24e621cbd263c6b6fbb5c8f8',1,'FIFFLIB::FiffInfo']]],
+  ['hpifitresult_98',['HpiFitResult',['../a03984.html',1,'INVLIB']]],
+  ['hpifreqs_99',['hpiFreqs',['../a03984.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
+  ['hpisettingsview_100',['HpiSettingsView',['../a03056.html',1,'DISPLIB::HpiSettingsView'],['../a03056.html#ac41ac5d39a70eb635f4a7f6bf64b0119',1,'DISPLIB::HpiSettingsView::HpiSettingsView()']]],
+  ['hpisettingsview_2ecpp_101',['hpisettingsview.cpp',['../a00491.html',1,'']]],
+  ['hpisettingsview_2eh_102',['hpisettingsview.h',['../a00533.html',1,'']]],
+  ['hpisortstruct_103',['HPISortStruct',['../a03996.html',1,'INVLIB']]],
+  ['htmlcontent_104',['htmlContent',['../a04760.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
 ];

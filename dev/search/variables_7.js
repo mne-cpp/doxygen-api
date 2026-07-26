@@ -21,6 +21,7 @@ var searchData=
   ['hitpoint_18',['hitPoint',['../a03156.html#a8ba0a7a820edc2d067fac84cef856f35',1,'PickResult']]],
   ['holographic_19',['Holographic',['../a03320.html#a574725a315454d4019853633b00ad5a5',1,'BrainRenderer']]],
   ['hostname_20',['hostName',['../a04300.html#a9f8959de0be7b77d4b338dd003658c0c',1,'MNALIB::MnaProvenance']]],
-  ['hpifreqs_21',['hpiFreqs',['../a03984.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
-  ['htmlcontent_22',['htmlContent',['../a04760.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
+  ['hpi_5fcoil_5ffreqs_21',['hpi_coil_freqs',['../a03768.html#a9b8a56df24e621cbd263c6b6fbb5c8f8',1,'FIFFLIB::FiffInfo']]],
+  ['hpifreqs_22',['hpiFreqs',['../a03984.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
+  ['htmlcontent_23',['htmlContent',['../a04760.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
 ];
