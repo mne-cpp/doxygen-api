@@ -63,7 +63,7 @@ var searchData=
   ['funcs_60',['funcs',['../a03947.html#af7ac6dcab911c38ba492780c44e6dce0',1,'INVLIB::InvDipoleFitData']]],
   ['fwd_61',['fwd',['../a03943.html#a44dd8f2583b17d0c87eebba60c3fa924',1,'INVLIB::FitDipUserRec::fwd'],['../a03955.html#ab464d2722097f7b246b8c305c6b50a4a',1,'INVLIB::InvDipoleForward::fwd'],['../a04423.html#a2e7ed24d125c28138e8f1631ae8db1e0',1,'MNELIB::MNEMeasData::fwd']]],
   ['fwd_5fbem_5fconstant_5fcoll_62',['FWD_BEM_CONSTANT_COLL',['../a02576.html#a10aa9bd0d7d4b1fa32d2fd6b4d68ae5e',1,'FWDLIB']]],
-  ['fwd_5fbem_5fip_5fapproach_5flimit_63',['FWD_BEM_IP_APPROACH_LIMIT',['../a02576.html#a229379f10144cfda164ef79bf26147c8',1,'FWDLIB']]],
+  ['fwd_5fbem_5fip_5fapproach_5flimit_63',['FWD_BEM_IP_APPROACH_LIMIT',['../a02576.html#a64a8c060dae81d960c22e6672d51e065',1,'FWDLIB']]],
   ['fwd_5fbem_5flin_5ffield_5fferguson_64',['FWD_BEM_LIN_FIELD_FERGUSON',['../a02576.html#ac4efc00ac501ec8e0ff813ff4cb8c4a9',1,'FWDLIB']]],
   ['fwd_5fbem_5flin_5ffield_5fsimple_65',['FWD_BEM_LIN_FIELD_SIMPLE',['../a02576.html#ae65480cfe78bfb2d2cf19809555e5d04',1,'FWDLIB']]],
   ['fwd_5fbem_5flin_5ffield_5furankar_66',['FWD_BEM_LIN_FIELD_URANKAR',['../a02576.html#a4117a1effafea0c3309c4322f450e158',1,'FWDLIB']]],
