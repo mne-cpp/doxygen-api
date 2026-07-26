@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['matrix_0',['Matrix',['../a02558.html#a47ab1cf2117131a81270531eceea53a0af53df0293e169f562bc1d9a20e1d2589',1,'INVLIB::Matrix'],['../a02590.html#aff2df5a82a2d98871c0ceb6dff9713f6af53df0293e169f562bc1d9a20e1d2589',1,'MNALIB::Matrix']]],
+  ['matrix_0',['Matrix',['../a02558.html#a47ab1cf2117131a81270531eceea53a0af53df0293e169f562bc1d9a20e1d2589',1,'INVLIB::Matrix'],['../a02591.html#aff2df5a82a2d98871c0ceb6dff9713f6af53df0293e169f562bc1d9a20e1d2589',1,'MNALIB::Matrix']]],
   ['maxpower_1',['MaxPower',['../a02558.html#ad713f1a7895bfdb0bb447b2776528f18ac03742dcadb478ce5f5766c4c183b46c',1,'INVLIB']]],
   ['mean_2',['Mean',['../a02545.html#a1e044143e471f8d501763accc39e8951a3d6c9ac08ada31c184094bbc67afe00d',1,'DISPLIB']]],
   ['meascoh_3',['MeasCoh',['../a02558.html#af1ffe934a77f18c6a7260b1975016387af3ae52c0956b1971e987153f05329f23',1,'INVLIB']]],
@@ -43,6 +43,6 @@ var searchData=
   ['mrislice_40',['MriSlice',['../a02556.html#a43eb99c72f5996d313a1917b2a963c69ac85f8485f1cae8639ce0fcf40603f28b',1,'DISP3DLIB']]],
   ['mrivoxel_41',['MriVoxel',['../a02556.html#a0477e91c4a3a20e47d42b51d8080ff33afc4e2cdfe27574d4aac3de71651e1d09',1,'DISP3DLIB']]],
   ['multiplexed_42',['MULTIPLEXED',['../a02536.html#a08b38c1eae05e9a5a2c570416588b918a4dff0567344b9a5b1504eec1b6b545ca',1,'BIDSLIB']]],
-  ['multiview_43',['MultiView',['../a03331.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]],
+  ['multiview_43',['MultiView',['../a03332.html#aa3d141044493fd3001bf21b70c9dbfe4a99247a79ad7ffe2e3a2d67ac23fb6774',1,'BrainView']]],
   ['muscle_44',['Muscle',['../a02544.html#ac235404767badd7c21f0755f4a394ce0a36143fa4f2c24dd4816fd6e238cfd5e3',1,'DECODINGLIB']]]
 ];
