@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['member_20methods_0',['DEFINE MEMBER METHODS',['../a02522.html#autotoc_md7',1,'']]],
-  ['methods_1',['DEFINE MEMBER METHODS',['../a02522.html#autotoc_md7',1,'']]],
+  ['member_20methods_0',['DEFINE MEMBER METHODS',['../a02375.html#autotoc_md7',1,'']]],
+  ['methods_1',['DEFINE MEMBER METHODS',['../a02375.html#autotoc_md7',1,'']]],
   ['mne_20toolbox_20root_20function_2',['MNE toolbox root function',['../a03874.html#autotoc_md89',1,'MNE toolbox root function'],['../a04334.html#autotoc_md90',1,'MNE toolbox root function'],['../a04334.html#autotoc_md91',1,'MNE toolbox root function'],['../a04334.html#autotoc_md92',1,'MNE toolbox root function'],['../a04334.html#autotoc_md93',1,'MNE toolbox root function'],['../a04334.html#autotoc_md94',1,'MNE toolbox root function'],['../a04334.html#autotoc_md95',1,'MNE toolbox root function'],['../a04334.html#autotoc_md96',1,'MNE toolbox root function'],['../a04334.html#autotoc_md97',1,'MNE toolbox root function'],['../a04334.html#autotoc_md98',1,'MNE toolbox root function'],['../a04334.html#autotoc_md99',1,'MNE toolbox root function'],['../a04334.html#autotoc_md100',1,'MNE toolbox root function'],['../a04334.html#autotoc_md101',1,'MNE toolbox root function'],['../a04334.html#autotoc_md102',1,'MNE toolbox root function'],['../a04334.html#autotoc_md103',1,'MNE toolbox root function'],['../a04334.html#autotoc_md104',1,'MNE toolbox root function'],['../a04334.html#autotoc_md105',1,'MNE toolbox root function'],['../a04422.html#autotoc_md108',1,'MNE toolbox root function'],['../a04422.html#autotoc_md109',1,'MNE toolbox root function']]],
   ['mne_20toolbox_20root_20function_20_3a_20definition_20of_20the_20mne_5ffind_5fsource_5fspace_5fhemi_20function_3',['MNE toolbox root function ###: Definition of the mne_find_source_space_hemi function',['../a04574.html#autotoc_md110',1,'']]],
   ['mne_20toolbox_20root_20function_20_3a_20definition_20of_20the_20mne_5fpatch_5finfo_20function_4',['MNE toolbox root function ###: Definition of the mne_patch_info function',['../a04574.html#autotoc_md111',1,'']]],
@@ -16,5 +16,5 @@ var searchData=
   ['mne_5fread_5fforward_5fsolution_20function_13',['MNE toolbox root function ###: Definition of the mne_read_forward_solution function',['../a04418.html#autotoc_md107',1,'']]],
   ['mne_5fread_5fsource_5fspaces_20function_14',['MNE toolbox root function ###: Definition of the mne_read_source_spaces function',['../a04574.html#autotoc_md112',1,'']]],
   ['mne_5ftransform_5fsource_5fspace_5fto_20function_15',['MNE toolbox root function ###: Definition of the mne_transform_source_space_to function',['../a04574.html#autotoc_md113',1,'']]],
-  ['mnelib_16',['DEFINE NAMESPACE MNELIB',['../a02372.html#autotoc_md55',1,'']]]
+  ['mnelib_16',['DEFINE NAMESPACE MNELIB',['../a02453.html#autotoc_md55',1,'']]]
 ];
