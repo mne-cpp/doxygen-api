@@ -549,84 +549,91 @@ $(function() {
 <div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>#else</div>
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            auto skip = Qt::SkipEmptyParts;</div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>#endif</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            QString sName = sFileName.split(<span class="stringliteral">&quot;.&quot;</span>,skip).at(0);</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            if(sName.endsWith(<span class="stringliteral">&quot;-ave&quot;</span>) || sName.endsWith(<span class="stringliteral">&quot;_ave&quot;</span>) || sName.endsWith(<span class="stringliteral">&quot;-raw&quot;</span>) || sName.endsWith(<span class="stringliteral">&quot;_raw&quot;</span>)){</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>                sName.chop(4);</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            }</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            m_pUi-&gt;lineEdit_name-&gt;setText(<span class="stringliteral">&quot;Dipole Fit - &quot;</span> + sName + <span class="stringliteral">&quot; - &quot;</span> + QDateTime::currentDateTime().toString(<span class="stringliteral">&quot;MMMM d yyyy hh:mm:ss&quot;</span>));</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            emit selectedMeas(sFileName);</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    });</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>}</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span> </div>
-<div class="foldopen" id="foldopen00305" data-start="{" data-end="}">
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="a02914.html#a632ad2b5452d2da4d26532b6ae2dc2cd">  305</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02914.html#a632ad2b5452d2da4d26532b6ae2dc2cd">DipoleFitView::addMeas</a>(<span class="keyword">const</span> QString &amp;sFileName)</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>{</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    m_pUi-&gt;comboBox_meas-&gt;addItem(sFileName);</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="comment">//    QString sName = sFileName.split(&quot;.&quot;,QString::SkipEmptyParts).at(0);</span></div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="comment">//    if(sName.endsWith(&quot;-ave&quot;) || sName.endsWith(&quot;_ave&quot;) || sName.endsWith(&quot;-raw&quot;) || sName.endsWith(&quot;_raw&quot;)){</span></div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment">//        sName.chop(4);</span></div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="comment">//    }</span></div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="comment">//    m_pUi-&gt;lineEdit_name-&gt;setText(&quot;Dipole Fit - &quot; + sName + &quot; - &quot; + QDateTime::currentDateTime().toString(&quot;MMMM d yyyy hh:mm:ss&quot;));</span></div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>}</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            <span class="comment">// clear() reports an empty selection, which has no name to derive.</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            const QStringList parts = sFileName.split(<span class="stringliteral">&quot;.&quot;</span>,skip);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>            if(parts.isEmpty()){</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                m_pUi-&gt;lineEdit_name-&gt;clear();</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                emit selectedMeas(sFileName);</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                return;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>            }</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            QString sName = parts.at(0);</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            <span class="keywordflow">if</span>(sName.endsWith(<span class="stringliteral">&quot;-ave&quot;</span>) || sName.endsWith(<span class="stringliteral">&quot;_ave&quot;</span>) || sName.endsWith(<span class="stringliteral">&quot;-raw&quot;</span>) || sName.endsWith(<span class="stringliteral">&quot;_raw&quot;</span>)){</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                sName.chop(4);</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>            }</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            m_pUi-&gt;lineEdit_name-&gt;setText(<span class="stringliteral">&quot;Dipole Fit - &quot;</span> + sName + <span class="stringliteral">&quot; - &quot;</span> + QDateTime::currentDateTime().toString(<span class="stringliteral">&quot;MMMM d yyyy hh:mm:ss&quot;</span>));</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>            emit selectedMeas(sFileName);</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    });</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>}</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="foldopen" id="foldopen00312" data-start="{" data-end="}">
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="a02914.html#a632ad2b5452d2da4d26532b6ae2dc2cd">  312</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02914.html#a632ad2b5452d2da4d26532b6ae2dc2cd">DipoleFitView::addMeas</a>(<span class="keyword">const</span> QString &amp;sFileName)</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>{</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    m_pUi-&gt;comboBox_meas-&gt;addItem(sFileName);</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="comment">//    QString sName = sFileName.split(&quot;.&quot;,QString::SkipEmptyParts).at(0);</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment">//    if(sName.endsWith(&quot;-ave&quot;) || sName.endsWith(&quot;_ave&quot;) || sName.endsWith(&quot;-raw&quot;) || sName.endsWith(&quot;_raw&quot;)){</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="comment">//        sName.chop(4);</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="comment">//    }</span></div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="comment">//    m_pUi-&gt;lineEdit_name-&gt;setText(&quot;Dipole Fit - &quot; + sName + &quot; - &quot; + QDateTime::currentDateTime().toString(&quot;MMMM d yyyy hh:mm:ss&quot;));</span></div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>}</div>
 </div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
-<div class="foldopen" id="foldopen00319" data-start="{" data-end="}">
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno"><a class="line" href="a02914.html#afc2f19cd597da77dee719562a58a0fe0">  319</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02914.html#afc2f19cd597da77dee719562a58a0fe0">DipoleFitView::clearView</a>()</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>{</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    m_pUi-&gt;comboBox_meas-&gt;clear();</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    m_pUi-&gt;comboBox_bem-&gt;clear();</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    m_pUi-&gt;comboBox_mri-&gt;clear();</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    m_pUi-&gt;comboBox_noise-&gt;clear();</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>}</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="foldopen" id="foldopen00326" data-start="{" data-end="}">
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno"><a class="line" href="a02914.html#afc2f19cd597da77dee719562a58a0fe0">  326</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02914.html#afc2f19cd597da77dee719562a58a0fe0">DipoleFitView::clearView</a>()</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>{</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    m_pUi-&gt;comboBox_meas-&gt;clear();</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    m_pUi-&gt;comboBox_bem-&gt;clear();</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    m_pUi-&gt;comboBox_mri-&gt;clear();</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    m_pUi-&gt;comboBox_noise-&gt;clear();</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>}</div>
 </div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
-<div class="foldopen" id="foldopen00329" data-start="{" data-end="}">
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="a02914.html#a4462d1e99667395cb81c7390f4b1f2af">  329</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02914.html#a4462d1e99667395cb81c7390f4b1f2af">DipoleFitView::removeModel</a>(<span class="keyword">const</span> QString &amp;sModelName, <span class="keywordtype">int</span> iType)</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>{</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordflow">switch</span> (iType){</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordflow">case</span> 1: {</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_meas-&gt;findText(sModelName);</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="keywordflow">if</span>(iIndex != -1){</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>            m_pUi-&gt;comboBox_meas-&gt;removeItem(iIndex);</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        }</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    }</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordflow">case</span> 2: {</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_bem-&gt;findText(sModelName);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
+<div class="foldopen" id="foldopen00336" data-start="{" data-end="}">
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno"><a class="line" href="a02914.html#a4462d1e99667395cb81c7390f4b1f2af">  336</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02914.html#a4462d1e99667395cb81c7390f4b1f2af">DipoleFitView::removeModel</a>(<span class="keyword">const</span> QString &amp;sModelName, <span class="keywordtype">int</span> iType)</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>{</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordflow">switch</span> (iType){</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordflow">case</span> 1: {</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_meas-&gt;findText(sModelName);</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="keywordflow">if</span>(iIndex != -1){</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>            m_pUi-&gt;comboBox_bem-&gt;removeItem(iIndex);</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>            m_pUi-&gt;comboBox_meas-&gt;removeItem(iIndex);</div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        }</div>
 <div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordflow">case</span> 3: {</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_mri-&gt;findText(sModelName);</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordflow">case</span> 2: {</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_bem-&gt;findText(sModelName);</div>
 <div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        <span class="keywordflow">if</span>(iIndex != -1){</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            m_pUi-&gt;comboBox_mri-&gt;removeItem(iIndex);</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            m_pUi-&gt;comboBox_bem-&gt;removeItem(iIndex);</div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        }</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    }</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordflow">case</span> 4: {</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_noise-&gt;findText(sModelName);</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordflow">case</span> 3: {</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_mri-&gt;findText(sModelName);</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        <span class="keywordflow">if</span>(iIndex != -1){</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            m_pUi-&gt;comboBox_noise-&gt;removeItem(iIndex);</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>            m_pUi-&gt;comboBox_mri-&gt;removeItem(iIndex);</div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        }</div>
 <div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    }</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordflow">default</span>:{</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;[DipoleFitView::removeModel] Model type not recognized&quot;</span>;</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    }</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    }</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>}</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordflow">case</span> 4: {</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>        <span class="keywordtype">int</span> iIndex = m_pUi-&gt;comboBox_noise-&gt;findText(sModelName);</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        <span class="keywordflow">if</span>(iIndex != -1){</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>            m_pUi-&gt;comboBox_noise-&gt;removeItem(iIndex);</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>        }</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    }</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <span class="keywordflow">default</span>:{</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;[DipoleFitView::removeModel] Model type not recognized&quot;</span>;</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    }</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    }</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>}</div>
 </div>
 <div class="ttc" id="aa00677_html"><div class="ttname"><a href="a00677.html">dipolefitview.h</a></div><div class="ttdoc">Input / output panel for the single-equivalent-current-dipole fit tool.</div></div>
 <div class="ttc" id="aa02551_html"><div class="ttname"><a href="a02551.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
@@ -644,10 +651,10 @@ $(function() {
 <div class="ttc" id="aa02914_html_a278da2fcdcb9762156a74aa5692ce395"><div class="ttname"><a href="a02914.html#a278da2fcdcb9762156a74aa5692ce395">DISPLIB::DipoleFitView::addBem</a></div><div class="ttdeci">void addBem(const QString &amp;sFileName)</div><div class="ttdef"><b>Definition</b> <a href="#l00090">dipolefitview.cpp:90</a></div></div>
 <div class="ttc" id="aa02914_html_a2b3eb60313180d5c676c8d2c748ff23b"><div class="ttname"><a href="a02914.html#a2b3eb60313180d5c676c8d2c748ff23b">DISPLIB::DipoleFitView::selectedNoise</a></div><div class="ttdeci">void selectedNoise(const QString &amp;sName)</div></div>
 <div class="ttc" id="aa02914_html_a3bc4d3acfd424a06058285ccf68de219"><div class="ttname"><a href="a02914.html#a3bc4d3acfd424a06058285ccf68de219">DISPLIB::DipoleFitView::regChanged</a></div><div class="ttdeci">void regChanged(double dRegGrad, double dRegMag, double dRegEeg)</div></div>
-<div class="ttc" id="aa02914_html_a4462d1e99667395cb81c7390f4b1f2af"><div class="ttname"><a href="a02914.html#a4462d1e99667395cb81c7390f4b1f2af">DISPLIB::DipoleFitView::removeModel</a></div><div class="ttdeci">void removeModel(const QString &amp;sModelName, int iType)</div><div class="ttdef"><b>Definition</b> <a href="#l00329">dipolefitview.cpp:329</a></div></div>
+<div class="ttc" id="aa02914_html_a4462d1e99667395cb81c7390f4b1f2af"><div class="ttname"><a href="a02914.html#a4462d1e99667395cb81c7390f4b1f2af">DISPLIB::DipoleFitView::removeModel</a></div><div class="ttdeci">void removeModel(const QString &amp;sModelName, int iType)</div><div class="ttdef"><b>Definition</b> <a href="#l00336">dipolefitview.cpp:336</a></div></div>
 <div class="ttc" id="aa02914_html_a4be6f9032e56f81c151fdde90f83d2b2"><div class="ttname"><a href="a02914.html#a4be6f9032e56f81c151fdde90f83d2b2">DISPLIB::DipoleFitView::updateProcessingMode</a></div><div class="ttdeci">void updateProcessingMode(ProcessingMode mode)</div><div class="ttdef"><b>Definition</b> <a href="#l00078">dipolefitview.cpp:78</a></div></div>
 <div class="ttc" id="aa02914_html_a5ded46d57ff9278b66cab869204d5542"><div class="ttname"><a href="a02914.html#a5ded46d57ff9278b66cab869204d5542">DISPLIB::DipoleFitView::selectedMri</a></div><div class="ttdeci">void selectedMri(const QString &amp;sName)</div></div>
-<div class="ttc" id="aa02914_html_a632ad2b5452d2da4d26532b6ae2dc2cd"><div class="ttname"><a href="a02914.html#a632ad2b5452d2da4d26532b6ae2dc2cd">DISPLIB::DipoleFitView::addMeas</a></div><div class="ttdeci">void addMeas(const QString &amp;sFileName)</div><div class="ttdef"><b>Definition</b> <a href="#l00305">dipolefitview.cpp:305</a></div></div>
+<div class="ttc" id="aa02914_html_a632ad2b5452d2da4d26532b6ae2dc2cd"><div class="ttname"><a href="a02914.html#a632ad2b5452d2da4d26532b6ae2dc2cd">DISPLIB::DipoleFitView::addMeas</a></div><div class="ttdeci">void addMeas(const QString &amp;sFileName)</div><div class="ttdef"><b>Definition</b> <a href="#l00312">dipolefitview.cpp:312</a></div></div>
 <div class="ttc" id="aa02914_html_a6a6523f37e1f4188b6ad47c1d3d81e88"><div class="ttname"><a href="a02914.html#a6a6523f37e1f4188b6ad47c1d3d81e88">DISPLIB::DipoleFitView::timeChanged</a></div><div class="ttdeci">void timeChanged(int iMin, int iMax, int iStep, int iInt)</div></div>
 <div class="ttc" id="aa02914_html_a6b54bf1eac613d3d3155cbd3b488ebc1"><div class="ttname"><a href="a02914.html#a6b54bf1eac613d3d3155cbd3b488ebc1">DISPLIB::DipoleFitView::selectedBem</a></div><div class="ttdeci">void selectedBem(const QString &amp;sName)</div></div>
 <div class="ttc" id="aa02914_html_a712c966a18ef6797c051306c16e1c6f3"><div class="ttname"><a href="a02914.html#a712c966a18ef6797c051306c16e1c6f3">DISPLIB::DipoleFitView::baselineChanged</a></div><div class="ttdeci">void baselineChanged(int iBMin, int iBMax)</div></div>
@@ -657,7 +664,7 @@ $(function() {
 <div class="ttc" id="aa02914_html_ac8d0fa9c22025d96dd8b5335b558fff9"><div class="ttname"><a href="a02914.html#ac8d0fa9c22025d96dd8b5335b558fff9">DISPLIB::DipoleFitView::saveSettings</a></div><div class="ttdeci">void saveSettings()</div><div class="ttdef"><b>Definition</b> <a href="#l00052">dipolefitview.cpp:52</a></div></div>
 <div class="ttc" id="aa02914_html_ad37883ce5802fedb4503adf165fb66e1"><div class="ttname"><a href="a02914.html#ad37883ce5802fedb4503adf165fb66e1">DISPLIB::DipoleFitView::DipoleFitView</a></div><div class="ttdeci">DipoleFitView(QWidget *parent=0, Qt::WindowFlags f=Qt::Widget)</div><div class="ttdef"><b>Definition</b> <a href="#l00039">dipolefitview.cpp:39</a></div></div>
 <div class="ttc" id="aa02914_html_adb79cbab82a1d261db7d9cf4eb2b826c"><div class="ttname"><a href="a02914.html#adb79cbab82a1d261db7d9cf4eb2b826c">DISPLIB::DipoleFitView::fittingChanged</a></div><div class="ttdeci">void fittingChanged(int iMinDistance, int iSize)</div></div>
-<div class="ttc" id="aa02914_html_afc2f19cd597da77dee719562a58a0fe0"><div class="ttname"><a href="a02914.html#afc2f19cd597da77dee719562a58a0fe0">DISPLIB::DipoleFitView::clearView</a></div><div class="ttdeci">void clearView()</div><div class="ttdef"><b>Definition</b> <a href="#l00319">dipolefitview.cpp:319</a></div></div>
+<div class="ttc" id="aa02914_html_afc2f19cd597da77dee719562a58a0fe0"><div class="ttname"><a href="a02914.html#afc2f19cd597da77dee719562a58a0fe0">DISPLIB::DipoleFitView::clearView</a></div><div class="ttdeci">void clearView()</div><div class="ttdef"><b>Definition</b> <a href="#l00326">dipolefitview.cpp:326</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
