@@ -429,122 +429,124 @@ $(function() {
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">if</span> (elapsed &gt;= BROADCAST_INTERVAL_MS) {</div>
 <div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                QByteArray datagram(discoveryPayload.c_str(), <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(discoveryPayload.size()));</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                udpSocket.writeDatagram(datagram, DISCOVERY_MULTICAST_GROUP, DISCOVERY_PORT);</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                lastBroadcast = now;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            }</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            <span class="comment">// 3. Drain sample queue and write to all clients</span></div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                std::lock_guard&lt;std::mutex&gt; lock(m_queueMutex);</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                <span class="keywordflow">while</span> (!m_sampleQueue.empty()) {</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                    <span class="keyword">const</span> std::vector&lt;float&gt;&amp; sample = m_sampleQueue.front();</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                    QByteArray sampleData(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(sample.data()),</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                                          <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(sample.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>)));</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                    <span class="comment">// Write to all clients, remove disconnected ones</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>                    <span class="keyword">auto</span> it = clients.begin();</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                    <span class="keywordflow">while</span> (it != clients.end()) {</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                        QTcpSocket* client = *it;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                        <span class="keywordflow">if</span> (client-&gt;state() != QAbstractSocket::ConnectedState) {</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                            <span class="keyword">delete</span> client;</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                            it = clients.erase(it);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                        }</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                        client-&gt;write(sampleData);</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                        ++it;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                    }</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                    m_sampleQueue.pop();</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>                }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>            }</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            <span class="comment">// Flush all clients</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            <span class="keywordflow">for</span> (QTcpSocket* client : clients) {</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>                client-&gt;flush();</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            }</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            m_nClients.store(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(clients.size()));</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                <span class="comment">// Same-host listeners still find the stream when multicast is unrouted (VPNs, CI VMs).</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                udpSocket.writeDatagram(datagram, QHostAddress(QHostAddress::LocalHost), DISCOVERY_PORT);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>                lastBroadcast = now;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            }</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            <span class="comment">// 3. Drain sample queue and write to all clients</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                std::lock_guard&lt;std::mutex&gt; lock(m_queueMutex);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>                <span class="keywordflow">while</span> (!m_sampleQueue.empty()) {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>                    <span class="keyword">const</span> std::vector&lt;float&gt;&amp; sample = m_sampleQueue.front();</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>                    QByteArray sampleData(<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(sample.data()),</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>                                          <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(sample.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">float</span>)));</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>                    <span class="comment">// Write to all clients, remove disconnected ones</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                    <span class="keyword">auto</span> it = clients.begin();</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>                    <span class="keywordflow">while</span> (it != clients.end()) {</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>                        QTcpSocket* client = *it;</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>                        <span class="keywordflow">if</span> (client-&gt;state() != QAbstractSocket::ConnectedState) {</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>                            <span class="keyword">delete</span> client;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                            it = clients.erase(it);</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>                            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>                        }</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                        client-&gt;write(sampleData);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                        ++it;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>                    }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>                    m_sampleQueue.pop();</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>                }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>            }</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>            <span class="comment">// Flush all clients</span></div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>            <span class="keywordflow">for</span> (QTcpSocket* client : clients) {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>                client-&gt;flush();</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>            }</div>
 <div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            <span class="comment">// Sleep briefly to avoid busy-waiting</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            std::this_thread::sleep_for(std::chrono::milliseconds(1));</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        }</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <span class="comment">// --- Cleanup ---</span></div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keywordflow">for</span> (QTcpSocket* client : clients) {</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            client-&gt;disconnectFromHost();</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>            <span class="keyword">delete</span> client;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        }</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        clients.clear();</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        m_nClients.store(0);</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        tcpServer.close();</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>        udpSocket.close();</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    }</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    stream_info                         m_info;         </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    std::atomic&lt;bool&gt;                   m_bRunning;     </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    std::thread                         m_bgThread;     </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    std::mutex                          m_queueMutex;   </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    std::queue&lt;std::vector&lt;float&gt;&gt;      m_sampleQueue;  </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    std::atomic&lt;int&gt;                    m_nClients{0};  </div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>};</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>            m_nClients.store(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(clients.size()));</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            <span class="comment">// Sleep briefly to avoid busy-waiting</span></div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>            std::this_thread::sleep_for(std::chrono::milliseconds(1));</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        <span class="comment">// --- Cleanup ---</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <span class="keywordflow">for</span> (QTcpSocket* client : clients) {</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            client-&gt;disconnectFromHost();</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>            <span class="keyword">delete</span> client;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        }</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        clients.clear();</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        m_nClients.store(0);</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        tcpServer.close();</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>        udpSocket.close();</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    }</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    stream_info                         m_info;         </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    std::atomic&lt;bool&gt;                   m_bRunning;     </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    std::thread                         m_bgThread;     </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    std::mutex                          m_queueMutex;   </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    std::queue&lt;std::vector&lt;float&gt;&gt;      m_sampleQueue;  </div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    std::atomic&lt;int&gt;                    m_nClients{0};  </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>};</div>
 </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
-<div class="foldopen" id="foldopen00289" data-start="{" data-end="}">
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno"><a class="line" href="a04178.html#a0914042cd89ca2f7a7a9c9f4101a54b3">  289</a></span><a class="code hl_function" href="a04178.html#a0914042cd89ca2f7a7a9c9f4101a54b3">stream_outlet::stream_outlet</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04162.html">stream_info</a>&amp; <a class="code hl_function" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">info</a>)</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>: m_pImpl(new <a class="code hl_class" href="a04174.html">StreamOutletPrivate</a>(<a class="code hl_function" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">info</a>))</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>{</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    m_pImpl-&gt;start();</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>}</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="foldopen" id="foldopen00291" data-start="{" data-end="}">
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno"><a class="line" href="a04178.html#a0914042cd89ca2f7a7a9c9f4101a54b3">  291</a></span><a class="code hl_function" href="a04178.html#a0914042cd89ca2f7a7a9c9f4101a54b3">stream_outlet::stream_outlet</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04162.html">stream_info</a>&amp; <a class="code hl_function" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">info</a>)</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>: m_pImpl(new <a class="code hl_class" href="a04174.html">StreamOutletPrivate</a>(<a class="code hl_function" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">info</a>))</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>{</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    m_pImpl-&gt;start();</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>}</div>
 </div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
-<div class="foldopen" id="foldopen00297" data-start="{" data-end="}">
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno"><a class="line" href="a04178.html#a767e6b679f75db77213fe5f271c47b8c">  297</a></span><a class="code hl_function" href="a04178.html#a767e6b679f75db77213fe5f271c47b8c">stream_outlet::~stream_outlet</a>()</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>{</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="comment">// unique_ptr destructor handles cleanup via StreamOutletPrivate destructor</span></div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>}</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
+<div class="foldopen" id="foldopen00299" data-start="{" data-end="}">
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="a04178.html#a767e6b679f75db77213fe5f271c47b8c">  299</a></span><a class="code hl_function" href="a04178.html#a767e6b679f75db77213fe5f271c47b8c">stream_outlet::~stream_outlet</a>()</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>{</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <span class="comment">// unique_ptr destructor handles cleanup via StreamOutletPrivate destructor</span></div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>}</div>
 </div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
-<div class="foldopen" id="foldopen00304" data-start="{" data-end="}">
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="a04178.html#a04c84d7133a75447cd5be97fc1e5df84">  304</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04178.html#a04c84d7133a75447cd5be97fc1e5df84">stream_outlet::push_sample</a>(<span class="keyword">const</span> std::vector&lt;float&gt;&amp; sample)</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>{</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    m_pImpl-&gt;enqueueSample(sample);</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>}</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="foldopen" id="foldopen00306" data-start="{" data-end="}">
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno"><a class="line" href="a04178.html#a04c84d7133a75447cd5be97fc1e5df84">  306</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04178.html#a04c84d7133a75447cd5be97fc1e5df84">stream_outlet::push_sample</a>(<span class="keyword">const</span> std::vector&lt;float&gt;&amp; sample)</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>{</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    m_pImpl-&gt;enqueueSample(sample);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>}</div>
 </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
-<div class="foldopen" id="foldopen00311" data-start="{" data-end="}">
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="a04178.html#a11bcd3552b9e717020599e0ad92013a8">  311</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04178.html#a11bcd3552b9e717020599e0ad92013a8">stream_outlet::push_chunk</a>(<span class="keyword">const</span> std::vector&lt;std::vector&lt;float&gt;&gt;&amp; chunk)</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>{</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    m_pImpl-&gt;enqueueChunk(chunk);</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>}</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="foldopen" id="foldopen00313" data-start="{" data-end="}">
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno"><a class="line" href="a04178.html#a11bcd3552b9e717020599e0ad92013a8">  313</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04178.html#a11bcd3552b9e717020599e0ad92013a8">stream_outlet::push_chunk</a>(<span class="keyword">const</span> std::vector&lt;std::vector&lt;float&gt;&gt;&amp; chunk)</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>{</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    m_pImpl-&gt;enqueueChunk(chunk);</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>}</div>
 </div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
-<div class="foldopen" id="foldopen00318" data-start="{" data-end="}">
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno"><a class="line" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">  318</a></span><a class="code hl_class" href="a04162.html">stream_info</a> <a class="code hl_function" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">stream_outlet::info</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordflow">return</span> m_pImpl-&gt;info();</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>}</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
+<div class="foldopen" id="foldopen00320" data-start="{" data-end="}">
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno"><a class="line" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">  320</a></span><a class="code hl_class" href="a04162.html">stream_info</a> <a class="code hl_function" href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">stream_outlet::info</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordflow">return</span> m_pImpl-&gt;info();</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>}</div>
 </div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span> </div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
-<div class="foldopen" id="foldopen00325" data-start="{" data-end="}">
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno"><a class="line" href="a04178.html#a843e4d0160cfeb201ba65c8f0ef14433">  325</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04178.html#a843e4d0160cfeb201ba65c8f0ef14433">stream_outlet::have_consumers</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <span class="keywordflow">return</span> m_pImpl-&gt;haveConsumers();</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>}</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
+<div class="foldopen" id="foldopen00327" data-start="{" data-end="}">
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno"><a class="line" href="a04178.html#a843e4d0160cfeb201ba65c8f0ef14433">  327</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04178.html#a843e4d0160cfeb201ba65c8f0ef14433">stream_outlet::have_consumers</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <span class="keywordflow">return</span> m_pImpl-&gt;haveConsumers();</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>}</div>
 </div>
 <div class="ttc" id="aa01244_html"><div class="ttname"><a href="a01244.html">lsl_stream_outlet.h</a></div><div class="ttdoc">Declares stream_outlet, the server side of an LSL stream that publishes samples over TCP and advertis...</div></div>
 <div class="ttc" id="aa02592_html"><div class="ttname"><a href="a02592.html">LSLLIB</a></div><div class="ttdoc">Lab Streaming Layer (LSL) integration for real-time data exchange.</div></div>
@@ -561,12 +563,12 @@ $(function() {
 <div class="ttc" id="aa04174_html_a42c64930b29a82f9f471d9d49416f03a"><div class="ttname"><a href="a04174.html#a42c64930b29a82f9f471d9d49416f03a">LSLLIB::StreamOutletPrivate::haveConsumers</a></div><div class="ttdeci">bool haveConsumers() const</div><div class="ttdef"><b>Definition</b> <a href="#l00158">lsl_stream_outlet.cpp:158</a></div></div>
 <div class="ttc" id="aa04174_html_a6f46f76a02476275d94dae7f1c6c0daa"><div class="ttname"><a href="a04174.html#a6f46f76a02476275d94dae7f1c6c0daa">LSLLIB::StreamOutletPrivate::enqueueChunk</a></div><div class="ttdeci">void enqueueChunk(const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;chunk)</div><div class="ttdef"><b>Definition</b> <a href="#l00137">lsl_stream_outlet.cpp:137</a></div></div>
 <div class="ttc" id="aa04174_html_aa65d7ab4a3e03ef058c6222aa5f03d59"><div class="ttname"><a href="a04174.html#aa65d7ab4a3e03ef058c6222aa5f03d59">LSLLIB::StreamOutletPrivate::~StreamOutletPrivate</a></div><div class="ttdeci">~StreamOutletPrivate()</div><div class="ttdef"><b>Definition</b> <a href="#l00096">lsl_stream_outlet.cpp:96</a></div></div>
-<div class="ttc" id="aa04178_html_a04c84d7133a75447cd5be97fc1e5df84"><div class="ttname"><a href="a04178.html#a04c84d7133a75447cd5be97fc1e5df84">LSLLIB::stream_outlet::push_sample</a></div><div class="ttdeci">void push_sample(const std::vector&lt; float &gt; &amp;sample)</div><div class="ttdef"><b>Definition</b> <a href="#l00304">lsl_stream_outlet.cpp:304</a></div></div>
-<div class="ttc" id="aa04178_html_a0914042cd89ca2f7a7a9c9f4101a54b3"><div class="ttname"><a href="a04178.html#a0914042cd89ca2f7a7a9c9f4101a54b3">LSLLIB::stream_outlet::stream_outlet</a></div><div class="ttdeci">stream_outlet(const stream_info &amp;info)</div><div class="ttdef"><b>Definition</b> <a href="#l00289">lsl_stream_outlet.cpp:289</a></div></div>
-<div class="ttc" id="aa04178_html_a11bcd3552b9e717020599e0ad92013a8"><div class="ttname"><a href="a04178.html#a11bcd3552b9e717020599e0ad92013a8">LSLLIB::stream_outlet::push_chunk</a></div><div class="ttdeci">void push_chunk(const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;chunk)</div><div class="ttdef"><b>Definition</b> <a href="#l00311">lsl_stream_outlet.cpp:311</a></div></div>
-<div class="ttc" id="aa04178_html_a767e6b679f75db77213fe5f271c47b8c"><div class="ttname"><a href="a04178.html#a767e6b679f75db77213fe5f271c47b8c">LSLLIB::stream_outlet::~stream_outlet</a></div><div class="ttdeci">~stream_outlet()</div><div class="ttdef"><b>Definition</b> <a href="#l00297">lsl_stream_outlet.cpp:297</a></div></div>
-<div class="ttc" id="aa04178_html_a843e4d0160cfeb201ba65c8f0ef14433"><div class="ttname"><a href="a04178.html#a843e4d0160cfeb201ba65c8f0ef14433">LSLLIB::stream_outlet::have_consumers</a></div><div class="ttdeci">bool have_consumers() const</div><div class="ttdef"><b>Definition</b> <a href="#l00325">lsl_stream_outlet.cpp:325</a></div></div>
-<div class="ttc" id="aa04178_html_ad2f5279ac5bfb99a49f62a187dcd298c"><div class="ttname"><a href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">LSLLIB::stream_outlet::info</a></div><div class="ttdeci">stream_info info() const</div><div class="ttdef"><b>Definition</b> <a href="#l00318">lsl_stream_outlet.cpp:318</a></div></div>
+<div class="ttc" id="aa04178_html_a04c84d7133a75447cd5be97fc1e5df84"><div class="ttname"><a href="a04178.html#a04c84d7133a75447cd5be97fc1e5df84">LSLLIB::stream_outlet::push_sample</a></div><div class="ttdeci">void push_sample(const std::vector&lt; float &gt; &amp;sample)</div><div class="ttdef"><b>Definition</b> <a href="#l00306">lsl_stream_outlet.cpp:306</a></div></div>
+<div class="ttc" id="aa04178_html_a0914042cd89ca2f7a7a9c9f4101a54b3"><div class="ttname"><a href="a04178.html#a0914042cd89ca2f7a7a9c9f4101a54b3">LSLLIB::stream_outlet::stream_outlet</a></div><div class="ttdeci">stream_outlet(const stream_info &amp;info)</div><div class="ttdef"><b>Definition</b> <a href="#l00291">lsl_stream_outlet.cpp:291</a></div></div>
+<div class="ttc" id="aa04178_html_a11bcd3552b9e717020599e0ad92013a8"><div class="ttname"><a href="a04178.html#a11bcd3552b9e717020599e0ad92013a8">LSLLIB::stream_outlet::push_chunk</a></div><div class="ttdeci">void push_chunk(const std::vector&lt; std::vector&lt; float &gt; &gt; &amp;chunk)</div><div class="ttdef"><b>Definition</b> <a href="#l00313">lsl_stream_outlet.cpp:313</a></div></div>
+<div class="ttc" id="aa04178_html_a767e6b679f75db77213fe5f271c47b8c"><div class="ttname"><a href="a04178.html#a767e6b679f75db77213fe5f271c47b8c">LSLLIB::stream_outlet::~stream_outlet</a></div><div class="ttdeci">~stream_outlet()</div><div class="ttdef"><b>Definition</b> <a href="#l00299">lsl_stream_outlet.cpp:299</a></div></div>
+<div class="ttc" id="aa04178_html_a843e4d0160cfeb201ba65c8f0ef14433"><div class="ttname"><a href="a04178.html#a843e4d0160cfeb201ba65c8f0ef14433">LSLLIB::stream_outlet::have_consumers</a></div><div class="ttdeci">bool have_consumers() const</div><div class="ttdef"><b>Definition</b> <a href="#l00327">lsl_stream_outlet.cpp:327</a></div></div>
+<div class="ttc" id="aa04178_html_ad2f5279ac5bfb99a49f62a187dcd298c"><div class="ttname"><a href="a04178.html#ad2f5279ac5bfb99a49f62a187dcd298c">LSLLIB::stream_outlet::info</a></div><div class="ttdeci">stream_info info() const</div><div class="ttdef"><b>Definition</b> <a href="#l00320">lsl_stream_outlet.cpp:320</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
