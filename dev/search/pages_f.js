@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['used_20namespaces_0',['USED NAMESPACES',['../a00257.html#autotoc_md12',1,'']]]
+  ['write_5fsource_5fspaces_5fto_5ffid_20function_0',['MNE toolbox root function ###: Definition of the write_source_spaces_to_fid function',['../a04578.html#autotoc_md66',1,'']]]
 ];

@@ -7,7 +7,7 @@ var searchData=
   ['fiffannotations_4',['FiffAnnotations',['../a03698.html',1,'FIFFLIB']]],
   ['fiffchinfo_5',['FiffChInfo',['../a03702.html',1,'FIFFLIB']]],
   ['fiffchpos_6',['FiffChPos',['../a03706.html',1,'FIFFLIB']]],
-  ['fiffcoordtrans_7',['FiffCoordTrans',['../a04934.html',1,'FiffCoordTrans'],['../a03710.html',1,'FIFFLIB::FiffCoordTrans']]],
+  ['fiffcoordtrans_7',['FiffCoordTrans',['../a04930.html',1,'FiffCoordTrans'],['../a03710.html',1,'FIFFLIB::FiffCoordTrans']]],
   ['fiffcoordtransset_8',['FiffCoordTransSet',['../a03714.html',1,'FIFFLIB']]],
   ['fiffcov_9',['FiffCov',['../a03718.html',1,'FIFFLIB']]],
   ['fiffctfcomp_10',['FiffCtfComp',['../a03722.html',1,'FIFFLIB']]],

@@ -23,7 +23,7 @@ var searchData=
   ['vertexnormals_20',['vertexNormals',['../a03218.html#a4e95641b89f520bf9cc0b5d85e9fbe2c',1,'BrainSurface']]],
   ['vertexpositions_21',['vertexPositions',['../a03218.html#ad29387da7209358eb1966339b0f42b5b',1,'BrainSurface']]],
   ['verticesasmatrix_22',['verticesAsMatrix',['../a03218.html#aee52125406de87e54011cfc9d09c837c',1,'BrainSurface']]],
-  ['videooverlay_23',['VideoOverlay',['../a03294.html#a6ca76bfcc02f3809db55f0f5245896db',1,'DISP3DLIB::VideoOverlay::VideoOverlay()'],['../a04918.html#a6ca76bfcc02f3809db55f0f5245896db',1,'VideoOverlay::VideoOverlay()']]],
+  ['videooverlay_23',['VideoOverlay',['../a03294.html#a6ca76bfcc02f3809db55f0f5245896db',1,'DISP3DLIB::VideoOverlay::VideoOverlay()'],['../a04914.html#a6ca76bfcc02f3809db55f0f5245896db',1,'VideoOverlay::VideoOverlay()']]],
   ['view_24',['view',['../a04230.html#a4542f3712a12ef0eccd51547ebeb4a7b',1,'MLLIB::MlTensor']]],
   ['viewcount_25',['viewCount',['../a03354.html#a870929505c3d5f07712c0bd0ae396d08',1,'BrainView']]],
   ['viewcountchanged_26',['viewCountChanged',['../a03354.html#aa8ba2c1abf239cb8f185f6f21dd96268',1,'BrainView']]],

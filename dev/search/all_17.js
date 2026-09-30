@@ -73,7 +73,7 @@ var searchData=
   ['vertices_70',['vertices',['../a03334.html#a1a9a8b0fe13e01d5c254f8c51ebdd5c2',1,'BrainRenderer::Impl::SliceSlot::vertices'],['../a03854.html#aea268ba38bc582801cd37098e17af73b',1,'FSLIB::FsLabel::vertices'],['../a03946.html#aa49177afe37d9bba6139c87c235bd576',1,'INVLIB::InvBeamformer::vertices'],['../a04066.html#aaa4751a06dc2c46750ab2575d5a87064',1,'INVLIB::InvSourceEstimate::vertices']]],
   ['verticesasmatrix_71',['verticesAsMatrix',['../a03218.html#aee52125406de87e54011cfc9d09c837c',1,'BrainSurface']]],
   ['vertno_72',['vertno',['../a04598.html#aaef50928364ec609addd42095a8ae0ab',1,'MNELIB::MNESurfaceOrVolume']]],
-  ['videooverlay_73',['VideoOverlay',['../a03294.html',1,'DISP3DLIB::VideoOverlay'],['../a04918.html',1,'VideoOverlay'],['../a03294.html#a6ca76bfcc02f3809db55f0f5245896db',1,'DISP3DLIB::VideoOverlay::VideoOverlay()'],['../a04918.html#a6ca76bfcc02f3809db55f0f5245896db',1,'VideoOverlay::VideoOverlay()']]],
+  ['videooverlay_73',['VideoOverlay',['../a03294.html',1,'DISP3DLIB::VideoOverlay'],['../a04914.html',1,'VideoOverlay'],['../a03294.html#a6ca76bfcc02f3809db55f0f5245896db',1,'DISP3DLIB::VideoOverlay::VideoOverlay()'],['../a04914.html#a6ca76bfcc02f3809db55f0f5245896db',1,'VideoOverlay::VideoOverlay()']]],
   ['videooverlay_74',['videoOverlay',['../a03322.html#a48ef0a745eb241eb0bc3bc4ede4d54a7',1,'BrainRenderer::Impl']]],
   ['videooverlay_2eh_75',['videooverlay.h',['../a01058.html',1,'']]],
   ['videooverlayresources_76',['VideoOverlayResources',['../a03330.html',1,'BrainRenderer::Impl']]],

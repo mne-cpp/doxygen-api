@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['edfchannelinfo_0',['EDFChannelInfo',['../a02666.html',1,'']]],
-  ['edfreader_1',['EDFReader',['../a02670.html',1,'']]],
+  ['edfchannelinfo_0',['EDFChannelInfo',['../a02666.html',1,'BIDSLIB']]],
+  ['edfreader_1',['EDFReader',['../a02670.html',1,'BIDSLIB']]],
   ['electrodearray_2',['ElectrodeArray',['../a03246.html',1,'DISP3DLIB']]],
   ['electrodecontact_3',['ElectrodeContact',['../a03242.html',1,'DISP3DLIB']]],
   ['electrodeobject_4',['ElectrodeObject',['../a03250.html',1,'DISP3DLIB']]],

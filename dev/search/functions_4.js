@@ -1,7 +1,7 @@
 var searchData=
 [
   ['ecdset_0',['ecdSet',['../a03190.html#a71a8bbb2eec67f0b3ed05f6d47d31afd',1,'DipoleTreeItem']]],
-  ['edfreader_1',['EDFReader',['../a02670.html#a359293c603b7201d6b5137f7d8953669',1,'EDFReader']]],
+  ['edfreader_1',['EDFReader',['../a02670.html#a359293c603b7201d6b5137f7d8953669',1,'BIDSLIB::EDFReader']]],
   ['edgeindexbuffer_2',['edgeIndexBuffer',['../a03258.html#a57114a7c2d083407c8d31b6b93b10db0',1,'NetworkObject']]],
   ['edgeindexcount_3',['edgeIndexCount',['../a03258.html#a0de448223b81623b4573ba83e9ae6782',1,'NetworkObject']]],
   ['edgeinstancebuffer_4',['edgeInstanceBuffer',['../a03258.html#af4126901e47b990cd424c19c4b55581d',1,'NetworkObject']]],

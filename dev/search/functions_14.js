@@ -39,7 +39,7 @@ var searchData=
   ['updatevalue_36',['updateValue',['../a03106.html#a81fd96a50e20d91991942dc45af36d72',1,'DISPLIB::SpectrumSettingsView']]],
   ['updateview_37',['updateView',['../a02878.html#ae70d4af2b2f79684a01739d07754c5e3',1,'DISPLIB::ButterflyView']]],
   ['updateviewport_38',['updateViewport',['../a02862.html#a637066ceea589dff8ae96fbb7bf6d8aa',1,'DISPLIB::AverageLayoutView::updateViewport()'],['../a02878.html#a99471e40ad6d0c5bfa837c2b00feeae6',1,'DISPLIB::ButterflyView::updateViewport()'],['../a03098.html#ab2ffcbc521d0e4a4ed8ba6b81276be9a',1,'DISPLIB::RtFiffRawView::updateViewport()']]],
-  ['uphint_39',['upHint',['../a03294.html#a525b99f56aa5687421c044583700a76f',1,'DISP3DLIB::VideoOverlay::upHint()'],['../a04918.html#a525b99f56aa5687421c044583700a76f',1,'VideoOverlay::upHint()']]],
+  ['uphint_39',['upHint',['../a03294.html#a525b99f56aa5687421c044583700a76f',1,'DISP3DLIB::VideoOverlay::upHint()'],['../a04914.html#a525b99f56aa5687421c044583700a76f',1,'VideoOverlay::upHint()']]],
   ['upstreamnodes_40',['upstreamNodes',['../a04242.html#ae5f3c74612b4eebac6d077c1e6876c57',1,'MNALIB::MnaGraph']]],
   ['usefullrank_41',['useFullRank',['../a04126.html#a92d14534b5e186cebc50e462feccc221',1,'INVLIB::InvRapMusic']]]
 ];

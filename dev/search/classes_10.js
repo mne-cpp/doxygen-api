@@ -6,7 +6,7 @@ var searchData=
   ['regiondataout_3',['RegionDataOut',['../a04414.html',1,'MNELIB']]],
   ['regionmt_4',['RegionMT',['../a04434.html',1,'MNELIB']]],
   ['regionmtout_5',['RegionMTOut',['../a04430.html',1,'MNELIB']]],
-  ['rejectionparams_6',['RejectionParams',['../a03766.html',1,'FIFFLIB::RejectionParams'],['../a04922.html',1,'MNELIB::RejectionParams']]],
+  ['rejectionparams_6',['RejectionParams',['../a03766.html',1,'FIFFLIB::RejectionParams'],['../a04918.html',1,'MNELIB::RejectionParams']]],
   ['report_7',['Report',['../a04790.html',1,'UTILSLIB']]],
   ['reportsection_8',['ReportSection',['../a04786.html',1,'UTILSLIB']]],
   ['resample_9',['Resample',['../a03578.html',1,'UTILSLIB']]],

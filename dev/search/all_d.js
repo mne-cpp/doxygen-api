@@ -1,7 +1,7 @@
 var searchData=
 [
   ['label_0',['Label',['../a02597.html#aff2df5a82a2d98871c0ceb6dff9713f6ab021df6aac4654c454f46c77646e745f',1,'MNALIB']]],
-  ['label_1',['label',['../a02666.html#acc7a0e112e1e7417b07c3a69f843a92f',1,'EDFChannelInfo::label'],['../a02802.html#a5c0d9ee81642ff3bff07a3ac06d3b509',1,'DECODINGLIB::IcaLabelResult::label'],['../a02970.html#a56a46ad20a6c8bc56abeb654ee752e0a',1,'DISPLIB::ChannelRhiView::EventMarker::label'],['../a02974.html#aaebae02fc1312c96e3462180b2db7e8b',1,'DISPLIB::ChannelRhiView::AnnotationSpan::label'],['../a03050.html#a8d881ac17c8edf4d73e5432d0d67edfb',1,'DISPLIB::TimeRulerEventMark::label'],['../a03054.html#a671bfe9e48c071e19727240ede553da6',1,'DISPLIB::TimeRulerReferenceMark::label'],['../a03246.html#a2ce8521e1d913142c177a931b43f80a0',1,'DISP3DLIB::ElectrodeArray::label'],['../a03306.html#ace00337b42b8a723c3f6e54b290f517c',1,'DISP3DLIB::PickResult::label'],['../a04734.html#a240d8ccd8903009e68bc3dc1343c5874',1,'UTILSLIB::DigitizedPoint::label']]],
+  ['label_1',['label',['../a02666.html#a3aed705cefa43bd4f53cc1d7f266ae08',1,'BIDSLIB::EDFChannelInfo::label'],['../a02802.html#a5c0d9ee81642ff3bff07a3ac06d3b509',1,'DECODINGLIB::IcaLabelResult::label'],['../a02970.html#a56a46ad20a6c8bc56abeb654ee752e0a',1,'DISPLIB::ChannelRhiView::EventMarker::label'],['../a02974.html#aaebae02fc1312c96e3462180b2db7e8b',1,'DISPLIB::ChannelRhiView::AnnotationSpan::label'],['../a03050.html#a8d881ac17c8edf4d73e5432d0d67edfb',1,'DISPLIB::TimeRulerEventMark::label'],['../a03054.html#a671bfe9e48c071e19727240ede553da6',1,'DISPLIB::TimeRulerReferenceMark::label'],['../a03246.html#a2ce8521e1d913142c177a931b43f80a0',1,'DISP3DLIB::ElectrodeArray::label'],['../a03306.html#ace00337b42b8a723c3f6e54b290f517c',1,'DISP3DLIB::PickResult::label'],['../a04734.html#a240d8ccd8903009e68bc3dc1343c5874',1,'UTILSLIB::DigitizedPoint::label']]],
   ['label_5fid_2',['label_id',['../a03854.html#a9b7c260900e14576435c9eb2b816a4e4',1,'FSLIB::FsLabel']]],
   ['label_5fsrc_5fvertno_5fsel_3',['label_src_vertno_sel',['../a04578.html#ac3a1bc92824c7bb090ee47a43277d45d',1,'MNELIB::MNESourceSpaces']]],
   ['labelatras_4',['labelAtRas',['../a03846.html#abdb3b5dcffaba1f4b3484aa6fc478a46',1,'FSLIB::FsAtlasLookup']]],
@@ -62,7 +62,7 @@ var searchData=
   ['lineplot_2eh_59',['lineplot.h',['../a00503.html',1,'']]],
   ['linereceived_60',['lineReceived',['../a04778.html#ae725af40d80391ed2e08bfbd4067d9f1',1,'UTILSLIB::PythonRunner']]],
   ['linfieldintfunc_61',['linFieldIntFunc',['../a03894.html#ab6c2a9a6ac2ad5d0d2f114b618eeff4c',1,'FWDLIB::FwdBemModel']]],
-  ['links_62',['Links',['../index.html#autotoc_md75',1,'']]],
+  ['links_62',['Links',['../index.html#autotoc_md68',1,'']]],
   ['list_63',['Deprecated List',['../a02540.html',1,'']]],
   ['livemarker_64',['LiveMarker',['../a03350.html',1,'']]],
   ['liveplugins_65',['livePlugins',['../a04254.html#ae98ec6796b64066490d639f20debf4d2',1,'MNALIB::MnaGraphExecutor::StreamContext']]],
@@ -95,7 +95,7 @@ var searchData=
   ['loadtransformation_92',['loadTransformation',['../a03354.html#a21b7bf2a59715f54dcf702d68876eb21',1,'BrainView']]],
   ['lofbadchannelparams_93',['LofBadChannelParams',['../a03418.html',1,'UTILSLIB']]],
   ['log2_94',['log2',['../a04194.html#ad55da77c3d78487e4c81a1600cd5bf56',1,'UTILSLIB::Numerics']]],
-  ['logfile_95',['logFile',['../a03774.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a04522.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a04698.html#abe670f4a904bf97f96743bf77f084685',1,'UTILSLIB::MNELogger::logFile()'],['../a04930.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
+  ['logfile_95',['logFile',['../a03774.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'FIFFLIB::AverageDescription::logFile'],['../a04522.html#ae04c3a74f54e9dbfd9848a7061cf0fe0',1,'MNELIB::CovDescription::logFile'],['../a04698.html#abe670f4a904bf97f96743bf77f084685',1,'UTILSLIB::MNELogger::logFile()'],['../a04926.html#a02a02e56e0c08e1e492d519e11fc9e6f',1,'MNELIB::AverageDescription::logFile']]],
   ['logno_96',['logNo',['../a03702.html#a7b5c40b0a6fea48bd71623a0124118c7',1,'FIFFLIB::FiffChInfo']]],
   ['lookat_97',['lookAt',['../a03154.html#a1f8585252f95a48e4e1da3ab4f3a790a',1,'CameraResult']]],
   ['lookback_98',['lookBack',['../a04098.html#afef4de780acecb3d2a919a644c538dba',1,'INVLIB::InvCMNESettings']]],

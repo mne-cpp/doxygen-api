@@ -28,7 +28,7 @@ var searchData=
   ['reginv_25',['reginv',['../a04438.html#af67deb08787867d45f75378c4bbcad15',1,'MNELIB::MNEInverseOperator']]],
   ['regionid_26',['regionId',['../a03162.html#ae87d4392258dd5a5e4a23259a1578a31',1,'PickResult']]],
   ['regionname_27',['regionName',['../a03162.html#a9dc93a733530a4a226c8f35341c1b8a2',1,'PickResult']]],
-  ['rej_28',['rej',['../a03774.html#a7e54be6751d262c6ed290e04bb19d40d',1,'FIFFLIB::AverageDescription::rej'],['../a04522.html#af8313636eebd4740bf85892c72e43fee',1,'MNELIB::CovDescription::rej'],['../a04930.html#a7e54be6751d262c6ed290e04bb19d40d',1,'MNELIB::AverageDescription::rej']]],
+  ['rej_28',['rej',['../a03774.html#a7e54be6751d262c6ed290e04bb19d40d',1,'FIFFLIB::AverageDescription::rej'],['../a04522.html#af8313636eebd4740bf85892c72e43fee',1,'MNELIB::CovDescription::rej'],['../a04926.html#a7e54be6751d262c6ed290e04bb19d40d',1,'MNELIB::AverageDescription::rej']]],
   ['rel_5frad_29',['rel_rad',['../a03914.html#ab0ba8ec8e92953d133860e3e232c8133',1,'FWDLIB::FwdEegSphereLayer']]],
   ['relative_30',['relative',['../a04474.html#a04d4f4ebec3950297b15e1f5eceee612',1,'MNELIB::MNEMshColorScaleDef']]],
   ['removesamplemean_31',['removeSampleMean',['../a04522.html#afc4adff0b4779270f38bdb85f185cd05',1,'MNELIB::CovDescription']]],
