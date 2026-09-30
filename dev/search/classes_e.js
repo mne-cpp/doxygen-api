@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['pair_0',['Pair',['../a04118.html',1,'INVLIB']]],
+  ['pair_0',['Pair',['../a04122.html',1,'INVLIB']]],
   ['parksmcclellan_1',['ParksMcClellan',['../a03566.html',1,'UTILSLIB']]],
   ['partialdirectedcoherence_2',['PartialDirectedCoherence',['../a02762.html',1,'CONNECTIVITYLIB']]],
   ['peakfinderparams_3',['PeakFinderParams',['../a03570.html',1,'UTILSLIB']]],
@@ -9,16 +9,16 @@ var searchData=
   ['picardica_6',['PicardIca',['../a03574.html',1,'UTILSLIB']]],
   ['pickresult_7',['PickResult',['../a03306.html',1,'DISP3DLIB::PickResult'],['../a03162.html',1,'PickResult']]],
   ['plot_8',['Plot',['../a02838.html',1,'DISPLIB']]],
-  ['polhemusconnection_9',['PolhemusConnection',['../a04750.html',1,'UTILSLIB']]],
-  ['polhemuscoregistration_10',['PolhemusCoregistration',['../a04758.html',1,'UTILSLIB']]],
-  ['polhemusserialconfig_11',['PolhemusSerialConfig',['../a04746.html',1,'UTILSLIB']]],
+  ['polhemusconnection_9',['PolhemusConnection',['../a04754.html',1,'UTILSLIB']]],
+  ['polhemuscoregistration_10',['PolhemusCoregistration',['../a04762.html',1,'UTILSLIB']]],
+  ['polhemusserialconfig_11',['PolhemusSerialConfig',['../a04750.html',1,'UTILSLIB']]],
   ['polylineobject_12',['PolylineObject',['../a03274.html',1,'']]],
-  ['processingsettings_13',['ProcessingSettings',['../a04526.html',1,'MNELIB']]],
+  ['processingsettings_13',['ProcessingSettings',['../a04530.html',1,'MNELIB']]],
   ['progressview_14',['ProgressView',['../a03082.html',1,'DISPLIB']]],
   ['projectorsview_15',['ProjectorsView',['../a03086.html',1,'DISPLIB']]],
   ['projectsettingsview_16',['ProjectSettingsView',['../a03090.html',1,'DISPLIB']]],
-  ['pythonrunner_17',['PythonRunner',['../a04774.html',1,'UTILSLIB']]],
-  ['pythonrunnerconfig_18',['PythonRunnerConfig',['../a04770.html',1,'UTILSLIB']]],
-  ['pythonrunnerresult_19',['PythonRunnerResult',['../a04766.html',1,'UTILSLIB']]],
-  ['pythontesthelper_20',['PythonTestHelper',['../a04778.html',1,'UTILSLIB']]]
+  ['pythonrunner_17',['PythonRunner',['../a04778.html',1,'UTILSLIB']]],
+  ['pythonrunnerconfig_18',['PythonRunnerConfig',['../a04774.html',1,'UTILSLIB']]],
+  ['pythonrunnerresult_19',['PythonRunnerResult',['../a04770.html',1,'UTILSLIB']]],
+  ['pythontesthelper_20',['PythonTestHelper',['../a04782.html',1,'UTILSLIB']]]
 ];

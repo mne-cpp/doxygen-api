@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['of_20free_20blocks_0',['of free blocks.',['../a00245.html#autotoc_md57',1,'']]],
-  ['of_20free_20blocks_20available_20to_20non_20superuser_1',['of free blocks available to non-superuser.',['../a00245.html#autotoc_md58',1,'']]],
-  ['of_20the_20mne_5ffind_5fsource_5fspace_5fhemi_20function_2',['MNE toolbox root function ###: Definition of the mne_find_source_space_hemi function',['../a04574.html#autotoc_md110',1,'']]],
-  ['of_20the_20mne_5fpatch_5finfo_20function_3',['MNE toolbox root function ###: Definition of the mne_patch_info function',['../a04574.html#autotoc_md111',1,'']]],
-  ['of_20the_20mne_5fread_5fbem_5fsurface_20function_4',['MNE toolbox root function ###: Definition of the mne_read_bem_surface function',['../a04338.html#autotoc_md106',1,'']]],
-  ['of_20the_20mne_5fread_5fforward_5fsolution_20function_5',['MNE toolbox root function ###: Definition of the mne_read_forward_solution function',['../a04418.html#autotoc_md107',1,'']]],
-  ['of_20the_20mne_5fread_5fsource_5fspaces_20function_6',['MNE toolbox root function ###: Definition of the mne_read_source_spaces function',['../a04574.html#autotoc_md112',1,'']]],
-  ['of_20the_20mne_5ftransform_5fsource_5fspace_5fto_20function_7',['MNE toolbox root function ###: Definition of the mne_transform_source_space_to function',['../a04574.html#autotoc_md113',1,'']]],
-  ['of_20the_20write_5fsource_5fspaces_5fto_5ffid_20function_8',['MNE toolbox root function ###: Definition of the write_source_spaces_to_fid function',['../a04574.html#autotoc_md114',1,'']]],
-  ['overview_9',['Overview',['../index.html',1,'']]]
+  ['reference_0',['API Reference',['../index.html#autotoc_md74',1,'']]],
+  ['root_20function_1',['root function',['../a03878.html#autotoc_md48',1,'MNE toolbox root function'],['../a04338.html#autotoc_md49',1,'MNE toolbox root function'],['../a04338.html#autotoc_md50',1,'MNE toolbox root function'],['../a04338.html#autotoc_md51',1,'MNE toolbox root function'],['../a04338.html#autotoc_md52',1,'MNE toolbox root function'],['../a04338.html#autotoc_md53',1,'MNE toolbox root function'],['../a04338.html#autotoc_md54',1,'MNE toolbox root function'],['../a04338.html#autotoc_md55',1,'MNE toolbox root function'],['../a04338.html#autotoc_md56',1,'MNE toolbox root function'],['../a04338.html#autotoc_md57',1,'MNE toolbox root function'],['../a04338.html#autotoc_md58',1,'MNE toolbox root function'],['../a04338.html#autotoc_md59',1,'MNE toolbox root function'],['../a04338.html#autotoc_md60',1,'MNE toolbox root function'],['../a04338.html#autotoc_md61',1,'MNE toolbox root function'],['../a04338.html#autotoc_md62',1,'MNE toolbox root function'],['../a04338.html#autotoc_md63',1,'MNE toolbox root function'],['../a04338.html#autotoc_md64',1,'MNE toolbox root function'],['../a04426.html#autotoc_md67',1,'MNE toolbox root function'],['../a04426.html#autotoc_md68',1,'MNE toolbox root function']]],
+  ['root_20function_20_3a_20definition_20of_20the_20mne_5ffind_5fsource_5fspace_5fhemi_20function_2',['MNE toolbox root function ###: Definition of the mne_find_source_space_hemi function',['../a04578.html#autotoc_md69',1,'']]],
+  ['root_20function_20_3a_20definition_20of_20the_20mne_5fpatch_5finfo_20function_3',['MNE toolbox root function ###: Definition of the mne_patch_info function',['../a04578.html#autotoc_md70',1,'']]],
+  ['root_20function_20_3a_20definition_20of_20the_20mne_5fread_5fbem_5fsurface_20function_4',['MNE toolbox root function ###: Definition of the mne_read_bem_surface function',['../a04342.html#autotoc_md65',1,'']]],
+  ['root_20function_20_3a_20definition_20of_20the_20mne_5fread_5fforward_5fsolution_20function_5',['MNE toolbox root function ###: Definition of the mne_read_forward_solution function',['../a04422.html#autotoc_md66',1,'']]],
+  ['root_20function_20_3a_20definition_20of_20the_20mne_5fread_5fsource_5fspaces_20function_6',['MNE toolbox root function ###: Definition of the mne_read_source_spaces function',['../a04578.html#autotoc_md71',1,'']]],
+  ['root_20function_20_3a_20definition_20of_20the_20mne_5ftransform_5fsource_5fspace_5fto_20function_7',['MNE toolbox root function ###: Definition of the mne_transform_source_space_to function',['../a04578.html#autotoc_md72',1,'']]],
+  ['root_20function_20_3a_20definition_20of_20the_20write_5fsource_5fspaces_5fto_5ffid_20function_8',['MNE toolbox root function ###: Definition of the write_source_spaces_to_fid function',['../a04578.html#autotoc_md73',1,'']]]
 ];

@@ -68,7 +68,15 @@ var menudata={children:[
 {text:"k",url:"namespacemembers_vars.html#index_k"},
 {text:"m",url:"namespacemembers_vars.html#index_m"},
 {text:"v",url:"namespacemembers_vars.html#index_v"}]},
-{text:"Typedefs",url:"namespacemembers_type.html"},
+{text:"Typedefs",url:"namespacemembers_type.html",children:[
+{text:"a",url:"namespacemembers_type.html#index_a"},
+{text:"b",url:"namespacemembers_type.html#index_b"},
+{text:"c",url:"namespacemembers_type.html#index_c"},
+{text:"d",url:"namespacemembers_type.html#index_d"},
+{text:"f",url:"namespacemembers_type.html#index_f"},
+{text:"m",url:"namespacemembers_type.html#index_m"},
+{text:"p",url:"namespacemembers_type.html#index_p"},
+{text:"r",url:"namespacemembers_type.html#index_r"}]},
 {text:"Enumerations",url:"namespacemembers_enum.html",children:[
 {text:"a",url:"namespacemembers_enum.html#index_a"},
 {text:"b",url:"namespacemembers_enum.html#index_b"},
