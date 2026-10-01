@@ -158,7 +158,7 @@ var searchData=
   ['trackertodevicerotation_155',['trackerToDeviceRotation',['../a04762.html#a9e4a84e091c8f3be3f8bfbf37507a2d0',1,'UTILSLIB::PolhemusCoregistration']]],
   ['trackertodevicetranslation_156',['trackerToDeviceTranslation',['../a04762.html#a8ad3609bf0e37e8e6d840db36e655e98',1,'UTILSLIB::PolhemusCoregistration']]],
   ['trainlstm_157',['trainLstm',['../a04094.html#aa1bffd7477d5f497fee590e5e21c7793',1,'INVLIB::InvCMNE']]],
-  ['trans_158',['trans',['../a03710.html#ad242d17144fb35580f53260d82d4a102',1,'FIFFLIB::FiffCoordTrans::trans'],['../a04478.html#aa8fbb6a974522cb36620613fb3403d9e',1,'MNELIB::MNEMshDisplaySurface::trans'],['../a04570.html#ad02a4f31cc1d0d7ca46042e517c1cc53',1,'MNELIB::MNERawInfo::trans'],['../a04642.html#a3cfbaea6592a592fccec4ac09c398452',1,'MRILIB::MriSlice::trans'],['../a04930.html#ad242d17144fb35580f53260d82d4a102',1,'FiffCoordTrans::trans']]],
+  ['trans_158',['trans',['../a03710.html#ae24c8df813cecd2696e92836e97d3c06',1,'FIFFLIB::FiffCoordTrans::trans'],['../a04478.html#aa8fbb6a974522cb36620613fb3403d9e',1,'MNELIB::MNEMshDisplaySurface::trans'],['../a04570.html#ad02a4f31cc1d0d7ca46042e517c1cc53',1,'MNELIB::MNERawInfo::trans'],['../a04642.html#a3cfbaea6592a592fccec4ac09c398452',1,'MRILIB::MriSlice::trans'],['../a04930.html#ae24c8df813cecd2696e92836e97d3c06',1,'FiffCoordTrans::trans']]],
   ['transducertype_159',['transducerType',['../a02666.html#a647bcded97b76d2a0f226883ce841587',1,'BIDSLIB::EDFChannelInfo']]],
   ['transferfunction_160',['transferFunction',['../a02758.html#a6d0392454a665a3eded80dfcfb999309',1,'CONNECTIVITYLIB::MvarModel']]],
   ['transform_161',['Transform',['../a02597.html#acec300107fc488331fcaddae5894abfca2ff4148554480a37f85efd299df04850',1,'MNALIB']]],

@@ -39,7 +39,7 @@ var searchData=
   ['tr_36',['TR',['../a04646.html#a0ba42485dd111ea6f84cea9fee2ce439',1,'MRILIB::MriVolData']]],
   ['trackerori_37',['trackerOri',['../a04766.html#a82aa28cf823861101c7f53d9d3e3b3dc',1,'UTILSLIB::PolhemusCoregistration::OpticalCalibSample']]],
   ['trackerpos_38',['trackerPos',['../a04766.html#a367672df017e6e8dc8fe615a521ca4fe',1,'UTILSLIB::PolhemusCoregistration::OpticalCalibSample']]],
-  ['trans_39',['trans',['../a03710.html#ad242d17144fb35580f53260d82d4a102',1,'FIFFLIB::FiffCoordTrans::trans'],['../a04478.html#aa8fbb6a974522cb36620613fb3403d9e',1,'MNELIB::MNEMshDisplaySurface::trans'],['../a04570.html#ad02a4f31cc1d0d7ca46042e517c1cc53',1,'MNELIB::MNERawInfo::trans'],['../a04642.html#a3cfbaea6592a592fccec4ac09c398452',1,'MRILIB::MriSlice::trans'],['../a04930.html#ad242d17144fb35580f53260d82d4a102',1,'FiffCoordTrans::trans']]],
+  ['trans_39',['trans',['../a03710.html#ae24c8df813cecd2696e92836e97d3c06',1,'FIFFLIB::FiffCoordTrans::trans'],['../a04478.html#aa8fbb6a974522cb36620613fb3403d9e',1,'MNELIB::MNEMshDisplaySurface::trans'],['../a04570.html#ad02a4f31cc1d0d7ca46042e517c1cc53',1,'MNELIB::MNERawInfo::trans'],['../a04642.html#a3cfbaea6592a592fccec4ac09c398452',1,'MRILIB::MriSlice::trans'],['../a04930.html#ae24c8df813cecd2696e92836e97d3c06',1,'FiffCoordTrans::trans']]],
   ['transducertype_40',['transducerType',['../a02666.html#a647bcded97b76d2a0f226883ce841587',1,'BIDSLIB::EDFChannelInfo']]],
   ['transform_41',['transform',['../a02618.html#a46657a5a75863556a10d1201829822ea',1,'BIDSLIB::BidsCoordinateSystem']]],
   ['translation_42',['translation',['../a03530.html#a83f981070a39bec58f41e2b32b738765',1,'UTILSLIB::HeadPosEntry']]],

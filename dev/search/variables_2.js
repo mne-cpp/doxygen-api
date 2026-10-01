@@ -53,7 +53,7 @@ var searchData=
   ['codesha256_50',['codeSha256',['../a04306.html#a4234750d2dc60093e87d1bcd72b1a16a',1,'MNALIB::MnaScript']]],
   ['coding_51',['coding',['../a03822.html#af24037edbda47cb421743bd789ac6285',1,'FIFFLIB::FiffSparseMatrix']]],
   ['coil_5fclass_52',['coil_class',['../a03902.html#ad7eb7e2adee93be8213187463bafe002',1,'FWDLIB::FwdCoil']]],
-  ['coil_5ftrans_53',['coil_trans',['../a03702.html#af9748c7f387142f1332a3aa1d2010fed',1,'FIFFLIB::FiffChInfo']]],
+  ['coil_5ftrans_53',['coil_trans',['../a03702.html#a3f4b1e38d7df10d688605c1bad14a635',1,'FIFFLIB::FiffChInfo']]],
   ['coil_5ftype_54',['coil_type',['../a03706.html#a7875d73688cc6722db13386709b91760',1,'FIFFLIB::FiffChPos']]],
   ['coils_55',['coils',['../a03906.html#ae34a319ce3ea9eba77f73ba0b873e2a3',1,'FWDLIB::FwdCoilSet']]],
   ['coils_5fels_56',['coils_els',['../a03942.html#a10a6aacfc5a956816306442b00e415c2',1,'FWDLIB::FwdThreadArg']]],

@@ -52,7 +52,7 @@ var searchData=
   ['inv_5flambda_49',['inv_lambda',['../a04362.html#a0d79435c43209b091e4b1f1011ba73b7',1,'MNELIB::MNECovMatrix']]],
   ['inversion_50',['inversion',['../a03946.html#a45f4b03e87215b53a73187fedde67eab',1,'INVLIB::InvBeamformer']]],
   ['invert_51',['invert',['../a04446.html#a4bcdb9a386fbf8364a1f9a41debb5f68',1,'MNELIB::MNELayoutPort']]],
-  ['invtrans_52',['invtrans',['../a03710.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FIFFLIB::FiffCoordTrans::invtrans'],['../a04930.html#aef6d363c6f07ce87588ae2d86252e6de',1,'FiffCoordTrans::invtrans']]],
+  ['invtrans_52',['invtrans',['../a03710.html#a0ca784feaba2f895a4b2b170e7d7ba35',1,'FIFFLIB::FiffCoordTrans::invtrans'],['../a04930.html#a0ca784feaba2f895a4b2b170e7d7ba35',1,'FiffCoordTrans::invtrans']]],
   ['iorderin_53',['iOrderIn',['../a03422.html#abcc45912e86b52882ec95369959ca2fb',1,'UTILSLIB::BadChannelsMaxwellParams::iOrderIn'],['../a03534.html#aa7307e83389f893c9c91084141edace0',1,'UTILSLIB::MaxwellMoveCompParams::iOrderIn'],['../a03654.html#aa29467bb6fddc5596ac76187a54ac6b6',1,'UTILSLIB::SSSParams::iOrderIn'],['../a03662.html#afd7ec3ba395137a5128069a5701f576e',1,'UTILSLIB::SSS::Basis::iOrderIn']]],
   ['iorderout_54',['iOrderOut',['../a03422.html#a14cfda02080c0028d55800dd8632afcd',1,'UTILSLIB::BadChannelsMaxwellParams::iOrderOut'],['../a03534.html#a1ca587daeb9c07cb790b99281f9ba381',1,'UTILSLIB::MaxwellMoveCompParams::iOrderOut'],['../a03654.html#a7211989367aff1786290168b0ea4e081',1,'UTILSLIB::SSSParams::iOrderOut'],['../a03662.html#a401e317d31d9eca6e6ea4278a8fb43d2',1,'UTILSLIB::SSS::Basis::iOrderOut']]],
   ['ip_5fapproach_5flimit_55',['ip_approach_limit',['../a03894.html#ad8ee097eb8997f6edc375495a79292cb',1,'FWDLIB::FwdBemModel']]],

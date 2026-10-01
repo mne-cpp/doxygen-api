@@ -16,7 +16,7 @@ var searchData=
   ['bapplybaseline_13',['bApplyBaseline',['../a03470.html#aebc478ede8e946ed99616339a63e30c2',1,'UTILSLIB::EpochExtractorParams']]],
   ['base_14',['base',['../a03902.html#ab1523d29d2a38620be699d1d34abaca7',1,'FWDLIB::FwdCoil']]],
   ['base_5farr_15',['base_arr',['../a04022.html#af33cd2c9adae95af834bcf8ac1910087',1,'INVLIB::HPISortStruct']]],
-  ['baseline_16',['baseline',['../a03762.html#ad96440f9c4fdf5791897a631f0123cdc',1,'FIFFLIB::FiffEvoked']]],
+  ['baseline_16',['baseline',['../a03762.html#a9cca78faa980e91fac994f0756a0bd16',1,'FIFFLIB::FiffEvoked']]],
   ['baselines_17',['baselines',['../a04454.html#a42489ef018224fe29904df750349ffce',1,'MNELIB::MNEMeasDataSet']]],
   ['baudrate_18',['baudRate',['../a04750.html#ad879cf6c99402d3230eb1da47afc0305',1,'UTILSLIB::PolhemusSerialConfig']]],
   ['bconverged_19',['bConverged',['../a03514.html#ab919b4404548ee5d21d2207b55c2ec87',1,'UTILSLIB::IcaResult']]],

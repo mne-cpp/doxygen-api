@@ -1235,8 +1235,8 @@ var searchData=
   ['fwdeegspherelayer_1232',['FwdEegSphereLayer',['../a03914.html',1,'FWDLIB::FwdEegSphereLayer'],['../a03914.html#af437ec5796042a6a66af011cf592203d',1,'FWDLIB::FwdEegSphereLayer::FwdEegSphereLayer()']]],
   ['fwdeegspheremodel_1233',['FwdEegSphereModel',['../a03926.html',1,'FWDLIB::FwdEegSphereModel'],['../a03926.html#abbb8da256fcf16aefe01cd37496bcdd0',1,'FWDLIB::FwdEegSphereModel::FwdEegSphereModel()'],['../a03926.html#a9103afa82559a22c6f71833539cea5da',1,'FWDLIB::FwdEegSphereModel::FwdEegSphereModel(const FwdEegSphereModel &amp;p_FwdEegSphereModel)']]],
   ['fwdeegspheremodelset_1234',['FwdEegSphereModelSet',['../a03930.html',1,'FWDLIB::FwdEegSphereModelSet'],['../a03930.html#ae46fe57475fcd6e5c17f5b27e2eb26ef',1,'FWDLIB::FwdEegSphereModelSet::FwdEegSphereModelSet()'],['../a03930.html#ad42039145197243647c1e897de26293d',1,'FWDLIB::FwdEegSphereModelSet::FwdEegSphereModelSet(const FwdEegSphereModelSet &amp;)=delete'],['../a03930.html#ada1ba101b1ea8ee172e2d017e367e309',1,'FWDLIB::FwdEegSphereModelSet::FwdEegSphereModelSet(FwdEegSphereModelSet &amp;&amp;)=default']]],
-  ['fwdfieldfunc_1235',['fwdFieldFunc',['../a01187.html#a912049a624f794e40dd9d4ae3e69e683',1,'fwd_types.h']]],
-  ['fwdfieldgradfunc_1236',['fwdFieldGradFunc',['../a01187.html#a869b899cfcbe0447d6382e7aa866fc4c',1,'fwd_types.h']]],
+  ['fwdfieldfunc_1235',['fwdFieldFunc',['../a01187.html#a1c916bbd8b2264c44b529fc84f449666',1,'fwd_types.h']]],
+  ['fwdfieldgradfunc_1236',['fwdFieldGradFunc',['../a01187.html#a3bbf79c3d14f20681cfcd344263cc4cd',1,'fwd_types.h']]],
   ['fwdfieldmap_1237',['FwdFieldMap',['../a03938.html',1,'FWDLIB']]],
   ['fwdlib_1238',['FWDLIB',['../a02582.html',1,'']]],
   ['fwdsettingsview_1239',['FwdSettingsView',['../a02930.html',1,'DISPLIB::FwdSettingsView'],['../a02930.html#ae42c7ad059d4a9a6a4091df767b7994e',1,'DISPLIB::FwdSettingsView::FwdSettingsView()']]],
@@ -1244,5 +1244,5 @@ var searchData=
   ['fwdsettingsview_2eh_1241',['fwdsettingsview.h',['../a00575.html',1,'']]],
   ['fwdshared_5fexport_1242',['FWDSHARED_EXPORT',['../a01169.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]],
   ['fwdthreadarg_1243',['FwdThreadArg',['../a03942.html',1,'FWDLIB::FwdThreadArg'],['../a03942.html#a9abb380cee73b168b4ee9a9da6d7ef20',1,'FWDLIB::FwdThreadArg::FwdThreadArg()']]],
-  ['fwdvecfieldfunc_1244',['fwdVecFieldFunc',['../a01187.html#a25a6814c1f8ef2b508e53e30e155de4d',1,'fwd_types.h']]]
+  ['fwdvecfieldfunc_1244',['fwdVecFieldFunc',['../a01187.html#a1511c3fca4cebcac2c08e139f384d3f0',1,'fwd_types.h']]]
 ];

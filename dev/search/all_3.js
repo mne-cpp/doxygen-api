@@ -35,7 +35,7 @@ var searchData=
   ['bar_2eh_32',['bar.h',['../a00527.html',1,'']]],
   ['base_33',['base',['../a03902.html#ab1523d29d2a38620be699d1d34abaca7',1,'FWDLIB::FwdCoil']]],
   ['base_5farr_34',['base_arr',['../a04022.html#af33cd2c9adae95af834bcf8ac1910087',1,'INVLIB::HPISortStruct']]],
-  ['baseline_35',['baseline',['../a03762.html#ad96440f9c4fdf5791897a631f0123cdc',1,'FIFFLIB::FiffEvoked']]],
+  ['baseline_35',['baseline',['../a03762.html#a9cca78faa980e91fac994f0756a0bd16',1,'FIFFLIB::FiffEvoked']]],
   ['baselinechanged_36',['baselineChanged',['../a02914.html#a712c966a18ef6797c051306c16e1c6f3',1,'DISPLIB::DipoleFitView']]],
   ['baselines_37',['baselines',['../a04454.html#a42489ef018224fe29904df750349ffce',1,'MNELIB::MNEMeasDataSet']]],
   ['basename_38',['basename',['../a02634.html#abbfc99f5f5d8e28ef4f555cfaceac2ef',1,'BIDSLIB::BIDSPath']]],

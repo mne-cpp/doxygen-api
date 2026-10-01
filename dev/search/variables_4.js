@@ -8,7 +8,7 @@ var searchData=
   ['eeg_5fclient_5',['eeg_client',['../a03966.html#af9581901bba4248f6a88fbb895e8cc4e',1,'INVLIB::dipoleFitFuncsRec']]],
   ['eeg_5fclient_5ffree_6',['eeg_client_free',['../a03966.html#a5d553965967a617f251d3ee0440bc89c',1,'INVLIB::dipoleFitFuncsRec']]],
   ['eeg_5fels_7',['eeg_els',['../a03974.html#adf70a3d76318fec3407c9dc9d81a57c1',1,'INVLIB::InvDipoleFitData']]],
-  ['eeg_5floc_8',['eeg_loc',['../a03702.html#ab28c0d5c145bc797397bfc8c7bdccc82',1,'FIFFLIB::FiffChInfo']]],
+  ['eeg_5floc_8',['eeg_loc',['../a03702.html#a1223cb5cc2285a952d4e2a2143e3ac02',1,'FIFFLIB::FiffChInfo']]],
   ['eeg_5fmodel_9',['eeg_model',['../a03974.html#a08ebd8a251fc5e1c2c7adb8c7064738a',1,'INVLIB::InvDipoleFitData']]],
   ['eeg_5fmodel_5ffile_10',['eeg_model_file',['../a03874.html#ad47fdd7ecd60f2b9cd2721f23b0cc006',1,'FWDLIB::ComputeFwdSettings::eeg_model_file'],['../a03978.html#a0c9a8b6bbcfe2bda20b1a63884fe9ca7',1,'INVLIB::InvDipoleFitSettings::eeg_model_file']]],
   ['eeg_5fmodel_5fname_11',['eeg_model_name',['../a03874.html#ab153752ba7e85207eb394ae72e752bd5',1,'FWDLIB::ComputeFwdSettings::eeg_model_name'],['../a03978.html#aac194b9b88c3442974d3b25a5a3e6fee',1,'INVLIB::InvDipoleFitSettings::eeg_model_name']]],
