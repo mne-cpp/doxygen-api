@@ -113,7 +113,7 @@ var searchData=
   ['errors_5fcomputed_110',['errors_computed',['../a03990.html#a4d1d38d354e1465d448100e7ddc657e0',1,'INVLIB::bdipEcdRec']]],
   ['errtest_111',['ErrTest',['../a03566.html#a9a9d4b428e6f896e0685abbee3ab5a98',1,'UTILSLIB::ParksMcClellan']]],
   ['estimatecovariance_112',['estimateCovariance',['../a03602.html#a29a4804dac4e992ce36fe56ebfeb158d',1,'RTPROCESSINGLIB::RtCov']]],
-  ['estimatesnr_113',['estimateSnr',['../a02564.html#af625279a0fcaf2a385529aec41262139',1,'INVLIB']]],
+  ['estimatesnr_113',['estimateSnr',['../a02564.html#a573704fa89344caeef6fc881032b093d',1,'INVLIB']]],
   ['eval_114',['eval',['../a04782.html#acc9f9ddc79923af5e14604a384746d6b',1,'UTILSLIB::PythonTestHelper']]],
   ['evaldouble_115',['evalDouble',['../a04782.html#a1ffd5277e710649acd6560dfc11956fa',1,'UTILSLIB::PythonTestHelper']]],
   ['evalmatrix_116',['evalMatrix',['../a04782.html#af2037cae5ac93fa310496ca4e059bc71',1,'UTILSLIB::PythonTestHelper']]],
