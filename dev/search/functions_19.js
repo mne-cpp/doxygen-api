@@ -5,5 +5,6 @@ var searchData=
   ['zoomchanged_2',['zoomChanged',['../a02918.html#aeedb53d7b3f4b2c56f2fc690b7971813',1,'DISPLIB::FiffRawViewSettings']]],
   ['zoomto_3',['zoomTo',['../a02966.html#af489ead92aeac1783beff3802fbec7bf',1,'DISPLIB::ChannelRhiView']]],
   ['zscoremode_4',['zScoreMode',['../a02886.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'DISPLIB::ChannelDataView::zScoreMode()'],['../a02966.html#ad4bad855a6831ac8068e0f01f67fe3d9',1,'DISPLIB::ChannelRhiView::zScoreMode()']]],
-  ['zscoremodetoggled_5',['zScoreModeToggled',['../a02886.html#a642bfc928bfe34f65862314f30a128b9',1,'DISPLIB::ChannelDataView']]]
+  ['zscoremodetoggled_5',['zScoreModeToggled',['../a02886.html#a642bfc928bfe34f65862314f30a128b9',1,'DISPLIB::ChannelDataView']]],
+  ['zscorerectify_6',['zScoreRectify',['../a04094.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'INVLIB::InvCMNE']]]
 ];

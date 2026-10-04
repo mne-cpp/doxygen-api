@@ -8,6 +8,7 @@ var searchData=
   ['zoomto_5',['zoomTo',['../a02966.html#af489ead92aeac1783beff3802fbec7bf',1,'DISPLIB::ChannelRhiView']]],
   ['zscoremode_6',['zScoreMode',['../a02886.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'DISPLIB::ChannelDataView::zScoreMode()'],['../a02966.html#ad4bad855a6831ac8068e0f01f67fe3d9',1,'DISPLIB::ChannelRhiView::zScoreMode()']]],
   ['zscoremodetoggled_7',['zScoreModeToggled',['../a02886.html#a642bfc928bfe34f65862314f30a128b9',1,'DISPLIB::ChannelDataView']]],
-  ['zscores_8',['zScores',['../a03426.html#ad76d21c4d4038d369882d265595739de',1,'UTILSLIB::BadChannelsMaxwellResult']]],
-  ['zsize_9',['zsize',['../a04610.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04646.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
+  ['zscorerectify_8',['zScoreRectify',['../a04094.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'INVLIB::InvCMNE']]],
+  ['zscores_9',['zScores',['../a03426.html#ad76d21c4d4038d369882d265595739de',1,'UTILSLIB::BadChannelsMaxwellResult']]],
+  ['zsize_10',['zsize',['../a04610.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04646.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
 ];
