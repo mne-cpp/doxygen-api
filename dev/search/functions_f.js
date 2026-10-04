@@ -96,7 +96,7 @@ var searchData=
   ['preparesurfacedraw_93',['prepareSurfaceDraw',['../a03342.html#a80614889c04f0100dff646aea9b67388',1,'BrainRenderer']]],
   ['preparevideooverlay_94',['prepareVideoOverlay',['../a03342.html#ab52e7649bcc2b28099b11da3feefa372',1,'BrainRenderer']]],
   ['print_95',['print',['../a03710.html#a78fcc6788dba2f3648782a0596f09cab',1,'FIFFLIB::FiffCoordTrans::print()'],['../a03738.html#a21663931c4f9fd55c680c337f4a375df',1,'FIFFLIB::FiffDigitizerData::print()'],['../a03746.html#abfb6fa4257d226ade2c7594eb85922e1',1,'FIFFLIB::FiffDirNode::print()'],['../a03790.html#ad11cbcecff972b3ea7a6b26497338ff3',1,'FIFFLIB::FiffId::print()'],['../a03794.html#a1810fc7f598d5be84ff1220e6621d620',1,'FIFFLIB::FiffInfo::print()'],['../a03986.html#a446d44dc386926e36bb545d8d68f2d8d',1,'INVLIB::InvEcd::print()'],['../a04590.html#a772b4ce1233bcbdf357c992b85e137e6',1,'MNELIB::MNESssData::print()'],['../a04930.html#a78fcc6788dba2f3648782a0596f09cab',1,'FiffCoordTrans::print()']]],
-  ['print_5ffields_96',['print_fields',['../a01526.html#a71338869677872c0ab4434d365a7ec55',1,'inv_dipole_fit_data.cpp']]],
+  ['print_5ffields_96',['print_fields',['../a03974.html#a7afd1bd75626a7048767155f4e3998c2',1,'INVLIB::InvDipoleFitData']]],
   ['probeevokedsets_97',['probeEvokedSets',['../a03126.html#a3f6492243df70be8956d26768ca0d499',1,'DataLoader::probeEvokedSets()'],['../a03354.html#ab929958aa666036636384e47cd50585a',1,'BrainView::probeEvokedSets()']]],
   ['probeorientation_98',['probeOrientation',['../a04762.html#ae414a11938d266ea861a379c8186016d',1,'UTILSLIB::PolhemusCoregistration']]],
   ['probeposechanged_99',['probePoseChanged',['../a04762.html#ae0e7940626884d8c988d986184f0d917',1,'UTILSLIB::PolhemusCoregistration']]],
