@@ -12,7 +12,7 @@ var searchData=
   ['ilabelidxin_9',['iLabelIdxIn',['../a04418.html#aae8bed760d94e9a52fa5dfd3986ecd1d',1,'MNELIB::RegionData::iLabelIdxIn'],['../a04434.html#a7dd12130c7bf6fe650041a54b1c2b71c',1,'MNELIB::RegionMT::iLabelIdxIn']]],
   ['ilabelidxout_10',['iLabelIdxOut',['../a04414.html#a8b41e24e4f6a8bb2d4def09948f19049',1,'MNELIB::RegionDataOut::iLabelIdxOut'],['../a04430.html#a4f7bddee9c1048091d89fcbc6fdd74e9',1,'MNELIB::RegionMTOut::iLabelIdxOut']]],
   ['imaxiterations_11',['iMaxIterations',['../a04158.html#a467c4dde74029caa4bb61860fc33d3ec',1,'INVLIB::InvTfMxneParams']]],
-  ['imbalance_12',['imbalance',['../a03502.html#aa6ade3cafa264fb35c3966a2df08876c',1,'UTILSLIB::FineCalEntry']]],
+  ['imbalance_12',['imbalance',['../a03502.html#a5a6400082b648477a641995c897e7772',1,'UTILSLIB::FineCalEntry']]],
   ['imindistance_13',['iMinDistance',['../a03570.html#a0545718a843ff54c3cb12e2d2c5262a0',1,'UTILSLIB::PeakFinderParams']]],
   ['impedance_14',['impedance',['../a02626.html#aef8e478d5ad32900549113d1b3d910da',1,'BIDSLIB::BidsElectrode']]],
   ['in_5fnuse_15',['in_nuse',['../a04590.html#a80004977b7b3b2728134ad34cf0b9185',1,'MNELIB::MNESssData']]],
