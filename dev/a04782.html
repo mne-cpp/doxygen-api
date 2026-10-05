@@ -263,6 +263,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Test helper for MNE-Python cross-validation.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="a00389_source.html">python_test_helper.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -286,7 +289,27 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ae6be72d3d02da009b24879b64c8641f7" id="r_ae6be72d3d02da009b24879b64c8641f7"><td class="memItemLeft">static Eigen::MatrixXd&#160;</td><td class="memItemRight"><a class="el" href="#ae6be72d3d02da009b24879b64c8641f7">readMatrix</a> (const QString &amp;filePath, bool *ok=nullptr)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Test helper for MNE-Python cross-validation. </p>
+<p>Test-frame convenience class for cross-validating MNE-CPP outputs against MNE-Python reference implementations.</p>
+<p>Usage inside a QTest test: </p><div class="fragment"><div class="line"><a class="code hl_function" href="#a2188d11149c6b4e10563246177b1c501">PythonTestHelper</a> py;</div>
+<div class="line"><span class="keywordflow">if</span> (!py.<a class="code hl_function" href="#a2db24106e8462e207ea2bc8d9de2d088">isAvailable</a>()) {</div>
+<div class="line">    QSKIP(<span class="stringliteral">&quot;Python/MNE-Python not available&quot;</span>);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Run a Python snippet that computes a reference value</span></div>
+<div class="line"><span class="keyword">auto</span> result = py.<a class="code hl_function" href="#acc9f9ddc79923af5e14604a384746d6b">eval</a>(<span class="stringliteral">&quot;import mne; print(mne.io.read_info(&#39;test.fif&#39;)[&#39;nchan&#39;])&quot;</span>);</div>
+<div class="line">QVERIFY(result.success);</div>
+<div class="line">QCOMPARE(result.stdOut.trimmed().toInt(), expectedNchan);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Or run a script and parse a numeric output</span></div>
+<div class="line"><span class="keywordtype">double</span> pyValue = py.<a class="code hl_function" href="#a1ffd5277e710649acd6560dfc11956fa">evalDouble</a>(<span class="stringliteral">&quot;import numpy as np; print(np.linalg.norm(np.ones(10)))&quot;</span>);</div>
+<div class="line">QVERIFY(qAbs(cppValue - pyValue) &lt; 1e-6);</div>
+<div class="ttc" id="aa04782_html_a1ffd5277e710649acd6560dfc11956fa"><div class="ttname"><a href="#a1ffd5277e710649acd6560dfc11956fa">UTILSLIB::PythonTestHelper::evalDouble</a></div><div class="ttdeci">double evalDouble(const QString &amp;code, bool *ok=nullptr, int timeoutMs=30000) const</div><div class="ttdef"><b>Definition</b> <a href="a00419_source.html#l00079">python_test_helper.cpp:79</a></div></div>
+<div class="ttc" id="aa04782_html_a2188d11149c6b4e10563246177b1c501"><div class="ttname"><a href="#a2188d11149c6b4e10563246177b1c501">UTILSLIB::PythonTestHelper::PythonTestHelper</a></div><div class="ttdeci">PythonTestHelper()</div><div class="ttdef"><b>Definition</b> <a href="a00419_source.html#l00044">python_test_helper.cpp:44</a></div></div>
+<div class="ttc" id="aa04782_html_a2db24106e8462e207ea2bc8d9de2d088"><div class="ttname"><a href="#a2db24106e8462e207ea2bc8d9de2d088">UTILSLIB::PythonTestHelper::isAvailable</a></div><div class="ttdeci">bool isAvailable() const</div><div class="ttdef"><b>Definition</b> <a href="a00419_source.html#l00050">python_test_helper.cpp:50</a></div></div>
+<div class="ttc" id="aa04782_html_acc9f9ddc79923af5e14604a384746d6b"><div class="ttname"><a href="#acc9f9ddc79923af5e14604a384746d6b">UTILSLIB::PythonTestHelper::eval</a></div><div class="ttdeci">PythonRunnerResult eval(const QString &amp;code, int timeoutMs=30000) const</div><div class="ttdef"><b>Definition</b> <a href="a00419_source.html#l00071">python_test_helper.cpp:71</a></div></div>
+</div><!-- fragment --><p>When MNE-Python is not installed, tests should QSKIP gracefully — but never silently. Use the GUARD_PYTHON / GUARD_PYTHON_PACKAGE macros to ensure skips are intentional and visible. When the environment variable MNE_REQUIRE_PYTHON=true is set (e.g. in CI), those macros QFAIL instead of QSKIP, so a missing Python installation is treated as a hard error.</p>
+<div class="fragment"></div><!-- fragment --> 
 <p class="definition">Definition at line <a class="el" href="a00389_source.html#l00119">119</a> of file <a class="el" href="a00389_source.html">python_test_helper.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2188d11149c6b4e10563246177b1c501" name="a2188d11149c6b4e10563246177b1c501"></a>
@@ -303,7 +326,7 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Constructs a <a class="el" href="a04782.html">PythonTestHelper</a> with auto-detected Python. </p>
+<p>Constructs a <a class="el" href="a04782.html" title="Test helper for MNE-Python cross-validation.">PythonTestHelper</a> with auto-detected Python. </p>
 
 <p class="definition">Definition at line <a class="el" href="a00419_source.html#l00044">44</a> of file <a class="el" href="a00419_source.html">python_test_helper.cpp</a>.</p>
 
