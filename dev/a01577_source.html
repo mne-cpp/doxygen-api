@@ -533,144 +533,146 @@ $(function() {
 <div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        eigvec = solver.eigenvectors().transpose();</div>
 <div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    }</div>
 <div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="comment">// Auto-detect rank from eigenvalue spectrum</span></div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="keywordflow">if</span> (rank &lt;= 0) {</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="keywordtype">double</span> maxEig = eig.maxCoeff();</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        <span class="keywordtype">double</span> threshold = maxEig * 1e-10;</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        rank = 0;</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; eig.size(); ++i) {</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>            <span class="keywordflow">if</span> (eig(i) &gt; threshold)</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>                ++rank;</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        }</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        <span class="keywordflow">if</span> (rank == 0)</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            rank = 1;</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    }</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <span class="comment">// Build whitening matrix: W = diag(1/sqrt(eig)) @ eigvec</span></div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="comment">// Only use the top &#39;rank&#39; eigenvalues</span></div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    VectorXd invSqrtEig = VectorXd::Zero(eig.size());</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keywordtype">int</span> effectiveRank = 0;</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="comment">// Eigenvalues are in ascending order — use last &#39;rank&#39; values</span></div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = eig.size() - 1; i &gt;= 0 &amp;&amp; effectiveRank &lt; rank; --i) {</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="keywordflow">if</span> (eig(i) &gt; 1e-30) {</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            invSqrtEig(i) = 1.0 / std::sqrt(eig(i));</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            ++effectiveRank;</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        }</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    }</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    MatrixXd whitener = invSqrtEig.asDiagonal() * eigvec;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <span class="comment">// Auto-detect rank from eigenvalue spectrum. FiffCov::prepare_noise_cov already zeroed the null space per</span></div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="comment">// channel type; a threshold relative to the largest (EEG) eigenvalue would drop every MEG component.</span></div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> prepared = noiseCov.<a class="code hl_variable" href="a03718.html#ac810f54346915d9fa64e1350d12235ce">eig</a>.size() &gt; 0 &amp;&amp; noiseCov.<a class="code hl_variable" href="a03718.html#a2e99f614a0b56bf93eb7dd0792a5f606">eigvec</a>.size() &gt; 0;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordflow">if</span> (rank &lt;= 0) {</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <span class="keywordtype">double</span> maxEig = eig.maxCoeff();</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        <span class="keywordtype">double</span> threshold = prepared ? 0.0 : maxEig * 1e-10;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        rank = 0;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; eig.size(); ++i) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>            <span class="keywordflow">if</span> (eig(i) &gt; threshold)</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                ++rank;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        }</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        <span class="keywordflow">if</span> (rank == 0)</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>            rank = 1;</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    }</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="comment">// Build whitening matrix: W = diag(1/sqrt(eig)) @ eigvec</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="comment">// Only use the top &#39;rank&#39; eigenvalues</span></div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    VectorXd invSqrtEig = VectorXd::Zero(eig.size());</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordtype">int</span> effectiveRank = 0;</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="comment">// Eigenvalues are in ascending order — use last &#39;rank&#39; values</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = eig.size() - 1; i &gt;= 0 &amp;&amp; effectiveRank &lt; rank; --i) {</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="keywordflow">if</span> (eig(i) &gt; 1e-30) {</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            invSqrtEig(i) = 1.0 / std::sqrt(eig(i));</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            ++effectiveRank;</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        }</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    }</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="keywordflow">return</span> QPair&lt;MatrixXd, int&gt;(whitener, effectiveRank);</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>}</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    MatrixXd whitener = invSqrtEig.asDiagonal() * eigvec;</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordflow">return</span> QPair&lt;MatrixXd, int&gt;(whitener, effectiveRank);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>}</div>
 </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
-<div class="foldopen" id="foldopen00335" data-start="{" data-end="}">
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno"><a class="line" href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">  335</a></span>QPair&lt;MatrixXd, VectorXd&gt; <a class="code hl_function" href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">INVLIB::computeSourcePsd</a>(</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04066.html">InvSourceEstimate</a>&amp; stc,</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <span class="keywordtype">float</span> sfreq,</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keywordtype">float</span> fmin,</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordtype">float</span> fmax,</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordtype">int</span> nFft)</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>{</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    <span class="keywordflow">if</span> (stc.<a class="code hl_function" href="a04066.html#a53634ed4298b646a89c804648a827274">isEmpty</a>()) {</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;[computeSourcePsd] Empty source estimate.&quot;</span>;</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">return</span> QPair&lt;MatrixXd, VectorXd&gt;();</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    }</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSources = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(stc.<a class="code hl_variable" href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.rows());</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nTimes = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(stc.<a class="code hl_variable" href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.cols());</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordflow">if</span> (nFft &lt;= 0)</div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        nFft = nTimes;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordflow">if</span> (fmax &lt; 0)</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        fmax = sfreq / 2.0f;</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nFreqs = nFft / 2 + 1;</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
+<div class="foldopen" id="foldopen00337" data-start="{" data-end="}">
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno"><a class="line" href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">  337</a></span>QPair&lt;MatrixXd, VectorXd&gt; <a class="code hl_function" href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">INVLIB::computeSourcePsd</a>(</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04066.html">InvSourceEstimate</a>&amp; stc,</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordtype">float</span> sfreq,</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordtype">float</span> fmin,</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keywordtype">float</span> fmax,</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    <span class="keywordtype">int</span> nFft)</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>{</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="keywordflow">if</span> (stc.<a class="code hl_function" href="a04066.html#a53634ed4298b646a89c804648a827274">isEmpty</a>()) {</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;[computeSourcePsd] Empty source estimate.&quot;</span>;</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keywordflow">return</span> QPair&lt;MatrixXd, VectorXd&gt;();</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    }</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSources = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(stc.<a class="code hl_variable" href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.rows());</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nTimes = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(stc.<a class="code hl_variable" href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.cols());</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordflow">if</span> (nFft &lt;= 0)</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        nFft = nTimes;</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keywordflow">if</span> (fmax &lt; 0)</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>        fmax = sfreq / 2.0f;</div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="comment">// Build frequency vector</span></div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    VectorXd freqs(nFreqs);</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; nFreqs; ++f) {</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        freqs(f) = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(f) * sfreq / nFft;</div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    }</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="comment">// Find frequency range indices</span></div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordtype">int</span> fminIdx = 0, fmaxIdx = nFreqs - 1;</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; nFreqs; ++f) {</div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>        <span class="keywordflow">if</span> (freqs(f) &gt;= fmin) {</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>            fminIdx = f;</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>        }</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    }</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = nFreqs - 1; f &gt;= 0; --f) {</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>        <span class="keywordflow">if</span> (freqs(f) &lt;= fmax) {</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>            fmaxIdx = f;</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>        }</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    }</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span> </div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <span class="keywordtype">int</span> nBandFreqs = fmaxIdx - fminIdx + 1;</div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>    <span class="keywordflow">if</span> (nBandFreqs &lt;= 0) {</div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;[computeSourcePsd] No frequencies in range.&quot;</span>;</div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>        <span class="keywordflow">return</span> QPair&lt;MatrixXd, VectorXd&gt;();</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    }</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    <span class="comment">// Compute PSD for each source</span></div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    MatrixXd psd(nSources, nBandFreqs);</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span> </div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; nSources; ++s) {</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>        VectorXd fullPsd = computeRowPsd(stc.<a class="code hl_variable" href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.row(s).transpose(), nFft, sfreq);</div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>        psd.row(s) = fullPsd.segment(fminIdx, nBandFreqs).transpose();</div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    }</div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    VectorXd bandFreqs = freqs.segment(fminIdx, nBandFreqs);</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nFreqs = nFft / 2 + 1;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span> </div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <span class="comment">// Build frequency vector</span></div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    VectorXd freqs(nFreqs);</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; nFreqs; ++f) {</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>        freqs(f) = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(f) * sfreq / nFft;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    }</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="comment">// Find frequency range indices</span></div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    <span class="keywordtype">int</span> fminIdx = 0, fmaxIdx = nFreqs - 1;</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; nFreqs; ++f) {</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>        <span class="keywordflow">if</span> (freqs(f) &gt;= fmin) {</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>            fminIdx = f;</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>        }</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    }</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = nFreqs - 1; f &gt;= 0; --f) {</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        <span class="keywordflow">if</span> (freqs(f) &lt;= fmax) {</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>            fmaxIdx = f;</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>        }</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    }</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    <span class="keywordtype">int</span> nBandFreqs = fmaxIdx - fminIdx + 1;</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="keywordflow">if</span> (nBandFreqs &lt;= 0) {</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>        qWarning() &lt;&lt; <span class="stringliteral">&quot;[computeSourcePsd] No frequencies in range.&quot;</span>;</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        <span class="keywordflow">return</span> QPair&lt;MatrixXd, VectorXd&gt;();</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>    }</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="comment">// Compute PSD for each source</span></div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    MatrixXd psd(nSources, nBandFreqs);</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; nSources; ++s) {</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>        VectorXd fullPsd = computeRowPsd(stc.<a class="code hl_variable" href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">data</a>.row(s).transpose(), nFft, sfreq);</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>        psd.row(s) = fullPsd.segment(fminIdx, nBandFreqs).transpose();</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    }</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
-<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    <span class="keywordflow">return</span> QPair&lt;MatrixXd, VectorXd&gt;(psd, bandFreqs);</div>
-<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>}</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>    VectorXd bandFreqs = freqs.segment(fminIdx, nBandFreqs);</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>    <span class="keywordflow">return</span> QPair&lt;MatrixXd, VectorXd&gt;(psd, bandFreqs);</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span>}</div>
 </div>
-<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span> </div>
-<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span> </div>
-<div class="foldopen" id="foldopen00399" data-start="{" data-end="}">
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno"><a class="line" href="a02564.html#a05fc161e2993e87c3f2906f4d07dda25">  399</a></span>QMap&lt;QString, VectorXd&gt; <a class="code hl_function" href="a02564.html#a05fc161e2993e87c3f2906f4d07dda25">INVLIB::computeSourceBandPower</a>(</div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04066.html">InvSourceEstimate</a>&amp; stc,</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    <span class="keywordtype">float</span> sfreq,</div>
-<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    <span class="keyword">const</span> QMap&lt;QString, QPair&lt;float, float&gt;&gt;&amp; bands)</div>
-<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>{</div>
-<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    QMap&lt;QString, VectorXd&gt; result;</div>
-<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span> </div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>    <span class="keywordflow">if</span> (stc.<a class="code hl_function" href="a04066.html#a53634ed4298b646a89c804648a827274">isEmpty</a>() || bands.isEmpty()) {</div>
-<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    }</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span> </div>
-<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    <span class="comment">// Compute full PSD</span></div>
-<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>    <span class="keyword">auto</span> [psd, freqs] = <a class="code hl_function" href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">computeSourcePsd</a>(stc, sfreq);</div>
-<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>    <span class="keywordflow">if</span> (psd.size() == 0)</div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span> </div>
-<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSources = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(psd.rows());</div>
-<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nFreqs = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(freqs.size());</div>
-<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    <span class="keywordtype">double</span> df = (nFreqs &gt; 1) ? (freqs(1) - freqs(0)) : 1.0;</div>
-<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span> </div>
-<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = bands.constBegin(); it != bands.constEnd(); ++it) {</div>
-<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span>        <span class="keywordtype">float</span> bfmin = it.value().first;</div>
-<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>        <span class="keywordtype">float</span> bfmax = it.value().second;</div>
-<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
-<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>        VectorXd bandPower = VectorXd::Zero(nSources);</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span> </div>
+<div class="foldopen" id="foldopen00401" data-start="{" data-end="}">
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno"><a class="line" href="a02564.html#a05fc161e2993e87c3f2906f4d07dda25">  401</a></span>QMap&lt;QString, VectorXd&gt; <a class="code hl_function" href="a02564.html#a05fc161e2993e87c3f2906f4d07dda25">INVLIB::computeSourceBandPower</a>(</div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04066.html">InvSourceEstimate</a>&amp; stc,</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>    <span class="keywordtype">float</span> sfreq,</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    <span class="keyword">const</span> QMap&lt;QString, QPair&lt;float, float&gt;&gt;&amp; bands)</div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>{</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>    QMap&lt;QString, VectorXd&gt; result;</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>    <span class="keywordflow">if</span> (stc.<a class="code hl_function" href="a04066.html#a53634ed4298b646a89c804648a827274">isEmpty</a>() || bands.isEmpty()) {</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    }</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span> </div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>    <span class="comment">// Compute full PSD</span></div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>    <span class="keyword">auto</span> [psd, freqs] = <a class="code hl_function" href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">computeSourcePsd</a>(stc, sfreq);</div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>    <span class="keywordflow">if</span> (psd.size() == 0)</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span>        <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span> </div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSources = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(psd.rows());</div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nFreqs = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(freqs.size());</div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span>    <span class="keywordtype">double</span> df = (nFreqs &gt; 1) ? (freqs(1) - freqs(0)) : 1.0;</div>
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno">  420</span> </div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = bands.constBegin(); it != bands.constEnd(); ++it) {</div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>        <span class="keywordtype">float</span> bfmin = it.value().first;</div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>        <span class="keywordtype">float</span> bfmax = it.value().second;</div>
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span> </div>
-<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; nFreqs; ++f) {</div>
-<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>            <span class="keywordflow">if</span> (freqs(f) &gt;= bfmin &amp;&amp; freqs(f) &lt;= bfmax) {</div>
-<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>                bandPower += psd.col(f) * df;</div>
-<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>            }</div>
-<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>        }</div>
-<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span> </div>
-<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>        result[it.key()] = bandPower;</div>
-<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span>    }</div>
-<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span> </div>
-<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>}</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>        VectorXd bandPower = VectorXd::Zero(nSources);</div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span> </div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; nFreqs; ++f) {</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>            <span class="keywordflow">if</span> (freqs(f) &gt;= bfmin &amp;&amp; freqs(f) &lt;= bfmax) {</div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>                bandPower += psd.col(f) * df;</div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>            }</div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>        }</div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span> </div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>        result[it.key()] = bandPower;</div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span>    }</div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span> </div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>}</div>
 </div>
 <div class="ttc" id="aa00200_html"><div class="ttname"><a href="a00200.html">fiff_evoked.h</a></div><div class="ttdoc">Single averaged evoked response: time axis, samples, baseline, channel info and processing history.</div></div>
 <div class="ttc" id="aa00224_html"><div class="ttname"><a href="a00224.html">fiff_info.h</a></div><div class="ttdoc">Full FIFF measurement metadata: everything from FIFFB_MEAS / FIFFB_MEAS_INFO needed to interpret a re...</div></div>
@@ -684,12 +686,12 @@ $(function() {
 <div class="ttc" id="aa02547_html"><div class="ttname"><a href="a02547.html">MNELIB</a></div><div class="ttdoc">Core MNE data structures (source spaces, source estimates, hemispheres).</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00058">connectivitysettings.h:59</a></div></div>
 <div class="ttc" id="aa02549_html"><div class="ttname"><a href="a02549.html">FIFFLIB</a></div><div class="ttdoc">FIFF file I/O, in-memory data structures and high-level readers/writers.</div><div class="ttdef"><b>Definition</b> <a href="a01955_source.html#l00068">connectivitysettings.h:69</a></div></div>
 <div class="ttc" id="aa02564_html"><div class="ttname"><a href="a02564.html">INVLIB</a></div><div class="ttdoc">Inverse source estimation (MNE, dSPM, sLORETA, dipole fitting).</div><div class="ttdef"><b>Definition</b> <a href="a00887_source.html#l00042">braintreemodel.h:43</a></div></div>
-<div class="ttc" id="aa02564_html_a05fc161e2993e87c3f2906f4d07dda25"><div class="ttname"><a href="a02564.html#a05fc161e2993e87c3f2906f4d07dda25">INVLIB::computeSourceBandPower</a></div><div class="ttdeci">INVSHARED_EXPORT QMap&lt; QString, Eigen::VectorXd &gt; computeSourceBandPower(const InvSourceEstimate &amp;stc, float sfreq, const QMap&lt; QString, QPair&lt; float, float &gt; &gt; &amp;bands)</div><div class="ttdoc">Compute band power for source estimate.</div><div class="ttdef"><b>Definition</b> <a href="#l00399">inv_convenience.cpp:399</a></div></div>
+<div class="ttc" id="aa02564_html_a05fc161e2993e87c3f2906f4d07dda25"><div class="ttname"><a href="a02564.html#a05fc161e2993e87c3f2906f4d07dda25">INVLIB::computeSourceBandPower</a></div><div class="ttdeci">INVSHARED_EXPORT QMap&lt; QString, Eigen::VectorXd &gt; computeSourceBandPower(const InvSourceEstimate &amp;stc, float sfreq, const QMap&lt; QString, QPair&lt; float, float &gt; &gt; &amp;bands)</div><div class="ttdoc">Compute band power for source estimate.</div><div class="ttdef"><b>Definition</b> <a href="#l00401">inv_convenience.cpp:401</a></div></div>
 <div class="ttc" id="aa02564_html_a501589f0aa25cee2f2c0fb56ae23b841"><div class="ttname"><a href="a02564.html#a501589f0aa25cee2f2c0fb56ae23b841">INVLIB::computeWhitener</a></div><div class="ttdeci">INVSHARED_EXPORT QPair&lt; Eigen::MatrixXd, int &gt; computeWhitener(const FIFFLIB::FiffCov &amp;noiseCov, int rank=0)</div><div class="ttdoc">Compute whitening matrix from a noise covariance.</div><div class="ttdef"><b>Definition</b> <a href="#l00277">inv_convenience.cpp:277</a></div></div>
 <div class="ttc" id="aa02564_html_a573704fa89344caeef6fc881032b093d"><div class="ttname"><a href="a02564.html#a573704fa89344caeef6fc881032b093d">INVLIB::estimateSnr</a></div><div class="ttdeci">INVSHARED_EXPORT QPair&lt; Eigen::VectorXd, Eigen::VectorXd &gt; estimateSnr(const FIFFLIB::FiffEvoked &amp;evoked, const MNELIB::MNEInverseOperator &amp;inverse)</div><div class="ttdoc">Estimate the SNR of evoked data as a function of time.</div><div class="ttdef"><b>Definition</b> <a href="#l00219">inv_convenience.cpp:219</a></div></div>
 <div class="ttc" id="aa02564_html_a985f6b44a2c1ab7e58f92a7a977dd6c3"><div class="ttname"><a href="a02564.html#a985f6b44a2c1ab7e58f92a7a977dd6c3">INVLIB::applyInverseRaw</a></div><div class="ttdeci">INVSHARED_EXPORT InvSourceEstimate applyInverseRaw(const FIFFLIB::FiffRawData &amp;raw, const MNELIB::MNEInverseOperator &amp;inverse, float lambda2, const QString &amp;method=&quot;dSPM&quot;, int from=-1, int to=-1, bool pickNormal=false)</div><div class="ttdoc">Apply inverse operator to raw data.</div><div class="ttdef"><b>Definition</b> <a href="#l00176">inv_convenience.cpp:176</a></div></div>
 <div class="ttc" id="aa02564_html_abe0943a15a8e12c506733cf52dc32fd0"><div class="ttname"><a href="a02564.html#abe0943a15a8e12c506733cf52dc32fd0">INVLIB::applyInverseEpochs</a></div><div class="ttdeci">INVSHARED_EXPORT QList&lt; InvSourceEstimate &gt; applyInverseEpochs(const QList&lt; Eigen::MatrixXd &gt; &amp;epochs, const MNELIB::MNEInverseOperator &amp;inverse, float lambda2, const QString &amp;method=&quot;dSPM&quot;, float tmin=0.0f, float tstep=0.001f, bool pickNormal=false)</div><div class="ttdoc">Apply inverse operator to each epoch in a list.</div></div>
-<div class="ttc" id="aa02564_html_af21e2c532c8ca328ff80962cc10a089a"><div class="ttname"><a href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">INVLIB::computeSourcePsd</a></div><div class="ttdeci">INVSHARED_EXPORT QPair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; computeSourcePsd(const InvSourceEstimate &amp;stc, float sfreq, float fmin=0.0f, float fmax=-1.0f, int nFft=0)</div><div class="ttdoc">Compute PSD for a source estimate using Welch&#39;s method.</div><div class="ttdef"><b>Definition</b> <a href="#l00335">inv_convenience.cpp:335</a></div></div>
+<div class="ttc" id="aa02564_html_af21e2c532c8ca328ff80962cc10a089a"><div class="ttname"><a href="a02564.html#af21e2c532c8ca328ff80962cc10a089a">INVLIB::computeSourcePsd</a></div><div class="ttdeci">INVSHARED_EXPORT QPair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; computeSourcePsd(const InvSourceEstimate &amp;stc, float sfreq, float fmin=0.0f, float fmax=-1.0f, int nFft=0)</div><div class="ttdoc">Compute PSD for a source estimate using Welch&#39;s method.</div><div class="ttdef"><b>Definition</b> <a href="#l00337">inv_convenience.cpp:337</a></div></div>
 <div class="ttc" id="aa03718_html"><div class="ttname"><a href="a03718.html">FIFFLIB::FiffCov</a></div><div class="ttdoc">FIFF noise / data covariance: matrix, channel names, kind, applied projectors, bads,...</div><div class="ttdef"><b>Definition</b> <a href="a00335_source.html#l00080">fiff_cov.h:81</a></div></div>
 <div class="ttc" id="aa03718_html_a2626d9dc2dc519268629bf997f6b2dcb"><div class="ttname"><a href="a03718.html#a2626d9dc2dc519268629bf997f6b2dcb">FIFFLIB::FiffCov::dim</a></div><div class="ttdeci">fiff_int_t dim</div><div class="ttdef"><b>Definition</b> <a href="a00335_source.html#l00248">fiff_cov.h:248</a></div></div>
 <div class="ttc" id="aa03718_html_a2e99f614a0b56bf93eb7dd0792a5f606"><div class="ttname"><a href="a03718.html#a2e99f614a0b56bf93eb7dd0792a5f606">FIFFLIB::FiffCov::eigvec</a></div><div class="ttdeci">Eigen::MatrixXd eigvec</div><div class="ttdef"><b>Definition</b> <a href="a00335_source.html#l00255">fiff_cov.h:255</a></div></div>
@@ -708,17 +710,17 @@ $(function() {
 <div class="ttc" id="aa03814_html_a40d816b15fb9f590a49677316a75eb8b"><div class="ttname"><a href="a03814.html#a40d816b15fb9f590a49677316a75eb8b">FIFFLIB::FiffRawData::read_raw_segment</a></div><div class="ttdeci">bool read_raw_segment(Eigen::MatrixXd &amp;data, Eigen::MatrixXd &amp;times, fiff_int_t from=-1, fiff_int_t to=-1, const Eigen::RowVectorXi &amp;sel=defaultRowVectorXi, bool do_debug=false) const</div></div>
 <div class="ttc" id="aa03814_html_a7be676d089d03325fd7c08cc58d17c2f"><div class="ttname"><a href="a03814.html#a7be676d089d03325fd7c08cc58d17c2f">FIFFLIB::FiffRawData::last_samp</a></div><div class="ttdeci">fiff_int_t last_samp</div><div class="ttdef"><b>Definition</b> <a href="a00302_source.html#l00240">fiff_raw_data.h:240</a></div></div>
 <div class="ttc" id="aa03814_html_aa7f34c5b4601b59bf79945f4cd8f9e4a"><div class="ttname"><a href="a03814.html#aa7f34c5b4601b59bf79945f4cd8f9e4a">FIFFLIB::FiffRawData::first_samp</a></div><div class="ttdeci">fiff_int_t first_samp</div><div class="ttdef"><b>Definition</b> <a href="a00302_source.html#l00239">fiff_raw_data.h:239</a></div></div>
-<div class="ttc" id="aa04066_html"><div class="ttname"><a href="a04066.html">INVLIB::InvSourceEstimate</a></div><div class="ttdoc">Source-space inverse-solution container with dense grid plus optional focal-dipole,...</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00087">inv_source_estimate.h:88</a></div></div>
-<div class="ttc" id="aa04066_html_a1970be346d6e1793422ffb9a8dc48058"><div class="ttname"><a href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">INVLIB::InvSourceEstimate::data</a></div><div class="ttdeci">Eigen::MatrixXd data</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00251">inv_source_estimate.h:251</a></div></div>
-<div class="ttc" id="aa04066_html_a53634ed4298b646a89c804648a827274"><div class="ttname"><a href="a04066.html#a53634ed4298b646a89c804648a827274">INVLIB::InvSourceEstimate::isEmpty</a></div><div class="ttdeci">bool isEmpty() const</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00327">inv_source_estimate.h:327</a></div></div>
-<div class="ttc" id="aa04102_html"><div class="ttname"><a href="a04102.html">INVLIB::InvMinimumNorm</a></div><div class="ttdoc">Minimum norm estimation.</div><div class="ttdef"><b>Definition</b> <a href="a01595_source.html#l00069">inv_minimum_norm.h:70</a></div></div>
+<div class="ttc" id="aa04066_html"><div class="ttname"><a href="a04066.html">INVLIB::InvSourceEstimate</a></div><div class="ttdoc">Source-space inverse-solution container with dense grid plus optional focal-dipole,...</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00091">inv_source_estimate.h:92</a></div></div>
+<div class="ttc" id="aa04066_html_a1970be346d6e1793422ffb9a8dc48058"><div class="ttname"><a href="a04066.html#a1970be346d6e1793422ffb9a8dc48058">INVLIB::InvSourceEstimate::data</a></div><div class="ttdeci">Eigen::MatrixXd data</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00255">inv_source_estimate.h:255</a></div></div>
+<div class="ttc" id="aa04066_html_a53634ed4298b646a89c804648a827274"><div class="ttname"><a href="a04066.html#a53634ed4298b646a89c804648a827274">INVLIB::InvSourceEstimate::isEmpty</a></div><div class="ttdeci">bool isEmpty() const</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00331">inv_source_estimate.h:331</a></div></div>
+<div class="ttc" id="aa04102_html"><div class="ttname"><a href="a04102.html">INVLIB::InvMinimumNorm</a></div><div class="ttdoc">Minimum norm estimation.</div><div class="ttdef"><b>Definition</b> <a href="a01595_source.html#l00071">inv_minimum_norm.h:72</a></div></div>
 <div class="ttc" id="aa04102_html_a7b822eadc4f15f058e7de81398cacdaf"><div class="ttname"><a href="a04102.html#a7b822eadc4f15f058e7de81398cacdaf">INVLIB::InvMinimumNorm::calculateInverse</a></div><div class="ttdeci">virtual InvSourceEstimate calculateInverse(const FIFFLIB::FiffEvoked &amp;p_fiffEvoked, bool pick_normal=false)</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00086">inv_minimum_norm.cpp:86</a></div></div>
 <div class="ttc" id="aa04102_html_aa270da335c1284edeff58de5aa521d00"><div class="ttname"><a href="a04102.html#aa270da335c1284edeff58de5aa521d00">INVLIB::InvMinimumNorm::doInverseSetup</a></div><div class="ttdeci">virtual void doInverseSetup(qint32 nave, bool pick_normal=false)</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00173">inv_minimum_norm.cpp:173</a></div></div>
 <div class="ttc" id="aa04438_html"><div class="ttname"><a href="a04438.html">MNELIB::MNEInverseOperator</a></div><div class="ttdoc">MNE-style inverse operator.</div><div class="ttdef"><b>Definition</b> <a href="a02240_source.html#l00127">mne_inverse_operator.h:128</a></div></div>
 <div class="ttc" id="aa04438_html_a100968ca2d3ffe1819c693f8082b2baf"><div class="ttname"><a href="a04438.html#a100968ca2d3ffe1819c693f8082b2baf">MNELIB::MNEInverseOperator::proj</a></div><div class="ttdeci">Eigen::MatrixXd proj</div><div class="ttdef"><b>Definition</b> <a href="a02240_source.html#l00373">mne_inverse_operator.h:373</a></div></div>
 <div class="ttc" id="aa04438_html_a39d4d0f7901d9ae57395c4d88d977086"><div class="ttname"><a href="a04438.html#a39d4d0f7901d9ae57395c4d88d977086">MNELIB::MNEInverseOperator::projs</a></div><div class="ttdeci">QList&lt; FIFFLIB::FiffProj &gt; projs</div><div class="ttdef"><b>Definition</b> <a href="a02240_source.html#l00372">mne_inverse_operator.h:372</a></div></div>
 <div class="ttc" id="aa04438_html_a7ddb5040c4d5d39013c58be177906a43"><div class="ttname"><a href="a04438.html#a7ddb5040c4d5d39013c58be177906a43">MNELIB::MNEInverseOperator::sing</a></div><div class="ttdeci">Eigen::VectorXd sing</div><div class="ttdef"><b>Definition</b> <a href="a02240_source.html#l00360">mne_inverse_operator.h:360</a></div></div>
-<div class="ttc" id="aa04438_html_a8da4cff556f5e23adc1f03c0285620bb"><div class="ttname"><a href="a04438.html#a8da4cff556f5e23adc1f03c0285620bb">MNELIB::MNEInverseOperator::prepare_inverse_operator</a></div><div class="ttdeci">MNEInverseOperator prepare_inverse_operator(qint32 nave, float lambda2, bool dSPM, bool sLORETA=false) const</div><div class="ttdoc">Prepare the inverse operator for source estimation.</div><div class="ttdef"><b>Definition</b> <a href="a02426_source.html#l00797">mne_inverse_operator.cpp:797</a></div></div>
+<div class="ttc" id="aa04438_html_a8da4cff556f5e23adc1f03c0285620bb"><div class="ttname"><a href="a04438.html#a8da4cff556f5e23adc1f03c0285620bb">MNELIB::MNEInverseOperator::prepare_inverse_operator</a></div><div class="ttdeci">MNEInverseOperator prepare_inverse_operator(qint32 nave, float lambda2, bool dSPM, bool sLORETA=false) const</div><div class="ttdoc">Prepare the inverse operator for source estimation.</div><div class="ttdef"><b>Definition</b> <a href="a02426_source.html#l00795">mne_inverse_operator.cpp:795</a></div></div>
 <div class="ttc" id="aa04438_html_abb9543b6e31da87a643377bfc45f5bda"><div class="ttname"><a href="a04438.html#abb9543b6e31da87a643377bfc45f5bda">MNELIB::MNEInverseOperator::whitener</a></div><div class="ttdeci">Eigen::MatrixXd whitener</div><div class="ttdef"><b>Definition</b> <a href="a02240_source.html#l00374">mne_inverse_operator.h:374</a></div></div>
 <div class="ttc" id="aa04438_html_ad8f9cd90684768c57395168498e76f54"><div class="ttname"><a href="a04438.html#ad8f9cd90684768c57395168498e76f54">MNELIB::MNEInverseOperator::noise_cov</a></div><div class="ttdeci">FIFFLIB::FiffCov::SDPtr noise_cov</div><div class="ttdef"><b>Definition</b> <a href="a02240_source.html#l00364">mne_inverse_operator.h:364</a></div></div>
 <div class="ttc" id="aa04438_html_afa1e75cae521fc1294566642690dec8f"><div class="ttname"><a href="a04438.html#afa1e75cae521fc1294566642690dec8f">MNELIB::MNEInverseOperator::eigen_fields</a></div><div class="ttdeci">FIFFLIB::FiffNamedMatrix::SDPtr eigen_fields</div><div class="ttdef"><b>Definition</b> <a href="a02240_source.html#l00363">mne_inverse_operator.h:363</a></div></div>
