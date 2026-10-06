@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['layoutloader_0',['LayoutLoader',['../a04666.html',1,'UTILSLIB']]],
-  ['layoutmaker_1',['LayoutMaker',['../a04674.html',1,'UTILSLIB']]],
-  ['layoutscene_2',['LayoutScene',['../a02990.html',1,'DISPLIB']]],
-  ['linalg_3',['Linalg',['../a04162.html',1,'UTILSLIB']]],
-  ['lineplot_4',['LinePlot',['../a02810.html',1,'DISPLIB']]],
-  ['livemarker_5',['LiveMarker',['../a03326.html',1,'']]],
-  ['lofbadchannelparams_6',['LofBadChannelParams',['../a03394.html',1,'UTILSLIB']]]
+  ['layoutloader_0',['LayoutLoader',['../a04734.html',1,'UTILSLIB']]],
+  ['layoutmaker_1',['LayoutMaker',['../a04742.html',1,'UTILSLIB']]],
+  ['layoutscene_2',['LayoutScene',['../a03026.html',1,'DISPLIB']]],
+  ['linalg_3',['Linalg',['../a04202.html',1,'UTILSLIB']]],
+  ['lineplot_4',['LinePlot',['../a02846.html',1,'DISPLIB']]],
+  ['livemarker_5',['LiveMarker',['../a03362.html',1,'']]],
+  ['lofbadchannelparams_6',['LofBadChannelParams',['../a03430.html',1,'UTILSLIB']]]
 ];
