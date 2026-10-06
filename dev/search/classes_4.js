@@ -5,7 +5,7 @@ var searchData=
   ['electrodearray_2',['ElectrodeArray',['../a03258.html',1,'DISP3DLIB']]],
   ['electrodecontact_3',['ElectrodeContact',['../a03254.html',1,'DISP3DLIB']]],
   ['electrodeobject_4',['ElectrodeObject',['../a03262.html',1,'DISP3DLIB']]],
-  ['electrodeposition_5',['ElectrodePosition',['../a04746.html',1,'UTILSLIB']]],
+  ['electrodeposition_5',['ElectrodePosition',['../a04742.html',1,'UTILSLIB']]],
   ['entry_6',['Entry',['../a04578.html',1,'MNELIB::RingBuffer']]],
   ['eogregression_7',['EogRegression',['../a03478.html',1,'UTILSLIB']]],
   ['epochextractor_8',['EpochExtractor',['../a03486.html',1,'UTILSLIB']]],

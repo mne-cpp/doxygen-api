@@ -2,8 +2,8 @@ var searchData=
 [
   ['uid_0',['uid',['../a04178.html#aa2ee49a6de12896903c4ba333faebad7',1,'LSLLIB::stream_info']]],
   ['unbiasedsquaredphaselagindex_1',['UnbiasedSquaredPhaseLagIndex',['../a02786.html#a4ac0fe3da7ca69059635040de39b126d',1,'CONNECTIVITYLIB::UnbiasedSquaredPhaseLagIndex']]],
-  ['undolast_2',['undoLast',['../a04758.html#a924f4c22a3418f1a9b7fbea442c06840',1,'UTILSLIB::AcquiredPoints']]],
-  ['units_3',['units',['../a04766.html#abe68b71942f50a3d96f894d619ad5c22',1,'UTILSLIB::FastrakParser']]],
+  ['undolast_2',['undoLast',['../a04754.html#a924f4c22a3418f1a9b7fbea442c06840',1,'UTILSLIB::AcquiredPoints']]],
+  ['units_3',['units',['../a04762.html#abe68b71942f50a3d96f894d619ad5c22',1,'UTILSLIB::FastrakParser']]],
   ['unitscale_4',['unitScale',['../a02674.html#aad299690707a272a607455db9c7b9634',1,'BIDSLIB::BrainVisionReader']]],
   ['unproject_5',['unproject',['../a03178.html#a0fd0857d6f884aa208ba26cd2d8fc8bc',1,'RayPicker']]],
   ['update_6',['update',['../a02706.html#abfe57b4aa8b3e796e127bb5acc0308c4',1,'COMLIB::CommandManager::update()'],['../a04722.html#ac18f6636cd2d62345063f24a9bdf3784',1,'UTILSLIB::IObserver::update()']]],
@@ -39,7 +39,7 @@ var searchData=
   ['updatevalue_36',['updateValue',['../a03118.html#a81fd96a50e20d91991942dc45af36d72',1,'DISPLIB::SpectrumSettingsView']]],
   ['updateview_37',['updateView',['../a02890.html#ae70d4af2b2f79684a01739d07754c5e3',1,'DISPLIB::ButterflyView']]],
   ['updateviewport_38',['updateViewport',['../a02874.html#a637066ceea589dff8ae96fbb7bf6d8aa',1,'DISPLIB::AverageLayoutView::updateViewport()'],['../a02890.html#a99471e40ad6d0c5bfa837c2b00feeae6',1,'DISPLIB::ButterflyView::updateViewport()'],['../a03110.html#ab2ffcbc521d0e4a4ed8ba6b81276be9a',1,'DISPLIB::RtFiffRawView::updateViewport()']]],
-  ['uphint_39',['upHint',['../a03306.html#a525b99f56aa5687421c044583700a76f',1,'DISP3DLIB::VideoOverlay::upHint()'],['../a04934.html#a525b99f56aa5687421c044583700a76f',1,'VideoOverlay::upHint()']]],
+  ['uphint_39',['upHint',['../a03306.html#a525b99f56aa5687421c044583700a76f',1,'DISP3DLIB::VideoOverlay::upHint()'],['../a04930.html#a525b99f56aa5687421c044583700a76f',1,'VideoOverlay::upHint()']]],
   ['upstreamnodes_40',['upstreamNodes',['../a04254.html#ae5f3c74612b4eebac6d077c1e6876c57',1,'MNALIB::MnaGraph']]],
   ['usefullrank_41',['useFullRank',['../a04138.html#a92d14534b5e186cebc50e462feccc221',1,'INVLIB::InvRapMusic']]]
 ];

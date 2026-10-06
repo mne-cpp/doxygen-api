@@ -6,7 +6,7 @@ var searchData=
   ['decodingspoc_3',['DecodingSpoc',['../a02822.html',1,'DECODINGLIB']]],
   ['decodingssd_4',['DecodingSsd',['../a02826.html',1,'DECODINGLIB']]],
   ['derivationrule_5',['DerivationRule',['../a03446.html',1,'UTILSLIB']]],
-  ['digitizedpoint_6',['DigitizedPoint',['../a04754.html',1,'UTILSLIB']]],
+  ['digitizedpoint_6',['DigitizedPoint',['../a04750.html',1,'UTILSLIB']]],
   ['digitizersettreeitem_7',['DigitizerSetTreeItem',['../a03194.html',1,'']]],
   ['digitizertreeitem_8',['DigitizerTreeItem',['../a03198.html',1,'']]],
   ['dipfiterror_9',['DipFitError',['../a04030.html',1,'INVLIB']]],

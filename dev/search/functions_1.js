@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['backendname_0',['backendName',['../a04774.html#af5cb2d8e747711b213da4be0ea275c13',1,'UTILSLIB::PolhemusConnection']]],
+  ['backendname_0',['backendName',['../a04770.html#af5cb2d8e747711b213da4be0ea275c13',1,'UTILSLIB::PolhemusConnection']]],
   ['backgroundcolor_1',['backgroundColor',['../a02898.html#aece7c3d261b69b9ffbd4a58e691ef147',1,'DISPLIB::ChannelDataView::backgroundColor()'],['../a02978.html#a910f7e710f4670b5212ee543a6a1c58f',1,'DISPLIB::ChannelRhiView::backgroundColor()']]],
   ['backgroundcolorchanged_2',['backgroundColorChanged',['../a02930.html#a298505bab4703dfd487f9edcbea8948d',1,'DISPLIB::FiffRawViewSettings']]],
   ['badchannelshidden_3',['badChannelsHidden',['../a02898.html#a5e2dd2795b500a334b0a06aa41d77bea',1,'DISPLIB::ChannelDataView']]],

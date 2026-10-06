@@ -45,7 +45,7 @@ var searchData=
   ['newsmootheddataavailable_42',['newSmoothedDataAvailable',['../a03386.html#aa225dc3d6e0d5a6ecfa2443990400341',1,'RtSourceDataController']]],
   ['newsubject_43',['newSubject',['../a03102.html#a1377212638c1dc50b9a55ef1f5803ff8',1,'DISPLIB::ProjectSettingsView']]],
   ['next_5flegen_44',['next_legen',['../a03938.html#abd616f6de7487769f9d3e4c3707c32f4',1,'FWDLIB::FwdEegSphereModel']]],
-  ['nextsample_45',['nextSample',['../a04766.html#a4c3d8b16660b9eaff2ab2e2b282fd63c',1,'UTILSLIB::FastrakParser']]],
+  ['nextsample_45',['nextSample',['../a04762.html#a4c3d8b16660b9eaff2ab2e2b282fd63c',1,'UTILSLIB::FastrakParser']]],
   ['nfids_46',['nfids',['../a03750.html#a41eafd3dc818ede31448df3f38d9f59e',1,'FIFFLIB::FiffDigitizerData']]],
   ['nfreqs_47',['nFreqs',['../a03958.html#a80bc1b8ac5cbbfabf65d7ef205decf28',1,'INVLIB::InvBeamformer']]],
   ['nlayer_48',['nlayer',['../a03938.html#a786c93e59c75053310716cf8edfae5ec',1,'FWDLIB::FwdEegSphereModel']]],

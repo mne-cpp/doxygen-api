@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['unbuffered_0',['unbuffered',['../a04794.html#add6e3046ea09afe6e86dfc4b3701ffbe',1,'UTILSLIB::PythonRunnerConfig']]],
+  ['unbuffered_0',['unbuffered',['../a04790.html#add6e3046ea09afe6e86dfc4b3701ffbe',1,'UTILSLIB::PythonRunnerConfig']]],
   ['undo_1',['undo',['../a04386.html#a2017c6fb8ed5179b495f5f227ce55c47',1,'MNELIB::MNECTFCompDataSet']]],
   ['uniformbuffer_2',['uniformBuffer',['../a03334.html#a7ebaab325f59c893c20ce5d305134203',1,'BrainRenderer::Impl::uniformBuffer'],['../a03342.html#ab43a70572f07108684fe74b26a1d6bd2',1,'BrainRenderer::Impl::VideoOverlayResources::uniformBuffer'],['../a03350.html#ad7dcd6c991836a64d7eb4e681714813b',1,'BrainRenderer::Impl::SliceResources::uniformBuffer']]],
   ['uniformbufferoffsetalignment_3',['uniformBufferOffsetAlignment',['../a03334.html#a63b8406cc04b338e646874594224d77f',1,'BrainRenderer::Impl::uniformBufferOffsetAlignment'],['../a03342.html#a84b2605667720bb2c68e905f30589c94',1,'BrainRenderer::Impl::VideoOverlayResources::uniformBufferOffsetAlignment'],['../a03350.html#a89e008c3725d83d628f0da3784a32699',1,'BrainRenderer::Impl::SliceResources::uniformBufferOffsetAlignment']]],
   ['unit_4',['unit',['../a02670.html#a35bbfeb1f9681208dbd7a62ffca850d5',1,'BIDSLIB::BrainVisionChannelInfo::unit'],['../a03714.html#a5e79cf6d8e0efa7e5f17b146d4895465',1,'FIFFLIB::FiffChInfo::unit']]],
   ['unit_5fmul_5',['unit_mul',['../a03714.html#a9d718bd3658c1519a1b22214049b7f9f',1,'FIFFLIB::FiffChInfo']]],
-  ['units_6',['units',['../a02626.html#a8a2f2267b8435db7daac2ef5e13772b3',1,'BIDSLIB::BidsChannel::units'],['../a02630.html#aedbb23e7a521a7101bee99f26c1f2d6f',1,'BIDSLIB::BidsCoordinateSystem::units'],['../a04450.html#a68a27a26e0e7ed08c3acfe20c0e85ff7',1,'MNELIB::MNEInverseOperator::units'],['../a04770.html#aab1637267b84f2f8b863843038e8447e',1,'UTILSLIB::PolhemusSerialConfig::units']]],
+  ['units_6',['units',['../a02626.html#a8a2f2267b8435db7daac2ef5e13772b3',1,'BIDSLIB::BidsChannel::units'],['../a02630.html#aedbb23e7a521a7101bee99f26c1f2d6f',1,'BIDSLIB::BidsCoordinateSystem::units'],['../a04450.html#a68a27a26e0e7ed08c3acfe20c0e85ff7',1,'MNELIB::MNEInverseOperator::units'],['../a04766.html#aab1637267b84f2f8b863843038e8447e',1,'UTILSLIB::PolhemusSerialConfig::units']]],
   ['up_7',['up',['../a04498.html#afe914ca9076dc79b23e4cde66f8a2e63',1,'MNELIB::MNEMshDisplaySurface::up'],['../a04502.html#ad2be3085af6a54514007d99f6b105d87',1,'MNELIB::MNEMshDisplaySurfaceSet::up']]],
   ['uploadeddepthframegen_8',['uploadedDepthFrameGen',['../a03342.html#ab0592934b632d4337731325b1c91d0be',1,'BrainRenderer::Impl::VideoOverlayResources']]],
   ['uploadedframegen_9',['uploadedFrameGen',['../a03342.html#a94ab0aa9577392e5fb48459ca8bbf127',1,'BrainRenderer::Impl::VideoOverlayResources']]],
