@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['z_0',['Z',['../a01202.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a01517.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a02372.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a02246.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a02534.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a02429.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02477.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a02486.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
-  ['z_1',['z',['../a02626.html#a6000c4e374daa8ab8f117fc0a04044ef',1,'BIDSLIB::BidsElectrode::z'],['../a04110.html#a0acac84082bf48e4392f88ff21d01da1',1,'INVLIB::InvDipole::z()'],['../a04110.html#aabd08175add3fe60133cce184cf3fe0f',1,'INVLIB::InvDipole::z() const']]],
-  ['z_5fras_2',['z_ras',['../a04610.html#a634163daaf57c07a8de773081efe2cc2',1,'MNELIB::MNEVolGeom::z_ras'],['../a04646.html#aaacc6e42c6af08234cfed5aa0d27273b',1,'MRILIB::MriVolData::z_ras']]],
-  ['zoom_3',['zoom',['../a03138.html#af2dfae7a90fad04e9ea67e42458344c3',1,'SubView::zoom'],['../a02886.html#a2cdacc5acaea0ee45226dec817c6de77',1,'DISPLIB::ChannelDataView::zoom()'],['../a03158.html#af5bfc67a76c35d61154a0df66c96595c',1,'CameraController::zoom()']]],
-  ['zoomchanged_4',['zoomChanged',['../a02918.html#aeedb53d7b3f4b2c56f2fc690b7971813',1,'DISPLIB::FiffRawViewSettings']]],
-  ['zoomto_5',['zoomTo',['../a02966.html#af489ead92aeac1783beff3802fbec7bf',1,'DISPLIB::ChannelRhiView']]],
-  ['zscoremode_6',['zScoreMode',['../a02886.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'DISPLIB::ChannelDataView::zScoreMode()'],['../a02966.html#ad4bad855a6831ac8068e0f01f67fe3d9',1,'DISPLIB::ChannelRhiView::zScoreMode()']]],
-  ['zscoremodetoggled_7',['zScoreModeToggled',['../a02886.html#a642bfc928bfe34f65862314f30a128b9',1,'DISPLIB::ChannelDataView']]],
-  ['zscorerectify_8',['zScoreRectify',['../a04094.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'INVLIB::InvCMNE']]],
-  ['zscores_9',['zScores',['../a03426.html#ad76d21c4d4038d369882d265595739de',1,'UTILSLIB::BadChannelsMaxwellResult']]],
-  ['zsize_10',['zsize',['../a04610.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04646.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
+  ['z_0',['Z',['../a01196.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a01511.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a02351.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a02240.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a02510.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a02408.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02453.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a02462.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
+  ['z_1',['z',['../a02602.html#a6000c4e374daa8ab8f117fc0a04044ef',1,'BIDSLIB::BidsElectrode::z'],['../a04082.html#a0acac84082bf48e4392f88ff21d01da1',1,'INVLIB::InvDipole::z()'],['../a04082.html#aabd08175add3fe60133cce184cf3fe0f',1,'INVLIB::InvDipole::z() const']]],
+  ['z_5fras_2',['z_ras',['../a04562.html#a634163daaf57c07a8de773081efe2cc2',1,'MNELIB::MNEVolGeom::z_ras'],['../a04598.html#aaacc6e42c6af08234cfed5aa0d27273b',1,'MRILIB::MriVolData::z_ras']]],
+  ['zoom_3',['zoom',['../a03114.html#af2dfae7a90fad04e9ea67e42458344c3',1,'SubView::zoom'],['../a02862.html#a2cdacc5acaea0ee45226dec817c6de77',1,'DISPLIB::ChannelDataView::zoom()'],['../a03134.html#af5bfc67a76c35d61154a0df66c96595c',1,'CameraController::zoom()']]],
+  ['zoomchanged_4',['zoomChanged',['../a02894.html#aeedb53d7b3f4b2c56f2fc690b7971813',1,'DISPLIB::FiffRawViewSettings']]],
+  ['zoomto_5',['zoomTo',['../a02942.html#af489ead92aeac1783beff3802fbec7bf',1,'DISPLIB::ChannelRhiView']]],
+  ['zscoremode_6',['zScoreMode',['../a02862.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'DISPLIB::ChannelDataView::zScoreMode()'],['../a02942.html#ad4bad855a6831ac8068e0f01f67fe3d9',1,'DISPLIB::ChannelRhiView::zScoreMode()']]],
+  ['zscoremodetoggled_7',['zScoreModeToggled',['../a02862.html#a642bfc928bfe34f65862314f30a128b9',1,'DISPLIB::ChannelDataView']]],
+  ['zscorerectify_8',['zScoreRectify',['../a04066.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'INVLIB::InvCMNE']]],
+  ['zscores_9',['zScores',['../a03402.html#ad76d21c4d4038d369882d265595739de',1,'UTILSLIB::BadChannelsMaxwellResult']]],
+  ['zsize_10',['zsize',['../a04562.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04598.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
 ];
