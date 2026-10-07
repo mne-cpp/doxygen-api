@@ -12,7 +12,7 @@ var searchData=
   ['polhemusconnection_9',['PolhemusConnection',['../a04769.html',1,'UTILSLIB']]],
   ['polhemuscoregistration_10',['PolhemusCoregistration',['../a04777.html',1,'UTILSLIB']]],
   ['polhemusserialconfig_11',['PolhemusSerialConfig',['../a04765.html',1,'UTILSLIB']]],
-  ['polylineobject_12',['PolylineObject',['../a03285.html',1,'']]],
+  ['polylineobject_12',['PolylineObject',['../a03285.html',1,'DISP3DLIB']]],
   ['processingsettings_13',['ProcessingSettings',['../a04549.html',1,'MNELIB']]],
   ['progressview_14',['ProgressView',['../a03093.html',1,'DISPLIB']]],
   ['projectorsview_15',['ProjectorsView',['../a03097.html',1,'DISPLIB']]],

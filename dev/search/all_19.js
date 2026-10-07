@@ -12,6 +12,6 @@ var searchData=
   ['xmax_9',['xmax',['../a04457.html#a2001ac6e93a04e2865008f5869f20b76',1,'MNELIB::MNELayoutPort']]],
   ['xmin_10',['xmin',['../a04457.html#a798ca770c2daf9ee5bd0892479edc5be',1,'MNELIB::MNELayoutPort']]],
   ['xplotter_5flayout_11',['xplotter_layout',['../a03805.html#acc10f2af7adfa85a043cf6492a64adbd',1,'FIFFLIB::FiffInfo']]],
-  ['xray_12',['XRay',['../a03353.html#af2e6498d4b32074d53b31a6ca5f948dd',1,'BrainRenderer::XRay'],['../a01100.html#a9a65336a07fa3c9b4b13e6d52e3a612caf6fbaf0d9239580f054ab5081a5b3373',1,'XRay:&#160;rendertypes.h']]],
+  ['xray_12',['XRay',['../a03353.html#ac4c2e78b7aecd282657cf2913e4d79a9',1,'DISP3DLIB::BrainRenderer::XRay'],['../a02570.html#affaa80265b4f5d63091b87f257f63c65a2a883d872dce9c1d703ba2901644bee2',1,'DISP3DLIB::XRay']]],
   ['xsize_13',['xsize',['../a04629.html#a81fa9b4b0707bc75d2c30134f7f45cff',1,'MNELIB::MNEVolGeom::xsize'],['../a04665.html#a8af11bb886165557f07685bf5abd5488',1,'MRILIB::MriVolData::xsize']]]
 ];

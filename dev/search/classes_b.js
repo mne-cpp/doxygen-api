@@ -2,8 +2,8 @@ var searchData=
 [
   ['maxwellmovecompparams_0',['MaxwellMoveCompParams',['../a03545.html',1,'UTILSLIB']]],
   ['maxwellmovementcomp_1',['MaxwellMovementComp',['../a03549.html',1,'UTILSLIB']]],
-  ['mergedgroup_2',['MergedGroup',['../a03337.html',1,'BrainRenderer::Impl']]],
-  ['meshfactory_3',['MeshFactory',['../a03153.html',1,'']]],
+  ['mergedgroup_2',['MergedGroup',['../a03337.html',1,'DISP3DLIB::BrainRenderer::Impl']]],
+  ['meshfactory_3',['MeshFactory',['../a03153.html',1,'DISP3DLIB']]],
   ['metadata_4',['MetaData',['../a02693.html',1,'COMLIB']]],
   ['methodexpl_5',['MethodExpl',['../a03897.html',1,'FWDLIB']]],
   ['minimumnormsettingsview_6',['MinimumNormSettingsView',['../a03077.html',1,'DISPLIB']]],
@@ -108,7 +108,7 @@ var searchData=
   ['multitapertfr_105',['MultitaperTfr',['../a03573.html',1,'UTILSLIB']]],
   ['multitapertfrresult_106',['MultitaperTfrResult',['../a03569.html',1,'UTILSLIB']]],
   ['multiview_107',['MultiView',['../a03085.html',1,'DISPLIB']]],
-  ['multiviewlayout_108',['MultiViewLayout',['../a03369.html',1,'']]],
+  ['multiviewlayout_108',['MultiViewLayout',['../a03369.html',1,'DISP3DLIB']]],
   ['multiviewwindow_109',['MultiViewWindow',['../a03089.html',1,'DISPLIB']]],
   ['mvarmodel_110',['MvarModel',['../a02769.html',1,'CONNECTIVITYLIB']]]
 ];

@@ -5,7 +5,7 @@ var searchData=
   ['waitfordataavailable_2',['waitForDataAvailable',['../a02689.html#aedb984ba58a256f03f08ee65eb4998ae',1,'COMLIB::RtCmdClient']]],
   ['warp_3',['warp',['../a04353.html#ab1c47c8ea006631e13061fa8819e1b65',1,'MNELIB::MNEBem']]],
   ['weightedphaselagindex_4',['WeightedPhaseLagIndex',['../a02789.html#a58c700738916d6a0a45d9e45a56f5c49',1,'CONNECTIVITYLIB::WeightedPhaseLagIndex']]],
-  ['wheelevent_5',['wheelEvent',['../a02977.html#a65cd905d03d4fb2003233ce5f3bddf2e',1,'DISPLIB::ChannelRhiView::wheelEvent()'],['../a03025.html#a979f7a918e6cf119a125f9d90d5ba000',1,'DISPLIB::LayoutScene::wheelEvent()'],['../a03365.html#a23364467a018869a970d86b28f7ededd',1,'BrainView::wheelEvent()']]],
+  ['wheelevent_5',['wheelEvent',['../a02977.html#a65cd905d03d4fb2003233ce5f3bddf2e',1,'DISPLIB::ChannelRhiView::wheelEvent()'],['../a03025.html#a979f7a918e6cf119a125f9d90d5ba000',1,'DISPLIB::LayoutScene::wheelEvent()'],['../a03365.html#a2862f53aecfb494f5f12c3370b4f6b4f',1,'DISP3DLIB::BrainView::wheelEvent()']]],
   ['wheelscrollschannels_6',['wheelScrollsChannels',['../a02977.html#a085d71220d2e84746bbf4c41809304d0',1,'DISPLIB::ChannelRhiView']]],
   ['whiten_5fvector_7',['whiten_vector',['../a04373.html#adbd9c7ed5b3683ad898a0f98dca149a3',1,'MNELIB::MNECovMatrix']]],
   ['windowcenter_8',['windowCenter',['../a03297.html#a3b6739e9858f6be7fe9005220913d1bc',1,'DISP3DLIB::SliceObject']]],

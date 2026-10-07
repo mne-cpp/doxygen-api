@@ -8,6 +8,6 @@ var searchData=
   ['xmax_5',['xmax',['../a04457.html#a2001ac6e93a04e2865008f5869f20b76',1,'MNELIB::MNELayoutPort']]],
   ['xmin_6',['xmin',['../a04457.html#a798ca770c2daf9ee5bd0892479edc5be',1,'MNELIB::MNELayoutPort']]],
   ['xplotter_5flayout_7',['xplotter_layout',['../a03805.html#acc10f2af7adfa85a043cf6492a64adbd',1,'FIFFLIB::FiffInfo']]],
-  ['xray_8',['XRay',['../a03353.html#af2e6498d4b32074d53b31a6ca5f948dd',1,'BrainRenderer']]],
+  ['xray_8',['XRay',['../a03353.html#ac4c2e78b7aecd282657cf2913e4d79a9',1,'DISP3DLIB::BrainRenderer']]],
   ['xsize_9',['xsize',['../a04629.html#a81fa9b4b0707bc75d2c30134f7f45cff',1,'MNELIB::MNEVolGeom::xsize'],['../a04665.html#a8af11bb886165557f07685bf5abd5488',1,'MRILIB::MriVolData::xsize']]]
 ];

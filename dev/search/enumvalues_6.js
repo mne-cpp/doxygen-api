@@ -15,7 +15,7 @@ var searchData=
   ['getmegtype_12',['GetMEGType',['../a02563.html#a926ca49699be694dba55a9e23002e840aefee939f140b03e3dd00db1acfa3b6ce',1,'DISPLIB::ChannelInfoModelRoles']]],
   ['getorigchname_13',['GetOrigChName',['../a02563.html#a926ca49699be694dba55a9e23002e840a72f516bde9c7e6ed189902dbdfdce76d',1,'DISPLIB::ChannelInfoModelRoles']]],
   ['goodness_14',['Goodness',['../a02573.html#af1ffe934a77f18c6a7260b1975016387a4a09c27a03b8df96510846cd37468079',1,'INVLIB']]],
-  ['grid_15',['Grid',['../a02571.html#a3bb979fe442355e09cc551e263d578dba5174d1309f275ba6f275db3af9eb3e18',1,'DISP3DLIB']]],
+  ['grid_15',['Grid',['../a02570.html#a3bb979fe442355e09cc551e263d578dba5174d1309f275ba6f275db3af9eb3e18',1,'DISP3DLIB']]],
   ['gridbegin_16',['GridBegin',['../a02573.html#af1ffe934a77f18c6a7260b1975016387a40a6c4d8675af1ed396f8b02651b3c03',1,'INVLIB']]],
   ['gridend_17',['GridEnd',['../a02573.html#af1ffe934a77f18c6a7260b1975016387ae438bba13a7a24fd4ada1b5b0a1827d1',1,'INVLIB']]],
   ['gridindex_18',['GridIndex',['../a02573.html#af1ffe934a77f18c6a7260b1975016387abaef9a52c38b55bd23b69671ecc57744',1,'INVLIB']]],

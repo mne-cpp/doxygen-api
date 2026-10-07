@@ -13,7 +13,7 @@ var searchData=
   ['onnxmodelpath_10',['onnxModelPath',['../a04109.html#a92a3c7c74eb5e00a79504ed181522c1c',1,'INVLIB::InvCMNESettings']]],
   ['onset_11',['onset',['../a02641.html#a372a3fc24786c5716558ad69bbc3e68e',1,'BIDSLIB::BidsEvent::onset'],['../a03705.html#a231720cc1e283ee8ec017ea8e3c0669d',1,'FIFFLIB::FiffAnnotation::onset']]],
   ['op_12',['op',['../a04461.html#a2c78be9c49dbe0b719727c5e579e972d',1,'MNELIB::MNEMeasData']]],
-  ['opacity_13',['opacity',['../a03309.html#a481b5593b10cb1a9adfbc5b096372ae7',1,'DISP3DLIB::SceneLayer::opacity'],['../a03345.html#a187663ec45df0a8f57176a2ccd58a5d5',1,'BrainRenderer::Impl::SliceSlot::opacity']]],
+  ['opacity_13',['opacity',['../a03309.html#a481b5593b10cb1a9adfbc5b096372ae7',1,'DISP3DLIB::SceneLayer::opacity'],['../a03345.html#a4ffa1e0128fb8cd49fa9638f0b72d513',1,'DISP3DLIB::BrainRenderer::Impl::SliceSlot::opacity']]],
   ['optype_14',['opType',['../a04273.html#a94c61e9e35ea2c00f7db17b294f1ac22',1,'MNALIB::MnaNode::opType'],['../a04289.html#a88ccf7421383abf63f6341bd38b446c5',1,'MNALIB::MnaOpSchema::opType']]],
   ['orient_5fprior_15',['orient_prior',['../a04449.html#a4a8d5f0fd42e900d2c73fe476cb9002e',1,'MNELIB::MNEInverseOperator']]],
   ['orientation_16',['orientation',['../a03513.html#af6a5a6d95662fa831e628c15ce7fae29',1,'UTILSLIB::FineCalEntry::orientation'],['../a04141.html#a8449ffe840023dd9d4a86627eb0e876c',1,'INVLIB::TrapMusicDipole::orientation'],['../a04653.html#a73b430d6d28ff1e1ee81226eee2f5c17',1,'MRILIB::MriSliceImage::orientation'],['../a04757.html#a8f7f4e784f82349da84fcbf45e7e35c6',1,'UTILSLIB::FastrakSample::orientation']]],
@@ -29,6 +29,6 @@ var searchData=
   ['overlay_5fcolor_5fmode_26',['overlay_color_mode',['../a04497.html#af71dc4f93176833aa62cfb8046b399d1',1,'MNELIB::MNEMshDisplaySurface']]],
   ['overlay_5ftype_27',['overlay_type',['../a04497.html#aa25136e23e3a9ef5a09d0d85494d595f',1,'MNELIB::MNEMshDisplaySurface']]],
   ['overlay_5fvalues_28',['overlay_values',['../a04497.html#a89444548b2cc1457293aa45ba7217223',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['overlaymode_29',['overlayMode',['../a03149.html#acbb6240664d90ef80d2cfdd696ca46f5',1,'SubView::overlayMode'],['../a03357.html#a069755f07bb425046034945ea4fb3e28',1,'BrainRenderer::SceneData::overlayMode']]],
+  ['overlaymode_29',['overlayMode',['../a03149.html#ac8a2f9c694f77dcfa7a3bdf2ff8d2d17',1,'DISP3DLIB::SubView::overlayMode'],['../a03357.html#af47e68b2d8208217c0daff7ca32149c9',1,'DISP3DLIB::BrainRenderer::SceneData::overlayMode']]],
   ['overwrite_30',['overwrite',['../a02653.html#a153766c7b75275bb7aaef3610a2dc872',1,'BIDSLIB::BidsRawData::WriteOptions']]]
 ];

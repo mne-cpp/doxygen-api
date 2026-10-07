@@ -2,7 +2,7 @@ var searchData=
 [
   ['abstractformatreader_0',['AbstractFormatReader',['../a02661.html',1,'BIDSLIB']]],
   ['abstractmetric_1',['AbstractMetric',['../a02733.html',1,'CONNECTIVITYLIB']]],
-  ['abstracttreeitem_2',['AbstractTreeItem',['../a03185.html',1,'']]],
+  ['abstracttreeitem_2',['AbstractTreeItem',['../a03185.html',1,'DISP3DLIB']]],
   ['abstractview_3',['AbstractView',['../a02861.html',1,'DISPLIB']]],
   ['acquiredpoints_4',['AcquiredPoints',['../a04753.html',1,'UTILSLIB']]],
   ['annotateamplitudeparams_5',['AnnotateAmplitudeParams',['../a03405.html',1,'UTILSLIB']]],

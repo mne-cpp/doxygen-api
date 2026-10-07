@@ -18,7 +18,7 @@ var searchData=
   ['alt_5foverlay_5ftype_15',['alt_overlay_type',['../a04497.html#a622a2beb9e06b49c609c472b879ed439',1,'MNELIB::MNEMshDisplaySurface']]],
   ['alt_5foverlay_5fvalues_16',['alt_overlay_values',['../a04497.html#ad7b64dda8098e0f01a705ad1fdbc992f',1,'MNELIB::MNEMshDisplaySurface']]],
   ['amplitudemax_17',['amplitudeMax',['../a02957.html#a87972c74a68e0d3f6fb259a7fd5c4aae',1,'DISPLIB::ChannelDisplayInfo']]],
-  ['anatomical_18',['Anatomical',['../a03353.html#a212d996698ca70f85ace96c972853c9b',1,'BrainRenderer']]],
+  ['anatomical_18',['Anatomical',['../a03353.html#a9d1d4aaaecb38b8ef2294589f54d315a',1,'DISP3DLIB::BrainRenderer']]],
   ['area_19',['area',['../a04533.html#af6ce9d7cdd68bb81c8efa5f322a1e8e2',1,'MNELIB::MNEPatchInfo::area'],['../a04625.html#a9aeb0d0b03f61792a42885d6ba1d6c57',1,'MNELIB::MNETriangle::area']]],
   ['aspect_5fkind_20',['aspect_kind',['../a03773.html#a82f2dbb01653b5bcac2449b2195e4ef7',1,'FIFFLIB::FiffEvoked']]],
   ['associatedimagepath_21',['associatedImagePath',['../a02629.html#afb76276db8a146cfdf38d7ccca5dd24f',1,'BIDSLIB::BidsCoordinateSystem']]],

@@ -8,7 +8,7 @@ var searchData=
   ['iirfilter_5',['IirFilter',['../a03537.html',1,'UTILSLIB']]],
   ['imagcoherence_6',['ImagCoherence',['../a02765.html',1,'CONNECTIVITYLIB']]],
   ['imagesc_7',['ImageSc',['../a02841.html',1,'DISPLIB']]],
-  ['impl_8',['Impl',['../a03333.html',1,'BrainRenderer']]],
+  ['impl_8',['Impl',['../a03333.html',1,'DISP3DLIB::BrainRenderer']]],
   ['infomaxresult_9',['InfomaxResult',['../a03489.html',1,'UTILSLIB']]],
   ['intermediatesumdata_10',['IntermediateSumData',['../a02729.html',1,'CONNECTIVITYLIB::ConnectivitySettings']]],
   ['intermediatetrialdata_11',['IntermediateTrialData',['../a02725.html',1,'CONNECTIVITYLIB::ConnectivitySettings']]],
