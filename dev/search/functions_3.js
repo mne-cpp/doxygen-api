@@ -74,7 +74,7 @@ var searchData=
   ['discard3dpointoutliers_71',['discard3DPointOutliers',['../a02556.html#aaa5efaae612261cf898be0b5d63175af',1,'MNELIB']]],
   ['discard_5foutlier_5fdigitizer_5fpoints_72',['discard_outlier_digitizer_points',['../a04497.html#ad95628db77638037d7b00258707608f7',1,'MNELIB::MNEMshDisplaySurface']]],
   ['disconnectfromhost_73',['disconnectFromHost',['../a02697.html#afa29e39d8e43f7140c375196e70e6682',1,'COMLIB::RtDataClient']]],
-  ['displaylabel_74',['displayLabel',['../a03173.html#a95e01c8555e990afcd3a04a8cc9f2789',1,'PickResult']]],
+  ['displaylabel_74',['displayLabel',['../a03173.html#a91a163cd7f5b1864f6cd2435531c70b9',1,'RayHit']]],
   ['distancetimespacerchanged_75',['distanceTimeSpacerChanged',['../a02929.html#a71d3e6222e1ea5930e525f0328e868b8',1,'DISPLIB::FiffRawViewSettings::distanceTimeSpacerChanged()'],['../a03041.html#a1d5c3625adaee2533385f6d6e9148ff0',1,'DISPLIB::RtFiffRawViewModel::distanceTimeSpacerChanged()']]],
   ['doaveraging_76',['doAveraging',['../a03593.html#a907417f9b33d4b69518115c673373c83',1,'RTPROCESSINGLIB::RtAveragingWorker']]],
   ['docklocationchanged_77',['dockLocationChanged',['../a03085.html#a8041afbc176980c72d28f11b38e0892f',1,'DISPLIB::MultiView']]],

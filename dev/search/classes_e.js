@@ -7,7 +7,7 @@ var searchData=
   ['phaselagindex_4',['PhaseLagIndex',['../a02777.html',1,'CONNECTIVITYLIB']]],
   ['phaselockingvalue_5',['PhaseLockingValue',['../a02781.html',1,'CONNECTIVITYLIB']]],
   ['picardica_6',['PicardIca',['../a03585.html',1,'UTILSLIB']]],
-  ['pickresult_7',['PickResult',['../a03317.html',1,'DISP3DLIB::PickResult'],['../a03173.html',1,'PickResult']]],
+  ['pickresult_7',['PickResult',['../a03317.html',1,'DISP3DLIB']]],
   ['plot_8',['Plot',['../a02849.html',1,'DISPLIB']]],
   ['polhemusconnection_9',['PolhemusConnection',['../a04769.html',1,'UTILSLIB']]],
   ['polhemuscoregistration_10',['PolhemusCoregistration',['../a04777.html',1,'UTILSLIB']]],

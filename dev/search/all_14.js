@@ -817,7 +817,7 @@ var searchData=
   ['surfacegenerations_814',['surfaceGenerations',['../a03337.html#accfab622272bbc03f4f596b694d14cf9',1,'BrainRenderer::Impl::MergedGroup']]],
   ['surfaceid_815',['surfaceId',['../a03225.html#af7a3ee0b08129c0a6bba72668bdeb4ac',1,'VertexData']]],
   ['surfaceitem_816',['SurfaceItem',['../a03185.html#a7804788c78ce642387ab26f50d3dda68a06fc0c50075752b58051f54bd6a234d9',1,'AbstractTreeItem']]],
-  ['surfacekey_817',['surfaceKey',['../a03173.html#a5bf425e9c4de910d09fa36018eba89a7',1,'PickResult']]],
+  ['surfacekey_817',['surfaceKey',['../a03173.html#a9b27b3935d21842bee1de992ffef2a65',1,'RayHit']]],
   ['surfacekeys_818',['SURFACEKEYS',['../a02570.html',1,'']]],
   ['surfacekeys_2eh_819',['surfacekeys.h',['../a01085.html',1,'']]],
   ['surfacelaplacian_820',['SurfaceLaplacian',['../a03681.html',1,'UTILSLIB']]],

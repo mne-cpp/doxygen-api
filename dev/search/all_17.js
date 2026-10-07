@@ -65,7 +65,7 @@ var searchData=
   ['vertexdata_62',['vertexData',['../a04093.html#a935dec47ab9a141306aad34c891ecb88',1,'INVLIB::InvVectorSourceEstimate']]],
   ['vertexdataref_63',['vertexDataRef',['../a03229.html#a191e634c047742a8c4fa4c4d28fd0c22',1,'BrainSurface']]],
   ['vertexgeneration_64',['vertexGeneration',['../a03229.html#a8b8dd236035a9a7a2680c3844ceb39e8',1,'BrainSurface']]],
-  ['vertexindex_65',['vertexIndex',['../a03173.html#a171fa9a905765cf2cc8215bda6b83327',1,'PickResult']]],
+  ['vertexindex_65',['vertexIndex',['../a03173.html#a8e330a11f4bf5baae55e622f3c6fa89e',1,'RayHit']]],
   ['vertexnormals_66',['vertexNormals',['../a03229.html#a4e95641b89f520bf9cc0b5d85e9fbe2c',1,'BrainSurface']]],
   ['vertexpositions_67',['vertexPositions',['../a03229.html#ad29387da7209358eb1966339b0f42b5b',1,'BrainSurface']]],
   ['vertexraw_68',['vertexRaw',['../a03337.html#a25c61237f6f1ae4a63942b7736cf6ef8',1,'BrainRenderer::Impl::MergedGroup']]],

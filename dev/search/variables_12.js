@@ -136,7 +136,7 @@ var searchData=
   ['surfacedepthpipeline_133',['surfaceDepthPipeline',['../a03341.html#a14708d81cc9d221f388f470e28b45cb5',1,'BrainRenderer::Impl::VideoOverlayResources']]],
   ['surfacegenerations_134',['surfaceGenerations',['../a03337.html#accfab622272bbc03f4f596b694d14cf9',1,'BrainRenderer::Impl::MergedGroup']]],
   ['surfaceid_135',['surfaceId',['../a03225.html#af7a3ee0b08129c0a6bba72668bdeb4ac',1,'VertexData']]],
-  ['surfacekey_136',['surfaceKey',['../a03173.html#a5bf425e9c4de910d09fa36018eba89a7',1,'PickResult']]],
+  ['surfacekey_136',['surfaceKey',['../a03173.html#a9b27b3935d21842bee1de992ffef2a65',1,'RayHit']]],
   ['surfacepipeline_137',['surfacePipeline',['../a03341.html#a17b546b2f978af0527ad8eb750115af2',1,'BrainRenderer::Impl::VideoOverlayResources']]],
   ['surfaces_138',['surfaces',['../a03337.html#a06ade5d1f65c362aa9ef55c1a0a7f92e',1,'BrainRenderer::Impl::MergedGroup']]],
   ['surfacetype_139',['surfaceType',['../a03149.html#abfd59f36c16122ddad6e0de635612e08',1,'SubView']]],
