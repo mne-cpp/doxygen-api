@@ -1,21 +1,21 @@
 var searchData=
 [
-  ['dataloader_0',['DataLoader',['../a03138.html',1,'DISP3DLIB']]],
+  ['dataloader_0',['DataLoader',['../a03134.html',1,'DISP3DLIB']]],
   ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a02754.html',1,'CONNECTIVITYLIB']]],
   ['decodingcsp_2',['DecodingCsp',['../a02810.html',1,'DECODINGLIB']]],
   ['decodingspoc_3',['DecodingSpoc',['../a02822.html',1,'DECODINGLIB']]],
   ['decodingssd_4',['DecodingSsd',['../a02826.html',1,'DECODINGLIB']]],
-  ['derivationrule_5',['DerivationRule',['../a03446.html',1,'UTILSLIB']]],
-  ['digitizedpoint_6',['DigitizedPoint',['../a04750.html',1,'UTILSLIB']]],
-  ['digitizersettreeitem_7',['DigitizerSetTreeItem',['../a03194.html',1,'DISP3DLIB']]],
-  ['digitizertreeitem_8',['DigitizerTreeItem',['../a03198.html',1,'DISP3DLIB']]],
-  ['dipfiterror_9',['DipFitError',['../a04030.html',1,'INVLIB']]],
-  ['dipolefitfuncsrec_10',['dipoleFitFuncsRec',['../a03978.html',1,'INVLIB']]],
+  ['derivationrule_5',['DerivationRule',['../a03442.html',1,'UTILSLIB']]],
+  ['digitizedpoint_6',['DigitizedPoint',['../a04746.html',1,'UTILSLIB']]],
+  ['digitizersettreeitem_7',['DigitizerSetTreeItem',['../a03190.html',1,'DISP3DLIB']]],
+  ['digitizertreeitem_8',['DigitizerTreeItem',['../a03194.html',1,'DISP3DLIB']]],
+  ['dipfiterror_9',['DipFitError',['../a04026.html',1,'INVLIB']]],
+  ['dipolefitfuncsrec_10',['dipoleFitFuncsRec',['../a03974.html',1,'INVLIB']]],
   ['dipolefitview_11',['DipoleFitView',['../a02926.html',1,'DISPLIB']]],
-  ['dipoleobject_12',['DipoleObject',['../a03238.html',1,'DISP3DLIB']]],
-  ['dipoletreeitem_13',['DipoleTreeItem',['../a03202.html',1,'DISP3DLIB']]],
+  ['dipoleobject_12',['DipoleObject',['../a03234.html',1,'DISP3DLIB']]],
+  ['dipoletreeitem_13',['DipoleTreeItem',['../a03198.html',1,'DISP3DLIB']]],
   ['directedtransferfunction_14',['DirectedTransferFunction',['../a02758.html',1,'CONNECTIVITYLIB']]],
-  ['dpss_15',['Dpss',['../a03474.html',1,'UTILSLIB']]],
-  ['dpssresult_16',['DpssResult',['../a03470.html',1,'UTILSLIB']]],
-  ['draggableframelesswidget_17',['DraggableFramelessWidget',['../a03006.html',1,'DISPLIB']]]
+  ['dpss_15',['Dpss',['../a03470.html',1,'UTILSLIB']]],
+  ['dpssresult_16',['DpssResult',['../a03466.html',1,'UTILSLIB']]],
+  ['draggableframelesswidget_17',['DraggableFramelessWidget',['../a03002.html',1,'DISPLIB']]]
 ];

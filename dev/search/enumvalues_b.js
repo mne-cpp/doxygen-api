@@ -43,6 +43,6 @@ var searchData=
   ['mrislice_40',['MriSlice',['../a02571.html#a43eb99c72f5996d313a1917b2a963c69ac85f8485f1cae8639ce0fcf40603f28b',1,'DISP3DLIB']]],
   ['mrivoxel_41',['MriVoxel',['../a02571.html#a0477e91c4a3a20e47d42b51d8080ff33afc4e2cdfe27574d4aac3de71651e1d09',1,'DISP3DLIB']]],
   ['multiplexed_42',['MULTIPLEXED',['../a02551.html#a08b38c1eae05e9a5a2c570416588b918a4dff0567344b9a5b1504eec1b6b545ca',1,'BIDSLIB']]],
-  ['multiview_43',['MultiView',['../a03366.html#ad144162f1c7e6a7e5eecc6de101c9c90a89c37c1fcc3bcc4ab3582ceeb849b714',1,'DISP3DLIB::BrainView']]],
+  ['multiview_43',['MultiView',['../a03362.html#ad144162f1c7e6a7e5eecc6de101c9c90a89c37c1fcc3bcc4ab3582ceeb849b714',1,'DISP3DLIB::BrainView']]],
   ['muscle_44',['Muscle',['../a02559.html#ac235404767badd7c21f0755f4a394ce0a36143fa4f2c24dd4816fd6e238cfd5e3',1,'DECODINGLIB']]]
 ];
