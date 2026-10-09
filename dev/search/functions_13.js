@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['takescreenshot_0',['takeScreenshot',['../a02875.html#a9ac7584667c6600711b636998017243f',1,'DISPLIB::AverageLayoutView::takeScreenshot()'],['../a02891.html#a4c81dbbdd11d72b7d75937ea85416819',1,'DISPLIB::ButterflyView::takeScreenshot()'],['../a03107.html#a26577971978b59fdc474afcbcdfce995',1,'DISPLIB::RtFiffRawView::takeScreenshot()']]],
+  ['takescreenshot_0',['takeScreenshot',['../a02875.html#a9ac7584667c6600711b636998017243f',1,'DISPLIB::AverageLayoutView::takeScreenshot()'],['../a02891.html#a4c81dbbdd11d72b7d75937ea85416819',1,'DISPLIB::ButterflyView::takeScreenshot()'],['../a03107.html#a26577971978b59fdc474afcbcdfce995',1,'DISPLIB::RtFiffRawView::takeScreenshot()'],['../a03363.html#a88333f8a5d167cfe31fa8d5180c1fbff',1,'DISP3DLIB::BrainView::takeScreenshot()']]],
   ['takescreenshotchanged_1',['takeScreenshotChanged',['../a02915.html#ac502c4e5b8d2f33697ba9d334d7819ed',1,'DISPLIB::Control3DView']]],
   ['task_2',['task',['../a02647.html#ae20d50eea374de5bcd94775959eaea61',1,'BIDSLIB::BIDSPath']]],
   ['tasktype_3',['taskType',['../a04231.html#a60803d0f301225f59e1e73c53780906a',1,'MLLIB::MlModel::taskType()'],['../a04235.html#a201df7392cef72a98bd70f7cb2c88f72',1,'MLLIB::MlOnnxModel::taskType()']]],
