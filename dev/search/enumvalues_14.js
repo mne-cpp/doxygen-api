@@ -6,7 +6,7 @@ var searchData=
   ['vectorized_3',['VECTORIZED',['../a02551.html#a08b38c1eae05e9a5a2c570416588b918a020afd084b862b484cebc2051fc2fde3',1,'BIDSLIB']]],
   ['vertex_4',['Vertex',['../a02575.html#af1ffe934a77f18c6a7260b1975016387ab22b929ba52471a02d18bb3a4e4472e6',1,'INVLIB']]],
   ['vertical_5',['Vertical',['../a02572.html#a82bca15851e5c3b674d41ef520249e45a06ce2a25e5d12c166a36f654dbea6012',1,'DISP3DLIB']]],
-  ['virtualchannel_6',['VirtualChannel',['../a02608.html#acec300107fc488331fcaddae5894abfcab21d1564dad8c0a7702864d987673c82',1,'MNALIB']]],
-  ['visiblerole_7',['VisibleRole',['../a03184.html#a8a7b1ff684f8573c85de67a16c8ba40daa3497e6c4a5dc4b87f21d34ddb3e6cd7',1,'DISP3DLIB::AbstractTreeItem']]],
-  ['volume_8',['Volume',['../a02575.html#a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298',1,'INVLIB::Volume'],['../a02608.html#aff2df5a82a2d98871c0ceb6dff9713f6abd7a9717d29c5ddcab1bc175eda1e298',1,'MNALIB::Volume']]]
+  ['virtualchannel_6',['VirtualChannel',['../a02610.html#acec300107fc488331fcaddae5894abfcab21d1564dad8c0a7702864d987673c82',1,'MNALIB']]],
+  ['visiblerole_7',['VisibleRole',['../a03186.html#a8a7b1ff684f8573c85de67a16c8ba40daa3497e6c4a5dc4b87f21d34ddb3e6cd7',1,'DISP3DLIB::AbstractTreeItem']]],
+  ['volume_8',['Volume',['../a02575.html#a9249e8f0994be81fbcf6d5b3760ad349abd7a9717d29c5ddcab1bc175eda1e298',1,'INVLIB::Volume'],['../a02610.html#aff2df5a82a2d98871c0ceb6dff9713f6abd7a9717d29c5ddcab1bc175eda1e298',1,'MNALIB::Volume']]]
 ];
