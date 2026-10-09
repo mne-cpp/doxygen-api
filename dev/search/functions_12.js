@@ -239,7 +239,7 @@ var searchData=
   ['setloopstate_236',['setLoopState',['../a03370.html#ada41f27d27cbe28269c3f1e74dd0a4c6',1,'DISP3DLIB::RtSensorDataController::setLoopState()'],['../a03374.html#a56289d80979258d13e4a0cf58303c9c7',1,'DISP3DLIB::RtSensorDataWorker::setLoopState()'],['../a03382.html#a1cbb834b274677715ec74c5b241fede6',1,'DISP3DLIB::RtSourceDataController::setLoopState()'],['../a03386.html#a52c08083601a3a1c629563ac2496a573',1,'DISP3DLIB::RtSourceDataWorker::setLoopState()']]],
   ['setlowpassfreq_237',['setLowpassFreq',['../a03506.html#ab018cd9f839cf4b83da1f0133ea96389',1,'UTILSLIB::FilterKernel']]],
   ['setmaggradlink_238',['setMagGradLink',['../a03110.html#a414e888a6e78dc18a666969acb732583',1,'DISPLIB::ScalingView']]],
-  ['setmappingmatrix_239',['setMappingMatrix',['../a03370.html#a37a0603bcb9bdc42b2e2542e40c8bf09',1,'DISP3DLIB::RtSensorDataController::setMappingMatrix()'],['../a03374.html#ac560025bcda9f66286e693e0a3a27408',1,'DISP3DLIB::RtSensorDataWorker::setMappingMatrix()']]],
+  ['setmappingmatrix_239',['setMappingMatrix',['../a03370.html#a524443114537e4f7a55337d268759f81',1,'DISP3DLIB::RtSensorDataController::setMappingMatrix()'],['../a03374.html#a01f4045f00d31ed567eb2ddded39565f',1,'DISP3DLIB::RtSensorDataWorker::setMappingMatrix()']]],
   ['setmaxallowedfiltertaps_240',['setMaxAllowedFilterTaps',['../a02934.html#a0494ef27d948855b22927db7866bdded',1,'DISPLIB::FilterDesignView']]],
   ['setmaxsensitivitypoint_241',['setMaxSensitivityPoint',['../a03042.html#ab1db58d37166223121800ce82fe64f6c',1,'DISPLIB::ScaleControl']]],
   ['setmaxstoredsamples_242',['setMaxStoredSamples',['../a02962.html#ac3b70f8738096c4c23613989fce6a2f1',1,'DISPLIB::ChannelDataModel']]],
