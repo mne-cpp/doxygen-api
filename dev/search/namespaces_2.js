@@ -5,5 +5,5 @@ var searchData=
   ['displib_2',['DISPLIB',['../a02561.html',1,'']]],
   ['displib_3a_3achannelinfomodelroles_3',['ChannelInfoModelRoles',['../a02564.html',1,'DISPLIB']]],
   ['displib_3a_3aevokedsetmodelroles_4',['EvokedSetModelRoles',['../a02567.html',1,'DISPLIB']]],
-  ['dsplib_5',['DSPLIB',['../a02583.html',1,'']]]
+  ['dsplib_5',['DSPLIB',['../a02584.html',1,'']]]
 ];
