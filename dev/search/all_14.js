@@ -800,7 +800,7 @@ var searchData=
   ['suffix_797',['suffix',['../a02646.html#aac87204c42a9b2bc2d4a9253eb65fbbe',1,'BIDSLIB::BIDSPath']]],
   ['sum_5fsolids_798',['sum_solids',['../a04610.html#a0102c55589d0a800f62ead3b6ccd9d4e',1,'MNELIB::MNESurface']]],
   ['sumd_799',['sumd',['../a04422.html#ac5d9a0dc41044cb6895ab016d20f2161',1,'MNELIB::RegionDataOut::sumd'],['../a04438.html#abcb2759ada2a8d24a407e689e74fa190',1,'MNELIB::RegionMTOut::sumd']]],
-  ['superuser_800',['of free blocks available to non-superuser.',['../a00245.html#autotoc_md41',1,'']]],
+  ['superuser_800',['of free blocks available to non-superuser.',['../a00245.html#autotoc_md40',1,'']]],
   ['supportsextension_801',['supportsExtension',['../a02662.html#a36b720ad21b6ff585fe5c0fbb167bd51',1,'BIDSLIB::AbstractFormatReader::supportsExtension()'],['../a02674.html#a5418b097a3ccb9c3dfb64240a9a9724e',1,'BIDSLIB::BrainVisionReader::supportsExtension()'],['../a02682.html#a66833ae4e4adce26bad70abe4e20fd28',1,'BIDSLIB::EDFReader::supportsExtension()']]],
   ['surf_802',['surf',['../a04342.html#a3ab8dbc9139dc81bdf8fc6b50c77742e',1,'MNELIB::FilterThreadArg::surf'],['../a03870.html#a6d4f95b880eb74bc598c18d98b3245d2',1,'FSLIB::FsSurface::surf()'],['../a03874.html#a5df910020d600c16a1d06dc204ec2fde',1,'FSLIB::FsSurfaceSet::surf()']]],
   ['surf_5fname_803',['surf_name',['../a03902.html#adad4a73c21a3120b708caca66311da49',1,'FWDLIB::FwdBemModel::surf_name'],['../a04494.html#ad6be99c49190fd0e2b31b9f1a2c495a7',1,'MNELIB::MNEMshDisplaySurface::surf_name']]],

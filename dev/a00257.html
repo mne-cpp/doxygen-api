@@ -488,9 +488,8 @@ DEFINE MEMBER METHODS</h1>
 <p>qInfo("Reading coordinate transform from %s...\n", pStream-&gt;streamName().toUtf8().constData()); if (!pStream-&gt;open()) return false;</p>
 <p>Locate and read the coordinate transformation </p><pre class="fragment">FiffTag::UPtr t_pTag;
 bool success = false;
-</pre><p>Get the MRI &lt;-&gt; head coordinate transformation </p><pre class="fragment">for (qint32 k = 0; k &lt; pStream-&gt;dir().size(); ++k) {
-    if (pStream-&gt;dir()[k]-&gt;kind == FIFF_COORD_TRANS) {
-        pStream-&gt;read_tag(t_pTag, pStream-&gt;dir()[k]-&gt;pos);
+</pre><p>Get the MRI &lt;-&gt; head coordinate transformation </p><pre class="fragment">for (qint32 k = 0; k &lt; pStream-&gt;dir().size() &amp;&amp; !success; ++k) {
+    if (pStream-&gt;dir()[k]-&gt;kind == FIFF_COORD_TRANS &amp;&amp; pStream-&gt;read_tag(t_pTag, pStream-&gt;dir()[k]-&gt;pos)) {
         p_Trans = t_pTag-&gt;toCoordTrans();
         success = true;
     }
@@ -498,9 +497,6 @@ bool success = false;
 
 return success;
 </pre><p> }</p>
-<hr  />
-<p>bool FiffCoordTrans::read(QIODevice&amp; p_IODevice, FiffCoordTrans&amp; p_Trans, int from, int to) { FiffStream::SPtr pStream(new FiffStream(&amp;p_IODevice)); if (!pStream-&gt;open()) return false;</p>
-<p>FiffTag::UPtr t_pTag; for (const auto&amp; entry : pStream-&gt;dir()) { if (entry-&gt;kind != FIFF_COORD_TRANS || !pStream-&gt;read_tag(t_pTag, entry-&gt;pos)) continue; const <a class="el" href="a04930.html" title="Labelled 4x4 FIFF affine: source frame, destination frame, rotation, translation and cached inverse.">FiffCoordTrans</a> trans = t_pTag-&gt;toCoordTrans(); if (trans.from == from &amp;&amp; trans.to == to) { p_Trans = trans; return true; } if (trans.from == to &amp;&amp; trans.to == from) { p_Trans = trans.inverted(); return true; } } return false; }</p>
 <hr  />
 <p>void FiffCoordTrans::write(QIODevice&amp; qIODevice) { Create the file and save the essentials FiffStream::SPtr pStream = FiffStream::start_file(qIODevice); qInfo("Write coordinate transform in %s...\n", pStream-&gt;streamName().toUtf8().constData()); this-&gt;writeToStream(pStream.data()); pStream-&gt;end_file(); qIODevice.close(); }</p>
 <hr  />
@@ -663,7 +659,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00700">700</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00674">674</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -686,7 +682,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00686">686</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00660">660</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -725,11 +721,11 @@ return success;
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
 <div class="line">        <a class="code hl_variable" href="#abf0ab34206186176842dbc1e16b000fe">S</a> = <a class="code hl_variable" href="#a1fd2fbe4d6f9da755b9346dd4b8b9c01">fromC</a>.transpose() * <a class="code hl_variable" href="#a1069787c9fac7f149d1f8a65eff6656e">toC</a></div>
-<div class="ttc" id="aa00257_html_a1069787c9fac7f149d1f8a65eff6656e"><div class="ttname"><a href="#a1069787c9fac7f149d1f8a65eff6656e">toC</a></div><div class="ttdeci">Eigen::MatrixXf toC</div><div class="ttdef"><b>Definition</b> <a href="a00257_source.html#l00682">fiff_coord_trans.cpp:682</a></div></div>
-<div class="ttc" id="aa00257_html_a1fd2fbe4d6f9da755b9346dd4b8b9c01"><div class="ttname"><a href="#a1fd2fbe4d6f9da755b9346dd4b8b9c01">fromC</a></div><div class="ttdeci">Eigen::MatrixXf fromC</div><div class="ttdef"><b>Definition</b> <a href="a00257_source.html#l00681">fiff_coord_trans.cpp:681</a></div></div>
-<div class="ttc" id="aa00257_html_abf0ab34206186176842dbc1e16b000fe"><div class="ttname"><a href="#abf0ab34206186176842dbc1e16b000fe">S</a></div><div class="ttdeci">Eigen::Matrix3f S</div><div class="ttdef"><b>Definition</b> <a href="a00257_source.html#l00685">fiff_coord_trans.cpp:685</a></div></div>
+<div class="ttc" id="aa00257_html_a1069787c9fac7f149d1f8a65eff6656e"><div class="ttname"><a href="#a1069787c9fac7f149d1f8a65eff6656e">toC</a></div><div class="ttdeci">Eigen::MatrixXf toC</div><div class="ttdef"><b>Definition</b> <a href="a00257_source.html#l00656">fiff_coord_trans.cpp:656</a></div></div>
+<div class="ttc" id="aa00257_html_a1fd2fbe4d6f9da755b9346dd4b8b9c01"><div class="ttname"><a href="#a1fd2fbe4d6f9da755b9346dd4b8b9c01">fromC</a></div><div class="ttdeci">Eigen::MatrixXf fromC</div><div class="ttdef"><b>Definition</b> <a href="a00257_source.html#l00655">fiff_coord_trans.cpp:655</a></div></div>
+<div class="ttc" id="aa00257_html_abf0ab34206186176842dbc1e16b000fe"><div class="ttname"><a href="#abf0ab34206186176842dbc1e16b000fe">S</a></div><div class="ttdeci">Eigen::Matrix3f S</div><div class="ttdef"><b>Definition</b> <a href="a00257_source.html#l00659">fiff_coord_trans.cpp:659</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00688">688</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00662">662</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -745,7 +741,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00678">678</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00652">652</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -761,7 +757,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00681">681</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00655">655</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -777,7 +773,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00697">697</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00671">671</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -793,7 +789,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00694">694</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00668">668</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -809,7 +805,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00685">685</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00659">659</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -825,7 +821,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00679">679</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00653">653</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>
@@ -841,7 +837,7 @@ return success;
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00682">682</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00656">656</a> of file <a class="el" href="a00257_source.html">fiff_coord_trans.cpp</a>.</p>
 
 </div>
 </div>

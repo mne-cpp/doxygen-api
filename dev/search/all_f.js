@@ -129,7 +129,7 @@ var searchData=
   ['noisename_126',['noisename',['../a03986.html#a75543332a16d6df1a53cf9e48d894d9d',1,'INVLIB::InvDipoleFitSettings']]],
   ['noisenorm_127',['noisenorm',['../a04446.html#a420ccf50b97f1443382c3dea6c75a48e',1,'MNELIB::MNEInverseOperator']]],
   ['nominal_5fsrate_128',['nominal_srate',['../a04174.html#a0d7bec4dffce0ec58098bb81f3b8cbc7',1,'LSLLIB::stream_info']]],
-  ['non_20superuser_129',['of free blocks available to non-superuser.',['../a00245.html#autotoc_md41',1,'']]],
+  ['non_20superuser_129',['of free blocks available to non-superuser.',['../a00245.html#autotoc_md40',1,'']]],
   ['none_130',['None',['../a02560.html#a1e044143e471f8d501763accc39e8951a6adf97f83acf6453d4a6a4b1070f3754',1,'DISPLIB::None'],['../a02571.html#a0477e91c4a3a20e47d42b51d8080ff33a6adf97f83acf6453d4a6a4b1070f3754',1,'DISP3DLIB::None'],['../a02571.html#a82bca15851e5c3b674d41ef520249e45a6adf97f83acf6453d4a6a4b1070f3754',1,'DISP3DLIB::None'],['../a02574.html#aeda8279f8dbf11d6a1bff261bbfea009a6adf97f83acf6453d4a6a4b1070f3754',1,'INVLIB::None'],['../a02574.html#ad713f1a7895bfdb0bb447b2776528f18a6adf97f83acf6453d4a6a4b1070f3754',1,'INVLIB::None'],['../a02617.html#af057d7b69affa334e5d7ea447ed8f642a6adf97f83acf6453d4a6a4b1070f3754',1,'STSLIB::None']]],
   ['nonzeros_131',['nonZeros',['../a03830.html#aa590a42604f4046d48bdba09642f183b',1,'FIFFLIB::FiffSparseMatrix']]],
   ['norient_132',['nOrient',['../a03954.html#adb178649d384cc2061f98eae2892d639',1,'INVLIB::InvBeamformer']]],

@@ -26,9 +26,10 @@ var searchData=
   ['outputname_23',['outputName',['../a03442.html#a6ea9866009725f1b33e3df8b52ad92b4',1,'UTILSLIB::DerivationRule']]],
   ['outputports_24',['outputPorts',['../a04286.html#a0c9d16180206bf745161e560e4453805',1,'MNALIB::MnaOpSchema']]],
   ['outputs_25',['outputs',['../a04270.html#abf33861a6bd276d76de7aaf96a81d7b7',1,'MNALIB::MnaNode']]],
-  ['overlay_5fcolor_5fmode_26',['overlay_color_mode',['../a04494.html#af71dc4f93176833aa62cfb8046b399d1',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['overlay_5ftype_27',['overlay_type',['../a04494.html#aa25136e23e3a9ef5a09d0d85494d595f',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['overlay_5fvalues_28',['overlay_values',['../a04494.html#a89444548b2cc1457293aa45ba7217223',1,'MNELIB::MNEMshDisplaySurface']]],
-  ['overlaymode_29',['overlayMode',['../a03146.html#ac8a2f9c694f77dcfa7a3bdf2ff8d2d17',1,'DISP3DLIB::SubView::overlayMode'],['../a03354.html#af47e68b2d8208217c0daff7ca32149c9',1,'DISP3DLIB::BrainRenderer::SceneData::overlayMode']]],
-  ['overwrite_30',['overwrite',['../a02654.html#a153766c7b75275bb7aaef3610a2dc872',1,'BIDSLIB::BidsRawData::WriteOptions']]]
+  ['overflowreported_26',['overflowReported',['../a03330.html#a480bae806d71e2bdffe290c6bd68b06f',1,'DISP3DLIB::BrainRenderer::Impl']]],
+  ['overlay_5fcolor_5fmode_27',['overlay_color_mode',['../a04494.html#af71dc4f93176833aa62cfb8046b399d1',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['overlay_5ftype_28',['overlay_type',['../a04494.html#aa25136e23e3a9ef5a09d0d85494d595f',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['overlay_5fvalues_29',['overlay_values',['../a04494.html#a89444548b2cc1457293aa45ba7217223',1,'MNELIB::MNEMshDisplaySurface']]],
+  ['overlaymode_30',['overlayMode',['../a03146.html#ac8a2f9c694f77dcfa7a3bdf2ff8d2d17',1,'DISP3DLIB::SubView::overlayMode'],['../a03354.html#af47e68b2d8208217c0daff7ca32149c9',1,'DISP3DLIB::BrainRenderer::SceneData::overlayMode']]],
+  ['overwrite_31',['overwrite',['../a02654.html#a153766c7b75275bb7aaef3610a2dc872',1,'BIDSLIB::BidsRawData::WriteOptions']]]
 ];
