@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['w_0',['w',['../a03920.html#aea32c1a20ef908743d046932f66184bd',1,'FWDLIB::FwdCoil::w'],['../a03940.html#af554d8534ff5fb8ac39d19c13e8d2e7e',1,'FWDLIB::fitUserRec::w']]],
-  ['walltimems_1',['wallTimeMs',['../a04344.html#a75fbed7c98ae0485cf31e19cf78a3378',1,'MNALIB::MnaProvenance']]],
-  ['weightnorm_2',['weightNorm',['../a03964.html#a2d35670c6c89865f366fefbf9e407336',1,'INVLIB::InvBeamformer']]],
-  ['weights_3',['weights',['../a03964.html#ae44907c1a7972473a6f944b68e89c371',1,'INVLIB::InvBeamformer']]],
-  ['whitener_4',['whitener',['../a03964.html#afeae26ea4935ae476e2789e177f3eb52',1,'INVLIB::InvBeamformer::whitener'],['../a04456.html#abb9543b6e31da87a643377bfc45f5bda',1,'MNELIB::MNEInverseOperator::whitener']]],
-  ['width_5',['width',['../a04636.html#a353b3afc027f68f17fa54d72a2322514',1,'MNELIB::MNEVolGeom::width'],['../a04660.html#ab7bb014acdb2d7520074b5979e5ba794',1,'MRILIB::MriSliceImage::width'],['../a04668.html#a2ea97e3d9744f96ef4aea0a3d1b9e691',1,'MRILIB::MriSlice::width'],['../a04672.html#a7bb0982a7b24b4cbccc66b5a93366645',1,'MRILIB::MriVolData::width']]],
-  ['window_5fsize_6',['window_size',['../a03660.html#ac725cf99878ad59462cc3caa1ec2c709',1,'UTILSLIB::SpectogramInputData']]],
-  ['windowcenter_7',['windowCenter',['../a03348.html#a2ff26bc7c29dd334e756e14ac5dba123',1,'DISP3DLIB::BrainRenderer::Impl::SliceSlot']]],
-  ['windowwidth_8',['windowWidth',['../a03348.html#a3d1153a13eef8017153a1e04216d809c',1,'DISP3DLIB::BrainRenderer::Impl::SliceSlot']]],
-  ['work_9',['work',['../a03928.html#afeb66c8f80d75234a57f1d434c9e4c4b',1,'FWDLIB::FwdCompData']]],
-  ['workingdir_10',['workingDir',['../a04556.html#a6886ae463946f21f03a3df6a9beb912e',1,'MNELIB::ProcessingSettings::workingDir'],['../a04796.html#a1fb6589b493c10153a9878c5d293fed3',1,'UTILSLIB::PythonRunnerConfig::workingDir']]],
-  ['world_11',['world',['../a03320.html#a185c0048f798bf1b7542afc65b329290',1,'DISP3DLIB::PickResult']]]
+  ['w_0',['w',['../a03924.html#aea32c1a20ef908743d046932f66184bd',1,'FWDLIB::FwdCoil::w'],['../a03944.html#af554d8534ff5fb8ac39d19c13e8d2e7e',1,'FWDLIB::fitUserRec::w']]],
+  ['walltimems_1',['wallTimeMs',['../a04348.html#a75fbed7c98ae0485cf31e19cf78a3378',1,'MNALIB::MnaProvenance']]],
+  ['weightnorm_2',['weightNorm',['../a03968.html#a2d35670c6c89865f366fefbf9e407336',1,'INVLIB::InvBeamformer']]],
+  ['weights_3',['weights',['../a03968.html#ae44907c1a7972473a6f944b68e89c371',1,'INVLIB::InvBeamformer']]],
+  ['whitener_4',['whitener',['../a03968.html#afeae26ea4935ae476e2789e177f3eb52',1,'INVLIB::InvBeamformer::whitener'],['../a04460.html#abb9543b6e31da87a643377bfc45f5bda',1,'MNELIB::MNEInverseOperator::whitener']]],
+  ['width_5',['width',['../a04640.html#a353b3afc027f68f17fa54d72a2322514',1,'MNELIB::MNEVolGeom::width'],['../a04664.html#ab7bb014acdb2d7520074b5979e5ba794',1,'MRILIB::MriSliceImage::width'],['../a04672.html#a2ea97e3d9744f96ef4aea0a3d1b9e691',1,'MRILIB::MriSlice::width'],['../a04676.html#a7bb0982a7b24b4cbccc66b5a93366645',1,'MRILIB::MriVolData::width']]],
+  ['window_5fsize_6',['window_size',['../a03664.html#ac725cf99878ad59462cc3caa1ec2c709',1,'UTILSLIB::SpectogramInputData']]],
+  ['windowcenter_7',['windowCenter',['../a03352.html#a2ff26bc7c29dd334e756e14ac5dba123',1,'DISP3DLIB::BrainRenderer::Impl::SliceSlot']]],
+  ['windowwidth_8',['windowWidth',['../a03352.html#a3d1153a13eef8017153a1e04216d809c',1,'DISP3DLIB::BrainRenderer::Impl::SliceSlot']]],
+  ['work_9',['work',['../a03932.html#afeb66c8f80d75234a57f1d434c9e4c4b',1,'FWDLIB::FwdCompData']]],
+  ['workingdir_10',['workingDir',['../a04560.html#a6886ae463946f21f03a3df6a9beb912e',1,'MNELIB::ProcessingSettings::workingDir'],['../a04800.html#a1fb6589b493c10153a9878c5d293fed3',1,'UTILSLIB::PythonRunnerConfig::workingDir']]],
+  ['world_11',['world',['../a03324.html#a185c0048f798bf1b7542afc65b329290',1,'DISP3DLIB::PickResult']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['kbarheight_0',['kBarHeight',['../a03036.html#aff095585c55f367437e35fedd309e896',1,'DISPLIB::OverviewBarWidget']]],
+  ['kbarheight_0',['kBarHeight',['../a03040.html#aff095585c55f367437e35fedd309e896',1,'DISPLIB::OverviewBarWidget']]],
   ['kbemhead_1',['kBemHead',['../a02573.html#add00739ed8d72350f77496696b8f94f8',1,'SURFACEKEYS']]],
   ['kbemprefix_2',['kBemPrefix',['../a02573.html#ae43b810a73d9e2dc7f089916df1e7070',1,'SURFACEKEYS']]],
   ['kcontoureeg_3',['kContourEeg',['../a02573.html#a108a69861983bbb9bb1d4cfaeacb0a0d',1,'SURFACEKEYS']]],
@@ -10,13 +10,13 @@ var searchData=
   ['kdigextra_7',['kDigExtra',['../a02573.html#a7d8e94649fd7ddbb64b3806b0dd577ab',1,'SURFACEKEYS']]],
   ['kdighpi_8',['kDigHpi',['../a02573.html#ab1a6969e4d1401436d56b4ac8778c97b',1,'SURFACEKEYS']]],
   ['kdigprefix_9',['kDigPrefix',['../a02573.html#a50b39c611c2a993dae49692efa5c5078',1,'SURFACEKEYS']]],
-  ['keeptempfile_10',['keepTempFile',['../a04324.html#a00785f5b69ca41c38ed422d07715fa74',1,'MNALIB::MnaScript']]],
+  ['keeptempfile_10',['keepTempFile',['../a04328.html#a00785f5b69ca41c38ed422d07715fa74',1,'MNALIB::MnaScript']]],
   ['khelmet_11',['kHelmet',['../a02573.html#a89dd733ef976e15b05c339c07e9d661c',1,'SURFACEKEYS']]],
-  ['khi2_12',['khi2',['../a04004.html#aa7f125d5ef0c845125bf8dd6d5f050e7',1,'INVLIB::InvEcd::khi2'],['../a04008.html#a0dd71803dfe16e2044bbff43c95f6303',1,'INVLIB::bdipEcdRec::khi2'],['../a04068.html#aab1fcd2ad4fe178c3b56ee3401c9ed10',1,'INVLIB::InvFocalDipole::khi2']]],
-  ['kind_13',['kind',['../a03312.html#aa35071c2ccdf51de43995cbd5d11c660',1,'DISP3DLIB::SceneLayer::kind'],['../a03320.html#afef3e6517b341a6c7eec7b84555e4e31',1,'DISP3DLIB::PickResult::kind'],['../a03716.html#a57296252392fa2bb85f00bf4cb0454f6',1,'FIFFLIB::FiffChInfo::kind'],['../a03732.html#a94c5696b1f833a6e81f5e34db7e9f31a',1,'FIFFLIB::FiffCov::kind'],['../a03736.html#a87ce56e229922b8c0b71c0d29a4d8698',1,'FIFFLIB::FiffCtfComp::kind'],['../a03744.html#aae75c4510085c461d6624158a0453c59',1,'FIFFLIB::FiffDigPoint::kind'],['../a03760.html#a5027557278aa7bab1c93801e1e45dcb1',1,'FIFFLIB::FiffDirEntry::kind'],['../a03800.html#ac982b3adbfd7f003aeec367cd16cb198',1,'FIFFLIB::FiffExplainEntry::kind'],['../a03828.html#a02031295a2d7618ff26fd39965406afe',1,'FIFFLIB::FiffProj::kind'],['../a03848.html#a28600eedaead7b0db5d22d71fce1200b',1,'FIFFLIB::FiffTag::kind'],['../a03900.html#a337cd64e69fdd49d4bf5a7e79bbfbe16',1,'FWDLIB::SurfExpl::kind'],['../a03964.html#ad755d576d7f60d70b39d78675bb81c97',1,'INVLIB::InvBeamformer::kind'],['../a04368.html#a1249d6174ece23f5818768d59785cd98',1,'MNELIB::MNEChSelection::kind'],['../a04380.html#a98f084fc3fc6933db1f112248169b7ef',1,'MNELIB::MNECovMatrix::kind'],['../a04384.html#a22ebcba007d5bf346f73cdd096feefb2',1,'MNELIB::MNECTFCompData::kind'],['../a04472.html#aac5d16af7e2cc799b5703563161fa71e',1,'MNELIB::MNEMeasDataSet::kind'],['../a04564.html#a0b6a5e88391716e084461acd0d1d8190',1,'MNELIB::MNEProjItem::kind'],['../a04756.html#aa8797e0acc8b1a60604677de7900b516',1,'UTILSLIB::DigitizedPoint::kind']]],
+  ['khi2_12',['khi2',['../a04008.html#aa7f125d5ef0c845125bf8dd6d5f050e7',1,'INVLIB::InvEcd::khi2'],['../a04012.html#a0dd71803dfe16e2044bbff43c95f6303',1,'INVLIB::bdipEcdRec::khi2'],['../a04072.html#aab1fcd2ad4fe178c3b56ee3401c9ed10',1,'INVLIB::InvFocalDipole::khi2']]],
+  ['kind_13',['kind',['../a03316.html#aa35071c2ccdf51de43995cbd5d11c660',1,'DISP3DLIB::SceneLayer::kind'],['../a03324.html#afef3e6517b341a6c7eec7b84555e4e31',1,'DISP3DLIB::PickResult::kind'],['../a03720.html#a57296252392fa2bb85f00bf4cb0454f6',1,'FIFFLIB::FiffChInfo::kind'],['../a03736.html#a94c5696b1f833a6e81f5e34db7e9f31a',1,'FIFFLIB::FiffCov::kind'],['../a03740.html#a87ce56e229922b8c0b71c0d29a4d8698',1,'FIFFLIB::FiffCtfComp::kind'],['../a03748.html#aae75c4510085c461d6624158a0453c59',1,'FIFFLIB::FiffDigPoint::kind'],['../a03764.html#a5027557278aa7bab1c93801e1e45dcb1',1,'FIFFLIB::FiffDirEntry::kind'],['../a03804.html#ac982b3adbfd7f003aeec367cd16cb198',1,'FIFFLIB::FiffExplainEntry::kind'],['../a03832.html#a02031295a2d7618ff26fd39965406afe',1,'FIFFLIB::FiffProj::kind'],['../a03852.html#a28600eedaead7b0db5d22d71fce1200b',1,'FIFFLIB::FiffTag::kind'],['../a03904.html#a337cd64e69fdd49d4bf5a7e79bbfbe16',1,'FWDLIB::SurfExpl::kind'],['../a03968.html#ad755d576d7f60d70b39d78675bb81c97',1,'INVLIB::InvBeamformer::kind'],['../a04372.html#a1249d6174ece23f5818768d59785cd98',1,'MNELIB::MNEChSelection::kind'],['../a04384.html#a98f084fc3fc6933db1f112248169b7ef',1,'MNELIB::MNECovMatrix::kind'],['../a04388.html#a22ebcba007d5bf346f73cdd096feefb2',1,'MNELIB::MNECTFCompData::kind'],['../a04476.html#aac5d16af7e2cc799b5703563161fa71e',1,'MNELIB::MNEMeasDataSet::kind'],['../a04568.html#a0b6a5e88391716e084461acd0d1d8190',1,'MNELIB::MNEProjItem::kind'],['../a04760.html#aa8797e0acc8b1a60604677de7900b516',1,'UTILSLIB::DigitizedPoint::kind']]],
   ['klhinflated_14',['kLhInflated',['../a02573.html#afd97a72cb6a324a06e6c5cfd11cdfff5',1,'SURFACEKEYS']]],
   ['klhprefix_15',['kLhPrefix',['../a02573.html#a49884ad3cc6047348cdcb3020565c1bb',1,'SURFACEKEYS']]],
-  ['kmaxsliceslots_16',['kMaxSliceSlots',['../a03336.html#a550ff23ddbae028f5f7e32d9468b5511',1,'DISP3DLIB::BrainRenderer::Impl']]],
+  ['kmaxsliceslots_16',['kMaxSliceSlots',['../a03340.html#a550ff23ddbae028f5f7e32d9468b5511',1,'DISP3DLIB::BrainRenderer::Impl']]],
   ['krhinflated_17',['kRhInflated',['../a02573.html#a9790ccaefdf26c81bc33da15d5bf3b96',1,'SURFACEKEYS']]],
   ['krhprefix_18',['kRhPrefix',['../a02573.html#a9102362f3372b69ab2d586a93ef2ddf9',1,'SURFACEKEYS']]],
   ['ksensdig_19',['kSensDig',['../a02573.html#a45855fd3add8ccb51807ef26072b144a',1,'SURFACEKEYS']]],
@@ -26,7 +26,7 @@ var searchData=
   ['ksensmegmag_23',['kSensMegMag',['../a02573.html#af355ee1a66d0cf93a72a7c8e2a4b5f29',1,'SURFACEKEYS']]],
   ['ksensprefix_24',['kSensPrefix',['../a02573.html#a4935ed6ed1c20b159023d19434c1a3ee',1,'SURFACEKEYS']]],
   ['ksrcspprefix_25',['kSrcSpPrefix',['../a02573.html#a1efea6ed52431eeacbc35bddf0e43141',1,'SURFACEKEYS']]],
-  ['kstimzoneh_26',['kStimZoneH',['../a03072.html#a644ca3c8608c35f6a4bfbcd7355d6963',1,'DISPLIB::TimeRulerWidget']]],
-  ['ktimezoneh_27',['kTimeZoneH',['../a03072.html#a2c4c4af9644d58397ce51bc347baf7f4',1,'DISPLIB::TimeRulerWidget']]],
-  ['ktotalh_28',['kTotalH',['../a03072.html#a04486c954621b77db5daf2ba66901bb2',1,'DISPLIB::TimeRulerWidget']]]
+  ['kstimzoneh_26',['kStimZoneH',['../a03076.html#a644ca3c8608c35f6a4bfbcd7355d6963',1,'DISPLIB::TimeRulerWidget']]],
+  ['ktimezoneh_27',['kTimeZoneH',['../a03076.html#a2c4c4af9644d58397ce51bc347baf7f4',1,'DISPLIB::TimeRulerWidget']]],
+  ['ktotalh_28',['kTotalH',['../a03076.html#a04486c954621b77db5daf2ba66901bb2',1,'DISPLIB::TimeRulerWidget']]]
 ];
