@@ -330,7 +330,7 @@ var searchData=
   ['compute_5fepoch_5fcovariance_327',['compute_epoch_covariance',['../a04356.html#ace72a4703d9a87a1d08d445a0d230540',1,'MNELIB::MNE']]],
   ['compute_5fforward_5feeg_328',['compute_forward_eeg',['../a03912.html#aa3a15b1f6fc3ef5cea59b359e509d485',1,'FWDLIB::FwdBemModel']]],
   ['compute_5fforward_5fmeg_329',['compute_forward_meg',['../a03912.html#ad1fdc6026d19d879c8fedcf4321cecdd',1,'FWDLIB::FwdBemModel']]],
-  ['compute_5ffrom_5fepochs_330',['compute_from_epochs',['../a03732.html#afaa62bd8db85547e79894d9d54c3a41e',1,'FIFFLIB::FiffCov']]],
+  ['compute_5ffrom_5fepochs_330',['compute_from_epochs',['../a03732.html#a2f39ce47db0de03b2c97bf5d6fb656c6',1,'FIFFLIB::FiffCov::compute_from_epochs(const FiffRawData &amp;raw, const Eigen::MatrixXi &amp;events, const QList&lt; int &gt; &amp;eventCodes, float tmin, float tmax, float bmin=0.0f, float bmax=0.0f, bool doBaseline=false, bool removeMean=true, unsigned int ignoreMask=0, float delay=0.0f, const RejectionParams *rej=nullptr)'],['../a03732.html#a604c663aa96a3c025fd2ce94b6a9df6f',1,'FIFFLIB::FiffCov::compute_from_epochs(const QList&lt; QList&lt; Eigen::MatrixXd &gt; &gt; &amp;epochs, const FiffInfo &amp;info, bool removeMean=true)']]],
   ['compute_5ffrom_5fraw_331',['compute_from_raw',['../a03828.html#a3240085ca5a354a5ff59e6da32e6ac1d',1,'FIFFLIB::FiffProj']]],
   ['compute_5ffwd_2ecpp_332',['compute_fwd.cpp',['../a01202.html',1,'']]],
   ['compute_5ffwd_2eh_333',['compute_fwd.h',['../a01196.html',1,'']]],
