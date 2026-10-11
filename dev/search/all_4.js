@@ -310,7 +310,7 @@ var searchData=
   ['comparetripletsecondentry_307',['compareTripletSecondEntry',['../a04212.html#aee51c17020fb23936afe4ae7d0d7201c',1,'UTILSLIB::Linalg']]],
   ['compclicked_308',['compClicked',['../a02916.html#a7412571d6ef5f34722b118df630843a5',1,'DISPLIB::CompensatorView']]],
   ['compensate_5fbuffer_309',['compensate_buffer',['../a04596.html#a360aa77fe1ab8e9dc6240d9341f304d9',1,'MNELIB::MNERawData']]],
-  ['compensate_5fto_310',['compensate_to',['../a03800.html#a2f0d07faf3b6e9badeec5ec0b08a622b',1,'FIFFLIB::FiffEvokedSet']]],
+  ['compensate_5fto_310',['compensate_to',['../a03800.html#aec759eee4c3199d92ec2bfd67cc9da87',1,'FIFFLIB::FiffEvokedSet']]],
   ['compensateto_311',['compensateTo',['../a04560.html#af91d4cf7d2b719ada3381d05454600e4',1,'MNELIB::ProcessingSettings']]],
   ['compensatorview_312',['CompensatorView',['../a02916.html',1,'DISPLIB::CompensatorView'],['../a02916.html#a401a1f98c87871523cc841372a9216c9',1,'DISPLIB::CompensatorView::CompensatorView()']]],
   ['compensatorview_2ecpp_313',['compensatorview.cpp',['../a00662.html',1,'']]],

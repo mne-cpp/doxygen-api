@@ -164,7 +164,7 @@ var searchData=
   ['comparetripletsecondentry_161',['compareTripletSecondEntry',['../a04212.html#aee51c17020fb23936afe4ae7d0d7201c',1,'UTILSLIB::Linalg']]],
   ['compclicked_162',['compClicked',['../a02916.html#a7412571d6ef5f34722b118df630843a5',1,'DISPLIB::CompensatorView']]],
   ['compensate_5fbuffer_163',['compensate_buffer',['../a04596.html#a360aa77fe1ab8e9dc6240d9341f304d9',1,'MNELIB::MNERawData']]],
-  ['compensate_5fto_164',['compensate_to',['../a03800.html#a2f0d07faf3b6e9badeec5ec0b08a622b',1,'FIFFLIB::FiffEvokedSet']]],
+  ['compensate_5fto_164',['compensate_to',['../a03800.html#aec759eee4c3199d92ec2bfd67cc9da87',1,'FIFFLIB::FiffEvokedSet']]],
   ['compensatorview_165',['CompensatorView',['../a02916.html#a401a1f98c87871523cc841372a9216c9',1,'DISPLIB::CompensatorView']]],
   ['complete_5fsource_5fspace_5finfo_166',['complete_source_space_info',['../a04448.html#a13e8f256292eb2da4ade7a1a1ca99190',1,'MNELIB::MNEHemisphere']]],
   ['compose_5flinear_5ffitting_5fdata_167',['compose_linear_fitting_data',['../a03948.html#a93f22bf0a00348d4a555c5d16624fd26',1,'FWDLIB::FwdEegSphereModel']]],
