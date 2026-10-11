@@ -80,7 +80,7 @@ var searchData=
   ['checkeeglocations_77',['checkEegLocations',['../a03720.html#a39951c6da82727982d1f05b139dece0e',1,'FIFFLIB::FiffChInfo']]],
   ['checkforartifact_78',['checkForArtifact',['../a04420.html#af222809fd9d42e15cc367169114f3d4e',1,'MNELIB::MNEEpochDataList']]],
   ['checkforupdate_79',['checkForUpdate',['../a04024.html#aa0114239b08a69be0b583bf769b046d3',1,'INVLIB::InvHpiDataUpdater::checkForUpdate()'],['../a04036.html#ab070defc3e909b40d96cdfbe8ea35498',1,'INVLIB::InvHpiFit::checkForUpdate()']]],
-  ['checkintegrity_80',['checkIntegrity',['../a03896.html#ad9a94d735d2ddc121ba6e31c70fc970d',1,'FWDLIB::ComputeFwdSettings::checkIntegrity()'],['../a04000.html#a08b5998198e9591963680d1fc6211755',1,'INVLIB::InvDipoleFitSettings::checkIntegrity()']]],
+  ['checkintegrity_80',['checkIntegrity',['../a03896.html#a0ebdbba36007dacd1214d2cd002ddc7b',1,'FWDLIB::ComputeFwdSettings::checkIntegrity()'],['../a04000.html#a7a4e7634c21994f57c920bb6df9fb99f',1,'INVLIB::InvDipoleFitSettings::checkIntegrity()']]],
   ['checkprerequisites_81',['checkPrerequisites',['../a04256.html#a4c6f2ae97166765db48779852d669a5f',1,'MLLIB::MLTrainer']]],
   ['chi2isf_82',['chi2Isf',['../a04216.html#a7850af751aeee32ac419cf796b0f16a4',1,'UTILSLIB::Numerics']]],
   ['circularbuffer_83',['CircularBuffer',['../a04720.html#a419379048cb41de358cc3a71b51fb817',1,'UTILSLIB::CircularBuffer']]],
