@@ -91,7 +91,7 @@ var searchData=
   ['mne_5fsparse_5fvec_5fmult2_5f32_88',['mne_sparse_vec_mult2_32',['../a02498.html#ac3354c4d154cc3f4b4b9cac50dc7ebb2',1,'mne_ctf_comp_data_set.cpp']]],
   ['mne_5funmap_5fctf_5fcomp_5fkind_89',['mne_unmap_ctf_comp_kind',['../a02498.html#aa6eed582ba0cd97f363b227b80d073b4',1,'mne_ctf_comp_data_set.cpp']]],
   ['mneanalyzecolor_90',['mneAnalyzeColor',['../a02572.html#a6cdfd5838e51043d956a55442c7942c8',1,'DISP3DLIB']]],
-  ['mnebem_91',['MNEBem',['../a04364.html#a4d65689307d65d74ac272ade70433f2a',1,'MNELIB::MNEBem::MNEBem()'],['../a04364.html#a2a73f8c69d019e0bb9335ff58ac3f7e1',1,'MNELIB::MNEBem::MNEBem(const MNEBem &amp;p_MNEBem)'],['../a04364.html#a805a3fd871dd3ff23f6d8c41c264e0c0',1,'MNELIB::MNEBem::MNEBem(QIODevice &amp;p_IODevice)']]],
+  ['mnebem_91',['MNEBem',['../a04364.html#a4d65689307d65d74ac272ade70433f2a',1,'MNELIB::MNEBem::MNEBem()'],['../a04364.html#a1ea31e4926ebf2369b373d317dd04acb',1,'MNELIB::MNEBem::MNEBem(const MNEBem &amp;p_MNEBem)=default'],['../a04364.html#a805a3fd871dd3ff23f6d8c41c264e0c0',1,'MNELIB::MNEBem::MNEBem(QIODevice &amp;p_IODevice)']]],
   ['mnebemsurface_92',['MNEBemSurface',['../a04368.html#a9f9884ea981d8a582f8c3aa9ab53da45',1,'MNELIB::MNEBemSurface::MNEBemSurface()'],['../a04368.html#a072f3de54bff58bacdd0f729f44a3e67',1,'MNELIB::MNEBemSurface::MNEBemSurface(const MNEBemSurface &amp;p_MNEBemSurface)']]],
   ['mnechselection_93',['MNEChSelection',['../a04372.html#a910e369b6288fc8a84e2db58b9c58202',1,'MNELIB::MNEChSelection']]],
   ['mneclusterinfo_94',['MNEClusterInfo',['../a04376.html#abbbdb56bcf8bd29d4f8985d661291a06',1,'MNELIB::MNEClusterInfo']]],
