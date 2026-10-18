@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['units_0',['Units',['../a04781.html#a5d015c1877cfe0b795f035826fe9aa6f',1,'UTILSLIB::FastrakParser']]]
+  ['viewmode_0',['ViewMode',['../a03404.html#ad144162f1c7e6a7e5eecc6de101c9c90',1,'DISP3DLIB::BrainView']]],
+  ['visualizationmode_1',['VisualizationMode',['../a02598.html#af1b61934d3705e8e9eb71d2cabd5f4c5',1,'DISP3DLIB']]],
+  ['visualizationtype_2',['VisualizationType',['../a03432.html#a89820f353dedbdbee0c7af5b07d97663',1,'DISP3DLIB::RtSourceInterpolationMatWorker']]]
 ];
