@@ -59,7 +59,7 @@ var searchData=
   ['dimy_56',['dimY',['../a04737.html#abf67f4ff0962ec66cd38b181593f9c33',1,'MRILIB::MriVolData']]],
   ['dimz_57',['dimZ',['../a04737.html#a3b3bab05b389eb6904b8600ada937e25',1,'MRILIB::MriVolData']]],
   ['dipfiterror_58',['dipfitError',['../a04109.html#a4699a91c43ab941c09e8dec262d0c799',1,'INVLIB::InvHpiFitData']]],
-  ['dipole_5fforward_59',['dipole_forward',['../a01526.html#ae2870c761b3d37a06d48d41a023d4a7b',1,'inv_dipole_fit_data.cpp']]],
+  ['dipole_5fforward_59',['dipole_forward',['../a00665.html#ae2870c761b3d37a06d48d41a023d4a7b',1,'inv_dipole_fit_data.cpp']]],
   ['dipole_5fforward_5fone_60',['dipole_forward_one',['../a04057.html#ac65c3d0367a3c1e69945e7ceb8adb40c',1,'INVLIB::InvDipoleFitData']]],
   ['dipolefitview_61',['DipoleFitView',['../a02969.html#ad37883ce5802fedb4503adf165fb66e1',1,'DISPLIB::DipoleFitView']]],
   ['dipoleobject_62',['DipoleObject',['../a03289.html#ae0a43655c9c2153e54e6bd965cc6f31e',1,'DISP3DLIB::DipoleObject']]],

@@ -102,8 +102,8 @@ var searchData=
   ['hpifitresult_99',['HpiFitResult',['../a04093.html',1,'INVLIB']]],
   ['hpifreqs_100',['hpiFreqs',['../a04093.html#a2f5d78360ac1f18cab478ecb8f9c2e04',1,'INVLIB::HpiFitResult']]],
   ['hpisettingsview_101',['HpiSettingsView',['../a03113.html',1,'DISPLIB::HpiSettingsView'],['../a03113.html#ac41ac5d39a70eb635f4a7f6bf64b0119',1,'DISPLIB::HpiSettingsView::HpiSettingsView()']]],
-  ['hpisettingsview_2ecpp_102',['hpisettingsview.cpp',['../a00638.html',1,'']]],
-  ['hpisettingsview_2eh_103',['hpisettingsview.h',['../a00827.html',1,'']]],
+  ['hpisettingsview_2ecpp_102',['hpisettingsview.cpp',['../a01568.html',1,'']]],
+  ['hpisettingsview_2eh_103',['hpisettingsview.h',['../a01748.html',1,'']]],
   ['hpisortstruct_104',['HPISortStruct',['../a04105.html',1,'INVLIB']]],
   ['htmlcontent_105',['htmlContent',['../a04873.html#a878072725593770efb99ac5cab553b27',1,'UTILSLIB::ReportSection']]]
 ];
