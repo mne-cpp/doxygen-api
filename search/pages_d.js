@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['primitive_20building_20blocks_3a_0',['TYPEDEFS Primitive building blocks:',['../a01832.html#autotoc_md84',1,'']]]
+  ['superuser_0',['of free blocks available to non-superuser.',['../a00248.html#autotoc_md57',1,'']]]
 ];

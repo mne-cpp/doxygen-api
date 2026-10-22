@@ -1,20 +1,11 @@
 var searchData=
 [
-  ['bids_5fanatomicaldata_0',['BIDS_ANATOMICALDATA',['../a01238.html#a8f3e96923ea70fc458a499ed0711cb32',1,'bidsviewmodel.h']]],
-  ['bids_5faverage_1',['BIDS_AVERAGE',['../a01238.html#a771f0fb9e4645dc428fcaeaed0d5c60f',1,'bidsviewmodel.h']]],
-  ['bids_5fbehavioraldata_2',['BIDS_BEHAVIORALDATA',['../a01238.html#a4ec98963e51e21539be4187d7c0d3598',1,'bidsviewmodel.h']]],
-  ['bids_5fcoordsystem_3',['BIDS_COORDSYSTEM',['../a01238.html#ac288a865607f1e0b3fcf1401992abbbb',1,'bidsviewmodel.h']]],
-  ['bids_5fdipole_4',['BIDS_DIPOLE',['../a01238.html#ae80fb13cc367ac32454f171ecf749394',1,'bidsviewmodel.h']]],
-  ['bids_5felectrodes_5',['BIDS_ELECTRODES',['../a01238.html#a802685ee4e0c316094ff2774cf8140f2',1,'bidsviewmodel.h']]],
-  ['bids_5fevent_6',['BIDS_EVENT',['../a01238.html#af7f65317825ba46de57d9b4864da0d28',1,'bidsviewmodel.h']]],
-  ['bids_5ffolder_7',['BIDS_FOLDER',['../a01238.html#a41f54d123f58836af93a935fd7c6ea47',1,'bidsviewmodel.h']]],
-  ['bids_5ffunctionaldata_8',['BIDS_FUNCTIONALDATA',['../a01238.html#a5ce2d23ab2b435afb929adc8db1c8d85',1,'bidsviewmodel.h']]],
-  ['bids_5fieegdata_9',['BIDS_IEEGDATA',['../a01238.html#a5b5ab133aaa70f71b4523e104f655aca',1,'bidsviewmodel.h']]],
-  ['bids_5fitem_5fsession_10',['BIDS_ITEM_SESSION',['../a01238.html#a1beab803c7c03de5b66582f97d82fd94',1,'bidsviewmodel.h']]],
-  ['bids_5fitem_5fsubject_11',['BIDS_ITEM_SUBJECT',['../a01238.html#a2a58761c21f797632bec4c6a43235452',1,'bidsviewmodel.h']]],
-  ['bids_5fitem_5ftype_12',['BIDS_ITEM_TYPE',['../a01238.html#a3e3f1564e36d10749de94cc82f3539e5',1,'bidsviewmodel.h']]],
-  ['bids_5fsession_13',['BIDS_SESSION',['../a01238.html#a72aa6e4cae6cbd154aa4aceac6b47a92',1,'bidsviewmodel.h']]],
-  ['bids_5fsubject_14',['BIDS_SUBJECT',['../a01238.html#a60e2591a1b7628870bebf6901c3cf876',1,'bidsviewmodel.h']]],
-  ['bids_5funknown_15',['BIDS_UNKNOWN',['../a01238.html#abde145b2a87d4e777ce5eb7b87cd597d',1,'bidsviewmodel.h']]],
-  ['bidsshared_5fexport_16',['BIDSSHARED_EXPORT',['../a00440.html#a68e465929baaf8ffa9eac262a4145447',1,'bids_global.h']]]
+  ['color_5fcritical_0',['COLOR_CRITICAL',['../a00449.html#a2982b4e115d6a55cb7245da0d157f387',1,'mne_logger.cpp']]],
+  ['color_5fdebug_1',['COLOR_DEBUG',['../a00449.html#a2799f0e4fea941044c782585431e22cb',1,'mne_logger.cpp']]],
+  ['color_5ffatal_2',['COLOR_FATAL',['../a00449.html#ad064a90684be43b1446ac1a6e4a35997',1,'mne_logger.cpp']]],
+  ['color_5finfo_3',['COLOR_INFO',['../a00449.html#a0d4d3a685f9501631d1feed1f4ba7577',1,'mne_logger.cpp']]],
+  ['color_5freset_4',['COLOR_RESET',['../a00449.html#a17f760256046df23dd0ab46602f04d02',1,'mne_logger.cpp']]],
+  ['color_5fwarn_5',['COLOR_WARN',['../a00449.html#a9a3ec041ae9dfe612f4702a85ecc738a',1,'mne_logger.cpp']]],
+  ['comshared_5fexport_6',['COMSHARED_EXPORT',['../a00122.html#a8b853ba58435a9b438e30c8585e5ff4f',1,'com_global.h']]],
+  ['connectivityshared_5fexport_7',['CONNECTIVITYSHARED_EXPORT',['../a01934.html#a3a491e12b5757009f1a9e5a75eb763c7',1,'connectivity_global.h']]]
 ];

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['legacy_20c_20compat_20code_20compiles_20without_20changes_0',['These typedefs are kept so that legacy C-compat code compiles without changes.',['../a01832.html#autotoc_md88',1,'']]],
-  ['links_1',['Links',['../index.html#autotoc_md116',1,'']]],
-  ['list_2',['Deprecated List',['../a02534.html',1,'']]]
+  ['namespaces_0',['NAMESPACES',['../a00260.html#autotoc_md5',1,'USED NAMESPACES'],['../a00239.html#autotoc_md44',1,'USED NAMESPACES']]],
+  ['non_20superuser_1',['of free blocks available to non-superuser.',['../a00248.html#autotoc_md57',1,'']]]
 ];

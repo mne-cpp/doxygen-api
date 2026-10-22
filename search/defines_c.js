@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quad_5ffile_5fmagic_5fnumber_0',['QUAD_FILE_MAGIC_NUMBER',['../a00620.html#a22fe97fb5f2426a242f09290a5c363eb',1,'mne_surface_or_volume.h']]]
+  ['stsshared_5fexport_0',['STSSHARED_EXPORT',['../a02123.html#acfe3fcbfaf8dbb3d7a06bc9245267f64',1,'sts_global.h']]]
 ];

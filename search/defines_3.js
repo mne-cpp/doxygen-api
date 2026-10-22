@@ -1,11 +1,8 @@
 var searchData=
 [
-  ['color_5fcritical_0',['COLOR_CRITICAL',['../a00320.html#a2982b4e115d6a55cb7245da0d157f387',1,'mne_logger.cpp']]],
-  ['color_5fdebug_1',['COLOR_DEBUG',['../a00320.html#a2799f0e4fea941044c782585431e22cb',1,'mne_logger.cpp']]],
-  ['color_5ffatal_2',['COLOR_FATAL',['../a00320.html#ad064a90684be43b1446ac1a6e4a35997',1,'mne_logger.cpp']]],
-  ['color_5finfo_3',['COLOR_INFO',['../a00320.html#a0d4d3a685f9501631d1feed1f4ba7577',1,'mne_logger.cpp']]],
-  ['color_5freset_4',['COLOR_RESET',['../a00320.html#a17f760256046df23dd0ab46602f04d02',1,'mne_logger.cpp']]],
-  ['color_5fwarn_5',['COLOR_WARN',['../a00320.html#a9a3ec041ae9dfe612f4702a85ecc738a',1,'mne_logger.cpp']]],
-  ['comshared_5fexport_6',['COMSHARED_EXPORT',['../a00002.html#a8b853ba58435a9b438e30c8585e5ff4f',1,'com_global.h']]],
-  ['connectivityshared_5fexport_7',['CONNECTIVITYSHARED_EXPORT',['../a01499.html#a3a491e12b5757009f1a9e5a75eb763c7',1,'connectivity_global.h']]]
+  ['decodingshared_5fexport_0',['DECODINGSHARED_EXPORT',['../a00365.html#a175a4e62a45b4b8fe677549f233dc805',1,'decoding_global.h']]],
+  ['dipole_5fsources_1',['DIPOLE_SOURCES',['../a01478.html#af36304aa9edd0617641287a0755effb6',1,'inv_dipole.cpp']]],
+  ['disp3dshared_5fexport_2',['DISP3DSHARED_EXPORT',['../a00884.html#a9e0813af0c7548e2ee60e9033fdf045e',1,'disp3D_global.h']]],
+  ['dispshared_5fexport_3',['DISPSHARED_EXPORT',['../a00539.html#aded49b96c9ac1f92dc1381a1d7845c28',1,'disp_global.h']]],
+  ['dspshared_5fexport_4',['DSPSHARED_EXPORT',['../a01823.html#abb361459cf37ec31dad972356041a014',1,'dsp_global.h']]]
 ];
