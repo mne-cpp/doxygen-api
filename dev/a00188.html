@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/mna/mna_graph_executor.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/fiff/fiff_annotations.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,180 +250,78 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_97242f35e7a32758279017344c3c6c20.html">mna</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_adb2409acb15410cca2b1cbb01c919f2.html">fiff</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">mna_graph_executor.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">fiff_annotations.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of MnaGraphExecutor — batch / incremental graph walk plus MNE-Scan-friendly stream-mode plugin wiring.  
+<p>Implementation of FiffAnnotation / FiffAnnotations, including the FIFF, JSON and CSV serializers.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00251_source.html">mna_graph_executor.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00185_source.html">mna_graph.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00227_source.html">mna_op_registry.h</a>&quot;</code><br />
-<code>#include &lt;QCryptographicHash&gt;</code><br />
-<code>#include &lt;QDir&gt;</code><br />
-<code>#include &lt;QElapsedTimer&gt;</code><br />
-<code>#include &lt;QSysInfo&gt;</code><br />
-<code>#include &lt;QTemporaryFile&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;QProcess&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00215_source.html">fiff_annotations.h</a>&quot;</code><br />
+<code>#include &lt;QFile&gt;</code><br />
+<code>#include &lt;QJsonDocument&gt;</code><br />
+<code>#include &lt;QJsonObject&gt;</code><br />
+<code>#include &lt;QJsonArray&gt;</code><br />
+<code>#include &lt;QTextStream&gt;</code><br />
+<code>#include &lt;QDebug&gt;</code><br />
+<code>#include &lt;QFileInfo&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for mna_graph_executor.cpp:</div>
+Include dependency graph for fiff_annotations.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00189.png" border="0" usemap="#asrc_2libraries_2mna_2mna__graph__executor_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2mna_2mna__graph__executor_8cpp" id="asrc_2libraries_2mna_2mna__graph__executor_8cpp">
-<area shape="rect" title="Implementation of MnaGraphExecutor — batch / incremental graph walk plus MNE&#45;Scan&#45;friendly stream&#45;mod..." alt="" coords="2241,5,2405,45"/>
-<area shape="rect" href="a00251.html" title="Stateless executor that runs an MNALIB::MnaGraph in topological order, in batch or stream mode,..." alt="" coords="933,93,1102,119"/>
-<area shape="poly" title=" " alt="" coords="2241,34,1116,101,1116,96,2240,29"/>
-<area shape="rect" href="a00185.html" title="In&#45;memory directed acyclic graph of MNALIB::MnaNode operations — connectivity, validation,..." alt="" coords="1880,93,1987,119"/>
-<area shape="poly" title=" " alt="" coords="2241,46,2001,94,2000,89,2240,40"/>
-<area shape="rect" href="a00227.html" title="Process&#45;wide singleton catalog mapping opType strings to their MNALIB::MnaOpSchema and (for built&#45;in ..." alt="" coords="2201,167,2343,192"/>
-<area shape="poly" title=" " alt="" coords="2241,38,2185,47,2128,60,2081,76,2064,85,2053,95,2048,106,2053,117,2073,132,2106,145,2188,164,2187,169,2104,150,2070,136,2049,120,2043,106,2048,92,2061,81,2079,71,2127,54,2184,42,2240,33"/>
-<area shape="rect" title=" " alt="" coords="2062,93,2218,119"/>
-<area shape="poly" title=" " alt="" coords="2280,48,2181,90,2179,85,2278,43"/>
-<area shape="rect" title=" " alt="" coords="2243,93,2293,119"/>
-<area shape="poly" title=" " alt="" coords="2312,47,2286,84,2282,80,2307,44"/>
-<area shape="rect" title=" " alt="" coords="2318,93,2439,119"/>
-<area shape="poly" title=" " alt="" coords="2338,44,2365,80,2360,84,2334,47"/>
-<area shape="rect" title=" " alt="" coords="2464,93,2544,119"/>
-<area shape="poly" title=" " alt="" coords="2367,43,2466,85,2464,90,2365,48"/>
-<area shape="rect" title=" " alt="" coords="2569,93,2693,119"/>
-<area shape="poly" title=" " alt="" coords="2397,43,2573,87,2572,92,2396,48"/>
-<area shape="rect" title=" " alt="" coords="2717,93,2803,119"/>
-<area shape="poly" title=" " alt="" coords="2405,38,2704,90,2703,96,2404,43"/>
-<area shape="rect" title=" " alt="" coords="2827,93,2909,119"/>
-<area shape="poly" title=" " alt="" coords="2405,33,2588,56,2813,91,2813,96,2587,62,2404,39"/>
-<area shape="rect" href="a00194.html" title="Export/import macros, build&#45;info accessors, and MNALIB namespace anchor for the MNE Analysis Containe..." alt="" coords="1230,387,1341,412"/>
-<area shape="poly" title=" " alt="" coords="932,110,745,112,519,121,413,128,322,138,254,152,232,160,219,168,215,179,220,191,247,245,277,282,316,310,370,336,420,348,506,359,746,375,1216,394,1216,399,746,381,506,364,419,353,368,341,313,314,273,285,242,247,215,193,210,178,215,165,230,155,253,147,321,133,413,123,519,115,745,107,932,105"/>
-<area shape="rect" href="a00215.html" title="One operation in an MNA graph — opType, typed I/O ports, attributes, execution mode (Batch / Stream /..." alt="" coords="966,167,1069,192"/>
-<area shape="poly" title=" " alt="" coords="1020,119,1020,153,1015,153,1015,119"/>
-<area shape="rect" title=" " alt="" coords="1909,387,1979,412"/>
-<area shape="poly" title=" " alt="" coords="1103,113,1370,143,1713,189,1879,217,2021,247,2126,278,2161,295,2182,312,2192,336,2186,355,2166,370,2137,381,2065,395,1994,400,1993,395,2064,389,2136,376,2163,366,2181,352,2187,336,2178,315,2159,299,2125,283,2020,252,1878,222,1713,194,1370,148,1102,118"/>
-<area shape="rect" title=" " alt="" coords="1827,313,1906,339"/>
-<area shape="poly" title=" " alt="" coords="1103,113,1222,129,1374,154,1540,189,1623,212,1704,238,1778,270,1838,304,1836,308,1775,275,1702,242,1621,217,1538,195,1373,159,1222,134,1102,119"/>
-<area shape="rect" title=" " alt="" coords="501,313,608,339"/>
-<area shape="poly" title=" " alt="" coords="954,121,883,138,800,163,713,197,631,242,597,272,572,304,568,300,593,268,628,238,710,192,798,157,882,132,952,116"/>
-<area shape="rect" title=" " alt="" coords="1195,313,1255,339"/>
-<area shape="poly" title=" " alt="" coords="1041,116,1115,163,1157,198,1194,238,1211,269,1222,299,1217,301,1206,271,1190,242,1153,202,1112,168,1038,121"/>
-<area shape="rect" title=" " alt="" coords="80,167,155,192"/>
-<area shape="poly" title=" " alt="" coords="933,112,599,129,387,145,174,169,169,170,168,165,173,164,387,140,599,123,932,107"/>
-<area shape="rect" title=" " alt="" coords="2174,240,2261,265"/>
-<area shape="poly" title=" " alt="" coords="1102,105,1253,108,1452,117,1676,135,1902,164,1977,179,2050,197,2171,233,2170,238,2049,202,1975,184,1901,169,1676,140,1452,122,1253,113,1102,110"/>
-<area shape="rect" title=" " alt="" coords="229,167,307,192"/>
-<area shape="poly" title=" " alt="" coords="932,114,662,133,494,149,326,169,321,170,320,165,325,164,493,143,661,128,932,109"/>
-<area shape="rect" title=" " alt="" coords="5,167,56,192"/>
-<area shape="poly" title=" " alt="" coords="933,113,498,132,256,149,70,170,69,164,256,143,498,127,932,107"/>
-<area shape="rect" href="a00404.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="1148,460,1271,485"/>
-<area shape="poly" title=" " alt="" coords="1275,414,1234,452,1230,449,1271,410"/>
-<area shape="rect" title=" " alt="" coords="1295,460,1425,485"/>
-<area shape="poly" title=" " alt="" coords="1299,410,1340,449,1336,452,1295,414"/>
-<area shape="rect" title=" " alt="" coords="1176,533,1243,559"/>
-<area shape="poly" title=" " alt="" coords="1212,486,1212,520,1207,520,1207,486"/>
-<area shape="poly" title=" " alt="" coords="1014,193,1002,222,992,260,991,301,996,320,1006,337,1019,348,1039,357,1092,373,1155,384,1216,391,1216,396,1155,389,1091,378,1037,362,1016,352,1002,340,991,322,986,302,987,259,997,220,1009,191"/>
-<area shape="rect" href="a00248.html" title="Enums and string&#45;conversion helpers for the MNA container vocabulary (file roles, data kinds,..." alt="" coords="2061,313,2168,339"/>
-<area shape="poly" title=" " alt="" coords="1069,177,1207,178,1404,185,1632,203,1748,218,1862,237,1921,252,1980,270,2076,305,2074,310,1978,275,1920,257,1861,243,1747,223,1631,208,1404,190,1207,183,1069,182"/>
-<area shape="poly" title=" " alt="" coords="1069,178,1184,181,1342,190,1522,208,1703,237,1814,269,1882,292,1920,311,1938,341,1945,373,1940,374,1933,343,1917,315,1880,297,1813,274,1702,243,1521,213,1341,195,1183,187,1069,184"/>
-<area shape="rect" href="a00260.html" title="Typed input or output slot on a graph node — carries an MnaDataKind, an upstream link,..." alt="" coords="1084,240,1180,265"/>
-<area shape="poly" title=" " alt="" coords="1037,190,1103,230,1100,235,1034,194"/>
-<area shape="rect" title=" " alt="" coords="787,387,888,412"/>
-<area shape="poly" title=" " alt="" coords="966,185,823,194,640,216,551,233,472,255,410,282,387,298,372,315,367,326,371,337,418,345,527,360,773,388,773,394,526,365,417,351,368,341,361,326,367,312,384,294,407,277,470,250,550,228,639,211,822,189,965,180"/>
-<area shape="rect" title=" " alt="" coords="625,387,716,412"/>
-<area shape="poly" title=" " alt="" coords="966,184,844,189,690,198,541,216,481,228,437,242,410,256,391,270,376,288,362,314,358,327,362,337,378,349,402,360,467,377,543,387,612,393,611,398,542,392,466,382,400,365,375,354,358,340,353,327,358,312,371,285,387,266,407,251,435,238,480,223,540,210,689,193,844,183,966,179"/>
-<area shape="rect" title=" " alt="" coords="1016,313,1069,339"/>
-<area shape="poly" title=" " alt="" coords="1022,192,1041,299,1036,300,1017,193"/>
-<area shape="rect" href="a00272.html" title="Inline source code carried by a Script&#45;mode graph node — language, interpreter command,..." alt="" coords="784,313,891,339"/>
-<area shape="poly" title=" " alt="" coords="966,190,869,210,827,224,802,242,797,256,799,271,818,301,813,304,794,273,792,255,798,238,825,220,868,205,965,185"/>
-<area shape="rect" title=" " alt="" coords="2319,387,2412,412"/>
-<area shape="poly" title=" " alt="" coords="1069,178,1376,180,1822,188,2048,195,2248,205,2403,219,2457,228,2493,237,2533,256,2568,278,2580,292,2586,307,2586,323,2577,340,2553,358,2515,372,2426,392,2425,387,2513,367,2550,353,2573,337,2581,322,2581,307,2575,294,2564,282,2531,260,2491,243,2456,233,2402,225,2247,211,2048,200,1822,193,1376,185,1069,183"/>
-<area shape="rect" href="a00266.html" title="Verification, declarative checks, evaluation results and provenance snapshot attached to every MNALIB..." alt="" coords="811,240,954,265"/>
-<area shape="poly" title=" " alt="" coords="997,194,918,236,916,231,994,190"/>
-<area shape="poly" title=" " alt="" coords="966,186,835,202,758,218,684,242,626,273,580,307,577,302,624,269,682,238,757,213,834,197,965,181"/>
-<area shape="rect" title=" " alt="" coords="1982,313,2037,339"/>
-<area shape="poly" title=" " alt="" coords="1069,180,1441,198,1652,215,1740,225,1806,237,1854,251,1900,269,1977,304,1975,309,1898,274,1852,256,1805,243,1739,231,1652,220,1441,203,1069,185"/>
-<area shape="rect" title=" " alt="" coords="381,313,477,339"/>
-<area shape="poly" title=" " alt="" coords="966,187,814,205,721,221,630,243,540,275,465,309,463,305,538,270,629,237,720,216,813,200,965,182"/>
-<area shape="poly" title=" " alt="" coords="2088,341,1985,384,1983,379,2086,336"/>
-<area shape="poly" title=" " alt="" coords="1139,264,1157,299,1186,337,1215,360,1247,378,1244,383,1212,364,1182,341,1153,302,1135,267"/>
-<area shape="poly" title=" " alt="" coords="1181,253,1537,268,1788,285,2048,311,2047,316,1788,291,1537,274,1180,258"/>
-<area shape="poly" title=" " alt="" coords="1181,257,1347,278,1555,311,1744,349,1895,383,1894,389,1743,354,1554,316,1346,284,1180,262"/>
-<area shape="poly" title=" " alt="" coords="1131,267,1114,304,1101,324,1083,341,1040,366,993,382,945,393,902,398,902,393,944,388,991,377,1038,361,1080,337,1096,320,1110,301,1126,265"/>
-<area shape="poly" title=" " alt="" coords="1084,261,917,283,832,298,773,316,727,345,692,378,688,375,724,341,771,311,831,293,916,277,1083,256"/>
-<area shape="poly" title=" " alt="" coords="1119,267,1070,307,1066,302,1116,263"/>
-<area shape="poly" title=" " alt="" coords="891,333,1217,385,1216,390,891,338"/>
-<area shape="poly" title=" " alt="" coords="891,328,1004,336,1895,392,1895,398,1004,341,891,334"/>
-<area shape="poly" title=" " alt="" coords="840,339,840,373,835,373,835,339"/>
-<area shape="poly" title=" " alt="" coords="812,341,711,384,709,379,810,336"/>
-<area shape="poly" title=" " alt="" coords="891,329,1004,336,1771,373,2305,393,2305,399,1771,378,1004,341,891,334"/>
-<area shape="poly" title=" " alt="" coords="892,264,919,301,939,320,961,336,1025,364,1093,381,1159,391,1216,395,1216,401,1158,396,1092,387,1023,369,959,341,935,324,915,304,887,267"/>
-<area shape="poly" title=" " alt="" coords="955,256,1271,281,1424,297,1512,311,1534,323,1556,336,1647,362,1741,379,1827,389,1895,394,1895,399,1826,394,1740,384,1646,367,1554,341,1531,328,1510,316,1423,302,1270,287,954,262"/>
-<area shape="poly" title=" " alt="" coords="840,268,803,286,787,299,774,314,771,331,777,347,790,363,807,377,804,381,787,367,773,350,765,331,770,312,783,295,800,281,837,263"/>
-<area shape="poly" title=" " alt="" coords="812,258,776,263,740,274,707,291,679,315,672,328,668,343,668,373,663,373,663,342,667,326,675,312,704,286,738,269,775,258,811,252"/>
-<area shape="poly" title=" " alt="" coords="877,267,854,303,850,300,873,264"/>
-<area shape="poly" title=" " alt="" coords="955,257,1217,279,1551,311,1760,336,2305,390,2304,395,1760,341,1550,316,1217,284,954,262"/>
-<area shape="poly" title=" " alt="" coords="954,256,1814,318,1813,324,954,262"/>
-<area shape="poly" title=" " alt="" coords="831,268,621,313,620,308,829,263"/>
-<area shape="poly" title=" " alt="" coords="938,263,1182,313,1181,318,937,268"/>
-<area shape="poly" title=" " alt="" coords="954,256,1072,263,1496,282,1681,292,1919,311,1968,316,1968,322,1918,316,1681,297,1496,287,1072,268,954,261"/>
-<area shape="poly" title=" " alt="" coords="812,267,492,316,491,310,811,261"/>
-<area shape="poly" title=" " alt="" coords="1954,117,2023,161,2108,224,2146,257,2174,289,2188,317,2188,330,2182,341,2145,352,2068,362,1834,379,1355,399,1355,393,1834,374,2068,357,2144,347,2178,337,2183,328,2183,318,2170,292,2142,261,2105,228,2020,166,1951,121"/>
-<area shape="poly" title=" " alt="" coords="1880,114,1082,176,1082,170,1880,109"/>
-<area shape="poly" title=" " alt="" coords="1987,111,2182,135,2282,150,2355,164,2458,186,2500,203,2546,238,2570,262,2588,287,2594,313,2590,327,2581,341,2568,349,2549,356,2491,368,2325,386,2139,395,1993,400,1993,394,2139,390,2324,380,2490,363,2547,351,2566,344,2577,337,2585,325,2589,313,2583,289,2566,266,2542,242,2498,208,2457,191,2354,169,2281,155,2181,140,1986,116"/>
-<area shape="poly" title=" " alt="" coords="1880,120,1194,243,1194,238,1879,114"/>
-<area shape="poly" title=" " alt="" coords="1880,110,1592,112,1388,118,1168,128,946,144,739,168,647,183,564,200,494,220,437,242,410,256,391,270,376,288,362,314,358,327,362,337,410,346,521,360,773,388,772,394,520,365,409,351,358,341,353,327,358,312,371,285,387,266,408,252,435,238,492,215,563,195,646,178,739,163,946,139,1168,123,1388,112,1591,107,1880,104"/>
-<area shape="poly" title=" " alt="" coords="1880,110,1623,113,1251,122,872,140,714,153,595,169,484,189,439,206,390,242,365,265,347,289,342,312,345,324,353,337,369,350,394,361,463,378,541,388,612,393,611,398,540,393,462,383,393,366,366,354,349,340,340,326,336,312,342,286,361,262,386,238,436,202,482,184,594,164,713,147,871,134,1251,117,1623,108,1880,105"/>
-<area shape="poly" title=" " alt="" coords="1987,111,2218,137,2428,164,2484,170,2534,169,2623,164,2664,167,2703,178,2740,201,2778,238,2788,255,2795,280,2794,310,2787,325,2777,341,2752,358,2717,372,2672,382,2622,390,2518,399,2426,401,2426,396,2517,393,2622,385,2671,377,2715,367,2750,353,2773,337,2783,323,2788,309,2790,281,2783,258,2774,242,2737,205,2700,183,2663,172,2623,170,2534,174,2484,175,2428,169,2217,142,1987,116"/>
-<area shape="poly" title=" " alt="" coords="1940,118,2003,299,1998,301,1935,120"/>
-<area shape="rect" href="a00173.html" title="Hierarchical parameter store with formula&#45;driven dynamic bindings shared across an MNA graph." alt="" coords="1545,240,1690,265"/>
-<area shape="poly" title=" " alt="" coords="1927,121,1897,157,1876,177,1852,194,1816,212,1778,226,1704,244,1703,238,1777,221,1814,207,1849,190,1873,173,1893,154,1923,117"/>
-<area shape="poly" title=" " alt="" coords="1608,268,1568,304,1541,324,1512,341,1473,358,1432,372,1355,390,1353,385,1430,367,1471,353,1509,336,1538,319,1564,300,1604,264"/>
-<area shape="poly" title=" " alt="" coords="1637,263,1696,298,1772,336,1836,362,1896,381,1895,386,1834,367,1770,341,1694,303,1634,268"/>
-<area shape="poly" title=" " alt="" coords="1545,266,1438,285,1321,316,1295,329,1269,341,1170,366,1070,382,902,398,902,393,1069,377,1169,360,1267,336,1293,324,1319,311,1437,280,1544,261"/>
-<area shape="poly" title=" " alt="" coords="1649,263,1766,311,1791,325,1817,336,1883,353,1951,367,2087,385,2209,393,2305,396,2304,401,2209,398,2086,390,1950,372,1882,358,1815,341,1789,330,1764,316,1647,268"/>
-<area shape="poly" title=" " alt="" coords="1658,263,1815,307,1813,312,1657,268"/>
-<area shape="poly" title=" " alt="" coords="1544,262,622,323,622,318,1544,256"/>
-<area shape="poly" title=" " alt="" coords="1545,268,1275,316,1269,317,1268,312,1274,311,1544,263"/>
-<area shape="poly" title=" " alt="" coords="1681,263,1969,315,1968,320,1680,268"/>
-<area shape="rect" href="a00179.html" title="Formula&#45;driven binding that recomputes one MNA parameter from an expression whenever its triggers fir..." alt="" coords="1331,313,1498,339"/>
-<area shape="poly" title=" " alt="" coords="1586,268,1461,311,1459,306,1584,263"/>
-<area shape="poly" title=" " alt="" coords="1395,341,1320,382,1318,377,1393,336"/>
-<area shape="poly" title=" " alt="" coords="1499,336,1895,389,1895,394,1498,341"/>
-<area shape="poly" title=" " alt="" coords="1331,340,902,393,901,388,1330,335"/>
-<area shape="poly" title=" " alt="" coords="1332,337,775,389,730,394,730,389,774,384,1331,332"/>
-<area shape="poly" title=" " alt="" coords="1498,331,2305,391,2305,396,1498,336"/>
-<area shape="poly" title=" " alt="" coords="2277,192,2281,226,2276,266,2259,310,2246,326,2225,341,2174,356,2086,368,1838,385,1566,395,1355,400,1355,394,1566,390,1838,380,2085,363,2173,351,2223,336,2243,322,2255,307,2271,265,2275,226,2272,193"/>
-<area shape="poly" title=" " alt="" coords="2338,189,2426,210,2471,224,2512,242,2545,262,2566,285,2571,298,2571,311,2566,326,2555,341,2525,355,2470,367,2311,385,2134,395,1993,400,1993,394,2134,389,2311,379,2469,362,2523,350,2552,337,2561,323,2566,310,2566,299,2562,287,2542,266,2510,246,2469,229,2424,215,2337,195"/>
-<area shape="poly" title=" " alt="" coords="2343,182,2584,201,2693,217,2730,227,2751,238,2768,264,2774,289,2768,315,2751,340,2729,357,2696,370,2609,388,2512,397,2426,400,2426,395,2512,392,2609,383,2695,365,2726,353,2747,337,2763,313,2768,289,2763,266,2748,242,2729,232,2692,222,2583,206,2343,187"/>
-<area shape="poly" title=" " alt="" coords="2201,183,1913,186,1507,194,1099,212,929,225,800,243,743,256,686,274,593,310,591,305,684,269,741,251,800,237,928,220,1098,206,1507,189,1913,180,2201,178"/>
-<area shape="poly" title=" " alt="" coords="2201,185,2075,189,1909,199,1722,216,1534,243,1460,258,1388,277,1269,313,1268,307,1386,271,1459,253,1533,237,1721,211,1909,194,2075,184,2201,179"/>
-<area shape="poly" title=" " alt="" coords="2265,194,2237,231,2232,228,2261,191"/>
-<area shape="rect" href="a00182.html" title="Declarative contract for an MNA operation — expected input/output ports, attributes,..." alt="" coords="2336,240,2480,265"/>
-<area shape="poly" title=" " alt="" coords="2295,190,2375,231,2373,236,2293,194"/>
-<area shape="poly" title=" " alt="" coords="2397,268,2346,305,2312,326,2275,341,2194,360,2086,374,1960,385,1824,392,1557,400,1355,401,1354,396,1557,394,1823,387,1960,379,2086,369,2193,355,2274,336,2310,321,2343,301,2394,263"/>
-<area shape="poly" title=" " alt="" coords="2361,268,2176,313,2175,307,2360,263"/>
-<area shape="poly" title=" " alt="" coords="2410,266,2402,303,2393,324,2378,341,2348,357,2306,370,2201,387,2087,396,1993,400,1993,395,2087,391,2200,382,2305,365,2346,352,2374,337,2388,321,2397,301,2405,265"/>
-<area shape="poly" title=" " alt="" coords="2468,263,2507,274,2541,291,2554,301,2561,312,2562,326,2556,340,2529,366,2496,383,2461,394,2426,399,2426,394,2459,389,2494,378,2526,362,2551,337,2557,325,2556,314,2550,304,2538,295,2505,279,2467,268"/>
-<area shape="poly" title=" " alt="" coords="2336,266,1920,320,1919,315,2335,261"/>
-<area shape="poly" title=" " alt="" coords="2336,266,2207,286,2050,316,2049,311,2206,281,2335,261"/>
-<area shape="rect" title=" " alt="" coords="2446,313,2541,339"/>
-<area shape="poly" title=" " alt="" coords="2423,263,2471,302,2467,307,2420,267"/>
+<div class="center"><img src="a00189.png" border="0" usemap="#asrc_2libraries_2fiff_2fiff__annotations_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2fiff_2fiff__annotations_8cpp" id="asrc_2libraries_2fiff_2fiff__annotations_8cpp">
+<area shape="rect" title="Implementation of FiffAnnotation / FiffAnnotations, including the FIFF, JSON and CSV serializers." alt="" coords="811,5,965,45"/>
+<area shape="rect" href="a00215.html" title="FIFF / MNE annotations: time&#45;tagged textual marks (BAD_*, EDGE, custom) with onset,..." alt="" coords="387,93,522,119"/>
+<area shape="poly" title=" " alt="" coords="811,43,531,94,530,88,810,38"/>
+<area shape="rect" title=" " alt="" coords="546,93,601,119"/>
+<area shape="poly" title=" " alt="" coords="811,47,615,96,614,91,810,42"/>
+<area shape="rect" title=" " alt="" coords="625,93,751,119"/>
+<area shape="poly" title=" " alt="" coords="841,48,731,91,729,86,839,43"/>
+<area shape="rect" title=" " alt="" coords="776,93,877,119"/>
+<area shape="poly" title=" " alt="" coords="875,47,846,84,842,81,871,44"/>
+<area shape="rect" title=" " alt="" coords="902,93,997,119"/>
+<area shape="poly" title=" " alt="" coords="905,44,934,81,930,84,901,47"/>
+<area shape="rect" title=" " alt="" coords="1021,93,1128,119"/>
+<area shape="poly" title=" " alt="" coords="934,43,1036,85,1034,90,932,48"/>
+<area shape="rect" title=" " alt="" coords="1152,93,1227,119"/>
+<area shape="poly" title=" " alt="" coords="961,43,1139,89,1138,94,960,48"/>
+<area shape="rect" title=" " alt="" coords="1251,93,1331,119"/>
+<area shape="poly" title=" " alt="" coords="966,38,1237,90,1236,96,965,43"/>
+<area shape="rect" href="a00251.html" title="Export/import macros and build&#45;info accessors for the FIFFLIB shared library." alt="" coords="96,167,195,192"/>
+<area shape="poly" title=" " alt="" coords="406,121,209,166,207,161,404,116"/>
+<area shape="rect" title=" " alt="" coords="219,167,341,192"/>
+<area shape="poly" title=" " alt="" coords="428,121,322,164,320,159,426,116"/>
+<area shape="rect" title=" " alt="" coords="366,167,437,192"/>
+<area shape="poly" title=" " alt="" coords="448,121,420,157,416,154,444,117"/>
+<area shape="rect" title=" " alt="" coords="461,167,555,192"/>
+<area shape="poly" title=" " alt="" coords="466,117,493,154,489,157,461,121"/>
+<area shape="rect" title=" " alt="" coords="579,167,685,192"/>
+<area shape="poly" title=" " alt="" coords="484,116,592,159,590,164,482,121"/>
+<area shape="rect" title=" " alt="" coords="710,167,783,192"/>
+<area shape="poly" title=" " alt="" coords="502,116,697,163,696,168,501,121"/>
+<area shape="rect" title=" " alt="" coords="5,240,136,265"/>
+<area shape="poly" title=" " alt="" coords="135,194,95,232,91,229,132,190"/>
+<area shape="rect" href="a00398.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="160,240,283,265"/>
+<area shape="poly" title=" " alt="" coords="159,190,201,229,197,232,156,194"/>
+<area shape="rect" title=" " alt="" coords="188,313,255,339"/>
+<area shape="poly" title=" " alt="" coords="224,266,224,300,219,300,219,266"/>
 </map>
 </div>
 </div>
 <p><a href="a00188_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of MnaGraphExecutor — batch / incremental graph walk plus MNE-Scan-friendly stream-mode plugin wiring. </p>
+<div class="textblock"><p>Implementation of FiffAnnotation / FiffAnnotations, including the FIFF, JSON and CSV serializers. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>2.2.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>April 2026 </dd></dl>
-<p>MnaGraphExecutor::execute first validates the graph, then runs MnaGraph::topologicalSort and visits every node in order. For each node it gathers inputs from the Context::results map keyed by <code>srcNodeId::srcPortName</code>, falls back to Context::graphInputs for graph-level entry ports, looks the <code>opType</code> up in MnaOpRegistry, invokes the registered MnaOpRegistry::OpFunc with the merged inputs and node attributes, and writes the returned outputs back into the context map. executeIncremental reuses the same loop but restricts it to nodes returned by MnaGraph::dirtyNodes and their MnaGraph::downstreamNodes.</p>
-<p>startStream / stopStream provide the MNE Scan integration point: the host application supplies a PluginFactory that maps <code>opType</code> strings to live <code>QObject</code> plugin instances; the executor instantiates one per node in topological order, applies MnaParamTree values to their attributes, and stores the resulting StreamContext so the host can wire signal/slot connections by the matching MnaDataKind on each port and tear down the pipeline in reverse order on stop. </p>
+<p>FIFF I/O reads and writes under <code>FIFFB_MNE_ANNOTATIONS</code>. The JSON and CSV paths exist so the same annotations can be exchanged with BIDS sidecars and external scoring tools that do not parse FIFF. </p>
 
-<p class="definition">Definition in file <a class="el" href="a00188_source.html">mna_graph_executor.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00188_source.html">fiff_annotations.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
