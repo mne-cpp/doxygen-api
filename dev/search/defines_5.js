@@ -36,7 +36,7 @@ var searchData=
   ['fiffv_5fcoord_5fxray_5fslice_33',['FIFFV_COORD_XRAY_SLICE',['../a00179.html#a2dd65275d2cce1802d967e6d9736c496',1,'fiff_constants.h']]],
   ['fiffv_5feeg_5fch_34',['FIFFV_EEG_CH',['../a00179.html#a2ef31ccf077b04b15aaa090b0ed1b9bd',1,'fiff_constants.h']]],
   ['fiffv_5fmeg_5fch_35',['FIFFV_MEG_CH',['../a00179.html#a82bbc561af8dabd8aeaa1c389be791fd',1,'fiff_constants.h']]],
-  ['fiffv_5fmne_5fcoord_5fsurface_5fras_36',['FIFFV_MNE_COORD_SURFACE_RAS',['../a02417.html#a7fe6301354d6b902d0c9fded98140f2a',1,'mne_surface_or_volume.h']]],
+  ['fiffv_5fmne_5fcoord_5fsurface_5fras_36',['FIFFV_MNE_COORD_SURFACE_RAS',['../a02423.html#a7fe6301354d6b902d0c9fded98140f2a',1,'mne_surface_or_volume.h']]],
   ['fiffv_5fpoint_5fecg_37',['FIFFV_POINT_ECG',['../a00179.html#aa0a8ee1b98588926127c7e4910cae1da',1,'fiff_constants.h']]],
   ['fiffv_5fseg_5fregion_5fid_5fblood_38',['FIFFV_SEG_REGION_ID_BLOOD',['../a00248.html#a37f209acc4d9cd26e91d0f4d84b5b4e0',1,'fiff_file.h']]],
   ['fiffv_5fseg_5fregion_5fid_5fbrain_39',['FIFFV_SEG_REGION_ID_BRAIN',['../a00248.html#ad3c20647a5cb3555571ae78d12b4e833',1,'fiff_file.h']]],
@@ -53,7 +53,7 @@ var searchData=
   ['fiffv_5fxfit_5fproj_5fitem_5fhomog_5ffield_50',['FIFFV_XFIT_PROJ_ITEM_HOMOG_FIELD',['../a00248.html#a8b0da4613d65dcbca0cc7f33f1f26130',1,'fiff_file.h']]],
   ['fiffv_5fxfit_5fproj_5fitem_5fhomog_5fgrad_51',['FIFFV_XFIT_PROJ_ITEM_HOMOG_GRAD',['../a00248.html#aadff894090096855d099718254e031fc',1,'fiff_file.h']]],
   ['fiffv_5fxfit_5fproj_5fitem_5fnone_52',['FIFFV_XFIT_PROJ_ITEM_NONE',['../a00248.html#af48303b81a68a03de88a5439255f4303',1,'fiff_file.h']]],
-  ['float_5finfinity_53',['FLOAT_INFINITY',['../a01085.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;geometryinfo.h'],['../a01076.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;interpolation.h']]],
-  ['fsshared_5fexport_54',['FSSHARED_EXPORT',['../a02093.html#a8e4f08d490ea850b4b6631d7772df965',1,'fs_global.h']]],
-  ['fwdshared_5fexport_55',['FWDSHARED_EXPORT',['../a01172.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]]
+  ['float_5finfinity_53',['FLOAT_INFINITY',['../a01091.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;geometryinfo.h'],['../a01082.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;interpolation.h']]],
+  ['fsshared_5fexport_54',['FSSHARED_EXPORT',['../a02099.html#a8e4f08d490ea850b4b6631d7772df965',1,'fs_global.h']]],
+  ['fwdshared_5fexport_55',['FWDSHARED_EXPORT',['../a01178.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]]
 ];
