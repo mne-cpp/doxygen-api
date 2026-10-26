@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['channelformat_0',['ChannelFormat',['../a02655.html#a22b8a5da4e9e3947843244e040a7ff22',1,'LSLLIB']]],
+  ['channelformat_0',['ChannelFormat',['../a02656.html#a22b8a5da4e9e3947843244e040a7ff22',1,'LSLLIB']]],
   ['colormaps_1',['ColorMaps',['../a02599.html#a53c600771742063d0826523495db22f3',1,'DISPLIB']]],
-  ['combineweights_2',['CombineWeights',['../a03845.html#a35a25a5ea2a50261ce7e64d1db603dc3',1,'FIFFLIB::FiffEvoked']]]
+  ['combineweights_2',['CombineWeights',['../a03846.html#a35a25a5ea2a50261ce7e64d1db603dc3',1,'FIFFLIB::FiffEvoked']]]
 ];
