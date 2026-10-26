@@ -278,37 +278,42 @@ $(function() {
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> raw = std::max((hi - lo) / target, minStep);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> exponent = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::floor(std::log10(raw)));</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> norm = raw / std::pow(10.0, exponent);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> multiple = norm &lt; 1.5 ? 1.0 : norm &lt; 3.0 ? 2.0</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        : norm &lt; 7.0                                      ? 5.0</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                                                          : 10.0;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// tick k is k * multiple * 10^exponent; dividing by an exact 10^-exponent gives the nearest double (0.6, not 0.6000000000000001)</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> scale = std::pow(10.0, std::abs(exponent));</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> <span class="keyword">auto</span> tick = [&amp;](<span class="keywordtype">double</span> k) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> exponent &lt; 0 ? k * multiple / scale : k * multiple * scale;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    };</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> step = tick(1.0);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">for</span> (<span class="keywordtype">double</span> k = std::ceil(lo / step - 1e-9); tick(k) &lt;= hi + step * 1e-9; k += 1.0) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        ticks.append(k == 0.0 ? 0.0 : tick(k));</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> ticks;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">double</span> multiple = norm &lt; 1.5 ? 1.0 : norm &lt; 3.0 ? 2.0</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        : norm &lt; 7.0                                ? 5.0</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                                                    : 10.0;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// Rounding to the nearest multiple may fall below minStep: take the next one up</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span> (multiple * std::pow(10.0, exponent) &lt; minStep * (1.0 - 1e-9)) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        multiple = multiple == 1.0 ? 2.0 : multiple == 2.0 ? 5.0</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                                                           : 10.0;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="comment">// tick k is k * multiple * 10^exponent; dividing by an exact 10^-exponent gives the nearest double (0.6, not 0.6000000000000001)</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> scale = std::pow(10.0, std::abs(exponent));</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> <span class="keyword">auto</span> tick = [&amp;](<span class="keywordtype">double</span> k) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> exponent &lt; 0 ? k * multiple / scale : k * multiple * scale;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    };</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> step = tick(1.0);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">for</span> (<span class="keywordtype">double</span> k = std::ceil(lo / step - 1e-9); tick(k) &lt;= hi + step * 1e-9; k += 1.0) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        ticks.append(k == 0.0 ? 0.0 : tick(k));</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> ticks;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span></div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a02600.html#aba553b177219687fcf4157f43e74195d">   53</a></span><span class="keyword">inline</span> QString <a class="code hl_function" href="a02600.html#aba553b177219687fcf4157f43e74195d">tickLabel</a>(<span class="keywordtype">double</span> value)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">return</span> QString::number(value, <span class="charliteral">&#39;g&#39;</span>, 6);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a02600.html#aba553b177219687fcf4157f43e74195d">   58</a></span><span class="keyword">inline</span> QString <a class="code hl_function" href="a02600.html#aba553b177219687fcf4157f43e74195d">tickLabel</a>(<span class="keywordtype">double</span> value)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> QString::number(value, <span class="charliteral">&#39;g&#39;</span>, 6);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace detail</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace detail</span></div>
 </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace DISPLIB</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#endif </span><span class="comment">// DISPLIB_DETAIL_NICETICKS_H</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace DISPLIB</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#endif </span><span class="comment">// DISPLIB_DETAIL_NICETICKS_H</span></div>
 <div class="ttc" id="aa02599_html"><div class="ttname"><a href="a02599.html">DISPLIB</a></div><div class="ttdoc">2-D display widgets and visualisation helpers (charts, topography, colour maps).</div></div>
 <div class="ttc" id="aa02600_html"><div class="ttname"><a href="a02600.html">DISPLIB::detail</a></div><div class="ttdef"><b>Definition</b> <a href="#l00024">niceticks.h:25</a></div></div>
-<div class="ttc" id="aa02600_html_aba553b177219687fcf4157f43e74195d"><div class="ttname"><a href="a02600.html#aba553b177219687fcf4157f43e74195d">DISPLIB::detail::tickLabel</a></div><div class="ttdeci">QString tickLabel(double value)</div><div class="ttdef"><b>Definition</b> <a href="#l00053">niceticks.h:53</a></div></div>
+<div class="ttc" id="aa02600_html_aba553b177219687fcf4157f43e74195d"><div class="ttname"><a href="a02600.html#aba553b177219687fcf4157f43e74195d">DISPLIB::detail::tickLabel</a></div><div class="ttdeci">QString tickLabel(double value)</div><div class="ttdef"><b>Definition</b> <a href="#l00058">niceticks.h:58</a></div></div>
 <div class="ttc" id="aa02600_html_ad9271ea6a83cbc837cac81a62966e0e2"><div class="ttname"><a href="a02600.html#ad9271ea6a83cbc837cac81a62966e0e2">DISPLIB::detail::niceTicks</a></div><div class="ttdeci">QVector&lt; double &gt; niceTicks(double lo, double hi, int target, double minStep=0.0)</div><div class="ttdef"><b>Definition</b> <a href="#l00028">niceticks.h:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
