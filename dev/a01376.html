@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/inv/beamformer/inv_lcmv.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/connectivity/metrics/imagcoherence.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,258 +250,97 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_b121f4639c206225e3550e4e3ca83e37.html">inv</a></li><li class="navelem"><a href="dir_1b8639fe1d80287b0b69fe3399a487b4.html">beamformer</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_4966471859b0659b2008791a461b6feb.html">connectivity</a></li><li class="navelem"><a href="dir_f5b9a59d67d23c798a9a50c62b2401ad.html">metrics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">inv_lcmv.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">imagcoherence.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of the LCMV beamformer pipeline (filter design + multiple application paths).  
+<p>Volume-conduction-robust imaginary coherence (Nolte et al., 2004) between every channel pair.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01391_source.html">inv_lcmv.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01379_source.html">inv_beamformer_compute.h</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a02513_source.html">mne/mne_forward_solution.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00338_source.html">fiff/fiff_cov.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00200_source.html">fiff/fiff_evoked.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00227_source.html">fiff/fiff_info.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01907_source.html">math/linalg.h</a>&gt;</code><br />
-<code>#include &lt;QDebug&gt;</code><br />
-<code>#include &lt;Eigen/Dense&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01406_source.html">../connectivity_global.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01388_source.html">abstractmetric.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01403_source.html">../connectivitysettings.h</a>&quot;</code><br />
+<code>#include &lt;QSharedPointer&gt;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for inv_lcmv.cpp:</div>
+Include dependency graph for imagcoherence.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01377.png" border="0" usemap="#asrc_2libraries_2inv_2beamformer_2inv__lcmv_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2inv_2beamformer_2inv__lcmv_8cpp" id="asrc_2libraries_2inv_2beamformer_2inv__lcmv_8cpp">
-<area shape="rect" title="Implementation of the LCMV beamformer pipeline (filter design + multiple application paths)." alt="" coords="2541,5,2747,45"/>
-<area shape="rect" href="a01391.html" title="Linearly Constrained Minimum Variance (LCMV) beamformer — time&#45;domain source&#45;power and source&#45;time&#45;co..." alt="" coords="1131,93,1223,119"/>
-<area shape="poly" title=" " alt="" coords="2540,34,1353,96,1237,103,1237,98,1353,91,2540,29"/>
-<area shape="rect" href="a00338.html" title="Noise / data covariance matrix as stored under FIFFB_MNE_COV, with channel names, kind,..." alt="" coords="2593,167,2695,192"/>
-<area shape="poly" title=" " alt="" coords="2647,46,2647,153,2641,153,2641,46"/>
-<area shape="rect" href="a00227.html" title="Full FIFF measurement metadata: everything from FIFFB_MEAS / FIFFB_MEAS_INFO needed to interpret a re..." alt="" coords="3383,240,3465,265"/>
-<area shape="poly" title=" " alt="" coords="2710,43,3372,234,3371,239,2708,48"/>
-<area shape="rect" title=" " alt="" coords="3947,533,4021,559"/>
-<area shape="poly" title=" " alt="" coords="2748,33,3378,91,3460,96,3537,96,3680,87,3810,72,3931,61,3989,60,4045,63,4102,71,4158,87,4215,110,4272,142,4331,185,4391,238,4416,272,4425,307,4420,343,4403,377,4377,410,4344,440,4305,466,4264,488,4204,510,4143,526,4036,543,4035,538,4142,521,4203,505,4262,483,4302,461,4340,435,4373,406,4399,374,4415,341,4420,307,4411,274,4387,242,4328,189,4269,147,4213,115,4156,92,4101,77,4045,68,3988,65,3931,66,3811,77,3681,92,3537,101,3460,101,3377,96,2748,39"/>
-<area shape="rect" href="a01379.html" title="Shared math kernels (filter derivation, source power, regularised pseudo&#45;inverse) used by both the LC..." alt="" coords="875,460,1082,485"/>
-<area shape="poly" title=" " alt="" coords="2540,30,2201,36,1759,47,1353,67,1206,80,1155,88,1121,96,1077,109,1041,122,1027,131,1016,142,1009,158,1007,178,1007,327,1000,393,988,448,983,446,995,392,1001,327,1001,178,1004,156,1011,139,1023,127,1038,117,1076,104,1119,91,1154,82,1206,75,1353,61,1759,42,2201,30,2540,25"/>
-<area shape="rect" href="a02513.html" title="Forward solution (gain matrix mapping source dipoles to sensor measurements)." alt="" coords="2290,93,2502,119"/>
-<area shape="poly" title=" " alt="" coords="2585,48,2446,92,2444,87,2584,43"/>
-<area shape="rect" href="a00200.html" title="Single averaged evoked response: time axis, samples, baseline, channel info and processing history." alt="" coords="3875,167,3981,192"/>
-<area shape="poly" title=" " alt="" coords="2748,35,3259,91,3862,167,3862,172,3258,96,2747,40"/>
-<area shape="rect" href="a01907.html" title="Static linear&#45;algebra helpers: SVD&#45;based conditioning, block&#45;diagonal assembly, sorted index pairs." alt="" coords="1273,460,1381,485"/>
-<area shape="poly" title=" " alt="" coords="2541,31,2230,40,2038,50,1843,64,1662,83,1512,108,1455,124,1411,140,1384,159,1377,168,1375,178,1375,327,1371,361,1363,394,1341,449,1336,447,1358,393,1366,360,1369,327,1369,178,1372,166,1380,155,1409,136,1453,119,1511,103,1661,78,1842,59,2037,44,2230,35,2540,26"/>
-<area shape="rect" title=" " alt="" coords="4574,93,4677,119"/>
-<area shape="poly" title=" " alt="" coords="2747,23,3054,24,3501,31,4023,52,4292,69,4555,91,4560,91,4560,97,4554,96,4291,74,4022,57,3501,37,3054,29,2747,28"/>
-<area shape="rect" href="a01580.html" title="INVLIB library export/import macros, build&#45;info accessors, and namespace docstring for the inverse&#45;so..." alt="" coords="1555,533,1669,559"/>
-<area shape="poly" title=" " alt="" coords="1224,107,1297,117,1338,126,1378,140,1415,158,1444,183,1465,213,1472,251,1472,401,1473,426,1478,446,1487,464,1503,483,1533,508,1566,526,1563,531,1530,513,1499,487,1483,466,1473,448,1468,427,1467,401,1467,252,1460,215,1441,186,1412,163,1376,145,1337,131,1296,122,1223,112"/>
-<area shape="rect" href="a01592.html" title="InvSourceEstimate value type — central source&#45;space data container produced by every INVLIB inverse s..." alt="" coords="537,387,719,412"/>
-<area shape="poly" title=" " alt="" coords="1158,121,1024,194,664,383,661,378,1021,190,1156,116"/>
-<area shape="rect" title=" " alt="" coords="181,607,235,632"/>
-<area shape="poly" title=" " alt="" coords="1131,111,864,119,679,127,487,141,305,159,151,183,91,198,46,215,17,233,10,242,8,252,8,474,12,501,25,524,43,545,66,562,118,589,168,606,166,611,116,594,63,567,39,549,20,527,7,503,3,474,3,251,6,240,14,229,44,210,90,193,150,178,304,154,486,135,679,122,863,113,1131,105"/>
-<area shape="rect" href="a01385.html" title="InvBeamformer value type — container for pre&#45;computed LCMV / DICS spatial filters and associated meta..." alt="" coords="1107,460,1248,485"/>
-<area shape="poly" title=" " alt="" coords="1180,119,1180,251,1180,327,1180,446,1175,446,1175,327,1175,251,1175,119"/>
-<area shape="rect" href="a01394.html" title="Strongly&#45;typed enumerations shared by the LCMV and DICS beamformer pipelines." alt="" coords="679,533,881,559"/>
-<area shape="poly" title=" " alt="" coords="1131,112,895,123,570,148,413,167,282,191,231,204,192,219,168,235,162,243,160,252,160,400,165,431,180,451,204,467,234,483,296,497,408,511,666,534,665,539,407,517,295,503,232,488,201,472,177,455,160,433,155,401,155,251,157,241,164,231,190,215,229,199,281,185,412,162,569,143,894,118,1131,106"/>
-<area shape="poly" title=" " alt="" coords="1224,107,2580,172,2580,178,1224,112"/>
-<area shape="rect" title=" " alt="" coords="2252,607,2383,632"/>
-<area shape="poly" title=" " alt="" coords="1669,550,2238,607,2238,613,1669,556"/>
-<area shape="rect" href="a00398.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="2407,607,2529,632"/>
-<area shape="poly" title=" " alt="" coords="1669,548,2026,573,2393,604,2393,609,2026,579,1669,554"/>
-<area shape="poly" title=" " alt="" coords="719,401,1075,420,1260,436,1336,446,1394,457,1424,469,1452,483,1567,526,1565,531,1450,488,1421,474,1393,463,1335,451,1259,442,1074,425,719,407"/>
-<area shape="rect" href="a01502.html" title="Strongly&#45;typed enumerations that tag a source estimate with the inverse method, source&#45;space type,..." alt="" coords="246,460,343,485"/>
-<area shape="poly" title=" " alt="" coords="575,415,358,461,356,456,574,409"/>
-<area shape="rect" href="a01514.html" title="Single off&#45;grid focal dipole result with free position, moment and fit&#45;quality metrics." alt="" coords="413,533,553,559"/>
-<area shape="poly" title=" " alt="" coords="538,413,494,431,475,444,460,461,454,475,455,491,468,521,463,523,450,492,449,475,455,459,472,440,492,426,536,408"/>
-<area shape="rect" title=" " alt="" coords="1838,607,1930,632"/>
-<area shape="poly" title=" " alt="" coords="558,415,501,432,474,446,448,462,420,485,399,509,392,521,390,533,393,545,402,557,422,565,465,574,606,587,801,597,1029,605,1495,613,1824,615,1824,621,1494,618,1029,610,801,603,605,592,464,579,420,570,398,561,388,547,385,533,387,519,394,506,417,481,445,458,471,441,499,427,556,410"/>
-<area shape="rect" href="a01583.html" title="Container for an N&#45;tuple of correlated grid sources discovered by RAP&#45;/TRAP&#45;MUSIC." alt="" coords="633,460,799,485"/>
-<area shape="poly" title=" " alt="" coords="644,410,693,449,689,453,640,414"/>
-<area shape="rect" title=" " alt="" coords="1058,533,1121,559"/>
-<area shape="poly" title=" " alt="" coords="669,410,736,430,812,458,864,483,960,513,1045,533,1044,538,959,518,862,488,810,462,735,435,668,415"/>
-<area shape="rect" href="a01496.html" title="Lightweight pairwise source&#45;connectivity container that travels alongside a source estimate." alt="" coords="469,460,608,485"/>
-<area shape="poly" title=" " alt="" coords="615,414,566,453,562,449,612,410"/>
-<area shape="rect" title=" " alt="" coords="2621,533,2744,559"/>
-<area shape="poly" title=" " alt="" coords="719,399,1059,402,1532,411,2006,429,2204,442,2354,457,2469,485,2628,527,2626,532,2467,490,2353,463,2204,447,2006,434,1532,417,1059,407,719,404"/>
-<area shape="poly" title=" " alt="" coords="537,405,452,410,363,420,285,437,255,448,235,462,216,492,206,527,204,562,207,593,201,593,199,562,201,526,211,489,231,458,253,443,283,432,362,414,452,404,537,400"/>
-<area shape="poly" title=" " alt="" coords="553,554,572,556,945,582,1309,599,1824,614,1824,620,1308,605,944,587,572,561,553,559"/>
-<area shape="poly" title=" " alt="" coords="800,478,863,483,1492,531,1542,535,1542,540,1492,536,862,488,799,483"/>
-<area shape="poly" title=" " alt="" coords="702,487,685,503,670,522,663,541,664,549,668,557,684,564,719,571,831,583,1171,600,1548,610,1824,615,1824,620,1548,616,1171,605,831,588,718,576,683,569,665,561,659,551,657,540,665,519,681,499,699,484"/>
-<area shape="poly" title=" " alt="" coords="776,483,1045,534,1044,539,775,488"/>
-<area shape="poly" title=" " alt="" coords="551,483,594,521,624,541,655,556,728,570,852,581,1195,599,1560,609,1825,614,1824,620,1560,615,1195,604,852,586,727,575,654,561,621,546,591,526,548,487"/>
-<area shape="poly" title=" " alt="" coords="1248,483,1542,531,1541,536,1247,488"/>
-<area shape="poly" title=" " alt="" coords="1131,488,1092,501,1059,517,1047,526,1041,536,1041,546,1047,557,1062,566,1087,575,1164,589,1267,600,1386,607,1633,615,1824,616,1824,621,1633,620,1386,613,1266,605,1163,595,1086,580,1060,571,1043,561,1035,547,1036,534,1043,523,1056,513,1090,496,1129,483"/>
-<area shape="poly" title=" " alt="" coords="1165,487,1116,527,1113,522,1162,483"/>
-<area shape="poly" title=" " alt="" coords="1249,481,1262,483,1454,497,1617,506,1895,513,2173,517,2529,531,2608,536,2607,541,2529,536,2173,522,1895,518,1617,512,1454,503,1261,488,1248,487"/>
-<area shape="poly" title=" " alt="" coords="1147,488,1036,525,965,545,892,561,706,589,521,607,361,616,250,620,249,615,361,611,521,602,705,584,892,556,964,540,1035,520,1146,483"/>
-<area shape="poly" title=" " alt="" coords="1114,488,858,533,857,528,1113,483"/>
-<area shape="rect" title=" " alt="" coords="1998,533,2069,559"/>
-<area shape="poly" title=" " alt="" coords="1249,481,1262,483,1679,519,1985,539,1984,545,1679,524,1261,488,1248,487"/>
-<area shape="rect" title=" " alt="" coords="3821,607,3915,632"/>
-<area shape="poly" title=" " alt="" coords="1249,481,1262,483,1624,522,1987,556,2540,585,3077,603,3525,612,3808,615,3807,620,3525,617,3077,608,2540,590,1986,561,1623,528,1261,488,1248,486"/>
-<area shape="poly" title=" " alt="" coords="2593,189,2373,217,2225,240,2068,270,1914,307,1777,352,1718,376,1668,403,1628,431,1600,461,1595,473,1600,484,1612,499,1625,508,1654,516,1687,520,1726,531,1795,565,1854,597,1851,602,1793,570,1724,536,1686,525,1653,521,1623,513,1609,503,1595,487,1590,473,1595,459,1624,427,1665,398,1716,372,1775,347,1913,302,2067,265,2224,235,2372,211,2593,183"/>
-<area shape="poly" title=" " alt="" coords="2594,189,2568,196,2542,207,2518,221,2500,241,2497,252,2500,265,2513,383,2529,431,2544,456,2565,483,2595,509,2629,526,2627,531,2592,513,2561,487,2539,459,2524,433,2508,385,2495,266,2492,252,2495,239,2515,217,2539,202,2566,191,2592,184"/>
-<area shape="poly" title=" " alt="" coords="2593,185,2481,196,2410,208,2335,227,2259,253,2185,287,2118,332,2088,359,2061,388,2043,420,2034,455,2032,490,2033,519,2027,520,2026,490,2029,454,2038,418,2057,385,2084,355,2115,328,2183,283,2257,248,2334,221,2409,203,2480,190,2593,179"/>
-<area shape="poly" title=" " alt="" coords="2695,179,2893,183,3168,193,3445,210,3559,223,3646,237,3800,274,3866,294,3924,320,3975,354,4017,399,4051,457,4077,533,4078,556,4070,574,4055,589,4034,600,3982,614,3929,620,3928,615,3981,609,4032,595,4052,585,4066,571,4073,555,4072,534,4047,460,4013,402,3971,358,3922,325,3864,299,3799,279,3645,243,3559,228,3444,216,3168,198,2893,188,2695,184"/>
-<area shape="rect" href="a00251.html" title="Export/import macros and build&#45;info accessors for the FIFFLIB shared library." alt="" coords="3369,533,3468,559"/>
-<area shape="poly" title=" " alt="" coords="2695,178,2942,182,3111,191,3291,207,3466,232,3548,249,3623,269,3689,292,3745,319,3789,350,3820,385,3835,412,3844,437,3843,462,3829,487,3805,505,3770,518,3726,529,3677,537,3574,545,3482,548,3482,542,3573,540,3676,531,3725,524,3768,513,3802,500,3825,484,3838,460,3839,438,3830,414,3815,388,3786,354,3743,324,3687,297,3621,274,3546,254,3465,237,3290,212,3111,196,2942,187,2695,183"/>
-<area shape="rect" href="a00302.html" title="SSP projection item: a named projection vector set with active/desired flags, parsed from FIFFB_PROJ_..." alt="" coords="2872,460,2955,485"/>
-<area shape="poly" title=" " alt="" coords="2662,190,2722,238,2776,294,2826,352,2899,447,2895,450,2821,356,2772,298,2718,242,2659,194"/>
-<area shape="rect" href="a00341.html" title="Primitive scalar typedefs and forward&#45;compatible aliases backing the FIFF type system." alt="" coords="3793,533,3887,559"/>
-<area shape="poly" title=" " alt="" coords="2695,179,3131,197,3384,214,3489,225,3568,237,3660,256,3733,277,3765,293,3795,316,3823,346,3852,385,3867,411,3876,433,3879,457,3875,486,3858,523,3853,521,3869,485,3874,457,3871,435,3862,413,3847,388,3819,349,3791,320,3762,298,3731,282,3659,261,3568,243,3489,230,3384,219,3131,202,2695,185"/>
-<area shape="rect" title=" " alt="" coords="3095,533,3172,559"/>
-<area shape="poly" title=" " alt="" coords="2653,191,2746,341,2808,428,2837,461,2861,483,2916,510,2974,528,3032,538,3081,542,3081,547,3031,543,2973,533,2914,515,2859,488,2833,465,2804,431,2741,344,2648,194"/>
-<area shape="poly" title=" " alt="" coords="2695,183,3369,244,3369,249,2695,188"/>
-<area shape="rect" title=" " alt="" coords="2509,240,2664,265"/>
-<area shape="poly" title=" " alt="" coords="2637,194,2607,231,2603,227,2632,191"/>
-<area shape="poly" title=" " alt="" coords="3369,553,3249,561,3011,573,2824,580,2637,589,2397,609,2396,604,2637,584,2824,574,3011,568,3249,556,3369,548"/>
-<area shape="poly" title=" " alt="" coords="3369,554,2544,615,2543,610,3369,548"/>
-<area shape="poly" title=" " alt="" coords="2899,488,2839,526,2799,546,2757,561,2707,570,2622,578,2390,595,1944,618,1944,613,2390,590,2622,573,2706,565,2755,556,2797,541,2836,521,2896,483"/>
-<area shape="poly" title=" " alt="" coords="2877,488,2734,532,2732,527,2875,483"/>
-<area shape="poly" title=" " alt="" coords="2872,480,2083,543,2083,538,2871,475"/>
-<area shape="poly" title=" " alt="" coords="2932,483,2997,521,3039,541,3083,556,3147,569,3231,580,3436,597,3646,608,3807,614,3807,619,3646,613,3436,603,3231,586,3146,574,3082,561,3037,545,2994,526,2929,488"/>
-<area shape="poly" title=" " alt="" coords="2956,480,2968,483,3181,514,3356,535,3355,541,3180,519,2968,488,2955,486"/>
-<area shape="poly" title=" " alt="" coords="2955,481,2968,483,3203,509,3434,526,3779,541,3779,546,3433,531,3202,514,2968,488,2955,486"/>
-<area shape="poly" title=" " alt="" coords="2949,483,3086,527,3084,532,2948,488"/>
-<area shape="poly" title=" " alt="" coords="3793,552,1944,618,1944,613,3793,546"/>
-<area shape="poly" title=" " alt="" coords="3792,552,3480,561,2455,584,1472,602,249,620,249,615,1472,596,2455,579,3480,556,3792,546"/>
-<area shape="poly" title=" " alt="" coords="3847,558,3861,593,3856,595,3842,560"/>
-<area shape="rect" href="a00179.html" title="Symbolic FIFF tag, block, value, unit and channel&#45;type constants shared across FIFFLIB." alt="" coords="4511,607,4633,632"/>
-<area shape="poly" title=" " alt="" coords="3888,551,3935,556,4498,609,4498,614,3934,561,3887,556"/>
-<area shape="rect" title=" " alt="" coords="4161,607,4217,632"/>
-<area shape="poly" title=" " alt="" coords="3888,554,4148,607,4147,612,3887,560"/>
-<area shape="rect" title=" " alt="" coords="4353,607,4431,632"/>
-<area shape="poly" title=" " alt="" coords="3888,551,4339,609,4338,614,3887,556"/>
-<area shape="poly" title=" " alt="" coords="3382,258,3313,263,3224,273,3125,290,3027,316,2946,345,2885,373,2828,410,2759,462,2727,493,2701,524,2697,521,2723,489,2756,458,2825,405,2882,369,2944,340,3026,311,3124,285,3223,267,3313,257,3382,253"/>
-<area shape="poly" title=" " alt="" coords="3382,258,2764,273,1747,303,1226,322,770,343,433,366,327,378,272,389,244,402,224,416,209,435,194,461,184,487,181,508,188,558,199,593,194,595,183,559,176,508,179,485,190,459,205,432,221,412,241,398,270,384,326,372,432,361,769,338,1226,317,1747,298,2764,267,3382,252"/>
-<area shape="poly" title=" " alt="" coords="3466,253,3593,268,3676,285,3764,311,3852,346,3894,368,3933,394,3970,423,4004,455,4033,492,4057,532,4062,552,4058,569,4045,582,4027,593,3980,608,3929,616,3928,611,3978,603,4025,588,4042,578,4053,566,4057,552,4052,534,4029,495,4000,459,3967,427,3930,398,3891,373,3849,351,3762,316,3675,291,3593,274,3465,259"/>
-<area shape="poly" title=" " alt="" coords="3466,253,3511,258,3566,268,3623,285,3677,311,3740,349,3794,389,3812,411,3822,435,3819,460,3803,487,3781,504,3749,517,3664,534,3568,544,3482,547,3482,542,3567,538,3663,529,3747,512,3779,499,3799,484,3814,459,3816,435,3808,414,3790,393,3737,353,3675,316,3622,290,3565,274,3511,264,3465,259"/>
-<area shape="poly" title=" " alt="" coords="3383,256,3319,257,3239,266,3153,284,3111,298,3071,316,3026,345,2986,382,2954,419,2930,450,2926,447,2950,416,2983,378,3023,341,3068,311,3109,293,3151,279,3238,260,3319,252,3383,250"/>
-<area shape="poly" title=" " alt="" coords="3466,254,3581,271,3649,287,3716,311,3770,337,3809,365,3824,383,3837,404,3856,460,3857,491,3851,520,3846,519,3852,491,3851,460,3832,406,3820,386,3805,369,3767,341,3714,316,3648,292,3580,276,3465,260"/>
-<area shape="poly" title=" " alt="" coords="3430,265,3440,306,3446,365,3445,397,3440,429,3429,460,3411,487,3396,499,3373,510,3314,526,3247,537,3186,543,3186,538,3247,531,3313,520,3372,505,3393,495,3407,484,3424,457,3435,428,3440,397,3441,365,3434,307,3425,266"/>
-<area shape="rect" href="a00356.html" title="Minimal measurement&#45;info subset (channel list, sampling rate, basic transforms) shared by FIFF reader..." alt="" coords="3262,313,3383,339"/>
-<area shape="poly" title=" " alt="" coords="3409,268,3352,307,3349,303,3406,263"/>
-<area shape="rect" href="a00320.html" title="128&#45;bit FIFF identifier record (machine ID + creation time) used to stamp files, blocks and parent re..." alt="" coords="3473,460,3543,485"/>
-<area shape="poly" title=" " alt="" coords="3466,251,3504,254,3548,263,3589,282,3607,295,3622,312,3637,337,3641,362,3636,387,3622,413,3609,430,3593,443,3558,461,3555,456,3590,438,3606,426,3618,411,3631,385,3636,362,3632,339,3618,315,3603,299,3586,286,3546,268,3504,259,3465,256"/>
-<area shape="rect" href="a00164.html" title="FIFF channel descriptor record (FIFF_CH_INFO): per&#45;channel logical/scanner numbers,..." alt="" coords="2979,460,3085,485"/>
-<area shape="poly" title=" " alt="" coords="3383,256,3303,260,3254,267,3203,278,3153,295,3106,318,3064,349,3030,388,3024,402,3022,417,3026,447,3021,447,3017,417,3019,400,3026,385,3060,345,3103,313,3151,290,3202,273,3253,261,3302,254,3382,250"/>
-<area shape="rect" href="a00299.html" title="Single digitization point (FIFF_DIG_POINT) with kind (cardinal/HPI/EEG/extra), identifier and 3D coor..." alt="" coords="3670,460,3789,485"/>
-<area shape="poly" title=" " alt="" coords="3466,253,3507,258,3555,268,3603,285,3647,311,3677,342,3699,379,3715,415,3726,446,3720,448,3710,417,3694,381,3672,346,3644,315,3601,290,3553,273,3506,263,3465,258"/>
-<area shape="rect" href="a00335.html" title="CTF / 4D Neuroimaging software gradient&#45;compensation matrix block (FIFFB_MNE_CTF_COMP_DATA)." alt="" coords="3039,387,3158,412"/>
-<area shape="poly" title=" " alt="" coords="3385,268,3322,288,3252,316,3186,349,3130,382,3127,377,3183,344,3250,311,3320,283,3384,263"/>
-<area shape="rect" href="a00242.html" title="4x4 affine FIFF coordinate transform (FIFF_COORD_TRANS) annotated with source/destination coordinate&#45;..." alt="" coords="3262,460,3397,485"/>
-<area shape="poly" title=" " alt="" coords="3423,267,3398,340,3371,399,3345,449,3340,447,3366,397,3394,338,3418,265"/>
-<area shape="poly" title=" " alt="" coords="3262,336,3131,355,3055,370,2979,389,2889,419,2804,462,2753,495,2709,527,2706,522,2750,490,2801,458,2887,414,2978,384,3053,365,3130,350,3261,331"/>
-<area shape="poly" title=" " alt="" coords="3262,331,1798,356,956,374,667,382,526,389,475,393,431,394,353,394,318,399,284,410,250,430,214,462,204,476,197,492,192,527,195,563,202,593,197,594,190,563,187,527,192,490,199,473,210,458,247,426,282,405,317,394,353,389,430,389,475,388,525,384,667,377,956,368,1797,350,3262,326"/>
-<area shape="poly" title=" " alt="" coords="3384,328,3539,345,3631,361,3722,384,3821,408,3902,426,3938,439,3972,460,4004,490,4036,532,4042,549,4039,564,4030,577,4014,587,3974,603,3929,613,3927,608,3972,598,4012,582,4026,573,4035,562,4037,549,4031,535,4000,493,3969,464,3936,444,3901,431,3820,413,3721,389,3630,367,3538,350,3383,334"/>
-<area shape="poly" title=" " alt="" coords="3347,336,3469,400,3528,434,3558,458,3563,473,3562,485,3556,497,3545,507,3516,523,3483,534,3481,529,3514,518,3542,502,3551,494,3557,484,3558,473,3554,462,3525,439,3466,405,3345,341"/>
-<area shape="poly" title=" " alt="" coords="3262,334,3151,352,3089,367,3029,389,2978,420,2937,453,2933,449,2975,415,3027,384,3087,362,3150,346,3261,329"/>
-<area shape="poly" title=" " alt="" coords="3384,332,3496,349,3630,376,3695,393,3753,412,3800,434,3831,458,3840,472,3845,489,3846,520,3841,520,3840,489,3835,475,3827,462,3797,438,3751,417,3694,398,3629,381,3496,354,3383,337"/>
-<area shape="poly" title=" " alt="" coords="3314,341,3155,524,3150,521,3310,337"/>
-<area shape="poly" title=" " alt="" coords="3339,337,3432,410,3483,449,3480,453,3429,414,3336,341"/>
-<area shape="poly" title=" " alt="" coords="3305,341,3172,414,3075,457,3072,452,3169,410,3303,336"/>
-<area shape="poly" title=" " alt="" coords="3356,336,3685,453,3683,458,3354,341"/>
-<area shape="poly" title=" " alt="" coords="3287,341,3149,385,3147,380,3286,336"/>
-<area shape="poly" title=" " alt="" coords="3326,339,3331,446,3326,446,3321,339"/>
-<area shape="poly" title=" " alt="" coords="3473,481,3410,488,3044,520,2758,542,2758,537,3044,515,3409,483,3472,476"/>
-<area shape="poly" title=" " alt="" coords="3495,487,3446,527,3442,522,3492,483"/>
-<area shape="poly" title=" " alt="" coords="3544,479,3780,529,3779,534,3543,484"/>
-<area shape="poly" title=" " alt="" coords="3473,484,3454,488,3186,538,3185,533,3453,483,3472,479"/>
-<area shape="poly" title=" " alt="" coords="3009,488,2921,526,2864,546,2805,561,2727,574,2625,584,2378,602,1944,619,1944,614,2378,596,2625,579,2727,568,2803,556,2862,540,2919,521,3007,483"/>
-<area shape="poly" title=" " alt="" coords="2980,487,2753,533,2752,528,2979,482"/>
-<area shape="poly" title=" " alt="" coords="2980,486,2967,488,2559,516,2082,545,2082,539,2559,511,2966,483,2979,481"/>
-<area shape="poly" title=" " alt="" coords="3085,481,3356,530,3355,536,3084,486"/>
-<area shape="poly" title=" " alt="" coords="3085,476,3779,537,3779,542,3085,481"/>
-<area shape="poly" title=" " alt="" coords="3050,483,3107,523,3104,527,3047,488"/>
-<area shape="poly" title=" " alt="" coords="3670,481,2758,542,2758,537,3670,475"/>
-<area shape="poly" title=" " alt="" coords="3680,488,3482,533,3481,528,3679,483"/>
-<area shape="poly" title=" " alt="" coords="3749,483,3812,523,3809,528,3746,488"/>
-<area shape="poly" title=" " alt="" coords="3670,485,3651,488,3186,542,3186,537,3650,483,3669,480"/>
-<area shape="poly" title=" " alt="" coords="3771,483,3934,528,3932,533,3770,488"/>
-<area shape="poly" title=" " alt="" coords="3039,404,2839,408,2578,418,2339,436,2254,448,2207,462,2194,473,2186,484,2178,509,2170,535,2161,549,2148,561,2099,588,2045,606,1992,616,1944,620,1944,615,1991,611,2044,601,2097,583,2145,557,2157,545,2165,533,2173,507,2181,481,2190,469,2204,458,2253,443,2339,430,2578,413,2839,403,3039,399"/>
-<area shape="poly" title=" " alt="" coords="3040,415,2954,434,2861,462,2719,530,2717,525,2859,458,2953,429,3039,409"/>
-<area shape="poly" title=" " alt="" coords="3118,410,3177,444,3252,483,3312,507,3369,527,3367,532,3310,512,3250,488,3174,449,3116,414"/>
-<area shape="poly" title=" " alt="" coords="3158,400,3319,406,3520,417,3702,434,3766,445,3803,458,3816,471,3826,486,3838,519,3833,521,3822,489,3812,474,3800,462,3765,450,3701,439,3520,422,3319,411,3158,405"/>
-<area shape="poly" title=" " alt="" coords="3104,412,3130,519,3125,521,3099,413"/>
-<area shape="poly" title=" " alt="" coords="3090,414,3054,452,3050,448,3086,411"/>
-<area shape="poly" title=" " alt="" coords="3317,488,3261,526,3224,546,3185,561,3124,569,3000,577,2634,594,1944,619,1944,613,2634,588,2999,571,3123,563,3183,556,3222,541,3259,521,3314,483"/>
-<area shape="poly" title=" " alt="" coords="3262,484,2758,539,2757,534,3262,479"/>
-<area shape="poly" title=" " alt="" coords="3345,483,3395,522,3392,527,3342,487"/>
-<area shape="poly" title=" " alt="" coords="3398,481,3779,534,3779,539,3397,486"/>
-<area shape="poly" title=" " alt="" coords="3299,488,3179,531,3177,526,3297,483"/>
-<area shape="poly" title=" " alt="" coords="1081,483,1542,534,1541,539,1080,488"/>
-<area shape="poly" title=" " alt="" coords="985,485,1002,522,1016,541,1035,556,1080,570,1160,581,1386,599,1634,609,1825,614,1824,620,1633,615,1386,604,1160,587,1079,575,1032,561,1013,545,998,525,980,487"/>
-<area shape="poly" title=" " alt="" coords="948,488,826,531,825,526,946,483"/>
-<area shape="poly" title=" " alt="" coords="2289,109,2171,112,2027,121,1871,139,1793,152,1716,169,1647,179,1584,185,1559,191,1540,203,1527,222,1523,252,1523,400,1528,429,1541,448,1588,483,1612,500,1633,510,1683,531,1726,556,1837,600,1835,605,1724,561,1680,536,1631,515,1610,505,1585,487,1538,451,1523,431,1517,401,1517,251,1522,220,1536,199,1557,187,1583,180,1646,174,1716,164,1791,147,1870,134,2026,115,2170,106,2289,104"/>
-<area shape="poly" title=" " alt="" coords="2334,121,2300,132,2272,147,2255,167,2253,178,2256,191,2281,248,2308,293,2336,330,2366,362,2441,418,2539,483,2584,508,2631,526,2629,531,2582,513,2536,488,2438,422,2363,366,2331,334,2303,296,2277,250,2251,193,2248,178,2250,164,2268,143,2298,127,2332,116"/>
-<area shape="poly" title=" " alt="" coords="2437,116,2591,160,2590,165,2435,121"/>
-<area shape="poly" title=" " alt="" coords="2503,106,3255,124,3682,141,3859,152,3994,164,4052,167,4105,166,4198,160,4241,163,4282,175,4321,199,4361,238,4391,270,4402,290,4404,314,4393,344,4363,382,4310,429,4229,488,4187,498,4100,512,3901,539,3901,534,4099,507,4186,493,4227,483,4307,425,4359,378,4388,342,4399,313,4397,291,4386,273,4357,242,4318,203,4279,180,4240,168,4198,165,4105,171,4052,173,3993,169,3859,157,3681,147,3255,130,2502,112"/>
-<area shape="poly" title=" " alt="" coords="2502,106,2856,111,3337,122,3817,139,4017,151,4168,164,4240,166,4313,160,4448,143,4504,144,4528,149,4549,159,4566,173,4579,193,4587,219,4589,251,4589,474,4586,539,4579,593,4573,593,4580,538,4584,474,4584,251,4581,220,4574,195,4562,177,4546,163,4527,155,4504,150,4448,149,4313,165,4240,172,4168,169,4016,156,3817,145,3337,128,2856,117,2502,111"/>
-<area shape="poly" title=" " alt="" coords="2404,118,2439,183,2467,225,2499,264,2580,341,2649,395,2725,438,2828,483,2894,505,2963,521,3082,538,3081,544,2962,527,2893,511,2826,488,2723,443,2646,400,2576,345,2495,267,2462,228,2435,186,2399,120"/>
-<area shape="poly" title=" " alt="" coords="2502,111,2677,130,2775,144,2873,164,2992,197,3109,236,3285,305,3283,310,3107,241,2991,202,2871,169,2775,150,2676,135,2502,117"/>
-<area shape="poly" title=" " alt="" coords="2489,116,2595,135,2707,164,2843,214,2945,262,3044,317,3172,384,3298,451,3295,455,3169,389,3041,321,2942,267,2841,219,2706,169,2594,140,2488,121"/>
-<area shape="rect" href="a02450.html" title="MNELIB shared&#45;library export/import macros and library build metadata." alt="" coords="2406,533,2517,559"/>
-<area shape="poly" title=" " alt="" coords="2399,119,2399,181,2405,265,2431,409,2457,519,2452,520,2426,410,2400,266,2394,182,2393,119"/>
-<area shape="rect" href="a02531.html" title="Container pairing the left and right cortical source spaces of a subject." alt="" coords="1791,460,1990,485"/>
-<area shape="poly" title=" " alt="" coords="2290,112,2125,121,2034,130,1945,143,1865,161,1800,185,1775,199,1757,215,1745,232,1741,252,1741,327,1744,349,1752,369,1779,403,1815,431,1851,452,1848,456,1812,436,1775,407,1747,371,1739,350,1736,328,1736,251,1740,230,1753,212,1772,195,1797,180,1863,156,1944,138,2033,124,2125,115,2290,106"/>
-<area shape="rect" href="a01913.html" title="K&#45;means partitional clustering with multiple distance metrics, initialisations and empty&#45;cluster poli..." alt="" coords="2217,460,2341,485"/>
-<area shape="poly" title=" " alt="" coords="2291,119,2246,137,2226,151,2210,168,2193,203,2186,241,2189,280,2199,320,2214,358,2231,393,2264,447,2260,450,2226,395,2209,360,2194,321,2184,281,2181,240,2188,201,2206,165,2223,147,2243,133,2289,114"/>
-<area shape="rect" href="a02066.html" title="Bi&#45;hemispheric pair of FreeSurfer annotations (lh + rh) for one parcellation atlas." alt="" coords="1609,460,1767,485"/>
-<area shape="poly" title=" " alt="" coords="2290,112,2158,117,2010,127,1874,144,1819,155,1778,169,1744,184,1716,199,1697,220,1692,233,1691,251,1691,327,1691,446,1685,446,1685,327,1685,251,1687,232,1693,217,1712,195,1741,179,1776,164,1818,150,1873,139,2009,122,2158,112,2289,107"/>
-<area shape="rect" title=" " alt="" coords="2265,167,2333,192"/>
-<area shape="poly" title=" " alt="" coords="2382,121,2327,160,2324,156,2379,117"/>
-<area shape="poly" title=" " alt="" coords="2439,561,2354,603,2352,598,2437,556"/>
-<area shape="poly" title=" " alt="" coords="2465,559,2468,593,2463,593,2460,559"/>
-<area shape="poly" title=" " alt="" coords="1904,484,1926,517,1932,538,1931,559,1920,580,1907,598,1903,595,1916,577,1925,558,1927,539,1921,519,1900,487"/>
-<area shape="poly" title=" " alt="" coords="1791,487,1780,488,1600,500,1458,504,1316,513,1135,536,1134,531,1316,507,1458,499,1600,494,1780,483,1791,482"/>
-<area shape="poly" title=" " alt="" coords="1871,488,1790,526,1737,546,1682,561,1547,581,1367,597,1159,607,937,614,521,621,249,621,249,616,521,615,937,609,1158,602,1367,591,1546,576,1681,556,1735,541,1788,521,1868,483"/>
-<area shape="poly" title=" " alt="" coords="1990,475,3779,540,3779,545,1990,480"/>
-<area shape="poly" title=" " alt="" coords="1990,477,3081,539,3081,544,1990,482"/>
-<area shape="poly" title=" " alt="" coords="1990,482,2173,502,2393,531,2392,536,2172,508,1990,487"/>
-<area shape="poly" title=" " alt="" coords="2273,487,2244,524,2223,544,2199,561,2134,588,2066,606,2000,616,1944,620,1944,615,2000,610,2065,601,2132,583,2196,556,2219,540,2240,520,2269,484"/>
-<area shape="poly" title=" " alt="" coords="2341,482,2608,529,2607,534,2340,488"/>
-<area shape="rect" href="a01898.html" title="Export/import macros and build&#45;stamp accessors for MATHLIB." alt="" coords="2267,533,2381,559"/>
-<area shape="poly" title=" " alt="" coords="2288,484,2312,520,2307,523,2284,487"/>
-<area shape="poly" title=" " alt="" coords="2326,559,2322,593,2317,593,2320,559"/>
-<area shape="poly" title=" " alt="" coords="2348,556,2433,598,2431,603,2346,561"/>
-<area shape="poly" title=" " alt="" coords="1749,483,1826,503,1859,516,1879,532,1887,546,1892,562,1892,593,1886,593,1886,563,1883,548,1875,535,1856,521,1824,508,1748,488"/>
-<area shape="poly" title=" " alt="" coords="1768,481,1780,483,1991,500,2155,510,2530,531,2608,536,2607,542,2529,536,2154,515,1990,505,1780,488,1767,487"/>
-<area shape="poly" title=" " alt="" coords="1744,483,1985,532,1984,537,1743,488"/>
-<area shape="poly" title=" " alt="" coords="3875,184,3742,189,3555,199,3339,216,3120,243,2973,262,2846,274,2733,285,2629,297,2528,316,2422,347,2308,394,2177,462,2148,485,2130,510,2113,536,2083,561,2049,579,2013,593,1944,611,1943,606,2011,588,2047,574,2080,556,2109,532,2126,507,2144,482,2175,458,2305,390,2421,342,2526,311,2628,292,2733,279,2845,269,2972,257,3120,237,3339,211,3555,193,3742,183,3875,179"/>
-<area shape="poly" title=" " alt="" coords="3875,183,3715,188,3483,206,3352,222,3217,246,3082,276,2952,316,2879,342,2825,369,2778,405,2727,462,2708,491,2694,521,2689,519,2703,489,2723,458,2775,401,2822,364,2877,337,2950,311,3080,271,3216,240,3352,217,3483,201,3715,183,3875,178"/>
-<area shape="poly" title=" " alt="" coords="3875,185,3465,203,3178,220,2886,243,2310,316,2202,337,2159,354,2111,389,2085,419,2065,455,2042,520,2037,519,2060,453,2081,416,2108,385,2156,349,2200,332,2309,311,2885,237,3178,214,3465,197,3875,180"/>
-<area shape="poly" title=" " alt="" coords="3939,191,3974,243,3994,280,4012,322,4024,365,4029,409,4021,450,4012,469,3999,487,3972,501,3923,512,3781,529,3618,540,3482,546,3482,540,3618,535,3780,524,3922,507,3970,496,3996,483,4008,467,4016,448,4023,409,4019,366,4007,323,3989,283,3969,246,3935,194"/>
-<area shape="poly" title=" " alt="" coords="3981,182,4041,189,4106,200,4163,216,4185,226,4199,238,4222,270,4239,301,4250,332,4254,363,4251,394,4242,425,4225,456,4202,488,4164,499,4085,513,3902,539,3901,534,4084,508,4163,494,4198,483,4221,453,4237,423,4246,393,4248,363,4245,333,4234,303,4218,273,4195,242,4182,231,4161,221,4105,205,4040,194,3981,187"/>
-<area shape="poly" title=" " alt="" coords="3981,179,4075,183,4186,193,4290,210,4331,222,4360,238,4402,273,4438,310,4467,348,4487,389,4498,430,4497,473,4483,517,4455,560,4440,573,4417,584,4358,600,4290,611,4231,617,4231,612,4290,606,4356,595,4416,579,4437,568,4451,557,4478,514,4491,472,4492,431,4482,391,4462,351,4434,313,4398,277,4357,242,4329,227,4289,215,4186,198,4074,188,3981,184"/>
-<area shape="poly" title=" " alt="" coords="3981,181,4199,198,4312,215,4358,225,4392,238,4430,259,4461,282,4486,308,4504,337,4516,369,4522,404,4521,443,4515,486,4504,526,4482,560,4457,584,4430,602,4427,598,4454,580,4478,557,4499,524,4509,485,4516,443,4516,404,4511,370,4499,339,4482,311,4458,286,4427,263,4390,242,4356,231,4311,220,4198,204,3981,186"/>
-<area shape="poly" title=" " alt="" coords="3920,194,3871,249,3788,330,3736,374,3680,417,3620,456,3557,488,3485,508,3384,524,3186,543,3186,538,3383,518,3484,502,3555,483,3617,451,3677,413,3733,370,3784,326,3867,245,3917,190"/>
-<area shape="poly" title=" " alt="" coords="3875,191,3479,246,3479,241,3875,185"/>
-<area shape="rect" href="a00248.html" title="FIFF tag&#45;kind, block&#45;kind and type&#45;code numerical definitions, authoritative for FIFFLIB." alt="" coords="4267,240,4346,265"/>
-<area shape="poly" title=" " alt="" coords="3981,188,4248,237,4254,238,4253,244,4248,243,3980,193"/>
-<area shape="poly" title=" " alt="" coords="1363,483,1493,531,1519,544,1545,556,1619,577,1695,592,1825,610,1824,615,1694,597,1618,582,1543,561,1517,549,1491,536,1361,488"/>
-<area shape="poly" title=" " alt="" coords="1289,488,1135,534,1133,529,1288,483"/>
-<area shape="poly" title=" " alt="" coords="1381,477,1985,537,1984,542,1381,482"/>
-<area shape="poly" title=" " alt="" coords="1381,475,2253,537,2253,542,1381,481"/>
-<area shape="rect" title=" " alt="" coords="1145,533,1205,559"/>
-<area shape="poly" title=" " alt="" coords="1303,488,1213,530,1211,525,1301,483"/>
-<area shape="rect" title=" " alt="" coords="1229,533,1365,559"/>
-<area shape="poly" title=" " alt="" coords="1324,487,1310,522,1305,520,1319,485"/>
-<area shape="rect" title=" " alt="" coords="1390,533,1479,559"/>
-<area shape="poly" title=" " alt="" coords="1345,483,1407,523,1404,528,1343,488"/>
+<div class="center"><img src="a01377.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2imagcoherence_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2connectivity_2metrics_2imagcoherence_8h" id="asrc_2libraries_2connectivity_2metrics_2imagcoherence_8h">
+<area shape="rect" title="Volume&#45;conduction&#45;robust imaginary coherence (Nolte et al., 2004) between every channel pair." alt="" coords="161,5,351,45"/>
+<area shape="rect" href="a01406.html" title="Export/import macros for the CONNECTIVITYLIB functional&#45;connectivity library." alt="" coords="152,167,325,192"/>
+<area shape="poly" title=" " alt="" coords="225,47,200,68,181,94,179,111,185,127,197,143,211,156,208,160,193,146,180,130,173,112,176,92,196,64,222,43"/>
+<area shape="rect" href="a01388.html" title="Common static knobs shared by every functional&#45;connectivity estimator in CONNECTIVITYLIB." alt="" coords="191,93,321,119"/>
+<area shape="poly" title=" " alt="" coords="259,46,259,79,253,79,253,46"/>
+<area shape="rect" title=" " alt="" coords="5,167,128,192"/>
+<area shape="poly" title=" " alt="" coords="233,48,172,95,93,160,90,156,169,91,230,43"/>
+<area shape="rect" title=" " alt="" coords="566,167,658,192"/>
+<area shape="poly" title=" " alt="" coords="352,32,445,52,493,69,537,91,573,121,599,153,595,156,569,124,535,96,490,74,443,57,351,38"/>
+<area shape="rect" href="a01403.html" title="Input&#45;data and parameter container shared by every functional&#45;connectivity metric in CONNECTIVITYLIB." alt="" coords="345,93,524,119"/>
+<area shape="poly" title=" " alt="" coords="300,43,397,85,395,90,298,48"/>
+<area shape="rect" title=" " alt="" coords="97,240,228,265"/>
+<area shape="poly" title=" " alt="" coords="228,194,187,232,183,229,225,190"/>
+<area shape="rect" href="a00458.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="252,240,375,265"/>
+<area shape="poly" title=" " alt="" coords="252,190,293,229,289,232,249,194"/>
+<area shape="rect" title=" " alt="" coords="280,313,347,339"/>
+<area shape="poly" title=" " alt="" coords="316,266,316,300,311,300,311,266"/>
+<area shape="poly" title=" " alt="" coords="256,120,247,154,242,153,251,118"/>
+<area shape="poly" title=" " alt="" coords="227,121,111,164,110,159,225,116"/>
+<area shape="rect" title=" " alt="" coords="350,167,423,192"/>
+<area shape="poly" title=" " alt="" coords="278,116,355,158,352,162,276,121"/>
+<area shape="poly" title=" " alt="" coords="314,116,553,164,552,169,313,121"/>
+<area shape="poly" title=" " alt="" coords="404,121,284,164,283,159,402,116"/>
+<area shape="poly" title=" " alt="" coords="376,121,140,167,139,161,375,116"/>
+<area shape="poly" title=" " alt="" coords="429,121,404,157,400,154,425,118"/>
+<area shape="poly" title=" " alt="" coords="464,116,572,159,570,164,462,121"/>
+<area shape="rect" title=" " alt="" coords="448,167,541,192"/>
+<area shape="poly" title=" " alt="" coords="447,117,478,154,474,158,443,121"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01378.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2imagcoherence_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2connectivity_2metrics_2imagcoherence_8hdep" id="asrc_2libraries_2connectivity_2metrics_2imagcoherence_8hdep">
+<area shape="rect" title="Volume&#45;conduction&#45;robust imaginary coherence (Nolte et al., 2004) between every channel pair." alt="" coords="111,5,301,45"/>
+<area shape="rect" href="a01427.html" title="Implementation of CONNECTIVITYLIB::Connectivity &#45; the dispatcher that runs the requested functional&#45;c..." alt="" coords="5,93,188,133"/>
+<area shape="poly" title=" " alt="" coords="173,56,123,95,119,91,169,52"/>
+<area shape="rect" href="a01373.html" title="Implementation of CONNECTIVITYLIB::ImagCoherence &#45; the volume&#45;conduction&#45;robust imaginary part of com..." alt="" coords="212,93,419,133"/>
+<area shape="poly" title=" " alt="" coords="243,52,293,91,289,95,239,56"/>
 </map>
 </div>
 </div>
 <p><a href="a01376_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:CONNECTIVITYLIB_3A_3AImagCoherence" id="r_CONNECTIVITYLIB_3A_3AImagCoherence"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a02826.html">CONNECTIVITYLIB::ImagCoherence</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imaginary-coherence estimator (Nolte et al. 2004); rejects zero-lag volume-conduction mixing.  <a href="a02826.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:CONNECTIVITYLIB" id="r_CONNECTIVITYLIB"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02593.html">CONNECTIVITYLIB</a></td></tr>
+<tr class="memdesc:a02593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Functional connectivity metrics (coherence, PLV, cross-correlation, etc.). <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of the LCMV beamformer pipeline (filter design + multiple application paths). </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
-<p>Builds the leadfield ↔ data-covariance pipeline, delegates the numerical core to InvBeamformerCompute, then exposes the project-through-filter loop for evoked, raw and per-epoch inputs. The resolution-matrix path multiplies the derived filter through the same leadfield used for design, giving the point-spread diagnostics consumed by InvResolutionMatrix. </p>
+<div class="textblock"><p>Volume-conduction-robust imaginary coherence (Nolte et al., 2004) between every channel pair. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2018-2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'dan'+'ie'+'l.s'+'tr'+'ohm'+'ei'+'er@'+'gm'+'ail'+'.c'+'om'; return false;">danie<span class="obfuscator">.nosp@m.</span>l.st<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>gmail<span class="obfuscator">.nosp@m.</span>.com</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Juan GPC <a href="#" onclick="location.href='mai'+'lto:'+'jga'+'rc'+'iap'+'ri'+'eto'+'@m'+'gh.'+'ha'+'rva'+'rd'+'.ed'+'u'; return false;">jgarc<span class="obfuscator">.nosp@m.</span>iapr<span class="obfuscator">.nosp@m.</span>ieto@<span class="obfuscator">.nosp@m.</span>mgh.<span class="obfuscator">.nosp@m.</span>harva<span class="obfuscator">.nosp@m.</span>rd.e<span class="obfuscator">.nosp@m.</span>du</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>April 2018 </dd></dl>
+<p>Imaginary coherence is the imaginary part of complex coherency,</p>
+<p>ImCoh_{xy}(f) = Im( S_{xy}(f) / sqrt(S_{xx}(f) * S_{yy}(f)) )</p>
+<p>with output range <code></code>[-1, 1] - or <code></code>[0, 1] when reported as <code>|Im</code>(Coh)|, as done here. Its key property, established by Nolte, Bai, Wheaton, Mari, Vorbach and Hallett (NeuroImage 2004), is that any instantaneous mixing of independent sources (volume conduction, common-reference, common-pickup) projects purely onto the real axis and therefore contributes 0 to <code>Im(Coh)</code>. Only interactions with a non-zero phase lag - the signature of finite conduction delay between two true neural generators - survive, which makes this estimator a standard choice for sensor-space MEG/EEG connectivity where volume conduction would otherwise dominate ordinary coherence.</p>
+<p>The trade-off is reduced sensitivity to genuine but short-lag interactions and a non-trivial dependence on the relative source orientations, so ImCoh is usually reported alongside the phase-based estimators (PLI, wPLI) which share its anti-leakage property but have different bias/variance profiles. </p>
 
-<p class="definition">Definition in file <a class="el" href="a01376_source.html">inv_lcmv.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01376_source.html">imagcoherence.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
