@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['define_20member_20methods_0',['DEFINE MEMBER METHODS',['../a01118.html#autotoc_md7',1,'DEFINE MEMBER METHODS'],['../a01058.html#autotoc_md46',1,'DEFINE MEMBER METHODS']]],
+  ['define_20member_20methods_0',['DEFINE MEMBER METHODS',['../a00260.html#autotoc_md7',1,'DEFINE MEMBER METHODS'],['../a00239.html#autotoc_md46',1,'DEFINE MEMBER METHODS']]],
   ['definition_20of_20the_20mne_5ffind_5fsource_5fspace_5fhemi_20function_1',['MNE toolbox root function ###: Definition of the mne_find_source_space_hemi function',['../a04694.html#autotoc_md79',1,'']]],
   ['definition_20of_20the_20mne_5fpatch_5finfo_20function_2',['MNE toolbox root function ###: Definition of the mne_patch_info function',['../a04694.html#autotoc_md80',1,'']]],
   ['definition_20of_20the_20mne_5fread_5fbem_5fsurface_20function_3',['MNE toolbox root function ###: Definition of the mne_read_bem_surface function',['../a04450.html#autotoc_md75',1,'']]],

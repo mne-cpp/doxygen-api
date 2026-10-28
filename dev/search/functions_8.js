@@ -7,7 +7,7 @@ var searchData=
   ['ieegallowedcoordsystems_4',['ieegAllowedCoordSystems',['../a02587.html#a8f5929ce16505ad8e23928cdaf08b19b',1,'BIDSLIB']]],
   ['ieegallowedextensions_5',['ieegAllowedExtensions',['../a02587.html#a65ba8b21bf0847cd18de1688ac849d6a',1,'BIDSLIB']]],
   ['ieegimplantation_6',['IeegImplantation',['../a04038.html#a6e4d64b7b7299adeca714c60a197c822',1,'IEEGLIB::IeegImplantation::IeegImplantation()=default'],['../a04038.html#abf09080140dac53e98ac748e9a0b2578',1,'IEEGLIB::IeegImplantation::IeegImplantation(const QVector&lt; IeegContact &gt; &amp;contacts, const QString &amp;coordinateSystem=QString())']]],
-  ['if_7',['if',['../a01118.html#a124e6bc6b014a20703353ec5460df510',1,'fiff_coord_trans.cpp']]],
+  ['if_7',['if',['../a00260.html#a124e6bc6b014a20703353ec5460df510',1,'fiff_coord_trans.cpp']]],
   ['ilinefreq_8',['iLineFreq',['../a04138.html#a04387b0dadd1c83280cc826bb27ce496',1,'INVLIB::InvHpiModelParameters']]],
   ['imagcoherence_9',['ImagCoherence',['../a02826.html#a18fdc708c586d6d446c3f19cea2ab320',1,'CONNECTIVITYLIB::ImagCoherence']]],
   ['image_10',['image',['../a03362.html#a414ab26eb8ce0382062f67db3d48ee0e',1,'DISP3DLIB::SliceObject']]],

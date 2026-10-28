@@ -20,7 +20,7 @@ var searchData=
   ['amplitudemax_17',['amplitudeMax',['../a03026.html#a87972c74a68e0d3f6fb259a7fd5c4aae',1,'DISPLIB::ChannelDisplayInfo']]],
   ['anatomical_18',['Anatomical',['../a03418.html#a9d1d4aaaecb38b8ef2294589f54d315a',1,'DISP3DLIB::BrainRenderer']]],
   ['anode_19',['anode',['../a04042.html#a7fa3090ce801e1cc2f56ce0f993cd047',1,'IEEGLIB::IeegBipolarPair']]],
-  ['approx_5fring_5fbuf_5fsize_20',['APPROX_RING_BUF_SIZE',['../a01748.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
+  ['approx_5fring_5fbuf_5fsize_20',['APPROX_RING_BUF_SIZE',['../a02273.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
   ['area_21',['area',['../a04630.html#af6ce9d7cdd68bb81c8efa5f322a1e8e2',1,'MNELIB::MNEPatchInfo::area'],['../a04722.html#a9aeb0d0b03f61792a42885d6ba1d6c57',1,'MNELIB::MNETriangle::area']]],
   ['aspect_5fkind_22',['aspect_kind',['../a03846.html#a82f2dbb01653b5bcac2449b2195e4ef7',1,'FIFFLIB::FiffEvoked']]],
   ['associatedimagepath_23',['associatedImagePath',['../a02686.html#afb76276db8a146cfdf38d7ccca5dd24f',1,'BIDSLIB::BidsCoordinateSystem']]],
