@@ -1,15 +1,21 @@
 var searchData=
 [
-  ['eeg_5freference_2ecpp_0',['eeg_reference.cpp',['../a02438.html',1,'']]],
-  ['eeg_5freference_2eh_1',['eeg_reference.h',['../a02360.html',1,'']]],
-  ['electrodeobject_2ecpp_2',['electrodeobject.cpp',['../a00704.html',1,'']]],
-  ['electrodeobject_2eh_3',['electrodeobject.h',['../a00689.html',1,'']]],
-  ['eog_5fregression_2ecpp_4',['eog_regression.cpp',['../a02411.html',1,'']]],
-  ['eog_5fregression_2eh_5',['eog_regression.h',['../a02357.html',1,'']]],
-  ['epoch_5fextractor_2ecpp_6',['epoch_extractor.cpp',['../a02252.html',1,'']]],
-  ['epoch_5fextractor_2eh_7',['epoch_extractor.h',['../a02288.html',1,'']]],
-  ['evokedsetmodel_2ecpp_8',['evokedsetmodel.cpp',['../a00308.html',1,'']]],
-  ['evokedsetmodel_2eh_9',['evokedsetmodel.h',['../a00332.html',1,'']]],
-  ['extended_5finfomax_2ecpp_10',['extended_infomax.cpp',['../a02375.html',1,'']]],
-  ['extended_5finfomax_2eh_11',['extended_infomax.h',['../a02483.html',1,'']]]
+  ['eeg_5freference_2ecpp_0',['eeg_reference.cpp',['../a00083.html',1,'']]],
+  ['eeg_5freference_2eh_1',['eeg_reference.h',['../a00245.html',1,'']]],
+  ['eego_5fbackend_2ecpp_2',['eego_backend.cpp',['../a01301.html',1,'']]],
+  ['eego_5fdriver_2ecpp_3',['eego_driver.cpp',['../a01292.html',1,'']]],
+  ['eego_5fsimulator_2ecpp_4',['eego_simulator.cpp',['../a01298.html',1,'']]],
+  ['eego_5ftransport_2eh_5',['eego_transport.h',['../a01295.html',1,'']]],
+  ['electrodeobject_2ecpp_6',['electrodeobject.cpp',['../a01700.html',1,'']]],
+  ['electrodeobject_2eh_7',['electrodeobject.h',['../a01724.html',1,'']]],
+  ['endian_2eh_8',['endian.h',['../a01502.html',1,'']]],
+  ['eog_5fregression_2ecpp_9',['eog_regression.cpp',['../a00089.html',1,'']]],
+  ['eog_5fregression_2eh_10',['eog_regression.h',['../a00119.html',1,'']]],
+  ['epoch_5fextractor_2ecpp_11',['epoch_extractor.cpp',['../a00104.html',1,'']]],
+  ['epoch_5fextractor_2eh_12',['epoch_extractor.h',['../a00215.html',1,'']]],
+  ['error_2eh_13',['error.h',['../a01490.html',1,'']]],
+  ['evokedsetmodel_2ecpp_14',['evokedsetmodel.cpp',['../a02021.html',1,'']]],
+  ['evokedsetmodel_2eh_15',['evokedsetmodel.h',['../a01985.html',1,'']]],
+  ['extended_5finfomax_2ecpp_16',['extended_infomax.cpp',['../a00053.html',1,'']]],
+  ['extended_5finfomax_2eh_17',['extended_infomax.h',['../a00044.html',1,'']]]
 ];

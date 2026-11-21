@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['scenelayerkind_0',['SceneLayerKind',['../a02614.html#a43eb99c72f5996d313a1917b2a963c69',1,'DISP3DLIB']]],
-  ['shadermode_1',['ShaderMode',['../a02614.html#affaa80265b4f5d63091b87f257f63c65',1,'DISP3DLIB']]],
-  ['sliceorientation_2',['SliceOrientation',['../a02614.html#a8b3261ce685682009d5ea95c5cbf12e2',1,'DISP3DLIB::SliceOrientation'],['../a02670.html#aeb6147e07f11b6c5b2ace35cb7a486cc',1,'MRILIB::SliceOrientation']]],
-  ['splitterhit_3',['SplitterHit',['../a02614.html#a82bca15851e5c3b674d41ef520249e45',1,'DISP3DLIB']]],
-  ['statscorrection_4',['StatsCorrection',['../a02673.html#af057d7b69affa334e5d7ea447ed8f642',1,'STSLIB']]],
-  ['statstailtype_5',['StatsTailType',['../a02673.html#abbb8a81f7502944519ef7b923e514924',1,'STSLIB']]],
-  ['stimartifactmode_6',['StimArtifactMode',['../a02613.html#ab1638ba568ccd029bb616b04472d1977',1,'UTILSLIB']]],
-  ['stylemode_7',['StyleMode',['../a02930.html#a36141ad3b6f880d2d82a3dd69d6e2e29',1,'DISPLIB::AbstractView']]],
-  ['surfacerole_8',['SurfaceRole',['../a03294.html#a310bc06d2bf9e6ba22e6aa739bedebbd',1,'DISP3DLIB::SurfaceTreeItem']]],
-  ['system_9',['System',['../a04842.html#a1acf2b77594154badedf2f789dd89f6d',1,'UTILSLIB::StandardMontage']]]
+  ['mlbackend_0',['MlBackend',['../a02894.html#a6d172538667acc8f223e81747f75f59c',1,'mne']]],
+  ['mldatatype_1',['MlDataType',['../a02894.html#aab5900f1824367437e7e34eef6a02bae',1,'mne']]],
+  ['mltasktype_2',['MlTaskType',['../a02894.html#a7b950f1700b38ebc969776769fb324d7',1,'mne']]],
+  ['mnaattrtype_3',['MnaAttrType',['../a02894.html#a169989f08372de3b5242f5bb3c0d269a',1,'mne']]],
+  ['mnacontainerformat_4',['MnaContainerFormat',['../a02894.html#ac9ce59c74eaf69e01e6f1d416520fa8c',1,'mne']]],
+  ['mnadatakind_5',['MnaDataKind',['../a02894.html#a6f0f13b39e92820eda555f21cc0c104c',1,'mne']]],
+  ['mnafilerole_6',['MnaFileRole',['../a02894.html#accef4ea64353452ed841fd92fe9562a3',1,'mne']]],
+  ['mnanodeexecmode_7',['MnaNodeExecMode',['../a02894.html#acb2db7a9b3b965fbf54448bb6960e42a',1,'mne']]],
+  ['mnaportdir_8',['MnaPortDir',['../a02894.html#a6a2580d2ace64b821421f93747c7efbd',1,'mne']]],
+  ['mode_9',['Mode',['../a03294.html#a47acbbcd8edec1b298a8c0d859982daa',1,'mne::AcqSegmentation::Mode'],['../a03998.html#a6e866acd1d66f2115c6470ef63d7483d',1,'mne::FileByteStream::Mode']]]
 ];

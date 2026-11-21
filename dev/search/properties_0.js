@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['samplesperpixel_0',['samplesPerPixel',['../a03046.html#a785f01d0475929d5d90b515ae6c4cf31',1,'DISPLIB::ChannelRhiView']]],
-  ['scrollsample_1',['scrollSample',['../a03046.html#a3c7a4608ec93b7b72d66b8401d4cc03e',1,'DISPLIB::ChannelRhiView']]]
+  ['samplesperpixel_0',['samplesPerPixel',['../a04550.html#acb80263e188601930cf83c3a8c639057',1,'mne::disp::ChannelRhiView']]],
+  ['scrollsample_1',['scrollSample',['../a04550.html#a7ef2e9e7b62426b28ecbd552339beadb',1,'mne::disp::ChannelRhiView']]]
 ];

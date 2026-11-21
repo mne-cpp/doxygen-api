@@ -1,24 +1,5 @@
 var searchData=
 [
-  ['layoutloader_2ecpp_0',['layoutloader.cpp',['../a00425.html',1,'']]],
-  ['layoutloader_2eh_1',['layoutloader.h',['../a00428.html',1,'']]],
-  ['layoutmaker_2ecpp_2',['layoutmaker.cpp',['../a00467.html',1,'']]],
-  ['layoutmaker_2eh_3',['layoutmaker.h',['../a00491.html',1,'']]],
-  ['layoutscene_2ecpp_4',['layoutscene.cpp',['../a00329.html',1,'']]],
-  ['layoutscene_2eh_5',['layoutscene.h',['../a00278.html',1,'']]],
-  ['linalg_2ecpp_6',['linalg.cpp',['../a01307.html',1,'']]],
-  ['linalg_2eh_7',['linalg.h',['../a01271.html',1,'']]],
-  ['lineplot_2ecpp_8',['lineplot.cpp',['../a00011.html',1,'']]],
-  ['lineplot_2eh_9',['lineplot.h',['../a00041.html',1,'']]],
-  ['lsl_2eh_10',['lsl.h',['../a02192.html',1,'']]],
-  ['lsl_5fglobal_2ecpp_11',['lsl_global.cpp',['../a02198.html',1,'']]],
-  ['lsl_5fglobal_2eh_12',['lsl_global.h',['../a02174.html',1,'']]],
-  ['lsl_5fstream_5fdiscovery_2ecpp_13',['lsl_stream_discovery.cpp',['../a02168.html',1,'']]],
-  ['lsl_5fstream_5fdiscovery_2eh_14',['lsl_stream_discovery.h',['../a02195.html',1,'']]],
-  ['lsl_5fstream_5finfo_2ecpp_15',['lsl_stream_info.cpp',['../a02189.html',1,'']]],
-  ['lsl_5fstream_5finfo_2eh_16',['lsl_stream_info.h',['../a02186.html',1,'']]],
-  ['lsl_5fstream_5finlet_2ecpp_17',['lsl_stream_inlet.cpp',['../a02183.html',1,'']]],
-  ['lsl_5fstream_5finlet_2eh_18',['lsl_stream_inlet.h',['../a02177.html',1,'']]],
-  ['lsl_5fstream_5foutlet_2ecpp_19',['lsl_stream_outlet.cpp',['../a02180.html',1,'']]],
-  ['lsl_5fstream_5foutlet_2eh_20',['lsl_stream_outlet.h',['../a02171.html',1,'']]]
+  ['kmeans_2ecpp_0',['kmeans.cpp',['../a01583.html',1,'']]],
+  ['kmeans_2eh_1',['kmeans.h',['../a01598.html',1,'']]]
 ];

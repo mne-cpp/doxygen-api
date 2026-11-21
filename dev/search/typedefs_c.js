@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['rejectmask_0',['RejectMask',['../a04778.html#a76b52fb2270802b893255b85d8a82bb4',1,'STSLIB::StatsMcCorrection']]],
-  ['rowmajormatrixmap_1',['RowMajorMatrixMap',['../a04338.html#a171028109e8eee307f705dc1a621e177',1,'MLLIB::MlTensor']]],
-  ['rowmajormatrixxf_2',['RowMajorMatrixXf',['../a04338.html#a29db16406881f787f20ddc1deab13b79',1,'MLLIB::MlTensor::RowMajorMatrixXf'],['../a02595.html#ae43e706a3d74ae7333bb6ff910bce16a',1,'MNELIB::RowMajorMatrixXf']]],
-  ['rowvectorpair_3',['RowVectorPair',['../a02599.html#ae1ddfa37a3893969aef05a73116d5b06',1,'DISPLIB']]]
+  ['params_0',['Params',['../a04998.html#aadaaad66a60118017f0a9d1f2948d7da',1,'mne::BadChannelDetect::Params'],['../a05058.html#a07057df713f50fc8397562e16394afd8',1,'mne::EpochExtractor::Params'],['../a05234.html#addff945b1b7a6de79780a5929ce93c0a',1,'mne::SSS::Params']]],
+  ['pluginfactory_1',['PluginFactory',['../a05874.html#add1c874290afc86246f080fb7abedeb2',1,'mne::MnaGraphExecutor']]],
+  ['pointst_2',['PointsT',['../a06242.html#a2e168a67fc0858658e0c47d414621926',1,'mne::MNESurfaceOrVolume']]],
+  ['progresscallback_3',['ProgressCallback',['../a05874.html#ac60e89ccdee1046010eec4d17660f2bb',1,'mne::MnaGraphExecutor']]],
+  ['projparams_4',['ProjParams',['../a04990.html#aa3ed82387154de55fb63010d8b93e6bd',1,'mne::ArtifactDetect']]],
+  ['pythonlinecallback_5',['PythonLineCallback',['../a02894.html#a45e9ea086e2e5774cbe0d0a88e72313f',1,'mne']]],
+  ['pythonprogresscallback_6',['PythonProgressCallback',['../a02894.html#a7de348e11bf724d0735ea747ea8fc398',1,'mne']]]
 ];

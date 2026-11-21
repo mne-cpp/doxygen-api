@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ieegshared_5fexport_0',['IEEGSHARED_EXPORT',['../a01262.html#a2098740e81ee788863d48025cfb10165',1,'ieeg_global.h']]],
-  ['invshared_5fexport_1',['INVSHARED_EXPORT',['../a02015.html#abf8a4c9503f2c284931c293bad8e0a7c',1,'inv_global.h']]]
+  ['lh_5flabel_5ftag_0',['LH_LABEL_TAG',['../a02519.html#a8d6b4e2f7a87164cf645bc8d66e7660a',1,'mne_source_space.cpp']]],
+  ['lslshared_5fexport_1',['LSLSHARED_EXPORT',['../a02477.html#ad05fbecba6dcaf235964f3885b1ef731',1,'lsl_global.h']]]
 ];

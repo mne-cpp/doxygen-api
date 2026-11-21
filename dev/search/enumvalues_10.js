@@ -1,12 +1,21 @@
 var searchData=
 [
-  ['rapmusic_0',['RapMusic',['../a02617.html#a29bb5b206858a4db67919400558e5a99a3336250dc4ea25401607ed4808c7ce37',1,'INVLIB']]],
-  ['raw_1',['Raw',['../a02662.html#acec300107fc488331fcaddae5894abfca65e65c8ab0d8609ce12fc68a03cb8e00',1,'MNALIB']]],
-  ['realtime_2',['RealTime',['../a02930.html#ac60b3fec00fc454e4e14c344855222a4a871b3feb04cc70dadcd9fdb904623c15',1,'DISPLIB::AbstractView']]],
-  ['realtimestream_3',['RealTimeStream',['../a02662.html#aff2df5a82a2d98871c0ceb6dff9713f6acd3bf83eda7ca996ae5009842afdb565',1,'MNALIB']]],
-  ['redblue_4',['RedBlue',['../a02599.html#a53c600771742063d0826523495db22f3a8e23b4fdd9152664065d1adb48337db1',1,'DISPLIB']]],
-  ['regression_5',['Regression',['../a02661.html#af7252d582605536427b5aa1c5f20e295aced9b681c2824b1aa4e53cfbd6965912',1,'MLLIB']]],
-  ['research_6',['Research',['../a02930.html#a4758d14e067b1f8207526dca12903cf6ac25569748c3b7a7ffdacf9fd73659f9b',1,'DISPLIB::AbstractView']]],
-  ['right_7',['Right',['../a02673.html#abbb8a81f7502944519ef7b923e514924a92b09c7c48c520c3c55e497875da437c',1,'STSLIB']]],
-  ['rpa_8',['RPA',['../a02613.html#a986131145480092b3c0ae492bf2c6e5da9882ff214fe0d780e8f904d91c2f9090',1,'UTILSLIB']]]
+  ['radianpersecond_0',['RadianPerSecond',['../a02894.html#a382e1ee6b528a86ac795fa4e0e5e5bbca5c3a8480970c0c8602b25a071947d34d',1,'mne']]],
+  ['rapmusic_1',['RapMusic',['../a02894.html#ade8f3f7441faae5bc61b2d7fc499975da3336250dc4ea25401607ed4808c7ce37',1,'mne']]],
+  ['raw_2',['Raw',['../a02894.html#a1a5d1b4dfaf052b9059ebc1632e67bd9a65e65c8ab0d8609ce12fc68a03cb8e00',1,'mne::Raw'],['../a02894.html#accef4ea64353452ed841fd92fe9562a3a65e65c8ab0d8609ce12fc68a03cb8e00',1,'mne::Raw']]],
+  ['read_3',['Read',['../a03998.html#a6e866acd1d66f2115c6470ef63d7483da7a1a5f3e79fdc91edf2f5ead9d66abb4',1,'mne::FileByteStream']]],
+  ['readwrite_4',['ReadWrite',['../a03998.html#a6e866acd1d66f2115c6470ef63d7483da70a2a84088d405a2e3f1e3accaa16723',1,'mne::FileByteStream']]],
+  ['realtime_5',['RealTime',['../a04434.html#a7164a380fec76ee588e04674a3f6f2afaf4e19db2493dc152b5a158492c582d19',1,'mne::disp::AbstractView']]],
+  ['realtime_6',['Realtime',['../a02894.html#a008bf682ec6be7f4b72eb17dd5f9722faa5ff58bda67e2160b5e5d5a47a4333c3',1,'mne']]],
+  ['realtimestream_7',['RealTimeStream',['../a02894.html#a6f0f13b39e92820eda555f21cc0c104cacd3bf83eda7ca996ae5009842afdb565',1,'mne']]],
+  ['redblue_8',['RedBlue',['../a02975.html#a080ed3087caaa78131a53512c40cfb6daf1620312e92e6440e211bd316407aefe',1,'mne::disp']]],
+  ['reference_9',['Reference',['../a02895.html#a2cd19ec92361159b182b6f31b690aaada63d5049791d9d79d86e9a108b0a999ca',1,'mne::detail']]],
+  ['regression_10',['Regression',['../a02894.html#a7b950f1700b38ebc969776769fb324d7aced9b681c2824b1aa4e53cfbd6965912',1,'mne']]],
+  ['research_11',['Research',['../a04434.html#ae33399c4c9be04a686a8d00d71f23414a9d1abef99bd939542a4e4b31ca3430b4',1,'mne::disp::AbstractView']]],
+  ['respiration_12',['Respiration',['../a02894.html#a496b6599f73118baeac4515fc1b5883caec0738a115e5784b6b7eaaff7c1a7cea',1,'mne']]],
+  ['rfswitch_13',['RfSwitch',['../a02894.html#a496b6599f73118baeac4515fc1b5883caa114848969bbd81c916fe72795bbe068',1,'mne']]],
+  ['right_14',['Right',['../a02894.html#ac1be945a976d2b4ea40333422cf1c47fa92b09c7c48c520c3c55e497875da437c',1,'mne']]],
+  ['rising_15',['Rising',['../a02894.html#a7373b879ab6dfb9d3a955c69a0c49ac4a4475404a8e17049853e83d014a833ca1',1,'mne']]],
+  ['rpa_16',['RPA',['../a02894.html#afa559bab41a42c55ac50134d4c27a51ba9882ff214fe0d780e8f904d91c2f9090',1,'mne']]],
+  ['running_17',['Running',['../a02894.html#a3931e4e917b19bf8fd2f4e05ebc9f22fa5bda814c4aedb126839228f1a3d92f09',1,'mne']]]
 ];

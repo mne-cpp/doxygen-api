@@ -1,12 +1,23 @@
 var searchData=
 [
-  ['pad_0',['Pad',['../a02617.html#af1ffe934a77f18c6a7260b1975016387ade43468adaf6acb2c38ebc0c1176f82f',1,'INVLIB']]],
-  ['parksmcclellan_1',['ParksMcClellan',['../a03590.html#a9d1232180f4d7c976a92b178ada91bc4a0cf0c82c9b3fef3cbaa42b24d456f689',1,'UTILSLIB::FirFilter']]],
-  ['pca_2',['PCA',['../a03094.html#a1301ff5030da86565fa015e24da90dc7af5d783a599725f5339b99a5a7fd89161',1,'DISPLIB::MNEOperator']]],
-  ['posbegin_3',['PosBegin',['../a02617.html#af1ffe934a77f18c6a7260b1975016387a0ce017d399e4efd76bd4d57963ea0787',1,'INVLIB']]],
-  ['posend_4',['PosEnd',['../a02617.html#af1ffe934a77f18c6a7260b1975016387a7b190f632a4c84d8c0d2f681fa0f5dbb',1,'INVLIB']]],
-  ['posx_5',['PosX',['../a02617.html#af1ffe934a77f18c6a7260b1975016387a05695693370a026c84acf4d674a62fd5',1,'INVLIB']]],
-  ['posy_6',['PosY',['../a02617.html#af1ffe934a77f18c6a7260b1975016387a7e75cf965eba430083929d0ec26c12a7',1,'INVLIB']]],
-  ['posz_7',['PosZ',['../a02617.html#af1ffe934a77f18c6a7260b1975016387afddb9fb1311023128eeb738f978ce061',1,'INVLIB']]],
-  ['pwlrapmusic_8',['PwlRapMusic',['../a02617.html#a29bb5b206858a4db67919400558e5a99afd5ca06250c5f16312815dd6768aa677',1,'INVLIB']]]
+  ['pad_0',['Pad',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245ade43468adaf6acb2c38ebc0c1176f82f',1,'mne']]],
+  ['parksmcclellan_1',['ParksMcClellan',['../a05094.html#aa9613ccfa4e9f75b732cf84599383fa0acde81106a1f06b3bc5deb3acf7550bde',1,'mne::FirFilter']]],
+  ['pascal_2',['Pascal',['../a02894.html#a382e1ee6b528a86ac795fa4e0e5e5bbcaca693a8ccfa2cd3464d532afdfab31c5',1,'mne']]],
+  ['pca_3',['PCA',['../a04598.html#a76ac9e167666c7a70ed92d00a4cb9c71aa32459b044822f8c839bba7564ab52f2',1,'mne::disp::MNEOperator']]],
+  ['percent_4',['Percent',['../a02895.html#a044cdb532e852d8ce0e9aca6f716bf04aadaaee4b22041c27198d410c68d952c9',1,'mne::detail']]],
+  ['permissiondenied_5',['PermissionDenied',['../a02894.html#a431575bc664b471e7206a28da35727d3a4b33a686be73bb172407d73b26356275',1,'mne']]],
+  ['phaselocked_6',['PhaseLocked',['../a02894.html#ab24fb2b1ec753b8824c7131bae354c72a2d39ce4fcf16b08e0ff9d43ed1244e8c',1,'mne']]],
+  ['physical_7',['Physical',['../a02894.html#a1a5d1b4dfaf052b9059ebc1632e67bd9ace898d62ed9ca7653a01fe0c781e97e9',1,'mne']]],
+  ['planar_8',['Planar',['../a02894.html#aa3eb919c9a6517cceb0aada09ce2d56ea93a097009b6443e711996c50b5354adf',1,'mne']]],
+  ['platformunsupported_9',['PlatformUnsupported',['../a02894.html#a431575bc664b471e7206a28da35727d3a32349baf30a01fe882577efa47fbf6a2',1,'mne']]],
+  ['png_10',['Png',['../a02894.html#ac2ae957c46bae06ce859bf4e13cb1f2faf8fd4f1b5b05c6b1cc6a661141fd4f54',1,'mne']]],
+  ['posbegin_11',['PosBegin',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245a0ce017d399e4efd76bd4d57963ea0787',1,'mne']]],
+  ['posend_12',['PosEnd',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245a7b190f632a4c84d8c0d2f681fa0f5dbb',1,'mne']]],
+  ['position_13',['Position',['../a02894.html#a496b6599f73118baeac4515fc1b5883ca52f5e0bc3859bc5f5e25130b6c7e8881',1,'mne']]],
+  ['posx_14',['PosX',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245a05695693370a026c84acf4d674a62fd5',1,'mne']]],
+  ['posy_15',['PosY',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245a7e75cf965eba430083929d0ec26c12a7',1,'mne']]],
+  ['posz_16',['PosZ',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245afddb9fb1311023128eeb738f978ce061',1,'mne']]],
+  ['pressure_17',['Pressure',['../a02895.html#a7a14068808b9e155e5ae7798d9feab79aa78578c428179b490a0461e76ba5f319',1,'mne::detail']]],
+  ['psi_18',['Psi',['../a02895.html#a044cdb532e852d8ce0e9aca6f716bf04ace1cb2d98c19288ad0fc47cbc07a7a6c',1,'mne::detail']]],
+  ['pwlrapmusic_19',['PwlRapMusic',['../a02894.html#ade8f3f7441faae5bc61b2d7fc499975dafd5ca06250c5f16312815dd6768aa677',1,'mne']]]
 ];

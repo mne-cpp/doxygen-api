@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['x_0',['X',['../a00842.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a02024.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;inv_ecd_set.cpp'],['../a01505.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp'],['../a01715.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_msh_display_surface.cpp'],['../a01583.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_patch_info.cpp'],['../a01523.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_source_space.cpp'],['../a01706.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_surface.cpp'],['../a01763.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_surface_or_volume.cpp']]],
-  ['x_1',['x',['../a02694.html#ae6c991802829b6c6f1be431204ccdacb',1,'BIDSLIB::BidsElectrode']]],
-  ['x1_2',['x1',['../a04230.html#accc2647ae98b82f7dd45dbea0e039cc2',1,'INVLIB::Pair']]],
-  ['x2_3',['x2',['../a04230.html#a3c608ee980958d3d008cff84dd09f83e',1,'INVLIB::Pair']]],
-  ['x_5fras_4',['x_ras',['../a04726.html#a0c58f7d8868a70ff48a0ba05849e0efe',1,'MNELIB::MNEVolGeom::x_ras'],['../a04762.html#a613966e8bf278c5bb46e1e0c7d2a66b5',1,'MRILIB::MriVolData::x_ras']]],
-  ['xmax_5',['xmax',['../a04554.html#a2001ac6e93a04e2865008f5869f20b76',1,'MNELIB::MNELayoutPort']]],
-  ['xmin_6',['xmin',['../a04554.html#a798ca770c2daf9ee5bd0892479edc5be',1,'MNELIB::MNELayoutPort']]],
-  ['xplotter_5flayout_7',['xplotter_layout',['../a03878.html#acc10f2af7adfa85a043cf6492a64adbd',1,'FIFFLIB::FiffInfo']]],
-  ['xray_8',['XRay',['../a03418.html#ac4c2e78b7aecd282657cf2913e4d79a9',1,'DISP3DLIB::BrainRenderer']]],
-  ['xsize_9',['xsize',['../a04726.html#a81fa9b4b0707bc75d2c30134f7f45cff',1,'MNELIB::MNEVolGeom::xsize'],['../a04762.html#a8af11bb886165557f07685bf5abd5488',1,'MRILIB::MriVolData::xsize']]]
+  ['x_0',['X',['../a00542.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;compute_fwd.cpp'],['../a00776.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;inv_ecd_set.cpp'],['../a02552.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_forward_solution.cpp'],['../a02633.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_msh_display_surface.cpp'],['../a02567.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_patch_info.cpp'],['../a02519.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_source_space.cpp'],['../a02699.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_surface.cpp'],['../a02573.html#afa1fd63b64a5bef810a309e7a0d909e9',1,'X:&#160;mne_surface_or_volume.cpp']]],
+  ['x_1',['x',['../a04182.html#aa6f61f0b287e439feba4b2031f1004fa',1,'mne::BidsElectrode']]],
+  ['x1_2',['x1',['../a05738.html#a74cabd95846be20ef51332a798537053',1,'mne::Pair']]],
+  ['x2_3',['x2',['../a05738.html#aa49ffe9e307b4e8f604f415d2420e506',1,'mne::Pair']]],
+  ['x_5fras_4',['x_ras',['../a06254.html#a4e0edfac102672d332e6b5b0a7bea189',1,'mne::MNEVolGeom::x_ras'],['../a06290.html#a83c02e47bc689ef14ea9411bb33dc4c8',1,'mne::MriVolData::x_ras']]],
+  ['xmax_5',['xmax',['../a06082.html#a2b820d083a0f1bc3247fd32f382d52a6',1,'mne::MNELayoutPort']]],
+  ['xmin_6',['xmin',['../a06082.html#a56b875d1a2c3f290fe681a8394194acf',1,'mne::MNELayoutPort']]],
+  ['xplotter_5flayout_7',['xplotter_layout',['../a05382.html#a2875c94fea2d30f837882e73dc61a555',1,'mne::FiffInfo']]],
+  ['xsize_8',['xsize',['../a06254.html#a982f2438524c164c07908c8e9c723a67',1,'mne::MNEVolGeom::xsize'],['../a06290.html#a56424e9b4eb26a44e7e146dad4321689',1,'mne::MriVolData::xsize']]]
 ];

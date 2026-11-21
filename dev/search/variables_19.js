@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['z_0',['Z',['../a00842.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a02024.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a01505.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a01715.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a01583.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a01523.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a01706.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a01763.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
-  ['z_1',['z',['../a02694.html#a6000c4e374daa8ab8f117fc0a04044ef',1,'BIDSLIB::BidsElectrode']]],
-  ['z_5fras_2',['z_ras',['../a04726.html#a634163daaf57c07a8de773081efe2cc2',1,'MNELIB::MNEVolGeom::z_ras'],['../a04762.html#aaacc6e42c6af08234cfed5aa0d27273b',1,'MRILIB::MriVolData::z_ras']]],
-  ['zoom_3',['zoom',['../a03226.html#a62313a176e3206ed091eb188e9d4b879',1,'DISP3DLIB::SubView']]],
-  ['zscores_4',['zScores',['../a03506.html#ad76d21c4d4038d369882d265595739de',1,'UTILSLIB::BadChannelsMaxwellResult']]],
-  ['zsize_5',['zsize',['../a04726.html#a01d54f615cbc7d31900c6277a67436dc',1,'MNELIB::MNEVolGeom::zsize'],['../a04762.html#a0a49aba98c9a234322b3dddb7ad88e9e',1,'MRILIB::MriVolData::zsize']]]
+  ['z_0',['Z',['../a00542.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a00776.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a02552.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a02633.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a02567.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a02519.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02699.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a02573.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
+  ['z_1',['z',['../a04182.html#aac5c13acb4cc61ddd3b68df2af8735d5',1,'mne::BidsElectrode']]],
+  ['z_5fras_2',['z_ras',['../a06254.html#af8006311a4a0088135d733976d8aa3e8',1,'mne::MNEVolGeom::z_ras'],['../a06290.html#a3a7df38918642f4f8bb135ce2180a2ee',1,'mne::MriVolData::z_ras']]],
+  ['zoom_3',['zoom',['../a04730.html#a16992266970e351d0c459a2332c8d157',1,'mne::disp::SubView']]],
+  ['zscores_4',['zScores',['../a05010.html#a01fed56599295731559090477882cb66',1,'mne::BadChannelsMaxwellResult']]],
+  ['zsize_5',['zsize',['../a06254.html#aca99a65faed7ea00b71ce500d94b5df5',1,'mne::MNEVolGeom::zsize'],['../a06290.html#af0c0b6083f579262f52172a12297424e',1,'mne::MriVolData::zsize']]]
 ];

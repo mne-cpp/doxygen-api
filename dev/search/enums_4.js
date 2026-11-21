@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['fdrmethod_0',['FdrMethod',['../a04778.html#a011e3f01270312444676f16e39e6d27d',1,'STSLIB::StatsMcCorrection']]],
-  ['fiducialid_1',['FiducialId',['../a02613.html#a986131145480092b3c0ae492bf2c6e5d',1,'UTILSLIB']]],
-  ['filtertype_2',['FilterType',['../a03590.html#a28323b991f3faaf0c1aa0b4168a0bf3e',1,'UTILSLIB::FirFilter::FilterType'],['../a03606.html#ad80bf845ff7b34f87a915bd7617d0de8',1,'UTILSLIB::IirFilter::FilterType']]],
-  ['firwindow_3',['FirWindow',['../a03590.html#a44225eca11a022319c712ca8c56d6186',1,'UTILSLIB::FirFilter']]]
+  ['edgeset_0',['EdgeSet',['../a02894.html#aea71bc585c233441f659554c599734f6',1,'mne']]],
+  ['eegochanneltype_1',['EegoChannelType',['../a02895.html#a2cd19ec92361159b182b6f31b690aaad',1,'mne::detail']]],
+  ['errorcode_2',['ErrorCode',['../a02894.html#aa655a189d0c15115d4f48b3f664b864d',1,'mne::ErrorCode'],['../a02375.html#aa655a189d0c15115d4f48b3f664b864d',1,'ErrorCode:&#160;error.h'],['../a02369.html#aa655a189d0c15115d4f48b3f664b864d',1,'ErrorCode:&#160;error.h'],['../a02276.html#aa655a189d0c15115d4f48b3f664b864d',1,'ErrorCode:&#160;error.h'],['../a02324.html#aa655a189d0c15115d4f48b3f664b864d',1,'ErrorCode:&#160;error.h'],['../a02303.html#aa655a189d0c15115d4f48b3f664b864d',1,'ErrorCode:&#160;error.h'],['../a00941.html#aa655a189d0c15115d4f48b3f664b864d',1,'ErrorCode:&#160;error.h']]]
 ];

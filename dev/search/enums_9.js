@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['operatortype_0',['OperatorType',['../a03094.html#a1301ff5030da86565fa015e24da90dc7',1,'DISPLIB::MNEOperator']]]
+  ['kmeansdistance_0',['KMeansDistance',['../a02894.html#ae6c7dc2878b8ee8eb00246d01ea291c7',1,'mne']]],
+  ['kmeansemptyaction_1',['KMeansEmptyAction',['../a02894.html#aa7351d8b632c476ab94594dbb235491f',1,'mne']]],
+  ['kmeansstart_2',['KMeansStart',['../a02894.html#a7510e6c912dac872fe220790fa7c7ee1',1,'mne']]]
 ];

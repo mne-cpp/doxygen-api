@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['z_0',['z',['../a04218.html#a0acac84082bf48e4392f88ff21d01da1',1,'INVLIB::InvDipole::z()'],['../a04218.html#aabd08175add3fe60133cce184cf3fe0f',1,'INVLIB::InvDipole::z() const']]],
-  ['zoom_1',['zoom',['../a02966.html#a2cdacc5acaea0ee45226dec817c6de77',1,'DISPLIB::ChannelDataView::zoom()'],['../a03246.html#a0e769085124d0b6543d5a38183874358',1,'DISP3DLIB::CameraController::zoom()']]],
-  ['zoomchanged_2',['zoomChanged',['../a02998.html#aeedb53d7b3f4b2c56f2fc690b7971813',1,'DISPLIB::FiffRawViewSettings']]],
-  ['zoomto_3',['zoomTo',['../a03046.html#af489ead92aeac1783beff3802fbec7bf',1,'DISPLIB::ChannelRhiView']]],
-  ['zscoremode_4',['zScoreMode',['../a02966.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'DISPLIB::ChannelDataView::zScoreMode()'],['../a03046.html#ad4bad855a6831ac8068e0f01f67fe3d9',1,'DISPLIB::ChannelRhiView::zScoreMode()']]],
-  ['zscoremodetoggled_5',['zScoreModeToggled',['../a02966.html#a642bfc928bfe34f65862314f30a128b9',1,'DISPLIB::ChannelDataView']]],
-  ['zscorerectify_6',['zScoreRectify',['../a04202.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'INVLIB::InvCMNE']]]
+  ['z_0',['z',['../a05726.html#a19915cab92119050a5198116f590a6b6',1,'mne::InvDipole::z()'],['../a05726.html#a3dedc699f7630591adf65de550fb6343',1,'mne::InvDipole::z() const']]],
+  ['zoom_1',['zoom',['../a04470.html#a2cdacc5acaea0ee45226dec817c6de77',1,'mne::disp::ChannelDataView::zoom()'],['../a04750.html#aedd16b504e08fef4db529536d7768847',1,'mne::disp::CameraController::zoom()']]],
+  ['zoomchanged_2',['zoomChanged',['../a04502.html#a679c165c521a85820b5c6064f437ce40',1,'mne::disp::FiffRawViewSettings']]],
+  ['zoomto_3',['zoomTo',['../a04550.html#af489ead92aeac1783beff3802fbec7bf',1,'mne::disp::ChannelRhiView']]],
+  ['zscoremode_4',['zScoreMode',['../a04470.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'mne::disp::ChannelDataView::zScoreMode()'],['../a04550.html#aa33da367eaab3fb9151297c79c115eec',1,'mne::disp::ChannelRhiView::zScoreMode()']]],
+  ['zscoremodetoggled_5',['zScoreModeToggled',['../a04470.html#af5eb3d19b73b4c2704ea71dca1fd012e',1,'mne::disp::ChannelDataView']]],
+  ['zscorerectify_6',['zScoreRectify',['../a05710.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'mne::InvCMNE']]]
 ];

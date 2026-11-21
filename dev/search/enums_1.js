@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['beamformerinversion_0',['BeamformerInversion',['../a02617.html#a47ab1cf2117131a81270531eceea53a0',1,'INVLIB']]],
-  ['beamformerpickori_1',['BeamformerPickOri',['../a02617.html#ad713f1a7895bfdb0bb447b2776528f18',1,'INVLIB']]],
-  ['beamformerweightnorm_2',['BeamformerWeightNorm',['../a02617.html#aeda8279f8dbf11d6a1bff261bbfea009',1,'INVLIB']]],
-  ['bvbinaryformat_3',['BVBinaryFormat',['../a02587.html#a999deb50c931b525947ebb5adf18a3f2',1,'BIDSLIB']]],
-  ['bvorientation_4',['BVOrientation',['../a02587.html#a08b38c1eae05e9a5a2c570416588b918',1,'BIDSLIB']]]
+  ['beamformerinversion_0',['BeamformerInversion',['../a02894.html#a41b953755a2fde5ce34aa659deb8c6bb',1,'mne']]],
+  ['beamformerpickori_1',['BeamformerPickOri',['../a02894.html#ae2773de622039719ec5fae5400b6974c',1,'mne']]],
+  ['beamformerweightnorm_2',['BeamformerWeightNorm',['../a02894.html#ae204c1b5ffd239657db2150d3c166d1b',1,'mne']]],
+  ['brainampamplifier_3',['BrainAmpAmplifier',['../a02895.html#a4e1b916f055f537ef05a9b83ca955d27',1,'mne::detail']]],
+  ['brainampresolution_4',['BrainAmpResolution',['../a02895.html#aee4fb95188d5477d9344f7470011931b',1,'mne::detail']]],
+  ['bvbinaryformat_5',['BVBinaryFormat',['../a02894.html#ae1c227bdd62a7fc79f06386c553d6d9d',1,'mne']]],
+  ['bvorientation_6',['BVOrientation',['../a02894.html#a793daedadf0453e5877021d329bfd281',1,'mne']]]
 ];

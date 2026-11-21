@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['t_5fobservers_0',['t_Observers',['../a04822.html#a011a53c136d92dad3e9f1652f8c87317',1,'UTILSLIB::Subject']]],
-  ['trianglest_1',['TrianglesT',['../a04714.html#a8ee14307656ff4d52e9c2926a85aee69',1,'MNELIB::MNESurfaceOrVolume']]]
+  ['sink_0',['Sink',['../a04130.html#a4157763ac30ef56a34d7abc4e70605db',1,'mne::Log::Sink'],['../a06520.html#a4157763ac30ef56a34d7abc4e70605db',1,'Log::Sink']]],
+  ['size_5ftype_1',['size_type',['../a04054.html#a6e774553bc0bfa3633a6250de1ec9401',1,'mne::JsonArray::size_type'],['../a04058.html#aa2981d0e72080a5385590975dccfbd66',1,'mne::JsonObject::size_type']]],
+  ['stringlist_2',['StringList',['../a02894.html#a2607bd90112303fcf60abd414f1a4497',1,'mne::StringList'],['../a02975.html#a2607bd90112303fcf60abd414f1a4497',1,'mne::disp::StringList'],['../a02894.html#a2607bd90112303fcf60abd414f1a4497',1,'mne::StringList'],['../a02894.html#a2607bd90112303fcf60abd414f1a4497',1,'mne::StringList'],['../a02894.html#a2607bd90112303fcf60abd414f1a4497',1,'mne::StringList'],['../a02894.html#a2607bd90112303fcf60abd414f1a4497',1,'mne::StringList'],['../a02894.html#a2607bd90112303fcf60abd414f1a4497',1,'mne::StringList']]]
 ];

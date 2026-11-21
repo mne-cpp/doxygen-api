@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/connectivity/metrics/coherency.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/acq/acq_reader.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,115 +250,322 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_4966471859b0659b2008791a461b6feb.html">connectivity</a></li><li class="navelem"><a href="dir_f5b9a59d67d23c798a9a50c62b2401ad.html">metrics</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_e4848848d9d294108afdd12154a1dbb6.html">acq</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">coherency.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
+  <div class="headertitle"><div class="title">acq_reader.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of <a class="el" href="a02802.html" title="CONNECTIVITYLIB::Coherency">CONNECTIVITYLIB::Coherency</a> - shared cross/auto-spectral core for magnitude-squared coherence and the volume-conduction-robust imaginary coherence of Nolte et al. (2004).  
+<p>AcqReader: one consumer of a stream with its own position, mode and exact loss count.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01319_source.html">coherency.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01424_source.html">../network/networknode.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01418_source.html">../network/networkedge.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01412_source.html">../network/network.h</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a01277_source.html">math/spectral.h</a>&gt;</code><br />
-<code>#include &lt;QDebug&gt;</code><br />
-<code>#include &lt;QtConcurrent&gt;</code><br />
-<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01394_source.html">acq_global.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01349_source.html">acq_block_view.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01400_source.html">acq_convert.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01385_source.html">acq_error.h</a>&quot;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
+<code>#include &lt;complex&gt;</code><br />
+<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for coherency.cpp:</div>
+Include dependency graph for acq_reader.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01341.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2coherency_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2connectivity_2metrics_2coherency_8cpp" id="asrc_2libraries_2connectivity_2metrics_2coherency_8cpp">
-<area shape="rect" title="Implementation of CONNECTIVITYLIB::Coherency &#45; shared cross/auto&#45;spectral core for magnitude&#45;squared ..." alt="" coords="852,5,1035,45"/>
-<area shape="rect" href="a01319.html" title="Complex coherency between every channel pair and its two reductions: magnitude (coherence) and imagin..." alt="" coords="373,93,471,119"/>
-<area shape="poly" title=" " alt="" coords="852,43,485,98,485,93,852,38"/>
-<area shape="rect" href="a01424.html" title="Node of a connectivity CONNECTIVITYLIB::Network; carries a 3D position and the lists of incident (in ..." alt="" coords="773,167,961,192"/>
-<area shape="poly" title=" " alt="" coords="931,47,902,95,878,154,873,152,897,92,927,44"/>
-<area shape="rect" href="a01418.html" title="Weighted edge between two CONNECTIVITYLIB::NetworkNode instances; stores the full per&#45;frequency weigh..." alt="" coords="562,167,749,192"/>
-<area shape="poly" title=" " alt="" coords="909,48,691,162,688,158,906,43"/>
-<area shape="rect" href="a01412.html" title="Graph container that stores the result of one functional&#45;connectivity metric as nodes (sources/sensor..." alt="" coords="1037,167,1193,192"/>
-<area shape="poly" title=" " alt="" coords="942,46,940,82,944,100,952,117,967,133,985,145,1025,163,1023,168,982,150,964,137,948,120,939,102,935,82,936,46"/>
-<area shape="rect" href="a01277.html" title="Multi&#45;taper spectral estimation: tapered FFT, power and cross&#45;spectral density, DPSS weighting." alt="" coords="1217,167,1341,192"/>
-<area shape="poly" title=" " alt="" coords="951,44,967,82,979,101,995,116,1024,127,1076,139,1204,163,1203,168,1075,144,1022,132,993,121,975,104,962,84,946,46"/>
-<area shape="rect" title=" " alt="" coords="1006,93,1081,119"/>
-<area shape="poly" title=" " alt="" coords="969,43,1019,82,1016,87,966,48"/>
-<area shape="rect" title=" " alt="" coords="1105,93,1213,119"/>
-<area shape="poly" title=" " alt="" coords="996,43,1116,86,1114,91,994,48"/>
-<area shape="rect" title=" " alt="" coords="1238,93,1409,119"/>
-<area shape="poly" title=" " alt="" coords="1035,43,1255,88,1254,93,1034,48"/>
-<area shape="rect" href="a01406.html" title="Export/import macros for the CONNECTIVITYLIB functional&#45;connectivity library." alt="" coords="434,240,607,265"/>
-<area shape="poly" title=" " alt="" coords="399,121,375,135,354,152,343,172,343,181,347,191,362,207,380,220,422,238,420,243,377,225,358,211,342,193,337,182,338,170,350,149,372,131,396,117"/>
-<area shape="rect" href="a01388.html" title="Common static knobs shared by every functional&#45;connectivity estimator in CONNECTIVITYLIB." alt="" coords="357,167,487,192"/>
-<area shape="poly" title=" " alt="" coords="425,119,425,153,419,153,419,119"/>
-<area shape="rect" title=" " alt="" coords="631,240,754,265"/>
-<area shape="poly" title=" " alt="" coords="439,117,488,151,551,190,648,233,646,237,549,194,485,156,436,121"/>
-<area shape="rect" title=" " alt="" coords="779,240,871,265"/>
-<area shape="poly" title=" " alt="" coords="472,106,600,112,759,123,900,140,949,151,976,165,984,179,984,192,976,204,963,214,927,230,885,242,883,237,925,225,960,209,972,200,979,191,979,180,972,169,947,156,899,145,759,128,600,117,472,112"/>
-<area shape="rect" href="a01403.html" title="Input&#45;data and parameter container shared by every functional&#45;connectivity metric in CONNECTIVITYLIB." alt="" coords="103,167,282,192"/>
-<area shape="poly" title=" " alt="" coords="386,121,244,165,242,160,384,116"/>
-<area shape="rect" title=" " alt="" coords="5,167,79,192"/>
-<area shape="poly" title=" " alt="" coords="373,118,93,169,92,164,372,113"/>
-<area shape="rect" title=" " alt="" coords="1210,313,1341,339"/>
-<area shape="poly" title=" " alt="" coords="608,261,620,263,1197,315,1196,321,619,268,608,267"/>
-<area shape="rect" href="a00458.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="862,313,985,339"/>
-<area shape="poly" title=" " alt="" coords="586,263,849,309,848,314,585,268"/>
-<area shape="rect" title=" " alt="" coords="890,387,957,412"/>
-<area shape="poly" title=" " alt="" coords="926,339,926,373,921,373,921,339"/>
-<area shape="poly" title=" " alt="" coords="439,190,495,230,492,234,436,194"/>
-<area shape="poly" title=" " alt="" coords="466,189,636,234,635,239,465,195"/>
-<area shape="rect" title=" " alt="" coords="300,240,373,265"/>
-<area shape="poly" title=" " alt="" coords="410,194,363,233,359,229,407,190"/>
-<area shape="poly" title=" " alt="" coords="487,189,766,237,765,242,486,194"/>
-<area shape="poly" title=" " alt="" coords="246,189,455,234,454,240,245,195"/>
-<area shape="poly" title=" " alt="" coords="278,189,618,237,617,242,277,195"/>
-<area shape="poly" title=" " alt="" coords="217,190,302,231,300,236,215,194"/>
-<area shape="poly" title=" " alt="" coords="283,185,498,205,766,237,765,243,498,210,282,190"/>
-<area shape="rect" title=" " alt="" coords="146,240,239,265"/>
-<area shape="poly" title=" " alt="" coords="195,192,195,226,190,226,190,192"/>
-<area shape="poly" title=" " alt="" coords="812,195,591,240,590,235,811,189"/>
-<area shape="poly" title=" " alt="" coords="840,194,735,237,733,232,838,190"/>
-<area shape="poly" title=" " alt="" coords="863,194,841,230,836,227,858,191"/>
-<area shape="rect" title=" " alt="" coords="895,240,970,265"/>
-<area shape="poly" title=" " alt="" coords="880,191,915,228,911,232,876,194"/>
-<area shape="poly" title=" " alt="" coords="635,194,556,236,554,231,632,190"/>
-<area shape="poly" title=" " alt="" coords="664,191,683,227,678,229,659,194"/>
-<area shape="poly" title=" " alt="" coords="684,190,785,232,783,237,682,194"/>
-<area shape="poly" title=" " alt="" coords="1037,193,621,242,621,237,1037,187"/>
-<area shape="poly" title=" " alt="" coords="1048,195,768,241,767,236,1047,189"/>
-<area shape="poly" title=" " alt="" coords="1069,195,885,239,883,234,1068,189"/>
-<area shape="rect" title=" " alt="" coords="995,240,1049,265"/>
-<area shape="poly" title=" " alt="" coords="1102,194,1050,234,1046,229,1099,190"/>
-<area shape="poly" title=" " alt="" coords="1217,193,1206,195,989,218,768,242,768,237,988,213,1206,189,1217,188"/>
-<area shape="poly" title=" " alt="" coords="1218,193,1206,195,1047,217,885,243,884,237,1047,212,1206,189,1217,188"/>
-<area shape="rect" href="a01292.html" title="Export/import macros and build&#45;stamp accessors for MATHLIB." alt="" coords="1419,240,1534,265"/>
-<area shape="poly" title=" " alt="" coords="1312,190,1432,233,1431,238,1310,195"/>
-<area shape="rect" title=" " alt="" coords="1073,240,1136,265"/>
-<area shape="poly" title=" " alt="" coords="1252,194,1147,237,1145,232,1250,190"/>
-<area shape="rect" title=" " alt="" coords="1160,240,1220,265"/>
-<area shape="poly" title=" " alt="" coords="1267,194,1217,233,1214,229,1263,190"/>
-<area shape="rect" title=" " alt="" coords="1244,240,1315,265"/>
-<area shape="poly" title=" " alt="" coords="1282,192,1282,226,1277,226,1277,192"/>
-<area shape="rect" title=" " alt="" coords="1339,240,1395,265"/>
-<area shape="poly" title=" " alt="" coords="1295,190,1344,229,1341,233,1292,194"/>
-<area shape="poly" title=" " alt="" coords="1445,268,1322,311,1320,306,1443,263"/>
-<area shape="poly" title=" " alt="" coords="1420,266,1408,268,999,319,998,314,1407,263,1419,261"/>
+<div class="center"><img src="a01341.png" border="0" usemap="#asrc_2libraries_2acq_2acq__reader_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2acq_2acq__reader_8h" id="asrc_2libraries_2acq_2acq__reader_8h">
+<area shape="rect" title="AcqReader: one consumer of a stream with its own position, mode and exact loss count." alt="" coords="1812,5,1964,45"/>
+<area shape="rect" href="a01394.html" title="Export macro of mne_acq — Headless acquisition: sources, streams, zero&#45;copy readers and native sample..." alt="" coords="201,387,305,412"/>
+<area shape="poly" title=" " alt="" coords="1812,31,1381,46,777,75,484,96,238,120,142,133,69,148,23,164,12,171,8,179,8,254,13,283,26,307,45,328,70,345,129,371,188,386,187,391,127,376,68,350,42,332,21,310,8,284,3,254,3,177,8,168,21,159,68,143,141,128,238,115,484,90,776,70,1381,41,1812,26"/>
+<area shape="rect" href="a01349.html" title="Zero&#45;copy views into a stream ring: AcqBlockView (read) and AcqWriteView (write)." alt="" coords="508,167,644,192"/>
+<area shape="poly" title=" " alt="" coords="1812,28,1640,30,1403,38,1132,59,994,75,859,96,793,110,727,129,619,164,618,159,726,124,791,105,858,91,993,70,1132,53,1403,33,1640,24,1812,23"/>
+<area shape="rect" title=" " alt="" coords="895,387,961,412"/>
+<area shape="poly" title=" " alt="" coords="1812,33,1495,54,1330,72,1262,83,1211,96,1129,120,1064,143,1036,159,1009,179,983,206,956,241,940,274,931,309,928,373,923,373,926,308,935,272,951,239,979,203,1006,175,1033,154,1062,139,1127,115,1210,91,1261,78,1329,67,1495,49,1811,28"/>
+<area shape="rect" title=" " alt="" coords="1950,313,2029,339"/>
+<area shape="poly" title=" " alt="" coords="1917,43,1940,65,1960,92,1980,148,1991,205,1994,259,1994,300,1988,300,1989,259,1985,206,1975,149,1955,95,1936,68,1913,47"/>
+<area shape="rect" title=" " alt="" coords="1486,313,1557,339"/>
+<area shape="poly" title=" " alt="" coords="1879,47,1849,91,1805,150,1748,213,1683,268,1627,297,1571,316,1569,311,1624,292,1680,263,1744,209,1800,147,1845,88,1874,44"/>
+<area shape="rect" href="a01385.html" title="AcqError: catalogued error codes of the acquisition API, and AcqExpected, a value&#45;or&#45;error result." alt="" coords="1705,313,1799,339"/>
+<area shape="poly" title=" " alt="" coords="1899,45,1915,88,1929,145,1932,177,1930,208,1923,239,1909,267,1890,287,1866,303,1814,320,1812,315,1863,298,1886,283,1904,264,1918,237,1925,208,1927,177,1924,146,1910,89,1894,46"/>
+<area shape="rect" title=" " alt="" coords="2011,387,2088,412"/>
+<area shape="poly" title=" " alt="" coords="1955,43,2001,63,2046,92,2065,109,2080,130,2090,152,2093,178,2093,254,2090,288,2083,321,2063,375,2058,373,2078,319,2085,287,2088,254,2088,178,2085,154,2075,132,2061,113,2043,96,1999,68,1953,48"/>
+<area shape="rect" href="a01400.html" title="decode() native samples into caller&#45;owned matrices and encode() matrices into output rings." alt="" coords="1222,93,1335,119"/>
+<area shape="poly" title=" " alt="" coords="1812,39,1349,98,1349,93,1811,34"/>
+<area shape="rect" title=" " alt="" coords="2128,93,2195,119"/>
+<area shape="poly" title=" " alt="" coords="1954,43,2116,89,2114,94,1953,48"/>
+<area shape="poly" title=" " alt="" coords="508,186,452,191,389,202,323,218,260,242,221,261,188,281,177,293,171,306,170,320,176,337,194,360,217,378,214,382,190,364,171,340,165,321,166,304,173,290,185,277,218,256,258,238,321,213,388,196,452,186,508,181"/>
+<area shape="rect" href="a01451.html" title="AcqClockModel: relation between the sample index of a stream and host time." alt="" coords="291,240,437,265"/>
+<area shape="poly" title=" " alt="" coords="543,195,412,238,410,233,541,189"/>
+<area shape="poly" title=" " alt="" coords="575,193,569,222,566,260,571,302,579,320,590,337,609,351,639,363,718,380,805,389,881,394,881,399,805,395,717,385,637,368,607,356,586,341,574,323,566,303,561,260,564,221,570,191"/>
+<area shape="rect" href="a01406.html" title="AcqMemoryLocation: where the samples of a ring live (host, pinned host, GPU, managed)." alt="" coords="195,313,312,339"/>
+<area shape="poly" title=" " alt="" coords="508,189,377,207,318,223,296,232,280,242,270,254,264,269,257,300,252,299,259,267,266,251,277,238,294,227,317,217,376,202,507,184"/>
+<area shape="rect" href="a01436.html" title="Native sample formats and memory layouts stored in an acquisition ring." alt="" coords="1197,240,1360,265"/>
+<area shape="poly" title=" " alt="" coords="644,185,1184,239,1183,244,644,190"/>
+<area shape="poly" title=" " alt="" coords="629,189,846,237,900,251,954,263,1101,284,1247,300,1473,319,1472,324,1247,306,1101,289,953,268,899,256,845,243,628,195"/>
+<area shape="rect" href="a01343.html" title="AcqTimebase: sample&#45;exact relation between streams that share a hardware clock (clock domain)." alt="" coords="664,240,789,265"/>
+<area shape="poly" title=" " alt="" coords="601,190,691,232,688,236,599,194"/>
+<area shape="rect" title=" " alt="" coords="1145,387,1215,412"/>
+<area shape="poly" title=" " alt="" coords="637,189,717,209,802,238,825,250,847,263,923,302,1002,336,1133,381,1131,386,1000,341,921,307,844,268,822,254,800,242,715,214,636,195"/>
+<area shape="rect" title=" " alt="" coords="600,313,653,339"/>
+<area shape="poly" title=" " alt="" coords="583,192,621,300,616,301,578,193"/>
+<area shape="rect" title=" " alt="" coords="965,240,1021,265"/>
+<area shape="poly" title=" " alt="" coords="645,187,785,208,947,237,952,238,951,244,946,243,784,214,644,193"/>
+<area shape="poly" title=" " alt="" coords="291,261,262,267,232,278,206,293,185,315,180,331,187,348,203,364,222,377,219,382,199,368,183,351,175,332,180,312,203,289,230,273,260,262,290,256"/>
+<area shape="rect" title=" " alt="" coords="337,313,399,339"/>
+<area shape="poly" title=" " alt="" coords="367,266,369,300,364,300,362,266"/>
+<area shape="poly" title=" " alt="" coords="376,264,415,301,441,320,470,336,505,347,551,357,665,374,881,393,881,398,664,379,550,362,503,352,468,341,439,325,412,305,372,268"/>
+<area shape="rect" title=" " alt="" coords="1013,313,1072,339"/>
+<area shape="poly" title=" " alt="" coords="438,259,1000,318,999,323,438,264"/>
+<area shape="poly" title=" " alt="" coords="256,339,256,373,251,373,251,339"/>
+<area shape="poly" title=" " alt="" coords="313,334,324,336,642,371,881,392,881,397,642,376,324,341,312,340"/>
+<area shape="poly" title=" " alt="" coords="1260,268,1184,306,1136,326,1085,341,1017,354,928,365,712,381,320,399,319,393,711,376,927,359,1016,348,1083,336,1134,320,1182,301,1257,263"/>
+<area shape="poly" title=" " alt="" coords="1270,268,1233,304,1208,324,1180,341,1127,363,1072,379,976,396,975,391,1071,374,1125,358,1177,336,1205,320,1229,300,1266,264"/>
+<area shape="poly" title=" " alt="" coords="1360,259,1937,317,1936,322,1360,265"/>
+<area shape="poly" title=" " alt="" coords="1318,263,1474,308,1472,313,1317,268"/>
+<area shape="rect" title=" " alt="" coords="1399,387,1497,412"/>
+<area shape="poly" title=" " alt="" coords="1294,264,1426,375,1422,380,1291,268"/>
+<area shape="poly" title=" " alt="" coords="724,267,704,304,687,324,667,341,639,353,602,364,509,380,408,391,319,397,319,392,408,386,508,375,601,358,637,348,664,336,683,321,699,301,720,264"/>
+<area shape="poly" title=" " alt="" coords="738,264,768,299,810,337,848,360,886,379,884,384,845,365,806,341,764,302,734,267"/>
+<area shape="poly" title=" " alt="" coords="758,263,865,299,1002,336,1107,356,1212,371,1386,390,1385,396,1211,377,1106,361,1001,341,864,304,757,268"/>
+<area shape="poly" title=" " alt="" coords="790,256,1691,318,1691,323,789,261"/>
+<area shape="poly" title=" " alt="" coords="712,268,656,307,653,303,709,263"/>
+<area shape="poly" title=" " alt="" coords="1704,333,1569,341,837,376,319,398,319,393,836,371,1569,336,1704,328"/>
+<area shape="poly" title=" " alt="" coords="1704,334,975,397,975,391,1704,329"/>
+<area shape="poly" title=" " alt="" coords="1705,341,1511,386,1509,381,1704,336"/>
+<area shape="poly" title=" " alt="" coords="1705,336,1229,395,1228,389,1704,331"/>
+<area shape="poly" title=" " alt="" coords="1800,336,1998,383,1997,388,1799,341"/>
+<area shape="rect" title=" " alt="" coords="1774,387,1823,412"/>
+<area shape="poly" title=" " alt="" coords="1762,338,1786,374,1781,377,1757,340"/>
+<area shape="rect" title=" " alt="" coords="1848,387,1907,412"/>
+<area shape="poly" title=" " alt="" coords="1773,336,1846,377,1844,382,1771,341"/>
+<area shape="rect" title=" " alt="" coords="1658,387,1750,412"/>
+<area shape="poly" title=" " alt="" coords="1746,341,1722,377,1717,374,1742,338"/>
+<area shape="rect" title=" " alt="" coords="1574,387,1634,412"/>
+<area shape="poly" title=" " alt="" coords="1729,341,1642,383,1639,378,1727,336"/>
+<area shape="poly" title=" " alt="" coords="1222,110,1002,113,855,119,699,130,545,146,404,170,342,184,287,201,241,221,206,242,180,264,163,286,157,310,165,337,185,361,211,378,208,383,181,365,160,340,152,310,158,283,176,260,202,238,239,216,285,196,340,179,403,164,544,141,699,125,855,114,1002,108,1222,104"/>
+<area shape="poly" title=" " alt="" coords="1222,115,979,137,663,169,658,170,657,165,662,164,978,132,1221,110"/>
+<area shape="poly" title=" " alt="" coords="1272,121,1185,234,1130,298,1086,341,1030,371,976,389,974,384,1028,366,1082,337,1126,294,1181,231,1268,117"/>
+<area shape="poly" title=" " alt="" coords="1236,121,1188,140,1143,169,1113,200,1088,236,1055,302,1050,299,1084,233,1109,197,1140,165,1186,135,1234,116"/>
+<area shape="poly" title=" " alt="" coords="1281,119,1281,226,1276,226,1276,119"/>
+<area shape="poly" title=" " alt="" coords="1336,109,1481,126,1567,142,1653,164,1743,197,1829,235,1960,304,1957,309,1827,240,1741,202,1651,169,1566,147,1480,131,1335,114"/>
+<area shape="poly" title=" " alt="" coords="1336,105,1413,112,1458,120,1504,133,1550,150,1593,172,1631,202,1662,239,1668,254,1666,267,1658,279,1645,290,1610,306,1571,318,1570,312,1608,301,1642,285,1654,276,1661,265,1663,254,1658,241,1627,206,1590,177,1548,154,1503,138,1457,125,1413,117,1335,110"/>
+<area shape="poly" title=" " alt="" coords="1336,104,1396,107,1469,116,1545,134,1582,148,1617,164,1659,194,1694,231,1722,268,1741,300,1737,302,1717,271,1690,234,1655,198,1615,169,1580,153,1543,139,1468,121,1396,112,1335,109"/>
+<area shape="poly" title=" " alt="" coords="1222,115,1087,129,917,155,833,172,758,192,696,215,654,242,644,254,637,269,630,300,625,299,632,267,639,252,650,238,694,211,756,187,832,166,916,149,1086,124,1222,109"/>
+<area shape="rect" href="a01433.html" title="AcqStreamInfo: direction, format, layout, rate and per&#45;channel description of one stream." alt="" coords="1326,167,1469,192"/>
+<area shape="poly" title=" " alt="" coords="1299,116,1367,157,1365,162,1296,121"/>
+<area shape="poly" title=" " alt="" coords="1326,186,976,206,788,222,711,232,653,243,583,263,531,286,479,312,412,341,298,384,296,379,410,336,477,307,528,281,581,258,651,237,710,227,788,217,976,200,1326,181"/>
+<area shape="poly" title=" " alt="" coords="1399,193,1393,228,1386,249,1374,267,1331,307,1281,338,1227,362,1171,379,1115,390,1062,397,976,402,975,397,1062,392,1114,385,1169,374,1225,357,1279,334,1328,303,1370,264,1381,246,1388,227,1394,192"/>
+<area shape="poly" title=" " alt="" coords="1342,195,1267,214,1186,242,1123,275,1071,308,1068,303,1121,270,1184,238,1265,209,1341,189"/>
+<area shape="poly" title=" " alt="" coords="1380,194,1311,235,1309,230,1377,190"/>
+<area shape="poly" title=" " alt="" coords="1410,191,1505,301,1501,305,1405,194"/>
+<area shape="poly" title=" " alt="" coords="1469,184,1547,196,1638,219,1685,236,1731,256,1774,281,1814,311,1843,342,1865,374,1861,377,1839,346,1810,315,1771,286,1728,261,1683,241,1636,224,1546,201,1468,189"/>
+<area shape="poly" title=" " alt="" coords="1470,184,1525,192,1583,203,1631,218,1649,227,1662,238,1672,255,1675,274,1673,293,1667,312,1648,348,1626,378,1622,375,1643,345,1662,310,1668,292,1669,274,1667,257,1658,242,1646,232,1629,223,1581,208,1525,197,1469,190"/>
+<area shape="poly" title=" " alt="" coords="1333,195,1036,247,1035,241,1332,189"/>
+<area shape="rect" title=" " alt="" coords="1485,240,1560,265"/>
+<area shape="poly" title=" " alt="" coords="1419,190,1492,231,1489,235,1416,194"/>
+<area shape="rect" title=" " alt="" coords="1585,240,1647,265"/>
+<area shape="poly" title=" " alt="" coords="1433,189,1572,234,1571,239,1432,195"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a01342.png" border="0" usemap="#asrc_2libraries_2acq_2acq__reader_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2acq_2acq__reader_8hdep" id="asrc_2libraries_2acq_2acq__reader_8hdep">
+<area shape="rect" title="AcqReader: one consumer of a stream with its own position, mode and exact loss count." alt="" coords="392,5,544,45"/>
+<area shape="rect" href="a01412.html" title="Umbrella header of mne_acq, the headless acquisition and stimulation library (C++20 standard library ..." alt="" coords="87,453,251,478"/>
+<area shape="poly" title=" " alt="" coords="378,30,280,41,229,52,180,68,137,90,102,119,89,136,79,155,73,176,71,200,71,291,73,316,80,341,104,386,133,424,158,451,155,454,129,428,100,389,76,343,68,317,65,291,65,200,68,176,74,153,84,133,98,115,134,86,178,63,228,47,280,36,378,25"/>
+<area shape="rect" href="a01448.html" title="AcqBackend: the interface a device, file or network backend implements behind an AcqDevice." alt="" coords="2865,181,3017,221"/>
+<area shape="poly" title=" " alt="" coords="558,30,2865,192,2865,197,557,36"/>
+<area shape="rect" href="a01469.html" title="AcqRecorder: crash&#45;safe FIFF recording of a stream with aligned, double&#45;buffered direct I/O." alt="" coords="4281,357,4428,397"/>
+<area shape="poly" title=" " alt="" coords="558,27,1702,78,2549,123,3423,179,3501,181,3575,178,3713,161,3839,136,3956,115,4012,109,4067,107,4120,112,4174,123,4227,144,4280,173,4333,214,4388,268,4397,290,4395,314,4385,338,4372,358,4367,356,4380,336,4389,313,4392,290,4383,271,4330,218,4277,178,4225,148,4172,129,4120,117,4066,113,4012,114,3956,121,3840,142,3714,166,3575,184,3501,187,3423,184,2549,128,1702,83,558,33"/>
+<area shape="rect" href="a01382.html" title="AcqReader definitions: zero&#45;copy acquire/release with exact loss accounting." alt="" coords="105,269,257,309"/>
+<area shape="poly" title=" " alt="" coords="405,53,358,75,307,104,259,140,217,183,204,204,195,227,186,270,181,269,190,226,199,202,213,180,255,136,305,99,355,70,402,48"/>
+<area shape="rect" href="a01427.html" title="AcqStream (shared handle), AcqWriter (the single producer) and the ring options of a stream." alt="" coords="449,93,601,133"/>
+<area shape="poly" title=" " alt="" coords="491,56,515,92,510,95,486,58"/>
+<area shape="rect" href="a01367.html" title="Internal shared state of one stream ring; not installed." alt="" coords="270,181,437,221"/>
+<area shape="poly" title=" " alt="" coords="450,58,368,183,364,180,446,55"/>
+<area shape="rect" href="a01391.html" title="Optional, header&#45;only DLPack export of acquisition views (zero copy to NumPy, PyTorch,..." alt="" coords="181,541,333,581"/>
+<area shape="poly" title=" " alt="" coords="191,486,241,539,237,542,188,490"/>
+<area shape="rect" href="a01397.html" title="Optional header&#45;only Eigen adapters for mne_acq: zero&#45;copy maps, read() and write() with Eigen matric..." alt="" coords="5,541,157,581"/>
+<area shape="poly" title=" " alt="" coords="151,490,101,542,97,539,147,486"/>
+<area shape="poly" title=" " alt="" coords="2852,208,2252,231,1420,272,804,301,402,329,264,344,221,352,200,359,184,380,175,406,171,453,166,452,170,405,179,378,197,355,220,347,263,339,402,323,803,296,1420,267,2251,226,2852,203"/>
+<area shape="rect" href="a01415.html" title="AcqBackend definitions: stream creation while opening and fatal&#45;error reporting." alt="" coords="2685,357,2837,397"/>
+<area shape="poly" title=" " alt="" coords="2852,209,2817,216,2783,228,2752,246,2728,271,2720,291,2724,314,2734,336,2747,356,2743,359,2730,339,2719,315,2715,291,2723,268,2749,242,2781,223,2816,211,2851,204"/>
+<area shape="rect" href="a01439.html" title="AcqDevice: an opened device, file or network endpoint with its input and output streams (control path..." alt="" coords="1432,269,1584,309"/>
+<area shape="poly" title=" " alt="" coords="2852,211,1584,286,1584,281,2852,205"/>
+<area shape="rect" href="a01424.html" title="AcqUri and AcqDeviceRegistry: URI scheme &#45;&gt; backend factory, and discovery (control path)." alt="" coords="2912,357,3064,397"/>
+<area shape="poly" title=" " alt="" coords="2953,234,2963,269,2986,356,2981,358,2957,270,2948,236"/>
+<area shape="rect" href="a01226.html" title="babymeg:// : the acquisition server of a BabyMEG system." alt="" coords="4655,541,4895,581"/>
+<area shape="poly" title=" " alt="" coords="3031,220,3145,230,3242,232,3409,224,3490,221,3575,225,3671,239,3781,267,3827,284,3861,304,3934,355,4027,420,4121,483,4197,506,4262,519,4321,524,4377,524,4494,520,4563,522,4643,531,4687,538,4686,543,4642,536,4563,528,4494,526,4377,529,4321,529,4261,524,4195,511,4119,488,4024,424,3930,360,3858,308,3825,289,3779,272,3669,244,3575,230,3490,226,3410,229,3242,237,3144,236,3030,225"/>
+<area shape="rect" href="a01265.html" title="brainamp:// : Brain Products BrainAmp amplifiers, or their simulator." alt="" coords="3395,541,3637,581"/>
+<area shape="poly" title=" " alt="" coords="3031,222,3493,340,3709,402,3779,426,3811,444,3820,465,3811,487,3787,497,3735,512,3601,543,3600,538,3733,506,3785,492,3807,483,3815,465,3807,447,3777,431,3707,407,3491,346,3030,227"/>
+<area shape="rect" href="a01205.html" title="brainflow:// : any board BrainFlow supports, through BrainFlow&#39;s library when it is installed." alt="" coords="991,541,1230,581"/>
+<area shape="poly" title=" " alt="" coords="2852,213,2659,235,2545,251,2433,272,2305,303,2207,335,2110,367,1982,400,1899,416,1834,426,1686,448,1464,491,1242,536,1205,543,1204,538,1241,531,1463,485,1685,443,1833,421,1898,411,1981,395,2108,362,2206,330,2303,298,2431,267,2544,246,2658,230,2852,208"/>
+<area shape="rect" href="a01208.html" title="brainflow_file:// : a file BrainFlow wrote, replayed without BrainFlow." alt="" coords="1901,533,2080,588"/>
+<area shape="poly" title=" " alt="" coords="2852,224,2767,245,2678,272,2494,340,2314,414,2046,536,2044,531,2312,409,2492,335,2676,267,2766,240,2851,219"/>
+<area shape="rect" href="a01217.html" title="streaming_board:// : the samples a BrainFlow session streams with add_streamer, without BrainFlow." alt="" coords="1677,533,1877,588"/>
+<area shape="poly" title=" " alt="" coords="2852,226,2678,272,2503,329,2369,379,2235,430,2061,488,1879,538,1877,533,2059,483,2234,425,2368,374,2502,324,2677,267,2851,221"/>
+<area shape="rect" href="a01301.html" title="eego:// : ANT Neuro eego amplifiers, or their simulator." alt="" coords="2511,541,2694,581"/>
+<area shape="poly" title=" " alt="" coords="2852,214,2781,233,2746,250,2715,271,2693,295,2680,319,2673,342,2671,367,2669,422,2665,453,2654,486,2639,517,2621,542,2616,539,2634,514,2650,484,2659,452,2664,421,2665,367,2668,341,2675,317,2688,292,2712,267,2743,245,2779,228,2851,208"/>
+<area shape="rect" href="a01280.html" title="ftbuffer:// : a FieldTrip buffer server, e.g. the one neuromag2ft fills on a Neuromag system." alt="" coords="2718,541,2930,581"/>
+<area shape="poly" title=" " alt="" coords="2937,235,2919,310,2878,424,2834,541,2829,539,2873,422,2913,309,2932,234"/>
+<area shape="rect" href="a01256.html" title="gusbamp:// : g.tec g.USBamp amplifiers, up to four synchronised, or their simulator." alt="" coords="3131,541,3370,581"/>
+<area shape="poly" title=" " alt="" coords="2972,229,3063,323,3170,444,3240,539,3236,542,3166,447,3059,326,2968,233"/>
+<area shape="rect" href="a01304.html" title="natus:// : a Natus Quantum amplifier through the datagrams of its streaming machine,..." alt="" coords="5090,541,5281,581"/>
+<area shape="poly" title=" " alt="" coords="3031,220,3162,233,3274,238,3465,235,3557,233,3656,235,3767,246,3897,267,3955,280,4004,295,4084,327,4164,361,4270,395,4391,423,4495,443,4672,469,4851,491,4955,508,5078,531,5111,538,5110,543,5077,536,4954,513,4850,497,4672,474,4494,449,4390,429,4269,400,4163,366,4082,332,4002,300,3954,285,3895,272,3766,251,3655,241,3557,238,3465,240,3273,243,3162,238,3031,225"/>
+<area shape="rect" href="a01322.html" title="neuromag:// : the data acquisition of Neuromag (MEGIN) Vectorview and TRIUX systems,..." alt="" coords="3661,541,3912,581"/>
+<area shape="poly" title=" " alt="" coords="3031,220,3169,242,3306,267,3392,281,3470,288,3542,291,3609,297,3670,310,3728,336,3755,355,3782,379,3809,408,3834,444,3840,457,3842,470,3836,496,3822,521,3807,542,3802,539,3818,519,3831,495,3836,470,3835,458,3830,447,3804,412,3779,383,3752,359,3725,341,3669,316,3608,303,3542,297,3470,293,3391,286,3305,272,3168,247,3030,225"/>
+<area shape="rect" href="a01181.html" title="polhemus:// : Polhemus Fastrak / FastSCAN digitizers on a serial port, or their simulator." alt="" coords="3937,541,4183,581"/>
+<area shape="poly" title=" " alt="" coords="3031,220,3149,234,3250,241,3425,249,3508,258,3595,276,3689,307,3796,355,3904,434,4038,538,4035,543,3901,438,3793,360,3687,312,3593,281,3507,263,3425,254,3250,247,3148,240,3030,225"/>
+<area shape="rect" href="a01187.html" title="rtserver:// : the active connector of an mne_rt_server, e.g. its FIFF file simulator." alt="" coords="4207,541,4427,581"/>
+<area shape="poly" title=" " alt="" coords="3031,220,3123,230,3202,234,3337,233,3403,233,3472,237,3550,247,3641,267,3700,284,3746,302,3843,355,3931,420,4020,483,4104,507,4235,538,4234,543,4103,512,4018,488,3928,424,3840,360,3743,306,3699,289,3639,272,3549,253,3472,242,3402,238,3337,238,3202,239,3123,235,3030,225"/>
+<area shape="rect" href="a01235.html" title="tmsi:// : TMSi Refa and Porti amplifiers, or their simulator." alt="" coords="4452,541,4631,581"/>
+<area shape="poly" title=" " alt="" coords="3031,220,3135,230,3223,233,3376,228,3449,227,3527,231,3614,243,3715,267,3767,284,3805,303,3888,355,3979,420,4071,483,4124,501,4170,511,4252,517,4335,518,4384,522,4440,531,4473,538,4472,543,4440,536,4383,527,4335,524,4251,523,4169,516,4122,506,4068,488,3976,424,3885,360,3803,308,3765,289,3714,272,3613,248,3527,236,3449,232,3376,234,3223,238,3134,235,3031,225"/>
+<area shape="rect" href="a01478.html" title="The fiff:// backend: native&#45;format FIFF replay with pacing, looping and trigger events." alt="" coords="4919,541,5065,581"/>
+<area shape="poly" title=" " alt="" coords="3031,219,3115,226,3216,229,3445,231,3670,240,3765,250,3841,267,3884,285,3914,305,3943,328,3980,355,4076,420,4172,483,4279,513,4372,526,4455,529,4534,524,4614,517,4699,513,4795,516,4907,531,4938,538,4937,543,4906,536,4795,521,4699,518,4614,523,4534,529,4455,534,4371,532,4278,518,4170,488,4073,425,3977,360,3939,332,3911,309,3881,289,3839,272,3764,255,3670,245,3445,237,3216,234,3114,231,3031,225"/>
+<area shape="rect" href="a01484.html" title="The lsl:// backend: liblsl loaded at runtime, the in&#45;tree mne_lsl as fallback." alt="" coords="1509,541,1653,581"/>
+<area shape="poly" title=" " alt="" coords="2852,217,2717,239,2567,272,2458,304,2318,349,2181,400,2123,425,2079,448,2066,458,2057,468,2048,478,2033,488,1981,508,1935,519,1893,524,1853,524,1769,523,1721,527,1666,536,1638,543,1636,538,1665,531,1721,521,1769,518,1853,519,1892,518,1934,514,1979,503,2031,483,2044,474,2053,465,2062,454,2076,443,2121,420,2179,395,2317,344,2456,299,2566,267,2716,234,2851,212"/>
+<area shape="rect" href="a01352.html" title="Private state of AcqBackend, shared with AcqDevice." alt="" coords="2737,269,2903,309"/>
+<area shape="poly" title=" " alt="" coords="2905,231,2848,271,2845,267,2902,227"/>
+<area shape="rect" href="a01472.html" title="AcqRecorder: records any stream to FIFF (optionally as BIDS) while it is acquired." alt="" coords="4227,269,4373,309"/>
+<area shape="poly" title=" " alt="" coords="3031,200,3241,203,3533,213,3868,233,4040,248,4208,267,4227,269,4226,275,4208,272,4040,253,3868,238,3533,218,3241,209,3031,206"/>
+<area shape="poly" title=" " alt="" coords="1418,294,1134,297,767,306,589,314,432,326,313,341,272,350,245,360,220,380,200,406,176,454,171,451,195,403,216,376,243,355,270,345,312,336,432,321,588,309,767,301,1134,291,1418,288"/>
+<area shape="rect" href="a01409.html" title="AcqDevice definitions: the life cycle of an opened source around its backend." alt="" coords="3645,445,3797,485"/>
+<area shape="poly" title=" " alt="" coords="1598,288,1910,291,2338,300,2559,308,2765,320,2943,335,3077,355,3107,364,3130,374,3152,385,3182,395,3304,418,3401,425,3499,429,3623,443,3645,446,3645,452,3622,448,3498,435,3401,430,3303,423,3181,400,3150,390,3128,379,3105,369,3075,360,2942,340,2765,325,2559,313,2338,305,1910,296,1598,293"/>
+<area shape="poly" title=" " alt="" coords="1598,290,2128,308,2486,327,2850,355,2912,362,2912,367,2849,360,2486,332,2128,313,1598,295"/>
+<area shape="poly" title=" " alt="" coords="1598,289,1707,293,1827,304,1935,323,1977,338,2007,355,2035,385,2051,417,2053,434,2051,452,2045,469,2034,487,1979,507,1878,536,1876,531,1978,502,2030,483,2040,467,2046,450,2048,434,2046,419,2031,388,2004,359,1975,342,1934,329,1826,309,1706,298,1598,294"/>
+<area shape="poly" title=" " alt="" coords="1598,287,1703,290,1818,300,1872,309,1919,321,1957,336,1983,356,1990,366,1992,377,1984,399,1963,420,1942,432,1920,437,1898,438,1849,437,1823,440,1794,448,1693,496,1612,543,1609,538,1690,491,1792,443,1822,434,1849,432,1898,432,1919,432,1940,427,1960,416,1979,396,1987,377,1985,368,1979,359,1955,341,1917,326,1871,314,1817,306,1703,296,1598,293"/>
+<area shape="rect" href="a01232.html" title="A BabyMEG server that sends a synthetic:// session&#39;s MEG and trigger lines." alt="" coords="257,357,503,397"/>
+<area shape="poly" title=" " alt="" coords="1418,297,1026,319,772,337,515,360,504,361,503,356,514,355,771,332,1025,314,1418,292"/>
+<area shape="rect" href="a01271.html" title="A simulated BrainAmp adapter: a synthetic:// session at 5 kHz, digitised like the amplifier." alt="" coords="527,357,777,397"/>
+<area shape="poly" title=" " alt="" coords="1419,300,1138,325,790,360,777,361,777,356,789,355,1137,319,1418,295"/>
+<area shape="rect" href="a01298.html" title="A simulated eego amplifier: a synthetic:// session in the SDK&#39;s sample format." alt="" coords="801,357,991,397"/>
+<area shape="poly" title=" " alt="" coords="1418,304,1227,328,1003,360,991,362,990,357,1002,355,1226,323,1418,299"/>
+<area shape="rect" href="a01253.html" title="Simulated g.USBamps: a synthetic:// session in the transfers of the g.USBamp API." alt="" coords="1015,357,1260,397"/>
+<area shape="poly" title=" " alt="" coords="1419,314,1219,360,1218,355,1418,309"/>
+<area shape="rect" href="a01310.html" title="A simulated Natus streaming machine and the UDP receiver of the real one." alt="" coords="1284,357,1481,397"/>
+<area shape="poly" title=" " alt="" coords="1470,320,1412,359,1409,355,1467,315"/>
+<area shape="rect" href="a01328.html" title="A simulated Neuromag acquisition server: a synthetic:// session as measurement info and data buffers." alt="" coords="1506,357,1763,397"/>
+<area shape="poly" title=" " alt="" coords="1549,315,1608,355,1605,359,1546,320"/>
+<area shape="rect" href="a01238.html" title="A simulated TMSi Refa: a synthetic:// session digitised in the SDK&#39;s 32&#45;bit channel format." alt="" coords="1787,357,1970,397"/>
+<area shape="poly" title=" " alt="" coords="1598,309,1798,355,1797,360,1597,314"/>
+<area shape="poly" title=" " alt="" coords="2899,395,2850,400,2604,415,2278,427,1501,447,252,466,251,460,1501,442,2278,422,2603,409,2849,395,2898,390"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3083,395,3235,412,3355,419,3474,426,3627,443,3645,446,3645,451,3626,448,3474,431,3355,424,3235,417,3082,400,3077,399"/>
+<area shape="rect" href="a01346.html" title="AcqDeviceRegistry definitions: scheme registration, opening by URI and parallel discovery." alt="" coords="2104,541,2259,581"/>
+<area shape="poly" title=" " alt="" coords="2899,394,2850,400,2733,408,2640,408,2596,410,2550,416,2499,428,2440,448,2423,456,2411,466,2383,488,2312,519,2245,543,2243,538,2310,514,2380,483,2408,462,2420,452,2438,443,2497,423,2549,411,2596,405,2640,403,2732,403,2849,395,2898,388"/>
+<area shape="rect" href="a01421.html" title="AcqUri parsing and formatting, and typed parameter access for backends." alt="" coords="2955,541,3107,581"/>
+<area shape="poly" title=" " alt="" coords="2961,410,2948,427,2938,446,2934,465,2938,484,2949,501,2963,515,2994,538,2991,543,2959,519,2945,504,2934,486,2929,465,2933,444,2943,424,2956,406"/>
+<area shape="rect" href="a01364.html" title="Registration of the synthetic:// source, a seeded oddball EEG/MEG generator." alt="" coords="2451,445,2640,485"/>
+<area shape="poly" title=" " alt="" coords="2899,398,2641,448,2640,443,2898,393"/>
+<area shape="rect" href="a01355.html" title="Typed, locale&#45;independent access to URI query parameters for backends." alt="" coords="2947,445,3114,485"/>
+<area shape="poly" title=" " alt="" coords="3006,409,3024,444,3019,446,3001,411"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3083,395,3194,406,3281,407,3367,415,3417,425,3474,443,3494,453,3508,464,3521,474,3540,483,3588,495,3644,504,3776,516,3927,522,4087,523,4400,521,4535,523,4643,531,4690,538,4689,543,4642,536,4535,529,4400,526,4087,528,3927,527,3776,522,3643,509,3587,500,3538,488,3518,479,3504,468,3491,457,3472,448,3416,430,3367,420,3281,413,3193,411,3082,400,3077,399"/>
+<area shape="poly" title=" " alt="" coords="3052,400,3286,483,3456,538,3455,543,3284,488,3051,405"/>
+<area shape="poly" title=" " alt="" coords="2899,395,2850,400,2689,410,2552,412,2318,405,2206,403,2087,407,1952,421,1794,448,1763,457,1740,467,1717,478,1686,488,1562,510,1465,518,1367,522,1242,536,1199,543,1199,538,1241,531,1366,517,1464,512,1562,505,1685,483,1715,473,1738,462,1761,452,1793,443,1951,416,2087,402,2206,398,2319,399,2552,407,2688,405,2849,395,2898,389"/>
+<area shape="poly" title=" " alt="" coords="2899,394,2850,400,2778,406,2716,407,2610,404,2560,405,2507,411,2449,424,2382,448,2368,457,2358,467,2348,478,2332,488,2267,511,2214,520,2160,525,2093,536,2081,539,2080,534,2091,531,2160,519,2214,515,2266,506,2329,483,2344,473,2354,463,2364,452,2380,443,2448,419,2507,406,2560,399,2610,398,2716,402,2777,401,2849,395,2898,389"/>
+<area shape="poly" title=" " alt="" coords="2899,394,2850,400,2701,411,2585,413,2471,420,2404,431,2326,448,2299,457,2278,467,2258,478,2230,488,2136,509,2061,517,1985,522,1890,536,1878,538,1877,533,1889,531,1985,517,2060,511,2135,503,2229,483,2256,473,2276,463,2297,452,2325,443,2403,426,2470,415,2585,407,2701,405,2849,395,2898,389"/>
+<area shape="poly" title=" " alt="" coords="2937,406,2644,543,2642,538,2934,401"/>
+<area shape="poly" title=" " alt="" coords="2962,410,2927,447,2842,542,2838,539,2923,444,2958,406"/>
+<area shape="poly" title=" " alt="" coords="3050,401,3089,420,3128,443,3189,493,3235,539,3232,542,3186,497,3125,448,3087,425,3047,405"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3083,395,3158,403,3222,405,3333,403,3386,403,3442,408,3504,420,3576,443,3594,453,3606,464,3617,474,3634,483,3697,499,3770,512,3943,526,4140,530,4350,528,4760,519,4937,520,5078,531,5117,538,5116,543,5077,536,4936,526,4760,524,4351,533,4140,536,3943,532,3770,517,3696,504,3632,488,3614,479,3602,468,3591,457,3574,448,3502,426,3441,413,3385,408,3333,408,3222,410,3158,408,3082,400,3077,399"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3163,415,3252,443,3294,464,3337,483,3423,504,3491,513,3561,519,3650,531,3691,538,3690,543,3649,536,3560,524,3491,518,3422,509,3335,488,3292,468,3250,448,3162,421,3077,400"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3313,443,3335,453,3351,464,3366,474,3388,483,3467,503,3534,514,3595,519,3652,520,3772,519,3842,522,3924,531,3970,538,3969,543,3924,536,3842,527,3772,524,3652,525,3595,525,3534,520,3465,508,3386,488,3364,479,3348,468,3332,458,3311,448,3077,399"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3083,395,3164,406,3228,411,3291,420,3369,443,3390,453,3404,464,3418,474,3438,483,3550,511,3646,525,3731,529,3812,526,3982,517,4081,519,4196,531,4238,538,4238,543,4196,536,4080,525,3982,523,3813,531,3731,534,3645,530,3549,516,3436,488,3416,479,3401,468,3387,457,3367,448,3290,425,3227,416,3163,411,3082,400,3077,399"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3083,395,3179,406,3255,409,3329,417,3372,427,3422,443,3442,453,3456,464,3470,474,3489,483,3579,501,3693,512,3823,517,3961,518,4231,518,4347,522,4440,531,4477,538,4476,543,4440,536,4347,527,4231,524,3961,523,3823,522,3693,517,3578,506,3487,488,3467,479,3453,468,3439,457,3420,448,3371,432,3329,423,3254,414,3178,411,3082,400,3077,399"/>
+<area shape="poly" title=" " alt="" coords="3078,394,3083,395,3150,403,3208,406,3306,406,3354,407,3404,413,3460,424,3525,443,3545,453,3558,464,3571,474,3590,483,3648,497,3715,507,3873,519,4053,522,4245,520,4618,515,4779,518,4907,531,4938,538,4937,543,4906,536,4778,523,4618,520,4245,526,4053,528,3873,524,3714,512,3647,502,3588,488,3569,479,3555,468,3542,457,3523,448,3459,429,3403,418,3354,413,3306,411,3208,411,3150,408,3082,400,3077,399"/>
+<area shape="poly" title=" " alt="" coords="2899,394,2850,400,2675,413,2539,418,2403,425,2230,448,2187,457,2154,467,2121,478,2078,488,1962,505,1871,511,1781,517,1666,536,1638,543,1636,538,1665,531,1780,512,1871,505,1962,499,2077,483,2120,473,2152,462,2186,452,2229,443,2402,420,2538,412,2675,408,2849,395,2898,389"/>
+<area shape="poly" title=" " alt="" coords="2451,491,2271,536,2245,543,2243,538,2270,531,2450,486"/>
+<area shape="rect" href="a01403.html" title="synthetic:// : a seeded auditory&#45;oddball EEG/MEG session." alt="" coords="2283,541,2487,581"/>
+<area shape="poly" title=" " alt="" coords="2503,494,2419,543,2416,538,2500,490"/>
+<area shape="poly" title=" " alt="" coords="3033,499,3033,541,3028,541,3028,499"/>
+<area shape="poly" title=" " alt="" coords="2934,479,2733,501,2499,536,2462,543,2461,538,2498,531,2732,496,2933,473"/>
+<area shape="poly" title=" " alt="" coords="3128,468,4643,531,4690,538,4689,543,4642,536,3128,473"/>
+<area shape="poly" title=" " alt="" coords="3128,482,3383,531,3421,538,3420,543,3382,536,3127,487"/>
+<area shape="poly" title=" " alt="" coords="2934,475,2652,488,2437,495,2255,496,1945,495,1796,496,1637,502,1455,514,1242,536,1194,543,1194,538,1241,531,1455,509,1636,496,1796,491,1945,489,2255,491,2437,489,2652,483,2934,469"/>
+<area shape="poly" title=" " alt="" coords="2934,474,2496,499,2262,517,2092,536,2081,538,2080,533,2092,531,2262,511,2495,494,2933,469"/>
+<area shape="poly" title=" " alt="" coords="2934,474,2354,504,2060,522,1890,536,1878,538,1878,532,1889,531,2059,517,2353,499,2934,469"/>
+<area shape="poly" title=" " alt="" coords="2934,488,2707,536,2676,543,2675,538,2706,531,2933,483"/>
+<area shape="poly" title=" " alt="" coords="2978,493,2867,543,2865,538,2975,488"/>
+<area shape="poly" title=" " alt="" coords="3089,488,3207,538,3205,543,3087,493"/>
+<area shape="poly" title=" " alt="" coords="3128,467,3589,483,3915,489,4334,494,4753,506,4933,516,5078,531,5117,538,5116,543,5077,536,4933,522,4753,511,4334,499,3915,494,3589,488,3128,473"/>
+<area shape="poly" title=" " alt="" coords="3128,472,3366,495,3650,531,3694,538,3693,543,3649,536,3365,500,3128,477"/>
+<area shape="poly" title=" " alt="" coords="3128,470,3544,497,3764,514,3924,531,3970,538,3969,543,3924,536,3763,520,3543,503,3128,475"/>
+<area shape="poly" title=" " alt="" coords="3128,469,3744,503,4196,531,4239,538,4238,543,4196,536,3744,508,3128,474"/>
+<area shape="poly" title=" " alt="" coords="3128,468,4440,531,4477,538,4476,543,4440,536,3128,474"/>
+<area shape="poly" title=" " alt="" coords="3128,468,3539,483,3839,488,4224,492,4609,504,4774,515,4907,531,4938,538,4937,543,4906,536,4774,520,4609,509,4224,497,3838,493,3539,488,3128,473"/>
+<area shape="poly" title=" " alt="" coords="2934,474,2652,488,2501,493,2374,494,2156,491,2052,493,1940,499,1814,513,1666,536,1635,543,1634,538,1665,531,1814,508,1940,494,2052,488,2156,486,2374,489,2501,488,2652,483,2934,469"/>
+<area shape="poly" title=" " alt="" coords="2802,322,2777,359,2772,356,2797,319"/>
+<area shape="poly" title=" " alt="" coords="2917,306,3627,443,3645,446,3644,452,3626,448,2916,312"/>
+<area shape="poly" title=" " alt="" coords="4322,320,4345,356,4340,359,4317,322"/>
+<area shape="poly" title=" " alt="" coords="524,148,517,186,503,231,480,275,465,295,447,311,410,332,373,338,336,336,301,329,267,323,234,323,203,334,173,359,162,381,159,407,168,452,163,453,154,407,157,380,169,356,200,329,233,318,267,318,302,324,337,331,372,333,408,327,444,307,461,291,476,272,498,229,512,185,519,147"/>
+<area shape="poly" title=" " alt="" coords="615,115,2865,195,2865,200,615,121"/>
+<area shape="poly" title=" " alt="" coords="615,128,1432,272,1431,277,615,133"/>
+<area shape="poly" title=" " alt="" coords="615,113,1590,129,2300,149,3029,179,3620,206,3878,226,4208,267,4227,270,4226,275,4208,272,3878,232,3620,211,3029,184,2300,154,1590,134,615,118"/>
+<area shape="poly" title=" " alt="" coords="436,124,392,131,346,143,301,160,259,184,237,203,218,226,192,270,187,268,213,223,233,199,256,179,299,155,345,138,391,126,435,119"/>
+<area shape="rect" href="a01154.html" title="Stream ring core, AcqStream and AcqWriter definitions." alt="" coords="281,269,433,309"/>
+<area shape="poly" title=" " alt="" coords="509,146,483,184,450,223,420,250,389,271,386,267,416,245,446,219,479,181,505,143"/>
+<area shape="poly" title=" " alt="" coords="476,142,392,184,390,179,474,137"/>
+<area shape="rect" href="a01196.html" title="BrainFlow&#39;s rows as an acquisition stream, and BrainFlow&#39;s multicast streamer." alt="" coords="1806,445,2021,485"/>
+<area shape="poly" title=" " alt="" coords="615,123,1036,179,1115,187,1191,190,1331,185,1460,172,1580,162,1637,162,1692,166,1747,176,1800,192,1852,218,1904,252,1956,298,2008,356,2014,369,2015,382,2002,407,1979,429,1951,447,1948,443,1975,425,1998,403,2010,381,2009,370,2003,359,1952,302,1901,257,1850,222,1798,197,1745,181,1692,171,1637,167,1580,168,1461,177,1332,190,1191,195,1115,192,1036,184,615,128"/>
+<area shape="poly" title=" " alt="" coords="451,204,942,227,1596,267,2225,320,2685,365,2685,371,2225,325,1596,272,942,232,450,209"/>
+<area shape="poly" title=" " alt="" coords="304,230,220,272,218,267,302,225"/>
+<area shape="poly" title=" " alt="" coords="358,235,359,269,354,269,352,235"/>
+<area shape="poly" title=" " alt="" coords="1793,482,1736,488,1488,508,1380,518,1242,536,1199,543,1198,538,1241,531,1380,513,1488,503,1736,483,1792,477"/>
+<area shape="poly" title=" " alt="" coords="1940,494,1971,532,1967,535,1936,498"/>
+<area shape="poly" title=" " alt="" coords="1876,495,1817,535,1814,531,1873,491"/>
+<area shape="rect" href="a01202.html" title="BrainFlow&#39;s rows as an acquisition stream, and BrainFlow&#39;s multicast streamer." alt="" coords="1254,541,1485,581"/>
+<area shape="poly" title=" " alt="" coords="1793,487,1498,536,1460,543,1459,538,1497,531,1792,482"/>
 </map>
 </div>
 </div>
 <p><a href="a01340_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:mne_3A_3AAcqReaderOptions" id="r_mne_3A_3AAcqReaderOptions"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a03238.html">mne::AcqReaderOptions</a></td></tr>
+<tr class="memitem:mne_3A_3AAcqReaderStats" id="r_mne_3A_3AAcqReaderStats"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a03242.html">mne::AcqReaderStats</a></td></tr>
+<tr class="memitem:mne_3A_3AAcqReadResult" id="r_mne_3A_3AAcqReadResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a03246.html">mne::AcqReadResult</a></td></tr>
+<tr class="memitem:mne_3A_3AAcqReader" id="r_mne_3A_3AAcqReader"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a03250.html">mne::AcqReader</a></td></tr>
+<tr class="memitem:mne_3A_3AAcqViewLease" id="r_mne_3A_3AAcqViewLease"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a03254.html">mne::AcqViewLease</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02894.html">mne</a></td></tr>
+<tr class="memdesc:a02894"><td class="mdescLeft">&#160;</td><td class="mdescRight">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++. <br /></td></tr>
+<tr class="memitem:mne_3A_3Adetail" id="r_mne_3A_3Adetail"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02895.html">mne::detail</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ab9163cf6bfac605fe4a4ddb618241a85" id="r_ab9163cf6bfac605fe4a4ddb618241a85"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="a02894.html#ab9163cf6bfac605fe4a4ddb618241a85">mne::AcqWait</a> : std::uint8_t { <a class="el" href="a02894.html#ab9163cf6bfac605fe4a4ddb618241a85ae1e4c8c9ccd9fc39c391da4bcd093fb2">mne::Block</a> = 0
+, <a class="el" href="a02894.html#ab9163cf6bfac605fe4a4ddb618241a85af5a6a925d4084ae58bd71a8a95a84ba7">mne::Spin</a> = 1
+, <a class="el" href="a02894.html#ab9163cf6bfac605fe4a4ddb618241a85a58e79ced5a4fd7a5dbd4de4c5393bd71">mne::SpinThenBlock</a> = 2
+ }</td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of <a class="el" href="a02802.html" title="CONNECTIVITYLIB::Coherency">CONNECTIVITYLIB::Coherency</a> - shared cross/auto-spectral core for magnitude-squared coherence and the volume-conduction-robust imaginary coherence of Nolte et al. (2004). </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2018-2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'dan'+'ie'+'l.s'+'tr'+'ohm'+'ei'+'er@'+'gm'+'ail'+'.c'+'om'; return false;">danie<span class="obfuscator">.nosp@m.</span>l.st<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>gmail<span class="obfuscator">.nosp@m.</span>.com</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>April 2018 </dd></dl>
-
-<p class="definition">Definition in file <a class="el" href="a01340_source.html">coherency.cpp</a>.</p>
+<div class="textblock"><p>AcqReader: one consumer of a stream with its own position, mode and exact loss count. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>3.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>November 2026 </dd></dl>
+<p>Input streams: any number of readers (recorder, display, closed-loop controller) consume the ring independently; the producer never waits for them. Output streams: the device backend consumes through one gating reader, which the writer waits for; further non-gating readers monitor what was sent (e.g. to record the delivered stimulus).</p>
+<p>Cost model (throughput does not degrade with the number of readers): each reader's position lives on its own cache line and is written only by that reader; the producer publishes one position per commit and touches no per-reader state; a reader computes its loss from positions on acquire(); a blocked reader is woken by std::atomic::notify only when it announced that it waits. After start(), acquire() and release() perform no heap allocation and take no lock.</p>
+<p>Zero-copy loop: </p><div class="fragment"><div class="line"><span class="keyword">auto</span> reader = stream.reader(<a class="code hl_enumvalue" href="a03250.html#a4c665ef78102d32d7ea6e6ae66bc343eab7048ff6b4f97b9230b2365b31d16713">mne::AcqReader::ReadMode::Lossless</a>);</div>
+<div class="line"><span class="keywordflow">while</span> (running) {</div>
+<div class="line">    <span class="keyword">auto</span> view = reader-&gt;lease(256, std::chrono::milliseconds(100));</div>
+<div class="line">    <span class="keywordflow">if</span> (!view) { <span class="keywordflow">if</span> (view.error() == <a class="code hl_enumvalue" href="a02894.html#a431575bc664b471e7206a28da35727d3ac85a251cc457840f1e032f1b733e9398">mne::AcqErrorCode::Timeout</a>) <span class="keywordflow">continue</span>; <span class="keywordflow">break</span>; }</div>
+<div class="line">    process(**view);                                  <span class="comment">// parts point into the ring</span></div>
+<div class="line">    <span class="keywordflow">if</span> (!view-&gt;release().ok()) discardLastResult(); <span class="comment">// the producer overtook the view</span></div>
+<div class="line">}</div>
+<div class="ttc" id="aa02894_html_a431575bc664b471e7206a28da35727d3ac85a251cc457840f1e032f1b733e9398"><div class="ttname"><a href="a02894.html#a431575bc664b471e7206a28da35727d3ac85a251cc457840f1e032f1b733e9398">mne::AcqErrorCode::Timeout</a></div><div class="ttdeci">@ Timeout</div><div class="ttdef"><b>Definition</b> <a href="a01385_source.html#l00055">acq_error.h:55</a></div></div>
+<div class="ttc" id="aa03250_html_a4c665ef78102d32d7ea6e6ae66bc343eab7048ff6b4f97b9230b2365b31d16713"><div class="ttname"><a href="a03250.html#a4c665ef78102d32d7ea6e6ae66bc343eab7048ff6b4f97b9230b2365b31d16713">mne::AcqReader::ReadMode::Lossless</a></div><div class="ttdeci">@ Lossless</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00145">acq_reader.h:145</a></div></div>
+</div><!-- fragment --> 
+<p class="definition">Definition in file <a class="el" href="a01340_source.html">acq_reader.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

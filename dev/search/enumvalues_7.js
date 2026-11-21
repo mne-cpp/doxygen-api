@@ -1,16 +1,20 @@
 var searchData=
 [
-  ['hamming_0',['Hamming',['../a03758.html#a5a43e5f9aaa1add98f9e1d2871f4603da7ed37c67d87efc611ef03231e8d2cc18',1,'UTILSLIB::WelchPsd::Hamming'],['../a03590.html#a44225eca11a022319c712ca8c56d6186a718179b3bcff69a9d3f010aca0e9901a',1,'UTILSLIB::FirFilter::Hamming'],['../a02613.html#a5eceb806e5a783c30efd572246abe4dfa718179b3bcff69a9d3f010aca0e9901a',1,'UTILSLIB::Hamming']]],
-  ['hann_1',['Hann',['../a03758.html#a5a43e5f9aaa1add98f9e1d2871f4603da84172b23b8ebacf46b7172ee249abdc5',1,'UTILSLIB::WelchPsd::Hann'],['../a03590.html#a44225eca11a022319c712ca8c56d6186a0218ace760f65b32ad5b254bf7a95ab5',1,'UTILSLIB::FirFilter::Hann']]],
-  ['headshape_2',['HeadShape',['../a02613.html#ac5a7a553f94557cbe57094af2f69ea59a6660d1846e04842683cd61c070f5afeb',1,'UTILSLIB']]],
-  ['helmet_3',['Helmet',['../a02614.html#a43eb99c72f5996d313a1917b2a963c69a5633f0c2ef79566f47e39491600497ff',1,'DISP3DLIB']]],
-  ['high_4',['high',['../a02617.html#a33f916f606e1c83b3d92c14df8a5d2dda8d966b2253a917086c8604959e152243',1,'INVLIB']]],
-  ['highpass_5',['HighPass',['../a03590.html#a28323b991f3faaf0c1aa0b4168a0bf3ea828daad2d82425ec29f3c3e5ee6711f0',1,'UTILSLIB::FirFilter::HighPass'],['../a03606.html#ad80bf845ff7b34f87a915bd7617d0de8adee60bbf235ce9d063b1b23be9b5cf88',1,'UTILSLIB::IirFilter::HighPass']]],
-  ['holographic_6',['Holographic',['../a02614.html#affaa80265b4f5d63091b87f257f63c65aad64d2ad394b12342b96fb531bbe1c01',1,'DISP3DLIB']]],
-  ['horizontal_7',['Horizontal',['../a02614.html#a82bca15851e5c3b674d41ef520249e45ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'DISP3DLIB']]],
-  ['hot_8',['Hot',['../a02599.html#a53c600771742063d0826523495db22f3ad051758fbfbcd886f8272b74ccaa9c46',1,'DISPLIB']]],
-  ['hotneg1_9',['HotNeg1',['../a02599.html#a53c600771742063d0826523495db22f3aa054b2fbe6def57f4efb64bc95b7b6ce',1,'DISPLIB']]],
-  ['hotneg2_10',['HotNeg2',['../a02599.html#a53c600771742063d0826523495db22f3aedd1e681cde4bff0a4f1fa30fa822fc1',1,'DISPLIB']]],
-  ['hpf_11',['HPF',['../a03526.html#a2a90eeea1af21a4c8d5d8f987b297a34a46ec877635a733ce3a33e694babd87ec',1,'UTILSLIB::CosineFilter::HPF'],['../a03646.html#a5cc46b61e85230db24f52030d1c71eeaa7d89e3488433960fb320972f4f9b1126',1,'UTILSLIB::ParksMcClellan::HPF']]],
-  ['hpi_12',['HPI',['../a03274.html#a9b563f418f12aa64a31f3c6f42d01761a68774b612cfb2377222280ebf18e1bc1',1,'DISP3DLIB::DigitizerTreeItem']]]
+  ['hamming_0',['Hamming',['../a05254.html#aa9457d86037e70fe41a3cb6470b6b672a9fa2eab6720af621556601f3b73d6222',1,'mne::WelchPsd::Hamming'],['../a05094.html#ad78b60f078323b6c5cf0a30821f4cf54a718179b3bcff69a9d3f010aca0e9901a',1,'mne::FirFilter::Hamming'],['../a02894.html#ae6c7dc2878b8ee8eb00246d01ea291c7a718179b3bcff69a9d3f010aca0e9901a',1,'mne::Hamming']]],
+  ['hann_1',['Hann',['../a05254.html#aa9457d86037e70fe41a3cb6470b6b672a95cd742b721df4a36c9aa7c2a5427465',1,'mne::WelchPsd::Hann'],['../a05094.html#ad78b60f078323b6c5cf0a30821f4cf54a0218ace760f65b32ad5b254bf7a95ab5',1,'mne::FirFilter::Hann']]],
+  ['headshape_2',['HeadShape',['../a02894.html#aa2d3ecbfb6d36fc9e9fb3a213d9ec5d3a6660d1846e04842683cd61c070f5afeb',1,'mne']]],
+  ['helmet_3',['Helmet',['../a02975.html#a4fe34aa7a6f1533afd4e6fdcc98f4f29a5633f0c2ef79566f47e39491600497ff',1,'mne::disp']]],
+  ['high_4',['High',['../a02894.html#a008bf682ec6be7f4b72eb17dd5f9722fa655d20c1ca69519ca647684edbb2db35',1,'mne']]],
+  ['high_5',['high',['../a02894.html#ab309424562479fd599ad71c80bf188c6a8d966b2253a917086c8604959e152243',1,'mne']]],
+  ['highpass_6',['HighPass',['../a05094.html#a99464e1d1f981abc43a63bb590ab0866ab245c1cd086b41bd425ad8ecd1ee423e',1,'mne::FirFilter::HighPass'],['../a05110.html#a0d537a033d470e3c1e72eb68130bb444a77aedb72ca93eda1a8e9878a4cb970ce',1,'mne::IirFilter::HighPass']]],
+  ['holdlast_7',['HoldLast',['../a02894.html#ac090022691f0d8e911709ad063929b2daf06080bd6c38eb1b6f83265adb5ed9ec',1,'mne']]],
+  ['holographic_8',['Holographic',['../a02975.html#a4402b9614a4d272e04c6531fbab8cb8fa6304af81aef0cd5f3cce44cbd519d92e',1,'mne::disp']]],
+  ['horizontal_9',['Horizontal',['../a02975.html#aaac52ec1ebd4be0ad5cbe66bdc62d3c4ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'mne::disp']]],
+  ['host_10',['Host',['../a02894.html#a00c2b6f9b43b3645b9bf44059e993e4dac2ca16d048ec66e04bca283eab048ec2',1,'mne::Host'],['../a02894.html#acc49cc3c01ca09669f647fcb41a4a12fac2ca16d048ec66e04bca283eab048ec2',1,'mne::Host']]],
+  ['hostpinned_11',['HostPinned',['../a02894.html#acc49cc3c01ca09669f647fcb41a4a12fa81ae3c08d52b8047dba72e9b68a940dd',1,'mne']]],
+  ['hot_12',['Hot',['../a02975.html#a080ed3087caaa78131a53512c40cfb6daf5d1ada9c1f24eb987341bf68d66ffc6',1,'mne::disp']]],
+  ['hotneg1_13',['HotNeg1',['../a02975.html#a080ed3087caaa78131a53512c40cfb6dac898a23eb6bd9635a9f0e40c952af53a',1,'mne::disp']]],
+  ['hotneg2_14',['HotNeg2',['../a02975.html#a080ed3087caaa78131a53512c40cfb6da94a43e00d97cd3011bb6315842b29979',1,'mne::disp']]],
+  ['hpf_15',['HPF',['../a05030.html#a55771ac39315d25f772c9145cfde2ccba6d1f862e1168a3eadedb89c2efdfe2ed',1,'mne::CosineFilter::HPF'],['../a05154.html#ab8f715a67206b5954bd539fc6adf6647aea498d558f3212d51000182b76219a60',1,'mne::ParksMcClellan::HPF']]],
+  ['hpi_16',['HPI',['../a04778.html#a24064b4e071931a69015794a1d94b132a12aeaccf8e42cb41118b0f84d4885b40',1,'mne::disp::DigitizerTreeItem']]]
 ];

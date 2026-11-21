@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quantbinbase_0',['QuantBinBase',['../a02617.html#af1ffe934a77f18c6a7260b1975016387af1a72f128bf0ad887a5b1857fb42d03f',1,'INVLIB']]]
+  ['quantbinbase_0',['QuantBinBase',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245af1a72f128bf0ad887a5b1857fb42d03f',1,'mne']]]
 ];

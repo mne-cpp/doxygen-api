@@ -1,9 +1,20 @@
 var searchData=
 [
-  ['undefined_0',['Undefined',['../a02656.html#a22b8a5da4e9e3947843244e040a7ff22aec0fc0100c4fc1ce4eea230c3dc10360',1,'LSLLIB']]],
-  ['uniform_1',['Uniform',['../a02613.html#af418e20a365c0decd25b1aba899200cbaf19516d11f2946f894070e92fcb56b6d',1,'UTILSLIB']]],
-  ['unitnoisegain_2',['UnitNoiseGain',['../a02617.html#aeda8279f8dbf11d6a1bff261bbfea009a2d3e15571f81f610870f1bee0da03dd3',1,'INVLIB']]],
-  ['unitnoisegaininv_3',['UnitNoiseGainInv',['../a02617.html#aeda8279f8dbf11d6a1bff261bbfea009a9b6c6580dcd63221078edc0b7c70bb5b',1,'INVLIB']]],
-  ['unknown_4',['UNKNOWN',['../a03094.html#a1301ff5030da86565fa015e24da90dc7aa85d7368681cba5cc332cc066a6c47e5',1,'DISPLIB::MNEOperator']]],
-  ['unknown_5',['Unknown',['../a02617.html#a29bb5b206858a4db67919400558e5a99a88183b946cc5f0e8c96b2e66e1c74a7e',1,'INVLIB::Unknown'],['../a02617.html#a9249e8f0994be81fbcf6d5b3760ad349a88183b946cc5f0e8c96b2e66e1c74a7e',1,'INVLIB::Unknown'],['../a02617.html#a8ee66830d3efbe8f53405dfb0e1a0ba7a88183b946cc5f0e8c96b2e66e1c74a7e',1,'INVLIB::Unknown']]]
+  ['undefined_0',['Undefined',['../a04022.html#a0e07625ba9a409d1da50a57d488784afac2d26f5e1bcb4f4c2a54ea3fcd339f99',1,'mne::CborValue::Undefined'],['../a04062.html#afca5a0638bed22a52fcb5d0397109df9a7fb245f29763adf292cd22e1df603615',1,'mne::JsonValue::Undefined'],['../a02894.html#ae86facd5b1861bfd8f48a0509d3ce2dcaec0fc0100c4fc1ce4eea230c3dc10360',1,'mne::Undefined']]],
+  ['unexpectedbreak_1',['UnexpectedBreak',['../a04010.html#a823f472537c744d5669474a47c40367ca75fdcc100be75ebda08d44b3ada87869',1,'mne::CborParseError']]],
+  ['uniform_2',['Uniform',['../a02894.html#a7510e6c912dac872fe220790fa7c7ee1af19516d11f2946f894070e92fcb56b6d',1,'mne']]],
+  ['unitnoisegain_3',['UnitNoiseGain',['../a02894.html#ae204c1b5ffd239657db2150d3c166d1ba2d3e15571f81f610870f1bee0da03dd3',1,'mne']]],
+  ['unitnoisegaininv_4',['UnitNoiseGainInv',['../a02894.html#ae204c1b5ffd239657db2150d3c166d1ba9b6c6580dcd63221078edc0b7c70bb5b',1,'mne']]],
+  ['unknown_5',['UNKNOWN',['../a04598.html#a76ac9e167666c7a70ed92d00a4cb9c71aa2ffdb625cd077ccd48404cb82cf8b82',1,'mne::disp::MNEOperator']]],
+  ['unknown_6',['Unknown',['../a02894.html#a496b6599f73118baeac4515fc1b5883ca88183b946cc5f0e8c96b2e66e1c74a7e',1,'mne::Unknown'],['../a02894.html#a382e1ee6b528a86ac795fa4e0e5e5bbca88183b946cc5f0e8c96b2e66e1c74a7e',1,'mne::Unknown'],['../a02895.html#a7a14068808b9e155e5ae7798d9feab79a88183b946cc5f0e8c96b2e66e1c74a7e',1,'mne::detail::Unknown'],['../a02895.html#a044cdb532e852d8ce0e9aca6f716bf04a88183b946cc5f0e8c96b2e66e1c74a7e',1,'mne::detail::Unknown'],['../a02894.html#ade8f3f7441faae5bc61b2d7fc499975da88183b946cc5f0e8c96b2e66e1c74a7e',1,'mne::Unknown'],['../a02894.html#ab9e2fdfa7fbe410d7e61a85d018752f0a88183b946cc5f0e8c96b2e66e1c74a7e',1,'mne::Unknown'],['../a02894.html#a7d78d8daf8cb5095862156fafefb5bdba88183b946cc5f0e8c96b2e66e1c74a7e',1,'mne::Unknown']]],
+  ['unknownscheme_7',['UnknownScheme',['../a02894.html#a431575bc664b471e7206a28da35727d3a711a5537f4e5649eb946b399a3416854',1,'mne']]],
+  ['unknowntype_8',['UnknownType',['../a04010.html#a823f472537c744d5669474a47c40367caa5388c65090a08bcc0b3d18c9f380378',1,'mne::CborParseError']]],
+  ['unsupportedformat_9',['UnsupportedFormat',['../a02894.html#a431575bc664b471e7206a28da35727d3ac82adc7582667b6bbc1e066757aad182',1,'mne']]],
+  ['unsupportedtype_10',['UnsupportedType',['../a04010.html#a823f472537c744d5669474a47c40367ca6a8e6711dbd637e6af888d40a75332a6',1,'mne::CborParseError']]],
+  ['unsupportedversion_11',['UnsupportedVersion',['../a02894.html#a431575bc664b471e7206a28da35727d3a0f89bc98e9b12bdeda0604e57bdc0518',1,'mne']]],
+  ['unterminatedarray_12',['UnterminatedArray',['../a04050.html#a1fc193597f99172ff1a7909c0ec8846aa564ef51f0bdd0e9a6dd00d61666575d0',1,'mne::JsonParseError']]],
+  ['unterminatedobject_13',['UnterminatedObject',['../a04050.html#a1fc193597f99172ff1a7909c0ec8846aa3bd7a9fe1ad58539230c1c2b422e6cc9',1,'mne::JsonParseError']]],
+  ['unterminatedstring_14',['UnterminatedString',['../a04050.html#a1fc193597f99172ff1a7909c0ec8846aa6ce5429db6162910eb29e639a28ff182',1,'mne::JsonParseError']]],
+  ['uv10_15',['Uv10',['../a02895.html#aee4fb95188d5477d9344f7470011931ba27af24382efa265191ec115d74bf9172',1,'mne::detail']]],
+  ['uv152_16',['Uv152',['../a02895.html#aee4fb95188d5477d9344f7470011931baebcc51bef26b1727e0584f76239f073c',1,'mne::detail']]]
 ];

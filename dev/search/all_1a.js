@@ -1,9 +1,15 @@
 var searchData=
 [
-  ['y_0',['Y',['../a00842.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;compute_fwd.cpp'],['../a02024.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;inv_ecd_set.cpp'],['../a01505.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_forward_solution.cpp'],['../a01715.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_msh_display_surface.cpp'],['../a01583.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_patch_info.cpp'],['../a01523.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_source_space.cpp'],['../a01706.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_surface.cpp'],['../a01763.html#a65848ae7d72f2777f0067f8c25ea55a3',1,'Y:&#160;mne_surface_or_volume.cpp']]],
-  ['y_1',['y',['../a02694.html#abfea271844f25d1cd86708a32a4b63d7',1,'BIDSLIB::BidsElectrode::y'],['../a04006.html#aff1aeb3dd57ef3c37da5bcc947941b30',1,'FWDLIB::fitUserRec::y'],['../a04218.html#a6a2b7f6f1221352c915eb6f7436095c1',1,'INVLIB::InvDipole::y()'],['../a04218.html#acc3f7f01ff801a33c468d20d09a28ecd',1,'INVLIB::InvDipole::y() const']]],
-  ['y_5fras_2',['y_ras',['../a04726.html#a0b245033bee29e63134e056a21907ecd',1,'MNELIB::MNEVolGeom::y_ras'],['../a04762.html#a1226779fdae15a96ce0e45a39b5bf2e5',1,'MRILIB::MriVolData::y_ras']]],
-  ['ymax_3',['ymax',['../a04554.html#ae691ffab1b93a4a54a068e99775bc1d5',1,'MNELIB::MNELayoutPort']]],
-  ['ymin_4',['ymin',['../a04554.html#a4fee0abd1fa3e01f1f5a4d9892568e21',1,'MNELIB::MNELayoutPort']]],
-  ['ysize_5',['ysize',['../a04726.html#a156e3f2f1477f70b0086b9ef237fc373',1,'MNELIB::MNEVolGeom::ysize'],['../a04762.html#a86fd376c72b1af2f91329df469357092',1,'MRILIB::MriVolData::ysize']]]
+  ['z_0',['Z',['../a00542.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a00776.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a02552.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a02633.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a02567.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a02519.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02699.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a02573.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
+  ['z_1',['z',['../a04182.html#aac5c13acb4cc61ddd3b68df2af8735d5',1,'mne::BidsElectrode::z'],['../a05726.html#a19915cab92119050a5198116f590a6b6',1,'mne::InvDipole::z()'],['../a05726.html#a3dedc699f7630591adf65de550fb6343',1,'mne::InvDipole::z() const']]],
+  ['z_5fras_2',['z_ras',['../a06254.html#af8006311a4a0088135d733976d8aa3e8',1,'mne::MNEVolGeom::z_ras'],['../a06290.html#a3a7df38918642f4f8bb135ce2180a2ee',1,'mne::MriVolData::z_ras']]],
+  ['zero_3',['Zero',['../a02894.html#ac090022691f0d8e911709ad063929b2dad7ed4ee1df437474d005188535f74875',1,'mne']]],
+  ['zoom_4',['zoom',['../a04730.html#a16992266970e351d0c459a2332c8d157',1,'mne::disp::SubView::zoom'],['../a04470.html#a2cdacc5acaea0ee45226dec817c6de77',1,'mne::disp::ChannelDataView::zoom()'],['../a04750.html#aedd16b504e08fef4db529536d7768847',1,'mne::disp::CameraController::zoom()']]],
+  ['zoomchanged_5',['zoomChanged',['../a04502.html#a679c165c521a85820b5c6064f437ce40',1,'mne::disp::FiffRawViewSettings']]],
+  ['zoomto_6',['zoomTo',['../a04550.html#af489ead92aeac1783beff3802fbec7bf',1,'mne::disp::ChannelRhiView']]],
+  ['zscoremode_7',['zScoreMode',['../a04470.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'mne::disp::ChannelDataView::zScoreMode()'],['../a04550.html#aa33da367eaab3fb9151297c79c115eec',1,'mne::disp::ChannelRhiView::zScoreMode()']]],
+  ['zscoremodetoggled_8',['zScoreModeToggled',['../a04470.html#af5eb3d19b73b4c2704ea71dca1fd012e',1,'mne::disp::ChannelDataView']]],
+  ['zscorerectify_9',['zScoreRectify',['../a05710.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'mne::InvCMNE']]],
+  ['zscores_10',['zScores',['../a05010.html#a01fed56599295731559090477882cb66',1,'mne::BadChannelsMaxwellResult']]],
+  ['zsize_11',['zsize',['../a06254.html#aca99a65faed7ea00b71ce500d94b5df5',1,'mne::MNEVolGeom::zsize'],['../a06290.html#af0c0b6083f579262f52172a12297424e',1,'mne::MriVolData::zsize']]]
 ];

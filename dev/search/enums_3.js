@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['designmethod_0',['DesignMethod',['../a03590.html#a9d1232180f4d7c976a92b178ada91bc4',1,'UTILSLIB::FirFilter']]],
-  ['detrendmode_1',['DetrendMode',['../a02599.html#a1e044143e471f8d501763accc39e8951',1,'DISPLIB']]]
+  ['designmethod_0',['DesignMethod',['../a05094.html#aa9613ccfa4e9f75b732cf84599383fa0',1,'mne::FirFilter']]],
+  ['detrendmode_1',['DetrendMode',['../a02975.html#a015b3e93d820739787d3cb044914cc1b',1,'mne::disp']]],
+  ['direction_2',['Direction',['../a02894.html#a7bec239a5f57a0a6211044ac960432a8',1,'mne']]]
 ];

@@ -1,11 +1,19 @@
 var searchData=
 [
-  ['offline_0',['Offline',['../a02930.html#ac60b3fec00fc454e4e14c344855222a4aebe322a63579009f7798613df80ebe1b',1,'DISPLIB::AbstractView']]],
-  ['onnxruntime_1',['OnnxRuntime',['../a02661.html#a6a610e9e843b9393ceda09ef3cb64977a85b963c026f9e767bd8ef5a633a510d2',1,'MLLIB']]],
-  ['orientfixed_2',['OrientFixed',['../a02617.html#af1ffe934a77f18c6a7260b1975016387ae3c163876b9e711f7d7a0c41f96fc9fe',1,'INVLIB']]],
-  ['orientfree_3',['OrientFree',['../a02617.html#af1ffe934a77f18c6a7260b1975016387aa0e51feddc3a5f3ed3b077986e17ba17',1,'INVLIB']]],
-  ['orientloose_4',['OrientLoose',['../a02617.html#af1ffe934a77f18c6a7260b1975016387ab91485911008243c584224482d8073f6',1,'INVLIB']]],
-  ['orientunknown_5',['OrientUnknown',['../a02617.html#af1ffe934a77f18c6a7260b1975016387a09289bdf9b4ed514f2089b4ee46b6767',1,'INVLIB']]],
-  ['other_6',['Other',['../a02598.html#ac235404767badd7c21f0755f4a394ce0a6311ae17c1ee52b36e68aaf4ad066387',1,'DECODINGLIB']]],
-  ['output_7',['Output',['../a02662.html#aba5ad3c08af9e66f406f0722c8d59ce5a29c2c02a361c9d7028472e5d92cd4a54',1,'MNALIB']]]
+  ['object_0',['Object',['../a04062.html#afca5a0638bed22a52fcb5d0397109df9a7b7e1d1f6d9d0812207ac10aaeeca40e',1,'mne::JsonValue']]],
+  ['offline_1',['Offline',['../a04434.html#a7164a380fec76ee588e04674a3f6f2afa4c0777b2b95c94c9119af8861da44832',1,'mne::disp::AbstractView']]],
+  ['ohm_2',['Ohm',['../a02894.html#a382e1ee6b528a86ac795fa4e0e5e5bbca643961b8da111c0a15d770a1109a86d4',1,'mne']]],
+  ['onnxruntime_3',['OnnxRuntime',['../a02894.html#a6d172538667acc8f223e81747f75f59ca85b963c026f9e767bd8ef5a633a510d2',1,'mne']]],
+  ['opened_4',['Opened',['../a02894.html#a3931e4e917b19bf8fd2f4e05ebc9f22fa1a11b1adc359c03db0ca798a00e2632c',1,'mne']]],
+  ['opm_5',['Opm',['../a02894.html#a496b6599f73118baeac4515fc1b5883ca58ecd0650282e45712edd8c93216ca94',1,'mne']]],
+  ['orientation_6',['Orientation',['../a02894.html#a496b6599f73118baeac4515fc1b5883caabbd64f40c34c537d3a571af068fce29',1,'mne']]],
+  ['orientfixed_7',['OrientFixed',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245ae3c163876b9e711f7d7a0c41f96fc9fe',1,'mne']]],
+  ['orientfree_8',['OrientFree',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245aa0e51feddc3a5f3ed3b077986e17ba17',1,'mne']]],
+  ['orientloose_9',['OrientLoose',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245ab91485911008243c584224482d8073f6',1,'mne']]],
+  ['orientunknown_10',['OrientUnknown',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245a09289bdf9b4ed514f2089b4ee46b6767',1,'mne']]],
+  ['other_11',['Other',['../a02894.html#ab4754a4f8fc104bef90cbc8223a21618a6311ae17c1ee52b36e68aaf4ad066387',1,'mne']]],
+  ['out_12',['out',['../a02894.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275',1,'mne']]],
+  ['outofmemory_13',['OutOfMemory',['../a02894.html#a431575bc664b471e7206a28da35727d3ab498327feeb51430af73e07deac268fd',1,'mne']]],
+  ['output_14',['Output',['../a02894.html#adb1e2d8f46e4fa09a2feeb8c4c7956caa29c2c02a361c9d7028472e5d92cd4a54',1,'mne::Output'],['../a02894.html#a6a2580d2ace64b821421f93747c7efbda29c2c02a361c9d7028472e5d92cd4a54',1,'mne::Output']]],
+  ['overrun_15',['Overrun',['../a02894.html#a431575bc664b471e7206a28da35727d3a9fa996dc830f67a458e46cf1463d5cd3',1,'mne']]]
 ];

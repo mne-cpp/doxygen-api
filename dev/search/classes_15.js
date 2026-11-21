@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['warp_0',['Warp',['../a04326.html',1,'UTILSLIB']]],
-  ['weightedphaselagindex_1',['WeightedPhaseLagIndex',['../a02850.html',1,'CONNECTIVITYLIB']]],
-  ['welchpsd_2',['WelchPsd',['../a03758.html',1,'UTILSLIB']]],
-  ['welchpsdresult_3',['WelchPsdResult',['../a03754.html',1,'UTILSLIB']]],
-  ['writeoptions_4',['WriteOptions',['../a02714.html',1,'BIDSLIB::BidsRawData']]]
+  ['vertexdata_0',['VertexData',['../a04810.html',1,'mne::disp']]],
+  ['videooverlay_1',['VideoOverlay',['../a04874.html',1,'mne::disp::VideoOverlay'],['../a06508.html',1,'VideoOverlay']]],
+  ['videooverlayresources_2',['VideoOverlayResources',['../a04910.html',1,'mne::disp::BrainRenderer::Impl']]],
+  ['viewaccess_3',['ViewAccess',['../a03410.html',1,'mne::detail']]],
+  ['viewvisibilityprofile_4',['ViewVisibilityProfile',['../a04726.html',1,'mne::disp']]],
+  ['visualizationinfo_5',['VisualizationInfo',['../a04358.html',1,'mne']]]
 ];

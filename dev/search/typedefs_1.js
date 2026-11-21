@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['bdipecd_0',['bdipEcd',['../a02617.html#a67115617ab5fb626e95696f3732c447c',1,'INVLIB']]],
-  ['bidstsvrow_1',['BidsTsvRow',['../a02587.html#a94c3a8409b7ce0ee4505cbda4f6ef35c',1,'BIDSLIB']]],
-  ['boundsfn_2',['BoundsFn',['../a03378.html#a48c6e9cfb2020a5482748eca41479c93',1,'DISP3DLIB::MultimodalScene']]]
+  ['baseline_0',['Baseline',['../a05342.html#a35cad6d1c10dc8fa3799418c60433a4d',1,'mne::FiffEvoked']]],
+  ['bidstsvrow_1',['BidsTsvRow',['../a02894.html#a42f2ccb60c54ae7bdbc08038783480d1',1,'mne']]],
+  ['boundsfn_2',['BoundsFn',['../a04882.html#a10625b3342c0d4b9760635f11027cb9a',1,'mne::disp::MultimodalScene']]]
 ];

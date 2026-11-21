@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['idxintvalue_0',['IdxIntValue',['../a04298.html#a029e2eb03a908fd7bc36b7d879abfdef',1,'UTILSLIB::Linalg']]],
-  ['invdipole_5fdouble_1',['InvDipole_DOUBLE',['../a01997.html#a767dba541fdd11f00814aa773ec7f7c2',1,'inv_dipole.h']]],
-  ['invdipole_5ffloat_2',['InvDipole_FLOAT',['../a01997.html#ac563371f956dfc88c10515a04c6d0b6d',1,'inv_dipole.h']]],
-  ['invdipole_5fint_3',['InvDipole_INT',['../a01997.html#ab6c42204b5bb45a583530c27d3d51f92',1,'inv_dipole.h']]]
+  ['handle_0',['Handle',['../a02895.html#a0f384a935da89506909c3c1c77e94102',1,'mne::detail']]],
+  ['hardwareaddress_1',['HardwareAddress',['../a02894.html#a8d1a418c9bb2d01edd5ad8c61034ff5b',1,'mne']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xray_0',['XRay',['../a02614.html#affaa80265b4f5d63091b87f257f63c65a2a883d872dce9c1d703ba2901644bee2',1,'DISP3DLIB']]]
+  ['xray_0',['XRay',['../a02975.html#a4402b9614a4d272e04c6531fbab8cb8fa313390b1674041e80202a59dd032933c',1,'mne::disp']]]
 ];

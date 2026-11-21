@@ -1,4 +1,19 @@
 var searchData=
 [
-  ['accuracy_0',['Accuracy',['../a02617.html#a33f916f606e1c83b3d92c14df8a5d2dd',1,'INVLIB']]]
+  ['accuracy_0',['Accuracy',['../a02894.html#ab309424562479fd599ad71c80bf188c6',1,'mne']]],
+  ['acqchannelkind_1',['AcqChannelKind',['../a02894.html#a496b6599f73118baeac4515fc1b5883c',1,'mne']]],
+  ['acqclocksource_2',['AcqClockSource',['../a02894.html#a00c2b6f9b43b3645b9bf44059e993e4d',1,'mne']]],
+  ['acqdevicestate_3',['AcqDeviceState',['../a02894.html#a3931e4e917b19bf8fd2f4e05ebc9f22f',1,'mne']]],
+  ['acqdirection_4',['AcqDirection',['../a02894.html#adb1e2d8f46e4fa09a2feeb8c4c7956ca',1,'mne']]],
+  ['acqerrorcode_5',['AcqErrorCode',['../a02894.html#a431575bc664b471e7206a28da35727d3',1,'mne']]],
+  ['acqlayout_6',['AcqLayout',['../a02894.html#aa3eb919c9a6517cceb0aada09ce2d56e',1,'mne']]],
+  ['acqlockstate_7',['AcqLockState',['../a02894.html#ab24fb2b1ec753b8824c7131bae354c72',1,'mne']]],
+  ['acqmemorykind_8',['AcqMemoryKind',['../a02894.html#acc49cc3c01ca09669f647fcb41a4a12f',1,'mne']]],
+  ['acqrounding_9',['AcqRounding',['../a02894.html#ad0ef45a5e6079b7f13cdbb814beb9bbc',1,'mne']]],
+  ['acqsampleformat_10',['AcqSampleFormat',['../a02894.html#ab38521818111da252f9c4b551b1031e5',1,'mne']]],
+  ['acqscaling_11',['AcqScaling',['../a02894.html#a1a5d1b4dfaf052b9059ebc1632e67bd9',1,'mne']]],
+  ['acqthreadpriority_12',['AcqThreadPriority',['../a02894.html#a008bf682ec6be7f4b72eb17dd5f9722f',1,'mne']]],
+  ['acqunderrunfill_13',['AcqUnderrunFill',['../a02894.html#ac090022691f0d8e911709ad063929b2d',1,'mne']]],
+  ['acqunit_14',['AcqUnit',['../a02894.html#a382e1ee6b528a86ac795fa4e0e5e5bbc',1,'mne']]],
+  ['acqwait_15',['AcqWait',['../a02894.html#ab9163cf6bfac605fe4a4ddb618241a85',1,'mne']]]
 ];

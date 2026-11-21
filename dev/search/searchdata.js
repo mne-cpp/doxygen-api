@@ -1,18 +1,19 @@
 var indexSectionsWithContent =
 {
-  0: ":_abcdefghijklmnopqrstuvwxyz~",
-  1: "abcdefghiklmnopqrstuvwx",
-  2: "bcdfilmrsu",
-  3: "abcdefghiklmnopqrstuvwx",
+  0: ":abcdefghijklmnopqrstuvwxyz~",
+  1: "abcdefghijklmnopqrstuvwx",
+  2: "m",
+  3: "abcdefghijklmnopqrstuvwx",
   4: "abcdefghijklmnopqrstuvwxyz~",
   5: "abcdefghijklmnopqrstuvwxyz",
-  6: "abcdefilmnoprstuv",
-  7: "abcdfgikmopstuvw",
-  8: "abcdefghijlmnopqrstuvwx",
+  6: "abcdefhilmnoprstuv",
+  7: "abcdefgijklmoprstvw",
+  8: "abcdefghijlmnopqrstuvwxz",
   9: "s",
-  10: ":o",
-  11: "_bcdefgilmnrsu",
-  12: ":abdefilmnoqrstuw"
+  10: ":acdjnot",
+  11: "abcdefilmnprs",
+  12: ":abdefilmnorstu",
+  13: "s"
 };
 
 var indexSectionNames =
@@ -29,7 +30,8 @@ var indexSectionNames =
   9: "properties",
   10: "related",
   11: "defines",
-  12: "pages"
+  12: "pages",
+  13: "concepts"
 };
 
 var indexSectionLabels =
@@ -46,6 +48,7 @@ var indexSectionLabels =
   9: "Properties",
   10: "Friends",
   11: "Macros",
-  12: "Pages"
+  12: "Pages",
+  13: "Concepts"
 };
 

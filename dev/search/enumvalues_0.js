@@ -1,13 +1,19 @@
 var searchData=
 [
-  ['abstractitem_0',['AbstractItem',['../a03262.html#a5639f2d1ee43908ed0a16a6ad524f15eadff65cdb32b76c5079f35d72a48d371d',1,'DISP3DLIB::AbstractTreeItem']]],
-  ['alpharole_1',['AlphaRole',['../a03262.html#a8a7b1ff684f8573c85de67a16c8ba40da8e3424e3088aa756265b1b6a75a2470e',1,'DISP3DLIB::AbstractTreeItem']]],
-  ['amplitude_2',['Amplitude',['../a02617.html#af1ffe934a77f18c6a7260b1975016387af4d00f19181bdfc0474954a43262febf',1,'INVLIB']]],
-  ['anatomical_3',['Anatomical',['../a02614.html#affaa80265b4f5d63091b87f257f63c65afc0f1427801b1f59322ee8402190a79c',1,'DISP3DLIB']]],
-  ['annotation_4',['Annotation',['../a02662.html#acec300107fc488331fcaddae5894abfca55f6611cb342565cf0f5002400f53a95',1,'MNALIB::Annotation'],['../a02662.html#aff2df5a82a2d98871c0ceb6dff9713f6a55f6611cb342565cf0f5002400f53a95',1,'MNALIB::Annotation']]],
-  ['annotationbased_5',['AnnotationBased',['../a03458.html#a89820f353dedbdbee0c7af5b07d97663a751e8e87989929f912e7dc9e10b004b2',1,'DISP3DLIB::RtSourceInterpolationMatWorker']]],
-  ['annotationdatarole_6',['AnnotationDataRole',['../a03294.html#a310bc06d2bf9e6ba22e6aa739bedebbdae8bd58f957281d12c1bb7ce730c7676f',1,'DISP3DLIB::SurfaceTreeItem']]],
-  ['average_7',['AVERAGE',['../a03094.html#a1301ff5030da86565fa015e24da90dc7af17437cb3f65760c714f4f2a5211f820',1,'DISPLIB::MNEOperator']]],
-  ['averagepower_8',['AveragePower',['../a02870.html#acb463ede89084e4dc6c956f7bc2c76b3af9ef33aae4bff86da0a332f60c7ee800',1,'DECODINGLIB::DecodingCsp::AveragePower'],['../a02882.html#a572da34e3db6e9d85a29b92e744cd6ffaf9ef33aae4bff86da0a332f60c7ee800',1,'DECODINGLIB::DecodingSpoc::AveragePower']]],
-  ['axial_9',['Axial',['../a02614.html#a8b3261ce685682009d5ea95c5cbf12e2aaea35ecbc8c3c17c0a56a0697b13c685',1,'DISP3DLIB::Axial'],['../a02670.html#aeb6147e07f11b6c5b2ace35cb7a486ccaaea35ecbc8c3c17c0a56a0697b13c685',1,'MRILIB::Axial']]]
+  ['abstractitem_0',['AbstractItem',['../a04766.html#a46ec0615a20c588f9fb4e760ac85dafbaf871621574894f2bed9850ba551fe91b',1,'mne::disp::AbstractTreeItem']]],
+  ['accelerometer_1',['Accelerometer',['../a02894.html#a496b6599f73118baeac4515fc1b5883cab043bc6d611582087d8bf1790d863d69',1,'mne::Accelerometer'],['../a02895.html#a2cd19ec92361159b182b6f31b690aaadab043bc6d611582087d8bf1790d863d69',1,'mne::detail::Accelerometer']]],
+  ['alpharole_2',['AlphaRole',['../a04766.html#afdb8ee96bfc932b307b79b74a59ad983ac72a00ad939257e659fd3f123f896ab9',1,'mne::disp::AbstractTreeItem']]],
+  ['ampere_3',['Ampere',['../a02894.html#a382e1ee6b528a86ac795fa4e0e5e5bbca2ee3b9f6a94ce5398d1386f42f9c87ac',1,'mne']]],
+  ['amperemeter_4',['AmpereMeter',['../a02894.html#a382e1ee6b528a86ac795fa4e0e5e5bbca7b5c7bcfc73cb4439eec60710ef4461d',1,'mne']]],
+  ['amplitude_5',['Amplitude',['../a02894.html#a079a81b0acac0fc8d8bd9f9302467245af4d00f19181bdfc0474954a43262febf',1,'mne']]],
+  ['anatomical_6',['Anatomical',['../a02975.html#a4402b9614a4d272e04c6531fbab8cb8faceb572854f2a4b46b21ada2d5ff905d7',1,'mne::disp']]],
+  ['annotation_7',['Annotation',['../a02894.html#accef4ea64353452ed841fd92fe9562a3a55f6611cb342565cf0f5002400f53a95',1,'mne::Annotation'],['../a02894.html#a6f0f13b39e92820eda555f21cc0c104ca55f6611cb342565cf0f5002400f53a95',1,'mne::Annotation']]],
+  ['annotationbased_8',['AnnotationBased',['../a04962.html#a7ecd2cac8ba805a946bb10776f5b3c16af200625086f26a61bf19d4b25d987217',1,'mne::disp::RtSourceInterpolationMatWorker']]],
+  ['annotationdatarole_9',['AnnotationDataRole',['../a04798.html#ac805b5699aac154ba23ff6150a3140ccae84351c228577abcb76777d5b20c253f',1,'mne::disp::SurfaceTreeItem']]],
+  ['array_10',['Array',['../a04022.html#a0e07625ba9a409d1da50a57d488784afa0f43424143106b23fb6d7f2d192b72ac',1,'mne::CborValue::Array'],['../a04062.html#afca5a0638bed22a52fcb5d0397109df9a58e09282be61764d2a2dfa9f1ce962b4',1,'mne::JsonValue::Array']]],
+  ['audio_11',['Audio',['../a02894.html#a496b6599f73118baeac4515fc1b5883cab22f0418e8ac915eb66f829d262d14a2',1,'mne']]],
+  ['aux_12',['Aux',['../a02895.html#a7a14068808b9e155e5ae7798d9feab79a3342cbe2cf0266817b8ab6e82f5345da',1,'mne::detail']]],
+  ['average_13',['AVERAGE',['../a04598.html#a76ac9e167666c7a70ed92d00a4cb9c71acaeb2a2f31440c3c9e2908f82a4b6be8',1,'mne::disp::MNEOperator']]],
+  ['averagepower_14',['AveragePower',['../a04374.html#a05a9760e707d27400f374c3fbed0d35aaf9ef33aae4bff86da0a332f60c7ee800',1,'mne::DecodingCsp::AveragePower'],['../a04386.html#a2da9ed4505d4b181cf0f19377903a894af9ef33aae4bff86da0a332f60c7ee800',1,'mne::DecodingSpoc::AveragePower']]],
+  ['axial_15',['Axial',['../a02894.html#a811b01fcddbc7779574329328b16f2a9aaea35ecbc8c3c17c0a56a0697b13c685',1,'mne']]]
 ];

@@ -1,8 +1,24 @@
 var searchData=
 [
-  ['observerpattern_2ecpp_0',['observerpattern.cpp',['../a00482.html',1,'']]],
-  ['observerpattern_2eh_1',['observerpattern.h',['../a00485.html',1,'']]],
-  ['overview_2emd_2',['overview.md',['../a02582.html',1,'']]],
-  ['overviewbarwidget_2ecpp_3',['overviewbarwidget.cpp',['../a00341.html',1,'']]],
-  ['overviewbarwidget_2eh_4',['overviewbarwidget.h',['../a00386.html',1,'']]]
+  ['natus_5fbackend_2ecpp_0',['natus_backend.cpp',['../a01304.html',1,'']]],
+  ['natus_5fsimulator_2ecpp_1',['natus_simulator.cpp',['../a01310.html',1,'']]],
+  ['natus_5ftransport_2eh_2',['natus_transport.h',['../a01307.html',1,'']]],
+  ['network_2ecpp_3',['network.cpp',['../a00683.html',1,'']]],
+  ['network_2eh_4',['network.h',['../a00680.html',1,'']]],
+  ['networkedge_2ecpp_5',['networkedge.cpp',['../a00689.html',1,'']]],
+  ['networkedge_2eh_6',['networkedge.h',['../a00692.html',1,'']]],
+  ['networknode_2eh_7',['networknode.h',['../a00686.html',1,'']]],
+  ['networkobject_2ecpp_8',['networkobject.cpp',['../a01703.html',1,'']]],
+  ['networkobject_2eh_9',['networkobject.h',['../a01694.html',1,'']]],
+  ['networktreeitem_2ecpp_10',['networktreeitem.cpp',['../a01841.html',1,'']]],
+  ['networktreeitem_2eh_11',['networktreeitem.h',['../a01817.html',1,'']]],
+  ['neuromag_5fbackend_2ecpp_12',['neuromag_backend.cpp',['../a01322.html',1,'']]],
+  ['neuromag_5fdacq_5fposix_2ecpp_13',['neuromag_dacq_posix.cpp',['../a01325.html',1,'']]],
+  ['neuromag_5ffiff_2ecpp_14',['neuromag_fiff.cpp',['../a01313.html',1,'']]],
+  ['neuromag_5ffiff_2eh_15',['neuromag_fiff.h',['../a01319.html',1,'']]],
+  ['neuromag_5fsimulator_2ecpp_16',['neuromag_simulator.cpp',['../a01328.html',1,'']]],
+  ['neuromag_5ftransport_2eh_17',['neuromag_transport.h',['../a01316.html',1,'']]],
+  ['niceticks_2eh_18',['niceticks.h',['../a01874.html',1,'']]],
+  ['numerics_2ecpp_19',['numerics.cpp',['../a01577.html',1,'']]],
+  ['numerics_2eh_20',['numerics.h',['../a01610.html',1,'']]]
 ];

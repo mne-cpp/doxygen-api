@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['links_0',['Links',['../index.html#autotoc_md85',1,'']]],
-  ['list_1',['Deprecated List',['../a02585.html',1,'']]]
+  ['links_0',['Links',['../index.html#autotoc_md64',1,'']]],
+  ['local_20methods_1',['DEFINE LOCAL METHODS',['../a02342.html#autotoc_md9',1,'']]]
 ];
