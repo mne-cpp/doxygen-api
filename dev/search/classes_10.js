@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quickcontrolview_0',['QuickControlView',['../a04674.html',1,'mne::disp']]]
+  ['quickcontrolview_0',['QuickControlView',['../a04701.html',1,'mne::disp']]]
 ];

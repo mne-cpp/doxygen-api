@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/connectivity/metrics/crosscorrelation.cpp File Reference</title>
+    <title>MNE-CPP: src/libraries/connectivity/metrics/weightedphaselagindex.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -255,135 +255,95 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">crosscorrelation.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">weightedphaselagindex.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of <a class="el" href="a04314.html" title="mne::CrossCorrelation">mne::CrossCorrelation</a> - lag-resolved cross-correlation between every channel pair, computed via the inverse FFT of the DPSS-tapered cross-spectrum.  
+<p>Weighted Phase Lag Index (Vinck, Oostenveld, van Wingerden, Battaglia &amp; Pennartz 2011) between every channel pair.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00107_source.html">crosscorrelation.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00182_source.html">../network/networknode.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00176_source.html">../network/networkedge.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00179_source.html">../network/network.h</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a02885_source.html">base/thread_pool.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02831_source.html">base/log.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02006_source.html">math/spectral.h</a>&gt;</code><br />
-<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00107_source.html">../connectivity_global.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00188_source.html">abstractmetric.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00101_source.html">../connectivitysettings.h</a>&quot;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for crosscorrelation.cpp:</div>
+Include dependency graph for weightedphaselagindex.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00162.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2crosscorrelation_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2connectivity_2metrics_2crosscorrelation_8cpp" id="asrc_2libraries_2connectivity_2metrics_2crosscorrelation_8cpp">
-<area shape="rect" title="Implementation of mne::CrossCorrelation &#45; lag&#45;resolved cross&#45;correlation between every channel pair,..." alt="" coords="843,5,1054,45"/>
-<area shape="rect" href="a00107.html" title="Time&#45;lagged cross&#45;correlation between every channel pair, computed via the inverse FFT of the cross&#45;s..." alt="" coords="591,93,730,119"/>
-<area shape="poly" title=" " alt="" coords="881,48,717,92,715,87,879,43"/>
-<area shape="rect" title=" " alt="" coords="1020,240,1080,265"/>
-<area shape="poly" title=" " alt="" coords="1033,43,1083,61,1134,86,1182,121,1202,142,1219,165,1224,180,1219,194,1202,204,1171,217,1094,241,1093,236,1169,212,1200,199,1215,190,1219,179,1214,168,1198,145,1178,125,1132,91,1081,66,1031,48"/>
-<area shape="rect" href="a00182.html" title="Node of a connectivity mne::Network; carries a 3D position and the indices of its incident edges." alt="" coords="236,167,424,192"/>
-<area shape="poly" title=" " alt="" coords="844,41,705,63,555,96,454,129,369,163,367,158,452,124,553,91,704,58,843,36"/>
-<area shape="rect" href="a00176.html" title="Weighted edge between two nodes of a mne::Network; stores the full per&#45;frequency weight matrix and th..." alt="" coords="449,167,635,192"/>
-<area shape="poly" title=" " alt="" coords="844,37,768,46,692,58,625,75,600,85,581,95,569,108,560,123,549,154,544,153,555,121,565,105,578,91,597,80,624,70,691,53,768,41,843,32"/>
-<area shape="rect" href="a00179.html" title="Graph container that stores the result of one functional&#45;connectivity metric as nodes (sources/sensor..." alt="" coords="755,93,911,119"/>
-<area shape="poly" title=" " alt="" coords="922,48,863,88,860,83,919,43"/>
-<area shape="rect" href="a02885.html" title="Fixed&#45;size worker pool with futures and blocking parallel loops, in standard C++." alt="" coords="1506,167,1653,192"/>
-<area shape="poly" title=" " alt="" coords="1055,35,1195,57,1272,72,1348,91,1381,103,1412,116,1534,160,1532,165,1410,121,1379,108,1347,96,1271,77,1194,62,1054,41"/>
-<area shape="rect" href="a02831.html" title="Logging: a std::format facade with a replaceable sink, the console and file writer,..." alt="" coords="1853,167,1943,192"/>
-<area shape="poly" title=" " alt="" coords="1055,32,1218,52,1309,69,1399,91,1428,104,1456,116,1561,140,1666,157,1840,173,1839,178,1666,162,1560,145,1455,121,1426,109,1397,96,1308,74,1217,57,1054,37"/>
-<area shape="rect" href="a02006.html" title="Multi&#45;taper spectral estimation: tapered FFT, power and cross&#45;spectral density, DPSS weighting." alt="" coords="812,167,936,192"/>
-<area shape="poly" title=" " alt="" coords="948,46,940,81,924,120,897,158,893,155,920,117,935,80,943,45"/>
-<area shape="rect" title=" " alt="" coords="1467,93,1638,119"/>
-<area shape="poly" title=" " alt="" coords="1055,38,1454,89,1454,95,1054,43"/>
-<area shape="rect" href="a00077.html" title="Export macro of mne_connectivity — Functional connectivity metrics (coherence, PLV,..." alt="" coords="178,240,351,265"/>
-<area shape="poly" title=" " alt="" coords="591,111,440,116,260,126,102,143,48,155,20,169,9,186,11,200,22,211,41,222,98,236,165,244,164,250,97,241,39,227,18,216,6,202,4,184,16,165,46,150,101,138,259,121,440,111,591,106"/>
-<area shape="rect" href="a00158.html" title="Common base of the functional&#45;connectivity estimators in mne_connectivity." alt="" coords="31,167,160,192"/>
-<area shape="poly" title=" " alt="" coords="592,118,180,169,175,170,174,165,179,164,591,113"/>
-<area shape="rect" title=" " alt="" coords="599,240,691,265"/>
-<area shape="poly" title=" " alt="" coords="662,119,650,227,645,226,657,119"/>
-<area shape="rect" href="a00071.html" title="Input&#45;data and parameter container shared by every functional&#45;connectivity metric in mne_connectivity..." alt="" coords="961,167,1139,192"/>
-<area shape="poly" title=" " alt="" coords="724,116,974,162,973,167,723,121"/>
-<area shape="poly" title=" " alt="" coords="731,114,742,116,836,119,958,119,1019,122,1075,129,1121,143,1139,153,1154,165,1160,176,1160,187,1147,207,1123,225,1094,238,1092,233,1120,220,1144,204,1155,186,1155,178,1149,168,1136,157,1119,148,1074,135,1019,127,958,124,836,124,742,121,730,120"/>
-<area shape="rect" title=" " alt="" coords="1187,240,1251,265"/>
-<area shape="poly" title=" " alt="" coords="731,115,742,116,839,121,964,124,1028,128,1087,135,1137,147,1176,164,1190,177,1201,193,1216,226,1211,228,1197,196,1186,181,1173,169,1136,152,1086,141,1027,134,964,130,839,126,742,121,730,120"/>
-<area shape="poly" title=" " alt="" coords="124,190,225,232,223,237,122,194"/>
-<area shape="poly" title=" " alt="" coords="161,186,585,241,585,246,160,192"/>
-<area shape="poly" title=" " alt="" coords="961,193,948,195,365,246,365,241,947,189,960,188"/>
-<area shape="poly" title=" " alt="" coords="981,195,705,243,704,237,981,189"/>
-<area shape="rect" title=" " alt="" coords="855,240,917,265"/>
-<area shape="poly" title=" " alt="" coords="1025,194,926,237,924,232,1023,190"/>
-<area shape="rect" title=" " alt="" coords="1275,240,1353,265"/>
-<area shape="poly" title=" " alt="" coords="1093,189,1263,235,1261,240,1092,195"/>
-<area shape="rect" title=" " alt="" coords="942,240,995,265"/>
-<area shape="poly" title=" " alt="" coords="1039,194,994,233,991,229,1035,190"/>
-<area shape="rect" title=" " alt="" coords="1105,240,1163,265"/>
-<area shape="poly" title=" " alt="" coords="1065,190,1111,229,1108,233,1062,194"/>
-<area shape="poly" title=" " alt="" coords="1053,192,1053,226,1047,226,1047,192"/>
-<area shape="poly" title=" " alt="" coords="321,194,287,232,283,228,317,191"/>
-<area shape="poly" title=" " alt="" coords="381,189,586,235,585,241,380,195"/>
-<area shape="poly" title=" " alt="" coords="425,188,654,214,842,238,841,243,653,219,424,194"/>
-<area shape="poly" title=" " alt="" coords="498,195,324,239,322,234,497,189"/>
-<area shape="poly" title=" " alt="" coords="560,190,618,230,615,234,557,194"/>
-<area shape="poly" title=" " alt="" coords="636,186,805,205,1007,238,1006,243,804,211,636,192"/>
-<area shape="poly" title=" " alt="" coords="755,120,742,121,476,132,313,145,255,155,236,162,225,168,219,182,222,197,244,228,239,231,217,199,214,181,221,165,234,157,254,150,313,139,476,126,742,116,754,115"/>
-<area shape="poly" title=" " alt="" coords="819,121,672,234,669,230,816,117"/>
-<area shape="poly" title=" " alt="" coords="824,121,803,154,798,173,802,191,821,214,846,231,843,236,817,218,797,193,793,172,798,151,819,118"/>
-<area shape="poly" title=" " alt="" coords="911,105,996,109,1088,119,1168,136,1198,149,1219,165,1225,175,1226,185,1216,204,1197,221,1174,236,1171,231,1194,217,1212,201,1220,184,1220,177,1215,168,1195,154,1166,141,1087,124,996,115,911,111"/>
-<area shape="poly" title=" " alt="" coords="911,106,991,111,1076,121,1150,138,1178,150,1198,165,1203,179,1198,194,1181,207,1155,221,1094,242,1093,237,1153,216,1178,203,1193,190,1198,179,1193,168,1176,155,1149,143,1075,126,991,116,911,111"/>
-<area shape="poly" title=" " alt="" coords="755,121,425,167,424,162,754,116"/>
-<area shape="poly" title=" " alt="" coords="787,121,603,166,602,161,785,116"/>
-<area shape="poly" title=" " alt="" coords="1506,186,1255,203,1096,219,932,243,931,238,1095,214,1255,198,1506,181"/>
-<area shape="poly" title=" " alt="" coords="1538,195,1367,240,1366,235,1536,189"/>
-<area shape="poly" title=" " alt="" coords="1506,189,1323,208,1210,223,1094,243,1093,238,1210,218,1322,203,1506,184"/>
-<area shape="poly" title=" " alt="" coords="1512,195,1265,243,1264,237,1511,189"/>
-<area shape="rect" href="a02867.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="2017,240,2129,265"/>
-<area shape="poly" title=" " alt="" coords="1653,188,2004,237,2003,242,1653,193"/>
-<area shape="rect" title=" " alt="" coords="1377,240,1520,265"/>
-<area shape="poly" title=" " alt="" coords="1560,194,1483,236,1481,231,1557,190"/>
-<area shape="rect" title=" " alt="" coords="1544,240,1615,265"/>
-<area shape="poly" title=" " alt="" coords="1582,192,1582,226,1577,226,1577,192"/>
-<area shape="rect" title=" " alt="" coords="1639,240,1701,265"/>
-<area shape="poly" title=" " alt="" coords="1596,190,1646,229,1643,233,1592,194"/>
-<area shape="rect" title=" " alt="" coords="2153,240,2240,265"/>
-<area shape="poly" title=" " alt="" coords="1653,184,1867,203,2140,237,2139,243,1867,209,1653,189"/>
-<area shape="rect" title=" " alt="" coords="1726,240,1787,265"/>
-<area shape="poly" title=" " alt="" coords="1609,190,1716,232,1714,237,1607,194"/>
-<area shape="rect" title=" " alt="" coords="1811,240,1875,265"/>
-<area shape="poly" title=" " alt="" coords="1623,189,1799,237,1797,242,1621,195"/>
-<area shape="rect" title=" " alt="" coords="1900,240,1992,265"/>
-<area shape="poly" title=" " alt="" coords="1639,189,1887,237,1886,242,1638,195"/>
-<area shape="rect" href="a02816.html" title="Compile&#45;time helpers that capture the build date, time and git commit hash into the binary." alt="" coords="2027,313,2118,339"/>
-<area shape="poly" title=" " alt="" coords="2075,266,2075,300,2070,300,2070,266"/>
-<area shape="rect" title=" " alt="" coords="2039,387,2106,412"/>
-<area shape="poly" title=" " alt="" coords="2075,339,2075,373,2070,373,2070,339"/>
-<area shape="poly" title=" " alt="" coords="1853,186,1380,211,1109,228,931,243,931,238,1109,223,1379,206,1853,180"/>
-<area shape="poly" title=" " alt="" coords="1854,187,1648,206,1510,222,1367,243,1366,237,1510,217,1647,201,1853,181"/>
-<area shape="poly" title=" " alt="" coords="1853,186,1523,208,1329,225,1177,243,1177,238,1329,219,1523,203,1853,181"/>
-<area shape="poly" title=" " alt="" coords="1853,186,1484,207,1265,224,1094,243,1093,238,1264,219,1484,202,1853,180"/>
-<area shape="poly" title=" " alt="" coords="1927,190,2033,232,2031,237,1925,194"/>
-<area shape="poly" title=" " alt="" coords="1943,189,2141,235,2139,241,1942,194"/>
-<area shape="rect" title=" " alt="" coords="2265,240,2355,265"/>
-<area shape="poly" title=" " alt="" coords="1943,185,2252,237,2251,242,1943,190"/>
-<area shape="rect" title=" " alt="" coords="2379,240,2446,265"/>
-<area shape="poly" title=" " alt="" coords="1943,182,2124,201,2243,217,2366,237,2366,243,2242,222,2124,206,1943,187"/>
-<area shape="rect" title=" " alt="" coords="2471,240,2568,265"/>
-<area shape="poly" title=" " alt="" coords="1943,182,2160,202,2457,237,2457,243,2160,207,1943,187"/>
-<area shape="poly" title=" " alt="" coords="838,195,696,238,694,233,836,189"/>
-<area shape="poly" title=" " alt="" coords="879,192,885,226,879,227,873,193"/>
-<area shape="poly" title=" " alt="" coords="903,190,1010,232,1008,237,901,194"/>
-<area shape="rect" href="a02030.html" title="Export macro of mne_math — Mathematical algorithms and geometry (linear algebra, optimization,..." alt="" coords="715,240,830,265"/>
-<area shape="poly" title=" " alt="" coords="859,194,802,234,799,230,856,190"/>
+<div class="center"><img src="a00162.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2weightedphaselagindex_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2connectivity_2metrics_2weightedphaselagindex_8h" id="asrc_2libraries_2connectivity_2metrics_2weightedphaselagindex_8h">
+<area shape="rect" title="Weighted Phase Lag Index (Vinck, Oostenveld, van Wingerden, Battaglia &amp; Pennartz 2011) between every ..." alt="" coords="225,5,471,45"/>
+<area shape="rect" href="a00107.html" title="Export macro of mne_connectivity — Functional connectivity metrics (coherence, PLV,..." alt="" coords="5,167,179,192"/>
+<area shape="poly" title=" " alt="" coords="225,42,168,62,142,76,119,95,109,108,103,123,96,154,91,152,98,121,105,105,115,91,139,72,166,57,223,37"/>
+<area shape="rect" href="a00188.html" title="Common base of the functional&#45;connectivity estimators in mne_connectivity." alt="" coords="130,93,259,119"/>
+<area shape="poly" title=" " alt="" coords="312,48,230,89,228,85,310,43"/>
+<area shape="rect" title=" " alt="" coords="203,167,295,192"/>
+<area shape="poly" title=" " alt="" coords="338,47,267,156,262,154,333,44"/>
+<area shape="rect" href="a00101.html" title="Input&#45;data and parameter container shared by every functional&#45;connectivity metric in mne_connectivity..." alt="" coords="385,93,564,119"/>
+<area shape="poly" title=" " alt="" coords="380,43,446,84,443,88,377,48"/>
+<area shape="rect" title=" " alt="" coords="319,167,382,192"/>
+<area shape="poly" title=" " alt="" coords="351,46,353,153,348,153,346,46"/>
+<area shape="rect" title=" " alt="" coords="669,167,729,192"/>
+<area shape="poly" title=" " alt="" coords="437,43,506,63,577,91,632,123,676,156,673,160,629,127,575,96,505,68,435,48"/>
+<area shape="rect" title=" " alt="" coords="639,93,703,119"/>
+<area shape="poly" title=" " alt="" coords="426,43,626,91,625,96,425,48"/>
+<area shape="poly" title=" " alt="" coords="180,121,122,161,119,156,177,116"/>
+<area shape="poly" title=" " alt="" coords="206,117,234,154,230,157,202,121"/>
+<area shape="poly" title=" " alt="" coords="414,121,168,167,167,161,413,116"/>
+<area shape="poly" title=" " alt="" coords="439,121,300,165,298,160,438,116"/>
+<area shape="poly" title=" " alt="" coords="456,121,384,162,381,157,453,116"/>
+<area shape="rect" title=" " alt="" coords="407,167,484,192"/>
+<area shape="poly" title=" " alt="" coords="472,120,458,155,453,153,467,118"/>
+<area shape="rect" title=" " alt="" coords="508,167,561,192"/>
+<area shape="poly" title=" " alt="" coords="487,117,518,154,514,158,483,121"/>
+<area shape="rect" title=" " alt="" coords="585,167,644,192"/>
+<area shape="poly" title=" " alt="" coords="498,116,581,158,579,163,496,121"/>
+<area shape="poly" title=" " alt="" coords="511,116,656,162,655,167,510,121"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00163.png" border="0" usemap="#asrc_2libraries_2connectivity_2metrics_2weightedphaselagindex_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libraries_2connectivity_2metrics_2weightedphaselagindex_8hdep" id="asrc_2libraries_2connectivity_2metrics_2weightedphaselagindex_8hdep">
+<area shape="rect" title="Weighted Phase Lag Index (Vinck, Oostenveld, van Wingerden, Battaglia &amp; Pennartz 2011) between every ..." alt="" coords="193,5,439,45"/>
+<area shape="rect" href="a00200.html" title="Implementation of mne::compute_connectivity, the dispatcher that runs the requested functional&#45;connec..." alt="" coords="5,93,200,133"/>
+<area shape="poly" title=" " alt="" coords="258,53,150,96,148,91,256,48"/>
+<area shape="rect" href="a00095.html" title="Umbrella include header that exposes the full mne_connectivity public surface in a single include." alt="" coords="225,93,407,133"/>
+<area shape="poly" title=" " alt="" coords="319,59,319,93,313,93,313,59"/>
+<area shape="rect" href="a00125.html" title="Implementation of mne::WeightedPhaseLagIndex &#45; the imaginary&#45;part&#45;magnitude&#45;weighted PLI of Vinck et ..." alt="" coords="432,93,693,133"/>
+<area shape="poly" title=" " alt="" coords="384,47,510,91,508,96,382,52"/>
 </map>
 </div>
 </div>
 <p><a href="a00161_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:mne_3A_3AWeightedPhaseLagIndex" id="r_mne_3A_3AWeightedPhaseLagIndex"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04381.html">mne::WeightedPhaseLagIndex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weighted Phase Lag Index estimator (Vinck et al. 2011); volume-conduction-robust with lower bias than PLI.  <a href="a04381.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02921.html">mne</a></td></tr>
+<tr class="memdesc:a02921"><td class="mdescLeft">&#160;</td><td class="mdescRight">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++. <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of <a class="el" href="a04314.html" title="mne::CrossCorrelation">mne::CrossCorrelation</a> - lag-resolved cross-correlation between every channel pair, computed via the inverse FFT of the DPSS-tapered cross-spectrum. </p>
+<div class="textblock"><p>Weighted Phase Lag Index (Vinck, Oostenveld, van Wingerden, Battaglia &amp; Pennartz 2011) between every channel pair. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2018-2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>Daniel Strohmeier <a href="#" onclick="location.href='mai'+'lto:'+'dan'+'ie'+'l.s'+'tr'+'ohm'+'ei'+'er@'+'gm'+'ail'+'.c'+'om'; return false;">danie<span class="obfuscator">.nosp@m.</span>l.st<span class="obfuscator">.nosp@m.</span>rohme<span class="obfuscator">.nosp@m.</span>ier@<span class="obfuscator">.nosp@m.</span>gmail<span class="obfuscator">.nosp@m.</span>.com</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Juan GPC <a href="#" onclick="location.href='mai'+'lto:'+'jga'+'rc'+'iap'+'ri'+'eto'+'@m'+'gh.'+'ha'+'rva'+'rd'+'.ed'+'u'; return false;">jgarc<span class="obfuscator">.nosp@m.</span>iapr<span class="obfuscator">.nosp@m.</span>ieto@<span class="obfuscator">.nosp@m.</span>mgh.<span class="obfuscator">.nosp@m.</span>harva<span class="obfuscator">.nosp@m.</span>rd.e<span class="obfuscator">.nosp@m.</span>du</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>January 2018 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>April 2018 </dd></dl>
+<p>The weighted PLI replaces the unweighted sign average used by <a class="el" href="a04369.html" title="mne::PhaseLagIndex">mne::PhaseLagIndex</a> with an imaginary-part-magnitude-weighted version,</p>
+<p>wPLI_{xy}(f) = | E[ Im(S_{xy}(f)) ] | / E[ |Im(S_{xy}(f))| ]</p>
+<p>Vinck et al. (NeuroImage 2011) showed that this estimator dominates the plain PLI on three counts: it is less sensitive to phase fluctuations around the zero-lag line (because near-zero <code>Im</code>(S_{xy}) values contribute proportionally little to both numerator and denominator), it has lower sample-size bias, and it has higher statistical power to detect genuine non-zero lag interactions in noisy MEG/EEG. Like PLI and imaginary coherence, the construction guarantees rejection of zero-lag volume-conduction / common-reference mixing.</p>
+<p>The output is bounded in <code></code>[0, 1] and is still positively biased for small numbers of trials. The squared, debiased variant <a class="el" href="a04345.html" title="mne::DebiasedSquaredWeightedPhaseLagIndex">mne::DebiasedSquaredWeightedPhaseLagIndex</a> - also from Vinck et al. (2011) - removes that small-sample bias analytically and should be preferred when the trial count is low. </p>
 
-<p class="definition">Definition in file <a class="el" href="a00161_source.html">crosscorrelation.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00161_source.html">weightedphaselagindex.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

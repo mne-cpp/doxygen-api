@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['warp_2ecpp_0',['warp.cpp',['../a02021.html',1,'']]],
-  ['warp_2eh_1',['warp.h',['../a02039.html',1,'']]],
-  ['weightedphaselagindex_2ecpp_2',['weightedphaselagindex.cpp',['../a00095.html',1,'']]],
-  ['weightedphaselagindex_2eh_3',['weightedphaselagindex.h',['../a00131.html',1,'']]],
-  ['welch_5fpsd_2ecpp_4',['welch_psd.cpp',['../a01490.html',1,'']]],
-  ['welch_5fpsd_2eh_5',['welch_psd.h',['../a01304.html',1,'']]]
+  ['warp_2ecpp_0',['warp.cpp',['../a02051.html',1,'']]],
+  ['warp_2eh_1',['warp.h',['../a02069.html',1,'']]],
+  ['weightedphaselagindex_2ecpp_2',['weightedphaselagindex.cpp',['../a00125.html',1,'']]],
+  ['weightedphaselagindex_2eh_3',['weightedphaselagindex.h',['../a00161.html',1,'']]],
+  ['welch_5fpsd_2ecpp_4',['welch_psd.cpp',['../a01520.html',1,'']]],
+  ['welch_5fpsd_2eh_5',['welch_psd.h',['../a01334.html',1,'']]]
 ];

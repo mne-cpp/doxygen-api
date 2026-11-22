@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['channelformat_0',['ChannelFormat',['../a02894.html#ae86facd5b1861bfd8f48a0509d3ce2dc',1,'mne']]],
-  ['code_1',['Code',['../a04010.html#a823f472537c744d5669474a47c40367c',1,'mne::CborParseError']]],
-  ['coloring_2',['Coloring',['../a04358.html#aeaa9001a38db29710a8adc61f58373c3',1,'mne::VisualizationInfo']]],
-  ['colormaps_3',['ColorMaps',['../a02975.html#a080ed3087caaa78131a53512c40cfb6d',1,'mne::disp']]],
-  ['combineweights_4',['CombineWeights',['../a05342.html#a4c6c19bf7af678cc4fc9ab2a2e754e4b',1,'mne::FiffEvoked']]],
-  ['compression_5',['Compression',['../a02894.html#af76048ca5b9e03df48fa1015e66062e3',1,'mne']]]
+  ['channelformat_0',['ChannelFormat',['../a02921.html#ae86facd5b1861bfd8f48a0509d3ce2dc',1,'mne']]],
+  ['code_1',['Code',['../a04037.html#a823f472537c744d5669474a47c40367c',1,'mne::CborParseError']]],
+  ['coloring_2',['Coloring',['../a04385.html#aeaa9001a38db29710a8adc61f58373c3',1,'mne::VisualizationInfo']]],
+  ['colormaps_3',['ColorMaps',['../a03002.html#a080ed3087caaa78131a53512c40cfb6d',1,'mne::disp']]],
+  ['combineweights_4',['CombineWeights',['../a05369.html#a4c6c19bf7af678cc4fc9ab2a2e754e4b',1,'mne::FiffEvoked']]],
+  ['compression_5',['Compression',['../a02921.html#af76048ca5b9e03df48fa1015e66062e3',1,'mne']]]
 ];
