@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['object_0',['Object',['../a04089.html#afca5a0638bed22a52fcb5d0397109df9a7b7e1d1f6d9d0812207ac10aaeeca40e',1,'mne::JsonValue']]],
-  ['offline_1',['Offline',['../a04461.html#a7164a380fec76ee588e04674a3f6f2afa4c0777b2b95c94c9119af8861da44832',1,'mne::disp::AbstractView']]],
+  ['object_0',['Object',['../a04078.html#afca5a0638bed22a52fcb5d0397109df9a7b7e1d1f6d9d0812207ac10aaeeca40e',1,'mne::JsonValue']]],
+  ['offline_1',['Offline',['../a04450.html#a7164a380fec76ee588e04674a3f6f2afa4c0777b2b95c94c9119af8861da44832',1,'mne::disp::AbstractView']]],
   ['ohm_2',['Ohm',['../a02921.html#a382e1ee6b528a86ac795fa4e0e5e5bbca643961b8da111c0a15d770a1109a86d4',1,'mne']]],
   ['onnxruntime_3',['OnnxRuntime',['../a02921.html#a6d172538667acc8f223e81747f75f59ca85b963c026f9e767bd8ef5a633a510d2',1,'mne']]],
   ['opened_4',['Opened',['../a02921.html#a3931e4e917b19bf8fd2f4e05ebc9f22fa1a11b1adc359c03db0ca798a00e2632c',1,'mne']]],

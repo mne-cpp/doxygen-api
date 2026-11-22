@@ -1,9 +1,9 @@
 var searchData=
 [
   ['pad_0',['Pad',['../a02921.html#a079a81b0acac0fc8d8bd9f9302467245ade43468adaf6acb2c38ebc0c1176f82f',1,'mne']]],
-  ['parksmcclellan_1',['ParksMcClellan',['../a05121.html#aa9613ccfa4e9f75b732cf84599383fa0acde81106a1f06b3bc5deb3acf7550bde',1,'mne::FirFilter']]],
+  ['parksmcclellan_1',['ParksMcClellan',['../a05110.html#aa9613ccfa4e9f75b732cf84599383fa0acde81106a1f06b3bc5deb3acf7550bde',1,'mne::FirFilter']]],
   ['pascal_2',['Pascal',['../a02921.html#a382e1ee6b528a86ac795fa4e0e5e5bbcaca693a8ccfa2cd3464d532afdfab31c5',1,'mne']]],
-  ['pca_3',['PCA',['../a04625.html#a76ac9e167666c7a70ed92d00a4cb9c71aa32459b044822f8c839bba7564ab52f2',1,'mne::disp::MNEOperator']]],
+  ['pca_3',['PCA',['../a04614.html#a76ac9e167666c7a70ed92d00a4cb9c71aa32459b044822f8c839bba7564ab52f2',1,'mne::disp::MNEOperator']]],
   ['percent_4',['Percent',['../a02922.html#a044cdb532e852d8ce0e9aca6f716bf04aadaaee4b22041c27198d410c68d952c9',1,'mne::detail']]],
   ['permissiondenied_5',['PermissionDenied',['../a02921.html#a431575bc664b471e7206a28da35727d3a4b33a686be73bb172407d73b26356275',1,'mne']]],
   ['phaselocked_6',['PhaseLocked',['../a02921.html#ab24fb2b1ec753b8824c7131bae354c72a2d39ce4fcf16b08e0ff9d43ed1244e8c',1,'mne']]],

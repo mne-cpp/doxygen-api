@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['factory_0',['Factory',['../a03237.html#a68060e917465d15561f67c28ef2cd56e',1,'mne::AcqDeviceRegistry']]],
+  ['factory_0',['Factory',['../a03238.html#a68060e917465d15561f67c28ef2cd56e',1,'mne::AcqDeviceRegistry']]],
   ['fiff_5fbyte_5ft_1',['fiff_byte_t',['../a02921.html#ae83626f2149619f650fedee476fe3e93',1,'mne']]],
   ['fiff_5fchar_5ft_2',['fiff_char_t',['../a02921.html#a47ba83422a6709c3632991d4612776f1',1,'mne']]],
   ['fiff_5fdata_5ft_3',['fiff_data_t',['../a02921.html#af14676029a614022d271ae3bf63b498f',1,'mne']]],
