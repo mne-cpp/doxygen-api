@@ -77,9 +77,9 @@ var searchData=
   ['cols_74',['cols',['../a03158.html#af4c972222d79b77ab119c3218d71a860',1,'mne::AcqMatrixRef::cols'],['../a05542.html#a6f8e99025e9648435fa57cf4ff425ced',1,'mne::IeegLead::cols']]],
   ['colstride_75',['colStride',['../a03158.html#a13012976b3fca07d66237730650b739b',1,'mne::AcqMatrixRef']]],
   ['column_5fnorm_76',['column_norm',['../a05590.html#a589bb7d7e577210bdbd53e06320bafcb',1,'mne::InvDipoleFitData']]],
-  ['column_5fnorm_5fcomp_77',['COLUMN_NORM_COMP',['../a00773.html#ab57161525a59e616c344cc8753756f52',1,'inv_dipole_fit_data.h']]],
-  ['column_5fnorm_5floc_78',['COLUMN_NORM_LOC',['../a00773.html#ad2cac135d19ab5c31b4441a8cf3376e8',1,'inv_dipole_fit_data.h']]],
-  ['column_5fnorm_5fnone_79',['COLUMN_NORM_NONE',['../a00773.html#a1ebd56693c9e03110076ea3e674aee32',1,'inv_dipole_fit_data.h']]],
+  ['column_5fnorm_5fcomp_77',['COLUMN_NORM_COMP',['../a02609.html#ab57161525a59e616c344cc8753756f52',1,'inv_dipole_fit_data.h']]],
+  ['column_5fnorm_5floc_78',['COLUMN_NORM_LOC',['../a02609.html#ad2cac135d19ab5c31b4441a8cf3376e8',1,'inv_dipole_fit_data.h']]],
+  ['column_5fnorm_5fnone_79',['COLUMN_NORM_NONE',['../a02609.html#a1ebd56693c9e03110076ea3e674aee32',1,'inv_dipole_fit_data.h']]],
   ['command_80',['command',['../a03626.html#a44ed75e16dd453b1823b539ad1dadc2f',1,'mne::detail::FtMessage::command'],['../a05466.html#a1dd1e45286222bb8417e53b6c20540c4',1,'mne::ComputeFwdSettings::command']]],
   ['comment_81',['comment',['../a05266.html#a833a733634ac31dff9d4da465768af74',1,'mne::FiffAnnotation::comment'],['../a05342.html#adf36aedef1f1a6f9e5eabb949faf29fa',1,'mne::FiffEvoked::comment'],['../a05354.html#a7cac3af305a391cabd38df8c4e5ff5a8',1,'mne::AverageCategory::comment'],['../a05358.html#a366cec9eb2e9b06f709b9a09af7b653d',1,'mne::AverageDescription::comment'],['../a05442.html#ae9b888a8f7f5564c8c449d64ff4ba25a',1,'mne::FsLabel::comment'],['../a06034.html#acf51dd381f332374f9d11c6975d8ecfc',1,'mne::MNEEvent::comment'],['../a06090.html#a082ae33688e732709c74fa12672962ad',1,'mne::MNEMeasDataSet::comment']]],
   ['commitcursor_82',['commitCursor',['../a03402.html#a3c8001b00ab078c06c7d5425edac5b03',1,'mne::detail::ReaderSlot']]],
@@ -129,7 +129,7 @@ var searchData=
   ['created_126',['created',['../a05926.html#a711b2703888e82acce998811769a62f9',1,'mne::MnaProject']]],
   ['created_5fhere_127',['created_here',['../a06034.html#af4b9d39b0036ae93768d66d5971ce96e',1,'mne::MNEEvent']]],
   ['csdbyfreq_128',['csdByFreq',['../a05034.html#a7ffb015bd8fa86a41549306c8bd0fefb',1,'mne::CsdResult']]],
-  ['ctf_5fcomp_129',['ctf_comp',['../a02690.html#ae7815c89d2887c1b6b261544c9de3e3e',1,'mne_ctf_comp_data_set.cpp']]],
+  ['ctf_5fcomp_129',['ctf_comp',['../a02300.html#ae7815c89d2887c1b6b261544c9de3e3e',1,'mne_ctf_comp_data_set.cpp']]],
   ['ctf_5fhead_5ft_130',['ctf_head_t',['../a05386.html#ab8a25299a9b47bd851b3d140dc485240',1,'mne::FiffInfoBase']]],
   ['ctfkind_131',['ctfkind',['../a05294.html#a20aa15273d1de5ffdda5b5294f17534c',1,'mne::FiffCtfComp']]],
   ['ctrs_132',['ctrs',['../a06046.html#a700eb3f76bbd21f9335f1e73fb3174c5',1,'mne::RegionDataOut::ctrs'],['../a06066.html#a345885c2c574ea44e94528d0418f27b3',1,'mne::RegionMTOut::ctrs']]],
@@ -139,5 +139,5 @@ var searchData=
   ['currentuniformoffset_136',['currentUniformOffset',['../a04902.html#aaaa7a9a0b665a507d65576878b5a8a0b',1,'mne::disp::BrainRenderer::Impl::currentUniformOffset'],['../a04910.html#a7908c4e1bc689aa30b8f32298f9125b7',1,'mne::disp::BrainRenderer::Impl::VideoOverlayResources::currentUniformOffset'],['../a04918.html#a678fa5e6ab1fc9aea7993304f2c11b93',1,'mne::disp::BrainRenderer::Impl::SliceResources::currentUniformOffset']]],
   ['curv_137',['curv',['../a06242.html#a1c24e4acb01e2c74c9b0dece9fa240c9',1,'mne::MNESurfaceOrVolume']]],
   ['curvature_5fcolor_5fmode_138',['curvature_color_mode',['../a06122.html#ae55bcc6fc228a7d18f6baabdb592f3f6',1,'mne::MNEMshDisplaySurface']]],
-  ['curvature_5ffile_5fmagic_5fnumber_139',['CURVATURE_FILE_MAGIC_NUMBER',['../a02519.html#a2d0a58187814e2bcff513e8a01e2b4d0',1,'mne_source_space.cpp']]]
+  ['curvature_5ffile_5fmagic_5fnumber_139',['CURVATURE_FILE_MAGIC_NUMBER',['../a02522.html#a2d0a58187814e2bcff513e8a01e2b4d0',1,'mne_source_space.cpp']]]
 ];

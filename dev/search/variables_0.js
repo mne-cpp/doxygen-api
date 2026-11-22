@@ -28,7 +28,7 @@ var searchData=
   ['anchorhostns_25',['anchorHostNs',['../a03114.html#a4befb45ea11bccafc6bde74d364ca867',1,'mne::AcqClockModel']]],
   ['anchorsample_26',['anchorSample',['../a03114.html#a5d31d54819810266e217c02326d53280',1,'mne::AcqClockModel']]],
   ['anode_27',['anode',['../a05550.html#a32fa3c6ffb8a11d36530d99aa67f7dce',1,'mne::IeegBipolarPair']]],
-  ['approx_5fring_5fbuf_5fsize_28',['APPROX_RING_BUF_SIZE',['../a02804.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
+  ['approx_5fring_5fbuf_5fsize_28',['APPROX_RING_BUF_SIZE',['../a02321.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
   ['area_29',['area',['../a06158.html#a46b271f03a7c89f4b7fad089f48be131',1,'mne::MNEPatchInfo::area'],['../a06250.html#a62858efe43df1e554e8c96511784cadb',1,'mne::MNETriangle::area']]],
   ['aspect_5fkind_30',['aspect_kind',['../a05342.html#ac6694cecb3912ac86819707285bc2d6b',1,'mne::FiffEvoked']]],
   ['associatedimagepath_31',['associatedImagePath',['../a04174.html#a2d2fa585b76aca1c0dcddcb6201d7740',1,'mne::BidsCoordinateSystem']]],

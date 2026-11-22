@@ -171,7 +171,7 @@ var searchData=
   ['applyzerophase_168',['applyZeroPhase',['../a05094.html#aa1065e997f8f3c6b06ae3d78e961181b',1,'mne::FirFilter::applyZeroPhase()'],['../a05110.html#a0ce90a60469fb682ccfe0f021bb65fe1',1,'mne::IirFilter::applyZeroPhase()']]],
   ['applyzerophasematrix_169',['applyZeroPhaseMatrix',['../a05094.html#a78a95d9982e4b809d9c1684ea7630a19',1,'mne::FirFilter::applyZeroPhaseMatrix()'],['../a05110.html#a7421776d950d7087dcd3f369a4861d67',1,'mne::IirFilter::applyZeroPhaseMatrix()']]],
   ['array_170',['array',['../a04074.html#a910ce1e3039aa768c56ee0720434ff39',1,'mne::JsonDocument::array()'],['../a04090.html#adb93b31e248b3317e176937a93140bcc',1,'mne::JsonAccess::array()']]],
-  ['arsinh_171',['arsinh',['../a00506.html#ac848b31f516664e52f79fc77160777b0',1,'fwd_bem_model.cpp']]],
+  ['arsinh_171',['arsinh',['../a00260.html#ac848b31f516664e52f79fc77160777b0',1,'fwd_bem_model.cpp']]],
   ['artifactsettingsview_172',['ArtifactSettingsView',['../a04442.html#a6362a1b9834cf9f5364e27a750e13bd2',1,'mne::disp::ArtifactSettingsView']]],
   ['as_5ffloat_173',['as_float',['../a03750.html#a47fa271ce4870f3be8f87c85c2e9790f',1,'mne::detail::NeuromagTag']]],
   ['as_5fint_174',['as_int',['../a03750.html#a2a559cdfd61791f2e719361168268903',1,'mne::detail::NeuromagTag']]],

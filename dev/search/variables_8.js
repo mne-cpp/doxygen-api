@@ -83,5 +83,5 @@ var searchData=
   ['items_80',['items',['../a06186.html#a29a8785e9d6aad7474bfe367d20e7972',1,'mne::MNEProjOp']]],
   ['iterations_81',['iterations',['../a06338.html#aea4a5f74523b0957c568cdab162c53ed',1,'mne::FactorAnalysisCovariance']]],
   ['itris_82',['itris',['../a06242.html#aa6a9ea423ff437224fe5a39e0b51cf08',1,'mne::MNESurfaceOrVolume']]],
-  ['itrmax_83',['ITRMAX',['../a00206.html#af34898925bbac702dcb9e2bbe1a068ab',1,'parksmcclellan.cpp']]]
+  ['itrmax_83',['ITRMAX',['../a01403.html#af34898925bbac702dcb9e2bbe1a068ab',1,'parksmcclellan.cpp']]]
 ];

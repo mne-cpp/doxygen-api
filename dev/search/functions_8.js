@@ -6,7 +6,7 @@ var searchData=
   ['identity_3',['identity',['../a05282.html#a85102bec8b70c1b79357f848a214a22a',1,'mne::FiffCoordTrans::identity()'],['../a06516.html#a85102bec8b70c1b79357f848a214a22a',1,'FiffCoordTrans::identity()']]],
   ['ieegimplantation_4',['IeegImplantation',['../a05546.html#a4d2a8a4d37b8836c1fe082991afa2f9c',1,'mne::IeegImplantation::IeegImplantation()=default'],['../a05546.html#a7f3b4904dc7184a24c55e70c3e844ad6',1,'mne::IeegImplantation::IeegImplantation(const std::vector&lt; IeegContact &gt; &amp;contacts, const std::string &amp;coordinateSystem={})']]],
   ['iequals_5',['iequals',['../a02894.html#aa1c6cfb31db99ae305b4da7b29c7ab97',1,'mne']]],
-  ['if_6',['if',['../a02342.html#a124e6bc6b014a20703353ec5460df510',1,'fiff_coord_trans.cpp']]],
+  ['if_6',['if',['../a00413.html#a124e6bc6b014a20703353ec5460df510',1,'fiff_coord_trans.cpp']]],
   ['iirstreamfilter_7',['IirStreamFilter',['../a05114.html#a0f234051860456f6291b8e893b963caa',1,'mne::IirStreamFilter']]],
   ['ilinefreq_8',['iLineFreq',['../a05646.html#ab3d10ae49a2f9fcc29d33a79589a4509',1,'mne::InvHpiModelParameters']]],
   ['imagcoherence_9',['ImagCoherence',['../a04330.html#a18fdc708c586d6d446c3f19cea2ab320',1,'mne::ImagCoherence']]],

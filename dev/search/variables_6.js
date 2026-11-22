@@ -14,7 +14,7 @@ var searchData=
   ['gof_11',['GoF',['../a05626.html#a37f3dc526e637bef99cd7fc1f2b443dc',1,'mne::HpiFitResult']]],
   ['good_12',['good',['../a05602.html#af76758ed8b138360eca6bb065473c9a9',1,'mne::InvEcd']]],
   ['goodness_13',['goodness',['../a05606.html#a49cd4ded3a4a5cb85c621537a87755aa',1,'mne::bdipEcdRec::goodness'],['../a05666.html#afd1aaf1e90b749b7910d3ca051e6d06a',1,'mne::InvFocalDipole::goodness']]],
-  ['grad_5fcomp_14',['grad_comp',['../a02690.html#a07b1203222ba80fb8ee8f05c0237a377',1,'mne_ctf_comp_data_set.cpp']]],
+  ['grad_5fcomp_14',['grad_comp',['../a02300.html#a07b1203222ba80fb8ee8f05c0237a377',1,'mne_ctf_comp_data_set.cpp']]],
   ['grad_5freg_15',['grad_reg',['../a05594.html#a4f0753c7f4ccc0a74e28ab099ea19ce3',1,'mne::InvDipoleFitSettings']]],
   ['grad_5fstd_16',['grad_std',['../a05594.html#a239124cbecab3894479a03a2d23b8e02',1,'mne::InvDipoleFitSettings']]],
   ['grandavefile_17',['grandAveFile',['../a06174.html#a7f9785ed6f5a52b016d91dda3c5b782a',1,'mne::ProcessingSettings']]],

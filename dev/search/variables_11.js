@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['r_0',['R',['../a02342.html#a2e226cc9fbbb9684a3fb74c39c04f846',1,'fiff_coord_trans.cpp']]],
+  ['r_0',['R',['../a00413.html#a2e226cc9fbbb9684a3fb74c39c04f846',1,'fiff_coord_trans.cpp']]],
   ['r_1',['r',['../a05310.html#a434c9dbc1bea647211cc55dd79373fdf',1,'mne::FiffDigPoint']]],
   ['r0_2',['r0',['../a05278.html#a99529e9aecb9268db63756648cbe9918',1,'mne::FiffChPos::r0'],['../a05466.html#a5a25239949b0f16a41e44eeb71a6ed83',1,'mne::ComputeFwdSettings::r0'],['../a05490.html#a9833766ac55871f832bd1aefd691eea1',1,'mne::FwdCoil::r0'],['../a05514.html#a5a205a1791e9e6939ddfbd40db57668d',1,'mne::FwdEegSphereModel::r0'],['../a05590.html#ac2b430213a98d9f4f34d055d586dc301',1,'mne::InvDipoleFitData::r0'],['../a05594.html#a316d684f2deb504c131309c463a5d421',1,'mne::InvDipoleFitSettings::r0'],['../a05606.html#af853db77000b8121a1f4bbf04c0c28ce',1,'mne::bdipEcdRec::r0']]],
   ['r1_3',['r1',['../a06250.html#aa4d1dbd0f1b5541a1de2d40ca3f6a9ab',1,'mne::MNETriangle']]],
