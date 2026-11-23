@@ -1,7 +1,7 @@
 var searchData=
 [
   ['gammamap_0',['GammaMAP',['../a02942.html#ade8f3f7441faae5bc61b2d7fc499975dab68bd15edce6ca712303f0482213bad7',1,'mne']]],
-  ['garbageatend_1',['GarbageAtEnd',['../a04071.html#a823f472537c744d5669474a47c40367ca858f768398db30d8d4582260f6c0f004',1,'mne::CborParseError::GarbageAtEnd'],['../a04111.html#a1fc193597f99172ff1a7909c0ec8846aa3250dbcd9a7550fbb88dc8bf4eca5580',1,'mne::JsonParseError::GarbageAtEnd']]],
+  ['garbageatend_1',['GarbageAtEnd',['../a04072.html#a823f472537c744d5669474a47c40367ca858f768398db30d8d4582260f6c0f004',1,'mne::CborParseError::GarbageAtEnd'],['../a04112.html#a1fc193597f99172ff1a7909c0ec8846aa3250dbcd9a7550fbb88dc8bf4eca5580',1,'mne::JsonParseError::GarbageAtEnd']]],
   ['getaveragedata_2',['GetAverageData',['../a03037.html#a1002b4232fab9522c21baa4f3b021c22af23332d4197d579ea9d910ddcf6e3b5d',1,'mne::disp::EvokedSetModelRoles']]],
   ['getchactivefilter_3',['GetChActiveFilter',['../a03034.html#afded5bf32bced10ac7c29251a9078b57ae9eca91de3671a774538277b99849f81',1,'mne::disp::ChannelInfoModelRoles']]],
   ['getchalias_4',['GetChAlias',['../a03034.html#afded5bf32bced10ac7c29251a9078b57a6fd941813ee5aec2e7bc7e3f6236ba00',1,'mne::disp::ChannelInfoModelRoles']]],

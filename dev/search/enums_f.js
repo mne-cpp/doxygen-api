@@ -7,7 +7,7 @@ var searchData=
   ['statscorrection_4',['StatsCorrection',['../a02942.html#aaa0691728151dad8285b656e74ee4e61',1,'mne']]],
   ['statstailtype_5',['StatsTailType',['../a02942.html#ac1be945a976d2b4ea40333422cf1c47f',1,'mne']]],
   ['stimartifactmode_6',['StimArtifactMode',['../a02942.html#aad95ff5e0b960e8804fc3a826b9b5752',1,'mne']]],
-  ['stylemode_7',['StyleMode',['../a04503.html#a1908d2b3773f1273e94209048939245b',1,'mne::disp::AbstractView']]],
-  ['surfacerole_8',['SurfaceRole',['../a04867.html#ac805b5699aac154ba23ff6150a3140cc',1,'mne::disp::SurfaceTreeItem']]],
-  ['system_9',['System',['../a04323.html#a119660824265aae0bbab166556c2b1b3',1,'mne::StandardMontage']]]
+  ['stylemode_7',['StyleMode',['../a04504.html#a1908d2b3773f1273e94209048939245b',1,'mne::disp::AbstractView']]],
+  ['surfacerole_8',['SurfaceRole',['../a04868.html#ac805b5699aac154ba23ff6150a3140cc',1,'mne::disp::SurfaceTreeItem']]],
+  ['system_9',['System',['../a04324.html#a119660824265aae0bbab166556c2b1b3',1,'mne::StandardMontage']]]
 ];
