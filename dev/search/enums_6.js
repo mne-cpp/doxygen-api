@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['guimode_0',['GuiMode',['../a04500.html#ae33399c4c9be04a686a8d00d71f23414',1,'mne::disp::AbstractView']]]
+  ['guimode_0',['GuiMode',['../a04503.html#ae33399c4c9be04a686a8d00d71f23414',1,'mne::disp::AbstractView']]]
 ];
