@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['headposentry_0',['HeadPosEntry',['../a05134.html',1,'mne']]],
-  ['hpifitresult_1',['HpiFitResult',['../a05642.html',1,'mne']]],
-  ['hpisettingsview_2',['HpiSettingsView',['../a04658.html',1,'mne::disp']]],
-  ['hpisortstruct_3',['HPISortStruct',['../a05654.html',1,'mne']]]
+  ['headposentry_0',['HeadPosEntry',['../a05188.html',1,'mne']]],
+  ['hpifitresult_1',['HpiFitResult',['../a05696.html',1,'mne']]],
+  ['hpisettingsview_2',['HpiSettingsView',['../a04708.html',1,'mne::disp']]],
+  ['hpisortstruct_3',['HPISortStruct',['../a05708.html',1,'mne']]]
 ];

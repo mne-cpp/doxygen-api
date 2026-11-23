@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libraries/mne/mne_msh_display_surface_set.h File Reference</title>
+    <title>MNE-CPP: src/libs/mne/fiff/fiff_stream.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,98 +250,432 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_588cd77586230d2c129f15f0bca2b9b2.html">libraries</a></li><li class="navelem"><a href="dir_aaeba049e8bbc472f18d1508b9ef9ec0.html">mne</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_adeda94fa97237df273faf5bb0ec44e9.html">fiff</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">mne_msh_display_surface_set.h File Reference</div></div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">fiff_stream.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Set of <a class="el" href="a06142.html" title="mne::MNEMshDisplaySurface">mne::MNEMshDisplaySurface</a> objects sharing a camera, lights and selection.  
+<p>Implementation of FiffStream: FIFF tag I/O, directory and block-tree construction, and the typed read_* / write_* methods.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a02336_source.html">mne_global.h</a>&quot;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;filesystem&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a02333_source.html">fiff_stream.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02426_source.html">fiff_annotations.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02513_source.html">fiff_annotations_json.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02405_source.html">fiff_tag.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02486_source.html">fiff_dir_node.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02372_source.html">fiff_ctf_comp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02504_source.html">fiff_info.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02450_source.html">fiff_info_base.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02393_source.html">fiff_raw_data.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02363_source.html">fiff_cov.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02381_source.html">fiff_evoked_set.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02399_source.html">fiff_coord_trans.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02498_source.html">fiff_ch_info.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02471_source.html">fiff_ch_pos.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02474_source.html">fiff_dig_point.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02315_source.html">fiff_id.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02423_source.html">fiff_digitizer_data.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a01595_source.html">mne/base/log.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01616_source.html">mne/math/linalg.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01640_source.html">mne/math/numerics.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01580_source.html">mne/base/string_utils.h</a>&gt;</code><br />
+<code>#include &lt;time.h&gt;</code><br />
+<code>#include &lt;Eigen/LU&gt;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;format&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for mne_msh_display_surface_set.h:</div>
+Include dependency graph for fiff_stream.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a02349.png" border="0" usemap="#asrc_2libraries_2mne_2mne__msh__display__surface__set_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2mne_2mne__msh__display__surface__set_8h" id="asrc_2libraries_2mne_2mne__msh__display__surface__set_8h">
-<area shape="rect" title="Set of mne::MNEMshDisplaySurface objects sharing a camera, lights and selection." alt="" coords="645,5,851,45"/>
-<area shape="rect" href="a02336.html" title="Export macro of mne_mne — Core MNE data structures (source spaces, source estimates,..." alt="" coords="519,93,630,119"/>
-<area shape="poly" title=" " alt="" coords="708,48,614,90,612,85,705,43"/>
-<area shape="rect" title=" " alt="" coords="5,240,96,265"/>
-<area shape="poly" title=" " alt="" coords="676,48,507,96,274,174,95,238,93,233,272,169,506,91,675,43"/>
-<area shape="rect" title=" " alt="" coords="741,240,800,265"/>
-<area shape="poly" title=" " alt="" coords="750,46,750,111,757,192,765,226,760,227,752,192,745,111,745,46"/>
-<area shape="rect" title=" " alt="" coords="825,240,887,265"/>
-<area shape="poly" title=" " alt="" coords="759,44,847,226,842,229,755,47"/>
-<area shape="rect" title=" " alt="" coords="811,93,903,119"/>
-<area shape="poly" title=" " alt="" coords="776,43,832,83,829,87,773,48"/>
-<area shape="rect" title=" " alt="" coords="928,93,1005,119"/>
-<area shape="poly" title=" " alt="" coords="801,43,922,86,921,91,799,48"/>
-<area shape="rect" href="a02870.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="451,167,592,192"/>
-<area shape="poly" title=" " alt="" coords="568,121,540,157,536,154,564,117"/>
-<area shape="rect" href="a02894.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="419,240,531,265"/>
-<area shape="poly" title=" " alt="" coords="516,194,492,230,488,227,511,191"/>
-<area shape="rect" title=" " alt="" coords="555,240,621,265"/>
-<area shape="poly" title=" " alt="" coords="534,191,570,228,566,232,530,194"/>
-<area shape="rect" title=" " alt="" coords="646,240,717,265"/>
-<area shape="poly" title=" " alt="" coords="548,190,644,232,642,237,546,194"/>
-<area shape="poly" title=" " alt="" coords="451,192,299,213,110,242,109,237,298,208,450,187"/>
-<area shape="rect" title=" " alt="" coords="120,240,195,265"/>
-<area shape="poly" title=" " alt="" coords="457,195,209,242,208,237,456,189"/>
-<area shape="rect" title=" " alt="" coords="219,240,272,265"/>
-<area shape="poly" title=" " alt="" coords="474,195,286,242,285,237,473,189"/>
-<area shape="poly" title=" " alt="" coords="562,189,729,237,728,242,561,195"/>
-<area shape="rect" title=" " alt="" coords="297,240,394,265"/>
-<area shape="poly" title=" " alt="" coords="494,194,388,237,386,232,492,190"/>
-<area shape="poly" title=" " alt="" coords="582,189,811,237,810,242,581,195"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a02350.png" border="0" usemap="#asrc_2libraries_2mne_2mne__msh__display__surface__set_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libraries_2mne_2mne__msh__display__surface__set_8hdep" id="asrc_2libraries_2mne_2mne__msh__display__surface__set_8hdep">
-<area shape="rect" title="Set of mne::MNEMshDisplaySurface objects sharing a camera, lights and selection." alt="" coords="88,5,293,45"/>
-<area shape="rect" href="a02366.html" title="Umbrella include header that exposes the full mne_mne public surface in a single include." alt="" coords="5,108,181,133"/>
-<area shape="poly" title=" " alt="" coords="163,57,107,110,104,106,159,53"/>
-<area shape="rect" href="a02456.html" title="Implementation of mne::MNEMshDisplaySurfaceSet." alt="" coords="206,93,373,148"/>
-<area shape="poly" title=" " alt="" coords="222,53,263,91,260,95,219,57"/>
+<div class="center"><img src="a02349.png" border="0" usemap="#asrc_2libs_2mne_2fiff_2fiff__stream_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2fiff_2fiff__stream_8cpp" id="asrc_2libs_2mne_2fiff_2fiff__stream_8cpp">
+<area shape="rect" title="Implementation of FiffStream: FIFF tag I/O, directory and block&#45;tree construction,..." alt="" coords="4557,5,4700,45"/>
+<area shape="rect" href="a02333.html" title="FIFF binary tag&#45;stream layer: reads and writes FIFF tags, directories, blocks and the structured reco..." alt="" coords="1831,387,1935,412"/>
+<area shape="poly" title=" " alt="" coords="4557,29,3879,29,3377,34,2842,44,2329,62,2098,74,1893,89,1722,107,1592,128,1544,140,1509,152,1487,165,1481,179,1481,254,1483,266,1490,278,1516,300,1556,321,1606,339,1717,367,1818,386,1817,391,1716,372,1604,344,1554,325,1513,305,1486,281,1478,268,1475,254,1475,177,1483,162,1506,148,1542,135,1591,123,1722,102,1893,84,2098,69,2329,57,2842,39,3377,29,3879,24,4557,24"/>
+<area shape="rect" href="a01580.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="939,680,1113,705"/>
+<area shape="poly" title=" " alt="" coords="4557,30,3714,36,2369,49,1084,69,641,82,500,89,425,96,385,101,345,103,273,106,244,112,221,124,207,145,202,178,202,474,207,500,223,523,249,545,283,565,324,584,371,600,480,628,599,649,719,665,925,683,925,689,718,670,598,654,479,633,370,605,322,589,280,570,246,550,219,527,203,502,197,474,197,178,202,143,218,120,242,107,272,100,345,97,385,96,424,91,500,83,641,76,1084,64,2368,44,3714,31,4557,24"/>
+<area shape="rect" title=" " alt="" coords="5161,753,5224,779"/>
+<area shape="poly" title=" " alt="" coords="4700,23,5015,23,5464,30,5699,38,5918,50,6107,68,6249,91,6317,100,6379,106,6405,113,6425,127,6439,148,6443,178,6443,621,6441,641,6435,657,6424,670,6411,679,6378,694,6339,708,6269,722,6151,734,5824,751,5479,762,5238,767,5238,761,5479,756,5824,746,6150,728,6269,717,6337,703,6376,689,6409,675,6421,666,6430,654,6436,640,6438,621,6438,178,6434,149,6421,130,6403,118,6378,111,6317,105,6248,96,6107,73,5918,56,5698,44,5464,36,5015,29,4700,29"/>
+<area shape="rect" title=" " alt="" coords="3198,680,3265,705"/>
+<area shape="poly" title=" " alt="" coords="4557,30,3940,33,2953,44,1916,64,1480,78,1151,96,1097,97,1042,94,931,78,824,57,725,39,681,35,641,34,605,39,575,50,550,68,532,94,521,131,517,178,517,254,519,294,528,327,541,355,558,377,580,395,606,409,667,428,739,440,818,450,902,462,987,483,1073,503,1143,510,1213,515,1301,531,1338,543,1375,556,1456,573,1520,582,1584,590,1667,604,1716,618,1765,629,1898,644,2075,656,2499,673,2910,684,3184,688,3184,693,2910,689,2498,679,2075,661,1898,649,1764,635,1714,623,1665,609,1584,595,1519,587,1455,579,1373,561,1336,548,1300,536,1212,520,1142,515,1072,509,985,488,901,468,818,455,738,446,666,434,603,414,577,399,554,381,536,358,523,329,514,295,511,254,511,178,515,130,527,92,546,64,572,45,604,34,640,29,681,29,726,34,825,52,932,73,1042,89,1097,92,1151,91,1480,73,1916,58,2953,38,3940,28,4557,24"/>
+<area shape="rect" href="a02315.html" title="128&#45;bit FIFF identifier record (machine ID + creation time) used to stamp files, blocks and parent re..." alt="" coords="2617,533,2688,559"/>
+<area shape="poly" title=" " alt="" coords="4557,29,4017,28,3171,34,2717,42,2288,54,1918,72,1765,83,1639,96,1576,99,1512,94,1394,83,1345,86,1325,91,1308,99,1294,112,1284,128,1278,150,1275,178,1275,401,1277,448,1284,466,1301,483,1322,490,1367,497,1509,507,1921,521,2554,531,2604,536,2603,541,2554,536,1921,526,1509,513,1366,502,1321,495,1298,488,1280,469,1272,449,1270,401,1270,178,1272,149,1279,126,1290,108,1305,95,1323,86,1344,81,1394,78,1512,89,1576,93,1639,91,1765,78,1918,66,2288,49,2717,36,3171,29,4017,23,4557,24"/>
+<area shape="rect" title=" " alt="" coords="4226,607,4303,632"/>
+<area shape="poly" title=" " alt="" coords="4700,24,4915,29,5047,37,5179,51,5299,72,5351,85,5395,101,5431,119,5456,140,5469,165,5467,193,5444,256,5416,310,5385,356,5350,394,5312,425,5270,451,5225,471,5176,486,5071,509,4954,524,4827,539,4692,561,4485,595,4318,615,4317,610,4484,590,4691,556,4827,534,4953,519,5070,503,5175,481,5223,466,5267,446,5309,421,5347,390,5381,353,5412,308,5439,254,5462,191,5463,166,5452,144,5428,124,5393,106,5350,90,5298,77,5178,56,5047,42,4915,34,4700,29"/>
+<area shape="rect" href="a02486.html" title="Recursive node of the parsed FIFF block tree (FIFFB_* hierarchy with directory entries and children)." alt="" coords="2347,460,2462,485"/>
+<area shape="poly" title=" " alt="" coords="4557,30,4065,41,3718,52,3352,67,3004,87,2710,112,2595,127,2508,143,2452,161,2438,170,2434,179,2434,327,2427,393,2415,448,2409,446,2422,392,2429,327,2429,177,2434,166,2450,156,2506,138,2595,122,2710,107,3004,82,3352,62,3718,47,4065,36,4557,25"/>
+<area shape="rect" title=" " alt="" coords="6235,680,6302,705"/>
+<area shape="poly" title=" " alt="" coords="4700,25,4987,31,5389,43,5794,62,5963,75,6090,91,6142,95,6194,94,6291,89,6332,94,6364,107,6376,119,6385,134,6391,154,6393,178,6393,547,6390,568,6383,588,6361,624,6331,653,6302,675,6298,670,6327,649,6356,620,6379,586,6385,567,6387,547,6387,178,6385,155,6380,137,6372,122,6361,112,6330,99,6291,95,6195,99,6142,100,6090,96,5962,81,5794,68,5388,48,4986,36,4700,30"/>
+<area shape="rect" title=" " alt="" coords="5231,680,5291,705"/>
+<area shape="poly" title=" " alt="" coords="4700,24,5030,29,5249,37,5475,49,5689,68,5867,95,5937,111,5991,130,6025,152,6035,164,6038,178,6038,547,6037,596,6029,615,6012,634,5994,643,5968,650,5892,660,5679,672,5456,676,5304,682,5304,677,5456,671,5679,666,5891,655,5967,645,5993,638,6008,630,6025,613,6031,595,6033,547,6033,178,6030,167,6022,156,5988,135,5936,116,5866,100,5688,74,5475,55,5249,42,5030,35,4700,29"/>
+<area shape="rect" href="a02426.html" title="FIFF / MNE annotations: time&#45;tagged textual marks (BAD_*, EDGE, custom) with onset,..." alt="" coords="588,533,723,559"/>
+<area shape="poly" title=" " alt="" coords="4557,30,3702,33,2342,44,1657,52,1067,64,645,78,520,87,466,96,442,112,426,129,418,150,415,178,415,400,419,427,430,450,447,469,468,486,520,512,575,529,574,534,518,517,466,491,443,473,426,453,414,428,410,401,410,178,413,149,422,126,439,108,464,91,520,81,645,73,1067,58,1657,47,2342,38,3702,28,4557,24"/>
+<area shape="rect" title=" " alt="" coords="5721,607,5808,632"/>
+<area shape="poly" title=" " alt="" coords="4700,25,4987,35,5173,45,5365,59,5545,79,5695,104,5754,119,5798,136,5827,155,5835,166,5838,178,5838,474,5833,510,5819,544,5785,598,5781,595,5815,542,5827,509,5833,474,5833,178,5830,169,5824,159,5796,141,5752,124,5694,109,5544,84,5365,65,5173,50,4987,40,4700,31"/>
+<area shape="rect" href="a02513.html" title="JSON form of annotation channel names and extras, shared by the FIFF and JSON annotation files (inter..." alt="" coords="559,460,728,485"/>
+<area shape="poly" title=" " alt="" coords="4557,29,3706,31,2356,40,1676,48,1090,60,673,76,549,85,514,90,497,96,478,112,469,130,466,151,466,178,466,327,468,354,475,373,488,391,508,410,544,436,584,453,582,458,541,440,504,414,484,394,471,376,463,355,461,327,461,178,461,151,464,128,474,109,494,91,512,85,549,80,672,70,1090,55,1676,43,2356,35,3706,26,4557,24"/>
+<area shape="rect" href="a02405.html" title="FIFF tag: the 16&#45;byte tag header (kind, type, size, next) plus its decoded payload." alt="" coords="2713,240,2792,265"/>
+<area shape="poly" title=" " alt="" coords="4557,30,4208,35,3717,46,3472,54,3254,65,3086,79,3027,87,2988,96,2924,124,2864,161,2814,200,2776,232,2773,228,2810,196,2861,157,2921,119,2986,91,3026,82,3085,74,3254,60,3472,49,3717,40,4208,29,4557,25"/>
+<area shape="rect" href="a02399.html" title="4x4 affine FIFF coordinate transform (FIFF_COORD_TRANS) annotated with source/destination coordinate&#45;..." alt="" coords="2243,313,2377,339"/>
+<area shape="poly" title=" " alt="" coords="4557,29,4078,31,3380,40,3033,48,2734,60,2516,76,2448,85,2414,96,2390,116,2370,140,2354,168,2341,197,2324,254,2315,300,2310,299,2318,253,2336,195,2349,165,2366,137,2386,112,2411,91,2447,80,2515,70,2734,55,3033,43,3380,35,4078,26,4557,24"/>
+<area shape="rect" href="a02498.html" title="FIFF channel descriptor record (FIFF_CH_INFO): per&#45;channel logical/scanner numbers,..." alt="" coords="4239,460,4344,485"/>
+<area shape="poly" title=" " alt="" coords="4700,29,4767,37,4838,50,4899,67,4922,78,4937,92,4942,105,4938,120,4915,170,4888,206,4854,236,4807,268,4771,287,4740,297,4708,304,4668,316,4478,393,4331,457,4328,452,4476,388,4666,311,4706,299,4738,292,4769,282,4805,263,4851,231,4884,203,4910,168,4933,118,4937,105,4933,95,4919,83,4897,72,4837,55,4767,42,4700,35"/>
+<area shape="rect" href="a02471.html" title="Coil&#45;frame position record embedded inside FIFF_CH_INFO: coil location and 3x3 EX/EY/EZ orientation t..." alt="" coords="3372,533,3475,559"/>
+<area shape="poly" title=" " alt="" coords="4557,30,4219,38,3991,46,3751,59,3520,77,3319,101,3236,115,3168,131,3119,149,3090,169,3073,194,3065,221,3064,247,3071,274,3084,300,3102,327,3152,378,3213,425,3277,466,3387,525,3385,530,3275,471,3210,429,3149,382,3098,330,3079,303,3066,276,3059,248,3059,220,3068,192,3087,165,3117,144,3167,126,3235,110,3318,95,3519,72,3750,54,3990,41,4219,33,4557,25"/>
+<area shape="rect" href="a02474.html" title="Single digitization point (FIFF_DIG_POINT) with kind (cardinal/HPI/EEG/extra), identifier and 3D coor..." alt="" coords="3855,533,3973,559"/>
+<area shape="poly" title=" " alt="" coords="4557,28,4493,32,4420,43,4344,63,4308,78,4274,96,4208,142,4148,198,4094,259,4046,321,3972,439,3927,522,3923,520,3967,436,4042,318,4090,255,4144,194,4205,138,4271,91,4306,73,4343,58,4419,38,4493,27,4557,23"/>
+<area shape="rect" title=" " alt="" coords="3854,313,3939,339"/>
+<area shape="poly" title=" " alt="" coords="4557,35,4423,55,4347,72,4274,96,4166,146,4066,205,3982,263,3923,307,3920,303,3979,259,4063,201,4164,141,4272,91,4346,67,4422,49,4557,30"/>
+<area shape="rect" href="a02372.html" title="CTF / 4D Neuroimaging software gradient&#45;compensation matrix block (FIFFB_MNE_CTF_COMP_DATA)." alt="" coords="4529,387,4648,412"/>
+<area shape="poly" title=" " alt="" coords="4629,46,4594,373,4589,372,4624,45"/>
+<area shape="rect" href="a02504.html" title="Full FIFF measurement metadata: everything from FIFFB_MEAS / FIFFB_MEAS_INFO needed to interpret a re..." alt="" coords="4423,167,4506,192"/>
+<area shape="poly" title=" " alt="" coords="4610,47,4489,159,4486,155,4606,44"/>
+<area shape="rect" href="a02450.html" title="Minimal measurement&#45;info subset (channel list, sampling rate, basic transforms) shared by FIFF reader..." alt="" coords="3579,240,3700,265"/>
+<area shape="poly" title=" " alt="" coords="4557,29,4327,29,4030,36,3886,44,3762,56,3670,73,3639,84,3621,95,3611,109,3606,125,3606,161,3616,197,3629,227,3624,229,3611,198,3601,162,3601,125,3607,107,3617,91,3637,79,3668,68,3761,51,3886,39,4030,31,4327,23,4557,23"/>
+<area shape="rect" href="a02393.html" title="FIFF continuous raw recording: FiffInfo plus a directory of FIFF_DATA_BUFFER tags for random&#45;access s..." alt="" coords="4804,93,4923,119"/>
+<area shape="poly" title=" " alt="" coords="4686,43,4817,87,4815,92,4684,48"/>
+<area shape="rect" href="a02363.html" title="Noise / data covariance matrix as stored under FIFFB_MNE_COV, with channel names, kind,..." alt="" coords="5254,93,5334,119"/>
+<area shape="poly" title=" " alt="" coords="4701,32,5241,96,5240,101,4700,38"/>
+<area shape="rect" href="a02381.html" title="Set of averaged evoked responses sharing a FiffInfo, plus the ave&#45;style category / rejection descript..." alt="" coords="4284,93,4416,119"/>
+<area shape="poly" title=" " alt="" coords="4563,48,4405,92,4403,87,4561,43"/>
+<area shape="rect" href="a02423.html" title="High&#45;level digitization data: dig points plus the device→head transform and fitting metadata that tog..." alt="" coords="743,240,890,265"/>
+<area shape="poly" title=" " alt="" coords="4557,29,3895,31,2859,40,2325,48,1847,59,1473,75,1341,85,1254,96,1137,125,1023,164,925,204,853,236,851,232,923,199,1021,159,1135,120,1253,91,1341,80,1473,70,1847,54,2325,42,2859,34,3895,26,4557,24"/>
+<area shape="rect" href="a01595.html" title="Logging: a std::format facade with a replaceable sink, the console and file writer,..." alt="" coords="6075,533,6198,559"/>
+<area shape="poly" title=" " alt="" coords="4700,24,5010,24,5435,32,5645,40,5831,52,5973,69,6023,79,6055,91,6081,107,6100,125,6110,148,6114,178,6114,401,6120,465,6132,520,6127,521,6115,466,6109,401,6109,178,6105,149,6095,129,6078,112,6053,96,6021,84,5972,74,5830,57,5645,45,5435,37,5010,30,4700,29"/>
+<area shape="rect" href="a01616.html" title="Static linear&#45;algebra helpers: SVD&#45;based conditioning, block&#45;diagonal assembly, sorted index pairs." alt="" coords="5201,607,5342,632"/>
+<area shape="poly" title=" " alt="" coords="4700,24,4866,26,5074,35,5179,43,5275,55,5356,71,5416,91,5494,132,5524,153,5550,176,5572,202,5592,233,5630,312,5644,339,5661,360,5675,379,5682,399,5677,424,5656,457,5616,501,5551,561,5519,578,5469,593,5356,612,5355,607,5468,587,5517,573,5548,556,5612,497,5652,454,5672,422,5676,400,5670,381,5657,363,5640,342,5625,315,5588,235,5568,205,5546,180,5521,157,5492,137,5414,96,5355,76,5274,60,5178,49,5074,40,4866,31,4700,29"/>
+<area shape="rect" href="a01640.html" title="General numerical helpers: GCD, log2, histogram binning, baseline rescaling, sparsity tests." alt="" coords="5833,607,5998,632"/>
+<area shape="poly" title=" " alt="" coords="4700,25,4917,31,5207,43,5493,62,5612,75,5701,91,5772,100,5836,105,5863,112,5884,125,5898,147,5903,178,5903,474,5907,538,5914,593,5909,593,5902,539,5898,474,5898,178,5893,149,5881,129,5861,117,5835,110,5771,105,5700,96,5611,80,5493,67,5206,48,4917,36,4700,31"/>
+<area shape="rect" title=" " alt="" coords="6478,93,6542,119"/>
+<area shape="poly" title=" " alt="" coords="4700,25,5050,30,5559,42,6079,62,6296,75,6460,91,6465,91,6464,97,6459,96,6295,80,6078,67,5559,48,5050,36,4700,30"/>
+<area shape="rect" title=" " alt="" coords="6567,93,6645,119"/>
+<area shape="poly" title=" " alt="" coords="4700,25,5061,30,5591,42,6139,61,6372,75,6553,91,6552,96,6372,80,6139,67,5591,47,5061,35,4700,30"/>
+<area shape="rect" title=" " alt="" coords="6669,93,6772,119"/>
+<area shape="poly" title=" " alt="" coords="4700,25,5078,31,5638,44,6218,63,6465,76,6656,91,6656,96,6465,81,6218,69,5638,49,5078,36,4700,30"/>
+<area shape="rect" title=" " alt="" coords="6796,93,6859,119"/>
+<area shape="poly" title=" " alt="" coords="4700,24,5099,26,5697,35,6015,43,6316,55,6580,70,6783,91,6782,96,6579,76,6316,60,6015,48,5697,40,5099,31,4700,29"/>
+<area shape="rect" href="a02489.html" title="Export macro of mne_fiff — FIFF file I/O, in&#45;memory data structures and high&#45;level readers/writers." alt="" coords="2641,607,2739,632"/>
+<area shape="poly" title=" " alt="" coords="1903,410,2033,480,2124,522,2220,556,2331,582,2442,599,2545,609,2627,614,2627,619,2545,614,2442,604,2330,587,2219,561,2122,527,2030,485,1901,414"/>
+<area shape="rect" title=" " alt="" coords="1233,753,1323,779"/>
+<area shape="poly" title=" " alt="" coords="1831,406,1679,423,1588,439,1498,462,1472,475,1447,488,1410,494,1364,497,1255,498,1200,500,1151,506,1111,517,1084,535,1080,545,1084,558,1098,581,1112,598,1145,622,1182,643,1202,658,1223,678,1267,740,1262,743,1219,682,1199,662,1179,648,1142,627,1108,602,1093,584,1079,560,1075,545,1080,532,1109,512,1150,501,1200,495,1255,493,1364,492,1410,489,1445,483,1470,470,1496,458,1587,434,1678,417,1831,401"/>
+<area shape="rect" title=" " alt="" coords="61,753,135,779"/>
+<area shape="poly" title=" " alt="" coords="1831,404,1755,408,1658,417,1551,435,1447,462,1425,475,1403,488,1330,507,1263,520,1200,528,1142,532,1033,529,931,519,829,508,720,503,598,510,531,520,457,536,371,560,307,588,248,626,178,682,145,713,118,744,114,740,141,709,175,678,245,622,305,583,370,555,456,531,530,515,598,505,720,498,829,503,931,514,1033,524,1141,526,1200,523,1262,515,1329,502,1401,483,1423,471,1445,458,1550,429,1657,412,1754,402,1831,399"/>
+<area shape="rect" title=" " alt="" coords="2027,753,2086,779"/>
+<area shape="poly" title=" " alt="" coords="1831,408,1701,426,1624,441,1548,462,1523,475,1497,488,1457,495,1405,497,1285,496,1224,498,1169,504,1125,515,1108,524,1095,535,1090,546,1095,557,1109,572,1127,586,1176,612,1237,634,1304,653,1440,682,1545,703,1678,727,1810,743,2013,760,2013,765,1809,749,1677,732,1544,708,1439,688,1303,658,1235,639,1174,617,1124,591,1105,576,1090,560,1085,546,1090,532,1105,520,1123,510,1168,498,1224,493,1285,491,1405,492,1457,489,1496,483,1521,471,1546,458,1623,436,1700,420,1831,403"/>
+<area shape="poly" title=" " alt="" coords="1897,410,1936,445,1987,483,2064,525,2145,556,2319,614,2457,652,2598,679,2780,703,3008,722,3313,737,3665,747,4036,754,4723,761,5147,762,5147,767,4723,766,4036,760,3665,753,3312,742,3008,727,2779,708,2597,684,2456,657,2318,620,2144,561,2061,530,1984,488,1932,449,1893,414"/>
+<area shape="rect" href="a02327.html" title="FIFF tag&#45;kind, block&#45;kind and type&#45;code numerical definitions, authoritative for mne_fiff." alt="" coords="1311,460,1389,485"/>
+<area shape="poly" title=" " alt="" coords="1831,409,1645,430,1409,463,1404,463,1403,458,1408,457,1644,425,1831,403"/>
+<area shape="rect" href="a02408.html" title="Primitive scalar typedefs and forward&#45;compatible aliases backing the FIFF type system." alt="" coords="3473,607,3568,632"/>
+<area shape="poly" title=" " alt="" coords="1922,410,2167,483,2290,524,2345,541,2416,556,2510,568,2636,579,2938,596,3459,614,3459,619,2938,602,2636,584,2510,574,2415,561,2343,546,2289,530,2165,488,1920,415"/>
+<area shape="rect" title=" " alt="" coords="4712,680,4804,705"/>
+<area shape="poly" title=" " alt="" coords="1884,413,1880,445,1881,485,1889,536,1905,575,1916,591,1931,605,1975,629,2094,639,2371,649,3211,667,4698,688,4698,693,3211,672,2371,654,2093,645,1973,635,1928,610,1912,595,1900,578,1884,537,1875,486,1875,445,1879,412"/>
+<area shape="poly" title=" " alt="" coords="1935,397,2036,399,2171,407,2323,425,2400,439,2475,457,2516,472,2557,489,2624,524,2621,529,2555,494,2515,477,2473,463,2399,445,2322,431,2171,412,2036,404,1935,403"/>
+<area shape="poly" title=" " alt="" coords="1936,402,2558,450,3016,488,3488,531,3906,574,4213,609,4212,614,3905,580,3487,536,3016,493,2558,455,1935,407"/>
+<area shape="poly" title=" " alt="" coords="1936,405,2334,459,2333,464,1935,410"/>
+<area shape="rect" href="a02342.html" title="Single entry of the FIFF tag directory: kind, type, byte size and absolute file position." alt="" coords="2427,533,2542,559"/>
+<area shape="poly" title=" " alt="" coords="1936,408,2167,457,2432,527,2431,532,2165,463,1935,413"/>
+<area shape="rect" href="a01544.html" title="Seekable byte streams over memory and files, with big&#45;endian value I/O, in standard C++." alt="" coords="1105,533,1289,559"/>
+<area shape="poly" title=" " alt="" coords="1843,415,1712,449,1548,488,1412,514,1288,534,1287,529,1411,508,1547,483,1711,444,1842,409"/>
+<area shape="rect" href="a01526.html" title="Error and Expected: why a reader or writer failed, as a value or as an exception." alt="" coords="1986,607,2050,632"/>
+<area shape="poly" title=" " alt="" coords="1885,412,1885,440,1889,478,1899,519,1917,557,1943,582,1974,600,1972,604,1940,586,1913,560,1893,521,1883,479,1880,441,1880,412"/>
+<area shape="rect" title=" " alt="" coords="1806,680,1889,705"/>
+<area shape="poly" title=" " alt="" coords="1831,406,1800,412,1768,422,1738,438,1715,462,1702,486,1699,507,1704,530,1715,558,1735,593,1762,624,1792,650,1819,670,1816,675,1788,654,1759,628,1731,596,1710,560,1699,532,1694,508,1697,484,1710,458,1735,434,1766,417,1799,407,1830,401"/>
+<area shape="rect" title=" " alt="" coords="3289,680,3425,705"/>
+<area shape="poly" title=" " alt="" coords="1834,415,1795,432,1779,445,1765,461,1753,487,1748,510,1752,532,1765,557,1777,569,1794,581,1841,602,1931,629,2058,649,2217,661,2398,667,2591,669,2971,669,3138,671,3275,677,3275,683,3138,676,2971,674,2591,674,2398,672,2217,666,2057,655,1929,635,1839,607,1792,585,1773,573,1761,560,1747,534,1743,510,1748,485,1761,459,1775,442,1793,428,1831,410"/>
+<area shape="poly" title=" " alt="" coords="2641,625,1128,690,1127,684,2640,620"/>
+<area shape="rect" title=" " alt="" coords="316,753,387,779"/>
+<area shape="poly" title=" " alt="" coords="939,706,401,762,400,757,938,701"/>
+<area shape="poly" title=" " alt="" coords="1067,703,1224,747,1223,752,1066,708"/>
+<area shape="poly" title=" " alt="" coords="938,703,149,763,149,758,938,698"/>
+<area shape="poly" title=" " alt="" coords="1114,701,1133,703,1651,740,2014,760,2013,765,1650,745,1132,708,1114,706"/>
+<area shape="rect" title=" " alt="" coords="852,753,949,779"/>
+<area shape="poly" title=" " alt="" coords="1007,708,934,749,932,744,1004,703"/>
+<area shape="poly" title=" " alt="" coords="1114,694,1487,703,3764,742,5147,761,5147,767,3764,747,1487,708,1113,699"/>
+<area shape="poly" title=" " alt="" coords="3521,633,3510,671,3499,691,3482,708,3459,715,3414,722,3273,733,2855,751,2405,762,2100,767,2100,761,2405,756,2855,746,3272,728,3414,716,3457,710,3479,703,3495,688,3505,669,3516,632"/>
+<area shape="poly" title=" " alt="" coords="3516,634,3486,672,3464,692,3438,708,3395,716,3314,724,3060,735,2718,744,2332,749,1221,756,963,765,963,760,1221,751,2332,744,2718,738,3060,730,3314,719,3394,711,3436,703,3460,688,3482,668,3511,631"/>
+<area shape="poly" title=" " alt="" coords="3568,622,3646,629,4477,703,5148,758,5148,764,4476,708,3646,635,3568,628"/>
+<area shape="poly" title=" " alt="" coords="3568,623,3646,629,4260,666,4698,686,4698,692,4260,671,3646,635,3568,628"/>
+<area shape="poly" title=" " alt="" coords="3474,635,3279,682,3277,677,3473,629"/>
+<area shape="poly" title=" " alt="" coords="2661,558,2680,593,2675,596,2656,560"/>
+<area shape="poly" title=" " alt="" coords="2622,561,2100,752,2098,747,2620,556"/>
+<area shape="poly" title=" " alt="" coords="2688,548,3460,610,3459,616,2688,553"/>
+<area shape="poly" title=" " alt="" coords="2646,560,2627,595,2624,614,2631,630,2658,644,2713,655,2870,673,3046,683,3185,688,3184,693,3046,688,2870,678,2712,661,2657,649,2627,634,2618,615,2622,593,2641,557"/>
+<area shape="poly" title=" " alt="" coords="2688,547,2859,556,3664,592,4212,613,4212,619,3664,597,2859,561,2688,552"/>
+<area shape="poly" title=" " alt="" coords="2405,486,2403,521,2408,540,2417,557,2431,567,2451,576,2505,592,2568,603,2627,610,2626,615,2567,608,2504,597,2449,581,2428,572,2413,560,2403,542,2398,522,2400,485"/>
+<area shape="poly" title=" " alt="" coords="2347,478,1419,497,887,515,692,525,577,536,511,549,460,562,410,581,348,609,283,643,221,681,125,747,122,743,218,677,281,638,346,604,408,576,458,557,509,544,576,531,692,520,887,509,1419,492,2347,472"/>
+<area shape="poly" title=" " alt="" coords="2402,486,2392,520,2392,540,2399,557,2415,578,2431,593,2448,603,2466,610,2560,629,2653,653,2732,670,2869,686,3008,693,3186,703,3486,722,3792,736,4378,754,4858,761,5147,762,5147,767,4858,766,4378,759,3792,741,3486,727,3186,708,3008,698,2869,692,2731,675,2652,658,2559,635,2465,615,2446,608,2428,597,2411,582,2394,560,2387,541,2387,520,2397,485"/>
+<area shape="poly" title=" " alt="" coords="2436,483,2555,531,2581,545,2607,556,2682,571,2783,583,3026,600,3273,610,3459,614,3459,620,3273,615,3026,605,2782,588,2681,576,2605,561,2578,550,2553,536,2434,488"/>
+<area shape="poly" title=" " alt="" coords="2445,483,2605,528,2603,533,2444,488"/>
+<area shape="poly" title=" " alt="" coords="2462,477,2840,512,3361,556,3856,590,4213,612,4212,618,3856,596,3360,561,2839,517,2462,482"/>
+<area shape="poly" title=" " alt="" coords="2419,483,2463,522,2460,526,2416,487"/>
+<area shape="poly" title=" " alt="" coords="2518,556,2645,600,2643,605,2517,561"/>
+<area shape="poly" title=" " alt="" coords="2543,554,2561,556,2823,579,3080,596,3460,613,3459,619,3080,601,2822,585,2560,561,2542,559"/>
+<area shape="poly" title=" " alt="" coords="2499,557,2548,594,2581,614,2616,629,2665,642,2731,653,2892,670,3184,687,3184,692,2892,675,2731,658,2664,647,2614,635,2579,619,2545,599,2496,561"/>
+<area shape="poly" title=" " alt="" coords="1105,560,968,579,817,609,695,644,575,683,393,751,391,746,573,678,693,638,816,604,967,574,1104,555"/>
+<area shape="poly" title=" " alt="" coords="1208,557,1241,608,1259,643,1274,679,1280,710,1281,739,1276,739,1275,711,1269,681,1255,645,1237,611,1203,560"/>
+<area shape="poly" title=" " alt="" coords="1224,556,1397,626,1516,667,1640,703,1744,725,1848,741,2013,759,2013,764,1848,746,1743,730,1639,708,1514,672,1395,631,1222,561"/>
+<area shape="poly" title=" " alt="" coords="1104,552,1027,557,946,567,878,584,853,595,836,608,827,624,824,641,827,659,834,677,856,712,881,742,876,745,851,716,829,679,822,660,819,641,822,622,832,605,850,591,876,579,945,562,1026,552,1104,547"/>
+<area shape="poly" title=" " alt="" coords="1235,556,1515,637,1675,678,1794,703,1885,711,2022,718,2412,731,3460,749,4514,758,5148,762,5148,767,4514,764,3460,754,2412,736,2022,723,1885,716,1794,708,1674,684,1514,642,1234,561"/>
+<area shape="poly" title=" " alt="" coords="1268,556,1569,604,1648,618,1728,629,1947,648,2170,663,2601,680,2959,688,3184,689,3184,694,2959,693,2601,686,2170,668,1946,654,1727,635,1647,624,1568,609,1267,561"/>
+<area shape="poly" title=" " alt="" coords="1289,547,4212,614,4212,619,1289,552"/>
+<area shape="poly" title=" " alt="" coords="1289,553,1972,611,1972,617,1289,558"/>
+<area shape="poly" title=" " alt="" coords="2024,632,2053,739,2047,741,2019,633"/>
+<area shape="poly" title=" " alt="" coords="1992,634,1889,677,1887,672,1989,630"/>
+<area shape="poly" title=" " alt="" coords="2050,619,2629,629,6222,688,6222,693,2629,635,2050,624"/>
+<area shape="poly" title=" " alt="" coords="2050,619,4817,677,5217,687,5217,693,4817,683,2050,624"/>
+<area shape="poly" title=" " alt="" coords="723,547,2627,613,2627,618,723,552"/>
+<area shape="poly" title=" " alt="" coords="588,551,540,556,487,566,434,583,385,609,365,624,352,639,335,681,334,711,342,740,337,742,328,712,330,679,348,636,361,620,382,604,432,578,486,561,539,551,588,546"/>
+<area shape="poly" title=" " alt="" coords="635,561,609,580,588,608,577,635,571,659,573,681,588,703,613,711,671,720,849,736,1219,759,1219,764,849,742,671,725,612,717,584,707,568,683,565,659,571,633,584,605,606,577,632,557"/>
+<area shape="poly" title=" " alt="" coords="651,560,637,589,625,628,622,649,622,669,628,687,638,703,693,712,829,722,1246,739,2013,761,2013,766,1246,745,829,727,693,718,635,708,623,690,617,670,616,648,619,627,632,587,646,558"/>
+<area shape="poly" title=" " alt="" coords="606,561,567,579,551,592,537,608,524,634,519,658,523,680,537,704,557,718,586,730,666,748,756,757,838,761,838,767,756,763,665,753,585,736,554,723,533,707,518,682,513,657,519,632,533,605,547,588,565,575,603,556"/>
+<area shape="poly" title=" " alt="" coords="656,559,652,589,652,629,661,670,670,688,683,703,735,710,868,716,1333,728,2757,746,4259,757,5148,762,5148,767,4259,762,2756,751,1333,733,867,721,734,715,681,708,666,691,656,672,646,629,646,589,650,558"/>
+<area shape="poly" title=" " alt="" coords="723,553,1054,590,1273,612,1494,629,2012,657,2514,675,3184,688,3184,694,2514,680,2012,663,1494,635,1272,617,1054,596,723,558"/>
+<area shape="poly" title=" " alt="" coords="723,548,1972,613,1972,618,723,554"/>
+<area shape="poly" title=" " alt="" coords="723,547,1093,556,2291,573,3223,579,4156,586,5354,604,5707,613,5707,619,5354,609,4155,591,3223,585,2291,579,1093,561,723,552"/>
+<area shape="rect" title=" " alt="" coords="1506,607,1557,632"/>
+<area shape="poly" title=" " alt="" coords="723,550,1492,612,1492,617,723,555"/>
+<area shape="rect" title=" " alt="" coords="693,680,761,705"/>
+<area shape="poly" title=" " alt="" coords="664,558,718,666,713,669,659,560"/>
+<area shape="poly" title=" " alt="" coords="624,488,599,507,579,535,562,574,557,593,556,612,560,633,571,654,590,677,618,703,640,711,683,718,826,730,1249,748,1705,758,2014,762,2014,767,1705,763,1249,753,826,736,683,723,638,716,615,708,586,681,566,657,555,634,550,613,552,592,557,572,574,532,595,504,621,483"/>
+<area shape="poly" title=" " alt="" coords="683,483,948,556,1267,636,1448,677,1589,703,1685,711,1832,718,2246,731,3360,748,4479,758,5147,762,5147,767,4479,764,3360,754,2246,736,1832,723,1685,716,1588,708,1447,683,1266,641,947,561,681,488"/>
+<area shape="poly" title=" " alt="" coords="648,485,654,519,648,520,643,486"/>
+<area shape="rect" href="a01598.html" title="JSON values, arrays, objects and documents in standard C++, the counterpart of Qt&#39;s JSON classes." alt="" coords="845,607,975,632"/>
+<area shape="poly" title=" " alt="" coords="665,483,797,556,876,598,874,603,794,561,662,488"/>
+<area shape="poly" title=" " alt="" coords="897,634,846,671,811,691,775,708,673,737,569,754,475,763,401,767,400,762,475,758,569,749,672,731,773,703,809,687,843,667,894,630"/>
+<area shape="poly" title=" " alt="" coords="959,630,1125,666,1336,703,1534,726,1729,743,2014,760,2014,766,1728,748,1533,731,1335,708,1124,671,958,635"/>
+<area shape="poly" title=" " alt="" coords="912,633,905,740,900,739,907,632"/>
+<area shape="poly" title=" " alt="" coords="975,629,1222,667,1379,687,1538,703,1893,721,2367,736,2913,746,3486,753,4534,761,5147,762,5147,767,4534,766,3486,759,2913,752,2367,741,1893,727,1538,708,1378,693,1221,673,974,635"/>
+<area shape="poly" title=" " alt="" coords="975,620,3184,687,3184,693,975,625"/>
+<area shape="poly" title=" " alt="" coords="975,619,1494,629,3155,652,3882,661,4817,677,5217,687,5217,693,4817,683,3882,666,3155,657,1494,635,975,625"/>
+<area shape="poly" title=" " alt="" coords="882,635,771,677,769,672,880,630"/>
+<area shape="poly" title=" " alt="" coords="2713,257,2562,259,2333,266,2061,284,1921,298,1784,316,1697,331,1630,346,1479,389,1442,397,1409,401,1352,405,1326,410,1302,419,1279,436,1256,461,1251,473,1256,483,1309,495,1440,511,1847,549,2627,611,2627,616,1846,554,1440,516,1308,500,1252,487,1246,473,1252,459,1275,432,1299,414,1325,404,1351,400,1409,396,1441,392,1477,384,1629,341,1696,326,1783,311,1920,293,2061,279,2333,261,2562,253,2713,251"/>
+<area shape="poly" title=" " alt="" coords="2713,256,2497,257,2148,264,1725,282,1505,297,1289,316,1166,331,1071,346,856,389,518,462,448,507,398,551,361,605,328,681,326,696,327,711,339,740,334,742,322,713,320,696,323,679,357,602,394,548,445,503,516,458,855,384,1071,341,1166,326,1288,311,1504,291,1724,276,2148,259,2497,252,2713,251"/>
+<area shape="poly" title=" " alt="" coords="2713,257,1944,273,1455,291,1249,302,1094,316,992,330,913,346,735,389,551,434,476,455,409,481,345,513,283,555,218,611,148,682,126,712,110,742,105,740,121,709,144,678,215,607,280,551,343,509,407,476,474,450,549,429,733,384,912,340,991,325,1094,311,1249,297,1454,285,1944,268,2713,252"/>
+<area shape="poly" title=" " alt="" coords="2713,257,2463,258,2081,266,1878,273,1687,283,1523,297,1400,316,1288,343,1242,359,1202,379,1167,405,1136,438,1109,481,1084,534,1080,551,1081,566,1086,578,1095,589,1123,610,1156,630,1210,652,1282,673,1413,703,1586,729,1758,746,2013,761,2013,766,1757,751,1586,734,1412,708,1281,678,1208,657,1154,634,1120,614,1092,593,1082,581,1076,567,1075,551,1079,532,1104,478,1132,435,1163,401,1199,374,1240,354,1287,338,1399,311,1522,292,1687,278,1878,267,2081,260,2462,253,2713,251"/>
+<area shape="poly" title=" " alt="" coords="2788,263,3072,355,3477,483,3604,521,3732,556,3894,597,4058,629,4384,678,4703,716,5147,758,5147,764,4702,721,4384,683,4057,635,3893,602,3731,561,3603,526,3476,488,3070,360,2786,268"/>
+<area shape="poly" title=" " alt="" coords="2713,257,2531,263,2246,283,2080,299,1906,322,1731,352,1561,389,1465,421,1386,456,1384,451,1463,416,1560,384,1730,347,1905,317,2079,294,2245,277,2531,258,2713,252"/>
+<area shape="poly" title=" " alt="" coords="2764,264,2792,298,2830,337,2886,376,2946,410,3010,449,3078,483,3181,522,3286,555,3460,602,3459,607,3284,560,3179,527,3076,488,3008,454,2943,414,2883,381,2827,341,2788,302,2759,268"/>
+<area shape="poly" title=" " alt="" coords="2793,259,2898,280,3025,311,3178,355,3295,395,3412,436,3564,483,3703,522,3844,556,4028,597,4214,629,4485,664,4699,684,4698,689,4484,669,4214,635,4027,603,3843,561,3702,527,3563,488,3411,441,3294,400,3176,360,3024,316,2897,286,2792,264"/>
+<area shape="poly" title=" " alt="" coords="2759,265,2775,299,2799,337,2849,393,2904,447,3018,543,3124,620,3202,670,3199,675,3121,624,3015,548,2900,451,2845,397,2794,340,2770,301,2755,267"/>
+<area shape="poly" title=" " alt="" coords="2751,266,2664,521,2658,519,2746,265"/>
+<area shape="poly" title=" " alt="" coords="2792,254,2985,273,3112,289,3240,311,3472,359,3652,403,3829,456,4055,531,4149,566,4227,599,4225,604,4147,571,4053,536,3828,461,3651,408,3471,364,3239,316,3111,295,2985,278,2792,260"/>
+<area shape="poly" title=" " alt="" coords="2744,267,2506,525,2502,521,2740,264"/>
+<area shape="poly" title=" " alt="" coords="2713,257,2544,258,2281,265,1967,283,1804,297,1645,316,1484,332,1402,342,1327,355,1268,373,1246,385,1230,400,1222,416,1221,435,1228,457,1245,484,1256,492,1275,501,1333,519,1497,555,1665,585,1765,604,1803,618,1841,629,1978,646,2148,657,2342,662,2548,664,2952,666,3129,670,3275,677,3275,683,3129,675,2952,672,2548,669,2342,667,2148,662,1977,652,1840,635,1801,623,1764,609,1664,590,1496,560,1332,524,1273,506,1253,496,1241,487,1223,460,1215,436,1216,415,1226,396,1243,381,1265,368,1326,349,1401,336,1483,327,1644,311,1804,292,1966,278,2281,260,2544,253,2713,251"/>
+<area shape="poly" title=" " alt="" coords="2713,263,2392,314,2391,309,2712,258"/>
+<area shape="poly" title=" " alt="" coords="2792,253,3060,272,3243,289,3430,311,3661,346,3887,386,4226,455,4225,460,3886,392,3660,351,3430,316,3243,294,3059,277,2792,259"/>
+<area shape="poly" title=" " alt="" coords="2769,263,2826,305,2915,364,3023,428,3082,457,3140,483,3196,502,3254,516,3358,535,3358,540,3253,521,3195,507,3138,488,3079,462,3021,433,2912,369,2823,309,2766,268"/>
+<area shape="poly" title=" " alt="" coords="2793,254,2961,272,3069,288,3177,311,3251,331,3312,351,3413,393,3514,437,3647,483,3748,509,3841,529,3840,534,3747,514,3645,488,3512,442,3411,398,3310,356,3249,336,3176,316,3068,293,2960,277,2792,259"/>
+<area shape="poly" title=" " alt="" coords="2792,254,3840,319,3840,324,2792,259"/>
+<area shape="poly" title=" " alt="" coords="2243,341,1949,390,1949,384,2242,336"/>
+<area shape="poly" title=" " alt="" coords="2312,339,2316,403,2324,444,2338,484,2361,527,2376,541,2398,556,2455,583,2515,600,2575,610,2627,614,2626,620,2574,615,2514,605,2453,588,2395,561,2372,546,2357,530,2333,486,2319,446,2311,404,2307,339"/>
+<area shape="poly" title=" " alt="" coords="2243,330,1979,335,1804,345,1620,361,1441,387,1357,403,1280,423,1212,446,1153,472,1106,502,1073,535,1064,550,1060,566,1063,597,1080,627,1106,657,1139,684,1175,708,1242,745,1239,750,1172,712,1136,688,1102,660,1075,630,1058,598,1055,565,1060,548,1069,532,1103,497,1151,467,1210,441,1279,418,1356,398,1440,381,1620,356,1804,339,1979,330,2242,324"/>
+<area shape="poly" title=" " alt="" coords="2305,340,2072,743,2068,740,2301,338"/>
+<area shape="poly" title=" " alt="" coords="2243,333,1854,351,1301,381,1029,400,795,420,626,441,574,452,549,462,521,490,500,519,484,549,476,579,474,610,480,641,494,673,516,703,537,719,569,732,655,750,752,759,838,762,838,767,751,764,654,755,567,737,534,724,512,707,489,675,475,643,469,611,470,578,479,547,495,516,517,486,546,458,573,447,625,436,795,415,1029,394,1301,376,1854,345,2242,327"/>
+<area shape="poly" title=" " alt="" coords="2341,336,2456,378,2632,437,2843,501,3062,556,3171,576,3280,592,3459,611,3459,616,3280,597,3170,582,3061,561,2842,506,2631,442,2454,383,2339,341"/>
+<area shape="poly" title=" " alt="" coords="2353,336,2571,393,2924,476,3132,520,3352,562,3577,600,3798,629,4061,654,4319,671,4699,687,4698,692,4319,677,4060,659,3798,635,3576,605,3351,567,3131,525,2923,481,2570,398,2351,341"/>
+<area shape="poly" title=" " alt="" coords="2311,339,2307,381,2309,441,2314,473,2324,504,2339,533,2360,557,2387,576,2424,593,2517,622,2632,645,2757,662,2884,673,3004,681,3184,688,3184,693,3004,687,2884,679,2756,667,2631,650,2516,627,2422,598,2385,580,2356,561,2334,536,2319,506,2309,474,2303,442,2302,381,2305,339"/>
+<area shape="poly" title=" " alt="" coords="2378,332,2822,384,3405,453,3769,499,3986,531,4115,565,4222,600,4220,605,4114,570,3985,536,3768,504,3404,458,2822,389,2377,338"/>
+<area shape="poly" title=" " alt="" coords="2320,338,2392,447,2387,450,2315,341"/>
+<area shape="poly" title=" " alt="" coords="2243,339,2180,356,2148,371,2120,389,2097,410,2078,435,2049,492,2032,548,2023,594,2018,593,2027,547,2044,490,2073,433,2093,407,2116,385,2146,366,2178,351,2242,334"/>
+<area shape="poly" title=" " alt="" coords="2243,330,2156,333,2050,342,1934,359,1820,389,1747,412,1720,430,1696,461,1685,486,1679,508,1678,530,1683,550,1704,590,1740,630,1771,654,1805,672,1803,677,1768,659,1736,634,1700,593,1678,552,1673,530,1674,508,1680,484,1692,459,1717,426,1745,408,1819,384,1933,354,2049,336,2156,327,2242,324"/>
+<area shape="poly" title=" " alt="" coords="4238,477,4081,480,3853,489,3586,506,3316,536,3258,548,3201,561,2953,595,2753,615,2753,610,2953,590,3200,556,3257,543,3315,531,3586,501,3852,483,4081,475,4238,472"/>
+<area shape="poly" title=" " alt="" coords="4344,474,4579,488,4901,514,5059,532,5197,553,5300,577,5335,590,5356,605,5368,627,5367,648,5356,669,5337,689,5287,724,5235,750,5232,745,5284,719,5333,685,5351,666,5362,647,5363,628,5352,608,5332,595,5299,582,5196,558,5058,537,4900,519,4579,493,4344,479"/>
+<area shape="poly" title=" " alt="" coords="4263,488,4162,524,4031,561,3907,584,3782,600,3582,617,3581,612,3782,595,3906,579,4029,556,4160,519,4261,483"/>
+<area shape="poly" title=" " alt="" coords="4340,483,4411,503,4487,531,4558,565,4626,604,4731,670,4728,674,4624,608,4556,570,4485,536,4409,508,4339,488"/>
+<area shape="poly" title=" " alt="" coords="4312,483,4336,504,4356,532,4364,563,4359,590,4343,614,4317,634,4291,645,4251,653,4136,665,3988,672,3822,676,3495,678,3365,679,3278,683,3278,678,3365,674,3495,672,3822,670,3988,667,4136,660,4250,648,4289,640,4314,630,4339,610,4354,588,4359,564,4351,534,4332,507,4308,488"/>
+<area shape="poly" title=" " alt="" coords="4306,484,4332,517,4339,538,4336,560,4320,583,4299,601,4296,597,4316,580,4331,558,4334,539,4328,519,4302,487"/>
+<area shape="poly" title=" " alt="" coords="4238,481,3489,542,3489,537,4238,476"/>
+<area shape="poly" title=" " alt="" coords="3372,559,3353,561,3015,596,2753,616,2753,611,3014,591,3352,556,3371,553"/>
+<area shape="poly" title=" " alt="" coords="3440,557,3495,596,3492,600,3437,561"/>
+<area shape="poly" title=" " alt="" coords="3409,561,3259,674,3256,669,3406,557"/>
+<area shape="poly" title=" " alt="" coords="3475,549,4212,611,4212,616,3474,554"/>
+<area shape="poly" title=" " alt="" coords="3854,556,3785,561,3185,597,2753,618,2753,613,3185,592,3784,556,3854,550"/>
+<area shape="poly" title=" " alt="" coords="3855,561,3582,610,3581,604,3854,555"/>
+<area shape="poly" title=" " alt="" coords="3875,561,3745,596,3581,635,3498,650,3432,659,3364,667,3279,683,3278,677,3364,662,3431,653,3497,644,3580,629,3744,591,3873,556"/>
+<area shape="poly" title=" " alt="" coords="3971,556,4213,605,4212,610,3970,561"/>
+<area shape="poly" title=" " alt="" coords="4529,407,3983,452,3594,489,3196,536,2950,573,2753,609,2753,603,2950,568,3195,531,3593,484,3982,446,4529,402"/>
+<area shape="poly" title=" " alt="" coords="4649,404,4821,427,4930,445,5043,467,5152,494,5250,526,5329,563,5358,583,5380,605,5386,617,5388,631,5381,660,5366,687,5348,707,5322,727,5294,741,5238,760,5236,754,5292,737,5320,722,5344,703,5361,683,5376,658,5383,631,5381,619,5376,608,5355,587,5326,567,5248,531,5151,499,5042,473,4929,450,4820,432,4648,410"/>
+<area shape="poly" title=" " alt="" coords="4560,415,4470,449,4357,488,4228,530,4096,561,3952,584,3809,601,3582,618,3582,612,3808,595,3951,579,4095,556,4227,525,4356,483,4468,444,4559,410"/>
+<area shape="poly" title=" " alt="" coords="4613,410,4662,437,4723,480,4754,506,4784,536,4809,569,4830,606,4832,626,4824,644,4810,661,4793,674,4789,670,4806,657,4820,642,4827,625,4825,608,4805,572,4780,540,4751,510,4720,484,4659,442,4611,414"/>
+<area shape="poly" title=" " alt="" coords="4582,414,4527,482,4484,524,4437,561,4376,590,4317,609,4316,604,4374,585,4434,556,4481,520,4523,479,4578,411"/>
+<area shape="poly" title=" " alt="" coords="4541,415,4353,459,4352,454,4540,409"/>
+<area shape="poly" title=" " alt="" coords="4424,190,4200,232,3839,307,3627,355,3404,409,3180,470,2961,536,2897,561,2748,606,2746,601,2896,556,2960,531,3179,465,3403,404,3626,349,3838,301,4199,227,4423,185"/>
+<area shape="poly" title=" " alt="" coords="4507,184,4747,222,4916,255,5098,295,5277,343,5440,399,5510,429,5570,462,5618,496,5654,532,5658,545,5654,560,5646,575,5637,586,5616,608,5600,637,5589,662,5576,686,5551,708,5526,720,5492,730,5407,746,5238,764,5238,759,5406,741,5491,725,5524,715,5548,703,5572,682,5585,660,5595,635,5612,605,5633,582,5642,572,5649,558,5652,545,5649,535,5615,500,5567,466,5507,434,5438,404,5276,348,5096,300,4915,260,4746,228,4506,189"/>
+<area shape="poly" title=" " alt="" coords="4455,194,4326,319,4227,405,4119,488,4076,513,4031,536,4010,550,3987,561,3877,590,3766,608,3664,617,3582,620,3582,615,3664,612,3765,602,3876,585,3985,556,4007,545,4029,531,4074,508,4116,483,4223,401,4322,315,4452,190"/>
+<area shape="poly" title=" " alt="" coords="4490,190,4538,217,4596,260,4624,286,4649,316,4670,350,4683,386,4688,417,4686,444,4679,467,4666,488,4627,525,4575,561,4518,595,4468,613,4349,635,4189,658,4052,668,3930,669,3816,665,3702,660,3580,659,3441,665,3278,683,3278,678,3441,660,3579,654,3702,655,3816,660,3930,664,4052,663,4188,653,4348,629,4467,608,4515,590,4572,556,4623,521,4661,485,4674,465,4681,443,4683,417,4678,387,4665,352,4645,319,4620,290,4592,264,4535,222,4487,194"/>
+<area shape="poly" title=" " alt="" coords="4423,183,4281,186,4070,194,3821,212,3693,225,3568,243,3484,258,3419,273,3273,316,3055,383,2842,462,2689,530,2687,525,2840,458,3054,378,3272,311,3418,268,3483,252,3567,237,3692,220,3821,207,4070,189,4281,181,4423,178"/>
+<area shape="poly" title=" " alt="" coords="4481,190,4534,234,4600,296,4629,329,4652,360,4665,389,4666,402,4663,413,4633,459,4594,498,4549,531,4500,557,4450,578,4401,594,4317,613,4316,608,4399,588,4448,573,4497,552,4546,526,4591,494,4629,456,4658,411,4661,401,4659,390,4648,363,4625,332,4596,300,4530,238,4478,194"/>
+<area shape="poly" title=" " alt="" coords="4423,184,4105,188,3606,198,3085,216,2867,228,2702,243,2609,257,2516,276,2365,312,2363,307,2515,270,2608,252,2702,237,2866,223,3085,210,3606,193,4105,183,4423,178"/>
+<area shape="poly" title=" " alt="" coords="4460,193,4307,449,4303,447,4456,191"/>
+<area shape="poly" title=" " alt="" coords="4474,191,4577,373,4573,376,4469,194"/>
+<area shape="poly" title=" " alt="" coords="4423,187,3714,248,3714,242,4423,182"/>
+<area shape="poly" title=" " alt="" coords="3610,268,2911,536,2733,604,2731,599,2909,531,3608,263"/>
+<area shape="poly" title=" " alt="" coords="3661,263,3753,318,3873,400,3928,444,3969,487,3983,507,3992,526,3994,544,3988,560,3952,606,3916,638,3878,660,3837,674,3745,690,3633,708,3533,720,3362,731,2897,748,2099,767,2099,761,2897,743,3361,725,3532,715,3632,703,3744,684,3835,669,3875,655,3913,634,3949,602,3984,557,3989,543,3987,528,3979,510,3965,490,3924,448,3870,404,3750,323,3658,268"/>
+<area shape="poly" title=" " alt="" coords="3701,256,3838,274,3918,289,3996,311,4022,323,4047,336,4139,357,4297,382,4718,445,4936,482,5130,521,5211,541,5277,562,5327,583,5356,605,5367,627,5366,649,5354,670,5336,690,5286,724,5235,750,5232,745,5284,720,5332,686,5350,667,5361,648,5362,628,5352,608,5324,588,5276,567,5210,546,5129,526,4935,487,4717,450,4296,387,4138,362,4045,341,4019,328,3994,316,3916,295,3837,279,3700,261"/>
+<area shape="poly" title=" " alt="" coords="3642,266,3641,315,3634,390,3617,476,3603,519,3584,560,3569,582,3550,600,3546,596,3565,578,3580,557,3598,517,3612,475,3629,389,3636,315,3637,266"/>
+<area shape="poly" title=" " alt="" coords="3639,266,3623,318,3594,395,3550,481,3521,523,3489,561,3439,602,3382,636,3326,662,3278,680,3277,675,3324,657,3380,631,3436,598,3485,557,3517,520,3545,479,3589,393,3618,316,3634,265"/>
+<area shape="poly" title=" " alt="" coords="3579,266,3468,285,3343,316,3311,328,3279,341,2950,453,2702,532,2701,527,2949,448,3277,336,3309,323,3341,311,3467,280,3578,260"/>
+<area shape="poly" title=" " alt="" coords="3671,263,3786,311,3993,408,4079,457,4184,531,4219,563,4249,595,4245,598,4216,567,4180,535,4076,462,3990,412,3784,316,3669,268"/>
+<area shape="poly" title=" " alt="" coords="3578,265,3066,343,2705,400,2336,463,1886,548,1571,612,1570,607,1885,543,2335,457,2704,395,3065,337,3578,260"/>
+<area shape="poly" title=" " alt="" coords="3578,260,2391,323,2391,318,3578,255"/>
+<area shape="poly" title=" " alt="" coords="3701,258,3818,277,3886,292,3952,311,4256,452,4253,456,3950,316,3884,297,3817,283,3700,264"/>
+<area shape="poly" title=" " alt="" coords="3652,264,3896,521,3892,525,3648,267"/>
+<area shape="poly" title=" " alt="" coords="3701,260,4046,311,4516,384,4515,389,4046,316,3700,265"/>
+<area shape="poly" title=" " alt="" coords="4804,113,4133,157,3643,196,3140,243,2928,267,2765,289,2390,341,1949,393,1949,388,2390,336,2764,284,2928,262,3139,237,3643,190,4132,152,4803,108"/>
+<area shape="poly" title=" " alt="" coords="4822,121,4465,215,3952,341,3690,396,3485,432,3281,471,3161,499,3021,536,2948,561,2846,588,2753,608,2752,603,2844,582,2946,556,3020,531,3160,494,3279,466,3484,427,3689,391,3951,336,4463,210,4820,116"/>
+<area shape="poly" title=" " alt="" coords="4913,116,4977,136,5044,164,5112,202,5176,245,5234,293,5281,343,5299,369,5313,396,5322,423,5325,451,5323,479,5314,506,5298,534,5274,561,5198,591,5048,640,4817,708,3241,736,1337,766,1337,761,3241,731,4816,703,5047,635,5196,586,5271,556,5294,530,5309,504,5318,478,5320,451,5317,425,5308,398,5295,372,5277,346,5231,297,5173,250,5109,207,5042,169,4975,141,4911,121"/>
+<area shape="poly" title=" " alt="" coords="4923,108,5058,124,5136,141,5212,164,5376,226,5444,255,5504,289,5557,330,5602,383,5641,449,5674,533,5679,561,5676,589,5666,615,5652,639,5617,680,5582,708,5555,721,5517,732,5423,748,5322,759,5238,765,5238,760,5321,754,5422,743,5516,726,5553,716,5579,703,5613,676,5648,636,5662,613,5671,588,5673,562,5669,534,5636,451,5598,386,5553,334,5501,294,5442,260,5374,230,5210,169,5135,146,5057,129,4923,113"/>
+<area shape="poly" title=" " alt="" coords="4898,116,4943,135,4999,161,5058,196,5112,238,5194,315,5229,354,5258,392,5277,432,5283,473,5275,516,5248,560,5226,583,5203,595,5180,601,5156,602,5104,600,5075,602,5044,609,4980,635,4818,680,4817,675,4978,629,5042,604,5075,597,5104,595,5156,597,5179,596,5201,590,5223,578,5244,557,5270,514,5278,473,5272,433,5254,395,5225,357,5190,319,5108,242,5055,200,4997,166,4941,140,4896,121"/>
+<area shape="poly" title=" " alt="" coords="4867,119,4867,152,4859,193,4831,250,4781,324,4715,405,4637,487,4590,530,4534,561,4478,582,4419,598,4317,615,4316,610,4418,592,4476,577,4531,556,4586,526,4633,483,4711,402,4777,320,4826,248,4854,191,4861,152,4862,119"/>
+<area shape="poly" title=" " alt="" coords="4832,121,4609,195,4468,233,4325,268,3874,376,3691,416,3519,449,3347,477,3162,504,2701,561,2334,597,2064,618,2063,612,2333,592,2700,556,3161,499,3346,472,3518,443,3690,411,3872,371,4324,263,4466,228,4608,189,4830,116"/>
+<area shape="poly" title=" " alt="" coords="4871,118,4880,151,4882,172,4881,192,4867,237,4851,271,4804,340,4726,454,4690,498,4652,536,4610,567,4560,594,4502,616,4432,635,4344,649,4227,661,3946,679,3659,689,3439,693,3439,688,3659,683,3946,673,4227,656,4343,644,4431,629,4500,611,4558,589,4607,563,4648,532,4686,495,4722,450,4800,337,4847,268,4862,236,4875,192,4877,172,4875,152,4866,120"/>
+<area shape="poly" title=" " alt="" coords="4804,121,4520,171,4519,166,4803,115"/>
+<area shape="poly" title=" " alt="" coords="5257,121,5194,142,5124,169,5052,203,4993,235,4895,296,4796,354,4735,384,4662,414,4578,444,4512,462,4357,488,4206,505,4077,511,3964,511,3858,507,3752,504,3639,506,3511,515,3361,536,3319,548,3277,561,3131,585,2985,602,2753,618,2753,613,2985,597,3130,580,3276,556,3318,543,3360,531,3511,510,3639,500,3752,499,3858,502,3964,506,4077,506,4206,500,4356,483,4511,457,4577,439,4660,410,4733,379,4793,350,4892,291,4990,230,5050,198,5122,164,5192,137,5255,116"/>
+<area shape="poly" title=" " alt="" coords="5335,113,5424,136,5465,150,5494,164,5518,183,5536,201,5546,222,5550,251,5550,401,5546,436,5536,464,5520,486,5499,504,5445,532,5379,561,5328,581,5285,590,5243,596,5189,609,5124,634,5004,678,4950,694,4880,708,3275,736,1338,766,1337,761,3275,730,4879,703,4949,689,5002,673,5122,630,5188,604,5242,591,5284,584,5326,576,5377,556,5442,527,5496,499,5516,482,5531,461,5541,435,5545,401,5545,251,5541,224,5531,204,5514,187,5491,169,5463,155,5422,141,5334,118"/>
+<area shape="poly" title=" " alt="" coords="5335,110,5461,131,5524,146,5567,164,5624,205,5674,246,5716,289,5747,334,5768,383,5778,436,5773,495,5755,560,5745,576,5733,585,5722,594,5712,608,5709,622,5708,634,5714,659,5716,682,5713,695,5704,707,5679,720,5633,730,5502,747,5356,759,5238,765,5237,760,5355,753,5502,742,5632,725,5677,715,5700,703,5708,692,5711,682,5708,660,5703,635,5703,621,5708,606,5718,590,5730,581,5741,572,5750,558,5768,494,5772,437,5763,384,5743,337,5711,292,5671,250,5621,209,5565,169,5522,151,5460,136,5334,115"/>
+<area shape="poly" title=" " alt="" coords="5286,121,5189,219,5116,283,5035,341,4988,368,4949,384,4857,415,4675,470,4486,515,4298,550,4115,576,3946,595,3797,608,3582,619,3582,614,3796,602,3946,590,4115,571,4297,545,4485,510,4674,465,4856,409,4947,379,4986,363,5032,336,5113,279,5185,215,5282,117"/>
+<area shape="poly" title=" " alt="" coords="5335,115,5410,137,5444,150,5466,165,5484,185,5494,204,5498,225,5499,251,5499,327,5497,371,5489,410,5476,443,5460,472,5439,497,5414,518,5386,536,5354,552,5284,576,5205,596,5031,635,4818,682,4817,677,5029,629,5203,590,5282,571,5352,547,5383,532,5411,514,5435,493,5455,469,5472,441,5484,408,5491,371,5494,327,5494,251,5493,225,5489,205,5480,188,5463,169,5441,155,5408,142,5334,120"/>
+<area shape="poly" title=" " alt="" coords="5317,117,5344,137,5366,165,5384,213,5391,253,5385,294,5366,340,5346,369,5323,387,5263,414,5145,471,5042,514,4950,547,4861,571,4771,590,4673,605,4432,635,4258,652,4110,658,3978,658,3856,655,3733,652,3602,654,3453,663,3278,683,3278,678,3453,657,3602,648,3733,647,3856,650,3979,653,4109,653,4257,646,4431,629,4673,599,4770,584,4860,566,4948,542,5040,509,5143,466,5261,410,5320,382,5342,366,5361,337,5380,292,5386,253,5379,214,5361,168,5340,140,5314,121"/>
+<area shape="poly" title=" " alt="" coords="5297,119,5292,185,5283,227,5264,267,5221,323,5177,357,5126,384,5060,414,4959,459,4852,498,4745,530,4640,557,4452,595,4317,615,4316,609,4451,589,4639,552,4743,525,4851,493,4957,455,5058,410,5123,379,5174,353,5217,319,5260,264,5278,225,5287,184,5292,119"/>
+<area shape="poly" title=" " alt="" coords="5278,121,5194,174,5058,254,4889,340,4800,380,4709,415,4613,445,4536,462,4357,488,3922,528,3487,561,3054,585,2633,602,2064,620,2063,614,2633,597,3054,579,3487,556,3922,522,4356,483,4535,457,4611,440,4708,409,4798,375,4887,336,5055,249,5191,170,5275,117"/>
+<area shape="poly" title=" " alt="" coords="5301,118,5310,151,5311,192,5302,239,5289,276,5267,307,5233,341,5164,397,5102,439,5043,470,4984,492,4922,510,4855,525,4692,561,4505,606,4423,621,4316,635,4084,652,3776,666,3044,684,2345,692,1902,694,1902,689,2345,687,3044,679,3776,661,4084,647,4315,629,4422,616,4504,601,4691,556,4854,520,4921,504,4982,487,5041,465,5099,435,5161,393,5229,337,5263,304,5284,273,5297,238,5306,192,5304,152,5296,119"/>
+<area shape="poly" title=" " alt="" coords="5254,113,4520,176,4519,171,5254,108"/>
+<area shape="poly" title=" " alt="" coords="4284,111,3991,118,3798,126,3599,139,3412,157,3255,182,3195,197,3148,213,3119,232,3112,242,3110,252,3110,328,3106,339,3097,352,3063,384,2953,462,2825,542,2723,602,2721,597,2822,538,2950,458,3059,380,3093,348,3102,336,3105,327,3105,251,3107,239,3116,228,3146,209,3193,191,3254,176,3411,152,3599,133,3798,121,3991,112,4283,105"/>
+<area shape="poly" title=" " alt="" coords="4284,111,4112,118,4006,125,3896,137,3790,154,3695,177,3619,206,3590,223,3569,242,3552,266,3541,290,3536,313,3536,335,3546,381,3565,427,3585,474,3600,524,3603,550,3601,577,3595,604,3583,633,3562,664,3539,683,3510,696,3473,708,3380,715,3165,723,2515,741,1337,766,1337,761,2515,736,3165,718,3380,710,3472,703,3508,691,3536,679,3558,661,3578,631,3590,603,3596,576,3597,550,3595,525,3580,476,3560,429,3541,383,3531,336,3531,312,3536,288,3547,263,3565,238,3587,219,3616,201,3693,171,3789,149,3895,132,4006,120,4112,112,4284,105"/>
+<area shape="poly" title=" " alt="" coords="4358,118,4392,207,4411,275,4427,351,4433,430,4431,469,4425,507,4415,543,4399,577,4378,607,4350,634,4310,663,4272,686,4236,703,4200,716,4130,728,4061,728,3912,712,3827,706,3730,708,3482,725,3230,738,2745,756,2345,764,2100,767,2100,762,2345,759,2744,750,3229,733,3482,719,3730,703,3827,700,3913,706,4062,723,4130,723,4199,710,4234,698,4270,681,4307,659,4347,630,4374,604,4395,574,4410,541,4420,506,4426,468,4428,430,4421,351,4406,276,4387,209,4353,120"/>
+<area shape="poly" title=" " alt="" coords="4389,116,4609,186,4762,240,4925,304,5084,374,5226,449,5286,488,5337,527,5376,566,5402,606,5405,619,5405,634,5397,666,5385,692,5376,707,5344,731,5308,747,5272,758,5238,764,5237,758,5270,753,5306,742,5342,726,5372,704,5381,690,5392,664,5400,634,5400,620,5397,608,5372,570,5333,531,5283,493,5223,454,5082,379,4923,309,4760,245,4607,191,4388,121"/>
+<area shape="poly" title=" " alt="" coords="4416,110,4551,129,4613,145,4638,154,4655,165,4710,213,4750,261,4779,308,4799,357,4813,410,4825,468,4850,606,4853,620,4850,633,4829,658,4802,676,4799,672,4825,654,4845,631,4847,620,4845,607,4819,469,4808,411,4794,359,4774,311,4746,264,4706,217,4652,169,4635,159,4612,150,4550,135,4416,116"/>
+<area shape="poly" title=" " alt="" coords="4343,120,4315,168,4281,247,4259,310,4243,375,4230,460,4229,497,4235,533,4256,594,4251,595,4230,535,4224,497,4225,460,4238,374,4254,309,4276,245,4310,165,4339,118"/>
+<area shape="poly" title=" " alt="" coords="4370,116,4436,157,4433,162,4367,121"/>
+<area shape="poly" title=" " alt="" coords="834,263,943,340,1053,410,1146,453,1244,483,1321,501,1382,510,1444,518,1522,531,1580,545,1638,556,1781,573,1927,587,2211,604,2456,613,2627,615,2627,621,2455,618,2210,610,1926,592,1780,578,1638,561,1579,550,1521,536,1443,523,1381,515,1320,506,1243,488,1144,458,1050,414,940,344,831,268"/>
+<area shape="poly" title=" " alt="" coords="764,268,706,286,649,316,602,347,568,376,542,411,519,461,507,499,500,534,498,567,503,598,514,627,531,654,555,679,586,703,621,715,684,726,862,743,1060,754,1219,760,1219,766,1060,759,862,748,683,731,620,720,583,708,551,683,527,657,509,629,498,599,493,568,494,534,502,498,514,459,538,408,564,372,599,343,646,311,704,281,762,263"/>
+<area shape="poly" title=" " alt="" coords="743,264,615,283,451,320,363,346,274,378,187,416,106,462,73,486,47,511,28,539,15,568,9,599,9,632,17,667,31,704,46,726,67,744,63,748,43,730,26,707,12,668,4,632,4,598,10,566,23,536,43,508,70,482,103,458,185,412,272,373,361,341,450,315,614,278,742,259"/>
+<area shape="poly" title=" " alt="" coords="821,265,829,298,844,337,874,387,904,420,988,483,1038,524,1062,540,1094,556,1200,589,1382,636,1564,680,1674,703,1768,711,1911,719,2314,732,3401,750,4493,759,5147,762,5147,767,4493,764,3401,755,2314,737,1911,724,1768,717,1674,708,1563,685,1381,642,1199,594,1092,561,1059,544,1035,528,984,487,900,424,870,390,840,340,824,300,816,266"/>
+<area shape="poly" title=" " alt="" coords="841,263,938,311,1096,398,1255,483,1311,494,1397,506,1643,528,1958,549,2311,568,3002,597,3460,613,3459,619,3002,603,2311,573,1957,554,1642,534,1397,511,1310,500,1253,488,1093,403,935,316,839,268"/>
+<area shape="poly" title=" " alt="" coords="824,264,841,298,867,337,909,389,946,426,988,455,1048,483,1091,498,1128,508,1193,516,1260,519,1345,531,1446,556,1605,582,1765,604,1844,618,1924,629,2109,639,2423,649,3274,666,4699,688,4698,693,3274,672,2423,654,2109,644,1923,635,1843,624,1764,609,1604,588,1445,561,1344,536,1260,524,1193,521,1127,513,1089,503,1046,488,986,460,942,430,905,392,862,340,837,301,819,267"/>
+<area shape="poly" title=" " alt="" coords="828,264,867,307,930,369,1011,433,1056,460,1103,483,1152,500,1195,511,1271,518,1348,520,1446,531,1561,556,1759,584,1972,610,1972,615,1758,589,1560,561,1445,536,1348,525,1270,523,1194,516,1151,505,1101,488,1053,465,1008,437,927,373,863,311,824,267"/>
+<area shape="poly" title=" " alt="" coords="890,255,2229,318,2229,323,890,260"/>
+<area shape="poly" title=" " alt="" coords="6147,558,6164,594,6166,615,6157,634,6145,642,6126,648,6069,659,5910,672,5651,683,5525,697,5398,708,4883,734,4448,748,4064,755,3707,756,2967,751,2531,751,2015,756,1337,766,1337,761,2015,751,2531,746,2967,746,3707,750,4064,750,4447,743,4883,728,5398,703,5524,692,5651,677,5910,667,6068,654,6124,643,6143,637,6153,630,6160,614,6159,595,6142,560"/>
+<area shape="poly" title=" " alt="" coords="6159,557,6182,572,6203,591,6215,612,6214,623,6208,634,6181,656,6147,674,6107,688,6061,699,5955,712,5840,716,5609,710,5509,707,5431,708,5104,722,4667,733,3635,751,2100,767,2100,762,3635,746,4667,728,5103,716,5431,703,5509,702,5609,705,5840,710,5955,706,6060,693,6105,683,6145,669,6178,652,6204,630,6209,622,6209,613,6199,594,6179,576,6156,561"/>
+<area shape="poly" title=" " alt="" coords="6136,560,6122,598,6108,618,6090,634,6062,648,6028,659,5947,673,5853,679,5751,680,5552,676,5466,677,5398,683,5351,696,5304,708,5189,719,5018,727,4540,740,3934,748,3263,751,1987,753,1221,756,963,765,963,759,1221,751,1987,747,3263,746,3934,742,4539,735,5017,722,5188,713,5303,703,5350,691,5397,677,5466,671,5552,671,5751,675,5853,674,5947,668,6027,654,6060,643,6087,630,6104,614,6117,595,6131,558"/>
+<area shape="poly" title=" " alt="" coords="6190,556,6238,574,6261,588,6282,605,6306,629,6324,654,6330,680,6325,694,6316,707,6299,715,6266,722,6159,733,5839,751,5488,762,5238,767,5238,761,5487,756,5839,746,6159,728,6265,716,6297,710,6312,703,6321,692,6324,680,6319,657,6302,633,6279,609,6258,592,6235,579,6188,561"/>
+<area shape="poly" title=" " alt="" coords="6075,552,4317,619,4317,613,6075,547"/>
+<area shape="poly" title=" " alt="" coords="6184,556,6224,575,6243,588,6259,605,6271,635,6274,666,6268,666,6266,637,6254,608,6240,592,6221,579,6182,561"/>
+<area shape="poly" title=" " alt="" coords="6131,561,6102,599,6080,619,6055,634,5991,655,5908,668,5814,675,5712,678,5514,678,5361,683,5304,689,5304,683,5360,677,5514,673,5712,672,5813,669,5908,662,5990,650,6053,630,6077,614,6098,595,6127,558"/>
+<area shape="poly" title=" " alt="" coords="6075,561,5822,609,5821,604,6074,556"/>
+<area shape="poly" title=" " alt="" coords="5257,635,5195,673,5154,693,5111,708,5055,715,4952,722,4626,733,3683,751,2701,762,2100,767,2100,762,2701,757,3683,746,4626,728,4951,716,5055,710,5109,703,5152,688,5193,668,5254,630"/>
+<area shape="poly" title=" " alt="" coords="5260,634,5240,655,5222,681,5209,711,5200,740,5195,739,5204,709,5217,679,5236,652,5257,630"/>
+<area shape="poly" title=" " alt="" coords="5201,633,4818,686,4817,680,5200,628"/>
+<area shape="poly" title=" " alt="" coords="5200,625,3279,684,3278,679,5200,620"/>
+<area shape="poly" title=" " alt="" coords="5272,633,5267,667,5262,666,5267,632"/>
+<area shape="poly" title=" " alt="" coords="5200,626,3439,691,3439,686,5200,621"/>
+<area shape="poly" title=" " alt="" coords="5852,635,5612,673,5459,693,5303,708,4989,725,4570,739,3579,757,2649,765,2100,767,2100,762,2649,760,3579,751,4570,734,4989,720,5303,703,5458,687,5611,667,5851,629"/>
+<area shape="poly" title=" " alt="" coords="5906,634,5864,672,5836,692,5804,708,5755,722,5689,734,5528,751,5363,761,5238,766,5238,761,5363,756,5528,745,5688,728,5754,717,5802,703,5833,687,5861,668,5902,631"/>
+<area shape="poly" title=" " alt="" coords="5832,634,5821,635,5526,657,5237,674,4818,692,4817,687,5236,668,5525,652,5820,629,5832,628"/>
+<area shape="poly" title=" " alt="" coords="5832,634,5821,635,5575,645,5269,648,4557,646,4190,646,3842,650,3532,661,3397,671,3279,683,3278,678,3396,665,3531,656,3842,644,4190,640,4557,640,5269,643,5574,639,5820,629,5832,628"/>
+<area shape="poly" title=" " alt="" coords="5832,633,5821,635,5361,683,5304,689,5304,684,5360,677,5820,629,5832,628"/>
 </map>
 </div>
 </div>
 <p><a href="a02348_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:mne_3A_3AMNEMshDisplaySurfaceSet" id="r_mne_3A_3AMNEMshDisplaySurfaceSet"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a06146.html">mne::MNEMshDisplaySurfaceSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The MNE Msh Display <a class="el" href="a05466.html" title="In-memory FreeSurfer triangular cortical surface for one hemisphere.">FsSurface</a> Set class holds information about a set of surfaces to be rendered.  <a href="a06146.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:aa655a189d0c15115d4f48b3f664b864d" id="r_aa655a189d0c15115d4f48b3f664b864d"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aa655a189d0c15115d4f48b3f664b864d">ErrorCode</a> </td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02921.html">mne</a></td></tr>
-<tr class="memdesc:a02921"><td class="mdescLeft">&#160;</td><td class="mdescRight">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4ce7cb5349788479279e6a563864dc66" id="r_a4ce7cb5349788479279e6a563864dc66"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:a4ce7cb5349788479279e6a563864dc66 template"><td class="memItemLeft">std::unexpected&lt; <a class="el" href="a04096.html">Error</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="#a4ce7cb5349788479279e6a563864dc66">fail</a> (<a class="el" href="a02420.html#aa655a189d0c15115d4f48b3f664b864d">ErrorCode</a> code, std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Set of <a class="el" href="a06142.html" title="mne::MNEMshDisplaySurface">mne::MNEMshDisplaySurface</a> objects sharing a camera, lights and selection. </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2017-2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>April 2017 </dd></dl>
-<p><a class="el" href="a06146.html" title="mne::MNEMshDisplaySurfaceSet">mne::MNEMshDisplaySurfaceSet</a> aggregates one or more renderable surfaces with the <a class="el" href="a06150.html" title="mne::MNEMshEyes">mne::MNEMshEyes</a> camera, the <a class="el" href="a06158.html" title="mne::MNEMshLightSet">mne::MNEMshLightSet</a> lighting rig and the <a class="el" href="a06162.html" title="mne::MNEMshPicked">mne::MNEMshPicked</a> vertex selection so the legacy viewer state can be saved and restored as a single object. </p>
+<div class="textblock"><p>Implementation of FiffStream: FIFF tag I/O, directory and block-tree construction, and the typed read_* / write_* methods. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2012-2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a>; Florian Schlembach <a href="#" onclick="location.href='mai'+'lto:'+'fsc'+'hl'+'emb'+'ac'+'h@w'+'eb'+'.de'; return false;">fschl<span class="obfuscator">.nosp@m.</span>emba<span class="obfuscator">.nosp@m.</span>ch@we<span class="obfuscator">.nosp@m.</span>b.de</a>; Limin Sun <a href="#" onclick="location.href='mai'+'lto:'+'lim'+'in'+'sun'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">limin<span class="obfuscator">.nosp@m.</span>sun@<span class="obfuscator">.nosp@m.</span>nmr.m<span class="obfuscator">.nosp@m.</span>gh.h<span class="obfuscator">.nosp@m.</span>arvar<span class="obfuscator">.nosp@m.</span>d.ed<span class="obfuscator">.nosp@m.</span>u</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Eric Larson <a href="#" onclick="location.href='mai'+'lto:'+'lar'+'so'+'n.e'+'ri'+'c.d'+'@g'+'mai'+'l.'+'com'; return false;">larso<span class="obfuscator">.nosp@m.</span>n.er<span class="obfuscator">.nosp@m.</span>ic.d@<span class="obfuscator">.nosp@m.</span>gmai<span class="obfuscator">.nosp@m.</span>l.com</a>; Juan GPC <a href="#" onclick="location.href='mai'+'lto:'+'jga'+'rc'+'iap'+'ri'+'eto'+'@m'+'gh.'+'ha'+'rva'+'rd'+'.ed'+'u'; return false;">jgarc<span class="obfuscator">.nosp@m.</span>iapr<span class="obfuscator">.nosp@m.</span>ieto@<span class="obfuscator">.nosp@m.</span>mgh.<span class="obfuscator">.nosp@m.</span>harva<span class="obfuscator">.nosp@m.</span>rd.e<span class="obfuscator">.nosp@m.</span>du</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Ruben Doerfel <a href="#" onclick="location.href='mai'+'lto:'+'doe'+'rf'+'elr'+'ub'+'en@'+'ao'+'l.c'+'om'; return false;">doerf<span class="obfuscator">.nosp@m.</span>elru<span class="obfuscator">.nosp@m.</span>ben@a<span class="obfuscator">.nosp@m.</span>ol.c<span class="obfuscator">.nosp@m.</span>om</a>; Andreas Griesshammer <a href="#" onclick="location.href='mai'+'lto:'+'ag@'+'fi'+'eld'+'li'+'nei'+'nc'+'.co'+'m'; return false;">ag@fi<span class="obfuscator">.nosp@m.</span>eldl<span class="obfuscator">.nosp@m.</span>inein<span class="obfuscator">.nosp@m.</span>c.co<span class="obfuscator">.nosp@m.</span>m</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>October 2012 </dd></dl>
+<p>Owns one byte stream. Builds the directory and FiffDirNode tree on open; trades tag streams for typed mne_fiff objects on read; emits spec-compliant FIFF on write. Files emitted here round-trip through <code>mne.io.fiff</code> unchanged. </p>
 
-<p class="definition">Definition in file <a class="el" href="a02348_source.html">mne_msh_display_surface_set.h</a>.</p>
-</div></div><!-- contents -->
+<p class="definition">Definition in file <a class="el" href="a02348_source.html">fiff_stream.cpp</a>.</p>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="aa655a189d0c15115d4f48b3f664b864d" name="aa655a189d0c15115d4f48b3f664b864d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa655a189d0c15115d4f48b3f664b864d">&#9670;&#160;</a></span>ErrorCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="a02939.html#aa655a189d0c15115d4f48b3f664b864d">mne::ErrorCode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>What went wrong, so callers can react without parsing the message. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00042">42</a> of file <a class="el" href="a01526_source.html">error.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a4ce7cb5349788479279e6a563864dc66" name="a4ce7cb5349788479279e6a563864dc66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ce7cb5349788479279e6a563864dc66">&#9670;&#160;</a></span>fail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unexpected&lt; <a class="el" href="a04096.html">Error</a> &gt; <a class="el" href="a02939.html#a4ce7cb5349788479279e6a563864dc66">mne::fail</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02420.html#aa655a189d0c15115d4f48b3f664b864d">ErrorCode</a></td>          <td class="paramname"><span class="paramname"><em>code</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::format_string&lt; Args... &gt;</td>          <td class="paramname"><span class="paramname"><em>format</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args &amp;&amp;...</td>          <td class="paramname"><span class="paramname"><em>args</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">code</td><td>The kind of failure. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">format</td><td>A std::format string for the message, checked at compile time. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">args</td><td>The values it formats.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The error, ready to return from a function that returns <a class="el" href="a06602.html" title="A value or the Error why there is none; std::expected whose value() throws that Error.">Expected</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01526_source.html#l00126">126</a> of file <a class="el" href="a01526_source.html">error.h</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1

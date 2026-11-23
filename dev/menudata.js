@@ -110,7 +110,17 @@ var menudata={children:[
 {text:"s",url:"namespacemembers_enum.html#index_s"},
 {text:"t",url:"namespacemembers_enum.html#index_t"},
 {text:"v",url:"namespacemembers_enum.html#index_v"}]},
-{text:"Enumerator",url:"namespacemembers_eval.html"}]}]},
+{text:"Enumerator",url:"namespacemembers_eval.html",children:[
+{text:"a",url:"namespacemembers_eval.html#index_a"},
+{text:"b",url:"namespacemembers_eval.html#index_b"},
+{text:"d",url:"namespacemembers_eval.html#index_d"},
+{text:"g",url:"namespacemembers_eval.html#index_g"},
+{text:"h",url:"namespacemembers_eval.html#index_h"},
+{text:"j",url:"namespacemembers_eval.html#index_j"},
+{text:"m",url:"namespacemembers_eval.html#index_m"},
+{text:"r",url:"namespacemembers_eval.html#index_r"},
+{text:"s",url:"namespacemembers_eval.html#index_s"},
+{text:"x",url:"namespacemembers_eval.html#index_x"}]}]}]},
 {text:"API Reference",url:"annotated.html",children:[
 {text:"Class List",url:"annotated.html"},
 {text:"Class Index",url:"classes.html"},
@@ -261,6 +271,7 @@ var menudata={children:[
 {text:"j",url:"functions_rela.html#index_j"},
 {text:"n",url:"functions_rela.html#index_n"},
 {text:"o",url:"functions_rela.html#index_o"},
+{text:"s",url:"functions_rela.html#index_s"},
 {text:"t",url:"functions_rela.html#index_t"}]}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
