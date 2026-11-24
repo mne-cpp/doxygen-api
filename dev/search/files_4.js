@@ -8,7 +8,7 @@ var searchData=
   ['eego_5ftransport_2eh_5',['eego_transport.h',['../a01739.html',1,'']]],
   ['electrodeobject_2ecpp_6',['electrodeobject.cpp',['../a00659.html',1,'']]],
   ['electrodeobject_2eh_7',['electrodeobject.h',['../a00674.html',1,'']]],
-  ['endian_2eh_8',['endian.h',['../a02927.html',1,'']]],
+  ['endian_2eh_8',['endian.h',['../a02930.html',1,'']]],
   ['eog_5fregression_2ecpp_9',['eog_regression.cpp',['../a01322.html',1,'']]],
   ['eog_5fregression_2eh_10',['eog_regression.h',['../a01304.html',1,'']]],
   ['epoch_5fextractor_2ecpp_11',['epoch_extractor.cpp',['../a01301.html',1,'']]],
