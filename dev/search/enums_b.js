@@ -9,5 +9,5 @@ var searchData=
   ['mnafilerole_6',['MnaFileRole',['../a02948.html#accef4ea64353452ed841fd92fe9562a3',1,'mne']]],
   ['mnanodeexecmode_7',['MnaNodeExecMode',['../a02948.html#acb2db7a9b3b965fbf54448bb6960e42a',1,'mne']]],
   ['mnaportdir_8',['MnaPortDir',['../a02948.html#a6a2580d2ace64b821421f93747c7efbd',1,'mne']]],
-  ['mode_9',['Mode',['../a03362.html#a47acbbcd8edec1b298a8c0d859982daa',1,'mne::AcqSegmentation::Mode'],['../a04066.html#a6e866acd1d66f2115c6470ef63d7483d',1,'mne::FileByteStream::Mode']]]
+  ['mode_9',['Mode',['../a03363.html#a47acbbcd8edec1b298a8c0d859982daa',1,'mne::AcqSegmentation::Mode'],['../a04067.html#a6e866acd1d66f2115c6470ef63d7483d',1,'mne::FileByteStream::Mode']]]
 ];
