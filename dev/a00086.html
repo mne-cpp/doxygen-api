@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/ieeg/ieeg_surface_map.h File Reference</title>
+    <title>MNE-CPP: src/libs/mne/dsp/firfilter.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,81 +250,94 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_39e56f537418caf95a912ae13b386cfb.html">ieeg</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_b79f7367980074b5febc9da517d2cbd5.html">dsp</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
-  <div class="headertitle"><div class="title">ieeg_surface_map.h File Reference</div></div>
+  <div class="headertitle"><div class="title">firfilter.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Map sEEG / ECoG contact values onto surface vertices, as MNE-Python's stc_near_sensors.  
+<p>Implementation of <a class="el" href="a05186.html" title="Discoverable façade over the FilterKernel FIR-filter engine.">FirFilter</a>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00077_source.html">ieeg_global.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00077_source.html">firfilter.h</a>&quot;</code><br />
 <code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;Eigen/SparseCore&gt;</code><br />
+<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;complex&gt;</code><br />
+<code>#include &lt;format&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;numbers&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for ieeg_surface_map.h:</div>
+Include dependency graph for firfilter.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00087.png" border="0" usemap="#asrc_2libs_2mne_2ieeg_2ieeg__surface__map_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2ieeg_2ieeg__surface__map_8h" id="asrc_2libs_2mne_2ieeg_2ieeg__surface__map_8h">
-<area shape="rect" title="Map sEEG / ECoG contact values onto surface vertices, as MNE&#45;Python&#39;s stc_near_sensors." alt="" coords="103,5,268,45"/>
-<area shape="rect" href="a00077.html" title="Export macro of mne_ieeg — Intracranial EEG (sEEG, ECoG): implantation, bipolar referencing,..." alt="" coords="5,93,115,119"/>
-<area shape="poly" title=" " alt="" coords="156,48,91,88,88,84,154,43"/>
-<area shape="rect" title=" " alt="" coords="139,93,231,119"/>
-<area shape="poly" title=" " alt="" coords="188,46,188,79,183,79,183,46"/>
-<area shape="rect" title=" " alt="" coords="256,93,392,119"/>
-<area shape="poly" title=" " alt="" coords="220,43,293,84,290,89,217,48"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00088.png" border="0" usemap="#asrc_2libs_2mne_2ieeg_2ieeg__surface__map_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2ieeg_2ieeg__surface__map_8hdep" id="asrc_2libs_2mne_2ieeg_2ieeg__surface__map_8hdep">
-<area shape="rect" title="Map sEEG / ECoG contact values onto surface vertices, as MNE&#45;Python&#39;s stc_near_sensors." alt="" coords="147,5,313,45"/>
-<area shape="rect" href="a00659.html" title="Cylinder&#45;shaft and contact&#45;sphere geometry generation plus contact&#45;value colour mapping for sEEG / EC..." alt="" coords="5,93,233,133"/>
-<area shape="poly" title=" " alt="" coords="196,56,145,95,142,91,193,52"/>
-<area shape="rect" href="a00092.html" title="Distance&#45;weighted mapping of contact values onto surface vertices." alt="" coords="258,93,423,133"/>
-<area shape="poly" title=" " alt="" coords="267,52,318,91,315,95,264,56"/>
+<div class="center"><img src="a00087.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2firfilter_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2dsp_2firfilter_8cpp" id="asrc_2libs_2mne_2dsp_2firfilter_8cpp">
+<area shape="rect" title="Implementation of FirFilter." alt="" coords="798,5,999,31"/>
+<area shape="rect" href="a00077.html" title="Discoverable design / apply façade over the mne::FilterKernel FIR engine." alt="" coords="522,79,598,104"/>
+<area shape="poly" title=" " alt="" coords="845,33,612,82,611,77,844,28"/>
+<area shape="rect" title=" " alt="" coords="5,372,64,397"/>
+<area shape="poly" title=" " alt="" coords="798,29,594,48,359,77,252,96,165,117,106,140,90,152,85,164,85,239,82,273,73,307,50,361,45,359,68,305,77,272,80,239,80,163,86,149,103,135,163,112,251,91,358,72,594,43,798,24"/>
+<area shape="rect" title=" " alt="" coords="825,372,887,397"/>
+<area shape="poly" title=" " alt="" coords="818,33,769,51,747,64,727,81,712,100,705,117,703,163,703,239,706,261,714,281,742,316,778,344,816,364,813,369,775,348,738,320,709,284,700,262,697,240,697,163,700,116,708,97,723,77,744,60,767,46,816,28"/>
+<area shape="rect" title=" " alt="" coords="167,225,259,251"/>
+<area shape="poly" title=" " alt="" coords="798,31,661,49,585,63,511,81,419,111,332,154,282,187,239,218,236,214,279,182,329,150,417,106,510,76,584,58,660,44,797,26"/>
+<area shape="rect" title=" " alt="" coords="737,79,908,104"/>
+<area shape="poly" title=" " alt="" coords="888,33,847,71,843,67,885,29"/>
+<area shape="rect" title=" " alt="" coords="932,79,1017,104"/>
+<area shape="poly" title=" " alt="" coords="913,29,954,67,950,71,909,33"/>
+<area shape="rect" title=" " alt="" coords="1042,79,1105,104"/>
+<area shape="poly" title=" " alt="" coords="928,28,1033,71,1031,76,926,33"/>
+<area shape="rect" title=" " alt="" coords="1129,79,1207,104"/>
+<area shape="poly" title=" " alt="" coords="943,28,1116,74,1115,79,941,33"/>
+<area shape="rect" title=" " alt="" coords="1232,79,1299,104"/>
+<area shape="poly" title=" " alt="" coords="968,28,1219,76,1218,81,967,33"/>
+<area shape="rect" title=" " alt="" coords="1323,79,1402,104"/>
+<area shape="poly" title=" " alt="" coords="991,28,1137,48,1310,76,1309,81,1136,53,991,33"/>
+<area shape="rect" href="a00038.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="508,225,612,251"/>
+<area shape="poly" title=" " alt="" coords="563,104,563,212,557,212,557,104"/>
+<area shape="poly" title=" " alt="" coords="568,103,627,223,660,288,683,322,733,342,812,368,811,373,731,347,680,326,656,290,622,226,563,105"/>
+<area shape="rect" href="a00152.html" title="Linear&#45;phase FIR filter kernel with overlap&#45;add FFT convolution back&#45;end." alt="" coords="404,152,508,177"/>
+<area shape="poly" title=" " alt="" coords="545,106,486,146,483,142,542,102"/>
+<area shape="poly" title=" " alt="" coords="525,107,393,154,249,222,247,217,391,150,523,102"/>
+<area shape="rect" href="a01580.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="386,299,561,324"/>
+<area shape="poly" title=" " alt="" coords="548,253,500,292,496,288,544,249"/>
+<area shape="rect" href="a01556.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="211,372,323,397"/>
+<area shape="poly" title=" " alt="" coords="441,327,314,370,312,365,439,321"/>
+<area shape="rect" title=" " alt="" coords="347,372,413,397"/>
+<area shape="poly" title=" " alt="" coords="460,326,408,366,404,361,457,322"/>
+<area shape="rect" title=" " alt="" coords="438,372,509,397"/>
+<area shape="poly" title=" " alt="" coords="476,324,476,358,471,358,471,324"/>
+<area shape="rect" title=" " alt="" coords="533,372,624,397"/>
+<area shape="poly" title=" " alt="" coords="492,322,552,362,549,367,489,326"/>
+<area shape="rect" title=" " alt="" coords="648,372,723,397"/>
+<area shape="poly" title=" " alt="" coords="508,321,639,365,637,370,507,327"/>
+<area shape="rect" title=" " alt="" coords="747,372,800,397"/>
+<area shape="poly" title=" " alt="" coords="529,321,734,369,733,374,528,327"/>
+<area shape="poly" title=" " alt="" coords="386,325,245,345,78,375,77,369,245,339,386,320"/>
+<area shape="rect" title=" " alt="" coords="89,372,186,397"/>
+<area shape="poly" title=" " alt="" coords="420,327,200,373,199,368,419,321"/>
+<area shape="poly" title=" " alt="" coords="548,321,668,341,812,369,811,375,667,347,548,327"/>
+<area shape="poly" title=" " alt="" coords="474,175,533,215,530,219,471,180"/>
+<area shape="poly" title=" " alt="" coords="435,180,71,368,68,363,433,175"/>
+<area shape="poly" title=" " alt="" coords="451,179,401,248,362,290,317,326,259,355,200,374,199,369,257,350,315,322,359,286,397,244,447,176"/>
+<area shape="poly" title=" " alt="" coords="462,177,474,212,485,231,498,249,524,269,561,290,632,321,812,369,811,374,630,327,559,294,521,273,494,253,480,234,469,214,456,179"/>
+<area shape="poly" title=" " alt="" coords="418,180,266,224,265,219,416,175"/>
 </map>
 </div>
 </div>
 <p><a href="a00086_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:mne_3A_3AIeegSurfaceMap" id="r_mne_3A_3AIeegSurfaceMap"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a05632.html">mne::IeegSurfaceMap</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Weights that paint contact values onto a surface.  <a href="a05632.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a02942.html">mne</a></td></tr>
-<tr class="memdesc:a02942"><td class="mdescLeft">&#160;</td><td class="mdescRight">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++. <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:aef3b8ca64b8e596497720cf3ac5b6500" id="r_aef3b8ca64b8e596497720cf3ac5b6500"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="a02942.html#aef3b8ca64b8e596497720cf3ac5b6500">mne::IeegSurfaceMapMode</a> { <a class="el" href="a02942.html#aef3b8ca64b8e596497720cf3ac5b6500aa0ec87054b5e5b7847d0d8780a01a3d5">mne::Sum</a>
-, <a class="el" href="a02942.html#aef3b8ca64b8e596497720cf3ac5b6500a66ba162102bbf6ae31b522aec561735e">mne::Single</a>
-, <a class="el" href="a02942.html#aef3b8ca64b8e596497720cf3ac5b6500a60494f02d440f316319dd0fad40ad007">mne::Nearest</a>
-, <a class="el" href="a02942.html#aef3b8ca64b8e596497720cf3ac5b6500a582368ac8232617ead14ac74ccc40ea9">mne::Weighted</a>
- }</td></tr>
-<tr class="memdesc:aef3b8ca64b8e596497720cf3ac5b6500"><td class="mdescLeft">&#160;</td><td class="mdescRight">How the weights of contacts near one vertex combine; the modes of MNE-Python's stc_near_sensors.  <a href="a02942.html#aef3b8ca64b8e596497720cf3ac5b6500">More...</a><br /></td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Map sEEG / ECoG contact values onto surface vertices, as MNE-Python's stc_near_sensors. </p>
+<div class="textblock"><p>Implementation of <a class="el" href="a05186.html" title="Discoverable façade over the FilterKernel FIR-filter engine.">FirFilter</a>. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.4.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>October 2026 </dd></dl>
-<p>Each vertex within <code>distance</code> of a contact takes on that contact's value, weighted by 1 - d / distance, so the weight is 1 at the contact and falls linearly to 0 at <code>distance</code>. The result is a sparse vertices x contacts matrix W, and vertex data = W * contact data. </p>
+<dl class="section since"><dt>Since</dt><dd>2.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a00086_source.html">ieeg_surface_map.h</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00086_source.html">firfilter.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
