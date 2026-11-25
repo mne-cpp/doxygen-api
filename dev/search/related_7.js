@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['svgpaintengine_0',['SvgPaintEngine',['../a04640.html#aac07f73ffab1bb1ee959904e35917478',1,'mne::disp::SvgWriter']]]
+  ['tcpserver_0',['TcpServer',['../a04554.html#a3ecf3132e8c4bf890c07853cfab7619c',1,'mne::TcpSocket::TcpServer()'],['../a07124.html#a3ecf3132e8c4bf890c07853cfab7619c',1,'TcpSocket::TcpServer()']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['jsonaccess_0',['JsonAccess',['../a04260.html#a12cff5658cf1715104dfba9ee4926084',1,'mne::JsonObject::JsonAccess()'],['../a04264.html#a12cff5658cf1715104dfba9ee4926084',1,'mne::JsonValue::JsonAccess()'],['../a04272.html#a12cff5658cf1715104dfba9ee4926084',1,'mne::JsonObject::Member::JsonAccess']]],
-  ['jsonobject_1',['JsonObject',['../a04272.html#a97897db74b0d4fed9f831f2cee2cecbb',1,'mne::JsonObject::Member']]]
+  ['network_0',['Network',['../a04650.html#a88b59289ffd793fecd040d32e397b1e9',1,'mne::NetworkNode']]]
 ];

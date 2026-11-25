@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['cboraccess_0',['CborAccess',['../a04212.html#a33dcfe5cf1249f7644a2b5de6c9e8fbf',1,'mne::CborValue']]]
+  ['detail_3a_3abackendaccess_0',['BackendAccess',['../a03330.html#a3bd82e6b18da5373a84c8402d570a17c',1,'mne::AcqBackend']]],
+  ['detail_3a_3aviewaccess_1',['detail::ViewAccess',['../a03350.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqViewBase::ViewAccess()'],['../a03354.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqBlockView::ViewAccess()'],['../a03358.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqWriteView::ViewAccess()']]]
 ];

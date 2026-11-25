@@ -1,7 +1,7 @@
 var indexSectionsWithContent =
 {
   0: ":abcdefghijklmnopqrstuvwxyz~",
-  1: "abcdefghijklmnopqrstuvwx",
+  1: "abcdefghijklmnopqrstuvwxz",
   2: "m",
   3: "abcdefghijklmnopqrstuvwx",
   4: "abcdefghijklmnopqrstuvwxyz~",
@@ -10,7 +10,7 @@ var indexSectionsWithContent =
   7: "abcdefgijklmoprstvw",
   8: "abcdefghijlmnopqrstuvwxz",
   9: "s",
-  10: ":acdjnost",
+  10: "acdjnost",
   11: "abcdefilmnprs",
   12: ":abdefilmnorstu",
   13: "s"

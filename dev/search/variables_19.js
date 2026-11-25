@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['z_0',['Z',['../a00572.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a00806.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a02717.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a02798.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a02732.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a02684.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02864.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a02738.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
-  ['z_1',['z',['../a04396.html#aac5c13acb4cc61ddd3b68df2af8735d5',1,'mne::BidsElectrode']]],
-  ['z_5fras_2',['z_ras',['../a06496.html#af8006311a4a0088135d733976d8aa3e8',1,'mne::MNEVolGeom::z_ras'],['../a06532.html#a3a7df38918642f4f8bb135ce2180a2ee',1,'mne::MriVolData::z_ras']]],
-  ['zoom_3',['zoom',['../a04956.html#a16992266970e351d0c459a2332c8d157',1,'mne::disp::SubView']]],
-  ['zscores_4',['zScores',['../a05240.html#a01fed56599295731559090477882cb66',1,'mne::BadChannelsMaxwellResult']]],
-  ['zsize_5',['zsize',['../a06496.html#aca99a65faed7ea00b71ce500d94b5df5',1,'mne::MNEVolGeom::zsize'],['../a06532.html#af0c0b6083f579262f52172a12297424e',1,'mne::MriVolData::zsize']]]
+  ['z_0',['Z',['../a00227.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;compute_fwd.cpp'],['../a02801.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;inv_ecd_set.cpp'],['../a02558.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_forward_solution.cpp'],['../a02720.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_msh_display_surface.cpp'],['../a02696.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_patch_info.cpp'],['../a02738.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_source_space.cpp'],['../a02660.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface.cpp'],['../a02465.html#a6e32866c8700c2dcba4d65020959ee30',1,'Z:&#160;mne_surface_or_volume.cpp']]],
+  ['z_1',['z',['../a04462.html#aac5c13acb4cc61ddd3b68df2af8735d5',1,'mne::BidsElectrode']]],
+  ['z_5fras_2',['z_ras',['../a06614.html#af8006311a4a0088135d733976d8aa3e8',1,'mne::MNEVolGeom::z_ras'],['../a06650.html#a3a7df38918642f4f8bb135ce2180a2ee',1,'mne::MriVolData::z_ras']]],
+  ['z_5fscore_3',['z_score',['../a06854.html#a08bcd45328d2f84b0ca3156f3882db04',1,'mne::scene::TraceStyle']]],
+  ['zoom_4',['zoom',['../a05038.html#a16992266970e351d0c459a2332c8d157',1,'mne::disp::SubView']]],
+  ['zoom_5fchanged_5',['zoom_changed',['../a06918.html#ad8f5c2affad8a136f30b6e5ef52b784e',1,'mne::scene::TraceView::Effects']]],
+  ['zscores_6',['zScores',['../a05358.html#a01fed56599295731559090477882cb66',1,'mne::BadChannelsMaxwellResult']]],
+  ['zsize_7',['zsize',['../a06614.html#aca99a65faed7ea00b71ce500d94b5df5',1,'mne::MNEVolGeom::zsize'],['../a06650.html#af0c0b6083f579262f52172a12297424e',1,'mne::MriVolData::zsize']]]
 ];

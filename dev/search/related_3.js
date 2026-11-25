@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['detail_3a_3abackendaccess_0',['BackendAccess',['../a03264.html#a3bd82e6b18da5373a84c8402d570a17c',1,'mne::AcqBackend']]],
-  ['detail_3a_3aviewaccess_1',['detail::ViewAccess',['../a03284.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqViewBase::ViewAccess()'],['../a03288.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqBlockView::ViewAccess()'],['../a03292.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqWriteView::ViewAccess()']]]
+  ['jsonaccess_0',['JsonAccess',['../a04326.html#a12cff5658cf1715104dfba9ee4926084',1,'mne::JsonObject::JsonAccess()'],['../a04330.html#a12cff5658cf1715104dfba9ee4926084',1,'mne::JsonValue::JsonAccess()'],['../a04338.html#a12cff5658cf1715104dfba9ee4926084',1,'mne::JsonObject::Member::JsonAccess']]],
+  ['jsonobject_1',['JsonObject',['../a04338.html#a97897db74b0d4fed9f831f2cee2cecbb',1,'mne::JsonObject::Member']]]
 ];
