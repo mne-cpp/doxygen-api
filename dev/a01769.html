@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/disp3D/helpers/interpolation.h File Reference</title>
+    <title>MNE-CPP: src/libs/mne/disp3D/helpers/interpolation.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -255,107 +255,78 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
-  <div class="headertitle"><div class="title">interpolation.h File Reference</div></div>
+  <div class="headertitle"><div class="title">interpolation.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Distance-based sparse interpolation weights and per-frame signal smoothing on triangulated meshes.  
+<p>Distance-based sparse interpolation kernels (linear / gaussian / square / cubic) and per-frame mat-vec.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01877_source.html">../disp3D_global.h</a>&quot;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;Eigen/Sparse&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;limits&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01775_source.html">interpolation.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a01706_source.html">mne/base/log.h</a>&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;unordered_set&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for interpolation.h:</div>
+Include dependency graph for interpolation.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01770.png" border="0" usemap="#asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8h" id="asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8h">
-<area shape="rect" title="Distance&#45;based sparse interpolation weights and per&#45;frame signal smoothing on triangulated meshes." alt="" coords="307,5,480,45"/>
-<area shape="rect" href="a01877.html" title="Export macro of mne_disp3D — 3&#45;D brain visualisation using the Qt RHI rendering backend." alt="" coords="5,93,144,119"/>
-<area shape="poly" title=" " alt="" coords="318,48,135,93,134,87,316,43"/>
-<area shape="rect" title=" " alt="" coords="169,93,261,119"/>
-<area shape="poly" title=" " alt="" coords="352,48,254,90,252,85,349,43"/>
-<area shape="rect" title=" " alt="" coords="285,93,392,119"/>
-<area shape="poly" title=" " alt="" coords="382,47,357,84,352,80,378,44"/>
-<area shape="rect" title=" " alt="" coords="416,93,483,119"/>
-<area shape="poly" title=" " alt="" coords="409,44,435,80,431,84,405,47"/>
-<area shape="rect" title=" " alt="" coords="507,93,584,119"/>
-<area shape="poly" title=" " alt="" coords="431,43,512,84,509,89,429,48"/>
-<area shape="rect" title=" " alt="" coords="608,93,667,119"/>
-<area shape="poly" title=" " alt="" coords="453,43,595,88,594,93,451,48"/>
-<area shape="rect" title=" " alt="" coords="9,167,140,192"/>
-<area shape="poly" title=" " alt="" coords="77,119,77,153,72,153,72,119"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a01771.png" border="0" usemap="#asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8hdep" id="asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8hdep">
-<area shape="rect" title="Distance&#45;based sparse interpolation weights and per&#45;frame signal smoothing on triangulated meshes." alt="" coords="427,5,601,45"/>
-<area shape="rect" href="a01763.html" title="Distance&#45;based sparse interpolation kernels (linear / gaussian / square / cubic) and per&#45;frame mat&#45;ve..." alt="" coords="5,93,193,133"/>
-<area shape="poly" title=" " alt="" coords="414,50,191,96,190,91,413,45"/>
-<area shape="rect" href="a01838.html" title="STC file loading, per&#45;vertex activation interpolation and colormap packing onto the target cortical m..." alt="" coords="218,93,493,133"/>
-<area shape="poly" title=" " alt="" coords="468,54,391,96,389,91,466,50"/>
-<area shape="rect" href="a01811.html" title="Off&#45;thread SCDC + interpolation&#45;matrix build for one hemisphere with interpolation&#45; or annotation&#45;bas..." alt="" coords="517,93,831,133"/>
-<area shape="poly" title=" " alt="" coords="562,49,640,91,638,96,560,54"/>
-<area shape="rect" href="a01793.html" title="Background STC file parse plus per&#45;hemisphere sparse interpolation matrix construction." alt="" coords="855,93,1074,133"/>
-<area shape="poly" title=" " alt="" coords="615,43,866,91,865,96,614,48"/>
+<div class="center"><img src="a01770.png" border="0" usemap="#asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8cpp" id="asrc_2libs_2mne_2disp3_d_2helpers_2interpolation_8cpp">
+<area shape="rect" title="Distance&#45;based sparse interpolation kernels (linear / gaussian / square / cubic) and per&#45;frame mat&#45;ve..." alt="" coords="1255,5,1443,45"/>
+<area shape="rect" href="a01775.html" title="Distance&#45;based sparse interpolation weights and per&#45;frame signal smoothing on triangulated meshes." alt="" coords="320,93,437,119"/>
+<area shape="poly" title=" " alt="" coords="1255,37,451,102,451,96,1255,32"/>
+<area shape="rect" href="a01706.html" title="Logging: a std::format facade with a replaceable sink, the console and file writer,..." alt="" coords="1063,93,1185,119"/>
+<area shape="poly" title=" " alt="" coords="1296,48,1171,91,1169,86,1294,43"/>
+<area shape="rect" title=" " alt="" coords="1349,167,1409,192"/>
+<area shape="poly" title=" " alt="" coords="1352,45,1353,80,1359,118,1370,153,1365,155,1353,119,1348,80,1346,46"/>
+<area shape="rect" title=" " alt="" coords="1433,167,1495,192"/>
+<area shape="poly" title=" " alt="" coords="1360,44,1379,79,1403,117,1441,156,1437,159,1399,120,1374,82,1356,47"/>
+<area shape="rect" title=" " alt="" coords="1413,93,1475,119"/>
+<area shape="poly" title=" " alt="" coords="1374,43,1421,82,1417,86,1371,48"/>
+<area shape="rect" title=" " alt="" coords="1500,93,1615,119"/>
+<area shape="poly" title=" " alt="" coords="1400,43,1515,86,1513,91,1398,48"/>
+<area shape="rect" href="a01883.html" title="Export macro of mne_disp3D — 3&#45;D brain visualisation using the Qt RHI rendering backend." alt="" coords="309,167,448,192"/>
+<area shape="poly" title=" " alt="" coords="381,119,381,153,376,153,376,119"/>
+<area shape="rect" title=" " alt="" coords="473,167,565,192"/>
+<area shape="poly" title=" " alt="" coords="402,116,485,158,483,163,400,121"/>
+<area shape="rect" title=" " alt="" coords="5,167,112,192"/>
+<area shape="poly" title=" " alt="" coords="328,121,124,166,123,161,327,116"/>
+<area shape="rect" title=" " alt="" coords="136,167,203,192"/>
+<area shape="poly" title=" " alt="" coords="346,121,217,165,215,160,344,116"/>
+<area shape="rect" title=" " alt="" coords="589,167,667,192"/>
+<area shape="poly" title=" " alt="" coords="419,116,577,161,575,166,418,121"/>
+<area shape="rect" title=" " alt="" coords="227,167,285,192"/>
+<area shape="poly" title=" " alt="" coords="360,121,289,162,286,157,358,116"/>
+<area shape="rect" title=" " alt="" coords="313,240,444,265"/>
+<area shape="poly" title=" " alt="" coords="381,192,381,226,376,226,376,192"/>
+<area shape="poly" title=" " alt="" coords="1063,116,895,137,681,169,680,164,894,131,1062,111"/>
+<area shape="rect" href="a01658.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="691,167,803,192"/>
+<area shape="poly" title=" " alt="" coords="1064,121,817,168,816,162,1063,116"/>
+<area shape="rect" title=" " alt="" coords="827,167,917,192"/>
+<area shape="poly" title=" " alt="" coords="1084,121,927,165,925,160,1083,116"/>
+<area shape="rect" title=" " alt="" coords="941,167,1008,192"/>
+<area shape="poly" title=" " alt="" coords="1101,121,1013,163,1010,158,1099,116"/>
+<area shape="rect" title=" " alt="" coords="1033,167,1119,192"/>
+<area shape="poly" title=" " alt="" coords="1118,121,1094,157,1089,154,1114,118"/>
+<area shape="rect" title=" " alt="" coords="1144,167,1203,192"/>
+<area shape="poly" title=" " alt="" coords="1134,117,1160,154,1155,157,1130,121"/>
+<area shape="rect" title=" " alt="" coords="1227,167,1325,192"/>
+<area shape="poly" title=" " alt="" coords="1150,116,1240,158,1238,163,1147,121"/>
+<area shape="poly" title=" " alt="" coords="1166,116,1336,163,1335,169,1164,121"/>
+<area shape="poly" title=" " alt="" coords="1186,116,1419,164,1418,169,1185,121"/>
 </map>
 </div>
 </div>
 <p><a href="a01769_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:mne_3A_3Adisp_3A_3AInterpolation" id="r_mne_3A_3Adisp_3A_3AInterpolation"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04962.html">mne::disp::Interpolation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class holds methods for creating distance-based weight matrices and for interpolating signals.  <a href="a04962.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a03053.html">mne</a></td></tr>
-<tr class="memdesc:a03053"><td class="mdescLeft">&#160;</td><td class="mdescRight">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++. <br /></td></tr>
-<tr class="memitem:mne_3A_3Adisp" id="r_mne_3A_3Adisp"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a03137.html">mne::disp</a></td></tr>
-<tr class="memdesc:a03137"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qt-based 2D and 3D display: plots, viewers and the 3D brain view (mne_disp and mne_disp3D). <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a16654486a4acbb970d7b973582297ce8" id="r_a16654486a4acbb970d7b973582297ce8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a16654486a4acbb970d7b973582297ce8">FLOAT_INFINITY</a>&#160;&#160;&#160;std::numeric_limits&lt;float&gt;::infinity()</td></tr>
-</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Distance-based sparse interpolation weights and per-frame signal smoothing on triangulated meshes. </p>
+<div class="textblock"><p>Distance-based sparse interpolation kernels (linear / gaussian / square / cubic) and per-frame mat-vec. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2017-2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>May 2017 </dd></dl>
-<p>Given the geodesic distance table produced by <a class="el" href="a04958.html" title="mne::disp::GeometryInfo">mne::disp::GeometryInfo</a>, Interpolation builds a sparse <em>n_vertices x n_sources</em> weight matrix in which each vertex's row contains only those sources within <code>cancelDist</code> metres. Weights fall off through one of four radial basis functions selectable at runtime: <a class="el" href="a04962.html#a96074fbf11669ccd753c22b172aa1cd2" title="mne::disp::Interpolation::linear">linear</a>, <a class="el" href="a04962.html#a468e26c0550542d30ccfa5f8b6cb46d7" title="mne::disp::Interpolation::gaussian">gaussian</a>, <a class="el" href="a04962.html#af32d74114e82f68057cae5a4cf27668f" title="mne::disp::Interpolation::square">square</a> (negative parabola) and <a class="el" href="a04962.html#abc27fe6c502437863941a3260821ab14" title="mne::disp::Interpolation::cubic">cubic</a> (cubic hyperbola).</p>
-<p><a class="el" href="a04962.html#af398e8a7ab136789dfcae66804cc26bd" title="mne::disp::Interpolation::interpolateSignal">interpolateSignal</a> multiplies the precomputed matrix by a per-frame source / sensor vector to produce smoothed per-vertex values; the matrix is built once per scene and reused on every real-time frame in <a class="el" href="a05182.html" title="mne::disp::RtSourceDataWorker">mne::disp::RtSourceDataWorker</a> and <a class="el" href="a05170.html" title="mne::disp::RtSensorDataWorker">mne::disp::RtSensorDataWorker</a>, keeping per-frame cost at one sparse mat-vec. </p>
 
-<p class="definition">Definition in file <a class="el" href="a01769_source.html">interpolation.h</a>.</p>
-</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a16654486a4acbb970d7b973582297ce8" name="a16654486a4acbb970d7b973582297ce8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16654486a4acbb970d7b973582297ce8">&#9670;&#160;</a></span>FLOAT_INFINITY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FLOAT_INFINITY&#160;&#160;&#160;std::numeric_limits&lt;float&gt;::infinity()</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01769_source.html#l00060">60</a> of file <a class="el" href="a01769_source.html">interpolation.h</a>.</p>
-
-</div>
-</div>
-</div><!-- contents -->
+<p class="definition">Definition in file <a class="el" href="a01769_source.html">interpolation.cpp</a>.</p>
+</div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1

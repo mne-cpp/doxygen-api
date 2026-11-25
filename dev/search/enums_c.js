@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operatortype_0',['OperatorType',['../a04818.html#a76ac9e167666c7a70ed92d00a4cb9c71',1,'mne::disp::MNEOperator']]]
+  ['operatortype_0',['OperatorType',['../a04824.html#a76ac9e167666c7a70ed92d00a4cb9c71',1,'mne::disp::MNEOperator']]]
 ];
