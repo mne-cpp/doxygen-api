@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/dsp/bad_channel_detect.cpp File Reference</title>
+    <title>MNE-CPP: src/libs/mne/dsp/multitaper_tfr.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -255,68 +255,77 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">bad_channel_detect.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">multitaper_tfr.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of <a class="el" href="a05428.html" title="Automated detection of bad MEG/EEG channels using flat, variance, and correlation criteria.">BadChannelDetect</a>.  
+<p>Implementation of <a class="el" href="a05602.html" title="Sliding-window multitaper time-frequency representation.">MultitaperTfr</a>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01685_source.html">bad_channel_detect.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01790_source.html">multitaper_tfr.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01703_source.html">dpss.h</a>&quot;</code><br />
 <code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;complex&gt;</code><br />
+<code>#include &lt;numbers&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for bad_channel_detect.cpp:</div>
+Include dependency graph for multitaper_tfr.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01575.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2bad__channel__detect_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2dsp_2bad__channel__detect_8cpp" id="asrc_2libs_2mne_2dsp_2bad__channel__detect_8cpp">
-<area shape="rect" title="Implementation of BadChannelDetect." alt="" coords="777,5,933,45"/>
-<area shape="rect" href="a01685.html" title="Declaration of BadChannelDetect — automated detection of bad MEG/EEG channels." alt="" coords="602,93,766,119"/>
-<area shape="poly" title=" " alt="" coords="815,48,722,90,720,85,813,43"/>
-<area shape="rect" title=" " alt="" coords="823,313,886,339"/>
-<area shape="poly" title=" " alt="" coords="857,46,857,300,852,300,852,46"/>
-<area shape="rect" title=" " alt="" coords="725,167,817,192"/>
-<area shape="poly" title=" " alt="" coords="846,47,786,156,781,153,842,45"/>
-<area shape="rect" title=" " alt="" coords="893,93,955,119"/>
-<area shape="poly" title=" " alt="" coords="873,44,906,81,902,84,869,47"/>
-<area shape="rect" title=" " alt="" coords="980,93,1065,119"/>
-<area shape="poly" title=" " alt="" coords="896,43,987,85,984,90,894,48"/>
-<area shape="rect" href="a01562.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="527,167,631,192"/>
-<area shape="poly" title=" " alt="" coords="669,121,608,161,606,157,666,116"/>
-<area shape="poly" title=" " alt="" coords="689,118,697,152,714,191,740,225,770,256,828,303,825,307,767,260,736,228,710,193,692,154,683,120"/>
-<area shape="poly" title=" " alt="" coords="700,117,748,156,744,160,696,121"/>
-<area shape="rect" href="a03140.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="433,240,607,265"/>
-<area shape="poly" title=" " alt="" coords="571,194,540,231,536,228,567,191"/>
-<area shape="rect" href="a03164.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="5,313,117,339"/>
-<area shape="poly" title=" " alt="" coords="443,268,131,316,130,310,442,263"/>
-<area shape="rect" title=" " alt="" coords="141,313,208,339"/>
-<area shape="poly" title=" " alt="" coords="458,268,222,316,221,311,457,263"/>
-<area shape="rect" title=" " alt="" coords="233,313,303,339"/>
-<area shape="poly" title=" " alt="" coords="480,268,318,314,316,308,479,263"/>
-<area shape="rect" title=" " alt="" coords="328,313,419,339"/>
-<area shape="poly" title=" " alt="" coords="498,268,411,310,408,305,495,263"/>
-<area shape="rect" title=" " alt="" coords="443,313,517,339"/>
-<area shape="poly" title=" " alt="" coords="516,267,496,303,491,300,511,264"/>
-<area shape="rect" title=" " alt="" coords="541,313,595,339"/>
-<area shape="poly" title=" " alt="" coords="530,264,555,301,550,304,526,267"/>
-<area shape="rect" title=" " alt="" coords="619,313,677,339"/>
-<area shape="poly" title=" " alt="" coords="542,263,616,304,614,309,539,268"/>
-<area shape="rect" title=" " alt="" coords="702,313,799,339"/>
-<area shape="poly" title=" " alt="" coords="558,263,701,307,700,312,556,268"/>
-<area shape="poly" title=" " alt="" coords="582,263,810,310,809,316,581,268"/>
+<div class="center"><img src="a01575.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2multitaper__tfr_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2dsp_2multitaper__tfr_8cpp" id="asrc_2libs_2mne_2dsp_2multitaper__tfr_8cpp">
+<area shape="rect" title="Implementation of MultitaperTfr." alt="" coords="446,5,646,45"/>
+<area shape="rect" href="a01790.html" title="Sliding&#45;window multitaper time&#45;frequency representation." alt="" coords="175,93,298,119"/>
+<area shape="poly" title=" " alt="" coords="473,48,296,92,295,87,471,43"/>
+<area shape="rect" title=" " alt="" coords="345,167,437,192"/>
+<area shape="poly" title=" " alt="" coords="514,48,482,69,451,95,425,126,406,156,402,153,421,123,447,91,478,65,511,43"/>
+<area shape="rect" href="a01703.html" title="Discrete Prolate Spheroidal Sequences (Slepian tapers) for multitaper spectral estimation." alt="" coords="322,93,386,119"/>
+<area shape="poly" title=" " alt="" coords="501,48,396,91,394,86,499,43"/>
+<area shape="rect" title=" " alt="" coords="461,93,631,119"/>
+<area shape="poly" title=" " alt="" coords="549,46,549,79,543,79,543,46"/>
+<area shape="rect" title=" " alt="" coords="656,93,719,119"/>
+<area shape="poly" title=" " alt="" coords="581,43,655,84,653,89,579,48"/>
+<area shape="rect" title=" " alt="" coords="743,93,821,119"/>
+<area shape="poly" title=" " alt="" coords="603,43,736,87,734,92,602,48"/>
+<area shape="rect" title=" " alt="" coords="845,93,924,119"/>
+<area shape="poly" title=" " alt="" coords="628,43,832,90,831,95,627,48"/>
+<area shape="rect" href="a01568.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="217,167,321,192"/>
+<area shape="poly" title=" " alt="" coords="244,118,260,153,256,155,240,120"/>
+<area shape="rect" title=" " alt="" coords="5,313,68,339"/>
+<area shape="poly" title=" " alt="" coords="228,121,59,304,55,301,224,117"/>
+<area shape="poly" title=" " alt="" coords="263,116,355,158,353,163,260,121"/>
+<area shape="rect" href="a03146.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="285,240,460,265"/>
+<area shape="poly" title=" " alt="" coords="287,190,346,230,343,234,284,194"/>
+<area shape="rect" href="a03170.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="589,313,701,339"/>
+<area shape="poly" title=" " alt="" coords="417,263,588,307,587,312,416,268"/>
+<area shape="rect" title=" " alt="" coords="725,313,791,339"/>
+<area shape="poly" title=" " alt="" coords="447,263,567,283,712,311,711,316,566,288,446,268"/>
+<area shape="rect" title=" " alt="" coords="816,313,887,339"/>
+<area shape="poly" title=" " alt="" coords="460,261,616,281,803,311,802,316,615,286,460,266"/>
+<area shape="rect" title=" " alt="" coords="93,313,183,339"/>
+<area shape="poly" title=" " alt="" coords="336,268,190,312,188,307,334,263"/>
+<area shape="rect" title=" " alt="" coords="207,313,282,339"/>
+<area shape="poly" title=" " alt="" coords="353,268,279,309,277,304,351,263"/>
+<area shape="rect" title=" " alt="" coords="306,313,359,339"/>
+<area shape="poly" title=" " alt="" coords="368,267,348,303,344,300,364,264"/>
+<area shape="rect" title=" " alt="" coords="383,313,442,339"/>
+<area shape="poly" title=" " alt="" coords="382,264,402,300,397,303,377,267"/>
+<area shape="rect" title=" " alt="" coords="467,313,564,339"/>
+<area shape="poly" title=" " alt="" coords="397,263,481,305,479,309,394,268"/>
+<area shape="poly" title=" " alt="" coords="313,268,82,316,81,311,312,263"/>
+<area shape="poly" title=" " alt="" coords="342,121,295,160,291,156,339,117"/>
+<area shape="poly" title=" " alt="" coords="363,118,381,153,377,156,358,120"/>
 </map>
 </div>
 </div>
 <p><a href="a01574_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of <a class="el" href="a05428.html" title="Automated detection of bad MEG/EEG channels using flat, variance, and correlation criteria.">BadChannelDetect</a>. </p>
+<div class="textblock"><p>Implementation of <a class="el" href="a05602.html" title="Sliding-window multitaper time-frequency representation.">MultitaperTfr</a>. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.2.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>April 2026 </dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a01574_source.html">bad_channel_detect.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01574_source.html">multitaper_tfr.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

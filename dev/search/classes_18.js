@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zoomanimation_0',['ZoomAnimation',['../a07164.html',1,'mne::scene::TraceView']]]
+  ['zoomanimation_0',['ZoomAnimation',['../a07186.html',1,'mne::scene::TraceView']]]
 ];

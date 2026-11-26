@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['natus_5fbackend_2ecpp_0',['natus_backend.cpp',['../a02000.html',1,'']]],
-  ['natus_5fsimulator_2ecpp_1',['natus_simulator.cpp',['../a02003.html',1,'']]],
-  ['natus_5ftransport_2eh_2',['natus_transport.h',['../a01997.html',1,'']]],
+  ['natus_5fbackend_2ecpp_0',['natus_backend.cpp',['../a02006.html',1,'']]],
+  ['natus_5fsimulator_2ecpp_1',['natus_simulator.cpp',['../a02009.html',1,'']]],
+  ['natus_5ftransport_2eh_2',['natus_transport.h',['../a02003.html',1,'']]],
   ['network_2ecpp_3',['network.cpp',['../a00203.html',1,'']]],
   ['network_2eh_4',['network.h',['../a00209.html',1,'']]],
   ['networkedge_2ecpp_5',['networkedge.cpp',['../a00215.html',1,'']]],
@@ -12,12 +12,12 @@ var searchData=
   ['networkobject_2eh_9',['networkobject.h',['../a00662.html',1,'']]],
   ['networktreeitem_2ecpp_10',['networktreeitem.cpp',['../a00569.html',1,'']]],
   ['networktreeitem_2eh_11',['networktreeitem.h',['../a00521.html',1,'']]],
-  ['neuromag_5fbackend_2ecpp_12',['neuromag_backend.cpp',['../a01901.html',1,'']]],
-  ['neuromag_5fdacq_5fposix_2ecpp_13',['neuromag_dacq_posix.cpp',['../a01907.html',1,'']]],
-  ['neuromag_5ffiff_2ecpp_14',['neuromag_fiff.cpp',['../a01910.html',1,'']]],
-  ['neuromag_5ffiff_2eh_15',['neuromag_fiff.h',['../a01898.html',1,'']]],
-  ['neuromag_5fsimulator_2ecpp_16',['neuromag_simulator.cpp',['../a01904.html',1,'']]],
-  ['neuromag_5ftransport_2eh_17',['neuromag_transport.h',['../a01913.html',1,'']]],
-  ['numerics_2ecpp_18',['numerics.cpp',['../a02312.html',1,'']]],
-  ['numerics_2eh_19',['numerics.h',['../a02291.html',1,'']]]
+  ['neuromag_5fbackend_2ecpp_12',['neuromag_backend.cpp',['../a01907.html',1,'']]],
+  ['neuromag_5fdacq_5fposix_2ecpp_13',['neuromag_dacq_posix.cpp',['../a01913.html',1,'']]],
+  ['neuromag_5ffiff_2ecpp_14',['neuromag_fiff.cpp',['../a01916.html',1,'']]],
+  ['neuromag_5ffiff_2eh_15',['neuromag_fiff.h',['../a01904.html',1,'']]],
+  ['neuromag_5fsimulator_2ecpp_16',['neuromag_simulator.cpp',['../a01910.html',1,'']]],
+  ['neuromag_5ftransport_2eh_17',['neuromag_transport.h',['../a01919.html',1,'']]],
+  ['numerics_2ecpp_18',['numerics.cpp',['../a02318.html',1,'']]],
+  ['numerics_2eh_19',['numerics.h',['../a02297.html',1,'']]]
 ];
