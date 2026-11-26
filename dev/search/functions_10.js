@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['qttextmetrics_0',['QtTextMetrics',['../a04838.html#aed230d539d7647a3b5f48008e05694b9',1,'mne::disp::QtTextMetrics']]],
-  ['quickcontrolview_1',['QuickControlView',['../a05114.html#a3b1f4032f5fe698fd855e97a1157162e',1,'mne::disp::QuickControlView']]]
+  ['qttextmetrics_0',['QtTextMetrics',['../a04883.html#aed230d539d7647a3b5f48008e05694b9',1,'mne::disp::QtTextMetrics']]],
+  ['quickcontrolview_1',['QuickControlView',['../a05159.html#a3b1f4032f5fe698fd855e97a1157162e',1,'mne::disp::QuickControlView']]]
 ];

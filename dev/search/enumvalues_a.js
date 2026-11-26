@@ -1,24 +1,4 @@
 var searchData=
 [
-  ['label_0',['Label',['../a03221.html#a6f0f13b39e92820eda555f21cc0c104cab021df6aac4654c454f46c77646e745f',1,'mne']]],
-  ['late_1',['Late',['../a03221.html#a431575bc664b471e7206a28da35727d3ad9359722ca1b596c94882e47ad970cb5',1,'mne']]],
-  ['latest_2',['Latest',['../a03622.html#a4c665ef78102d32d7ea6e6ae66bc343eacd118d21c3b0b4762c6e0063661e6e45',1,'mne::AcqReader']]],
-  ['lcmv_3',['LCMV',['../a03221.html#ade8f3f7441faae5bc61b2d7fc499975da9c5f376ef9640222a0955796b6945cdc',1,'mne']]],
-  ['leak_4',['Leak',['../a03222.html#a7a14068808b9e155e5ae7798d9feab79aeb13f410d3ada60f555b5ea20e2d24cd',1,'mne::detail']]],
-  ['left_5',['Left',['../a03415.html#a4d7b2e83fd2bad00251c4224181abd88a945d5e233cf7d6240f6b783b36a374ff',1,'mne::scene::Left'],['../a03415.html#a3f784622838ca9da31baebdeecd38fd8a945d5e233cf7d6240f6b783b36a374ff',1,'mne::scene::Left'],['../a03415.html#a7cf2927e679e0424d11e9f520887832aa945d5e233cf7d6240f6b783b36a374ff',1,'mne::scene::Left'],['../a03415.html#a3c10dc0531b16f3700a0dc749c271c93a945d5e233cf7d6240f6b783b36a374ff',1,'mne::scene::Left'],['../a03415.html#a1cdd139c603d30d6175a5e84ef8e20e1a945d5e233cf7d6240f6b783b36a374ff',1,'mne::scene::Left'],['../a03221.html#ac1be945a976d2b4ea40333422cf1c47fa945d5e233cf7d6240f6b783b36a374ff',1,'mne::Left']]],
-  ['less_6',['Less',['../a03415.html#a086526a1655a39e04cbb586cc52d50fca1cfdf0e8d0c87a228c1f40d9bee7888b',1,'mne::scene']]],
-  ['lessorequal_7',['LessOrEqual',['../a03415.html#a086526a1655a39e04cbb586cc52d50fcaa4cbdbb6070a5abb35fc95ecf1e22c14',1,'mne::scene']]],
-  ['light_8',['Light',['../a03221.html#a496b6599f73118baeac4515fc1b5883ca9914a0ce04a7b7b6a8e39bec55064b82',1,'mne']]],
-  ['linear_9',['Linear',['../a07282.html#aceaf71f5e5125694407daf82a9202697a32a843da6ea40ab3b17a3421ccdf671b',1,'mne::scene::ViewAnimator::Linear'],['../a03305.html#a015b3e93d820739787d3cb044914cc1ba32a843da6ea40ab3b17a3421ccdf671b',1,'mne::disp::Linear'],['../a03221.html#aad95ff5e0b960e8804fc3a826b9b5752a32a843da6ea40ab3b17a3421ccdf671b',1,'mne::Linear'],['../a03415.html#a8ef8654c0ccdf5ce36bef0900daa17f5a32a843da6ea40ab3b17a3421ccdf671b',1,'mne::scene::Linear']]],
-  ['lineargradient_10',['LinearGradient',['../a07154.html#a6b639ec70549c8113f7a095145e7da92a2a7a5ee931feedab83c9c05a3a707a71',1,'mne::scene::Brush']]],
-  ['lines_11',['Lines',['../a03415.html#acff61f948ad2b855c4e1597d34a4e675aa0b0293a2db49f5f93c15a62e095c819',1,'mne::scene']]],
-  ['linestrip_12',['LineStrip',['../a03415.html#acff61f948ad2b855c4e1597d34a4e675ae7f9e73b8edd21f420a63b3ace5768a2',1,'mne::scene']]],
-  ['loose_13',['Loose',['../a03221.html#a7d78d8daf8cb5095862156fafefb5bdba08d78f099561104c2015d19ea7d9d41e',1,'mne']]],
-  ['lossless_14',['Lossless',['../a03622.html#a4c665ef78102d32d7ea6e6ae66bc343eab7048ff6b4f97b9230b2365b31d16713',1,'mne::AcqReader']]],
-  ['low_15',['low',['../a03221.html#ab309424562479fd599ad71c80bf188c6a53cced8d281a1a0ace3cb6594daaa4f7',1,'mne']]],
-  ['lowlatency_16',['LowLatency',['../a03622.html#a4c665ef78102d32d7ea6e6ae66bc343ea611907b5ab1865515c35357efa41a9b9',1,'mne::AcqReader']]],
-  ['lowpass_17',['LowPass',['../a05574.html#a99464e1d1f981abc43a63bb590ab0866a540de49e00650111b17a926f9deb96fb',1,'mne::FirFilter::LowPass'],['../a05590.html#a0d537a033d470e3c1e72eb68130bb444aa45dfac45b6252dc07421e1128663dab',1,'mne::IirFilter::LowPass']]],
-  ['lpa_18',['LPA',['../a03221.html#afa559bab41a42c55ac50134d4c27a51ba7bf2c2726b365217332b826739cb7b43',1,'mne']]],
-  ['lpf_19',['LPF',['../a05510.html#a55771ac39315d25f772c9145cfde2ccbaeb1d288e812999d823800ef110c900c4',1,'mne::CosineFilter::LPF'],['../a05634.html#ab8f715a67206b5954bd539fc6adf6647a8845f5b670405c9adf8b99b59b728497',1,'mne::ParksMcClellan::LPF']]],
-  ['lsl_20',['Lsl',['../a03221.html#a00c2b6f9b43b3645b9bf44059e993e4daa38e4b665dc638e2f06901a5bd1dd6da',1,'mne']]]
+  ['kind_0',['Kind',['../a07411.html#a621704e43542e437300177108bbfab3aad626102cfc2416a570fc0dc582a9b771',1,'mne::viewmodels::ChannelTable']]]
 ];

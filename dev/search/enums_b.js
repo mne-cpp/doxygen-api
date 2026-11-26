@@ -1,16 +1,16 @@
 var searchData=
 [
-  ['mlbackend_0',['MlBackend',['../a03221.html#a6d172538667acc8f223e81747f75f59c',1,'mne']]],
-  ['mldatatype_1',['MlDataType',['../a03221.html#aab5900f1824367437e7e34eef6a02bae',1,'mne']]],
-  ['mltasktype_2',['MlTaskType',['../a03221.html#a7b950f1700b38ebc969776769fb324d7',1,'mne']]],
-  ['mnaattrtype_3',['MnaAttrType',['../a03221.html#a169989f08372de3b5242f5bb3c0d269a',1,'mne']]],
-  ['mnacontainerformat_4',['MnaContainerFormat',['../a03221.html#ac9ce59c74eaf69e01e6f1d416520fa8c',1,'mne']]],
-  ['mnadatakind_5',['MnaDataKind',['../a03221.html#a6f0f13b39e92820eda555f21cc0c104c',1,'mne']]],
-  ['mnafilerole_6',['MnaFileRole',['../a03221.html#accef4ea64353452ed841fd92fe9562a3',1,'mne']]],
-  ['mnanodeexecmode_7',['MnaNodeExecMode',['../a03221.html#acb2db7a9b3b965fbf54448bb6960e42a',1,'mne']]],
-  ['mnaportdir_8',['MnaPortDir',['../a03221.html#a6a2580d2ace64b821421f93747c7efbd',1,'mne']]],
-  ['mode_9',['Mode',['../a03666.html#a47acbbcd8edec1b298a8c0d859982daa',1,'mne::AcqSegmentation::Mode'],['../a04370.html#a6e866acd1d66f2115c6470ef63d7483d',1,'mne::FileByteStream::Mode']]],
-  ['modifier_10',['Modifier',['../a03415.html#a3d6dbdabccd36e49f1c6a7d6eb6d2b4a',1,'mne::scene']]],
-  ['mousebutton_11',['MouseButton',['../a03415.html#a3f784622838ca9da31baebdeecd38fd8',1,'mne::scene']]],
-  ['mousebuttons_12',['MouseButtons',['../a03415.html#a7cf2927e679e0424d11e9f520887832a',1,'mne::scene']]]
+  ['mlbackend_0',['MlBackend',['../a03257.html#a6d172538667acc8f223e81747f75f59c',1,'mne']]],
+  ['mldatatype_1',['MlDataType',['../a03257.html#aab5900f1824367437e7e34eef6a02bae',1,'mne']]],
+  ['mltasktype_2',['MlTaskType',['../a03257.html#a7b950f1700b38ebc969776769fb324d7',1,'mne']]],
+  ['mnaattrtype_3',['MnaAttrType',['../a03257.html#a169989f08372de3b5242f5bb3c0d269a',1,'mne']]],
+  ['mnacontainerformat_4',['MnaContainerFormat',['../a03257.html#ac9ce59c74eaf69e01e6f1d416520fa8c',1,'mne']]],
+  ['mnadatakind_5',['MnaDataKind',['../a03257.html#a6f0f13b39e92820eda555f21cc0c104c',1,'mne']]],
+  ['mnafilerole_6',['MnaFileRole',['../a03257.html#accef4ea64353452ed841fd92fe9562a3',1,'mne']]],
+  ['mnanodeexecmode_7',['MnaNodeExecMode',['../a03257.html#acb2db7a9b3b965fbf54448bb6960e42a',1,'mne']]],
+  ['mnaportdir_8',['MnaPortDir',['../a03257.html#a6a2580d2ace64b821421f93747c7efbd',1,'mne']]],
+  ['mode_9',['Mode',['../a03707.html#a47acbbcd8edec1b298a8c0d859982daa',1,'mne::AcqSegmentation::Mode'],['../a04411.html#a6e866acd1d66f2115c6470ef63d7483d',1,'mne::FileByteStream::Mode']]],
+  ['modifier_10',['Modifier',['../a03453.html#a3d6dbdabccd36e49f1c6a7d6eb6d2b4a',1,'mne::scene']]],
+  ['mousebutton_11',['MouseButton',['../a03453.html#a3f784622838ca9da31baebdeecd38fd8',1,'mne::scene']]],
+  ['mousebuttons_12',['MouseButtons',['../a03453.html#a7cf2927e679e0424d11e9f520887832a',1,'mne::scene']]]
 ];

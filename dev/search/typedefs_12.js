@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['value_5ftype_0',['value_type',['../a04386.html#a8967d102c16a72f1ddbc0e4e875a0821',1,'mne::CborArray::value_type'],['../a04390.html#ad29b03286098fc8049506da86fc46e10',1,'mne::CborMap::value_type'],['../a04438.html#a833d37cdfb573723426be088e391d28a',1,'mne::JsonArray::value_type'],['../a04442.html#a8daf1fbc2b4bcdfbf284d891be2a5022',1,'mne::JsonObject::value_type'],['../a05750.html#abde784a917b84aa3a5b1aae130428ce4',1,'mne::FiffAnnotations::value_type'],['../a05794.html#ad367f6c560209a9b0be1d65be2afb597',1,'mne::FiffDigPointSet::value_type']]],
-  ['vector6t_1',['Vector6T',['../a06222.html#a510626f8e7ae6207036722acdb47a1b0',1,'mne::InvRapMusic']]],
-  ['vectorxt_2',['VectorXT',['../a06222.html#a11c539e04f4ab3b8b426b79d19dabb6c',1,'mne::InvRapMusic']]]
+  ['value_5ftype_0',['value_type',['../a04427.html#a8967d102c16a72f1ddbc0e4e875a0821',1,'mne::CborArray::value_type'],['../a04431.html#ad29b03286098fc8049506da86fc46e10',1,'mne::CborMap::value_type'],['../a04479.html#a833d37cdfb573723426be088e391d28a',1,'mne::JsonArray::value_type'],['../a04483.html#a8daf1fbc2b4bcdfbf284d891be2a5022',1,'mne::JsonObject::value_type'],['../a05811.html#abde784a917b84aa3a5b1aae130428ce4',1,'mne::FiffAnnotations::value_type'],['../a05855.html#ad367f6c560209a9b0be1d65be2afb597',1,'mne::FiffDigPointSet::value_type']]],
+  ['vector6t_1',['Vector6T',['../a06283.html#a510626f8e7ae6207036722acdb47a1b0',1,'mne::InvRapMusic']]],
+  ['vectorxt_2',['VectorXT',['../a06283.html#a11c539e04f4ab3b8b426b79d19dabb6c',1,'mne::InvRapMusic']]]
 ];
