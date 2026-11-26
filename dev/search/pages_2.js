@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['blocks_0',['of free blocks.',['../a03017.html#autotoc_md58',1,'']]],
-  ['blocks_20available_20to_20non_20superuser_1',['of free blocks available to non-superuser.',['../a03017.html#autotoc_md59',1,'']]]
+  ['blocks_0',['of free blocks.',['../a02609.html#autotoc_md58',1,'']]],
+  ['blocks_20available_20to_20non_20superuser_1',['of free blocks available to non-superuser.',['../a02609.html#autotoc_md59',1,'']]]
 ];

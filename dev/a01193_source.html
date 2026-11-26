@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/connectivity/metrics/directed_transfer_function.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/scene/ray_picking.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,12 +243,12 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_b426ec298a2d32e011ae63a72bfd9bd3.html">connectivity</a></li><li class="navelem"><a href="dir_7b2225166ed237cc9a115dc65886784d.html">metrics</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_0d7742f656ae6caad97c74a0078a50de.html">scene</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">directed_transfer_function.cpp</div></div>
+  <div class="headertitle"><div class="title">ray_picking.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01193.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
@@ -257,144 +257,130 @@ $(function() {
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a01178.html">directed_transfer_function.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a01217.html">ray_picking.h</a>&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="a01199.html">mvar_model.h</a>&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="a01124.html">../network/networknode.h</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="a01112.html">../network/networkedge.h</a>&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="a01118.html">../network/network.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &quot;<a class="code" href="a01130.html">../connectivitysettings.h</a>&quot;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a01589.html">mne/base/log.h</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;Eigen/Geometry&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;Eigen/LU&gt;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// STL INCLUDES</span></div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// STL INCLUDES</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03209.html">mne</a>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// DEFINE GLOBAL METHODS</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// DEFINE NAMESPACE mne::scene</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03415.html">mne::scene</a></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03415.html#a27a1b2081200b58253ad3d77787ecdf2">   40</a></span>std::optional&lt;Ray&gt; <a class="code hl_function" href="a03415.html#a27a1b2081200b58253ad3d77787ecdf2">ray_from_pixel</a>(<a class="code hl_struct" href="a06958.html">Point</a> pixel, <span class="keyword">const</span> <a class="code hl_struct" href="a06962.html">Rect</a>&amp; pane, <span class="keyword">const</span> Eigen::Matrix4f&amp; pvm)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> Eigen::Matrix4d matrix = pvm.cast&lt;<span class="keywordtype">double</span>&gt;();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> determinant = matrix.determinant();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> (!std::isfinite(determinant) || std::abs(determinant) &lt;= 1e-12) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> Eigen::Matrix4d inverse = matrix.inverse();</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a04705.html#a915630b722e26c000eaabe3977ba56bc">   53</a></span><a class="code hl_function" href="a04705.html#a915630b722e26c000eaabe3977ba56bc">DirectedTransferFunction::DirectedTransferFunction</a>()</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>{</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> width = std::max(1.0, pane.<a class="code hl_variable" href="a06962.html#aea8653d29c8cacf7eb0d9b604a07b455">width</a>);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> height = std::max(1.0, pane.<a class="code hl_variable" href="a06962.html#a34c0cc7c4a0edec550428ee8c5b3fde8">height</a>);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> ndc_x = 2.0 * (pixel.<a class="code hl_variable" href="a06958.html#aeb15115e370a58082b4edd059b1c3d8e">x</a> - pane.<a class="code hl_variable" href="a06962.html#a18fa3d437a20b29d851cda1c08246515">x</a>) / width - 1.0;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> ndc_y = 1.0 - 2.0 * (pixel.<a class="code hl_variable" href="a06958.html#ae66fc786d047cb4a5f96171201838a34">y</a> - pane.<a class="code hl_variable" href="a06962.html#a7d6aeb5c197f99b24caf315e2b75eaf0">y</a>) / height;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    Eigen::Vector4d near_point = inverse * Eigen::Vector4d(ndc_x, ndc_y, -1.0, 1.0);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    Eigen::Vector4d far_point = inverse * Eigen::Vector4d(ndc_x, ndc_y, 1.0, 1.0);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    near_point /= near_point.w();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    far_point /= far_point.w();</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a04705.html#a254b9124b5436d30f760e44c04e35b97">   59</a></span><a class="code hl_class" href="a04745.html">Network</a> <a class="code hl_function" href="a04705.html#a254b9124b5436d30f760e44c04e35b97">DirectedTransferFunction::calculate</a>(<a class="code hl_class" href="a04669.html">ConnectivitySettings</a>&amp; connectivitySettings)</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_class" href="a04745.html">Network</a> finalNetwork(<span class="stringliteral">&quot;DTF&quot;</span>);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (connectivitySettings.<a class="code hl_function" href="a04669.html#a0542e6d86d85c921db88ccfa7fbd1939">empty</a>()) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_function" href="a04501.html#aaa003eb5f606a912a59341dc484380e9">mne::Log::debug</a>(<span class="stringliteral">&quot;DirectedTransferFunction::calculate - Input data is empty&quot;</span>);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">return</span> finalNetwork;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    finalNetwork.<a class="code hl_function" href="a04745.html#a046757b9697601a79c2f60624ad3fa85">set_sampling_frequency</a>(connectivitySettings.<a class="code hl_function" href="a04669.html#a9169b4559b24217528306e46f970e589">getSamplingFrequency</a>());</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// Average trial data for MVAR fitting</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nTrials = connectivitySettings.<a class="code hl_function" href="a04669.html#ae6e8be480c9b28b7242e755ab5758ae3">size</a>();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    MatrixXd matDataAvg = connectivitySettings.<a class="code hl_function" href="a04669.html#a6171d9e6ac367a42ef6d45103944e4d4">at</a>(0).<a class="code hl_variable" href="a04673.html#a5383e7ffcd1e03b4758c91a26120fa69">matData</a>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> t = 1; t &lt; nTrials; ++t) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        matDataAvg += connectivitySettings.<a class="code hl_function" href="a04669.html#a6171d9e6ac367a42ef6d45103944e4d4">at</a>(t).<a class="code hl_variable" href="a04673.html#a5383e7ffcd1e03b4758c91a26120fa69">matData</a>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    matDataAvg /= <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(nTrials);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nCh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(matDataAvg.rows());</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> iNfft = connectivitySettings.<a class="code hl_function" href="a04669.html#a2881d90cb927b4f25e2d880c72392fd5">getFFTSize</a>();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> iNFreqs = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::floor(iNfft / 2.0)) + 1;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    finalNetwork.<a class="code hl_function" href="a04745.html#a47188975bf5fecc85adf61a3e6d6d757">set_fft_size</a>(iNFreqs);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    finalNetwork.<a class="code hl_function" href="a04745.html#a73f5c547d64ccc7a47bd3e5f3c366701">set_used_freq_bins</a>(iNFreqs);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// Create nodes</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_function" href="a04681.html#a0a498db9f6579bcb3df0f12b0ec2514f">add_nodes</a>(finalNetwork, nCh, connectivitySettings.<a class="code hl_function" href="a04669.html#af11bc2a20c8be59d3b62c158fd066955">getNodePositions</a>());</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="comment">// Fit MVAR model</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_class" href="a04717.html">MvarModel</a> model;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    model.<a class="code hl_function" href="a04717.html#ac9b83574b8e86d62232d155541e9f879">fit</a>(matDataAvg);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">// Compute transfer function at normalized frequencies</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    VectorXd vecFreqs = VectorXd::LinSpaced(iNFreqs, 0.0, 0.5);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    std::vector&lt;MatrixXcd&gt; vecH = model.<a class="code hl_function" href="a04717.html#a10b173d0e78c9e5bc9d040eb45d4463a">transferFunction</a>(vecFreqs);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// Compute DTF: DTF_{ij}(f) = |H_{ij}(f)|^2 / sum_k |H_{ik}(f)|^2</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="comment">// (normalized per row i)</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; nCh; ++i) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; nCh; ++j) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            MatrixXd matWeight(iNFreqs, 1);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fi = 0; fi &lt; iNFreqs; ++fi) {</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="comment">// Row normalization: sum of |H_{ik}(f)|^2 over all k</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                <span class="keywordtype">double</span> rowNorm = 0.0;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; nCh; ++k) {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    rowNorm += std::norm(vecH[fi](i, k));</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                <span class="keywordflow">if</span> (rowNorm &gt; 0.0) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                    matWeight(fi, 0) = std::norm(vecH[fi](i, j)) / rowNorm;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                    matWeight(fi, 0) = 0.0;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                }</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            finalNetwork.<a class="code hl_function" href="a04745.html#ae6d26a26fbe57969b53e79eb65613268">add_edge</a>(<a class="code hl_class" href="a04749.html">NetworkEdge</a>(j, i, std::move(matWeight)));</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">return</span> finalNetwork;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_struct" href="a07070.html">Ray</a> ray;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    ray.<a class="code hl_variable" href="a07070.html#a69c9fbb5a354e1a7cd2e02c3d3204b42">origin</a> = near_point.head&lt;3&gt;().cast&lt;float&gt;();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    ray.<a class="code hl_variable" href="a07070.html#a7fafea6c8024adc773ee95ce4dd0b6ba">direction</a> = (far_point.head&lt;3&gt;() - near_point.head&lt;3&gt;()).normalized().cast&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">return</span> ray;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
 </div>
-<div class="ttc" id="aa01112_html"><div class="ttname"><a href="a01112.html">networkedge.h</a></div><div class="ttdoc">Weighted edge between two nodes of a mne::Network; stores the full per-frequency weight matrix and th...</div></div>
-<div class="ttc" id="aa01118_html"><div class="ttname"><a href="a01118.html">network.h</a></div><div class="ttdoc">Graph container that stores the result of one functional-connectivity metric as nodes (sources/sensor...</div></div>
-<div class="ttc" id="aa01124_html"><div class="ttname"><a href="a01124.html">networknode.h</a></div><div class="ttdoc">Node of a connectivity mne::Network; carries a 3D position and the indices of its incident edges.</div></div>
-<div class="ttc" id="aa01130_html"><div class="ttname"><a href="a01130.html">connectivitysettings.h</a></div><div class="ttdoc">Input-data and parameter container shared by every functional-connectivity metric in mne_connectivity...</div></div>
-<div class="ttc" id="aa01178_html"><div class="ttname"><a href="a01178.html">directed_transfer_function.h</a></div><div class="ttdoc">Directed Transfer Function (Kaminski &amp; Blinowska 1991) between every channel pair,...</div></div>
-<div class="ttc" id="aa01199_html"><div class="ttname"><a href="a01199.html">mvar_model.h</a></div><div class="ttdoc">Multivariate autoregressive (MVAR) model fit and its frequency-domain decomposition; backbone of the ...</div></div>
-<div class="ttc" id="aa01589_html"><div class="ttname"><a href="a01589.html">log.h</a></div><div class="ttdoc">Logging: a std::format facade with a replaceable sink, the console and file writer,...</div></div>
-<div class="ttc" id="aa03209_html"><div class="ttname"><a href="a03209.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a02123_source.html#l00047">acq_backend.h:48</a></div></div>
-<div class="ttc" id="aa04501_html_aaa003eb5f606a912a59341dc484380e9"><div class="ttname"><a href="a04501.html#aaa003eb5f606a912a59341dc484380e9">mne::Log::debug</a></div><div class="ttdeci">static void debug(std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a01589_source.html#l00094">log.h:94</a></div></div>
-<div class="ttc" id="aa04669_html"><div class="ttname"><a href="a04669.html">mne::ConnectivitySettings</a></div><div class="ttdoc">Aggregates trial data, spectral cache and node geometry shared by all mne_connectivity metrics.</div><div class="ttdef"><b>Definition</b> <a href="a01130_source.html#l00108">connectivitysettings.h:109</a></div></div>
-<div class="ttc" id="aa04669_html_a0542e6d86d85c921db88ccfa7fbd1939"><div class="ttname"><a href="a04669.html#a0542e6d86d85c921db88ccfa7fbd1939">mne::ConnectivitySettings::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdef"><b>Definition</b> <a href="a01226_source.html#l00165">connectivitysettings.cpp:165</a></div></div>
-<div class="ttc" id="aa04669_html_a2881d90cb927b4f25e2d880c72392fd5"><div class="ttname"><a href="a04669.html#a2881d90cb927b4f25e2d880c72392fd5">mne::ConnectivitySettings::getFFTSize</a></div><div class="ttdeci">int getFFTSize() const</div><div class="ttdef"><b>Definition</b> <a href="a01226_source.html#l00264">connectivitysettings.cpp:264</a></div></div>
-<div class="ttc" id="aa04669_html_a6171d9e6ac367a42ef6d45103944e4d4"><div class="ttname"><a href="a04669.html#a6171d9e6ac367a42ef6d45103944e4d4">mne::ConnectivitySettings::at</a></div><div class="ttdeci">const IntermediateTrialData &amp; at(int i) const</div><div class="ttdef"><b>Definition</b> <a href="a01226_source.html#l00151">connectivitysettings.cpp:151</a></div></div>
-<div class="ttc" id="aa04669_html_a9169b4559b24217528306e46f970e589"><div class="ttname"><a href="a04669.html#a9169b4559b24217528306e46f970e589">mne::ConnectivitySettings::getSamplingFrequency</a></div><div class="ttdeci">int getSamplingFrequency() const</div><div class="ttdef"><b>Definition</b> <a href="a01226_source.html#l00243">connectivitysettings.cpp:243</a></div></div>
-<div class="ttc" id="aa04669_html_ae6e8be480c9b28b7242e755ab5758ae3"><div class="ttname"><a href="a04669.html#ae6e8be480c9b28b7242e755ab5758ae3">mne::ConnectivitySettings::size</a></div><div class="ttdeci">int size() const</div><div class="ttdef"><b>Definition</b> <a href="a01226_source.html#l00158">connectivitysettings.cpp:158</a></div></div>
-<div class="ttc" id="aa04669_html_af11bc2a20c8be59d3b62c158fd066955"><div class="ttname"><a href="a04669.html#af11bc2a20c8be59d3b62c158fd066955">mne::ConnectivitySettings::getNodePositions</a></div><div class="ttdeci">const Eigen::MatrixX3f &amp; getNodePositions() const</div><div class="ttdef"><b>Definition</b> <a href="a01226_source.html#l00381">connectivitysettings.cpp:381</a></div></div>
-<div class="ttc" id="aa04673_html_a5383e7ffcd1e03b4758c91a26120fa69"><div class="ttname"><a href="a04673.html#a5383e7ffcd1e03b4758c91a26120fa69">mne::ConnectivitySettings::IntermediateTrialData::matData</a></div><div class="ttdeci">Eigen::MatrixXd matData</div><div class="ttdef"><b>Definition</b> <a href="a01130_source.html#l00116">connectivitysettings.h:116</a></div></div>
-<div class="ttc" id="aa04681_html_a0a498db9f6579bcb3df0f12b0ec2514f"><div class="ttname"><a href="a04681.html#a0a498db9f6579bcb3df0f12b0ec2514f">mne::AbstractMetric::add_nodes</a></div><div class="ttdeci">static void add_nodes(Network &amp;network, int count, const Eigen::MatrixX3f &amp;positions)</div><div class="ttdef"><b>Definition</b> <a href="a01184_source.html#l00043">abstractmetric.cpp:43</a></div></div>
-<div class="ttc" id="aa04705_html_a254b9124b5436d30f760e44c04e35b97"><div class="ttname"><a href="a04705.html#a254b9124b5436d30f760e44c04e35b97">mne::DirectedTransferFunction::calculate</a></div><div class="ttdeci">static Network calculate(ConnectivitySettings &amp;connectivitySettings)</div><div class="ttdef"><b>Definition</b> <a href="#l00059">directed_transfer_function.cpp:59</a></div></div>
-<div class="ttc" id="aa04705_html_a915630b722e26c000eaabe3977ba56bc"><div class="ttname"><a href="a04705.html#a915630b722e26c000eaabe3977ba56bc">mne::DirectedTransferFunction::DirectedTransferFunction</a></div><div class="ttdeci">DirectedTransferFunction()</div><div class="ttdef"><b>Definition</b> <a href="#l00053">directed_transfer_function.cpp:53</a></div></div>
-<div class="ttc" id="aa04717_html"><div class="ttname"><a href="a04717.html">mne::MvarModel</a></div><div class="ttdoc">MVAR model fit; provides H(f) and S(f) for Granger Causality, DTF and PDC.</div><div class="ttdef"><b>Definition</b> <a href="a01199_source.html#l00091">mvar_model.h:92</a></div></div>
-<div class="ttc" id="aa04717_html_a10b173d0e78c9e5bc9d040eb45d4463a"><div class="ttname"><a href="a04717.html#a10b173d0e78c9e5bc9d040eb45d4463a">mne::MvarModel::transferFunction</a></div><div class="ttdeci">std::vector&lt; Eigen::MatrixXcd &gt; transferFunction(const Eigen::VectorXd &amp;freqs) const</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00084">mvar_model.cpp:84</a></div></div>
-<div class="ttc" id="aa04717_html_ac9b83574b8e86d62232d155541e9f879"><div class="ttname"><a href="a04717.html#ac9b83574b8e86d62232d155541e9f879">mne::MvarModel::fit</a></div><div class="ttdeci">void fit(const Eigen::MatrixXd &amp;data, int p=0)</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00050">mvar_model.cpp:50</a></div></div>
-<div class="ttc" id="aa04745_html"><div class="ttname"><a href="a04745.html">mne::Network</a></div><div class="ttdoc">Graph container for one connectivity metric; nodes + weighted edges + threshold/visualisation state.</div><div class="ttdef"><b>Definition</b> <a href="a01118_source.html#l00113">network.h:114</a></div></div>
-<div class="ttc" id="aa04745_html_a046757b9697601a79c2f60624ad3fa85"><div class="ttname"><a href="a04745.html#a046757b9697601a79c2f60624ad3fa85">mne::Network::set_sampling_frequency</a></div><div class="ttdeci">void set_sampling_frequency(float sfreq) noexcept</div><div class="ttdef"><b>Definition</b> <a href="a01118_source.html#l00348">network.h:348</a></div></div>
-<div class="ttc" id="aa04745_html_a47188975bf5fecc85adf61a3e6d6d757"><div class="ttname"><a href="a04745.html#a47188975bf5fecc85adf61a3e6d6d757">mne::Network::set_fft_size</a></div><div class="ttdeci">void set_fft_size(int fft_size) noexcept</div><div class="ttdef"><b>Definition</b> <a href="a01118_source.html#l00384">network.h:384</a></div></div>
-<div class="ttc" id="aa04745_html_a73f5c547d64ccc7a47bd3e5f3c366701"><div class="ttname"><a href="a04745.html#a73f5c547d64ccc7a47bd3e5f3c366701">mne::Network::set_used_freq_bins</a></div><div class="ttdeci">void set_used_freq_bins(int bins) noexcept</div><div class="ttdef"><b>Definition</b> <a href="a01118_source.html#l00366">network.h:366</a></div></div>
-<div class="ttc" id="aa04745_html_ae6d26a26fbe57969b53e79eb65613268"><div class="ttname"><a href="a04745.html#ae6d26a26fbe57969b53e79eb65613268">mne::Network::add_edge</a></div><div class="ttdeci">void add_edge(NetworkEdge edge)</div><div class="ttdef"><b>Definition</b> <a href="a01115_source.html#l00069">network.cpp:69</a></div></div>
-<div class="ttc" id="aa04749_html"><div class="ttname"><a href="a04749.html">mne::NetworkEdge</a></div><div class="ttdoc">Weighted, directional edge in a Network; carries per-frequency weights plus a band-averaged scalar.</div><div class="ttdef"><b>Definition</b> <a href="a01112_source.html#l00065">networkedge.h:66</a></div></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a03415.html#a97faae9d9140a15947775756623f499a">   67</a></span>std::optional&lt;double&gt; <a class="code hl_function" href="a03415.html#a97faae9d9140a15947775756623f499a">intersect_ray_triangle</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a07070.html">Ray</a>&amp; ray, <span class="keyword">const</span> Eigen::Vector3f&amp; v0, <span class="keyword">const</span> Eigen::Vector3f&amp; v1,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                             <span class="keyword">const</span> Eigen::Vector3f&amp; v2)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">const</span> Eigen::Vector3d origin = ray.<a class="code hl_variable" href="a07070.html#a69c9fbb5a354e1a7cd2e02c3d3204b42">origin</a>.cast&lt;<span class="keywordtype">double</span>&gt;();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">const</span> Eigen::Vector3d direction = ray.<a class="code hl_variable" href="a07070.html#a7fafea6c8024adc773ee95ce4dd0b6ba">direction</a>.cast&lt;<span class="keywordtype">double</span>&gt;();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> Eigen::Vector3d a = v0.cast&lt;<span class="keywordtype">double</span>&gt;();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">const</span> Eigen::Vector3d edge1 = v1.cast&lt;<span class="keywordtype">double</span>&gt;() - a;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> Eigen::Vector3d edge2 = v2.cast&lt;<span class="keywordtype">double</span>&gt;() - a;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">const</span> Eigen::Vector3d h = direction.cross(edge2);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> det = edge1.dot(h);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (std::abs(det) &lt; 1e-18) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> std::nullopt; <span class="comment">// Parallel to the triangle</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> f = 1.0 / det;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">const</span> Eigen::Vector3d s = origin - a;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> u = f * s.dot(h);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">if</span> (u &lt; -1e-7 || u &gt; 1.0000001) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">const</span> Eigen::Vector3d q = s.cross(edge1);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> v = f * direction.dot(q);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">if</span> (v &lt; -1e-7 || u + v &gt; 1.0000001) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> t = f * edge2.dot(q);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">if</span> (t &gt; 1e-7) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">return</span> t;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a03415.html#adc03c91046ae9c71bed3d06c0503c5f3">  104</a></span>std::optional&lt;SphereCrossing&gt; <a class="code hl_function" href="a03415.html#adc03c91046ae9c71bed3d06c0503c5f3">intersect_ray_sphere</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a07070.html">Ray</a>&amp; ray, <span class="keyword">const</span> Eigen::Vector3f&amp; center, <span class="keywordtype">float</span> radius)</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keyword">const</span> Eigen::Vector3f to_center = center - ray.<a class="code hl_variable" href="a07070.html#a69c9fbb5a354e1a7cd2e02c3d3204b42">origin</a>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> closest = to_center.dot(ray.<a class="code hl_variable" href="a07070.html#a7fafea6c8024adc773ee95ce4dd0b6ba">direction</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> distance_sq = to_center.squaredNorm() - closest * closest;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> radius_sq = radius * radius;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span> (distance_sq &gt; radius_sq) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> half_chord = std::sqrt(radius_sq - distance_sq);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span> <a class="code hl_struct" href="a07074.html">SphereCrossing</a>{closest - half_chord, closest + half_chord};</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>} <span class="comment">// namespace mne::scene</span></div>
+<div class="ttc" id="aa01217_html"><div class="ttname"><a href="a01217.html">ray_picking.h</a></div><div class="ttdoc">Pick rays from pixels and their intersections with triangles and spheres.</div></div>
+<div class="ttc" id="aa03415_html"><div class="ttname"><a href="a03415.html">mne::scene</a></div><div class="ttdef"><b>Definition</b> <a href="a01262_source.html#l00034">average_layout.h:35</a></div></div>
+<div class="ttc" id="aa03415_html_a27a1b2081200b58253ad3d77787ecdf2"><div class="ttname"><a href="a03415.html#a27a1b2081200b58253ad3d77787ecdf2">mne::scene::ray_from_pixel</a></div><div class="ttdeci">std::optional&lt; Ray &gt; ray_from_pixel(Point pixel, const Rect &amp;pane, const Eigen::Matrix4f &amp;pvm)</div><div class="ttdef"><b>Definition</b> <a href="#l00040">ray_picking.cpp:40</a></div></div>
+<div class="ttc" id="aa03415_html_a97faae9d9140a15947775756623f499a"><div class="ttname"><a href="a03415.html#a97faae9d9140a15947775756623f499a">mne::scene::intersect_ray_triangle</a></div><div class="ttdeci">std::optional&lt; double &gt; intersect_ray_triangle(const Ray &amp;ray, const Eigen::Vector3f &amp;v0, const Eigen::Vector3f &amp;v1, const Eigen::Vector3f &amp;v2)</div><div class="ttdef"><b>Definition</b> <a href="#l00067">ray_picking.cpp:67</a></div></div>
+<div class="ttc" id="aa03415_html_adc03c91046ae9c71bed3d06c0503c5f3"><div class="ttname"><a href="a03415.html#adc03c91046ae9c71bed3d06c0503c5f3">mne::scene::intersect_ray_sphere</a></div><div class="ttdeci">std::optional&lt; SphereCrossing &gt; intersect_ray_sphere(const Ray &amp;ray, const Eigen::Vector3f &amp;center, float radius)</div><div class="ttdef"><b>Definition</b> <a href="#l00104">ray_picking.cpp:104</a></div></div>
+<div class="ttc" id="aa06958_html"><div class="ttname"><a href="a06958.html">mne::scene::Point</a></div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00045">geometry.h:46</a></div></div>
+<div class="ttc" id="aa06958_html_ae66fc786d047cb4a5f96171201838a34"><div class="ttname"><a href="a06958.html#ae66fc786d047cb4a5f96171201838a34">mne::scene::Point::y</a></div><div class="ttdeci">double y</div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00048">geometry.h:48</a></div></div>
+<div class="ttc" id="aa06958_html_aeb15115e370a58082b4edd059b1c3d8e"><div class="ttname"><a href="a06958.html#aeb15115e370a58082b4edd059b1c3d8e">mne::scene::Point::x</a></div><div class="ttdeci">double x</div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00047">geometry.h:47</a></div></div>
+<div class="ttc" id="aa06962_html"><div class="ttname"><a href="a06962.html">mne::scene::Rect</a></div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00073">geometry.h:74</a></div></div>
+<div class="ttc" id="aa06962_html_a18fa3d437a20b29d851cda1c08246515"><div class="ttname"><a href="a06962.html#a18fa3d437a20b29d851cda1c08246515">mne::scene::Rect::x</a></div><div class="ttdeci">double x</div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00075">geometry.h:75</a></div></div>
+<div class="ttc" id="aa06962_html_a34c0cc7c4a0edec550428ee8c5b3fde8"><div class="ttname"><a href="a06962.html#a34c0cc7c4a0edec550428ee8c5b3fde8">mne::scene::Rect::height</a></div><div class="ttdeci">double height</div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00078">geometry.h:78</a></div></div>
+<div class="ttc" id="aa06962_html_a7d6aeb5c197f99b24caf315e2b75eaf0"><div class="ttname"><a href="a06962.html#a7d6aeb5c197f99b24caf315e2b75eaf0">mne::scene::Rect::y</a></div><div class="ttdeci">double y</div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00076">geometry.h:76</a></div></div>
+<div class="ttc" id="aa06962_html_aea8653d29c8cacf7eb0d9b604a07b455"><div class="ttname"><a href="a06962.html#aea8653d29c8cacf7eb0d9b604a07b455">mne::scene::Rect::width</a></div><div class="ttdeci">double width</div><div class="ttdef"><b>Definition</b> <a href="a01172_source.html#l00077">geometry.h:77</a></div></div>
+<div class="ttc" id="aa07070_html"><div class="ttname"><a href="a07070.html">mne::scene::Ray</a></div><div class="ttdoc">A ray in world space.</div><div class="ttdef"><b>Definition</b> <a href="a01217_source.html#l00047">ray_picking.h:48</a></div></div>
+<div class="ttc" id="aa07070_html_a69c9fbb5a354e1a7cd2e02c3d3204b42"><div class="ttname"><a href="a07070.html#a69c9fbb5a354e1a7cd2e02c3d3204b42">mne::scene::Ray::origin</a></div><div class="ttdeci">Eigen::Vector3f origin</div><div class="ttdef"><b>Definition</b> <a href="a01217_source.html#l00049">ray_picking.h:49</a></div></div>
+<div class="ttc" id="aa07070_html_a7fafea6c8024adc773ee95ce4dd0b6ba"><div class="ttname"><a href="a07070.html#a7fafea6c8024adc773ee95ce4dd0b6ba">mne::scene::Ray::direction</a></div><div class="ttdeci">Eigen::Vector3f direction</div><div class="ttdef"><b>Definition</b> <a href="a01217_source.html#l00050">ray_picking.h:50</a></div></div>
+<div class="ttc" id="aa07074_html"><div class="ttname"><a href="a07074.html">mne::scene::SphereCrossing</a></div><div class="ttdoc">Where a ray enters and leaves a sphere, as distances along the ray; negative distances lie behind the...</div><div class="ttdef"><b>Definition</b> <a href="a01217_source.html#l00069">ray_picking.h:70</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

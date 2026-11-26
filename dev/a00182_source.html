@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/dsp/filterkernel.h Source File</title>
+    <title>MNE-CPP: src/libs/mne/dsp/rt/rt_hpi.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,222 +243,238 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_b79f7367980074b5febc9da517d2cbd5.html">dsp</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_b79f7367980074b5febc9da517d2cbd5.html">dsp</a></li><li class="navelem"><a href="dir_6a9ef579b57bc65fab3138538c1fe0cb.html">rt</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">filterkernel.h</div></div>
+  <div class="headertitle"><div class="title">rt_hpi.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a00182.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#ifndef FILTERKERNEL_H</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#define FILTERKERNEL_H</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &quot;<a class="code" href="a00191.html">rt_hpi.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;<a class="code" href="a01832.html">mne/base/log.h</a>&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="a02618.html">mne/fiff/fiff_constants.h</a>&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="a00827.html">mne/inv/hpi/inv_hpi_model_parameters.h</a>&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// STL INCLUDES</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;numeric&gt;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03221.html">mne</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &quot;<a class="code" href="a00041.html">dsp_global.h</a>&quot;</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">// EIGEN INCLUDES</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">// STL INCLUDES</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a05682.html#a94d6bce84067a98ed8c323861bd0a1d5">   48</a></span><a class="code hl_function" href="a05682.html#a94d6bce84067a98ed8c323861bd0a1d5">RtHpi::RtHpi</a>(std::shared_ptr&lt;FiffInfo&gt; info, <a class="code hl_struct" href="a05686.html">Settings</a> settings)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>: m_info(std::move(info))</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>, m_settings(std::move(settings))</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>, m_updater(m_info)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>, m_fit(m_updater.getSensors())</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>, m_projectors(MatrixXd::Identity(m_info-&gt;nchan, m_info-&gt;nchan))</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>, m_initial(m_info-&gt;dev_head_t)</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    m_initial.from = <a class="code hl_variable" href="a02618.html#a695ddb5f7d47710c1739d3c572f0715a">FIFFV_COORD_DEVICE</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    m_initial.to = <a class="code hl_variable" href="a02618.html#a0fc09d0474d30669a35e3171842f038f">FIFFV_COORD_HEAD</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_function" href="a05682.html#a4905c853f329907915f1ba2f5eda7438">set_window</a>(m_settings.window, m_settings.hop);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// The first fit starts from the head position of the measurement info</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    m_last.devHeadTrans = m_initial;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    m_last.errorDistances.assign(m_settings.coil_frequencies.size(), 0.0);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment">// DEFINE NAMESPACE mne</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03209.html">mne</a></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00081" data-start="{" data-end="};">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a05537.html">   81</a></span><span class="keyword">class </span><a class="code hl_define" href="a00041.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a> <a class="code hl_function" href="a05537.html#a4f6e04517dca5906bd419967eb0e32fb">FilterParameter</a></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>{</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a05537.html#a4f6e04517dca5906bd419967eb0e32fb">FilterParameter</a>();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a05537.html#a4f6e04517dca5906bd419967eb0e32fb">FilterParameter</a>(std::string sName);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a05682.html#aaae3388da7fc3add15bf11f8bde9611b">   66</a></span>std::optional&lt;HpiFitResult&gt; <a class="code hl_function" href="a05682.html#aaae3388da7fc3add15bf11f8bde9611b">RtHpi::update</a>(<span class="keyword">const</span> MatrixXd&amp; data)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">if</span> (data.rows() != m_ring.rows()) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_function" href="a04514.html#a1c6b65df8614bc1d2be2671ca0e3ff99">Log::warning</a>(<span class="stringliteral">&quot;[RtHpi::update] Ignoring a block of {} channels; the measurement info has {}.&quot;</span>, data.rows(), m_ring.rows());</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> Index window = m_ring.cols();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">const</span> Index n = data.cols();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> Index kept = std::min(n, window);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">for</span> (Index done = 0; done &lt; kept;) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keyword">const</span> Index chunk = std::min(kept - done, window - m_next);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        m_ring.middleCols(m_next, chunk) = data.middleCols(n - kept + done, chunk);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        m_next = (m_next + chunk) % window;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        done += chunk;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    m_filled = std::min(window, m_filled + n);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    m_sinceFit += n;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">if</span> (m_filled &lt; window || m_sinceFit &lt; m_settings.hop) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">if</span> (m_settings.coil_frequencies.size() &lt; 3) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <a class="code hl_function" href="a04514.html#a1c6b65df8614bc1d2be2671ca0e3ff99">Log::warning</a>(<span class="stringliteral">&quot;[RtHpi::update] At least three coil frequencies are needed to fit the head position.&quot;</span>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    m_sinceFit = 0;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">// The oldest sample sits at m_next</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    MatrixXd samples(m_ring.rows(), window);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    samples.leftCols(window - m_next) = m_ring.rightCols(window - m_next);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    samples.rightCols(m_next) = m_ring.leftCols(m_next);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    m_updater.prepareDataAndProjectors(samples, m_projectors);</div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a05537.html#a4f6e04517dca5906bd419967eb0e32fb">FilterParameter</a>(std::string sName, std::string sDescription);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a05537.html#a4f075f7ddf200d6dee8a32a8f8c395b4">name</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a05537.html#a2ab4b3bf43925dc6a6b6637825a2fb28">  115</a></span>    <span class="keyword">friend</span> <span class="keywordtype">bool</span> <a class="code hl_friend" href="a05537.html#a2ab4b3bf43925dc6a6b6637825a2fb28">operator==</a>(<span class="keyword">const</span> <a class="code hl_function" href="a05537.html#a4f6e04517dca5906bd419967eb0e32fb">FilterParameter</a>&amp; in1, <span class="keyword">const</span> <a class="code hl_function" href="a05537.html#a4f6e04517dca5906bd419967eb0e32fb">FilterParameter</a>&amp; in2)</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">return</span> in1.<a class="code hl_function" href="a05537.html#a4f075f7ddf200d6dee8a32a8f8c395b4">name</a>() == in2.<a class="code hl_function" href="a05537.html#a4f075f7ddf200d6dee8a32a8f8c395b4">name</a>();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">const</span> <a class="code hl_class" href="a06126.html">InvHpiModelParameters</a> model(m_settings.coil_frequencies, m_info-&gt;sfreq, m_info-&gt;linefreq, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_struct" href="a06106.html">HpiFitResult</a> result = m_last;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    m_fit.fit(m_updater.getProjectedData(), m_updater.getProjectors(), model, m_updater.getHpiDigitizer(), std::exchange(m_order, <span class="keyword">false</span>), result);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">if</span> (!result.<a class="code hl_variable" href="a06106.html#a90861ec3854d9ce26dc7e36cb051b98d">hpiFreqs</a>.empty()) {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        m_settings.coil_frequencies = result.<a class="code hl_variable" href="a06106.html#a90861ec3854d9ce26dc7e36cb051b98d">hpiFreqs</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a05682.html#a3a27cdfec417c60aaabb5e9003ea6126">accepted</a>(result)) {</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        m_last = result;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
 </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="a05537.html#ab1dc1afe5a41209272c377bff36068f7">  121</a></span>    std::string <a class="code hl_variable" href="a05537.html#ab1dc1afe5a41209272c377bff36068f7">m_sName</a>;        </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a05537.html#ac3b40c584be4ea97e0c3c64b8227eaef">  122</a></span>    std::string <a class="code hl_variable" href="a05537.html#ac3b40c584be4ea97e0c3c64b8227eaef">m_sDescription</a>; </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>};</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a05682.html#a3a27cdfec417c60aaabb5e9003ea6126">  112</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05682.html#a3a27cdfec417c60aaabb5e9003ea6126">RtHpi::accepted</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a06106.html">HpiFitResult</a>&amp; fit)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">if</span> (fit.<a class="code hl_variable" href="a06106.html#a8216e4daae50feb46656f0ffbfdd5079">errorDistances</a>.empty()) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> mean = std::accumulate(fit.<a class="code hl_variable" href="a06106.html#a8216e4daae50feb46656f0ffbfdd5079">errorDistances</a>.begin(), fit.<a class="code hl_variable" href="a06106.html#a8216e4daae50feb46656f0ffbfdd5079">errorDistances</a>.end(), 0.0) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(fit.<a class="code hl_variable" href="a06106.html#a8216e4daae50feb46656f0ffbfdd5079">errorDistances</a>.size());</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">return</span> mean &lt; m_settings.max_error;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
 </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="comment">//=============================================================================================================</span></div>
-<div class="foldopen" id="foldopen00133" data-start="{" data-end="};">
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="a05541.html">  133</a></span><span class="keyword">class </span><a class="code hl_define" href="a00041.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a> <a class="code hl_function" href="a05541.html#aad5168fc706f626ad4376d38691bddd6">FilterKernel</a></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <a class="code hl_function" href="a05541.html#aad5168fc706f626ad4376d38691bddd6">FilterKernel</a>();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a05682.html#a6941878d752027f9922f9dda8bff7466">  123</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05682.html#a6941878d752027f9922f9dda8bff7466">RtHpi::set_max_error</a>(<span class="keywordtype">double</span> maxError)</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>{</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    m_settings.max_error = maxError;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
+</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="foldopen" id="foldopen00130" data-start="{" data-end="}">
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="a05682.html#a3ae4c9433472bea85aede06d6dff6207">  130</a></span><span class="keyword">const</span> <a class="code hl_class" href="a05762.html">FiffCoordTrans</a>&amp; <a class="code hl_function" href="a05682.html#a3ae4c9433472bea85aede06d6dff6207">RtHpi::head_transform</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">return</span> m_last.errorDistances.<a class="code hl_function" href="a05762.html#a01ea2f00b355d6953a9de2b9d22e5434">empty</a>() ? m_initial : m_last.devHeadTrans;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a05682.html#a8498c0d4c61a1d7f1ef48f12855dc904">  137</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05682.html#a8498c0d4c61a1d7f1ef48f12855dc904">RtHpi::set_projectors</a>(MatrixXd projectors)</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>{</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    m_projectors = std::move(projectors);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
+</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <a class="code hl_function" href="a05541.html#aad5168fc706f626ad4376d38691bddd6">FilterKernel</a>(<span class="keyword">const</span> std::string&amp; sFilterName,</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                 <span class="keywordtype">int</span> iFilterType,</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>                 <span class="keywordtype">int</span> iOrder,</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                 <span class="keywordtype">double</span> dCenterfreq,</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>                 <span class="keywordtype">double</span> dBandwidth,</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>                 <span class="keywordtype">double</span> dParkswidth,</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>                 <span class="keywordtype">double</span> dSFreq,</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                 <span class="keywordtype">int</span> iDesignMethod);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a734c67f18ef43f2e14dbdd2f076b806c">prepare_filter</a>(<span class="keywordtype">int</span> iDataSize);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    Eigen::RowVectorXd <a class="code hl_function" href="a05541.html#a1d6679bdf670ee23c8814aadc85bc397">apply_conv_filter</a>(<span class="keyword">const</span> Eigen::RowVectorXd&amp; vecData,</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>                                         <span class="keywordtype">bool</span> bKeepOverhead = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a99b381e12681e0f1d5effe37832ff7af">apply_fft_filter</a>(Eigen::RowVectorXd&amp; vecData,</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                          <span class="keywordtype">bool</span> bKeepOverhead = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a05541.html#a0ae143cebb57db5a8b8e9cd7a06b2f75">name</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#ae08e3fe5919ba1a8cccfc90e34524895">set_name</a>(std::string sFilterName);</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a05541.html#a339c3e3725fa21610713eb825145d7f8">sampling_frequency</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a6630ad18e60e51c94e01a2365f2f5ef0">set_sampling_frequency</a>(<span class="keywordtype">double</span> dSFreq);</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="a05541.html#a02a48d71ffdf3ff65a674cebfd837991">filter_order</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#aba947c1354d6118f75a3f5d8aec0fda0">set_filter_order</a>(<span class="keywordtype">int</span> iOrder);</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a05541.html#ad2ab8712818e709aacc8b164a1096780">center_frequency</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#aef5c9b90244f9f2dfe3dd8a56c5c3629">set_center_frequency</a>(<span class="keywordtype">double</span> dCenterFreq);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a05541.html#a16f161779e29487c104393889ff8b1e0">bandwidth</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a196439cf6f0634a9a1e222990625394a">set_bandwidth</a>(<span class="keywordtype">double</span> dBandwidth);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a05541.html#a4d8ac50845b0314af95e938ad528e7d3">parks_width</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a1527cc15f25e188fac1502677412b355">set_parks_width</a>(<span class="keywordtype">double</span> dParksWidth);</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a05541.html#a474a8287fd4ebce6f6b419acfad3fe26">highpass_freq</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a97c5599577e7c5e581e21556b04dee8d">set_highpass_freq</a>(<span class="keywordtype">double</span> dHighpassFreq);</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="a05541.html#af25c9b8f8dd7e5d23125940a504db9f4">lowpass_freq</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#ac515b5b0f2e42bf376972d7f765910ea">set_lowpass_freq</a>(<span class="keywordtype">double</span> dLowpassFreq);</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keyword">const</span> Eigen::RowVectorXd&amp; <a class="code hl_function" href="a05541.html#a77d87567b9dfd09f43395cf799624c19">coefficients</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a81d81b18e7c42c5ef02ae2f3687b5aab">set_coefficients</a>(<span class="keyword">const</span> Eigen::RowVectorXd&amp; vecCoeff);</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keyword">const</span> Eigen::RowVectorXcd&amp; <a class="code hl_function" href="a05541.html#a6c390e17895b827a9ac54488f533f548">fft_coefficients</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#a8bed19db162d721e4fe2afda4304f5f7">set_fft_coefficients</a>(<span class="keyword">const</span> Eigen::RowVectorXcd&amp; vecFftCoeff);</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keyword">const</span> <a class="code hl_class" href="a05537.html">FilterParameter</a>&amp; <a class="code hl_function" href="a05541.html#a0ded1e6efa7d5f25fd3a5be29fbb073a">design_method</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#ac046554a8093cccc130af72cc11e5172">set_design_method</a>(<span class="keywordtype">int</span> iDesignMethod);</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keyword">const</span> <a class="code hl_class" href="a05537.html">FilterParameter</a>&amp; <a class="code hl_function" href="a05541.html#a368f4b4169c7deb3197c4941b4160dfa">filter_type</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05541.html#ae4e490c6d0195c596e26aeacabc049b8">set_filter_type</a>(<span class="keywordtype">int</span> iFilterType);</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    std::string <a class="code hl_function" href="a05541.html#ade65a41dd6a31e1b0bfa1932b4292f37">short_description</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a05541.html#ae099516e1de2d0a8a23f7feaec541a8e">design_method_index</a>(std::string_view sName);</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keyword">static</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a05541.html#abd58d33e5bd621b8c562df9bed1e712c">filter_type_index</a>(std::string_view sName);</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="a05541.html#a74f05a787b8c38837e6721df29ca4bf5">  254</a></span>    <span class="keyword">static</span> <span class="keyword">const</span> std::vector&lt;FilterParameter&gt; <a class="code hl_variable" href="a05541.html#a74f05a787b8c38837e6721df29ca4bf5">design_methods</a>; </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno"><a class="line" href="a05541.html#aa676a01ef1acf25aa5fa20c3b279f692">  255</a></span>    <span class="keyword">static</span> <span class="keyword">const</span> std::vector&lt;FilterParameter&gt; <a class="code hl_variable" href="a05541.html#aa676a01ef1acf25aa5fa20c3b279f692">filter_types</a>;   </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordtype">bool</span> fft_transform_coeffs(<span class="keywordtype">int</span> iFftLength);</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="comment">//=========================================================================================================</span></div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordtype">void</span> design_filter();</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordtype">double</span> m_sFreq;         </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordtype">double</span> m_dCenterFreq;   </div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordtype">double</span> m_dBandwidth;    </div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <span class="keywordtype">double</span> m_dParksWidth;   </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordtype">double</span> m_dLowpassFreq;  </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keywordtype">double</span> m_dHighpassFreq; </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keywordtype">int</span> m_iFilterOrder;  </div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keywordtype">int</span> m_iDesignMethod; </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keywordtype">int</span> m_iFilterType;   </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    std::string m_sFilterName; </div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    Eigen::RowVectorXd m_vecCoeff;     </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    Eigen::RowVectorXcd m_vecFftCoeff; </div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>};</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="foldopen" id="foldopen00144" data-start="{" data-end="}">
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="a05682.html#a308955a4a902dc246da34bae3907e66e">  144</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05682.html#a308955a4a902dc246da34bae3907e66e">RtHpi::set_coil_frequencies</a>(std::vector&lt;int&gt; frequencies)</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>{</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    m_settings.coil_frequencies = std::move(frequencies);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>}</div>
 </div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>} <span class="comment">// NAMESPACE mne_dsp</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="preprocessor">#endif </span><span class="comment">// FILTERKERNEL_H</span></div>
-<div class="ttc" id="aa00041_html"><div class="ttname"><a href="a00041.html">dsp_global.h</a></div><div class="ttdoc">Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real-time averaging,...</div></div>
-<div class="ttc" id="aa00041_html_abb361459cf37ec31dad972356041a014"><div class="ttname"><a href="a00041.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a></div><div class="ttdeci">#define DSPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a00041_source.html#l00032">dsp_global.h:32</a></div></div>
-<div class="ttc" id="aa03209_html"><div class="ttname"><a href="a03209.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a02123_source.html#l00047">acq_backend.h:48</a></div></div>
-<div class="ttc" id="aa05537_html"><div class="ttname"><a href="a05537.html">mne::FilterParameter</a></div><div class="ttdoc">Named filter-design parameter descriptor holding a human-readable name and description (e....</div><div class="ttdef"><b>Definition</b> <a href="#l00081">filterkernel.h:82</a></div></div>
-<div class="ttc" id="aa05537_html_a2ab4b3bf43925dc6a6b6637825a2fb28"><div class="ttname"><a href="a05537.html#a2ab4b3bf43925dc6a6b6637825a2fb28">mne::FilterParameter::operator==</a></div><div class="ttdeci">friend bool operator==(const FilterParameter &amp;in1, const FilterParameter &amp;in2)</div><div class="ttdef"><b>Definition</b> <a href="#l00115">filterkernel.h:115</a></div></div>
-<div class="ttc" id="aa05537_html_a4f075f7ddf200d6dee8a32a8f8c395b4"><div class="ttname"><a href="a05537.html#a4f075f7ddf200d6dee8a32a8f8c395b4">mne::FilterParameter::name</a></div><div class="ttdeci">const std::string &amp; name() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00567">filterkernel.cpp:567</a></div></div>
-<div class="ttc" id="aa05537_html_a4f6e04517dca5906bd419967eb0e32fb"><div class="ttname"><a href="a05537.html#a4f6e04517dca5906bd419967eb0e32fb">mne::FilterParameter::FilterParameter</a></div><div class="ttdeci">FilterParameter()</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00544">filterkernel.cpp:544</a></div></div>
-<div class="ttc" id="aa05537_html_ab1dc1afe5a41209272c377bff36068f7"><div class="ttname"><a href="a05537.html#ab1dc1afe5a41209272c377bff36068f7">mne::FilterParameter::m_sName</a></div><div class="ttdeci">std::string m_sName</div><div class="ttdef"><b>Definition</b> <a href="#l00121">filterkernel.h:121</a></div></div>
-<div class="ttc" id="aa05537_html_ac3b40c584be4ea97e0c3c64b8227eaef"><div class="ttname"><a href="a05537.html#ac3b40c584be4ea97e0c3c64b8227eaef">mne::FilterParameter::m_sDescription</a></div><div class="ttdeci">std::string m_sDescription</div><div class="ttdef"><b>Definition</b> <a href="#l00122">filterkernel.h:122</a></div></div>
-<div class="ttc" id="aa05541_html_a02a48d71ffdf3ff65a674cebfd837991"><div class="ttname"><a href="a05541.html#a02a48d71ffdf3ff65a674cebfd837991">mne::FilterKernel::filter_order</a></div><div class="ttdeci">int filter_order() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00238">filterkernel.cpp:238</a></div></div>
-<div class="ttc" id="aa05541_html_a0ae143cebb57db5a8b8e9cd7a06b2f75"><div class="ttname"><a href="a05541.html#a0ae143cebb57db5a8b8e9cd7a06b2f75">mne::FilterKernel::name</a></div><div class="ttdeci">const std::string &amp; name() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00210">filterkernel.cpp:210</a></div></div>
-<div class="ttc" id="aa05541_html_a0ded1e6efa7d5f25fd3a5be29fbb073a"><div class="ttname"><a href="a05541.html#a0ded1e6efa7d5f25fd3a5be29fbb073a">mne::FilterKernel::design_method</a></div><div class="ttdeci">const FilterParameter &amp; design_method() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00510">filterkernel.cpp:510</a></div></div>
-<div class="ttc" id="aa05541_html_a1527cc15f25e188fac1502677412b355"><div class="ttname"><a href="a05541.html#a1527cc15f25e188fac1502677412b355">mne::FilterKernel::set_parks_width</a></div><div class="ttdeci">void set_parks_width(double dParksWidth)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00287">filterkernel.cpp:287</a></div></div>
-<div class="ttc" id="aa05541_html_a16f161779e29487c104393889ff8b1e0"><div class="ttname"><a href="a05541.html#a16f161779e29487c104393889ff8b1e0">mne::FilterKernel::bandwidth</a></div><div class="ttdeci">double bandwidth() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00266">filterkernel.cpp:266</a></div></div>
-<div class="ttc" id="aa05541_html_a196439cf6f0634a9a1e222990625394a"><div class="ttname"><a href="a05541.html#a196439cf6f0634a9a1e222990625394a">mne::FilterKernel::set_bandwidth</a></div><div class="ttdeci">void set_bandwidth(double dBandwidth)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00273">filterkernel.cpp:273</a></div></div>
-<div class="ttc" id="aa05541_html_a1d6679bdf670ee23c8814aadc85bc397"><div class="ttname"><a href="a05541.html#a1d6679bdf670ee23c8814aadc85bc397">mne::FilterKernel::apply_conv_filter</a></div><div class="ttdeci">Eigen::RowVectorXd apply_conv_filter(const Eigen::RowVectorXd &amp;vecData, bool bKeepOverhead=false) const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00141">filterkernel.cpp:141</a></div></div>
-<div class="ttc" id="aa05541_html_a339c3e3725fa21610713eb825145d7f8"><div class="ttname"><a href="a05541.html#a339c3e3725fa21610713eb825145d7f8">mne::FilterKernel::sampling_frequency</a></div><div class="ttdeci">double sampling_frequency() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00224">filterkernel.cpp:224</a></div></div>
-<div class="ttc" id="aa05541_html_a368f4b4169c7deb3197c4941b4160dfa"><div class="ttname"><a href="a05541.html#a368f4b4169c7deb3197c4941b4160dfa">mne::FilterKernel::filter_type</a></div><div class="ttdeci">const FilterParameter &amp; filter_type() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00520">filterkernel.cpp:520</a></div></div>
-<div class="ttc" id="aa05541_html_a474a8287fd4ebce6f6b419acfad3fe26"><div class="ttname"><a href="a05541.html#a474a8287fd4ebce6f6b419acfad3fe26">mne::FilterKernel::highpass_freq</a></div><div class="ttdeci">double highpass_freq() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00294">filterkernel.cpp:294</a></div></div>
-<div class="ttc" id="aa05541_html_a4d8ac50845b0314af95e938ad528e7d3"><div class="ttname"><a href="a05541.html#a4d8ac50845b0314af95e938ad528e7d3">mne::FilterKernel::parks_width</a></div><div class="ttdeci">double parks_width() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00280">filterkernel.cpp:280</a></div></div>
-<div class="ttc" id="aa05541_html_a6630ad18e60e51c94e01a2365f2f5ef0"><div class="ttname"><a href="a05541.html#a6630ad18e60e51c94e01a2365f2f5ef0">mne::FilterKernel::set_sampling_frequency</a></div><div class="ttdeci">void set_sampling_frequency(double dSFreq)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00231">filterkernel.cpp:231</a></div></div>
-<div class="ttc" id="aa05541_html_a6c390e17895b827a9ac54488f533f548"><div class="ttname"><a href="a05541.html#a6c390e17895b827a9ac54488f533f548">mne::FilterKernel::fft_coefficients</a></div><div class="ttdeci">const Eigen::RowVectorXcd &amp; fft_coefficients() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00336">filterkernel.cpp:336</a></div></div>
-<div class="ttc" id="aa05541_html_a734c67f18ef43f2e14dbdd2f076b806c"><div class="ttname"><a href="a05541.html#a734c67f18ef43f2e14dbdd2f076b806c">mne::FilterKernel::prepare_filter</a></div><div class="ttdeci">void prepare_filter(int iDataSize)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00125">filterkernel.cpp:125</a></div></div>
-<div class="ttc" id="aa05541_html_a74f05a787b8c38837e6721df29ca4bf5"><div class="ttname"><a href="a05541.html#a74f05a787b8c38837e6721df29ca4bf5">mne::FilterKernel::design_methods</a></div><div class="ttdeci">static const std::vector&lt; FilterParameter &gt; design_methods</div><div class="ttdef"><b>Definition</b> <a href="#l00254">filterkernel.h:254</a></div></div>
-<div class="ttc" id="aa05541_html_a77d87567b9dfd09f43395cf799624c19"><div class="ttname"><a href="a05541.html#a77d87567b9dfd09f43395cf799624c19">mne::FilterKernel::coefficients</a></div><div class="ttdeci">const Eigen::RowVectorXd &amp; coefficients() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00322">filterkernel.cpp:322</a></div></div>
-<div class="ttc" id="aa05541_html_a81d81b18e7c42c5ef02ae2f3687b5aab"><div class="ttname"><a href="a05541.html#a81d81b18e7c42c5ef02ae2f3687b5aab">mne::FilterKernel::set_coefficients</a></div><div class="ttdeci">void set_coefficients(const Eigen::RowVectorXd &amp;vecCoeff)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00329">filterkernel.cpp:329</a></div></div>
-<div class="ttc" id="aa05541_html_a8bed19db162d721e4fe2afda4304f5f7"><div class="ttname"><a href="a05541.html#a8bed19db162d721e4fe2afda4304f5f7">mne::FilterKernel::set_fft_coefficients</a></div><div class="ttdeci">void set_fft_coefficients(const Eigen::RowVectorXcd &amp;vecFftCoeff)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00343">filterkernel.cpp:343</a></div></div>
-<div class="ttc" id="aa05541_html_a97c5599577e7c5e581e21556b04dee8d"><div class="ttname"><a href="a05541.html#a97c5599577e7c5e581e21556b04dee8d">mne::FilterKernel::set_highpass_freq</a></div><div class="ttdeci">void set_highpass_freq(double dHighpassFreq)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00301">filterkernel.cpp:301</a></div></div>
-<div class="ttc" id="aa05541_html_a99b381e12681e0f1d5effe37832ff7af"><div class="ttname"><a href="a05541.html#a99b381e12681e0f1d5effe37832ff7af">mne::FilterKernel::apply_fft_filter</a></div><div class="ttdeci">void apply_fft_filter(Eigen::RowVectorXd &amp;vecData, bool bKeepOverhead=false)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00165">filterkernel.cpp:165</a></div></div>
-<div class="ttc" id="aa05541_html_aa676a01ef1acf25aa5fa20c3b279f692"><div class="ttname"><a href="a05541.html#aa676a01ef1acf25aa5fa20c3b279f692">mne::FilterKernel::filter_types</a></div><div class="ttdeci">static const std::vector&lt; FilterParameter &gt; filter_types</div><div class="ttdef"><b>Definition</b> <a href="#l00255">filterkernel.h:255</a></div></div>
-<div class="ttc" id="aa05541_html_aad5168fc706f626ad4376d38691bddd6"><div class="ttname"><a href="a05541.html#aad5168fc706f626ad4376d38691bddd6">mne::FilterKernel::FilterKernel</a></div><div class="ttdeci">FilterKernel()</div><div class="ttdoc">FilterKernel creates a default FilterKernel object.</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00082">filterkernel.cpp:82</a></div></div>
-<div class="ttc" id="aa05541_html_aba947c1354d6118f75a3f5d8aec0fda0"><div class="ttname"><a href="a05541.html#aba947c1354d6118f75a3f5d8aec0fda0">mne::FilterKernel::set_filter_order</a></div><div class="ttdeci">void set_filter_order(int iOrder)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00245">filterkernel.cpp:245</a></div></div>
-<div class="ttc" id="aa05541_html_abd58d33e5bd621b8c562df9bed1e712c"><div class="ttname"><a href="a05541.html#abd58d33e5bd621b8c562df9bed1e712c">mne::FilterKernel::filter_type_index</a></div><div class="ttdeci">static int filter_type_index(std::string_view sName)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00581">filterkernel.cpp:581</a></div></div>
-<div class="ttc" id="aa05541_html_ac046554a8093cccc130af72cc11e5172"><div class="ttname"><a href="a05541.html#ac046554a8093cccc130af72cc11e5172">mne::FilterKernel::set_design_method</a></div><div class="ttdeci">void set_design_method(int iDesignMethod)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00530">filterkernel.cpp:530</a></div></div>
-<div class="ttc" id="aa05541_html_ac515b5b0f2e42bf376972d7f765910ea"><div class="ttname"><a href="a05541.html#ac515b5b0f2e42bf376972d7f765910ea">mne::FilterKernel::set_lowpass_freq</a></div><div class="ttdeci">void set_lowpass_freq(double dLowpassFreq)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00315">filterkernel.cpp:315</a></div></div>
-<div class="ttc" id="aa05541_html_ad2ab8712818e709aacc8b164a1096780"><div class="ttname"><a href="a05541.html#ad2ab8712818e709aacc8b164a1096780">mne::FilterKernel::center_frequency</a></div><div class="ttdeci">double center_frequency() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00252">filterkernel.cpp:252</a></div></div>
-<div class="ttc" id="aa05541_html_ade65a41dd6a31e1b0bfa1932b4292f37"><div class="ttname"><a href="a05541.html#ade65a41dd6a31e1b0bfa1932b4292f37">mne::FilterKernel::short_description</a></div><div class="ttdeci">std::string short_description() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00502">filterkernel.cpp:502</a></div></div>
-<div class="ttc" id="aa05541_html_ae08e3fe5919ba1a8cccfc90e34524895"><div class="ttname"><a href="a05541.html#ae08e3fe5919ba1a8cccfc90e34524895">mne::FilterKernel::set_name</a></div><div class="ttdeci">void set_name(std::string sFilterName)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00217">filterkernel.cpp:217</a></div></div>
-<div class="ttc" id="aa05541_html_ae099516e1de2d0a8a23f7feaec541a8e"><div class="ttname"><a href="a05541.html#ae099516e1de2d0a8a23f7feaec541a8e">mne::FilterKernel::design_method_index</a></div><div class="ttdeci">static int design_method_index(std::string_view sName)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00574">filterkernel.cpp:574</a></div></div>
-<div class="ttc" id="aa05541_html_ae4e490c6d0195c596e26aeacabc049b8"><div class="ttname"><a href="a05541.html#ae4e490c6d0195c596e26aeacabc049b8">mne::FilterKernel::set_filter_type</a></div><div class="ttdeci">void set_filter_type(int iFilterType)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00537">filterkernel.cpp:537</a></div></div>
-<div class="ttc" id="aa05541_html_aef5c9b90244f9f2dfe3dd8a56c5c3629"><div class="ttname"><a href="a05541.html#aef5c9b90244f9f2dfe3dd8a56c5c3629">mne::FilterKernel::set_center_frequency</a></div><div class="ttdeci">void set_center_frequency(double dCenterFreq)</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00259">filterkernel.cpp:259</a></div></div>
-<div class="ttc" id="aa05541_html_af25c9b8f8dd7e5d23125940a504db9f4"><div class="ttname"><a href="a05541.html#af25c9b8f8dd7e5d23125940a504db9f4">mne::FilterKernel::lowpass_freq</a></div><div class="ttdeci">double lowpass_freq() const</div><div class="ttdef"><b>Definition</b> <a href="a00278_source.html#l00308">filterkernel.cpp:308</a></div></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="foldopen" id="foldopen00151" data-start="{" data-end="}">
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="a05682.html#a3bea439c245f2ffbf4fd04b531b8db8c">  151</a></span><span class="keyword">const</span> std::vector&lt;int&gt;&amp; <a class="code hl_function" href="a05682.html#a3bea439c245f2ffbf4fd04b531b8db8c">RtHpi::coil_frequencies</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">return</span> m_settings.coil_frequencies;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
+</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="foldopen" id="foldopen00158" data-start="{" data-end="}">
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno"><a class="line" href="a05682.html#a1603a574b55ce9fcef66024f07d01926">  158</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05682.html#a1603a574b55ce9fcef66024f07d01926">RtHpi::order_coil_frequencies</a>()</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>{</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    m_order = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>}</div>
+</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="a05682.html#af79862988d87721397689bccbce3fcc7">  165</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05682.html#af79862988d87721397689bccbce3fcc7">RtHpi::set_info</a>(std::shared_ptr&lt;FiffInfo&gt; info)</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>{</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    m_info = std::move(info);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    m_updater.checkForUpdate(m_info);</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    m_fit.checkForUpdate(m_updater.getSensors());</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}</div>
+</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="foldopen" id="foldopen00174" data-start="{" data-end="}">
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="a05682.html#a4905c853f329907915f1ba2f5eda7438">  174</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05682.html#a4905c853f329907915f1ba2f5eda7438">RtHpi::set_window</a>(<span class="keywordtype">int</span> window, <span class="keywordtype">int</span> hop)</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>{</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    m_settings.window = std::max(1, window);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    m_settings.hop = std::clamp(hop, 1, m_settings.window);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    m_ring = MatrixXd::Zero(m_info-&gt;nchan, m_settings.window);</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    m_next = 0;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    m_filled = 0;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    m_sinceFit = 0;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
+</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="a05682.html#a81906a92f6369949f58bbd1b551b2b83">  186</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05682.html#a81906a92f6369949f58bbd1b551b2b83">RtHpi::reset</a>()</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>{</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <a class="code hl_function" href="a05682.html#a4905c853f329907915f1ba2f5eda7438">set_window</a>(m_settings.window, m_settings.hop);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    m_last = <a class="code hl_struct" href="a06106.html">HpiFitResult</a>();</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
+</div>
+<div class="ttc" id="aa00191_html"><div class="ttname"><a href="a00191.html">rt_hpi.h</a></div><div class="ttdoc">Continuous head position tracking from the HPI coil signals of streaming MEG data.</div></div>
+<div class="ttc" id="aa00827_html"><div class="ttname"><a href="a00827.html">inv_hpi_model_parameters.h</a></div><div class="ttdoc">Immutable configuration for the HPI signal model — coil drive frequencies, sample rate,...</div></div>
+<div class="ttc" id="aa01832_html"><div class="ttname"><a href="a01832.html">log.h</a></div><div class="ttdoc">Logging: a std::format facade with a replaceable sink, the console and file writer,...</div></div>
+<div class="ttc" id="aa02618_html"><div class="ttname"><a href="a02618.html">fiff_constants.h</a></div><div class="ttdoc">Symbolic FIFF tag, block, value, unit and channel-type constants shared across mne_fiff.</div></div>
+<div class="ttc" id="aa02618_html_a0fc09d0474d30669a35e3171842f038f"><div class="ttname"><a href="a02618.html#a0fc09d0474d30669a35e3171842f038f">FIFFV_COORD_HEAD</a></div><div class="ttdeci">constexpr auto FIFFV_COORD_HEAD</div><div class="ttdef"><b>Definition</b> <a href="a02618_source.html#l00214">fiff_constants.h:214</a></div></div>
+<div class="ttc" id="aa02618_html_a695ddb5f7d47710c1739d3c572f0715a"><div class="ttname"><a href="a02618.html#a695ddb5f7d47710c1739d3c572f0715a">FIFFV_COORD_DEVICE</a></div><div class="ttdeci">constexpr auto FIFFV_COORD_DEVICE</div><div class="ttdef"><b>Definition</b> <a href="a02618_source.html#l00211">fiff_constants.h:211</a></div></div>
+<div class="ttc" id="aa03221_html"><div class="ttname"><a href="a03221.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a01712_source.html#l00047">acq_backend.h:48</a></div></div>
+<div class="ttc" id="aa04514_html_a1c6b65df8614bc1d2be2671ca0e3ff99"><div class="ttname"><a href="a04514.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a></div><div class="ttdeci">static void warning(std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a01832_source.html#l00122">log.h:122</a></div></div>
+<div class="ttc" id="aa05682_html_a1603a574b55ce9fcef66024f07d01926"><div class="ttname"><a href="a05682.html#a1603a574b55ce9fcef66024f07d01926">mne::RtHpi::order_coil_frequencies</a></div><div class="ttdeci">void order_coil_frequencies()</div><div class="ttdef"><b>Definition</b> <a href="#l00158">rt_hpi.cpp:158</a></div></div>
+<div class="ttc" id="aa05682_html_a308955a4a902dc246da34bae3907e66e"><div class="ttname"><a href="a05682.html#a308955a4a902dc246da34bae3907e66e">mne::RtHpi::set_coil_frequencies</a></div><div class="ttdeci">void set_coil_frequencies(std::vector&lt; int &gt; frequencies)</div><div class="ttdef"><b>Definition</b> <a href="#l00144">rt_hpi.cpp:144</a></div></div>
+<div class="ttc" id="aa05682_html_a3a27cdfec417c60aaabb5e9003ea6126"><div class="ttname"><a href="a05682.html#a3a27cdfec417c60aaabb5e9003ea6126">mne::RtHpi::accepted</a></div><div class="ttdeci">bool accepted(const HpiFitResult &amp;fit) const</div><div class="ttdef"><b>Definition</b> <a href="#l00112">rt_hpi.cpp:112</a></div></div>
+<div class="ttc" id="aa05682_html_a3ae4c9433472bea85aede06d6dff6207"><div class="ttname"><a href="a05682.html#a3ae4c9433472bea85aede06d6dff6207">mne::RtHpi::head_transform</a></div><div class="ttdeci">const FiffCoordTrans &amp; head_transform() const</div><div class="ttdef"><b>Definition</b> <a href="#l00130">rt_hpi.cpp:130</a></div></div>
+<div class="ttc" id="aa05682_html_a3bea439c245f2ffbf4fd04b531b8db8c"><div class="ttname"><a href="a05682.html#a3bea439c245f2ffbf4fd04b531b8db8c">mne::RtHpi::coil_frequencies</a></div><div class="ttdeci">const std::vector&lt; int &gt; &amp; coil_frequencies() const</div><div class="ttdef"><b>Definition</b> <a href="#l00151">rt_hpi.cpp:151</a></div></div>
+<div class="ttc" id="aa05682_html_a4905c853f329907915f1ba2f5eda7438"><div class="ttname"><a href="a05682.html#a4905c853f329907915f1ba2f5eda7438">mne::RtHpi::set_window</a></div><div class="ttdeci">void set_window(int window, int hop)</div><div class="ttdef"><b>Definition</b> <a href="#l00174">rt_hpi.cpp:174</a></div></div>
+<div class="ttc" id="aa05682_html_a6941878d752027f9922f9dda8bff7466"><div class="ttname"><a href="a05682.html#a6941878d752027f9922f9dda8bff7466">mne::RtHpi::set_max_error</a></div><div class="ttdeci">void set_max_error(double maxError)</div><div class="ttdef"><b>Definition</b> <a href="#l00123">rt_hpi.cpp:123</a></div></div>
+<div class="ttc" id="aa05682_html_a81906a92f6369949f58bbd1b551b2b83"><div class="ttname"><a href="a05682.html#a81906a92f6369949f58bbd1b551b2b83">mne::RtHpi::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdef"><b>Definition</b> <a href="#l00186">rt_hpi.cpp:186</a></div></div>
+<div class="ttc" id="aa05682_html_a8498c0d4c61a1d7f1ef48f12855dc904"><div class="ttname"><a href="a05682.html#a8498c0d4c61a1d7f1ef48f12855dc904">mne::RtHpi::set_projectors</a></div><div class="ttdeci">void set_projectors(Eigen::MatrixXd projectors)</div><div class="ttdef"><b>Definition</b> <a href="#l00137">rt_hpi.cpp:137</a></div></div>
+<div class="ttc" id="aa05682_html_a94d6bce84067a98ed8c323861bd0a1d5"><div class="ttname"><a href="a05682.html#a94d6bce84067a98ed8c323861bd0a1d5">mne::RtHpi::RtHpi</a></div><div class="ttdeci">RtHpi(std::shared_ptr&lt; FiffInfo &gt; info, Settings settings)</div><div class="ttdef"><b>Definition</b> <a href="#l00048">rt_hpi.cpp:48</a></div></div>
+<div class="ttc" id="aa05682_html_aaae3388da7fc3add15bf11f8bde9611b"><div class="ttname"><a href="a05682.html#aaae3388da7fc3add15bf11f8bde9611b">mne::RtHpi::update</a></div><div class="ttdeci">std::optional&lt; HpiFitResult &gt; update(const Eigen::MatrixXd &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="#l00066">rt_hpi.cpp:66</a></div></div>
+<div class="ttc" id="aa05682_html_af79862988d87721397689bccbce3fcc7"><div class="ttname"><a href="a05682.html#af79862988d87721397689bccbce3fcc7">mne::RtHpi::set_info</a></div><div class="ttdeci">void set_info(std::shared_ptr&lt; FiffInfo &gt; info)</div><div class="ttdef"><b>Definition</b> <a href="#l00165">rt_hpi.cpp:165</a></div></div>
+<div class="ttc" id="aa05686_html"><div class="ttname"><a href="a05686.html">mne::RtHpi::Settings</a></div><div class="ttdoc">Coil frequencies and the sliding window.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00070">rt_hpi.h:71</a></div></div>
+<div class="ttc" id="aa05762_html"><div class="ttname"><a href="a05762.html">mne::FiffCoordTrans</a></div><div class="ttdoc">Labelled 4x4 FIFF affine: source frame, destination frame, rotation, translation and cached inverse.</div><div class="ttdef"><b>Definition</b> <a href="a02681_source.html#l00086">fiff_coord_trans.h:87</a></div></div>
+<div class="ttc" id="aa05762_html_a01ea2f00b355d6953a9de2b9d22e5434"><div class="ttname"><a href="a05762.html#a01ea2f00b355d6953a9de2b9d22e5434">mne::FiffCoordTrans::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdef"><b>Definition</b> <a href="a02681_source.html#l00183">fiff_coord_trans.h:183</a></div></div>
+<div class="ttc" id="aa06106_html"><div class="ttname"><a href="a06106.html">mne::HpiFitResult</a></div><div class="ttdoc">Complete HPI fit output: per-coil dipole parameters, head-to-device transform, fit error,...</div><div class="ttdef"><b>Definition</b> <a href="a00818_source.html#l00116">inv_hpi_fit.h:117</a></div></div>
+<div class="ttc" id="aa06106_html_a8216e4daae50feb46656f0ffbfdd5079"><div class="ttname"><a href="a06106.html#a8216e4daae50feb46656f0ffbfdd5079">mne::HpiFitResult::errorDistances</a></div><div class="ttdeci">std::vector&lt; double &gt; errorDistances</div><div class="ttdef"><b>Definition</b> <a href="a00818_source.html#l00121">inv_hpi_fit.h:121</a></div></div>
+<div class="ttc" id="aa06106_html_a90861ec3854d9ce26dc7e36cb051b98d"><div class="ttname"><a href="a06106.html#a90861ec3854d9ce26dc7e36cb051b98d">mne::HpiFitResult::hpiFreqs</a></div><div class="ttdeci">std::vector&lt; int &gt; hpiFreqs</div><div class="ttdef"><b>Definition</b> <a href="a00818_source.html#l00118">inv_hpi_fit.h:118</a></div></div>
+<div class="ttc" id="aa06126_html"><div class="ttname"><a href="a06126.html">mne::InvHpiModelParameters</a></div><div class="ttdoc">Configuration parameters for the HPI signal model (line frequency, coil frequencies,...</div><div class="ttdef"><b>Definition</b> <a href="a00827_source.html#l00063">inv_hpi_model_parameters.h:64</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

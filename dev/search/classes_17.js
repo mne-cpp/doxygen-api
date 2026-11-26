@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['xdawn_0',['Xdawn',['../a05721.html',1,'mne']]],
-  ['xdawnresult_1',['XdawnResult',['../a05717.html',1,'mne']]],
-  ['xmlelement_2',['XmlElement',['../a04549.html',1,'mne']]]
+  ['xdawn_0',['Xdawn',['../a05742.html',1,'mne']]],
+  ['xdawnresult_1',['XdawnResult',['../a05738.html',1,'mne']]],
+  ['xmlelement_2',['XmlElement',['../a04562.html',1,'mne']]]
 ];
