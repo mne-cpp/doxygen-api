@@ -1,15 +1,18 @@
 var searchData=
 [
-  ['layoutloader_0',['LayoutLoader',['../a04518.html',1,'mne']]],
-  ['layoutmaker_1',['LayoutMaker',['../a04526.html',1,'mne']]],
-  ['layoutoptions_2',['LayoutOptions',['../a04522.html',1,'mne']]],
-  ['linalg_3',['Linalg',['../a06166.html',1,'mne']]],
-  ['linechart_4',['LineChart',['../a06782.html',1,'mne::scene']]],
-  ['lineplot_5',['LinePlot',['../a04714.html',1,'mne::disp']]],
-  ['lineshape_6',['LineShape',['../a06718.html',1,'mne::scene']]],
-  ['listener_7',['Listener',['../a04074.html',1,'mne::PolhemusCoregistration']]],
-  ['livemarker_8',['LiveMarker',['../a05254.html',1,'mne::disp']]],
-  ['lofbadchannelparams_9',['LofBadChannelParams',['../a05350.html',1,'mne']]],
-  ['log_10',['Log',['../a07148.html',1,'Log'],['../a04398.html',1,'mne::Log']]],
-  ['logcapture_11',['LogCapture',['../a04402.html',1,'mne']]]
+  ['label_0',['Label',['../a06760.html',1,'mne::scene::BrainViewOverlay']]],
+  ['labelstyle_1',['LabelStyle',['../a06764.html',1,'mne::scene::BrainViewOverlay']]],
+  ['layoutinput_2',['LayoutInput',['../a06772.html',1,'mne::scene::BrainViewOverlay']]],
+  ['layoutloader_3',['LayoutLoader',['../a04580.html',1,'mne']]],
+  ['layoutmaker_4',['LayoutMaker',['../a04588.html',1,'mne']]],
+  ['layoutoptions_5',['LayoutOptions',['../a04584.html',1,'mne']]],
+  ['linalg_6',['Linalg',['../a06220.html',1,'mne']]],
+  ['linechart_7',['LineChart',['../a06880.html',1,'mne::scene']]],
+  ['lineplot_8',['LinePlot',['../a04776.html',1,'mne::disp']]],
+  ['lineshape_9',['LineShape',['../a06812.html',1,'mne::scene']]],
+  ['listener_10',['Listener',['../a04136.html',1,'mne::PolhemusCoregistration']]],
+  ['livemarker_11',['LiveMarker',['../a05312.html',1,'mne::disp']]],
+  ['lofbadchannelparams_12',['LofBadChannelParams',['../a05404.html',1,'mne']]],
+  ['log_13',['Log',['../a07282.html',1,'Log'],['../a04460.html',1,'mne::Log']]],
+  ['logcapture_14',['LogCapture',['../a04464.html',1,'mne']]]
 ];
