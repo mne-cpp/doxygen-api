@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/scene/trace_frame.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/math/spectral.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,272 +243,285 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_0d7742f656ae6caad97c74a0078a50de.html">scene</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_65f2fa4dccd05b3137be3e418604e780.html">math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">trace_frame.cpp</div></div>
+  <div class="headertitle"><div class="title">spectral.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01523.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a01397.html">trace_frame.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="a01421.html">canvas.h</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="a01517.html">trace_markers.h</a>&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="a01457.html">trace_view.h</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// STL INCLUDES</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03396.html">mne::scene</a>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">// DEFINE STATIC HELPERS</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &quot;<a class="code" href="a01511.html">spectral.h</a>&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;math.h&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">// Full-screen quad as a triangle strip: (x, y) in clip space, (u, v) with v = 0 at the top of the texture</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">constexpr</span> std::array&lt;float, 16&gt; kQuad = {-1.f, -1.f, 0.f, 1.f, -1.f, 1.f, 0.f, 0.f, 1.f, -1.f, 1.f, 1.f, 1.f, 1.f, 1.f, 0.f};</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a07126.html#a37ed4a70f256e4651b346c2f128616ab">   51</a></span><a class="code hl_function" href="a07126.html#a37ed4a70f256e4651b346c2f128616ab">TraceFrameBuilder::TraceFrameBuilder</a>()</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_struct" href="a06922.html">GpuPipeline</a> traces;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    traces.<a class="code hl_variable" href="a06922.html#ad6212df7e09f115454831ff4a7b5dc0b">shader</a> = <span class="stringliteral">&quot;channeldata&quot;</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    traces.<a class="code hl_variable" href="a06922.html#aff4aab2d4c61a98fe55e32cd30a75783">bindings</a> = {{2 * <span class="keyword">sizeof</span>(float), <span class="keyword">false</span>}};</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    traces.<a class="code hl_variable" href="a06922.html#a5ec86f14f6658d1a8902e446a03c268b">attributes</a> = {{0, 0, <a class="code hl_enumvalue" href="a03396.html#af585afa2d4b42650e8b9ae3d7e1567b2a6694430a2b471b5d2de071f2ef1fdc57">GpuVertexFormat::Float2</a>, 0}};</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    traces.<a class="code hl_variable" href="a06922.html#a9ef4fe4814e8a3307aee6dff1fecaa41">topology</a> = <a class="code hl_enumvalue" href="a03396.html#acff61f948ad2b855c4e1597d34a4e675ae7f9e73b8edd21f420a63b3ace5768a2">GpuTopology::LineStrip</a>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    traces.<a class="code hl_variable" href="a06922.html#a48d0531f90b20d2b94492689c132dcf9">blend</a> = <a class="code hl_enumvalue" href="a03396.html#acd3c0816387b8f17f07a677173f5b79aa6132295fcf5570fb8b0a944ef322a598">GpuBlend::Alpha</a>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    m_tracePipeline = m_resources.create_pipeline(std::move(traces));</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <a class="code hl_struct" href="a06922.html">GpuPipeline</a> overlay;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    overlay.<a class="code hl_variable" href="a06922.html#ad6212df7e09f115454831ff4a7b5dc0b">shader</a> = <span class="stringliteral">&quot;overlay&quot;</span>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    overlay.<a class="code hl_variable" href="a06922.html#aff4aab2d4c61a98fe55e32cd30a75783">bindings</a> = {{4 * <span class="keyword">sizeof</span>(float), <span class="keyword">false</span>}};</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    overlay.<a class="code hl_variable" href="a06922.html#a5ec86f14f6658d1a8902e446a03c268b">attributes</a> = {{0, 0, <a class="code hl_enumvalue" href="a03396.html#af585afa2d4b42650e8b9ae3d7e1567b2a6694430a2b471b5d2de071f2ef1fdc57">GpuVertexFormat::Float2</a>, 0}, {1, 0, <a class="code hl_enumvalue" href="a03396.html#af585afa2d4b42650e8b9ae3d7e1567b2a6694430a2b471b5d2de071f2ef1fdc57">GpuVertexFormat::Float2</a>, 2 * <span class="keyword">sizeof</span>(float)}};</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    overlay.<a class="code hl_variable" href="a06922.html#a9ef4fe4814e8a3307aee6dff1fecaa41">topology</a> = <a class="code hl_enumvalue" href="a03396.html#acff61f948ad2b855c4e1597d34a4e675a1da0b9ead8b051940a89214bae22831c">GpuTopology::TriangleStrip</a>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    overlay.<a class="code hl_variable" href="a06922.html#a48d0531f90b20d2b94492689c132dcf9">blend</a> = <a class="code hl_enumvalue" href="a03396.html#acd3c0816387b8f17f07a677173f5b79aa6132295fcf5570fb8b0a944ef322a598">GpuBlend::Alpha</a>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    m_overlayPipeline = m_resources.create_pipeline(std::move(overlay));</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    m_quad = m_resources.create_buffer(<a class="code hl_enumvalue" href="a03396.html#aa371daa74b74436c81df47c774435f3bab22b929ba52471a02d18bb3a4e4472e6">GpuBufferUsage::Vertex</a>);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    m_resources.set_buffer_values(m_quad, std::span&lt;const float&gt;(kQuad));</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    m_overlayTexture = m_resources.create_texture(<a class="code hl_struct" href="a06930.html">GpuTexture</a>{<a class="code hl_function" href="a06858.html#a549defa11e3033106f428791f599c20d">Image::transparent</a>(1, 1)});</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">void</span> TraceFrameBuilder::upload_vertices()</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">const</span> std::vector&lt;TraceVertices&gt;&amp; channels = m_geometry.<a class="code hl_function" href="a07142.html#ac3f787444a172a528d12fa5c6ea22862">channels</a>();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">while</span> (m_channelBuffers.size() &lt; channels.size()) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        m_channelBuffers.push_back(m_resources.<a class="code hl_function" href="a06934.html#aaa451c683075c13aab23fa224b9fd9fc">create_buffer</a>(<a class="code hl_enumvalue" href="a03396.html#aa371daa74b74436c81df47c774435f3bab22b929ba52471a02d18bb3a4e4472e6">GpuBufferUsage::Vertex</a>));</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">for</span> (std::size_t channel = 0; channel &lt; channels.size(); ++channel) {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        m_resources.<a class="code hl_function" href="a06934.html#a8a0786a76f8ce8005b5464ac2d0b6dd7">set_buffer_values</a>(m_channelBuffers[channel], std::span&lt;const float&gt;(channels[channel].xy));</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">for</span> (std::size_t channel = channels.size(); channel &lt; m_channelBuffers.size(); ++channel) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        m_resources.<a class="code hl_function" href="a06934.html#a397d393a068e892d4b20569ea8484544">set_buffer_data</a>(m_channelBuffers[channel], {});</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;unsupported/Eigen/FFT&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// STL INCLUDES</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;future&gt;</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;numbers&gt;</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03209.html">mne</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a06301.html#a5d62158fbd8ded42fb494cdda1f8be35">   66</a></span>MatrixXcd <a class="code hl_function" href="a06301.html#a5d62158fbd8ded42fb494cdda1f8be35">Spectral::computeTaperedSpectraRow</a>(<span class="keyword">const</span> RowVectorXd&amp; vecData,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                                             <span class="keyword">const</span> MatrixXd&amp; matTaper,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                             <span class="keywordtype">int</span> iNfft)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    FFT&lt;double&gt; fft;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    fft.SetFlag(fft.HalfSpectrum);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">//Check inputs</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">if</span> (vecData.cols() != matTaper.cols() || iNfft &lt; vecData.cols()) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">return</span> MatrixXcd();</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">//FFT for freq domain returning the half spectrum</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    RowVectorXd vecInputFFT;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    RowVectorXcd vecTmpFreq;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    MatrixXcd matTapSpectrum(matTaper.rows(), <span class="keywordtype">int</span>(floor(iNfft / 2.0)) + 1);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; matTaper.rows(); i++) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        vecInputFFT = vecData.cwiseProduct(matTaper.row(i));</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        fft.fwd(vecTmpFreq, vecInputFFT, iNfft);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        matTapSpectrum.row(i) = vecTmpFreq;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> matTapSpectrum;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><a class="code hl_struct" href="a06950.html">GpuDraw</a> TraceFrameBuilder::overlay_draw(<a class="code hl_typedef" href="a03396.html#a8a22c21a3845cae335db95cee17f49ae">GpuHandle</a> texture, <span class="keyword">const</span> <a class="code hl_struct" href="a07122.html">TraceOverlayUniforms</a>&amp; uniforms)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    GpuDraw draw;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    draw.<a class="code hl_variable" href="a06950.html#aab9bbaa0e4c69e8366eb526656d29f8c">pipeline</a> = m_overlayPipeline;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    draw.<a class="code hl_variable" href="a06950.html#aaadffe2054c1572bd7cea04ea02e40da">vertex_buffers</a> = {m_quad};</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    draw.<a class="code hl_variable" href="a06950.html#a9db32b81619128a5b2cfc69ce8179b55">count</a> = 4;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    draw.<a class="code hl_function" href="a06950.html#a44a450a554a1ab310b599d86c25a7eb6">set_uniforms</a>(2, uniforms);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    draw.<a class="code hl_variable" href="a06950.html#a0c1586875cb5803489d8424d8a22121d">textures</a> = {{1, texture}};</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span> draw;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="a06301.html#acaff9133f9b89d46ac93ff6f23e115f2">   93</a></span>std::vector&lt;MatrixXcd&gt; <a class="code hl_function" href="a06301.html#acaff9133f9b89d46ac93ff6f23e115f2">Spectral::computeTaperedSpectraMatrix</a>(<span class="keyword">const</span> MatrixXd&amp; matData,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                                                             <span class="keyword">const</span> MatrixXd&amp; matTaper,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                                             <span class="keywordtype">int</span> iNfft,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                                             <span class="keywordtype">bool</span> bUseThreads)</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>{</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    std::vector&lt;MatrixXcd&gt; finalResult;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">if</span> (!bUseThreads) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="comment">// Sequential</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        FFT&lt;double&gt; fft;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        fft.SetFlag(fft.HalfSpectrum);</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a07126.html#a2eea97707171f44f21e4be3559172be7">  106</a></span><a class="code hl_struct" href="a06958.html">GpuFrame</a> <a class="code hl_function" href="a07126.html#a2eea97707171f44f21e4be3559172be7">TraceFrameBuilder::build</a>(<span class="keyword">const</span> <a class="code hl_class" href="a07174.html">TraceView</a>&amp; view, <span class="keyword">const</span> <a class="code hl_class" href="a07158.html">TraceSource</a>&amp; source, <span class="keyword">const</span> <a class="code hl_struct" href="a07138.html">TraceStyle</a>&amp; style, <span class="keyword">const</span> <a class="code hl_class" href="a07146.html">TraceMarkers</a>&amp; markers,</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>                                  <span class="keyword">const</span> <a class="code hl_class" href="a07106.html">TextMetrics</a>&amp; metrics, <span class="keyword">const</span> <a class="code hl_struct" href="a06962.html">GpuFrameTarget</a>&amp; target)</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>{</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_struct" href="a06958.html">GpuFrame</a> frame;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    frame.<a class="code hl_variable" href="a06958.html#a18932221b804e79e88ac4e08bdc0b0ea">pixel_width</a> = target.<a class="code hl_variable" href="a06962.html#af9355c1f074f5901abb5b02582d5180b">pixel_width</a>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    frame.<a class="code hl_variable" href="a06958.html#a558acc51d3ee31acd4a84134afdbc59f">pixel_height</a> = target.<a class="code hl_variable" href="a06962.html#ab767c5bd3ea65cb071116e264ad320b3">pixel_height</a>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    frame.<a class="code hl_variable" href="a06958.html#a0b67d089e0c1a10ab81ae48edae981e4">device_pixel_ratio</a> = target.<a class="code hl_variable" href="a06962.html#a97f967c5917347450dcd294cb8422d8f">device_pixel_ratio</a>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_struct" href="a06954.html">GpuPass</a>&amp; pass = frame.<a class="code hl_variable" href="a06958.html#a144bf509d4431f92ecead83626ba5097">passes</a>.emplace_back();</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    pass.<a class="code hl_variable" href="a06954.html#af3e88ba5d1f6c7de1659a6fdf434f514">clear_color</a> = style.<a class="code hl_variable" href="a07138.html#a6a7dd7e8c1b08ea4b980127f67496567">background</a>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    pass.<a class="code hl_variable" href="a06954.html#a39c548c09a4728dcf233b783f5a525c3">clear_depth</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> width = view.<a class="code hl_function" href="a07174.html#ae9c632808417e8577e1e203e851a4c86">view_width</a>();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> height = view.<a class="code hl_function" href="a07174.html#a36579361c889113a5cc3ef83659c9136">view_height</a>();</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> spp = view.<a class="code hl_function" href="a07174.html#abd697b30b745cd63555cdf0c60bda852">samples_per_pixel</a>();</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> scale = target.<a class="code hl_variable" href="a06962.html#a97f967c5917347450dcd294cb8422d8f">device_pixel_ratio</a> &gt; 0.0 ? target.<a class="code hl_variable" href="a06962.html#a97f967c5917347450dcd294cb8422d8f">device_pixel_ratio</a> : 1.0;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (target.<a class="code hl_variable" href="a06962.html#af9355c1f074f5901abb5b02582d5180b">pixel_width</a> &lt;= 0 || target.<a class="code hl_variable" href="a06962.html#ab767c5bd3ea65cb071116e264ad320b3">pixel_height</a> &lt;= 0 || width &lt;= 0 || height &lt;= 0) {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">return</span> frame;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    }</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="comment">// Traces</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> hasTraces = source.<a class="code hl_function" href="a07158.html#a1ec5f294bbc5a0ae31d00aacdaf22d42">channel_count</a>() &gt; 0 &amp;&amp; spp &gt; 0.0;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">if</span> (hasTraces) {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span> (m_geometry.needs_stream(view) &amp;&amp; m_geometry.stream(view, source, style.<a class="code hl_variable" href="a07138.html#a08bcd45328d2f84b0ca3156f3882db04">z_score</a>)) {</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            upload_vertices();</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_struct" href="a07134.html">TraceDraw</a>&amp; trace : m_geometry.draws(view, source, style)) {</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keyword">const</span> <span class="keyword">auto</span> channel = <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(trace.channel);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            <span class="keywordflow">if</span> (channel &gt;= m_channelBuffers.size() || channel &gt;= m_geometry.channels().size() || m_geometry.channels()[channel].vertex_count() &lt; 2) {</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            }</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            <a class="code hl_struct" href="a06950.html">GpuDraw</a>&amp; draw = pass.<a class="code hl_variable" href="a06954.html#a19ae1f13ae098e8fb03b0c15cc06e0f2">draws</a>.emplace_back();</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            draw.<a class="code hl_variable" href="a06950.html#aab9bbaa0e4c69e8366eb526656d29f8c">pipeline</a> = m_tracePipeline;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            draw.<a class="code hl_variable" href="a06950.html#aaadffe2054c1572bd7cea04ea02e40da">vertex_buffers</a> = {m_channelBuffers[channel]};</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            draw.<a class="code hl_variable" href="a06950.html#a9db32b81619128a5b2cfc69ce8179b55">count</a> = <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(m_geometry.channels()[channel].vertex_count());</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            draw.<a class="code hl_function" href="a06950.html#a44a450a554a1ab310b599d86c25a7eb6">set_uniforms</a>(0, trace.uniforms);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        RowVectorXd vecInputFFT, rowData;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        RowVectorXcd vecTmpFreq;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        MatrixXcd matTapSpectrum(matTaper.rows(), <span class="keywordtype">int</span>(floor(iNfft / 2.0)) + 1);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordtype">int</span> j;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; matData.rows(); ++i) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            rowData = matData.row(i);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <span class="comment">//FFT for freq domain returning the half spectrum</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">for</span> (j = 0; j &lt; matTaper.rows(); j++) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                vecInputFFT = rowData.cwiseProduct(matTaper.row(j));</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                fft.fwd(vecTmpFreq, vecInputFFT, iNfft);</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                matTapSpectrum.row(j) = vecTmpFreq;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            finalResult.push_back(matTapSpectrum);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="comment">// Parallel; each worker fills an interleaved set of rows, so the order is kept</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keyword">const</span> std::size_t rows = <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(matData.rows());</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        finalResult.resize(rows);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keyword">const</span> std::size_t workers = std::max&lt;std::size_t&gt;(1, std::min&lt;std::size_t&gt;(std::thread::hardware_concurrency(), rows));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        std::vector&lt;std::future&lt;void&gt;&gt; tasks;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        tasks.reserve(workers);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">for</span> (std::size_t w = 0; w &lt; workers; ++w) {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            tasks.push_back(std::async(std::launch::async, [&amp;, w] {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                <span class="keywordflow">for</span> (std::size_t i = w; i &lt; rows; i += workers) {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                    <a class="code hl_struct" href="a06297.html">TaperedSpectraInputData</a> input;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                    input.<a class="code hl_variable" href="a06297.html#a29f024c1cbc8dbe22bf2ea5289dd2036">vecData</a> = matData.row(<span class="keyword">static_cast&lt;</span>Eigen::Index<span class="keyword">&gt;</span>(i));</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                    input.<a class="code hl_variable" href="a06297.html#a7a13266c539299071e62e8b0a8802fb8">matTaper</a> = matTaper;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                    input.<a class="code hl_variable" href="a06297.html#a8f9c73c3a46919b723b9bb6a97ffb234">iNfft</a> = iNfft;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                    finalResult[i] = <a class="code hl_function" href="a06301.html#a42d6b4798261b8fac3af703d6d9541a0">compute</a>(input);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            }));</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        }</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="comment">// Annotations, events and epoch markers over the prefetch window, with the per-second bands</span></div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordflow">if</span> (hasTraces &amp;&amp; view.<a class="code hl_function" href="a07174.html#a3645ca78d69fddb819ed763a270ed4db">sfreq</a>() &gt; 0.0) {</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> visible = width * spp;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> extra = <a class="code hl_function" href="a07126.html#a28796fdf8e6ed49a45a75802ead0e8ad">overlay_prefetch</a>() * visible;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> overlayWidth = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::ceil((1.0 + 2.0 * <a class="code hl_function" href="a07126.html#a28796fdf8e6ed49a45a75802ead0e8ad">overlay_prefetch</a>()) * width));</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> scroll = view.<a class="code hl_function" href="a07174.html#ac1063bb801ee0abb1a5c77d0e312f8cd">scroll_sample</a>();</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keywordflow">if</span> (m_overlayDirty || overlayWidth != m_overlayWidth || height != m_overlayHeight || scale != m_overlayScale || spp != m_overlaySpp || scroll &lt; m_overlayFirstSample || scroll + visible &gt; m_overlayFirstSample + m_overlayTotalSamples) {</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            m_overlayFirstSample = scroll - extra;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            m_overlayTotalSamples = visible + 2.0 * extra;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            m_overlayWidth = overlayWidth;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            m_overlayHeight = height;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            m_overlayScale = scale;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            m_overlaySpp = spp;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            m_overlayDirty = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <a class="code hl_class" href="a06850.html">Canvas</a> canvas(overlayWidth, height);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            markers.<a class="code hl_function" href="a07146.html#a35d3ef898b8a2819588bef5a5dd6e5f8">draw</a>(canvas, metrics, <a class="code hl_struct" href="a07090.html">Font</a>{}, view.<a class="code hl_function" href="a07174.html#acf8bae04922f1bc589ddafe6da4db982">annotations</a>(), m_overlayFirstSample, overlayWidth / m_overlayTotalSamples);</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            m_resources.set_texture(m_overlayTexture, canvas.<a class="code hl_function" href="a06850.html#ae83b3dcc4d83b4b47bf1329b2eebcac7">display_list</a>(), scale);</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        }</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <a class="code hl_struct" href="a07122.html">TraceOverlayUniforms</a> uniforms;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        uniforms.<a class="code hl_variable" href="a07122.html#a9fe8cb7e09451db9ad6bc81ea6270c85">scroll_sample</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(scroll);</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        uniforms.<a class="code hl_variable" href="a07122.html#a74797288ee94c877d255d4d8fa4b5423">samples_per_pixel</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(spp);</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        uniforms.<a class="code hl_variable" href="a07122.html#a0f61a1bec40bda37c460176b453023c4">view_width</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(width);</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        uniforms.<a class="code hl_variable" href="a07122.html#ad470cc62ce7cae6da7e93c9fd582405b">sfreq</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(view.<a class="code hl_function" href="a07174.html#a3645ca78d69fddb819ed763a270ed4db">sfreq</a>());</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        uniforms.<a class="code hl_variable" href="a07122.html#a685742342258355f72b05406b43fe4ef">first_file_sample</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(view.<a class="code hl_function" href="a07174.html#ae390303ce684d189b5e22565cbd89464">first_file_sample</a>());</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        uniforms.<a class="code hl_variable" href="a07122.html#ad2e3616f33ab51cf2ce1dbcb2c6fae7a">grid_enabled</a> = style.<a class="code hl_variable" href="a07138.html#a2892d189e6aafcb394025a19c834756d">grid</a> ? 1.f : 0.f;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        uniforms.<a class="code hl_variable" href="a07122.html#af91df68619546da4d55b721fd37de183">overlay_first_sample</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(m_overlayFirstSample);</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        uniforms.<a class="code hl_variable" href="a07122.html#a074b4152a644bc2f9e12c07c34786613">overlay_total_samples</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(m_overlayTotalSamples);</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        pass.<a class="code hl_variable" href="a06954.html#a19ae1f13ae098e8fb03b0c15cc06e0f2">draws</a>.push_back(overlay_draw(m_overlayTexture, uniforms));</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    }</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="comment">// Crosshair, scalebars, ruler and annotation selection, mapped 1:1 to the screen without bands</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">if</span> (view.<a class="code hl_function" href="a07174.html#a25b077c46eb97cbf1bd47dfb55293818">overlays_visible</a>()) {</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">if</span> (m_hudTexture == 0) {</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            m_hudTexture = m_resources.create_texture(<a class="code hl_struct" href="a06930.html">GpuTexture</a>{view.<a class="code hl_function" href="a07174.html#a9242bfde90d8dabea33fa872e9edee98">render_overlays</a>(metrics), scale});</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>            m_resources.set_texture(m_hudTexture, view.<a class="code hl_function" href="a07174.html#a9242bfde90d8dabea33fa872e9edee98">render_overlays</a>(metrics), scale);</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        }</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <a class="code hl_struct" href="a07122.html">TraceOverlayUniforms</a> uniforms;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        uniforms.<a class="code hl_variable" href="a07122.html#a0f61a1bec40bda37c460176b453023c4">view_width</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(width);</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        uniforms.<a class="code hl_variable" href="a07122.html#a074b4152a644bc2f9e12c07c34786613">overlay_total_samples</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(width);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        pass.<a class="code hl_variable" href="a06954.html#a19ae1f13ae098e8fb03b0c15cc06e0f2">draws</a>.push_back(overlay_draw(m_hudTexture, uniforms));</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    }</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keywordflow">return</span> frame;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>}</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; task : tasks) {</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            task.get();</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordflow">return</span> finalResult;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
 </div>
-<div class="ttc" id="aa01397_html"><div class="ttname"><a href="a01397.html">trace_frame.h</a></div><div class="ttdoc">TraceFrameBuilder describes a frame of the trace view as a GpuFrame.</div></div>
-<div class="ttc" id="aa01421_html"><div class="ttname"><a href="a01421.html">canvas.h</a></div><div class="ttdoc">Canvas records drawing calls in the style of QPainter into a DisplayList.</div></div>
-<div class="ttc" id="aa01457_html"><div class="ttname"><a href="a01457.html">trace_view.h</a></div><div class="ttdoc">TraceView holds the viewport and interaction state of a raw-data trace view and draws its overlays.</div></div>
-<div class="ttc" id="aa01517_html"><div class="ttname"><a href="a01517.html">trace_markers.h</a></div><div class="ttdoc">TraceMarkers draws the annotation spans, event lines and epoch markers of a raw-data trace view.</div></div>
-<div class="ttc" id="aa03396_html"><div class="ttname"><a href="a03396.html">mne::scene</a></div><div class="ttdef"><b>Definition</b> <a href="a01478_source.html#l00034">average_layout.h:35</a></div></div>
-<div class="ttc" id="aa03396_html_a8a22c21a3845cae335db95cee17f49ae"><div class="ttname"><a href="a03396.html#a8a22c21a3845cae335db95cee17f49ae">mne::scene::GpuHandle</a></div><div class="ttdeci">std::uint32_t GpuHandle</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00057">gpu_frame.h:57</a></div></div>
-<div class="ttc" id="aa03396_html_aa371daa74b74436c81df47c774435f3bab22b929ba52471a02d18bb3a4e4472e6"><div class="ttname"><a href="a03396.html#aa371daa74b74436c81df47c774435f3bab22b929ba52471a02d18bb3a4e4472e6">mne::scene::GpuBufferUsage::Vertex</a></div><div class="ttdeci">@ Vertex</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00159">gpu_frame.h:159</a></div></div>
-<div class="ttc" id="aa03396_html_acd3c0816387b8f17f07a677173f5b79aa6132295fcf5570fb8b0a944ef322a598"><div class="ttname"><a href="a03396.html#acd3c0816387b8f17f07a677173f5b79aa6132295fcf5570fb8b0a944ef322a598">mne::scene::GpuBlend::Alpha</a></div><div class="ttdeci">@ Alpha</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00111">gpu_frame.h:111</a></div></div>
-<div class="ttc" id="aa03396_html_acff61f948ad2b855c4e1597d34a4e675a1da0b9ead8b051940a89214bae22831c"><div class="ttname"><a href="a03396.html#acff61f948ad2b855c4e1597d34a4e675a1da0b9ead8b051940a89214bae22831c">mne::scene::GpuTopology::TriangleStrip</a></div><div class="ttdeci">@ TriangleStrip</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00101">gpu_frame.h:101</a></div></div>
-<div class="ttc" id="aa03396_html_acff61f948ad2b855c4e1597d34a4e675ae7f9e73b8edd21f420a63b3ace5768a2"><div class="ttname"><a href="a03396.html#acff61f948ad2b855c4e1597d34a4e675ae7f9e73b8edd21f420a63b3ace5768a2">mne::scene::GpuTopology::LineStrip</a></div><div class="ttdeci">@ LineStrip</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00103">gpu_frame.h:103</a></div></div>
-<div class="ttc" id="aa03396_html_af585afa2d4b42650e8b9ae3d7e1567b2a6694430a2b471b5d2de071f2ef1fdc57"><div class="ttname"><a href="a03396.html#af585afa2d4b42650e8b9ae3d7e1567b2a6694430a2b471b5d2de071f2ef1fdc57">mne::scene::GpuVertexFormat::Float2</a></div><div class="ttdeci">@ Float2</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00063">gpu_frame.h:63</a></div></div>
-<div class="ttc" id="aa06850_html"><div class="ttname"><a href="a06850.html">mne::scene::Canvas</a></div><div class="ttdoc">Records drawing calls into a DisplayList.</div><div class="ttdef"><b>Definition</b> <a href="a01421_source.html#l00050">canvas.h:51</a></div></div>
-<div class="ttc" id="aa06850_html_ae83b3dcc4d83b4b47bf1329b2eebcac7"><div class="ttname"><a href="a06850.html#ae83b3dcc4d83b4b47bf1329b2eebcac7">mne::scene::Canvas::display_list</a></div><div class="ttdeci">const DisplayList &amp; display_list() const</div><div class="ttdef"><b>Definition</b> <a href="a01421_source.html#l00266">canvas.h:266</a></div></div>
-<div class="ttc" id="aa06858_html_a549defa11e3033106f428791f599c20d"><div class="ttname"><a href="a06858.html#a549defa11e3033106f428791f599c20d">mne::scene::Image::transparent</a></div><div class="ttdeci">static Image transparent(int w, int h)</div><div class="ttdef"><b>Definition</b> <a href="a01463_source.html#l00062">display_list.h:62</a></div></div>
-<div class="ttc" id="aa06922_html"><div class="ttname"><a href="a06922.html">mne::scene::GpuPipeline</a></div><div class="ttdoc">A graphics pipeline: shader, vertex layout and fixed-function state.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00139">gpu_frame.h:140</a></div></div>
-<div class="ttc" id="aa06922_html_a48d0531f90b20d2b94492689c132dcf9"><div class="ttname"><a href="a06922.html#a48d0531f90b20d2b94492689c132dcf9">mne::scene::GpuPipeline::blend</a></div><div class="ttdeci">GpuBlend blend</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00145">gpu_frame.h:145</a></div></div>
-<div class="ttc" id="aa06922_html_a5ec86f14f6658d1a8902e446a03c268b"><div class="ttname"><a href="a06922.html#a5ec86f14f6658d1a8902e446a03c268b">mne::scene::GpuPipeline::attributes</a></div><div class="ttdeci">std::vector&lt; GpuVertexAttribute &gt; attributes</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00143">gpu_frame.h:143</a></div></div>
-<div class="ttc" id="aa06922_html_a9ef4fe4814e8a3307aee6dff1fecaa41"><div class="ttname"><a href="a06922.html#a9ef4fe4814e8a3307aee6dff1fecaa41">mne::scene::GpuPipeline::topology</a></div><div class="ttdeci">GpuTopology topology</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00144">gpu_frame.h:144</a></div></div>
-<div class="ttc" id="aa06922_html_ad6212df7e09f115454831ff4a7b5dc0b"><div class="ttname"><a href="a06922.html#ad6212df7e09f115454831ff4a7b5dc0b">mne::scene::GpuPipeline::shader</a></div><div class="ttdeci">std::string shader</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00141">gpu_frame.h:141</a></div></div>
-<div class="ttc" id="aa06922_html_aff4aab2d4c61a98fe55e32cd30a75783"><div class="ttname"><a href="a06922.html#aff4aab2d4c61a98fe55e32cd30a75783">mne::scene::GpuPipeline::bindings</a></div><div class="ttdeci">std::vector&lt; GpuVertexBinding &gt; bindings</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00142">gpu_frame.h:142</a></div></div>
-<div class="ttc" id="aa06930_html"><div class="ttname"><a href="a06930.html">mne::scene::GpuTexture</a></div><div class="ttdoc">A texture: RGBA pixels or a figure the backend rasterizes, and a revision that changes with it.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00184">gpu_frame.h:185</a></div></div>
-<div class="ttc" id="aa06934_html_a397d393a068e892d4b20569ea8484544"><div class="ttname"><a href="a06934.html#a397d393a068e892d4b20569ea8484544">mne::scene::GpuResources::set_buffer_data</a></div><div class="ttdeci">void set_buffer_data(GpuHandle buffer, std::span&lt; const std::byte &gt; bytes)</div><div class="ttdef"><b>Definition</b> <a href="a01328_source.html#l00057">gpu_frame.cpp:57</a></div></div>
-<div class="ttc" id="aa06934_html_a8a0786a76f8ce8005b5464ac2d0b6dd7"><div class="ttname"><a href="a06934.html#a8a0786a76f8ce8005b5464ac2d0b6dd7">mne::scene::GpuResources::set_buffer_values</a></div><div class="ttdeci">void set_buffer_values(GpuHandle buffer, std::span&lt; const T &gt; values)</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00248">gpu_frame.h:248</a></div></div>
-<div class="ttc" id="aa06934_html_aaa451c683075c13aab23fa224b9fd9fc"><div class="ttname"><a href="a06934.html#aaa451c683075c13aab23fa224b9fd9fc">mne::scene::GpuResources::create_buffer</a></div><div class="ttdeci">GpuHandle create_buffer(GpuBufferUsage usage)</div><div class="ttdef"><b>Definition</b> <a href="a01328_source.html#l00046">gpu_frame.cpp:46</a></div></div>
-<div class="ttc" id="aa06950_html"><div class="ttname"><a href="a06950.html">mne::scene::GpuDraw</a></div><div class="ttdoc">One draw call.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00365">gpu_frame.h:366</a></div></div>
-<div class="ttc" id="aa06950_html_a0c1586875cb5803489d8424d8a22121d"><div class="ttname"><a href="a06950.html#a0c1586875cb5803489d8424d8a22121d">mne::scene::GpuDraw::textures</a></div><div class="ttdeci">std::vector&lt; GpuTextureBinding &gt; textures</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00374">gpu_frame.h:374</a></div></div>
-<div class="ttc" id="aa06950_html_a44a450a554a1ab310b599d86c25a7eb6"><div class="ttname"><a href="a06950.html#a44a450a554a1ab310b599d86c25a7eb6">mne::scene::GpuDraw::set_uniforms</a></div><div class="ttdeci">void set_uniforms(int binding, const T &amp;value)</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00386">gpu_frame.h:386</a></div></div>
-<div class="ttc" id="aa06950_html_a9db32b81619128a5b2cfc69ce8179b55"><div class="ttname"><a href="a06950.html#a9db32b81619128a5b2cfc69ce8179b55">mne::scene::GpuDraw::count</a></div><div class="ttdeci">std::uint32_t count</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00371">gpu_frame.h:371</a></div></div>
-<div class="ttc" id="aa06950_html_aaadffe2054c1572bd7cea04ea02e40da"><div class="ttname"><a href="a06950.html#aaadffe2054c1572bd7cea04ea02e40da">mne::scene::GpuDraw::vertex_buffers</a></div><div class="ttdeci">std::vector&lt; GpuHandle &gt; vertex_buffers</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00368">gpu_frame.h:368</a></div></div>
-<div class="ttc" id="aa06950_html_aab9bbaa0e4c69e8366eb526656d29f8c"><div class="ttname"><a href="a06950.html#aab9bbaa0e4c69e8366eb526656d29f8c">mne::scene::GpuDraw::pipeline</a></div><div class="ttdeci">GpuHandle pipeline</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00367">gpu_frame.h:367</a></div></div>
-<div class="ttc" id="aa06954_html"><div class="ttname"><a href="a06954.html">mne::scene::GpuPass</a></div><div class="ttdoc">A render pass: what it clears and its draws in order.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00402">gpu_frame.h:403</a></div></div>
-<div class="ttc" id="aa06954_html_a19ae1f13ae098e8fb03b0c15cc06e0f2"><div class="ttname"><a href="a06954.html#a19ae1f13ae098e8fb03b0c15cc06e0f2">mne::scene::GpuPass::draws</a></div><div class="ttdeci">std::vector&lt; GpuDraw &gt; draws</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00406">gpu_frame.h:406</a></div></div>
-<div class="ttc" id="aa06954_html_a39c548c09a4728dcf233b783f5a525c3"><div class="ttname"><a href="a06954.html#a39c548c09a4728dcf233b783f5a525c3">mne::scene::GpuPass::clear_depth</a></div><div class="ttdeci">bool clear_depth</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00405">gpu_frame.h:405</a></div></div>
-<div class="ttc" id="aa06954_html_af3e88ba5d1f6c7de1659a6fdf434f514"><div class="ttname"><a href="a06954.html#af3e88ba5d1f6c7de1659a6fdf434f514">mne::scene::GpuPass::clear_color</a></div><div class="ttdeci">std::optional&lt; Color &gt; clear_color</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00404">gpu_frame.h:404</a></div></div>
-<div class="ttc" id="aa06958_html"><div class="ttname"><a href="a06958.html">mne::scene::GpuFrame</a></div><div class="ttdoc">Everything drawn in one frame.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00418">gpu_frame.h:419</a></div></div>
-<div class="ttc" id="aa06958_html_a0b67d089e0c1a10ab81ae48edae981e4"><div class="ttname"><a href="a06958.html#a0b67d089e0c1a10ab81ae48edae981e4">mne::scene::GpuFrame::device_pixel_ratio</a></div><div class="ttdeci">double device_pixel_ratio</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00422">gpu_frame.h:422</a></div></div>
-<div class="ttc" id="aa06958_html_a144bf509d4431f92ecead83626ba5097"><div class="ttname"><a href="a06958.html#a144bf509d4431f92ecead83626ba5097">mne::scene::GpuFrame::passes</a></div><div class="ttdeci">std::vector&lt; GpuPass &gt; passes</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00423">gpu_frame.h:423</a></div></div>
-<div class="ttc" id="aa06958_html_a18932221b804e79e88ac4e08bdc0b0ea"><div class="ttname"><a href="a06958.html#a18932221b804e79e88ac4e08bdc0b0ea">mne::scene::GpuFrame::pixel_width</a></div><div class="ttdeci">int pixel_width</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00420">gpu_frame.h:420</a></div></div>
-<div class="ttc" id="aa06958_html_a558acc51d3ee31acd4a84134afdbc59f"><div class="ttname"><a href="a06958.html#a558acc51d3ee31acd4a84134afdbc59f">mne::scene::GpuFrame::pixel_height</a></div><div class="ttdeci">int pixel_height</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00421">gpu_frame.h:421</a></div></div>
-<div class="ttc" id="aa06962_html"><div class="ttname"><a href="a06962.html">mne::scene::GpuFrameTarget</a></div><div class="ttdoc">What a producer needs to know about the target before it builds a frame.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00431">gpu_frame.h:432</a></div></div>
-<div class="ttc" id="aa06962_html_a97f967c5917347450dcd294cb8422d8f"><div class="ttname"><a href="a06962.html#a97f967c5917347450dcd294cb8422d8f">mne::scene::GpuFrameTarget::device_pixel_ratio</a></div><div class="ttdeci">double device_pixel_ratio</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00435">gpu_frame.h:435</a></div></div>
-<div class="ttc" id="aa06962_html_ab767c5bd3ea65cb071116e264ad320b3"><div class="ttname"><a href="a06962.html#ab767c5bd3ea65cb071116e264ad320b3">mne::scene::GpuFrameTarget::pixel_height</a></div><div class="ttdeci">int pixel_height</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00434">gpu_frame.h:434</a></div></div>
-<div class="ttc" id="aa06962_html_af9355c1f074f5901abb5b02582d5180b"><div class="ttname"><a href="a06962.html#af9355c1f074f5901abb5b02582d5180b">mne::scene::GpuFrameTarget::pixel_width</a></div><div class="ttdeci">int pixel_width</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00433">gpu_frame.h:433</a></div></div>
-<div class="ttc" id="aa07090_html"><div class="ttname"><a href="a07090.html">mne::scene::Font</a></div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00234">style.h:235</a></div></div>
-<div class="ttc" id="aa07106_html"><div class="ttname"><a href="a07106.html">mne::scene::TextMetrics</a></div><div class="ttdoc">Measures text in a font.</div><div class="ttdef"><b>Definition</b> <a href="a01316_source.html#l00047">text_metrics.h:48</a></div></div>
-<div class="ttc" id="aa07122_html"><div class="ttname"><a href="a07122.html">mne::scene::TraceOverlayUniforms</a></div><div class="ttdoc">The uniform block of overlay.frag (binding 2): maps the screen into the overlay texture and draws the...</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00046">trace_frame.h:47</a></div></div>
-<div class="ttc" id="aa07122_html_a074b4152a644bc2f9e12c07c34786613"><div class="ttname"><a href="a07122.html#a074b4152a644bc2f9e12c07c34786613">mne::scene::TraceOverlayUniforms::overlay_total_samples</a></div><div class="ttdeci">float overlay_total_samples</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00055">trace_frame.h:55</a></div></div>
-<div class="ttc" id="aa07122_html_a0f61a1bec40bda37c460176b453023c4"><div class="ttname"><a href="a07122.html#a0f61a1bec40bda37c460176b453023c4">mne::scene::TraceOverlayUniforms::view_width</a></div><div class="ttdeci">float view_width</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00050">trace_frame.h:50</a></div></div>
-<div class="ttc" id="aa07122_html_a685742342258355f72b05406b43fe4ef"><div class="ttname"><a href="a07122.html#a685742342258355f72b05406b43fe4ef">mne::scene::TraceOverlayUniforms::first_file_sample</a></div><div class="ttdeci">float first_file_sample</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00052">trace_frame.h:52</a></div></div>
-<div class="ttc" id="aa07122_html_a74797288ee94c877d255d4d8fa4b5423"><div class="ttname"><a href="a07122.html#a74797288ee94c877d255d4d8fa4b5423">mne::scene::TraceOverlayUniforms::samples_per_pixel</a></div><div class="ttdeci">float samples_per_pixel</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00049">trace_frame.h:49</a></div></div>
-<div class="ttc" id="aa07122_html_a9fe8cb7e09451db9ad6bc81ea6270c85"><div class="ttname"><a href="a07122.html#a9fe8cb7e09451db9ad6bc81ea6270c85">mne::scene::TraceOverlayUniforms::scroll_sample</a></div><div class="ttdeci">float scroll_sample</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00048">trace_frame.h:48</a></div></div>
-<div class="ttc" id="aa07122_html_ad2e3616f33ab51cf2ce1dbcb2c6fae7a"><div class="ttname"><a href="a07122.html#ad2e3616f33ab51cf2ce1dbcb2c6fae7a">mne::scene::TraceOverlayUniforms::grid_enabled</a></div><div class="ttdeci">float grid_enabled</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00053">trace_frame.h:53</a></div></div>
-<div class="ttc" id="aa07122_html_ad470cc62ce7cae6da7e93c9fd582405b"><div class="ttname"><a href="a07122.html#ad470cc62ce7cae6da7e93c9fd582405b">mne::scene::TraceOverlayUniforms::sfreq</a></div><div class="ttdeci">float sfreq</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00051">trace_frame.h:51</a></div></div>
-<div class="ttc" id="aa07122_html_af91df68619546da4d55b721fd37de183"><div class="ttname"><a href="a07122.html#af91df68619546da4d55b721fd37de183">mne::scene::TraceOverlayUniforms::overlay_first_sample</a></div><div class="ttdeci">float overlay_first_sample</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00054">trace_frame.h:54</a></div></div>
-<div class="ttc" id="aa07126_html_a28796fdf8e6ed49a45a75802ead0e8ad"><div class="ttname"><a href="a07126.html#a28796fdf8e6ed49a45a75802ead0e8ad">mne::scene::TraceFrameBuilder::overlay_prefetch</a></div><div class="ttdeci">static constexpr double overlay_prefetch()</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00102">trace_frame.h:102</a></div></div>
-<div class="ttc" id="aa07126_html_a2eea97707171f44f21e4be3559172be7"><div class="ttname"><a href="a07126.html#a2eea97707171f44f21e4be3559172be7">mne::scene::TraceFrameBuilder::build</a></div><div class="ttdeci">GpuFrame build(const TraceView &amp;view, const TraceSource &amp;source, const TraceStyle &amp;style, const TraceMarkers &amp;markers, const TextMetrics &amp;metrics, const GpuFrameTarget &amp;target)</div><div class="ttdef"><b>Definition</b> <a href="#l00106">trace_frame.cpp:106</a></div></div>
-<div class="ttc" id="aa07126_html_a37ed4a70f256e4651b346c2f128616ab"><div class="ttname"><a href="a07126.html#a37ed4a70f256e4651b346c2f128616ab">mne::scene::TraceFrameBuilder::TraceFrameBuilder</a></div><div class="ttdeci">TraceFrameBuilder()</div><div class="ttdef"><b>Definition</b> <a href="#l00051">trace_frame.cpp:51</a></div></div>
-<div class="ttc" id="aa07134_html"><div class="ttname"><a href="a07134.html">mne::scene::TraceDraw</a></div><div class="ttdoc">One trace to draw: the logical channel whose vertices it uses and its shader parameters.</div><div class="ttdef"><b>Definition</b> <a href="a01400_source.html#l00125">trace_geometry.h:126</a></div></div>
-<div class="ttc" id="aa07138_html"><div class="ttname"><a href="a07138.html">mne::scene::TraceStyle</a></div><div class="ttdoc">How traces are coloured and scaled.</div><div class="ttdef"><b>Definition</b> <a href="a01400_source.html#l00136">trace_geometry.h:137</a></div></div>
-<div class="ttc" id="aa07138_html_a08bcd45328d2f84b0ca3156f3882db04"><div class="ttname"><a href="a07138.html#a08bcd45328d2f84b0ca3156f3882db04">mne::scene::TraceStyle::z_score</a></div><div class="ttdeci">bool z_score</div><div class="ttdef"><b>Definition</b> <a href="a01400_source.html#l00139">trace_geometry.h:139</a></div></div>
-<div class="ttc" id="aa07138_html_a2892d189e6aafcb394025a19c834756d"><div class="ttname"><a href="a07138.html#a2892d189e6aafcb394025a19c834756d">mne::scene::TraceStyle::grid</a></div><div class="ttdeci">bool grid</div><div class="ttdef"><b>Definition</b> <a href="a01400_source.html#l00142">trace_geometry.h:142</a></div></div>
-<div class="ttc" id="aa07138_html_a6a7dd7e8c1b08ea4b980127f67496567"><div class="ttname"><a href="a07138.html#a6a7dd7e8c1b08ea4b980127f67496567">mne::scene::TraceStyle::background</a></div><div class="ttdeci">Color background</div><div class="ttdef"><b>Definition</b> <a href="a01400_source.html#l00138">trace_geometry.h:138</a></div></div>
-<div class="ttc" id="aa07142_html_ac3f787444a172a528d12fa5c6ea22862"><div class="ttname"><a href="a07142.html#ac3f787444a172a528d12fa5c6ea22862">mne::scene::TraceGeometry::channels</a></div><div class="ttdeci">const std::vector&lt; TraceVertices &gt; &amp; channels() const</div><div class="ttdef"><b>Definition</b> <a href="a01400_source.html#l00211">trace_geometry.h:211</a></div></div>
-<div class="ttc" id="aa07146_html"><div class="ttname"><a href="a07146.html">mne::scene::TraceMarkers</a></div><div class="ttdoc">Event and epoch markers of a trace view, and the drawing of all time markers.</div><div class="ttdef"><b>Definition</b> <a href="a01517_source.html#l00052">trace_markers.h:53</a></div></div>
-<div class="ttc" id="aa07146_html_a35d3ef898b8a2819588bef5a5dd6e5f8"><div class="ttname"><a href="a07146.html#a35d3ef898b8a2819588bef5a5dd6e5f8">mne::scene::TraceMarkers::draw</a></div><div class="ttdeci">void draw(Canvas &amp;canvas, const TextMetrics &amp;metrics, const Font &amp;font, std::span&lt; const TraceView::Annotation &gt; annotations, double first_sample, double pixels_per_sample) const</div><div class="ttdef"><b>Definition</b> <a href="a01487_source.html#l00170">trace_markers.cpp:170</a></div></div>
-<div class="ttc" id="aa07158_html"><div class="ttname"><a href="a07158.html">mne::scene::TraceSource</a></div><div class="ttdoc">The channels a trace view shows: their description, values and trace vertices.</div><div class="ttdef"><b>Definition</b> <a href="a01514_source.html#l00067">trace_source.h:68</a></div></div>
-<div class="ttc" id="aa07158_html_a1ec5f294bbc5a0ae31d00aacdaf22d42"><div class="ttname"><a href="a07158.html#a1ec5f294bbc5a0ae31d00aacdaf22d42">mne::scene::TraceSource::channel_count</a></div><div class="ttdeci">virtual int channel_count() const =0</div></div>
-<div class="ttc" id="aa07174_html"><div class="ttname"><a href="a07174.html">mne::scene::TraceView</a></div><div class="ttdoc">Viewport and interaction state of a raw-data trace view, without a GUI toolkit.</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00058">trace_view.h:59</a></div></div>
-<div class="ttc" id="aa07174_html_a25b077c46eb97cbf1bd47dfb55293818"><div class="ttname"><a href="a07174.html#a25b077c46eb97cbf1bd47dfb55293818">mne::scene::TraceView::overlays_visible</a></div><div class="ttdeci">bool overlays_visible() const</div><div class="ttdef"><b>Definition</b> <a href="a01484_source.html#l00495">trace_view.cpp:495</a></div></div>
-<div class="ttc" id="aa07174_html_a3645ca78d69fddb819ed763a270ed4db"><div class="ttname"><a href="a07174.html#a3645ca78d69fddb819ed763a270ed4db">mne::scene::TraceView::sfreq</a></div><div class="ttdeci">double sfreq() const</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00304">trace_view.h:304</a></div></div>
-<div class="ttc" id="aa07174_html_a36579361c889113a5cc3ef83659c9136"><div class="ttname"><a href="a07174.html#a36579361c889113a5cc3ef83659c9136">mne::scene::TraceView::view_height</a></div><div class="ttdeci">int view_height() const</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00184">trace_view.h:184</a></div></div>
-<div class="ttc" id="aa07174_html_a9242bfde90d8dabea33fa872e9edee98"><div class="ttname"><a href="a07174.html#a9242bfde90d8dabea33fa872e9edee98">mne::scene::TraceView::render_overlays</a></div><div class="ttdeci">DisplayList render_overlays(const TextMetrics &amp;metrics, const Font &amp;font={}) const</div><div class="ttdef"><b>Definition</b> <a href="a01484_source.html#l00568">trace_view.cpp:568</a></div></div>
-<div class="ttc" id="aa07174_html_abd697b30b745cd63555cdf0c60bda852"><div class="ttname"><a href="a07174.html#abd697b30b745cd63555cdf0c60bda852">mne::scene::TraceView::samples_per_pixel</a></div><div class="ttdeci">double samples_per_pixel() const</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00196">trace_view.h:196</a></div></div>
-<div class="ttc" id="aa07174_html_ac1063bb801ee0abb1a5c77d0e312f8cd"><div class="ttname"><a href="a07174.html#ac1063bb801ee0abb1a5c77d0e312f8cd">mne::scene::TraceView::scroll_sample</a></div><div class="ttdeci">double scroll_sample() const</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00190">trace_view.h:190</a></div></div>
-<div class="ttc" id="aa07174_html_acf8bae04922f1bc589ddafe6da4db982"><div class="ttname"><a href="a07174.html#acf8bae04922f1bc589ddafe6da4db982">mne::scene::TraceView::annotations</a></div><div class="ttdeci">const std::vector&lt; Annotation &gt; &amp; annotations() const</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00451">trace_view.h:451</a></div></div>
-<div class="ttc" id="aa07174_html_ae390303ce684d189b5e22565cbd89464"><div class="ttname"><a href="a07174.html#ae390303ce684d189b5e22565cbd89464">mne::scene::TraceView::first_file_sample</a></div><div class="ttdeci">int first_file_sample() const</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00320">trace_view.h:320</a></div></div>
-<div class="ttc" id="aa07174_html_ae9c632808417e8577e1e203e851a4c86"><div class="ttname"><a href="a07174.html#ae9c632808417e8577e1e203e851a4c86">mne::scene::TraceView::view_width</a></div><div class="ttdeci">int view_width() const</div><div class="ttdef"><b>Definition</b> <a href="a01457_source.html#l00178">trace_view.h:178</a></div></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="a06301.html#a42d6b4798261b8fac3af703d6d9541a0">  152</a></span>MatrixXcd <a class="code hl_function" href="a06301.html#a42d6b4798261b8fac3af703d6d9541a0">Spectral::compute</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a06297.html">TaperedSpectraInputData</a>&amp; inputData)</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>{</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a06301.html#a5d62158fbd8ded42fb494cdda1f8be35">computeTaperedSpectraRow</a>(inputData.<a class="code hl_variable" href="a06297.html#a29f024c1cbc8dbe22bf2ea5289dd2036">vecData</a>,</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>                                    inputData.<a class="code hl_variable" href="a06297.html#a7a13266c539299071e62e8b0a8802fb8">matTaper</a>,</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                                    inputData.<a class="code hl_variable" href="a06297.html#a8f9c73c3a46919b723b9bb6a97ffb234">iNfft</a>);</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
+</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="foldopen" id="foldopen00161" data-start="{" data-end="}">
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="a06301.html#a1dfacbdb243de541fa5a2884834c66d9">  161</a></span>Eigen::RowVectorXd <a class="code hl_function" href="a06301.html#a1dfacbdb243de541fa5a2884834c66d9">Spectral::psdFromTaperedSpectra</a>(<span class="keyword">const</span> Eigen::MatrixXcd&amp; matTapSpectrum,</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>                                                   <span class="keyword">const</span> Eigen::VectorXd&amp; vecTapWeights,</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>                                                   <span class="keywordtype">int</span> iNfft,</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>                                                   <span class="keywordtype">double</span> dSampFreq)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>{</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="comment">//Check inputs</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">if</span> (matTapSpectrum.rows() != vecTapWeights.rows()) {</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <span class="keywordflow">return</span> Eigen::RowVectorXd();</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="comment">//Compute PSD (average over tapers if necessary)</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">//Normalization via sFreq</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="comment">//multiply by 2 due to half spectrum</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordtype">double</span> denom = vecTapWeights.cwiseAbs2().sum() * dSampFreq;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    Eigen::RowVectorXd vecPsd = 2.0 * (vecTapWeights.asDiagonal() * matTapSpectrum).cwiseAbs2().colwise().sum() / denom;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    vecPsd(0) /= 2.0;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">if</span> (iNfft % 2 == 0) {</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        vecPsd.tail(1) /= 2.0;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    }</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">return</span> vecPsd;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>}</div>
+</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="foldopen" id="foldopen00187" data-start="{" data-end="}">
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="a06301.html#a074d14fabd0cf86bbc74ad3bc9485504">  187</a></span>Eigen::RowVectorXcd <a class="code hl_function" href="a06301.html#a074d14fabd0cf86bbc74ad3bc9485504">Spectral::csdFromTaperedSpectra</a>(<span class="keyword">const</span> Eigen::MatrixXcd&amp; vecTapSpectrumSeed,</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>                                                    <span class="keyword">const</span> Eigen::MatrixXcd&amp; vecTapSpectrumTarget,</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>                                                    <span class="keyword">const</span> Eigen::VectorXd&amp; vecTapWeightsSeed,</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>                                                    <span class="keyword">const</span> Eigen::VectorXd&amp; vecTapWeightsTarget,</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                                                    <span class="keywordtype">int</span> iNfft,</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                                                    <span class="keywordtype">double</span> dSampFreq)</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>{</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="comment">//Check inputs</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">if</span> (vecTapSpectrumSeed.rows() != vecTapSpectrumTarget.rows()) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keywordflow">return</span> Eigen::MatrixXcd();</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    }</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keywordflow">if</span> (vecTapSpectrumSeed.cols() != vecTapSpectrumTarget.cols()) {</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keywordflow">return</span> Eigen::MatrixXcd();</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    }</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">if</span> (vecTapSpectrumSeed.rows() != vecTapWeightsSeed.rows()) {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">return</span> Eigen::MatrixXcd();</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    }</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">if</span> (vecTapSpectrumTarget.rows() != vecTapWeightsTarget.rows()) {</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">return</span> Eigen::MatrixXcd();</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    }</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">// Compute PSD (average over tapers if necessary)</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="comment">// Multiply by 2 due to half spectrum</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="comment">// Normalize via sFreq</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordtype">double</span> denom = sqrt(vecTapWeightsSeed.cwiseAbs2().sum()) * sqrt(vecTapWeightsTarget.cwiseAbs2().sum()) * dSampFreq;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    Eigen::RowVectorXcd vecCsd = 2.0 * (vecTapWeightsSeed.asDiagonal() * vecTapSpectrumSeed).cwiseProduct((vecTapWeightsTarget.asDiagonal() * vecTapSpectrumTarget).conjugate()).colwise().sum() / denom;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="comment">//multiply first and last element by 2 due to half spectrum</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    vecCsd(0) /= 2.0;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">if</span> (iNfft % 2 == 0) {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        vecCsd.tail(1) /= 2.0;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    }</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">return</span> vecCsd;</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>}</div>
+</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="foldopen" id="foldopen00228" data-start="{" data-end="}">
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="a06301.html#a7b05f0fb2568ec14b4031da07a2341e5">  228</a></span>VectorXd <a class="code hl_function" href="a06301.html#a7b05f0fb2568ec14b4031da07a2341e5">Spectral::calculateFFTFreqs</a>(<span class="keywordtype">int</span> iNfft, <span class="keywordtype">double</span> dSampFreq)</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>{</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="comment">//Compute FFT frequencies</span></div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    RowVectorXd vecFFTFreqs;</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">if</span> (iNfft % 2 == 0) {</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        vecFFTFreqs = (dSampFreq / iNfft) * RowVectorXd::LinSpaced(iNfft / 2 + 1, 0.0, iNfft / 2.0);</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        vecFFTFreqs = (dSampFreq / iNfft) * RowVectorXd::LinSpaced((iNfft - 1) / 2 + 1, 0.0, (iNfft - 1) / 2.0);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordflow">return</span> vecFFTFreqs;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>}</div>
+</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="foldopen" id="foldopen00242" data-start="{" data-end="}">
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="a06301.html#aa96656c45d933a338528c4e19dc1af40">  242</a></span>std::pair&lt;MatrixXd, VectorXd&gt; <a class="code hl_function" href="a06301.html#aa96656c45d933a338528c4e19dc1af40">Spectral::generateTapers</a>(<span class="keywordtype">int</span> iSignalLength, <span class="keyword">const</span> std::string&amp; sWindowType)</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>{</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    std::pair&lt;MatrixXd, VectorXd&gt; pairOut;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keywordflow">if</span> (sWindowType == <span class="stringliteral">&quot;hanning&quot;</span>) {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        pairOut.first = hanningWindow(iSignalLength);</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        pairOut.second = VectorXd::Ones(1);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sWindowType == <span class="stringliteral">&quot;ones&quot;</span>) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        pairOut.first = MatrixXd::Ones(1, iSignalLength) / double(iSignalLength);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        pairOut.second = VectorXd::Ones(1);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        pairOut.first = hanningWindow(iSignalLength);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        pairOut.second = VectorXd::Ones(1);</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    }</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keywordflow">return</span> pairOut;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>}</div>
+</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>MatrixXd Spectral::hanningWindow(<span class="keywordtype">int</span> iSignalLength)</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>{</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    MatrixXd matHann = MatrixXd::Zero(1, iSignalLength);</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="comment">//Main step of building the hanning window</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; iSignalLength; n++) {</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>        matHann(0, n) = 0.5 - 0.5 * cos(2.0 * std::numbers::pi * n / (iSignalLength - 1.0));</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    }</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    matHann.array() /= matHann.row(0).norm();</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <span class="keywordflow">return</span> matHann;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>}</div>
+<div class="ttc" id="aa01511_html"><div class="ttname"><a href="a01511.html">spectral.h</a></div><div class="ttdoc">Multi-taper spectral estimation: tapered FFT, power and cross-spectral density, DPSS weighting.</div></div>
+<div class="ttc" id="aa03209_html"><div class="ttname"><a href="a03209.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a02123_source.html#l00047">acq_backend.h:48</a></div></div>
+<div class="ttc" id="aa06297_html"><div class="ttname"><a href="a06297.html">mne::TaperedSpectraInputData</a></div><div class="ttdoc">Per-row input bundle for parallel multi-taper spectral estimation (data row, taper matrix,...</div><div class="ttdef"><b>Definition</b> <a href="a01511_source.html#l00071">spectral.h:72</a></div></div>
+<div class="ttc" id="aa06297_html_a29f024c1cbc8dbe22bf2ea5289dd2036"><div class="ttname"><a href="a06297.html#a29f024c1cbc8dbe22bf2ea5289dd2036">mne::TaperedSpectraInputData::vecData</a></div><div class="ttdeci">Eigen::RowVectorXd vecData</div><div class="ttdef"><b>Definition</b> <a href="a01511_source.html#l00073">spectral.h:73</a></div></div>
+<div class="ttc" id="aa06297_html_a7a13266c539299071e62e8b0a8802fb8"><div class="ttname"><a href="a06297.html#a7a13266c539299071e62e8b0a8802fb8">mne::TaperedSpectraInputData::matTaper</a></div><div class="ttdeci">Eigen::MatrixXd matTaper</div><div class="ttdef"><b>Definition</b> <a href="a01511_source.html#l00074">spectral.h:74</a></div></div>
+<div class="ttc" id="aa06297_html_a8f9c73c3a46919b723b9bb6a97ffb234"><div class="ttname"><a href="a06297.html#a8f9c73c3a46919b723b9bb6a97ffb234">mne::TaperedSpectraInputData::iNfft</a></div><div class="ttdeci">int iNfft</div><div class="ttdef"><b>Definition</b> <a href="a01511_source.html#l00075">spectral.h:75</a></div></div>
+<div class="ttc" id="aa06301_html_a074d14fabd0cf86bbc74ad3bc9485504"><div class="ttname"><a href="a06301.html#a074d14fabd0cf86bbc74ad3bc9485504">mne::Spectral::csdFromTaperedSpectra</a></div><div class="ttdeci">static Eigen::RowVectorXcd csdFromTaperedSpectra(const Eigen::MatrixXcd &amp;vecTapSpectrumSeed, const Eigen::MatrixXcd &amp;vecTapSpectrumTarget, const Eigen::VectorXd &amp;vecTapWeightsSeed, const Eigen::VectorXd &amp;vecTapWeightsTarget, int iNfft, double dSampFreq=1.0)</div><div class="ttdef"><b>Definition</b> <a href="#l00187">spectral.cpp:187</a></div></div>
+<div class="ttc" id="aa06301_html_a1dfacbdb243de541fa5a2884834c66d9"><div class="ttname"><a href="a06301.html#a1dfacbdb243de541fa5a2884834c66d9">mne::Spectral::psdFromTaperedSpectra</a></div><div class="ttdeci">static Eigen::RowVectorXd psdFromTaperedSpectra(const Eigen::MatrixXcd &amp;matTapSpectrum, const Eigen::VectorXd &amp;vecTapWeights, int iNfft, double dSampFreq=1.0)</div><div class="ttdef"><b>Definition</b> <a href="#l00161">spectral.cpp:161</a></div></div>
+<div class="ttc" id="aa06301_html_a42d6b4798261b8fac3af703d6d9541a0"><div class="ttname"><a href="a06301.html#a42d6b4798261b8fac3af703d6d9541a0">mne::Spectral::compute</a></div><div class="ttdeci">static Eigen::MatrixXcd compute(const TaperedSpectraInputData &amp;inputData)</div><div class="ttdef"><b>Definition</b> <a href="#l00152">spectral.cpp:152</a></div></div>
+<div class="ttc" id="aa06301_html_a5d62158fbd8ded42fb494cdda1f8be35"><div class="ttname"><a href="a06301.html#a5d62158fbd8ded42fb494cdda1f8be35">mne::Spectral::computeTaperedSpectraRow</a></div><div class="ttdeci">static Eigen::MatrixXcd computeTaperedSpectraRow(const Eigen::RowVectorXd &amp;vecData, const Eigen::MatrixXd &amp;matTaper, int iNfft)</div><div class="ttdef"><b>Definition</b> <a href="#l00066">spectral.cpp:66</a></div></div>
+<div class="ttc" id="aa06301_html_a7b05f0fb2568ec14b4031da07a2341e5"><div class="ttname"><a href="a06301.html#a7b05f0fb2568ec14b4031da07a2341e5">mne::Spectral::calculateFFTFreqs</a></div><div class="ttdeci">static Eigen::VectorXd calculateFFTFreqs(int iNfft, double dSampFreq)</div><div class="ttdef"><b>Definition</b> <a href="#l00228">spectral.cpp:228</a></div></div>
+<div class="ttc" id="aa06301_html_aa96656c45d933a338528c4e19dc1af40"><div class="ttname"><a href="a06301.html#aa96656c45d933a338528c4e19dc1af40">mne::Spectral::generateTapers</a></div><div class="ttdeci">static std::pair&lt; Eigen::MatrixXd, Eigen::VectorXd &gt; generateTapers(int iSignalLength, const std::string &amp;sWindowType=&quot;hanning&quot;)</div><div class="ttdef"><b>Definition</b> <a href="#l00242">spectral.cpp:242</a></div></div>
+<div class="ttc" id="aa06301_html_acaff9133f9b89d46ac93ff6f23e115f2"><div class="ttname"><a href="a06301.html#acaff9133f9b89d46ac93ff6f23e115f2">mne::Spectral::computeTaperedSpectraMatrix</a></div><div class="ttdeci">static std::vector&lt; Eigen::MatrixXcd &gt; computeTaperedSpectraMatrix(const Eigen::MatrixXd &amp;matData, const Eigen::MatrixXd &amp;matTaper, int iNfft, bool bUseThreads=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00093">spectral.cpp:93</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
