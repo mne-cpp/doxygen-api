@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['viewmode_0',['ViewMode',['../a05431.html#aa3f3ff780c715bd40e4fa32b803ea70d',1,'mne::disp::BrainView::ViewMode'],['../a05443.html#af2bd0fbf97245d5917b84cec8a488571',1,'mne::disp::BrainViewCore::ViewMode']]],
-  ['viewpreset_1',['ViewPreset',['../a03453.html#a4d7b2e83fd2bad00251c4224181abd88',1,'mne::scene']]],
-  ['visualizationmode_2',['VisualizationMode',['../a03341.html#a54ae2e460a58c391b2041592d3205f2a',1,'mne::disp']]],
-  ['visualizationtype_3',['VisualizationType',['../a05487.html#a7ecd2cac8ba805a946bb10776f5b3c16',1,'mne::disp::RtSourceInterpolationMatWorker']]]
+  ['viewmode_0',['ViewMode',['../a06506.html#aa1e9c55394631154459dba155b8e27d6',1,'mne::viz::qt::BrainView::ViewMode'],['../a06518.html#a383ee5eb7f2903cf9dadcb7f57da9c71',1,'mne::viz::qt::BrainViewCore::ViewMode']]],
+  ['viewpreset_1',['ViewPreset',['../a03437.html#a78e5550c483ccead78325cd49b7dcf4a',1,'mne::viz']]],
+  ['visualizationmode_2',['VisualizationMode',['../a03438.html#acbf0d3f17ae3dc5b3077ffbf972cccea',1,'mne::viz::qt']]],
+  ['visualizationtype_3',['VisualizationType',['../a06562.html#a98e526327d06f8f9f4b3184a13bae881',1,'mne::viz::qt::RtSourceInterpolationMatWorker']]]
 ];

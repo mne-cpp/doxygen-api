@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gpuhandle_0',['GpuHandle',['../a03453.html#a8a22c21a3845cae335db95cee17f49ae',1,'mne::scene']]]
+  ['gpuhandle_0',['GpuHandle',['../a03437.html#a010106defed3bd9d118cb8834037c987',1,'mne::viz']]]
 ];

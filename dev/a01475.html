@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/scene/svg_renderer.cpp File Reference</title>
+    <title>MNE-CPP: src/libs/mne/viz/views/trace_view.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,141 +250,139 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_0d7742f656ae6caad97c74a0078a50de.html">scene</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_7f26cea5f09c0c445243a1d522f12b80.html">viz</a></li><li class="navelem"><a href="dir_9c3afeea6a70ec74f1953c96383f619c.html">views</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">svg_renderer.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">trace_view.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Definition of to_svg and write_svg.  
+<p>Definition of <a class="el" href="a07418.html" title="Viewport and interaction state of a raw-data trace view, without a GUI toolkit.">TraceView</a>: viewport, input handling and overlays of a raw-data trace view.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a01286_source.html">svg_renderer.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01436_source.html">detail/text_layout.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a01400_source.html">text_metrics.h</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a01592_source.html">mne/base/raster_image.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01601_source.html">mne/base/string_utils.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a01469_source.html">trace_view.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a01415_source.html">../figures/text_metrics.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a03257_source.html">mne/base/string_utils.h</a>&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
-<code>#include &lt;cstddef&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
 <code>#include &lt;format&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;span&gt;</code><br />
+<code>#include &lt;map&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for svg_renderer.cpp:</div>
+Include dependency graph for trace_view.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a01476.png" border="0" usemap="#asrc_2libs_2mne_2scene_2svg__renderer_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2scene_2svg__renderer_8cpp" id="asrc_2libs_2mne_2scene_2svg__renderer_8cpp">
-<area shape="rect" title="Definition of to_svg and write_svg." alt="" coords="1207,5,1350,45"/>
-<area shape="rect" href="a01286.html" title="Writes a DisplayList as an SVG document." alt="" coords="616,93,735,119"/>
-<area shape="poly" title=" " alt="" coords="1207,38,755,96,749,97,749,91,754,91,1206,33"/>
-<area shape="rect" title=" " alt="" coords="1140,387,1203,412"/>
-<area shape="poly" title=" " alt="" coords="1350,30,1479,46,1625,74,1691,93,1745,116,1766,130,1782,144,1792,160,1796,178,1796,254,1791,276,1776,296,1754,313,1724,328,1649,353,1559,371,1462,384,1368,393,1217,400,1217,395,1367,387,1462,379,1558,366,1648,348,1722,323,1751,309,1772,292,1786,274,1790,254,1790,178,1787,162,1778,148,1763,134,1742,121,1689,98,1624,79,1478,51,1350,35"/>
-<area shape="rect" title=" " alt="" coords="1391,313,1454,339"/>
-<area shape="poly" title=" " alt="" coords="1351,36,1450,56,1562,84,1614,102,1660,121,1696,142,1719,165,1728,183,1731,201,1728,217,1721,231,1693,256,1654,277,1607,293,1557,306,1468,322,1467,317,1556,301,1605,288,1651,272,1690,252,1716,228,1723,215,1726,201,1723,185,1715,168,1693,146,1657,126,1612,107,1560,89,1449,61,1350,41"/>
-<area shape="rect" title=" " alt="" coords="733,240,800,265"/>
-<area shape="poly" title=" " alt="" coords="1207,36,1082,52,935,79,865,97,803,118,754,141,723,168,718,183,722,198,744,229,740,232,717,200,713,182,719,165,751,137,801,113,863,92,934,74,1081,47,1206,31"/>
-<area shape="rect" href="a01436.html" title="Baseline position of aligned text, shared by the SVG and raster renderers (internal)." alt="" coords="302,93,452,119"/>
-<area shape="poly" title=" " alt="" coords="1207,34,890,57,466,96,465,91,890,52,1207,29"/>
-<area shape="rect" href="a01400.html" title="TextMetrics measures text for layout; ApproximateTextMetrics does so without fonts." alt="" coords="476,93,592,119"/>
-<area shape="poly" title=" " alt="" coords="1207,35,946,58,606,96,606,90,946,53,1207,30"/>
-<area shape="rect" title=" " alt="" coords="890,167,987,192"/>
-<area shape="poly" title=" " alt="" coords="1207,31,1156,37,1100,48,1044,67,993,95,967,123,950,155,945,152,963,120,990,91,1042,62,1099,43,1156,32,1206,26"/>
-<area shape="rect" href="a01592.html" title="An RGB image in memory with anti&#45;aliased polygons, bitmap text and PNG output, in standard C++." alt="" coords="1004,93,1192,119"/>
-<area shape="poly" title=" " alt="" coords="1236,48,1138,90,1136,85,1234,43"/>
-<area shape="rect" title=" " alt="" coords="1313,167,1366,192"/>
-<area shape="poly" title=" " alt="" coords="1285,45,1293,79,1306,118,1326,154,1321,156,1301,120,1288,81,1279,46"/>
-<area shape="rect" href="a01601.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="1316,93,1491,119"/>
-<area shape="poly" title=" " alt="" coords="1310,43,1375,84,1372,88,1307,48"/>
-<area shape="rect" title=" " alt="" coords="1634,167,1704,192"/>
-<area shape="poly" title=" " alt="" coords="1351,42,1426,63,1505,91,1578,125,1639,157,1637,162,1575,129,1503,96,1424,68,1349,47"/>
-<area shape="rect" title=" " alt="" coords="1830,93,1916,119"/>
-<area shape="poly" title=" " alt="" coords="1350,32,1558,56,1812,91,1817,92,1816,97,1811,96,1557,61,1349,37"/>
-<area shape="rect" title=" " alt="" coords="1940,93,2014,119"/>
-<area shape="poly" title=" " alt="" coords="1350,28,1601,49,1761,67,1927,91,1926,96,1761,72,1600,55,1350,34"/>
-<area shape="rect" href="a01454.html" title="A figure as an ordered list of drawing commands, independent of any window system." alt="" coords="388,167,496,192"/>
-<area shape="poly" title=" " alt="" coords="639,121,494,165,492,160,637,116"/>
-<area shape="rect" href="a01319.html" title="Export macro of mne_scene — figures as display lists, rendered without a window system." alt="" coords="47,387,166,412"/>
-<area shape="poly" title=" " alt="" coords="616,119,604,121,506,129,428,130,392,132,354,138,312,149,264,169,215,196,182,226,157,263,131,314,120,345,113,374,108,373,115,343,127,312,152,261,178,222,212,192,261,164,310,144,352,132,391,126,428,124,506,124,603,116,616,114"/>
-<area shape="rect" title=" " alt="" coords="616,313,674,339"/>
-<area shape="poly" title=" " alt="" coords="677,119,651,300,646,299,671,119"/>
-<area shape="rect" href="a01664.html" title="Error and Expected: why a reader or writer failed, as a value or as an exception." alt="" coords="734,167,866,192"/>
-<area shape="poly" title=" " alt="" coords="697,116,769,157,766,162,694,121"/>
-<area shape="rect" title=" " alt="" coords="1062,167,1153,192"/>
-<area shape="poly" title=" " alt="" coords="736,114,1049,166,1048,171,735,120"/>
-<area shape="rect" href="a01460.html" title="Points, rectangles and affine transforms of the scene library." alt="" coords="407,313,502,339"/>
-<area shape="poly" title=" " alt="" coords="446,192,455,299,450,300,441,193"/>
-<area shape="poly" title=" " alt="" coords="389,187,348,192,302,203,257,219,215,242,181,272,154,308,133,344,118,375,114,372,128,341,150,305,177,269,211,238,254,214,301,198,347,187,388,181"/>
-<area shape="rect" href="a01451.html" title="Colours, pens, brushes, fonts and text alignment of the scene library." alt="" coords="490,240,557,265"/>
-<area shape="poly" title=" " alt="" coords="457,190,502,229,498,233,454,194"/>
-<area shape="rect" title=" " alt="" coords="174,313,241,339"/>
-<area shape="poly" title=" " alt="" coords="388,185,350,190,309,200,269,217,235,242,225,255,218,269,212,300,206,299,213,268,221,252,231,238,267,212,307,195,349,185,388,179"/>
-<area shape="poly" title=" " alt="" coords="477,190,523,210,571,238,604,269,631,300,627,304,601,272,567,242,521,214,475,195"/>
-<area shape="poly" title=" " alt="" coords="473,190,582,226,651,246,722,263,911,291,1099,309,1262,318,1377,321,1377,327,1262,323,1099,314,911,297,721,268,650,252,580,232,471,195"/>
-<area shape="rect" title=" " alt="" coords="245,240,322,265"/>
-<area shape="poly" title=" " alt="" coords="418,194,323,237,321,232,416,190"/>
-<area shape="rect" title=" " alt="" coords="1260,240,1334,265"/>
-<area shape="poly" title=" " alt="" coords="497,182,795,203,1196,237,1246,243,1246,248,1195,243,794,209,497,187"/>
-<area shape="rect" title=" " alt="" coords="347,240,415,265"/>
-<area shape="poly" title=" " alt="" coords="434,194,402,231,398,228,430,191"/>
-<area shape="poly" title=" " alt="" coords="407,340,176,387,175,381,406,334"/>
-<area shape="poly" title=" " alt="" coords="502,334,516,336,693,357,867,374,1126,393,1126,398,866,379,692,362,515,341,501,339"/>
-<area shape="rect" title=" " alt="" coords="415,387,494,412"/>
-<area shape="poly" title=" " alt="" coords="457,339,457,373,452,373,452,339"/>
-<area shape="poly" title=" " alt="" coords="514,268,477,305,473,302,510,264"/>
-<area shape="poly" title=" " alt="" coords="491,268,153,385,151,380,490,263"/>
-<area shape="poly" title=" " alt="" coords="490,264,255,317,254,312,489,259"/>
-<area shape="poly" title=" " alt="" coords="545,263,615,304,612,309,542,268"/>
-<area shape="rect" title=" " alt="" coords="528,313,588,339"/>
-<area shape="poly" title=" " alt="" coords="532,264,549,300,544,302,527,267"/>
-<area shape="poly" title=" " alt="" coords="557,254,1377,318,1377,324,557,259"/>
-<area shape="poly" title=" " alt="" coords="866,188,1197,238,1204,253,1198,267,1170,281,1120,292,976,309,815,320,688,326,688,321,815,315,975,304,1119,287,1168,276,1194,263,1199,253,1194,242,865,193"/>
-<area shape="poly" title=" " alt="" coords="809,192,821,227,822,248,814,267,791,290,768,303,745,310,720,312,667,310,637,311,604,316,602,316,601,311,603,311,636,305,667,304,720,306,744,305,766,299,788,286,809,264,817,247,816,228,804,193"/>
-<area shape="rect" title=" " alt="" coords="874,240,957,265"/>
-<area shape="poly" title=" " alt="" coords="820,190,886,230,884,235,817,194"/>
-<area shape="poly" title=" " alt="" coords="797,193,780,229,775,227,792,191"/>
-<area shape="rect" title=" " alt="" coords="982,240,1068,265"/>
-<area shape="poly" title=" " alt="" coords="837,189,976,233,975,238,835,195"/>
-<area shape="rect" title=" " alt="" coords="1092,240,1184,265"/>
-<area shape="poly" title=" " alt="" coords="855,189,1079,236,1078,242,854,195"/>
-<area shape="poly" title=" " alt="" coords="390,117,425,155,421,158,386,121"/>
-<area shape="poly" title=" " alt="" coords="477,120,464,121,366,124,239,123,175,126,118,134,71,147,53,157,39,169,23,189,14,209,9,228,9,248,19,290,39,337,55,360,75,377,72,381,51,363,35,340,14,291,3,248,4,227,9,207,19,186,35,165,50,152,69,142,117,128,175,121,239,118,366,119,463,116,476,114"/>
-<area shape="poly" title=" " alt="" coords="536,119,528,226,523,226,531,119"/>
-<area shape="poly" title=" " alt="" coords="593,115,877,164,876,169,592,120"/>
-<area shape="poly" title=" " alt="" coords="1004,114,671,133,500,149,430,159,376,169,283,189,248,206,232,221,215,241,209,255,205,270,206,300,200,300,200,269,204,253,211,239,228,217,245,202,282,184,375,164,429,153,499,144,670,128,1004,108"/>
-<area shape="poly" title=" " alt="" coords="1085,121,1069,136,1054,154,1047,173,1048,182,1052,190,1084,218,1117,231,1151,232,1186,227,1224,221,1263,217,1304,221,1348,238,1384,267,1410,300,1406,303,1380,271,1345,242,1303,226,1263,222,1224,226,1187,233,1151,238,1116,236,1082,223,1048,194,1043,184,1042,173,1049,152,1065,132,1081,117"/>
-<area shape="poly" title=" " alt="" coords="1051,121,862,166,861,161,1050,116"/>
-<area shape="poly" title=" " alt="" coords="1103,119,1107,153,1102,154,1097,119"/>
-<area shape="poly" title=" " alt="" coords="1074,121,978,163,976,159,1072,116"/>
-<area shape="rect" href="a01634.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="1177,167,1289,192"/>
-<area shape="poly" title=" " alt="" coords="1121,116,1200,158,1198,162,1119,121"/>
-<area shape="poly" title=" " alt="" coords="1138,116,1301,164,1299,169,1136,121"/>
-<area shape="poly" title=" " alt="" coords="1409,118,1412,152,1406,193,1397,218,1386,238,1370,253,1348,268,1291,288,1215,304,1123,315,1025,322,832,328,688,328,688,323,831,323,1025,317,1123,309,1214,298,1290,283,1345,263,1367,249,1381,234,1392,216,1401,191,1406,152,1403,119"/>
-<area shape="poly" title=" " alt="" coords="1427,117,1453,137,1475,165,1481,184,1483,203,1475,241,1460,276,1442,304,1438,301,1455,273,1470,239,1477,203,1476,185,1471,168,1450,140,1423,121"/>
-<area shape="poly" title=" " alt="" coords="1405,119,1398,154,1391,174,1381,194,1359,217,1334,235,1331,231,1355,213,1376,190,1386,172,1393,153,1400,118"/>
-<area shape="poly" title=" " alt="" coords="1357,121,1167,167,1166,161,1356,116"/>
-<area shape="poly" title=" " alt="" coords="1329,121,1001,171,1000,166,1329,116"/>
-<area shape="poly" title=" " alt="" coords="1377,121,1274,164,1272,159,1375,116"/>
-<area shape="poly" title=" " alt="" coords="1395,121,1361,158,1357,155,1391,117"/>
-<area shape="rect" title=" " alt="" coords="1542,167,1609,192"/>
-<area shape="poly" title=" " alt="" coords="1432,116,1536,159,1534,164,1430,121"/>
-<area shape="poly" title=" " alt="" coords="1447,116,1621,162,1619,168,1446,121"/>
+<div class="center"><img src="a01476.png" border="0" usemap="#asrc_2libs_2mne_2viz_2views_2trace__view_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2viz_2views_2trace__view_8cpp" id="asrc_2libs_2mne_2viz_2views_2trace__view_8cpp">
+<area shape="rect" title="Definition of TraceView: viewport, input handling and overlays of a raw&#45;data trace view." alt="" coords="1926,5,2093,45"/>
+<area shape="rect" href="a01469.html" title="TraceView holds the viewport and interaction state of a raw&#45;data trace view and draws its overlays." alt="" coords="620,93,724,119"/>
+<area shape="poly" title=" " alt="" coords="1926,34,738,103,738,98,1926,29"/>
+<area shape="rect" title=" " alt="" coords="1591,460,1654,485"/>
+<area shape="poly" title=" " alt="" coords="2017,45,2030,104,2037,178,2037,328,2034,342,2025,357,1994,381,1948,403,1892,422,1771,451,1668,468,1667,463,1770,445,1891,417,1946,398,1991,377,2021,353,2029,340,2032,327,2032,178,2025,105,2012,46"/>
+<area shape="rect" title=" " alt="" coords="1630,387,1690,412"/>
+<area shape="poly" title=" " alt="" coords="2007,46,1994,105,1987,178,1987,254,1984,276,1978,296,1955,329,1920,354,1878,373,1832,386,1786,394,1705,401,1704,395,1785,389,1831,380,1877,368,1918,350,1951,325,1973,294,1979,275,1981,254,1981,178,1989,104,2001,45"/>
+<area shape="rect" title=" " alt="" coords="1259,240,1357,265"/>
+<area shape="poly" title=" " alt="" coords="1926,44,1831,64,1715,91,1589,126,1466,169,1397,202,1339,235,1336,231,1394,197,1464,164,1588,121,1713,86,1830,58,1925,39"/>
+<area shape="rect" href="a01415.html" title="TextMetrics measures text for layout; ApproximateTextMetrics does so without fonts." alt="" coords="1177,167,1353,192"/>
+<area shape="poly" title=" " alt="" coords="1926,28,1822,32,1694,42,1555,62,1485,77,1418,96,1383,110,1349,127,1293,161,1291,157,1347,122,1381,105,1416,91,1484,72,1554,57,1693,36,1822,26,1926,23"/>
+<area shape="rect" href="a03257.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="1477,167,1651,192"/>
+<area shape="poly" title=" " alt="" coords="1955,48,1612,165,1610,160,1953,43"/>
+<area shape="rect" title=" " alt="" coords="2072,93,2157,119"/>
+<area shape="poly" title=" " alt="" coords="2036,43,2090,83,2086,87,2033,48"/>
+<area shape="rect" title=" " alt="" coords="2182,93,2247,119"/>
+<area shape="poly" title=" " alt="" coords="2059,43,2172,86,2171,91,2058,48"/>
+<area shape="rect" title=" " alt="" coords="2272,93,2339,119"/>
+<area shape="poly" title=" " alt="" coords="2081,43,2259,90,2258,95,2080,48"/>
+<area shape="rect" title=" " alt="" coords="2363,93,2413,119"/>
+<area shape="poly" title=" " alt="" coords="2093,38,2211,60,2350,91,2348,96,2210,65,2092,43"/>
+<area shape="rect" href="a01373.html" title="Canvas records drawing calls in the style of QPainter into a DisplayList." alt="" coords="717,167,857,192"/>
+<area shape="poly" title=" " alt="" coords="692,116,758,157,755,162,689,121"/>
+<area shape="rect" href="a01529.html" title="Export macro of mne_viz — what the viewers show and how they behave, without a GUI toolkit." alt="" coords="784,460,896,485"/>
+<area shape="poly" title=" " alt="" coords="620,110,458,116,356,123,254,136,159,154,80,179,50,194,27,211,13,230,8,252,8,327,12,355,24,373,41,385,65,392,123,399,188,409,305,429,466,445,770,465,770,471,465,451,304,435,188,415,123,404,64,397,39,390,20,377,7,357,3,328,3,251,8,228,23,207,47,189,78,174,158,149,253,130,356,118,457,110,620,105"/>
+<area shape="rect" href="a01412.html" title="Colours, pens, brushes, fonts and text alignment of the scene library." alt="" coords="1029,313,1096,339"/>
+<area shape="poly" title=" " alt="" coords="725,104,778,107,839,116,903,134,933,148,962,165,986,187,1000,209,1010,234,1026,264,1050,301,1046,304,1022,267,1006,237,995,212,982,190,958,169,931,153,901,139,838,121,777,112,724,109"/>
+<area shape="rect" title=" " alt="" coords="928,387,995,412"/>
+<area shape="poly" title=" " alt="" coords="725,108,760,114,799,124,837,141,871,165,893,188,911,215,937,272,953,328,961,373,956,374,948,330,932,274,906,217,888,191,868,169,835,146,797,130,759,119,724,113"/>
+<area shape="rect" title=" " alt="" coords="1189,387,1248,412"/>
+<area shape="poly" title=" " alt="" coords="725,103,783,106,852,115,924,133,959,147,992,164,1019,188,1033,212,1046,238,1070,263,1096,279,1120,286,1144,294,1170,311,1194,341,1211,372,1206,375,1190,344,1166,315,1141,299,1118,291,1094,284,1066,267,1042,241,1029,215,1015,191,989,169,957,152,923,139,851,120,782,111,724,109"/>
+<area shape="rect" title=" " alt="" coords="463,387,526,412"/>
+<area shape="poly" title=" " alt="" coords="620,109,502,116,429,127,352,145,274,170,201,206,167,229,136,254,108,283,84,315,79,326,83,337,108,355,146,369,194,379,247,387,358,394,450,396,450,401,358,400,247,392,193,384,144,374,106,359,79,340,74,326,79,312,104,279,132,250,164,224,198,202,272,166,350,139,428,122,502,111,620,104"/>
+<area shape="rect" title=" " alt="" coords="432,313,507,339"/>
+<area shape="poly" title=" " alt="" coords="624,121,579,139,557,152,538,169,514,200,496,236,476,301,471,299,491,234,509,197,534,165,554,148,577,135,622,116"/>
+<area shape="rect" href="a01457.html" title="Toolkit&#45;neutral pointer, wheel and key events for the interactive scene views." alt="" coords="94,313,205,339"/>
+<area shape="poly" title=" " alt="" coords="642,121,512,169,411,204,313,242,243,277,183,309,180,304,240,272,311,238,410,199,510,164,640,116"/>
+<area shape="rect" href="a01499.html" title="TraceSource, the channels and samples a raw&#45;data trace view shows." alt="" coords="337,240,455,265"/>
+<area shape="poly" title=" " alt="" coords="675,119,669,156,662,176,648,194,618,211,573,225,469,245,468,240,571,220,616,206,645,190,657,174,664,154,669,119"/>
+<area shape="rect" title=" " alt="" coords="547,167,634,192"/>
+<area shape="poly" title=" " alt="" coords="661,121,616,160,612,156,657,117"/>
+<area shape="rect" href="a01451.html" title="A figure as an ordered list of drawing commands, independent of any window system." alt="" coords="734,240,842,265"/>
+<area shape="poly" title=" " alt="" coords="790,192,790,226,785,227,784,192"/>
+<area shape="poly" title=" " alt="" coords="809,190,836,210,857,239,867,266,872,295,872,353,863,406,851,447,846,446,858,405,866,353,866,296,861,268,852,241,832,214,806,194"/>
+<area shape="poly" title=" " alt="" coords="717,190,479,215,375,230,341,237,327,242,321,253,319,264,327,289,345,314,367,337,408,365,452,383,450,388,406,369,364,341,341,318,322,292,314,265,316,251,324,238,340,232,374,225,478,210,716,185"/>
+<area shape="rect" title=" " alt="" coords="531,313,608,339"/>
+<area shape="poly" title=" " alt="" coords="771,194,599,308,597,303,768,190"/>
+<area shape="poly" title=" " alt="" coords="762,195,508,310,506,305,760,190"/>
+<area shape="rect" title=" " alt="" coords="1080,240,1133,265"/>
+<area shape="poly" title=" " alt="" coords="839,189,1067,240,1066,245,838,195"/>
+<area shape="poly" title=" " alt="" coords="857,188,1246,240,1245,245,857,193"/>
+<area shape="rect" href="a01394.html" title="Points, rectangles and affine transforms of the scene library." alt="" coords="1070,387,1165,412"/>
+<area shape="poly" title=" " alt="" coords="843,254,914,259,993,270,1064,287,1091,298,1110,311,1119,326,1124,342,1124,373,1119,373,1118,342,1114,328,1106,315,1089,303,1062,292,992,275,913,265,842,259"/>
+<area shape="poly" title=" " alt="" coords="793,265,837,446,831,447,788,266"/>
+<area shape="poly" title=" " alt="" coords="833,263,1017,310,1015,315,831,268"/>
+<area shape="poly" title=" " alt="" coords="804,264,939,376,935,380,800,268"/>
+<area shape="poly" title=" " alt="" coords="843,251,904,254,979,263,1058,281,1133,311,1174,341,1204,374,1200,377,1170,345,1131,316,1056,287,978,269,904,260,842,256"/>
+<area shape="poly" title=" " alt="" coords="767,268,621,341,533,383,530,378,619,336,765,263"/>
+<area shape="poly" title=" " alt="" coords="754,268,619,312,617,306,752,263"/>
+<area shape="poly" title=" " alt="" coords="736,268,521,316,520,310,735,263"/>
+<area shape="rect" title=" " alt="" coords="683,313,751,339"/>
+<area shape="poly" title=" " alt="" coords="778,268,740,306,736,302,774,264"/>
+<area shape="poly" title=" " alt="" coords="1073,415,899,459,898,454,1072,409"/>
+<area shape="poly" title=" " alt="" coords="1166,407,1178,409,1403,442,1578,464,1577,469,1402,447,1177,415,1165,413"/>
+<area shape="rect" title=" " alt="" coords="1078,460,1157,485"/>
+<area shape="poly" title=" " alt="" coords="1120,412,1120,446,1115,446,1115,412"/>
+<area shape="poly" title=" " alt="" coords="1074,337,1102,374,1098,377,1070,341"/>
+<area shape="poly" title=" " alt="" coords="1060,340,1041,376,1026,396,1008,414,960,442,910,460,908,455,958,437,1005,410,1022,393,1037,373,1056,338"/>
+<area shape="poly" title=" " alt="" coords="1048,341,991,381,988,376,1045,336"/>
+<area shape="poly" title=" " alt="" coords="1089,336,1182,378,1180,383,1087,341"/>
+<area shape="poly" title=" " alt="" coords="1096,329,1616,390,1616,395,1096,334"/>
+<area shape="poly" title=" " alt="" coords="1030,334,540,395,539,390,1029,329"/>
+<area shape="poly" title=" " alt="" coords="158,338,184,375,203,394,225,410,269,426,330,439,480,456,639,465,770,468,770,474,639,470,479,461,329,444,268,431,223,414,199,398,180,378,154,341"/>
+<area shape="poly" title=" " alt="" coords="205,330,915,391,914,397,205,335"/>
+<area shape="poly" title=" " alt="" coords="388,267,369,300,364,319,368,338,383,365,401,383,423,396,453,410,535,439,621,456,702,466,771,469,770,475,701,471,620,462,534,444,451,414,421,401,398,387,379,368,363,340,359,319,364,298,384,264"/>
+<area shape="poly" title=" " alt="" coords="455,258,1016,317,1015,322,455,263"/>
+<area shape="poly" title=" " alt="" coords="398,265,402,302,409,321,422,337,438,345,466,352,547,363,653,370,773,374,1012,379,1176,385,1176,390,1012,384,773,380,653,376,546,369,465,357,437,350,418,341,404,324,397,303,393,266"/>
+<area shape="poly" title=" " alt="" coords="390,267,375,301,373,320,378,337,393,354,411,368,451,386,449,391,408,372,389,358,374,340,368,320,370,299,386,265"/>
+<area shape="poly" title=" " alt="" coords="410,264,449,302,446,306,406,268"/>
+<area shape="poly" title=" " alt="" coords="1263,193,1251,240,1250,267,1255,290,1271,332,1278,352,1280,372,1276,392,1262,414,1244,424,1212,433,1119,448,910,469,909,464,1118,443,1211,428,1242,419,1258,410,1271,390,1275,371,1273,353,1266,334,1250,291,1245,267,1245,240,1258,192"/>
+<area shape="poly" title=" " alt="" coords="1251,194,1092,307,1088,303,1248,190"/>
+<area shape="poly" title=" " alt="" coords="1275,191,1296,227,1292,230,1270,194"/>
+<area shape="poly" title=" " alt="" coords="1554,194,1515,229,1466,268,1354,335,1257,383,1255,378,1351,330,1462,263,1512,225,1550,191"/>
+<area shape="poly" title=" " alt="" coords="1546,194,1473,238,1417,268,1358,285,1307,296,1220,304,1131,306,1018,316,747,358,540,393,539,387,746,353,1017,311,1130,301,1219,298,1307,290,1357,280,1415,263,1471,233,1544,190"/>
+<area shape="poly" title=" " alt="" coords="1538,195,1428,242,1400,257,1370,268,1244,293,1136,305,1040,308,949,306,760,299,650,303,521,316,520,311,650,298,760,294,949,300,1040,303,1136,300,1243,288,1369,263,1398,252,1426,238,1536,190"/>
+<area shape="poly" title=" " alt="" coords="1491,195,1147,248,1146,243,1490,189"/>
+<area shape="poly" title=" " alt="" coords="1524,195,1363,239,1362,234,1522,189"/>
+<area shape="rect" href="a03224.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="1744,240,1856,265"/>
+<area shape="poly" title=" " alt="" coords="1603,189,1749,233,1748,239,1601,195"/>
+<area shape="rect" title=" " alt="" coords="1880,240,1947,265"/>
+<area shape="poly" title=" " alt="" coords="1628,189,1867,237,1866,242,1627,195"/>
+<area shape="rect" title=" " alt="" coords="1534,240,1605,265"/>
+<area shape="poly" title=" " alt="" coords="1568,192,1570,226,1565,227,1562,193"/>
+<area shape="rect" title=" " alt="" coords="1629,240,1720,265"/>
+<area shape="poly" title=" " alt="" coords="1583,190,1646,230,1643,235,1580,194"/>
 </map>
 </div>
 </div>
 <p><a href="a01475_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Definition of to_svg and write_svg. </p>
+<div class="textblock"><p>Definition of <a class="el" href="a07418.html" title="Viewport and interaction state of a raw-data trace view, without a GUI toolkit.">TraceView</a>: viewport, input handling and overlays of a raw-data trace view. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>3.0.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>November 2026 </dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a01475_source.html">svg_renderer.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a01475_source.html">trace_view.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['gpublend_0',['GpuBlend',['../a03453.html#acd3c0816387b8f17f07a677173f5b79a',1,'mne::scene']]],
-  ['gpubufferusage_1',['GpuBufferUsage',['../a03453.html#aa371daa74b74436c81df47c774435f3b',1,'mne::scene']]],
-  ['gpucull_2',['GpuCull',['../a03453.html#a05504e65fe92d645cad8dc4da1fe9159',1,'mne::scene']]],
-  ['gpudepthcompare_3',['GpuDepthCompare',['../a03453.html#a086526a1655a39e04cbb586cc52d50fc',1,'mne::scene']]],
-  ['gputopology_4',['GpuTopology',['../a03453.html#acff61f948ad2b855c4e1597d34a4e675',1,'mne::scene']]],
-  ['gpuvertexformat_5',['GpuVertexFormat',['../a03453.html#af585afa2d4b42650e8b9ae3d7e1567b2',1,'mne::scene']]],
-  ['graphicsapi_6',['GraphicsApi',['../a05455.html#aa22d599638ba791f6f0c2325aea803c2',1,'mne::disp::BrainWindow']]],
-  ['guimode_7',['GuiMode',['../a04915.html#ae33399c4c9be04a686a8d00d71f23414',1,'mne::disp::AbstractView']]]
+  ['gpublend_0',['GpuBlend',['../a03437.html#afa72de2d9fb790f77382a2022cb78a69',1,'mne::viz']]],
+  ['gpubufferusage_1',['GpuBufferUsage',['../a03437.html#ac1fd56dd58d4d1eada72749f21a2c7ff',1,'mne::viz']]],
+  ['gpucull_2',['GpuCull',['../a03437.html#ac45ed0d85a8859e0997db972e38bf29e',1,'mne::viz']]],
+  ['gpudepthcompare_3',['GpuDepthCompare',['../a03437.html#aea0c40885113afa1017f69fa6ec9f69d',1,'mne::viz']]],
+  ['gputopology_4',['GpuTopology',['../a03437.html#a557a8bdb856acdaf7b8c6d3b07a4be7f',1,'mne::viz']]],
+  ['gpuvertexformat_5',['GpuVertexFormat',['../a03437.html#acf8a6b74eb790b894f724d8eef8f0305',1,'mne::viz']]],
+  ['graphicsapi_6',['GraphicsApi',['../a06530.html#a48a6db3ac79c39e3f160d7312c18ee57',1,'mne::viz::qt::BrainWindow']]],
+  ['guimode_7',['GuiMode',['../a06654.html#a5881f822132ea9683121a1a0f3d714e8',1,'mne::viz::qt::AbstractView']]]
 ];

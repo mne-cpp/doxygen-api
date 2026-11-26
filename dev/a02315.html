@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/acq/devices/neuromag/neuromag_transport.h File Reference</title>
+    <title>MNE-CPP: src/libs/mne/mne/mne_surface_or_volume.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,143 +250,434 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_2f854a5406f32ee7c498289ae3ba87e9.html">acq</a></li><li class="navelem"><a href="dir_d04c415f36cd683ca3ab3757f9800cb7.html">devices</a></li><li class="navelem"><a href="dir_baecc8fc94f15e4f3cd1f6084cbc0dd9.html">neuromag</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_798b6ca61e7de33786fe2a901a54b8e1.html">mne</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">neuromag_transport.h File Reference</div></div>
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">mne_surface_or_volume.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>The Neuromag (MEGIN) acquisition server as the backend uses it, with a DACQ client and a simulator.  
+<p>Implementation of <a class="el" href="a06150.html" title="mne::MNESurfaceOrVolume">mne::MNESurfaceOrVolume</a>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a02312_source.html">neuromag_fiff.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a02390_source.html">../../acq_error.h</a>&quot;</code><br />
-<code>#include &lt;chrono&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a02387_source.html">mne_surface_or_volume.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02381_source.html">mne_surface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02360_source.html">mne_source_space.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02348_source.html">mne_patch_info.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02579_source.html">mne_nearest.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02444_source.html">filter_thread_arg.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02498_source.html">mne_triangle.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02492_source.html">mne_msh_display_surface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02318_source.html">mne_proj_data.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02522_source.html">mne_vol_geom.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02366_source.html">mne_mgh_tag_group.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02396_source.html">mne_mgh_tag.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a03200_source.html">mne/base/log.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00638_source.html">mne/fiff/fiff_stream.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00605_source.html">mne/fiff/fiff_coord_trans.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00518_source.html">mne/fiff/fiff_digitizer_data.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00650_source.html">mne/fiff/fiff_dig_point.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01019_source.html">mne/math/sphere.h</a>&gt;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;Eigen/Sparse&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for neuromag_transport.h:</div>
+Include dependency graph for mne_surface_or_volume.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a02316.png" border="0" usemap="#asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__transport_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__transport_8h" id="asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__transport_8h">
-<area shape="rect" title="The Neuromag (MEGIN) acquisition server as the backend uses it, with a DACQ client and a simulator." alt="" coords="465,5,705,45"/>
-<area shape="rect" href="a02312.html" title="The FIFF tags of the Neuromag (MEGIN) acquisition stream: codes, byte order, channel records and the ..." alt="" coords="769,93,893,119"/>
-<area shape="poly" title=" " alt="" coords="645,43,783,87,781,92,643,48"/>
-<area shape="rect" href="a02390.html" title="AcqError: catalogued error codes of the acquisition API, and AcqExpected, a value&#45;or&#45;error result." alt="" coords="438,167,557,192"/>
-<area shape="poly" title=" " alt="" coords="576,47,513,156,508,153,572,44"/>
-<area shape="rect" title=" " alt="" coords="703,313,769,339"/>
-<area shape="poly" title=" " alt="" coords="466,40,296,64,207,83,126,108,61,137,37,155,20,173,10,193,9,214,18,238,36,263,49,272,70,279,135,292,222,302,322,310,529,318,689,322,689,327,529,324,322,315,221,307,134,297,68,284,46,276,33,267,13,240,4,215,5,192,15,170,33,151,58,133,124,103,205,78,295,59,465,35"/>
-<area shape="rect" title=" " alt="" coords="47,240,124,265"/>
-<area shape="poly" title=" " alt="" coords="545,48,124,237,122,232,542,43"/>
-<area shape="rect" title=" " alt="" coords="671,240,729,265"/>
-<area shape="poly" title=" " alt="" coords="597,44,690,226,685,229,592,47"/>
-<area shape="rect" title=" " alt="" coords="917,93,984,119"/>
-<area shape="poly" title=" " alt="" coords="680,43,904,90,903,96,679,48"/>
-<area shape="poly" title=" " alt="" coords="778,121,565,166,564,161,776,116"/>
-<area shape="poly" title=" " alt="" coords="824,120,794,168,765,239,745,301,740,299,760,238,789,165,820,117"/>
-<area shape="poly" title=" " alt="" coords="811,121,780,141,750,168,728,199,712,229,707,226,724,196,746,165,777,137,808,117"/>
-<area shape="rect" href="a02384.html" title="AcqStreamInfo: direction, format, layout, rate and per&#45;channel description of one stream." alt="" coords="951,167,1118,192"/>
-<area shape="poly" title=" " alt="" coords="864,116,990,160,988,165,862,121"/>
-<area shape="rect" title=" " alt="" coords="1147,313,1218,339"/>
-<area shape="poly" title=" " alt="" coords="893,114,905,116,1039,128,1212,144,1299,158,1376,177,1440,203,1464,219,1482,239,1488,253,1482,267,1465,281,1440,292,1373,309,1298,319,1232,325,1231,320,1298,314,1372,303,1438,287,1462,276,1478,264,1482,253,1478,241,1460,224,1437,208,1375,182,1298,163,1212,150,1038,133,905,121,892,119"/>
-<area shape="rect" title=" " alt="" coords="1412,240,1468,265"/>
-<area shape="poly" title=" " alt="" coords="893,114,1187,164,1303,199,1400,233,1398,238,1302,204,1186,169,892,120"/>
-<area shape="rect" title=" " alt="" coords="804,240,879,265"/>
-<area shape="poly" title=" " alt="" coords="843,117,859,139,872,166,874,183,871,200,859,229,854,227,866,198,869,183,867,167,854,142,839,121"/>
-<area shape="rect" title=" " alt="" coords="1325,240,1387,265"/>
-<area shape="poly" title=" " alt="" coords="893,116,1024,140,1131,164,1233,198,1318,232,1316,237,1231,203,1130,169,1023,145,892,121"/>
-<area shape="rect" title=" " alt="" coords="804,167,857,192"/>
-<area shape="poly" title=" " alt="" coords="833,119,833,153,828,153,828,119"/>
-<area shape="rect" href="a02183.html" title="Export macro of mne_acq — Headless acquisition: sources, streams, zero&#45;copy readers and native sample..." alt="" coords="1019,313,1123,339"/>
-<area shape="poly" title=" " alt="" coords="506,191,533,228,553,247,576,263,634,288,686,303,734,309,780,310,880,305,938,305,1005,311,1004,316,938,310,880,310,781,315,734,314,685,308,633,293,573,268,550,252,529,231,502,194"/>
-<area shape="rect" title=" " alt="" coords="148,240,217,265"/>
-<area shape="poly" title=" " alt="" coords="445,195,231,242,230,237,444,189"/>
-<area shape="poly" title=" " alt="" coords="443,195,403,207,369,223,357,232,351,242,350,252,357,264,379,280,412,293,503,310,604,319,689,322,688,327,603,324,502,316,411,298,376,284,353,267,345,253,345,240,353,228,366,218,401,202,441,190"/>
-<area shape="poly" title=" " alt="" coords="438,192,304,213,137,243,137,237,304,208,437,187"/>
-<area shape="rect" title=" " alt="" coords="242,240,291,265"/>
-<area shape="poly" title=" " alt="" coords="461,195,305,242,304,237,459,189"/>
-<area shape="poly" title=" " alt="" coords="531,190,658,234,656,239,529,195"/>
-<area shape="rect" title=" " alt="" coords="794,313,891,339"/>
-<area shape="poly" title=" " alt="" coords="501,192,509,228,518,247,531,263,781,310,780,316,528,268,513,250,504,230,495,193"/>
-<area shape="rect" title=" " alt="" coords="367,240,459,265"/>
-<area shape="poly" title=" " alt="" coords="485,194,439,233,436,229,482,190"/>
-<area shape="rect" title=" " alt="" coords="586,240,646,265"/>
-<area shape="poly" title=" " alt="" coords="518,190,586,230,583,235,515,194"/>
-<area shape="poly" title=" " alt="" coords="1119,189,1205,208,1241,222,1263,238,1269,253,1263,267,1244,282,1212,295,1137,315,1136,310,1211,290,1241,278,1259,264,1264,253,1259,242,1238,226,1204,213,1118,194"/>
-<area shape="poly" title=" " alt="" coords="1019,194,963,229,892,268,783,312,781,307,889,263,960,224,1016,190"/>
-<area shape="poly" title=" " alt="" coords="981,195,743,245,742,240,980,189"/>
-<area shape="poly" title=" " alt="" coords="952,194,819,214,660,243,659,237,818,208,951,189"/>
-<area shape="rect" href="a02486.html" title="Native sample formats and memory layouts stored in an acquisition ring." alt="" coords="953,240,1116,265"/>
-<area shape="poly" title=" " alt="" coords="1037,192,1037,226,1032,226,1032,192"/>
-<area shape="poly" title=" " alt="" coords="1060,190,1094,210,1130,238,1155,269,1173,299,1168,302,1150,272,1126,242,1091,215,1057,194"/>
-<area shape="poly" title=" " alt="" coords="1119,189,1247,208,1399,237,1398,243,1246,214,1118,194"/>
-<area shape="rect" title=" " alt="" coords="1191,240,1249,265"/>
-<area shape="poly" title=" " alt="" coords="1065,190,1179,233,1177,238,1063,195"/>
-<area shape="poly" title=" " alt="" coords="1004,195,886,238,884,233,1003,190"/>
-<area shape="poly" title=" " alt="" coords="1087,189,1306,237,1312,239,1310,244,1305,243,1086,195"/>
-<area shape="poly" title=" " alt="" coords="1043,264,1061,300,1056,302,1038,267"/>
-<area shape="poly" title=" " alt="" coords="986,268,783,316,783,316,781,311,782,311,985,263"/>
-<area shape="poly" title=" " alt="" coords="1005,268,888,311,886,306,1003,263"/>
-<area shape="rect" title=" " alt="" coords="915,313,994,339"/>
-<area shape="poly" title=" " alt="" coords="1023,267,979,306,976,302,1020,263"/>
-<area shape="poly" title=" " alt="" coords="1059,263,1147,305,1145,310,1057,268"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a02317.png" border="0" usemap="#asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__transport_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__transport_8hdep" id="asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__transport_8hdep">
-<area shape="rect" title="The Neuromag (MEGIN) acquisition server as the backend uses it, with a DACQ client and a simulator." alt="" coords="503,5,743,45"/>
-<area shape="rect" href="a02234.html" title="A FieldTrip buffer that neuromag2ft fills from a simulated Neuromag acquisition." alt="" coords="5,101,224,141"/>
-<area shape="poly" title=" " alt="" coords="494,50,236,96,201,103,200,98,236,91,493,45"/>
-<area shape="rect" href="a02318.html" title="neuromag:// : the data acquisition of Neuromag (MEGIN) Vectorview and TRIUX systems,..." alt="" coords="248,101,499,141"/>
-<area shape="poly" title=" " alt="" coords="561,53,425,103,423,98,559,48"/>
-<area shape="rect" href="a02306.html" title="A client of the Neuromag data acquisition: its data server and its collector." alt="" coords="523,93,723,148"/>
-<area shape="poly" title=" " alt="" coords="625,59,625,93,620,93,620,59"/>
-<area shape="rect" href="a02309.html" title="A simulated Neuromag acquisition server: a synthetic:// session as measurement info and data buffers." alt="" coords="747,101,1005,141"/>
-<area shape="poly" title=" " alt="" coords="688,48,826,98,824,103,686,53"/>
-<area shape="rect" href="a02258.html" title="An mne_rt_server whose connector replays a simulated Neuromag recording." alt="" coords="1029,101,1256,141"/>
-<area shape="poly" title=" " alt="" coords="754,45,1018,91,1055,98,1054,103,1017,96,753,50"/>
+<div class="center"><img src="a02316.png" border="0" usemap="#asrc_2libs_2mne_2mne_2mne__surface__or__volume_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2mne_2mne__surface__or__volume_8cpp" id="asrc_2libs_2mne_2mne_2mne__surface__or__volume_8cpp">
+<area shape="rect" title="Implementation of mne::MNESurfaceOrVolume." alt="" coords="3699,5,3879,45"/>
+<area shape="rect" href="a02387.html" title="Discriminated geometry container that can represent either a triangulated surface or a discrete/volum..." alt="" coords="3624,247,3819,273"/>
+<area shape="poly" title=" " alt="" coords="3797,45,3804,74,3808,112,3806,153,3796,193,3777,220,3754,241,3750,237,3773,217,3791,191,3801,152,3802,112,3798,75,3792,46"/>
+<area shape="rect" href="a02522.html" title="FreeSurfer volume geometry header carried by surface and tag streams." alt="" coords="3921,401,4055,427"/>
+<area shape="poly" title=" " alt="" coords="3818,43,3874,87,3944,152,3979,190,4012,233,4041,279,4064,327,4067,341,4064,354,4046,378,4024,396,4021,392,4043,374,4059,352,4062,341,4059,329,4036,281,4008,236,3975,194,3940,155,3870,91,3815,47"/>
+<area shape="rect" href="a02366.html" title="Ordered group of mne::MNEMghTag entries appended to an MGH/MGZ file." alt="" coords="3683,328,3853,353"/>
+<area shape="poly" title=" " alt="" coords="3804,44,3816,67,3825,93,3840,145,3850,188,3849,230,3833,281,3818,304,3799,322,3796,318,3814,300,3828,279,3844,230,3844,188,3835,146,3820,94,3811,69,3799,47"/>
+<area shape="rect" href="a02396.html" title="Single FreeSurfer MGH/MGZ tag (key, length, opaque payload)." alt="" coords="3515,401,3642,427"/>
+<area shape="poly" title=" " alt="" coords="3699,30,3606,35,3507,46,3421,65,3390,79,3368,95,3341,116,3331,127,3328,144,3336,171,3361,212,3406,271,3477,351,3505,375,3537,393,3534,398,3502,380,3473,355,3402,275,3356,215,3331,173,3323,144,3326,125,3338,112,3365,91,3387,74,3420,60,3506,41,3606,30,3699,25"/>
+<area shape="rect" href="a02498.html" title="Triangle descriptor with cached centroid, area and normal vectors." alt="" coords="4485,401,4605,427"/>
+<area shape="poly" title=" " alt="" coords="3880,28,4129,43,4436,71,4578,91,4696,115,4742,128,4777,143,4800,159,4808,177,4808,262,4803,292,4789,319,4768,342,4742,360,4682,388,4620,404,4618,399,4680,383,4740,356,4765,338,4785,316,4798,291,4803,261,4803,179,4796,163,4774,148,4740,133,4695,120,4578,96,4435,77,4129,48,3879,33"/>
+<area shape="rect" href="a02579.html" title="Per&#45;source&#45;space&#45;vertex nearest&#45;cortex&#45;vertex mapping." alt="" coords="4385,328,4503,353"/>
+<area shape="poly" title=" " alt="" coords="3880,27,4028,35,4196,48,4340,66,4390,78,4418,91,4437,116,4450,145,4458,176,4462,208,4460,268,4453,315,4447,314,4455,267,4457,208,4453,177,4445,147,4433,119,4414,95,4388,83,4339,71,4195,53,4027,40,3879,33"/>
+<area shape="rect" href="a02348.html" title="Patch information (cluster of cortex vertices around each decimated source) used by orientation prior..." alt="" coords="4528,328,4667,353"/>
+<area shape="poly" title=" " alt="" coords="3880,24,4021,26,4186,36,4266,45,4338,56,4399,72,4444,91,4474,114,4501,141,4544,203,4574,265,4593,314,4588,316,4569,267,4540,206,4497,145,4471,118,4441,96,4398,77,4337,62,4265,50,4185,41,4021,32,3879,29"/>
+<area shape="rect" href="a00605.html" title="4x4 affine FIFF coordinate transform (FIFF_COORD_TRANS) annotated with source/destination coordinate&#45;..." alt="" coords="1599,328,1734,353"/>
+<area shape="poly" title=" " alt="" coords="3699,30,3311,32,2778,42,2514,50,2280,62,2099,77,2036,86,1994,96,1944,117,1896,144,1808,206,1737,270,1688,319,1684,315,1733,266,1805,202,1894,139,1942,112,1992,91,2035,81,2099,71,2280,56,2514,45,2778,36,3311,27,3699,24"/>
+<area shape="rect" href="a00638.html" title="FIFF binary tag&#45;stream layer: reads and writes FIFF tags, directories, blocks and the structured reco..." alt="" coords="1412,401,1516,427"/>
+<area shape="poly" title=" " alt="" coords="3699,29,3076,34,2637,41,2173,54,1732,72,1359,99,1213,115,1102,134,1031,156,1014,167,1008,179,1008,261,1011,275,1019,289,1050,314,1097,336,1155,355,1284,384,1399,402,1398,408,1283,390,1154,360,1095,341,1048,318,1015,292,1006,277,1003,262,1003,177,1010,164,1029,151,1101,129,1213,110,1359,94,1731,67,2173,48,2637,36,3076,29,3699,24"/>
+<area shape="rect" title=" " alt="" coords="544,475,629,500"/>
+<area shape="poly" title=" " alt="" coords="3699,31,2900,45,1691,74,1095,95,589,119,390,133,238,148,141,164,117,172,109,179,109,342,112,357,122,371,156,397,208,419,271,437,411,464,530,478,530,484,410,469,270,442,206,424,154,401,118,374,108,359,104,342,104,177,114,167,140,159,238,143,390,128,588,114,1094,89,1691,69,2900,39,3699,25"/>
+<area shape="rect" href="a02381.html" title="Lightweight triangulated surface (vertices, triangles, normals) used by surface&#45;based routines." alt="" coords="3662,167,3781,192"/>
+<area shape="poly" title=" " alt="" coords="3789,46,3781,81,3766,120,3742,158,3738,155,3762,117,3775,80,3784,45"/>
+<area shape="rect" href="a02360.html" title="Single&#45;hemisphere source space (cortical surface or volume grid) loaded from FIFF." alt="" coords="3009,167,3167,192"/>
+<area shape="poly" title=" " alt="" coords="3700,37,3524,58,3423,74,3323,96,3216,129,3128,164,3126,159,3215,124,3322,91,3422,69,3523,52,3699,31"/>
+<area shape="rect" href="a02444.html" title="Argument record passed to a background raw&#45;data filter worker." alt="" coords="3379,93,3520,119"/>
+<area shape="poly" title=" " alt="" coords="3708,48,3513,93,3512,88,3707,43"/>
+<area shape="rect" href="a02492.html" title="One renderable surface (cortex / pial / inflated / BEM) inside an MSH display set." alt="" coords="3545,93,3751,119"/>
+<area shape="poly" title=" " alt="" coords="3757,48,3682,89,3680,84,3754,43"/>
+<area shape="rect" href="a02318.html" title="Legacy MNE&#45;C aggregator for SSP projections plus the channel list they apply to." alt="" coords="4832,401,4963,427"/>
+<area shape="poly" title=" " alt="" coords="3880,27,4288,48,4505,66,4594,78,4662,91,4731,100,4793,106,4820,113,4840,126,4854,147,4859,178,4859,261,4862,296,4869,331,4889,388,4884,390,4864,332,4856,297,4853,261,4853,178,4849,149,4837,130,4817,118,4793,111,4730,106,4661,96,4593,83,4504,72,4287,53,3879,32"/>
+<area shape="rect" href="a03200.html" title="Logging: a std::format facade with a replaceable sink, the console and file writer,..." alt="" coords="195,475,317,500"/>
+<area shape="poly" title=" " alt="" coords="3699,30,3106,32,2196,42,1711,50,1253,62,857,77,559,96,472,96,385,86,222,61,156,60,128,65,104,74,85,90,71,111,62,140,59,178,59,342,62,366,72,388,87,407,106,423,151,450,198,468,196,473,149,455,103,427,83,410,67,390,57,368,53,342,53,178,57,139,66,109,81,86,101,70,126,60,155,54,223,56,385,81,472,91,559,91,857,71,1253,56,1711,45,2196,36,3105,27,3699,24"/>
+<area shape="rect" href="a00518.html" title="High&#45;level digitization data: dig points plus the device→head transform and fitting metadata that tog..." alt="" coords="1854,240,2007,280"/>
+<area shape="poly" title=" " alt="" coords="3699,30,3300,36,2759,48,2269,68,2105,81,2054,88,2028,96,1996,123,1971,158,1953,194,1942,227,1937,225,1949,192,1967,155,1992,119,2025,91,2053,83,2105,76,2269,63,2758,43,3300,31,3699,25"/>
+<area shape="rect" href="a00650.html" title="Single digitization point (FIFF_DIG_POINT) with kind (cardinal/HPI/EEG/extra), identifier and 3D coor..." alt="" coords="1737,555,1855,581"/>
+<area shape="poly" title=" " alt="" coords="3699,32,3290,49,2739,80,2475,100,2254,124,2168,137,2102,151,2061,165,2051,172,2048,179,2048,342,2042,382,2026,418,2001,450,1972,478,1938,502,1904,523,1842,553,1840,548,1902,518,1936,498,1968,474,1998,446,2021,415,2037,380,2043,342,2043,177,2047,169,2059,160,2101,146,2167,132,2253,119,2474,95,2738,74,3290,44,3699,27"/>
+<area shape="rect" href="a01019.html" title="Best&#45;fit sphere from a 3&#45;D point cloud with closed&#45;form and Nelder–Mead solvers." alt="" coords="4909,167,5059,192"/>
+<area shape="poly" title=" " alt="" coords="3879,26,4125,35,4434,48,4715,67,4816,78,4876,91,4902,104,4927,120,4966,155,4963,159,4924,125,4900,108,4874,96,4815,84,4714,72,4434,54,4125,40,3879,32"/>
+<area shape="rect" title=" " alt="" coords="4945,93,5047,119"/>
+<area shape="poly" title=" " alt="" coords="3880,26,4329,45,4626,63,4926,91,4931,91,4930,97,4925,96,4625,69,4329,50,3879,32"/>
+<area shape="rect" title=" " alt="" coords="5072,93,5179,119"/>
+<area shape="poly" title=" " alt="" coords="3879,25,4087,30,4378,40,4714,60,5059,91,5058,96,4713,65,4378,46,4087,35,3879,30"/>
+<area shape="rect" href="a02324.html" title="Export macro of mne_mne — Core MNE data structures (source spaces, source estimates,..." alt="" coords="4215,475,4326,500"/>
+<area shape="poly" title=" " alt="" coords="3764,270,3847,294,3942,325,4030,359,4116,399,4240,465,4238,470,4113,404,4028,364,3940,331,3846,299,3763,275"/>
+<area shape="poly" title=" " alt="" coords="3775,270,3842,291,3877,307,3911,326,3947,356,3974,388,3970,392,3943,360,3908,330,3875,312,3840,296,3773,275"/>
+<area shape="rect" title=" " alt="" coords="3914,709,4006,735"/>
+<area shape="poly" title=" " alt="" coords="3781,270,3829,291,3850,306,3868,327,3867,401,3864,451,3867,500,3883,583,3896,617,3917,660,3943,697,3938,700,3912,663,3891,619,3878,584,3861,500,3859,451,3861,401,3863,329,3847,310,3826,295,3779,275"/>
+<area shape="rect" title=" " alt="" coords="1619,709,1677,735"/>
+<area shape="poly" title=" " alt="" coords="3698,275,3608,325,3555,361,3506,403,3484,429,3469,453,3450,501,3429,547,3410,569,3384,590,3358,601,3312,612,3189,635,2990,664,2795,683,2596,698,2212,716,1893,723,1691,724,1691,718,1893,717,2212,711,2595,693,2794,678,2989,659,3188,629,3311,607,3356,595,3381,586,3407,565,3424,544,3445,499,3465,451,3480,426,3502,399,3552,357,3605,320,3696,270"/>
+<area shape="poly" title=" " alt="" coords="3731,271,3756,315,3752,317,3726,274"/>
+<area shape="rect" title=" " alt="" coords="3041,709,3103,735"/>
+<area shape="poly" title=" " alt="" coords="3711,274,3690,298,3673,329,3672,348,3679,363,3691,379,3701,401,3703,414,3701,427,3688,513,3675,549,3650,590,3628,617,3606,636,3581,650,3548,664,3511,675,3462,685,3342,701,3118,721,3117,715,3341,696,3461,679,3510,670,3546,659,3579,645,3603,632,3624,614,3646,586,3670,546,3683,512,3696,426,3698,414,3696,402,3687,382,3675,366,3666,349,3668,327,3686,295,3707,271"/>
+<area shape="poly" title=" " alt="" coords="3784,270,4472,396,4471,402,3783,275"/>
+<area shape="poly" title=" " alt="" coords="3819,269,4371,329,4371,334,3819,275"/>
+<area shape="poly" title=" " alt="" coords="3819,265,4125,288,4514,325,4514,331,4124,294,3819,270"/>
+<area shape="rect" href="a02486.html" title="Legacy MNE&#45;C constants and shared typedefs used across mne_mne structures." alt="" coords="145,328,317,353"/>
+<area shape="poly" title=" " alt="" coords="3624,266,330,340,330,334,3624,261"/>
+<area shape="rect" href="a00548.html" title="FIFF sparse matrix: column / row&#45;compressed sparse storage backed by Eigen::SparseMatrix." alt="" coords="2185,548,2327,588"/>
+<area shape="poly" title=" " alt="" coords="3667,275,2341,552,2340,546,3666,270"/>
+<area shape="rect" title=" " alt="" coords="2529,636,2607,661"/>
+<area shape="poly" title=" " alt="" coords="3686,275,3637,294,3578,321,3516,358,3461,403,3440,429,3426,454,3409,502,3401,526,3390,549,3372,570,3345,590,3303,604,3228,615,3021,632,2794,643,2621,649,2620,643,2794,638,3021,627,3228,610,3301,598,3343,586,3368,566,3385,546,3396,524,3404,501,3421,451,3435,426,3457,399,3513,353,3575,317,3635,289,3684,270"/>
+<area shape="poly" title=" " alt="" coords="3624,268,1748,339,1747,334,3624,262"/>
+<area shape="rect" title=" " alt="" coords="2757,555,2832,581"/>
+<area shape="poly" title=" " alt="" coords="3688,275,2843,553,2842,548,3686,270"/>
+<area shape="poly" title=" " alt="" coords="4034,424,4213,469,4211,474,4033,429"/>
+<area shape="poly" title=" " alt="" coords="3990,427,3965,696,3960,695,3984,427"/>
+<area shape="poly" title=" " alt="" coords="3964,429,3792,503,3672,549,3547,591,3449,619,3372,637,3294,651,3192,664,3050,677,2861,688,2410,706,1691,723,1691,717,2410,700,2861,683,3049,672,3192,659,3293,645,3371,632,3448,613,3546,585,3670,544,3790,498,3962,424"/>
+<area shape="poly" title=" " alt="" coords="3852,351,3956,370,4069,399,4098,411,4126,424,4231,467,4229,472,4124,429,4096,415,4067,404,3955,375,3851,356"/>
+<area shape="poly" title=" " alt="" coords="3739,356,3623,399,3622,394,3737,351"/>
+<area shape="poly" title=" " alt="" coords="3772,353,3780,410,3784,486,3784,570,3778,595,3761,617,3735,636,3700,653,3613,680,3508,698,3396,711,3287,718,3117,723,3117,718,3286,713,3395,706,3507,693,3612,674,3698,648,3732,632,3757,613,3773,592,3779,569,3779,486,3774,411,3767,354"/>
+<area shape="poly" title=" " alt="" coords="3643,419,4202,476,4201,482,3642,425"/>
+<area shape="rect" title=" " alt="" coords="1153,555,1223,581"/>
+<area shape="poly" title=" " alt="" coords="3515,419,2905,433,2468,451,2020,477,1790,497,1565,522,1237,563,1237,557,1564,516,1790,492,2020,472,2468,446,2905,428,3515,414"/>
+<area shape="poly" title=" " alt="" coords="3583,427,3584,458,3581,500,3571,547,3562,569,3549,590,3515,623,3481,641,3395,664,3320,685,3244,701,3117,719,3116,714,3243,695,3319,680,3394,659,3479,636,3512,619,3545,586,3557,567,3566,545,3576,500,3578,458,3577,427"/>
+<area shape="poly" title=" " alt="" coords="4502,429,4329,474,4328,469,4501,424"/>
+<area shape="poly" title=" " alt="" coords="4525,429,3996,705,3993,700,4522,424"/>
+<area shape="poly" title=" " alt="" coords="4437,356,4407,390,4367,429,4306,470,4303,465,4364,425,4403,386,4433,352"/>
+<area shape="poly" title=" " alt="" coords="4493,351,4566,372,4598,385,4619,399,4635,420,4643,439,4645,486,4645,570,4640,593,4625,614,4601,632,4570,648,4490,675,4394,694,4291,707,4188,716,4020,723,4020,717,4188,710,4290,702,4394,688,4489,669,4568,644,4598,628,4621,610,4635,591,4640,569,4640,486,4638,440,4630,422,4616,403,4596,390,4564,377,4492,356"/>
+<area shape="poly" title=" " alt="" coords="4572,356,4310,472,4308,467,4570,351"/>
+<area shape="poly" title=" " alt="" coords="4614,351,4638,373,4665,405,4687,443,4694,464,4696,486,4696,570,4690,595,4673,617,4648,636,4614,653,4527,680,4423,699,4310,712,4199,719,4020,724,4020,718,4199,714,4310,706,4422,694,4526,675,4612,648,4645,632,4670,613,4685,593,4691,569,4691,486,4688,465,4682,445,4661,408,4634,377,4610,355"/>
+<area shape="rect" title=" " alt="" coords="109,709,206,735"/>
+<area shape="poly" title=" " alt="" coords="171,356,117,373,64,399,42,416,24,436,12,459,8,486,8,569,9,597,13,619,23,638,39,659,70,685,105,702,102,707,67,689,35,663,18,641,8,620,4,598,3,569,3,486,7,458,20,433,38,412,61,394,115,368,169,351"/>
+<area shape="poly" title=" " alt="" coords="2298,586,2397,625,2457,644,2518,659,2645,676,2815,690,3222,708,3623,716,3900,718,3900,723,3623,721,3222,713,2815,695,2645,681,2517,664,2455,649,2395,630,2296,591"/>
+<area shape="rect" href="a00449.html" title="Export macro of mne_fiff — FIFF file I/O, in&#45;memory data structures and high&#45;level readers/writers." alt="" coords="1357,636,1456,661"/>
+<area shape="poly" title=" " alt="" coords="2185,579,1470,644,1469,639,2184,573"/>
+<area shape="rect" href="a00653.html" title="Primitive scalar typedefs and forward&#45;compatible aliases backing the FIFF type system." alt="" coords="1749,636,1843,661"/>
+<area shape="poly" title=" " alt="" coords="2185,584,1858,640,1857,634,2184,579"/>
+<area shape="rect" title=" " alt="" coords="2161,636,2297,661"/>
+<area shape="poly" title=" " alt="" coords="2252,589,2240,624,2235,622,2247,587"/>
+<area shape="poly" title=" " alt="" coords="2328,585,2517,632,2515,637,2327,590"/>
+<area shape="poly" title=" " alt="" coords="1844,649,3900,716,3900,721,1844,654"/>
+<area shape="poly" title=" " alt="" coords="1773,664,1686,706,1683,701,1771,659"/>
+<area shape="poly" title=" " alt="" coords="1844,655,1875,659,2222,686,2559,703,3027,717,3027,723,2559,708,2221,691,1874,664,1843,660"/>
+<area shape="poly" title=" " alt="" coords="1748,655,220,721,220,715,1748,649"/>
+<area shape="rect" title=" " alt="" coords="1188,709,1255,735"/>
+<area shape="poly" title=" " alt="" coords="1749,658,1269,718,1268,712,1748,653"/>
+<area shape="poly" title=" " alt="" coords="1734,345,1944,366,2203,399,2616,459,2795,493,3023,545,3087,566,3150,585,3247,604,3324,613,3401,620,3499,633,3721,672,3901,706,3900,711,3720,677,3498,639,3400,626,3323,618,3246,609,3149,591,3085,571,3022,551,2794,498,2615,464,2202,404,1943,372,1734,351"/>
+<area shape="poly" title=" " alt="" coords="1669,354,1652,696,1647,695,1663,354"/>
+<area shape="poly" title=" " alt="" coords="1599,346,905,365,528,382,390,392,310,404,263,415,225,424,193,442,164,476,150,503,141,532,136,593,142,650,152,695,147,696,137,651,131,593,136,531,145,501,159,473,190,438,223,419,261,409,309,399,390,387,527,377,905,360,1599,341"/>
+<area shape="poly" title=" " alt="" coords="1654,356,1569,421,1510,463,1447,502,1414,515,1386,520,1361,528,1350,536,1340,549,1334,568,1340,587,1355,609,1376,626,1372,630,1351,612,1335,589,1328,568,1335,547,1346,532,1359,523,1384,515,1413,510,1444,498,1507,459,1566,417,1651,351"/>
+<area shape="poly" title=" " alt="" coords="1704,351,1747,370,1788,399,1821,434,1842,466,1856,501,1869,547,1874,568,1869,589,1853,612,1831,630,1828,626,1849,609,1864,587,1868,568,1864,549,1851,503,1838,468,1817,437,1785,403,1744,375,1702,356"/>
+<area shape="poly" title=" " alt="" coords="1599,345,1274,352,1053,360,821,371,598,388,404,411,325,425,259,440,212,458,185,477,167,504,163,530,169,557,185,587,202,609,220,624,238,634,257,641,358,659,432,672,530,683,766,700,1174,717,1174,722,766,705,529,688,431,677,357,664,256,646,236,639,217,628,198,612,180,589,164,559,157,530,163,502,181,473,210,453,258,435,323,420,404,406,598,383,821,366,1053,354,1273,347,1599,340"/>
+<area shape="poly" title=" " alt="" coords="1735,350,1861,370,2006,399,2094,413,2174,417,2315,419,2379,427,2440,448,2471,464,2501,486,2531,513,2562,546,2572,564,2577,584,2576,623,2571,622,2572,585,2567,566,2558,550,2528,517,2498,490,2468,469,2438,453,2378,433,2315,424,2174,422,2094,418,2005,404,1860,376,1734,355"/>
+<area shape="poly" title=" " alt="" coords="1635,356,1510,399,1509,394,1633,351"/>
+<area shape="rect" href="a00536.html" title="Recursive node of the parsed FIFF block tree (FIFFB_* hierarchy with directory entries and children)." alt="" coords="2032,475,2147,500"/>
+<area shape="poly" title=" " alt="" coords="1735,345,1844,363,1905,378,1964,399,2021,430,2067,464,2064,468,2018,435,1962,404,1903,383,1843,368,1734,351"/>
+<area shape="rect" href="a03266.html" title="Error and Expected: why a reader or writer failed, as a value or as an exception." alt="" coords="595,555,659,581"/>
+<area shape="poly" title=" " alt="" coords="1599,347,1335,360,982,384,809,402,660,423,548,448,511,462,490,476,486,487,490,498,526,517,590,547,587,552,523,522,486,502,480,487,486,473,509,457,547,443,659,418,809,397,981,379,1335,354,1599,342"/>
+<area shape="rect" title=" " alt="" coords="664,636,747,661"/>
+<area shape="poly" title=" " alt="" coords="1599,350,1337,373,990,406,681,443,579,461,548,469,534,476,529,487,534,499,548,513,564,521,598,524,635,526,654,533,673,546,686,563,695,583,705,622,700,623,690,585,681,566,669,550,652,537,634,531,598,529,562,526,545,518,530,501,524,487,530,473,546,464,578,456,680,438,989,401,1336,367,1599,345"/>
+<area shape="rect" title=" " alt="" coords="987,555,1077,581"/>
+<area shape="poly" title=" " alt="" coords="1601,356,1517,373,1413,399,1300,434,1190,477,1120,514,1062,550,1059,546,1117,510,1188,472,1298,429,1411,394,1516,368,1600,351"/>
+<area shape="poly" title=" " alt="" coords="1516,413,1683,417,1929,426,2218,443,2512,472,2680,497,2809,524,2938,553,3104,585,3562,659,3901,710,3900,715,3561,665,3104,591,2937,558,2808,529,2679,502,2512,477,2217,449,1929,431,1683,422,1516,419"/>
+<area shape="poly" title=" " alt="" coords="1412,425,1327,443,1280,458,1235,477,1184,509,1158,530,1142,549,1136,569,1142,587,1155,600,1172,613,1221,636,1282,657,1351,674,1493,699,1605,714,1605,719,1492,705,1350,679,1281,662,1219,641,1170,617,1151,604,1138,589,1131,569,1138,547,1154,526,1181,505,1232,472,1278,453,1325,438,1411,420"/>
+<area shape="poly" title=" " alt="" coords="1458,429,1427,464,1383,502,1235,553,1233,548,1380,498,1423,461,1454,425"/>
+<area shape="poly" title=" " alt="" coords="1516,413,1650,416,1840,425,2060,443,2282,472,2361,487,2423,503,2561,545,2827,632,3029,702,3027,707,2826,637,2559,551,2421,508,2360,492,2281,477,2059,448,1840,431,1650,422,1516,418"/>
+<area shape="poly" title=" " alt="" coords="1463,428,1447,464,1434,484,1418,502,1401,513,1383,519,1351,523,1321,528,1308,536,1296,549,1289,568,1296,587,1319,611,1349,629,1347,633,1316,616,1291,589,1283,568,1291,547,1305,532,1319,523,1350,518,1382,514,1398,509,1414,498,1430,481,1442,461,1458,426"/>
+<area shape="poly" title=" " alt="" coords="1482,425,1770,626,1767,630,1479,429"/>
+<area shape="poly" title=" " alt="" coords="1516,414,1629,423,1782,444,1866,461,1951,483,2036,511,2116,546,2161,579,2210,624,2206,628,2157,583,2113,550,2034,516,1950,488,1865,466,1781,449,1629,428,1516,420"/>
+<area shape="poly" title=" " alt="" coords="1516,416,1749,433,2068,461,2226,479,2364,500,2470,522,2506,534,2528,546,2544,563,2555,583,2567,622,2562,623,2550,585,2539,566,2525,550,2503,538,2468,527,2363,505,2225,485,2067,467,1748,438,1516,421"/>
+<area shape="rect" href="a00476.html" title="FIFF tag&#45;kind, block&#45;kind and type&#45;code numerical definitions, authoritative for mne_fiff." alt="" coords="1246,475,1325,500"/>
+<area shape="poly" title=" " alt="" coords="1436,429,1328,472,1326,467,1434,424"/>
+<area shape="rect" href="a00482.html" title="128&#45;bit FIFF identifier record (machine ID + creation time) used to stamp files, blocks and parent re..." alt="" coords="1539,555,1610,581"/>
+<area shape="poly" title=" " alt="" coords="1474,425,1560,542,1556,546,1470,428"/>
+<area shape="poly" title=" " alt="" coords="1517,419,2019,475,2018,481,1516,424"/>
+<area shape="rect" href="a00626.html" title="Single entry of the FIFF tag directory: kind, type, byte size and absolute file position." alt="" coords="1349,555,1464,581"/>
+<area shape="poly" title=" " alt="" coords="1473,426,1487,460,1489,481,1485,501,1466,529,1441,550,1437,546,1462,525,1480,499,1484,480,1482,461,1468,428"/>
+<area shape="poly" title=" " alt="" coords="1516,412,1672,414,1899,422,2164,440,2299,454,2432,472,2520,489,2607,509,2747,549,2745,554,2605,514,2519,494,2432,477,2299,459,2163,445,1899,427,1672,420,1516,418"/>
+<area shape="rect" href="a03245.html" title="Seekable byte streams over memory and files, with big&#45;endian value I/O, in standard C++." alt="" coords="835,475,1019,500"/>
+<area shape="poly" title=" " alt="" coords="1412,425,1027,476,1026,470,1412,420"/>
+<area shape="poly" title=" " alt="" coords="1412,419,1271,425,1087,436,908,453,834,464,779,477,743,492,709,511,653,549,650,545,706,506,741,487,778,472,833,459,907,447,1087,430,1271,420,1412,414"/>
+<area shape="poly" title=" " alt="" coords="1412,420,1082,440,916,457,857,467,824,477,785,509,755,548,732,589,716,624,712,622,727,587,750,546,782,505,821,472,856,461,915,452,1082,435,1411,415"/>
+<area shape="poly" title=" " alt="" coords="1450,429,1392,470,1337,502,1291,517,1226,533,1091,559,1090,554,1225,527,1289,512,1335,498,1389,465,1447,425"/>
+<area shape="poly" title=" " alt="" coords="1412,419,1091,435,871,452,643,477,643,472,870,446,1091,429,1412,414"/>
+<area shape="rect" title=" " alt="" coords="653,475,709,500"/>
+<area shape="poly" title=" " alt="" coords="1412,419,1120,434,925,452,728,477,723,478,722,473,728,472,925,446,1120,429,1412,414"/>
+<area shape="poly" title=" " alt="" coords="1583,580,1639,696,1634,698,1578,582"/>
+<area shape="poly" title=" " alt="" coords="1551,583,1444,633,1442,628,1549,578"/>
+<area shape="poly" title=" " alt="" coords="1608,578,1752,629,1750,634,1606,583"/>
+<area shape="poly" title=" " alt="" coords="1567,583,1527,623,1499,645,1469,664,1418,685,1364,701,1269,719,1268,713,1363,696,1416,680,1467,659,1496,641,1523,619,1563,579"/>
+<area shape="poly" title=" " alt="" coords="1611,572,1724,585,2182,622,2516,642,2516,647,2182,627,1724,591,1610,577"/>
+<area shape="poly" title=" " alt="" coords="2148,494,2239,513,2290,527,2340,546,2392,575,2429,605,2466,633,2518,659,2562,670,2621,681,2765,697,3027,716,3027,721,2764,703,2620,686,2561,676,2516,664,2463,638,2426,609,2389,579,2338,550,2289,533,2238,518,2146,499"/>
+<area shape="poly" title=" " alt="" coords="2032,493,1913,499,1767,509,1627,526,1570,537,1528,550,1432,629,1429,625,1525,546,1569,532,1626,521,1766,504,1913,493,2032,488"/>
+<area shape="poly" title=" " alt="" coords="2079,502,2031,544,1964,590,1908,616,1854,635,1852,630,1906,611,1961,586,2028,540,2076,498"/>
+<area shape="poly" title=" " alt="" coords="2147,490,2331,508,2423,524,2459,534,2487,546,2509,562,2529,582,2557,622,2553,625,2525,585,2506,566,2484,550,2458,539,2421,529,2330,513,2147,495"/>
+<area shape="poly" title=" " alt="" coords="2032,500,1624,562,1623,557,2031,495"/>
+<area shape="poly" title=" " alt="" coords="2032,494,1792,512,1638,528,1483,551,1462,555,1461,550,1482,545,1637,523,1791,507,2031,489"/>
+<area shape="rect" title=" " alt="" coords="3161,555,3237,581"/>
+<area shape="poly" title=" " alt="" coords="2147,490,3147,560,3147,566,2147,495"/>
+<area shape="poly" title=" " alt="" coords="2147,492,2744,558,2743,564,2147,498"/>
+<area shape="poly" title=" " alt="" coords="1409,581,1409,622,1404,622,1404,581"/>
+<area shape="poly" title=" " alt="" coords="1464,578,1736,633,1735,638,1463,583"/>
+<area shape="poly" title=" " alt="" coords="1394,583,1248,703,1244,698,1391,579"/>
+<area shape="poly" title=" " alt="" coords="932,499,948,541,961,564,977,586,1005,614,1030,632,1059,645,1097,659,1141,670,1200,680,1344,697,1605,716,1605,721,1344,702,1199,685,1140,675,1095,664,1057,650,1028,637,1001,618,973,590,956,567,943,543,927,501"/>
+<area shape="poly" title=" " alt="" coords="965,497,1140,550,1139,555,964,503"/>
+<area shape="poly" title=" " alt="" coords="1019,490,1519,513,1769,529,1859,537,1913,545,1951,558,1982,572,2032,602,2082,633,2112,647,2150,659,2229,674,2335,686,2591,704,2846,713,3027,717,3027,723,2846,719,2591,709,2335,691,2229,679,2149,664,2110,652,2079,638,2029,607,1980,576,1949,563,1911,551,1858,542,1768,534,1519,518,1019,495"/>
+<area shape="poly" title=" " alt="" coords="922,502,899,535,863,580,816,627,789,647,760,664,715,679,654,692,504,709,347,719,220,723,220,717,347,713,504,704,653,687,713,674,758,659,786,643,812,623,859,577,895,532,918,499"/>
+<area shape="poly" title=" " alt="" coords="926,501,921,541,924,565,933,587,956,615,984,639,1016,659,1049,675,1116,699,1175,712,1174,717,1115,704,1047,680,1013,664,981,643,952,619,928,589,919,566,916,541,921,500"/>
+<area shape="poly" title=" " alt="" coords="1019,489,1846,521,2435,545,2452,554,2463,563,2487,586,2542,626,2538,630,2484,590,2460,567,2449,558,2434,551,1846,526,1019,495"/>
+<area shape="poly" title=" " alt="" coords="884,503,672,558,671,552,882,497"/>
+<area shape="rect" href="a03224.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="459,555,571,581"/>
+<area shape="poly" title=" " alt="" coords="848,503,723,523,583,551,567,554,566,549,582,545,723,518,848,497"/>
+<area shape="poly" title=" " alt="" coords="944,498,1007,545,1004,549,941,502"/>
+<area shape="poly" title=" " alt="" coords="629,581,632,621,640,642,653,659,697,670,791,680,1073,697,1605,717,1605,722,1073,703,790,685,696,675,651,664,635,645,627,622,623,581"/>
+<area shape="poly" title=" " alt="" coords="640,579,686,624,682,628,636,583"/>
+<area shape="rect" title=" " alt="" coords="503,636,569,661"/>
+<area shape="poly" title=" " alt="" coords="615,583,561,629,558,625,612,579"/>
+<area shape="rect" title=" " alt="" coords="398,636,458,661"/>
+<area shape="poly" title=" " alt="" coords="601,583,584,590,472,634,470,629,582,586,599,578"/>
+<area shape="poly" title=" " alt="" coords="3724,192,3724,233,3719,233,3719,192"/>
+<area shape="poly" title=" " alt="" coords="3781,179,3887,182,4014,192,4133,209,4180,222,4215,238,4239,259,4257,286,4269,316,4276,348,4280,411,4277,461,4272,461,4275,411,4271,349,4263,318,4252,288,4235,263,4212,242,4179,227,4132,214,4014,197,3887,188,3781,184"/>
+<area shape="poly" title=" " alt="" coords="3781,179,3981,188,4111,198,4249,212,4384,230,4507,255,4609,287,4649,305,4680,326,4716,361,4736,396,4745,436,4747,486,4747,569,4744,591,4737,609,4726,622,4712,632,4677,648,4634,664,4582,679,4512,692,4339,709,4161,719,4020,723,4020,717,4161,713,4339,704,4511,687,4581,674,4632,659,4675,643,4710,628,4723,618,4733,606,4739,590,4741,569,4741,486,4739,436,4731,398,4711,364,4677,330,4647,310,4607,292,4506,260,4383,236,4248,217,4111,203,3981,194,3781,185"/>
+<area shape="poly" title=" " alt="" coords="3698,195,3657,215,3614,242,3562,284,3514,330,3472,365,3434,403,3412,431,3396,457,3373,506,3361,529,3345,550,3324,571,3294,590,3255,602,3186,613,2994,629,2621,648,2620,643,2994,624,3185,607,3253,597,3292,586,3321,567,3341,547,3356,526,3368,503,3391,455,3408,428,3430,400,3469,361,3510,326,3559,280,3610,238,3655,211,3695,190"/>
+<area shape="poly" title=" " alt="" coords="3168,188,3616,243,3615,248,3167,193"/>
+<area shape="poly" title=" " alt="" coords="3168,181,3515,198,3699,215,3774,225,3831,237,3929,269,4002,303,4071,344,4159,399,4207,432,4248,464,4245,468,4204,436,4156,404,4069,349,4000,307,3927,274,3830,243,3773,231,3698,220,3515,204,3168,186"/>
+<area shape="poly" title=" " alt="" coords="3108,190,3931,700,3928,704,3105,194"/>
+<area shape="poly" title=" " alt="" coords="3080,194,3048,241,3025,293,3012,340,3000,426,2993,466,2980,507,2957,548,2921,590,2894,613,2869,629,2845,640,2820,647,2700,664,2607,677,2483,689,2186,706,1691,722,1691,717,2185,701,2483,683,2606,672,2700,659,2819,642,2843,635,2866,625,2891,609,2917,586,2953,545,2975,505,2988,465,2995,425,3007,339,3020,291,3043,239,3076,191"/>
+<area shape="poly" title=" " alt="" coords="3096,191,3181,376,3228,483,3252,547,3256,569,3252,589,3224,629,3188,661,3150,687,3115,706,3112,701,3147,682,3185,657,3220,625,3247,587,3251,569,3247,549,3223,485,3176,379,3091,193"/>
+<area shape="poly" title=" " alt="" coords="3009,192,2960,209,2938,223,2919,242,2905,264,2896,286,2891,308,2890,330,2896,373,2909,416,2921,459,2926,502,2924,524,2918,546,2907,568,2890,590,2871,604,2844,615,2772,632,2692,642,2621,648,2620,642,2691,637,2771,627,2842,610,2868,599,2886,586,2902,565,2913,544,2919,523,2920,502,2915,460,2903,418,2891,374,2885,330,2886,307,2890,285,2900,262,2915,238,2934,219,2957,205,3008,187"/>
+<area shape="poly" title=" " alt="" coords="3085,193,3068,233,3051,292,3045,325,3043,359,3046,393,3056,426,3078,464,3108,497,3139,524,3169,546,3166,550,3136,529,3104,501,3074,467,3051,428,3041,394,3038,359,3040,324,3045,291,3063,231,3080,191"/>
+<area shape="poly" title=" " alt="" coords="3009,194,2916,213,2877,226,2852,242,2827,276,2809,316,2797,358,2790,401,2788,481,2793,542,2788,542,2783,481,2785,400,2792,357,2804,314,2823,274,2849,238,2875,222,2914,208,3008,189"/>
+<area shape="poly" title=" " alt="" coords="3009,183,2804,184,2515,192,2181,210,2009,224,1842,243,1721,259,1627,275,1535,297,1418,331,1322,358,1247,382,1213,397,1178,417,1100,477,1070,511,1047,545,1043,542,1066,507,1097,473,1175,412,1210,392,1245,377,1320,353,1417,325,1534,292,1626,270,1720,254,1841,237,2009,219,2181,204,2515,186,2804,179,3008,177"/>
+<area shape="poly" title=" " alt="" coords="3473,116,3551,152,3651,189,3722,206,3779,212,3837,219,3907,237,3958,257,3996,276,4080,326,4140,359,4196,399,4229,431,4255,462,4251,465,4225,435,4193,403,4138,363,4077,330,3994,281,3956,262,3906,243,3836,224,3779,217,3722,211,3650,195,3549,157,3471,121"/>
+<area shape="poly" title=" " alt="" coords="3464,117,3511,153,3542,173,3576,190,3613,201,3647,206,3707,205,3736,205,3766,208,3798,218,3832,238,3855,257,3868,277,3887,327,3902,388,3922,494,3958,696,3953,696,3917,495,3896,389,3881,329,3863,279,3851,261,3829,242,3796,223,3765,213,3736,210,3707,210,3646,211,3612,207,3574,194,3540,178,3508,157,3461,121"/>
+<area shape="poly" title=" " alt="" coords="3379,109,3186,112,3069,118,2951,130,2842,149,2794,162,2752,176,2717,193,2691,213,2675,234,2669,259,2669,342,2672,365,2680,386,2692,404,2708,421,2747,449,2788,474,2827,498,2854,523,2862,537,2863,553,2858,571,2846,590,2831,602,2809,613,2750,629,2683,640,2621,646,2621,641,2682,635,2749,624,2807,608,2828,598,2842,586,2854,568,2858,553,2857,539,2850,526,2824,502,2786,479,2744,454,2705,425,2688,407,2675,388,2667,366,2664,342,2664,258,2670,232,2687,209,2714,189,2750,171,2792,157,2841,144,2950,125,3068,113,3186,106,3378,103"/>
+<area shape="poly" title=" " alt="" coords="3426,121,3391,140,3349,167,3308,201,3274,242,3253,280,3236,321,3214,406,3204,484,3201,542,3196,541,3199,484,3209,405,3231,320,3248,278,3270,238,3305,197,3346,162,3388,135,3423,116"/>
+<area shape="poly" title=" " alt="" coords="3494,116,3665,161,3664,166,3492,121"/>
+<area shape="poly" title=" " alt="" coords="3392,121,3160,167,3159,161,3391,116"/>
+<area shape="poly" title=" " alt="" coords="3750,116,3881,134,4028,161,4098,177,4161,195,4213,216,4251,238,4273,258,4289,279,4300,300,4307,322,4308,370,4299,427,4286,463,4281,462,4293,426,4303,370,4301,323,4295,302,4285,282,4269,262,4248,242,4211,220,4160,200,4097,182,4027,166,3880,140,3749,121"/>
+<area shape="poly" title=" " alt="" coords="3752,114,3920,133,4110,164,4234,183,4356,194,4471,205,4576,222,4623,235,4666,252,4704,274,4736,302,4762,336,4781,378,4793,427,4797,486,4797,569,4795,591,4788,609,4777,622,4763,633,4727,648,4685,664,4628,680,4551,694,4364,711,4170,720,4020,723,4020,718,4170,715,4363,706,4551,688,4627,675,4683,659,4725,643,4760,628,4773,618,4783,606,4790,590,4792,569,4792,486,4788,428,4776,379,4757,339,4732,305,4701,278,4664,257,4622,240,4575,227,4471,210,4355,199,4233,188,4109,169,3920,139,3751,119"/>
+<area shape="poly" title=" " alt="" coords="3545,120,3532,121,3336,132,3008,154,2843,172,2702,195,2646,209,2604,224,2577,241,2570,250,2568,259,2568,415,2570,439,2574,457,2587,499,2606,567,2615,597,2621,635,2625,650,2621,663,2606,670,2578,676,2486,687,2212,704,1691,722,1691,717,2212,699,2486,682,2577,671,2604,665,2617,660,2619,650,2616,637,2609,598,2601,568,2581,501,2569,459,2564,440,2563,415,2563,258,2565,248,2573,237,2601,220,2645,204,2701,190,2842,167,3008,149,3335,127,3532,116,3544,115"/>
+<area shape="poly" title=" " alt="" coords="3646,120,3630,171,3615,240,3613,260,3615,279,3628,321,3646,352,3659,385,3660,404,3657,427,3645,477,3630,515,3609,550,3577,590,3549,618,3524,636,3460,664,3367,691,3272,709,3186,718,3118,722,3117,717,3185,713,3271,703,3365,686,3458,659,3521,631,3546,614,3573,586,3605,547,3626,513,3639,476,3652,426,3655,404,3654,386,3641,355,3623,323,3609,281,3607,260,3609,240,3625,170,3641,118"/>
+<area shape="poly" title=" " alt="" coords="3640,121,3426,381,3251,590,3213,601,3149,611,2971,628,2621,648,2621,642,2971,622,3149,606,3212,596,3248,586,3422,378,3636,117"/>
+<area shape="poly" title=" " alt="" coords="3662,117,3701,155,3698,159,3658,121"/>
+<area shape="poly" title=" " alt="" coords="4832,425,4340,481,4339,476,4831,420"/>
+<area shape="poly" title=" " alt="" coords="4900,427,4898,473,4887,538,4876,573,4861,607,4841,638,4815,664,4797,672,4769,680,4689,693,4583,703,4462,711,4212,720,4020,723,4020,718,4212,714,4462,706,4583,698,4688,688,4768,675,4795,667,4812,659,4837,634,4857,604,4871,571,4882,537,4892,472,4895,427"/>
+<area shape="poly" title=" " alt="" coords="266,499,330,590,364,636,387,659,437,665,557,673,923,690,1604,716,1604,722,923,695,556,678,436,670,384,664,360,639,325,593,262,502"/>
+<area shape="poly" title=" " alt="" coords="317,489,532,497,1203,503,1423,507,1621,515,1776,528,1831,536,1868,546,1883,554,1892,565,1901,575,1914,586,1992,631,2029,645,2078,659,2164,674,2280,686,2558,704,2833,714,3027,717,3027,723,2833,719,2558,709,2279,692,2164,679,2077,664,2027,651,1990,636,1910,590,1897,579,1888,568,1879,558,1866,550,1830,541,1776,533,1621,521,1423,513,1203,508,532,503,317,494"/>
+<area shape="poly" title=" " alt="" coords="236,502,208,522,185,549,169,587,161,627,158,696,153,696,156,626,164,585,180,547,205,518,233,498"/>
+<area shape="poly" title=" " alt="" coords="317,489,532,497,1437,508,2002,520,2213,531,2339,545,2531,628,2529,633,2338,551,2213,536,2002,526,1437,513,532,503,317,494"/>
+<area shape="poly" title=" " alt="" coords="283,498,379,546,509,626,506,630,376,550,280,503"/>
+<area shape="poly" title=" " alt="" coords="276,498,340,546,380,586,412,623,408,627,376,590,337,550,273,502"/>
+<area shape="poly" title=" " alt="" coords="294,497,465,549,463,554,293,503"/>
+<area shape="poly" title=" " alt="" coords="318,492,973,558,973,563,317,498"/>
+<area shape="rect" title=" " alt="" coords="195,555,282,581"/>
+<area shape="poly" title=" " alt="" coords="256,501,247,543,242,541,251,500"/>
+<area shape="poly" title=" " alt="" coords="2008,267,2195,291,2418,325,2695,376,2911,419,3124,470,3395,545,3486,575,3554,602,3623,629,3713,659,3812,685,3901,706,3900,711,3810,690,3711,664,3621,634,3552,607,3484,580,3394,551,3122,475,2909,424,2694,381,2417,331,2194,296,2007,272"/>
+<area shape="poly" title=" " alt="" coords="2008,266,2178,290,2287,311,2406,339,2530,376,2655,422,2776,478,2834,510,2890,546,2939,584,2986,626,3055,697,3051,701,2982,630,2936,588,2886,550,2832,515,2774,483,2653,427,2528,381,2404,344,2286,316,2177,295,2007,271"/>
+<area shape="poly" title=" " alt="" coords="1854,270,1541,297,1120,344,915,373,736,405,663,422,603,440,559,458,534,476,529,487,534,498,559,512,608,526,747,553,975,585,1177,616,1344,637,1344,643,1176,621,974,591,746,558,607,532,557,517,530,502,524,487,530,473,557,453,601,435,661,417,735,400,914,367,1120,338,1541,292,1853,265"/>
+<area shape="poly" title=" " alt="" coords="1976,278,2047,314,2085,338,2120,366,2148,396,2167,429,2172,465,2169,483,2161,501,2134,538,2100,568,2061,592,2019,611,1933,636,1857,647,1857,642,1932,631,2017,606,2058,588,2097,564,2130,535,2156,499,2164,481,2167,464,2162,431,2144,400,2116,370,2082,343,2044,319,1974,282"/>
+<area shape="poly" title=" " alt="" coords="1868,283,1719,327,1718,321,1867,277"/>
+<area shape="poly" title=" " alt="" coords="2008,275,2102,297,2203,325,2313,362,2396,393,2585,472,2758,547,2756,552,2583,477,2394,398,2311,367,2202,331,2101,302,2007,280"/>
+<area shape="poly" title=" " alt="" coords="1854,267,1528,284,1084,313,864,332,670,354,522,378,471,390,439,404,409,424,387,447,381,459,378,472,381,485,389,498,409,519,430,531,451,536,474,537,524,536,552,538,583,545,590,548,588,553,582,551,552,543,524,541,473,543,450,541,428,536,406,523,385,502,376,487,373,472,376,458,383,444,406,420,436,399,469,385,521,372,669,348,863,327,1083,308,1528,279,1854,262"/>
+<area shape="poly" title=" " alt="" coords="1854,270,1712,288,1624,303,1528,324,1428,351,1328,385,1230,427,1139,477,1092,512,1054,547,1051,543,1089,508,1136,472,1228,422,1326,380,1427,346,1527,319,1623,298,1711,282,1853,264"/>
+<area shape="poly" title=" " alt="" coords="1740,583,1470,637,1469,632,1739,578"/>
+<area shape="poly" title=" " alt="" coords="1799,581,1799,622,1793,622,1793,581"/>
+<area shape="poly" title=" " alt="" coords="1765,583,1652,621,1507,664,1378,694,1269,715,1268,710,1377,689,1506,659,1650,616,1763,578"/>
+<area shape="poly" title=" " alt="" coords="1856,573,2516,639,2515,645,1856,578"/>
+<area shape="poly" title=" " alt="" coords="4989,192,4997,255,5003,339,5003,570,4999,596,4989,616,4972,630,4952,639,4901,651,4845,664,4772,680,4675,693,4439,711,4200,720,4020,723,4020,718,4200,714,4439,705,4674,688,4771,675,4843,659,4900,646,4950,634,4969,625,4984,613,4994,595,4997,569,4997,339,4992,255,4983,193"/>
 </map>
 </div>
 </div>
 <p><a href="a02315_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:mne_3A_3Adetail_3A_3ANeuromagTransport" id="r_mne_3A_3Adetail_3A_3ANeuromagTransport"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04187.html">mne::detail::NeuromagTransport</a></td></tr>
-<tr class="memitem:mne_3A_3Adetail_3A_3ANeuromagDacq" id="r_mne_3A_3Adetail_3A_3ANeuromagDacq"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a04191.html">mne::detail::NeuromagDacq</a></td></tr>
-<tr class="memitem:mne_3A_3Adetail_3A_3ANeuromagSimulation" id="r_mne_3A_3Adetail_3A_3ANeuromagSimulation"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a04195.html">mne::detail::NeuromagSimulation</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a03257.html">mne</a></td></tr>
-<tr class="memdesc:a03257"><td class="mdescLeft">&#160;</td><td class="mdescRight">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++. <br /></td></tr>
-<tr class="memitem:mne_3A_3Adetail" id="r_mne_3A_3Adetail"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a03258.html">mne::detail</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:abbc400fcd9177f1f0a42c8fc5e0099e2" id="r_abbc400fcd9177f1f0a42c8fc5e0099e2"><td class="memItemLeft">std::unique_ptr&lt; <a class="el" href="a04187.html">NeuromagTransport</a> &gt;&#160;</td><td class="memItemRight"><a class="el" href="a03258.html#abbc400fcd9177f1f0a42c8fc5e0099e2">mne::detail::make_neuromag_simulator</a> (const <a class="el" href="a04195.html">NeuromagSimulation</a> &amp;simulation)</td></tr>
-<tr class="memitem:a2bf023ee48d4930fe7afd3098bd3418b" id="r_a2bf023ee48d4930fe7afd3098bd3418b"><td class="memItemLeft"><a class="el" href="a03635.html">AcqExpected</a>&lt; std::unique_ptr&lt; <a class="el" href="a04187.html">NeuromagTransport</a> &gt; &gt;&#160;</td><td class="memItemRight"><a class="el" href="a03258.html#a2bf023ee48d4930fe7afd3098bd3418b">mne::detail::make_neuromag_client</a> (const <a class="el" href="a04191.html">NeuromagDacq</a> &amp;dacq)</td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1cdd98216f9d0ebd0ac2a79a63219560" id="r_a1cdd98216f9d0ebd0ac2a79a63219560"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a1cdd98216f9d0ebd0ac2a79a63219560">FAIL</a> = -1</td></tr>
+<tr class="memitem:a93a6cff6e7a14b08c6d67db498648ba9" id="r_a93a6cff6e7a14b08c6d67db498648ba9"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a93a6cff6e7a14b08c6d67db498648ba9">OK</a> = 0</td></tr>
+<tr class="memitem:afa1fd63b64a5bef810a309e7a0d909e9" id="r_afa1fd63b64a5bef810a309e7a0d909e9"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#afa1fd63b64a5bef810a309e7a0d909e9">X</a> = 0</td></tr>
+<tr class="memitem:a65848ae7d72f2777f0067f8c25ea55a3" id="r_a65848ae7d72f2777f0067f8c25ea55a3"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a65848ae7d72f2777f0067f8c25ea55a3">Y</a> = 1</td></tr>
+<tr class="memitem:a6e32866c8700c2dcba4d65020959ee30" id="r_a6e32866c8700c2dcba4d65020959ee30"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a6e32866c8700c2dcba4d65020959ee30">Z</a> = 2</td></tr>
+<tr class="memitem:a44a4e8c68ce4e3c5eab0bda84f8dba6d" id="r_a44a4e8c68ce4e3c5eab0bda84f8dba6d"><td class="memItemLeft">constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a44a4e8c68ce4e3c5eab0bda84f8dba6d">NNEIGHBORS</a> = 26</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The Neuromag (MEGIN) acquisition server as the backend uses it, with a DACQ client and a simulator. </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2012-2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<div class="textblock"><p>Implementation of <a class="el" href="a06150.html" title="mne::MNESurfaceOrVolume">mne::MNESurfaceOrVolume</a>. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2017-2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Andreas Griesshammer <a href="#" onclick="location.href='mai'+'lto:'+'ag@'+'fi'+'eld'+'li'+'nei'+'nc'+'.co'+'m'; return false;">ag@fi<span class="obfuscator">.nosp@m.</span>eldl<span class="obfuscator">.nosp@m.</span>inein<span class="obfuscator">.nosp@m.</span>c.co<span class="obfuscator">.nosp@m.</span>m</a>; Juan GPC <a href="#" onclick="location.href='mai'+'lto:'+'jga'+'rc'+'iap'+'ri'+'eto'+'@m'+'gh.'+'ha'+'rva'+'rd'+'.ed'+'u'; return false;">jgarc<span class="obfuscator">.nosp@m.</span>iapr<span class="obfuscator">.nosp@m.</span>ieto@<span class="obfuscator">.nosp@m.</span>mgh.<span class="obfuscator">.nosp@m.</span>harva<span class="obfuscator">.nosp@m.</span>rd.e<span class="obfuscator">.nosp@m.</span>du</a>; Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Ruben Doerfel <a href="#" onclick="location.href='mai'+'lto:'+'doe'+'rf'+'elr'+'ub'+'en@'+'ao'+'l.c'+'om'; return false;">doerf<span class="obfuscator">.nosp@m.</span>elru<span class="obfuscator">.nosp@m.</span>ben@a<span class="obfuscator">.nosp@m.</span>ol.c<span class="obfuscator">.nosp@m.</span>om</a>; Lars Debor <a href="#" onclick="location.href='mai'+'lto:'+'Lar'+'s.'+'Deb'+'or'+'@tu'+'-i'+'lme'+'na'+'u.d'+'e'; return false;">Lars.<span class="obfuscator">.nosp@m.</span>Debo<span class="obfuscator">.nosp@m.</span>r@tu-<span class="obfuscator">.nosp@m.</span>ilme<span class="obfuscator">.nosp@m.</span>nau.d<span class="obfuscator">.nosp@m.</span>e</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>July, 2012 </dd></dl>
-<p>The data acquisition of a Neuromag Vectorview or TRIUX system hands every client the FIFF tags of the running measurement: at its start the measurement info (FIFFB_MEAS_INFO), then FIFF_DATA_BUFFER tags of 32-bit integers, one per channel and sample, whose physical value is raw * cal * range. </p>
+<dl class="section date"><dt>Date</dt><dd>January 2017 </dd></dl>
+<p>Defines the constructors and helpers shared by surface and volume specialisations. Most routines simply allocate the geometry arrays at the right size; specialised readers live in MNESourceSpace and MNEBemSurface. </p>
 
-<p class="definition">Definition in file <a class="el" href="a02315_source.html">neuromag_transport.h</a>.</p>
-</div></div><!-- contents -->
+<p class="definition">Definition in file <a class="el" href="a02315_source.html">mne_surface_or_volume.cpp</a>.</p>
+</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a1cdd98216f9d0ebd0ac2a79a63219560" name="a1cdd98216f9d0ebd0ac2a79a63219560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cdd98216f9d0ebd0ac2a79a63219560">&#9670;&#160;</a></span>FAIL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int FAIL = -1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02315_source.html#l00072">72</a> of file <a class="el" href="a02315_source.html">mne_surface_or_volume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a44a4e8c68ce4e3c5eab0bda84f8dba6d" name="a44a4e8c68ce4e3c5eab0bda84f8dba6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44a4e8c68ce4e3c5eab0bda84f8dba6d">&#9670;&#160;</a></span>NNEIGHBORS</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int NNEIGHBORS = 26</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02315_source.html#l00079">79</a> of file <a class="el" href="a02315_source.html">mne_surface_or_volume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a93a6cff6e7a14b08c6d67db498648ba9" name="a93a6cff6e7a14b08c6d67db498648ba9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93a6cff6e7a14b08c6d67db498648ba9">&#9670;&#160;</a></span>OK</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OK = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02315_source.html#l00073">73</a> of file <a class="el" href="a02315_source.html">mne_surface_or_volume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afa1fd63b64a5bef810a309e7a0d909e9" name="afa1fd63b64a5bef810a309e7a0d909e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa1fd63b64a5bef810a309e7a0d909e9">&#9670;&#160;</a></span>X</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int X = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02315_source.html#l00076">76</a> of file <a class="el" href="a02315_source.html">mne_surface_or_volume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a65848ae7d72f2777f0067f8c25ea55a3" name="a65848ae7d72f2777f0067f8c25ea55a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65848ae7d72f2777f0067f8c25ea55a3">&#9670;&#160;</a></span>Y</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Y = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02315_source.html#l00077">77</a> of file <a class="el" href="a02315_source.html">mne_surface_or_volume.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e32866c8700c2dcba4d65020959ee30" name="a6e32866c8700c2dcba4d65020959ee30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e32866c8700c2dcba4d65020959ee30">&#9670;&#160;</a></span>Z</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Z = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02315_source.html#l00078">78</a> of file <a class="el" href="a02315_source.html">mne_surface_or_volume.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated on <span class="timestamp"></span> for MNE-CPP by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1

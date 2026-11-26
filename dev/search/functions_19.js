@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['z_0',['z',['../a06267.html#a19915cab92119050a5198116f590a6b6',1,'mne::InvDipole::z()'],['../a06267.html#a3dedc699f7630591adf65de550fb6343',1,'mne::InvDipole::z() const']]],
-  ['z_5fscore_1',['z_score',['../a03453.html#aecdf12d73b5539b3913edc1973a5ae78',1,'mne::scene']]],
-  ['zoom_2',['zoom',['../a04951.html#a2cdacc5acaea0ee45226dec817c6de77',1,'mne::disp::ChannelDataView::zoom()'],['../a05103.html#a86aa0919518bf7b06269ce8858883a39',1,'mne::disp::SceneViewport::zoom()'],['../a05243.html#aedd16b504e08fef4db529536d7768847',1,'mne::disp::CameraController::zoom()'],['../a07343.html#a21e9963ae0c8cd7f5026720e1b4dd865',1,'mne::scene::ViewAnimator::zoom()']]],
-  ['zoom_5fto_3',['zoom_to',['../a07303.html#af90217b68885449a683f80120928d205',1,'mne::scene::TraceView']]],
-  ['zoomby_4',['zoomBy',['../a05103.html#a0e852b8c33932892c005e9837eb0788e',1,'mne::disp::SceneViewport']]],
-  ['zoomchanged_5',['zoomChanged',['../a04983.html#a679c165c521a85820b5c6064f437ce40',1,'mne::disp::FiffRawViewSettings']]],
-  ['zoomfortarget_6',['zoomForTarget',['../a05443.html#a849765213f6e6188623a26e6793d73ab',1,'mne::disp::BrainViewCore']]],
-  ['zoomto_7',['zoomTo',['../a05039.html#a9d07299da655068fed4100400433bfe0',1,'mne::disp::ChannelRhiRenderer::zoomTo()'],['../a05055.html#a9e437a3f4c7e954c93b2789e0bda0019',1,'mne::disp::ChannelRhiView::zoomTo()']]],
-  ['zscoremode_8',['zScoreMode',['../a04951.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'mne::disp::ChannelDataView::zScoreMode()'],['../a05039.html#a342a50cb7bf34afc718a69aafbdf41d6',1,'mne::disp::ChannelRhiRenderer::zScoreMode()'],['../a05055.html#aa33da367eaab3fb9151297c79c115eec',1,'mne::disp::ChannelRhiView::zScoreMode()']]],
-  ['zscoremodetoggled_9',['zScoreModeToggled',['../a04951.html#af5eb3d19b73b4c2704ea71dca1fd012e',1,'mne::disp::ChannelDataView']]],
-  ['zscorerectify_10',['zScoreRectify',['../a06251.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'mne::InvCMNE']]]
+  ['z_0',['z',['../a05622.html#a19915cab92119050a5198116f590a6b6',1,'mne::InvDipole::z()'],['../a05622.html#a3dedc699f7630591adf65de550fb6343',1,'mne::InvDipole::z() const']]],
+  ['z_5fscore_1',['z_score',['../a03437.html#ac88124f91f791ce34e04d35c4c7e4a13',1,'mne::viz']]],
+  ['zoom_2',['zoom',['../a06318.html#a1fb5bbad8266a24cc45eeaff09e3dcf5',1,'mne::viz::qt::CameraController::zoom()'],['../a06690.html#a2cdacc5acaea0ee45226dec817c6de77',1,'mne::viz::qt::ChannelDataView::zoom()'],['../a06842.html#a86aa0919518bf7b06269ce8858883a39',1,'mne::viz::qt::SceneViewport::zoom()'],['../a07454.html#a61c4be54bd55a66bd3bb25b41b89b563',1,'mne::viz::ViewAnimator::zoom()']]],
+  ['zoom_5fto_3',['zoom_to',['../a07418.html#af90217b68885449a683f80120928d205',1,'mne::viz::TraceView']]],
+  ['zoomby_4',['zoomBy',['../a06842.html#a0e852b8c33932892c005e9837eb0788e',1,'mne::viz::qt::SceneViewport']]],
+  ['zoomchanged_5',['zoomChanged',['../a06722.html#a434a01d0131c01ddb0918d47994f46f0',1,'mne::viz::qt::FiffRawViewSettings']]],
+  ['zoomfortarget_6',['zoomForTarget',['../a06518.html#a64046042be53e25e735a09a2aafd99b7',1,'mne::viz::qt::BrainViewCore']]],
+  ['zoomto_7',['zoomTo',['../a06778.html#a9d07299da655068fed4100400433bfe0',1,'mne::viz::qt::ChannelRhiRenderer::zoomTo()'],['../a06794.html#ad6af4ea3ee9635e30794cbd436e454bf',1,'mne::viz::qt::ChannelRhiView::zoomTo()']]],
+  ['zscoremode_8',['zScoreMode',['../a06690.html#af7210ed71fce3e0b94a61e3d25606ac5',1,'mne::viz::qt::ChannelDataView::zScoreMode()'],['../a06778.html#ab823630cfbb71a611108866c2d29bd6b',1,'mne::viz::qt::ChannelRhiRenderer::zScoreMode()'],['../a06794.html#a556fc17b934d6f0d4dc59c9ccfee3327',1,'mne::viz::qt::ChannelRhiView::zScoreMode()']]],
+  ['zscoremodetoggled_9',['zScoreModeToggled',['../a06690.html#a1cd692d79c30327c911bdc43e288b39b',1,'mne::viz::qt::ChannelDataView']]],
+  ['zscorerectify_10',['zScoreRectify',['../a05606.html#a5e19fe6246413584b6e4955c9b48a7ec',1,'mne::InvCMNE']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['detail_3a_3abackendaccess_0',['BackendAccess',['../a03487.html#a3bd82e6b18da5373a84c8402d570a17c',1,'mne::AcqBackend']]],
-  ['detail_3a_3aviewaccess_1',['detail::ViewAccess',['../a03507.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqViewBase::ViewAccess()'],['../a03511.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqBlockView::ViewAccess()'],['../a03515.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqWriteView::ViewAccess()']]]
+  ['detail_3a_3abackendaccess_0',['BackendAccess',['../a03506.html#a3bd82e6b18da5373a84c8402d570a17c',1,'mne::AcqBackend']]],
+  ['detail_3a_3aviewaccess_1',['detail::ViewAccess',['../a03526.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqViewBase::ViewAccess()'],['../a03530.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqBlockView::ViewAccess()'],['../a03534.html#a5d1a104120d5c2b0959b1762ada81e62',1,'mne::AcqWriteView::ViewAccess()']]]
 ];
