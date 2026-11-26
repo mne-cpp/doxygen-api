@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['utctime_0',['UtcTime',['../a03173.html#a075f4edba3ea13f7ceeadb034940dd8d',1,'mne']]]
+  ['trianglest_0',['TrianglesT',['../a06684.html#abf371d1cf23f255b7c7ab33e79ed5a0c',1,'mne::MNESurfaceOrVolume']]]
 ];
