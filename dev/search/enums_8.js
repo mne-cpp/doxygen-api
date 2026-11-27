@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsonformat_0',['JsonFormat',['../a04521.html#aa775c098dbd4e263ae9ed23b7bfc2467',1,'mne::JsonDocument']]]
+  ['jsonformat_0',['JsonFormat',['../a04535.html#aa775c098dbd4e263ae9ed23b7bfc2467',1,'mne::JsonDocument']]]
 ];
