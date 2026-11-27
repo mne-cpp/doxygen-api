@@ -1,7 +1,7 @@
 var searchData=
 [
   ['geometry_0',['Geometry',['../a05367.html',1,'mne::FsSurface']]],
-  ['geometryinfo_1',['GeometryInfo',['../a06907.html',1,'mne::viz']]],
+  ['geometryinfo_1',['GeometryInfo',['../a06883.html',1,'mne::viz']]],
   ['gpu_2',['Gpu',['../a06427.html',1,'mne::viz::qt::BrainWindow']]],
   ['gpubuffer_3',['GpuBuffer',['../a07187.html',1,'mne::viz']]],
   ['gpudraw_4',['GpuDraw',['../a07211.html',1,'mne::viz']]],
@@ -21,7 +21,7 @@ var searchData=
   ['gpuvertexbinding_18',['GpuVertexBinding',['../a07179.html',1,'mne::viz']]],
   ['gradientstop_19',['GradientStop',['../a07103.html',1,'mne::viz']]],
   ['grangercausality_20',['GrangerCausality',['../a04799.html',1,'mne']]],
-  ['graph_21',['Graph',['../a06487.html',1,'mne::viz::qt']]],
+  ['graph_21',['Graph',['../a06463.html',1,'mne::viz::qt']]],
   ['group_22',['Group',['../a07443.html',1,'mne::viz::TraceSource']]],
   ['gusbampsetup_23',['GusbampSetup',['../a04139.html',1,'mne::detail']]],
   ['gusbampsimulation_24',['GusbampSimulation',['../a04147.html',1,'mne::detail']]],

@@ -7,7 +7,7 @@ var searchData=
   ['parksmcclellan_4',['ParksMcClellan',['../a04995.html#aa9613ccfa4e9f75b732cf84599383fa0acde81106a1f06b3bc5deb3acf7550bde',1,'mne::FirFilter']]],
   ['pascal_5',['Pascal',['../a03290.html#a382e1ee6b528a86ac795fa4e0e5e5bbcaca693a8ccfa2cd3464d532afdfab31c5',1,'mne']]],
   ['path_6',['Path',['../a07139.html#abeb22bd79bc4c1822b9122f849d6ab20aac70412e939d72a9234cdebb1af5867b',1,'mne::viz::SettingField']]],
-  ['pca_7',['PCA',['../a06731.html#a5ca1422ec4c6b31312a77045b8ae6b69a6f0c3513cbc56d44e29b9937b6d9ac90',1,'mne::viz::qt::MNEOperator']]],
+  ['pca_7',['PCA',['../a06707.html#a5ca1422ec4c6b31312a77045b8ae6b69a6f0c3513cbc56d44e29b9937b6d9ac90',1,'mne::viz::qt::MNEOperator']]],
   ['percent_8',['Percent',['../a03291.html#a044cdb532e852d8ce0e9aca6f716bf04aadaaee4b22041c27198d410c68d952c9',1,'mne::detail']]],
   ['permissiondenied_9',['PermissionDenied',['../a03290.html#a431575bc664b471e7206a28da35727d3a4b33a686be73bb172407d73b26356275',1,'mne']]],
   ['perspective_10',['Perspective',['../a03452.html#a78e5550c483ccead78325cd49b7dcf4aaa80420eef88d11f77532f1b9cb467fa3',1,'mne::viz']]],

@@ -7,5 +7,5 @@ var searchData=
   ['gputopology_4',['GpuTopology',['../a03452.html#a557a8bdb856acdaf7b8c6d3b07a4be7f',1,'mne::viz']]],
   ['gpuvertexformat_5',['GpuVertexFormat',['../a03452.html#acf8a6b74eb790b894f724d8eef8f0305',1,'mne::viz']]],
   ['graphicsapi_6',['GraphicsApi',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57',1,'mne::viz::qt::BrainWindow']]],
-  ['guimode_7',['GuiMode',['../a06563.html#a5881f822132ea9683121a1a0f3d714e8',1,'mne::viz::qt::AbstractView']]]
+  ['guimode_7',['GuiMode',['../a06539.html#a5881f822132ea9683121a1a0f3d714e8',1,'mne::viz::qt::AbstractView']]]
 ];

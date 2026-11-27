@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['dark_0',['Dark',['../a06563.html#a0b10a94345005054b6fd8f31fdc79ffeacb9179c17c33df43f806258c9f77ad40',1,'mne::viz::qt::AbstractView']]],
+  ['dark_0',['Dark',['../a06539.html#a0b10a94345005054b6fd8f31fdc79ffeacb9179c17c33df43f806258c9f77ad40',1,'mne::viz::qt::AbstractView']]],
   ['dash_1',['Dash',['../a03452.html#ab20608809be64d90b668f8a68fa32275a3663598d5c5858b5a6040b1bbed4f187',1,'mne::viz']]],
   ['dashdot_2',['DashDot',['../a03452.html#ab20608809be64d90b668f8a68fa32275aef1c598821948808c4dbd57821281a31',1,'mne::viz']]],
   ['dashdotdot_3',['DashDotDot',['../a03452.html#ab20608809be64d90b668f8a68fa32275adc2d758876a30f7b99cf8edbc50b3a87',1,'mne::viz']]],
@@ -11,7 +11,7 @@ var searchData=
   ['debug_8',['Debug',['../a04591.html#a603a466753ec43535c05610a75199d32aa603905470e2a5b8c13e96b579ef0dba',1,'mne::Log']]],
   ['declared_9',['Declared',['../a03290.html#ab24fb2b1ec753b8824c7131bae354c72a8fe1ef91d6420c0e64838512106ec229',1,'mne']]],
   ['deepnesting_10',['DeepNesting',['../a04511.html#a1fc193597f99172ff1a7909c0ec8846aa456a18262fc7785d692c29d8157aad11',1,'mne::JsonParseError']]],
-  ['default_11',['Default',['../a06563.html#a0b10a94345005054b6fd8f31fdc79ffea6021c813d7aae12f7cf13895a5cc9225',1,'mne::viz::qt::AbstractView::Default'],['../a06711.html#a8211cf535a797f4bc1690a182036a9d7a7a1920d61156abc05a60135aefe8bc67',1,'mne::viz::qt::ChannelWindow::Default'],['../a07139.html#a7e0224d5b47a3b6e5edbdb1918f8ad39a7a1920d61156abc05a60135aefe8bc67',1,'mne::viz::SettingField::Default'],['../a03452.html#a98847c66183286f69cc60cd4aaa5efbda7a1920d61156abc05a60135aefe8bc67',1,'mne::viz::Default']]],
+  ['default_11',['Default',['../a06539.html#a0b10a94345005054b6fd8f31fdc79ffea6021c813d7aae12f7cf13895a5cc9225',1,'mne::viz::qt::AbstractView::Default'],['../a06687.html#a8211cf535a797f4bc1690a182036a9d7a7a1920d61156abc05a60135aefe8bc67',1,'mne::viz::qt::ChannelWindow::Default'],['../a07139.html#a7e0224d5b47a3b6e5edbdb1918f8ad39a7a1920d61156abc05a60135aefe8bc67',1,'mne::viz::SettingField::Default'],['../a03452.html#a98847c66183286f69cc60cd4aaa5efbda7a1920d61156abc05a60135aefe8bc67',1,'mne::viz::Default']]],
   ['degreecelsius_12',['DegreeCelsius',['../a03290.html#a382e1ee6b528a86ac795fa4e0e5e5bbca2b376949e2d94d4187e3a1f606427fc0',1,'mne']]],
   ['delete_13',['Delete',['../a03452.html#a9d5d7c1338420e8576b84e4dafc17d64af2a6c498fb90ee345d997f888fce3b18',1,'mne::viz']]],
   ['depth_14',['Depth',['../a03290.html#a5d1d80ab36e2f502b441d116036b79c3a675056ad1441b6375b2c5abd48c27ef1',1,'mne']]],
@@ -29,8 +29,8 @@ var searchData=
   ['dipoleend_26',['DipoleEnd',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245a12bb8ba9ee00a029ff47d8c2e96de750',1,'mne']]],
   ['dipolefit_27',['DipoleFit',['../a03290.html#ade8f3f7441faae5bc61b2d7fc499975daaed2f72a37e53dedcf52fea2c57103ff',1,'mne']]],
   ['dipoleitem_28',['DipoleItem',['../a06311.html#a3278f14fab14f2142afabb22ee203d83a50e8e2fcbefae2ab8b30711fe65da04e',1,'mne::viz::qt::AbstractTreeItem']]],
-  ['direct3d11_29',['Direct3D11',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57a4f8b2c89cfd217fc6a442a2e62b625d1',1,'mne::viz::qt::BrainWindow::Direct3D11'],['../a06711.html#a8211cf535a797f4bc1690a182036a9d7a4f8b2c89cfd217fc6a442a2e62b625d1',1,'mne::viz::qt::ChannelWindow::Direct3D11']]],
-  ['direct3d12_30',['Direct3D12',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57a0544899fd197886c2958ab7cb5bdb58f',1,'mne::viz::qt::BrainWindow::Direct3D12'],['../a06711.html#a8211cf535a797f4bc1690a182036a9d7a0544899fd197886c2958ab7cb5bdb58f',1,'mne::viz::qt::ChannelWindow::Direct3D12']]],
+  ['direct3d11_29',['Direct3D11',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57a4f8b2c89cfd217fc6a442a2e62b625d1',1,'mne::viz::qt::BrainWindow::Direct3D11'],['../a06687.html#a8211cf535a797f4bc1690a182036a9d7a4f8b2c89cfd217fc6a442a2e62b625d1',1,'mne::viz::qt::ChannelWindow::Direct3D11']]],
+  ['direct3d12_30',['Direct3D12',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57a0544899fd197886c2958ab7cb5bdb58f',1,'mne::viz::qt::BrainWindow::Direct3D12'],['../a06687.html#a8211cf535a797f4bc1690a182036a9d7a0544899fd197886c2958ab7cb5bdb58f',1,'mne::viz::qt::ChannelWindow::Direct3D12']]],
   ['directedfalse_31',['DirectedFalse',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245afa4135ae406bea6cd875be37b4e04b87',1,'mne']]],
   ['directedtrue_32',['DirectedTrue',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245acdc0c3934803a442d2967d30ca33b376',1,'mne']]],
   ['discrete_33',['Discrete',['../a03290.html#ab9e2fdfa7fbe410d7e61a85d018752f0a4984667940802dedc139aa7a430a6553',1,'mne']]],

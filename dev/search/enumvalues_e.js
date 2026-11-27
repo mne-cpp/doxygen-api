@@ -1,11 +1,11 @@
 var searchData=
 [
   ['object_0',['Object',['../a04523.html#afca5a0638bed22a52fcb5d0397109df9a7b7e1d1f6d9d0812207ac10aaeeca40e',1,'mne::JsonValue']]],
-  ['offline_1',['Offline',['../a06563.html#a5bc6ab490d62096b713e6b70593426faae8b0eb40b32b503d2f6630758b0aa413',1,'mne::viz::qt::AbstractView']]],
+  ['offline_1',['Offline',['../a06539.html#a5bc6ab490d62096b713e6b70593426faae8b0eb40b32b503d2f6630758b0aa413',1,'mne::viz::qt::AbstractView']]],
   ['ohm_2',['Ohm',['../a03290.html#a382e1ee6b528a86ac795fa4e0e5e5bbca643961b8da111c0a15d770a1109a86d4',1,'mne']]],
   ['onnxruntime_3',['OnnxRuntime',['../a03290.html#a6d172538667acc8f223e81747f75f59ca85b963c026f9e767bd8ef5a633a510d2',1,'mne']]],
   ['opened_4',['Opened',['../a03290.html#a3931e4e917b19bf8fd2f4e05ebc9f22fa1a11b1adc359c03db0ca798a00e2632c',1,'mne']]],
-  ['opengl_5',['OpenGL',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57a760716b590ee7c0adc25f434f577d8be',1,'mne::viz::qt::BrainWindow::OpenGL'],['../a06711.html#a8211cf535a797f4bc1690a182036a9d7a760716b590ee7c0adc25f434f577d8be',1,'mne::viz::qt::ChannelWindow::OpenGL']]],
+  ['opengl_5',['OpenGL',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57a760716b590ee7c0adc25f434f577d8be',1,'mne::viz::qt::BrainWindow::OpenGL'],['../a06687.html#a8211cf535a797f4bc1690a182036a9d7a760716b590ee7c0adc25f434f577d8be',1,'mne::viz::qt::ChannelWindow::OpenGL']]],
   ['opm_6',['Opm',['../a03290.html#a496b6599f73118baeac4515fc1b5883ca58ecd0650282e45712edd8c93216ca94',1,'mne']]],
   ['orientation_7',['Orientation',['../a03290.html#a496b6599f73118baeac4515fc1b5883caabbd64f40c34c537d3a571af068fce29',1,'mne']]],
   ['orientfixed_8',['OrientFixed',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245ae3c163876b9e711f7d7a0c41f96fc9fe',1,'mne']]],

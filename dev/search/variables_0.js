@@ -27,7 +27,7 @@ var searchData=
   ['amplifiers_24',['amplifiers',['../a03947.html#a706d94b6d9b67426beaf93f765e5647b',1,'mne::detail::BrainAmpSimulation']]],
   ['amplitude_25',['amplitude',['../a07467.html#a794465f84da0b532fdd2deaa97ce89d9',1,'mne::viz::TraceView::CursorData']]],
   ['amplitude_5fmax_26',['amplitude_max',['../a07407.html#a320681ed639bb1214c48331f1a2dbd8b',1,'mne::viz::TraceUniforms::amplitude_max'],['../a07439.html#a201c83a28f3bdb4a657ea0d92306c04b',1,'mne::viz::TraceSource::Channel::amplitude_max'],['../a07443.html#afef66a266b8d832fc00772646b1116c8',1,'mne::viz::TraceSource::Group::amplitude_max']]],
-  ['amplitudemax_27',['amplitudeMax',['../a06663.html#ad2d3f8eef7ab27c932071249eaa52886',1,'mne::viz::qt::ChannelDisplayInfo']]],
+  ['amplitudemax_27',['amplitudeMax',['../a06639.html#ad2d3f8eef7ab27c932071249eaa52886',1,'mne::viz::qt::ChannelDisplayInfo']]],
   ['anatomical_28',['Anatomical',['../a07299.html#a26c83e36a44691f540c41801314fc3a4',1,'mne::viz::BidsTree::Anatomical'],['../a07661.html#a26c83e36a44691f540c41801314fc3a4',1,'BidsTree::Anatomical']]],
   ['anchorhostns_29',['anchorHostNs',['../a03555.html#a4befb45ea11bccafc6bde74d364ca867',1,'mne::AcqClockModel']]],
   ['anchorsample_30',['anchorSample',['../a03555.html#a5d31d54819810266e217c02326d53280',1,'mne::AcqClockModel']]],
@@ -40,7 +40,7 @@ var searchData=
   ['annotations_5fchanged_37',['annotations_changed',['../a07479.html#a0879f55721394259a1418ab3891a21b7',1,'mne::viz::TraceView::Effects']]],
   ['anode_38',['anode',['../a05463.html#a32fa3c6ffb8a11d36530d99aa67f7dce',1,'mne::IeegBipolarPair']]],
   ['antialias_39',['antialias',['../a07039.html#a3a28bb37c00206df09bdfe18a1493ad0',1,'mne::viz::Command']]],
-  ['approx_5fring_5fbuf_5fsize_40',['APPROX_RING_BUF_SIZE',['../a00605.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
+  ['approx_5fring_5fbuf_5fsize_40',['APPROX_RING_BUF_SIZE',['../a02453.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
   ['area_41',['area',['../a06083.html#a46b271f03a7c89f4b7fad089f48be131',1,'mne::MNEPatchInfo::area'],['../a06175.html#a62858efe43df1e554e8c96511784cadb',1,'mne::MNETriangle::area']]],
   ['arguments_42',['arguments',['../a03559.html#a9a8ce86880ce084f3dedd61164fe7392',1,'mne::AcqControlInfo']]],
   ['aspect_5fkind_43',['aspect_kind',['../a05255.html#ac6694cecb3912ac86819707285bc2d6b',1,'mne::FiffEvoked']]],
@@ -50,5 +50,5 @@ var searchData=
   ['available_47',['available',['../a03655.html#a3c034112a7725f9e2c5b3b18ac4c6722',1,'mne::AcqDiscoveredDevice']]],
   ['ave_5fnn_48',['ave_nn',['../a06083.html#a4350196d9acb76c70682ec55eeb0588b',1,'mne::MNEPatchInfo']]],
   ['avefiles_49',['aveFiles',['../a06099.html#ad0df65ae7a60d6c7b847f54c7b8339e3',1,'mne::ProcessingSettings']]],
-  ['averages_50',['averages',['../a05075.html#ae8ac819cfb8fb3172083f7c0b9048421',1,'mne::RtAveraging::Settings::averages'],['../a06655.html#a65dcca72597d60865145ec040448a13a',1,'mne::viz::qt::AverageLayoutWidget::Channel::averages']]]
+  ['averages_50',['averages',['../a05075.html#ae8ac819cfb8fb3172083f7c0b9048421',1,'mne::RtAveraging::Settings::averages'],['../a06631.html#a65dcca72597d60865145ec040448a13a',1,'mne::viz::qt::AverageLayoutWidget::Channel::averages']]]
 ];

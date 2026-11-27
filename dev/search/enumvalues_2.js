@@ -11,7 +11,7 @@ var searchData=
   ['choice_8',['Choice',['../a07139.html#abeb22bd79bc4c1822b9122f849d6ab20a458b9dcc0921f46b1192427426d59c10',1,'mne::viz::SettingField']]],
   ['cityblock_9',['CityBlock',['../a03290.html#ae6c7dc2878b8ee8eb00246d01ea291c7a28845b89c7cab4d654718cb953dd1f87',1,'mne']]],
   ['classification_10',['Classification',['../a03290.html#a7b950f1700b38ebc969776769fb324d7a5c9335b28e6277ddbe0137f04e5e58a7',1,'mne']]],
-  ['clinical_11',['Clinical',['../a06563.html#a5881f822132ea9683121a1a0f3d714e8a7175f1396059066162c23b7d9e973d11',1,'mne::viz::qt::AbstractView']]],
+  ['clinical_11',['Clinical',['../a06539.html#a5881f822132ea9683121a1a0f3d714e8a7175f1396059066162c23b7d9e973d11',1,'mne::viz::qt::AbstractView']]],
   ['clocksync_12',['ClockSync',['../a03290.html#a496b6599f73118baeac4515fc1b5883ca6c3015c025a0901dd0aa880459593257',1,'mne']]],
   ['closed_13',['Closed',['../a03290.html#a3931e4e917b19bf8fd2f4e05ebc9f22fa03f4a47830f97377a35321051685071e',1,'mne']]],
   ['cluster_14',['Cluster',['../a03290.html#a7510e6c912dac872fe220790fa7c7ee1a249694a485fc5d3289c38986b4f8e887',1,'mne']]],

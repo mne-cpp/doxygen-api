@@ -7,7 +7,7 @@ var searchData=
   ['featureextraction_4',['FeatureExtraction',['../a03290.html#a7b950f1700b38ebc969776769fb324d7a13106d927f64129653f390155b7d3d77',1,'mne']]],
   ['fiducial_5',['Fiducial',['../a03290.html#aa2d3ecbfb6d36fc9e9fb3a213d9ec5d3a92e02a44fba0270038a42aeff46cc8fc',1,'mne']]],
   ['fiffraw_6',['FiffRaw',['../a03290.html#a6f0f13b39e92820eda555f21cc0c104ca523b22bea4f6cfa980a01d8499645c4d',1,'mne']]],
-  ['filter_7',['FILTER',['../a06731.html#a5ca1422ec4c6b31312a77045b8ae6b69a4adc33061c0e2b02bd20563b4c0079a5',1,'mne::viz::qt::MNEOperator']]],
+  ['filter_7',['FILTER',['../a06707.html#a5ca1422ec4c6b31312a77045b8ae6b69a4adc33061c0e2b02bd20563b4c0079a5',1,'mne::viz::qt::MNEOperator']]],
   ['fixed_8',['Fixed',['../a03290.html#a7d78d8daf8cb5095862156fafefb5bdba4457d440870ad6d42bab9082d9bf9b61',1,'mne']]],
   ['fixed_9',['fixed',['../a04831.html#aeaa9001a38db29710a8adc61f58373c3acec315e3d0975e5cc2811d5d8725f149',1,'mne::VisualizationInfo']]],
   ['flat_10',['Flat',['../a03452.html#a30174489cf322930c35e985f9ec5dac0a745e3db6a7ffd50e1a72b39482f0882d',1,'mne::viz']]],

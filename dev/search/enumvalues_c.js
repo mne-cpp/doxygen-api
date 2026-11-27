@@ -26,7 +26,7 @@ var searchData=
   ['meta_23',['Meta',['../a03452.html#a5b252f77d2c76fbbdafc1986641299fbab6755d218d5f4e1cef9cce9cc39aeda9',1,'mne::viz']]],
   ['metabegin_24',['MetaBegin',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245a6cc21c0efa221d129c50ae5833db783a',1,'mne']]],
   ['metaend_25',['MetaEnd',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245a71476c6f0373db538015497289618c90',1,'mne']]],
-  ['metal_26',['Metal',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::BrainWindow::Metal'],['../a06711.html#a8211cf535a797f4bc1690a182036a9d7aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::ChannelWindow::Metal']]],
+  ['metal_26',['Metal',['../a06435.html#a48a6db3ac79c39e3f160d7312c18ee57aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::BrainWindow::Metal'],['../a06687.html#a8211cf535a797f4bc1690a182036a9d7aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::ChannelWindow::Metal']]],
   ['meter_27',['Meter',['../a03290.html#a382e1ee6b528a86ac795fa4e0e5e5bbca17c9c40b9db5a0983d1075a012c1f90a',1,'mne']]],
   ['meterpersecondsquared_28',['MeterPerSecondSquared',['../a03290.html#a382e1ee6b528a86ac795fa4e0e5e5bbca962bb5fe343e038406c7f05b9ba40fa8',1,'mne']]],
   ['methoddics_29',['MethodDICS',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245a33f004e8feb883d262dadb9d6a1e7046',1,'mne']]],

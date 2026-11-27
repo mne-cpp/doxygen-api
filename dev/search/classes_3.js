@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['dataloader_0',['DataLoader',['../a06871.html',1,'mne::viz']]],
+  ['dataloader_0',['DataLoader',['../a06847.html',1,'mne::viz']]],
   ['debiasedsquaredweightedphaselagindex_1',['DebiasedSquaredWeightedPhaseLagIndex',['../a04791.html',1,'mne']]],
   ['decodingcsp_2',['DecodingCsp',['../a04847.html',1,'mne']]],
   ['decodingspoc_3',['DecodingSpoc',['../a04859.html',1,'mne']]],
@@ -11,8 +11,8 @@ var searchData=
   ['digitizertreeitem_8',['DigitizerTreeItem',['../a06323.html',1,'mne::viz::qt']]],
   ['dipfiterror_9',['DipFitError',['../a05547.html',1,'mne']]],
   ['dipolefitfuncsrec_10',['dipoleFitFuncsRec',['../a05495.html',1,'mne']]],
-  ['dipolefitview_11',['DipoleFitView',['../a06627.html',1,'mne::viz::qt']]],
-  ['dipoleobject_12',['DipoleObject',['../a06883.html',1,'mne::viz']]],
+  ['dipolefitview_11',['DipoleFitView',['../a06603.html',1,'mne::viz::qt']]],
+  ['dipoleobject_12',['DipoleObject',['../a06859.html',1,'mne::viz']]],
   ['dipoletreeitem_13',['DipoleTreeItem',['../a06327.html',1,'mne::viz::qt']]],
   ['directedtransferfunction_14',['DirectedTransferFunction',['../a04795.html',1,'mne']]],
   ['displaycorrection_15',['DisplayCorrection',['../a04939.html',1,'mne']]],
@@ -20,5 +20,5 @@ var searchData=
   ['documentbuilder_17',['DocumentBuilder',['../a04555.html',1,'mne::JsonStreamParser']]],
   ['dpss_18',['Dpss',['../a04947.html',1,'mne']]],
   ['dpssresult_19',['DpssResult',['../a04943.html',1,'mne']]],
-  ['draggableframelesswidget_20',['DraggableFramelessWidget',['../a06715.html',1,'mne::viz::qt']]]
+  ['draggableframelesswidget_20',['DraggableFramelessWidget',['../a06691.html',1,'mne::viz::qt']]]
 ];

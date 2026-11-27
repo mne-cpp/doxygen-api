@@ -8,7 +8,7 @@ var searchData=
   ['layoutoptions_5',['LayoutOptions',['../a04715.html',1,'mne']]],
   ['linalg_6',['Linalg',['../a05731.html',1,'mne']]],
   ['linechart_7',['LineChart',['../a07067.html',1,'mne::viz']]],
-  ['lineplot_8',['LinePlot',['../a06543.html',1,'mne::viz::qt']]],
+  ['lineplot_8',['LinePlot',['../a06519.html',1,'mne::viz::qt']]],
   ['lineshape_9',['LineShape',['../a07011.html',1,'mne::viz']]],
   ['listener_10',['Listener',['../a04267.html',1,'mne::PolhemusCoregistration']]],
   ['livemarker_11',['LiveMarker',['../a06415.html',1,'mne::viz::qt']]],

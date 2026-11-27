@@ -20,12 +20,12 @@ var searchData=
   ['amplitude_17',['Amplitude',['../a03290.html#a079a81b0acac0fc8d8bd9f9302467245af4d00f19181bdfc0474954a43262febf',1,'mne']]],
   ['anatomical_18',['Anatomical',['../a03452.html#a8935ec80ba85abea04a952030584fdafa089ad2c74c9a015c991d7a21252012e8',1,'mne::viz::Anatomical'],['../a03452.html#a2569ded8f17cbc076a8f7772b03ebfeaaf5897cf1beefce8bf08d2ef5caaf6434',1,'mne::viz::Anatomical']]],
   ['annotation_19',['Annotation',['../a03290.html#accef4ea64353452ed841fd92fe9562a3a55f6611cb342565cf0f5002400f53a95',1,'mne::Annotation'],['../a03290.html#a6f0f13b39e92820eda555f21cc0c104ca55f6611cb342565cf0f5002400f53a95',1,'mne::Annotation']]],
-  ['annotationbased_20',['AnnotationBased',['../a06467.html#a98e526327d06f8f9f4b3184a13bae881a0922b4cdf76955f4a7560ec1a29ad916',1,'mne::viz::qt::RtSourceInterpolationMatWorker']]],
+  ['annotationbased_20',['AnnotationBased',['../a06935.html#a501933030fbcec2af65ceeb010a5bad6a23b553fd4e01e1947ba2653a17cab10c',1,'mne::viz::RtSourceInterpolationMatWorker']]],
   ['annotationdatarole_21',['AnnotationDataRole',['../a06343.html#a9947217531fd43b02c8b3e28a4765327a6f94b017741d378d6b4025b2dae04bf5',1,'mne::viz::qt::SurfaceTreeItem']]],
   ['array_22',['Array',['../a04471.html#a0e07625ba9a409d1da50a57d488784afa0f43424143106b23fb6d7f2d192b72ac',1,'mne::CborValue::Array'],['../a04523.html#afca5a0638bed22a52fcb5d0397109df9a58e09282be61764d2a2dfa9f1ce962b4',1,'mne::JsonValue::Array']]],
   ['audio_23',['Audio',['../a03290.html#a496b6599f73118baeac4515fc1b5883cab22f0418e8ac915eb66f829d262d14a2',1,'mne']]],
   ['aux_24',['Aux',['../a03291.html#a7a14068808b9e155e5ae7798d9feab79a3342cbe2cf0266817b8ab6e82f5345da',1,'mne::detail']]],
-  ['average_25',['AVERAGE',['../a06731.html#a5ca1422ec4c6b31312a77045b8ae6b69abc14e01691fe188c1e0f8d3d45fe1f8a',1,'mne::viz::qt::MNEOperator']]],
+  ['average_25',['AVERAGE',['../a06707.html#a5ca1422ec4c6b31312a77045b8ae6b69abc14e01691fe188c1e0f8d3d45fe1f8a',1,'mne::viz::qt::MNEOperator']]],
   ['averagepower_26',['AveragePower',['../a04847.html#a05a9760e707d27400f374c3fbed0d35aaf9ef33aae4bff86da0a332f60c7ee800',1,'mne::DecodingCsp::AveragePower'],['../a04859.html#a2da9ed4505d4b181cf0f19377903a894af9ef33aae4bff86da0a332f60c7ee800',1,'mne::DecodingSpoc::AveragePower']]],
   ['axial_27',['Axial',['../a03290.html#a811b01fcddbc7779574329328b16f2a9aaea35ecbc8c3c17c0a56a0697b13c685',1,'mne']]]
 ];

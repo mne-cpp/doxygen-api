@@ -17,5 +17,5 @@ var searchData=
   ['visiblerole_14',['VisibleRole',['../a06311.html#a2a50b79fc69c28e957f6ee4db3b46286a959a37fccdab340d0657dfa5ad1bce67',1,'mne::viz::qt::AbstractTreeItem']]],
   ['volt_15',['Volt',['../a03290.html#a382e1ee6b528a86ac795fa4e0e5e5bbcae991c96ea6cbafafe60de03464daeadc',1,'mne::Volt'],['../a03291.html#a044cdb532e852d8ce0e9aca6f716bf04ae991c96ea6cbafafe60de03464daeadc',1,'mne::detail::Volt']]],
   ['volume_16',['Volume',['../a03290.html#ab9e2fdfa7fbe410d7e61a85d018752f0abd7a9717d29c5ddcab1bc175eda1e298',1,'mne::Volume'],['../a03290.html#a6f0f13b39e92820eda555f21cc0c104cabd7a9717d29c5ddcab1bc175eda1e298',1,'mne::Volume']]],
-  ['vulkan_17',['Vulkan',['../a06711.html#a8211cf535a797f4bc1690a182036a9d7a38625270231b647116c80bcbc4f9d1d8',1,'mne::viz::qt::ChannelWindow']]]
+  ['vulkan_17',['Vulkan',['../a06687.html#a8211cf535a797f4bc1690a182036a9d7a38625270231b647116c80bcbc4f9d1d8',1,'mne::viz::qt::ChannelWindow']]]
 ];
