@@ -2,21 +2,21 @@ var searchData=
 [
   ['ecg_0',['Ecg',['../a03332.html#a496b6599f73118baeac4515fc1b5883ca1be6f049640435afd3372e35504920f1',1,'mne::Ecg'],['../a03332.html#ab4754a4f8fc104bef90cbc8223a21618a1be6f049640435afd3372e35504920f1',1,'mne::Ecg']]],
   ['ecog_1',['Ecog',['../a03332.html#a496b6599f73118baeac4515fc1b5883ca3b72c31a9e418b139fff23d8fc58e4c8',1,'mne']]],
-  ['eeg_2',['EEG',['../a06367.html#a71a04fc39bf47f101c6bbcf1baf7b7b7a6a771eacfd9ee7ec7317c1fc33155bec',1,'mne::viz::qt::DigitizerTreeItem']]],
+  ['eeg_2',['EEG',['../a06369.html#a71a04fc39bf47f101c6bbcf1baf7b7b7a6a771eacfd9ee7ec7317c1fc33155bec',1,'mne::viz::qt::DigitizerTreeItem']]],
   ['eeg_3',['Eeg',['../a03332.html#a496b6599f73118baeac4515fc1b5883ca808453585f3be6d0778cb2f0dddefd53',1,'mne::Eeg'],['../a03332.html#aa2d3ecbfb6d36fc9e9fb3a213d9ec5d3a808453585f3be6d0778cb2f0dddefd53',1,'mne::Eeg']]],
   ['electrode_4',['Electrode',['../a03494.html#ae06cfd8962aea20b03b825b39fc6fe57aadf01ba7fe4de0e1d153718f75bc7a14',1,'mne::viz::Electrode'],['../a03494.html#a2569ded8f17cbc076a8f7772b03ebfeaaadf01ba7fe4de0e1d153718f75bc7a14',1,'mne::viz::Electrode']]],
   ['electrodecontact_5',['ElectrodeContact',['../a03494.html#aca1e2bbcb7c17e13993670fcacd66827aa6225402ff91ef4389f87638a6627995',1,'mne::viz']]],
   ['eloreta_6',['eLORETA',['../a03332.html#ade8f3f7441faae5bc61b2d7fc499975dae6c741df0424aa393ec575d0248fb43d',1,'mne']]],
   ['emg_7',['Emg',['../a03332.html#a496b6599f73118baeac4515fc1b5883ca249680b9d5cf06755fa509c39b9746d3',1,'mne']]],
   ['end_8',['End',['../a03494.html#a9d5d7c1338420e8576b84e4dafc17d64a87557f11575c0ad78e4e28abedc13b6e',1,'mne::viz']]],
-  ['endoffile_9',['EndOfFile',['../a04503.html#a823f472537c744d5669474a47c40367ca55524e47576eb018d4854da0b0b1c58d',1,'mne::CborParseError']]],
+  ['endoffile_9',['EndOfFile',['../a04505.html#a823f472537c744d5669474a47c40367ca55524e47576eb018d4854da0b0b1c58d',1,'mne::CborParseError']]],
   ['endofstream_10',['EndOfStream',['../a03332.html#a431575bc664b471e7206a28da35727d3acec32ee5e75ca0f05bf073ea213a72c2',1,'mne']]],
   ['enum_11',['Enum',['../a03332.html#a03b4514a19b1eee384d45b83a47726feacf20423ed48998082c20099488a0917c',1,'mne']]],
   ['envelope_12',['Envelope',['../a03333.html#a7a14068808b9e155e5ae7798d9feab79a5a4d5cecd9f32db458479b6d7b281b79',1,'mne::detail']]],
   ['eog_13',['Eog',['../a03332.html#a496b6599f73118baeac4515fc1b5883cab45356d80148320ce1881123b695f2e7',1,'mne::Eog'],['../a03332.html#ab4754a4f8fc104bef90cbc8223a21618ab45356d80148320ce1881123b695f2e7',1,'mne::Eog']]],
   ['eos_14',['Eos',['../a03332.html#a079a81b0acac0fc8d8bd9f9302467245a86d16d93f97145c1c4532ada5501eaeb',1,'mne']]],
   ['epochs_15',['Epochs',['../a03332.html#a6f0f13b39e92820eda555f21cc0c104cad7ca258b9b0687d278b7ab980674d4c8',1,'mne']]],
-  ['equal_16',['Equal',['../a05299.html#a4c6c19bf7af678cc4fc9ab2a2e754e4baf5f286e73bda105e538310b3190f75c5',1,'mne::FiffEvoked']]],
+  ['equal_16',['Equal',['../a05301.html#a4c6c19bf7af678cc4fc9ab2a2e754e4baf5f286e73bda105e538310b3190f75c5',1,'mne::FiffEvoked']]],
   ['erg_17',['Erg',['../a03332.html#a496b6599f73118baeac4515fc1b5883cad9db6523192aab07a47f803fe30467a3',1,'mne']]],
   ['error_18',['Error',['../a03332.html#af0153ad6e8531b709bd33074fbdb6bfea902b0d55fddef6f8d651fe1035b7d4bd',1,'mne::Error'],['../a03332.html#aa7351d8b632c476ab94594dbb235491fa902b0d55fddef6f8d651fe1035b7d4bd',1,'mne::Error']]],
   ['escape_19',['Escape',['../a03494.html#a9d5d7c1338420e8576b84e4dafc17d64a013ec032d3460d4be4431c6ab1f8f224',1,'mne::viz']]],
@@ -27,5 +27,5 @@ var searchData=
   ['exg16_24',['ExG16',['../a03333.html#a4e1b916f055f537ef05a9b83ca955d27a443aa8d7e7ecc65ffb49e0129166a219',1,'mne::detail']]],
   ['exg8_25',['ExG8',['../a03333.html#a4e1b916f055f537ef05a9b83ca955d27a0a988d4a576a405c0ec10422149cb991',1,'mne::detail']]],
   ['external_26',['External',['../a03332.html#a00c2b6f9b43b3645b9bf44059e993e4dab206a1b4ea1097761f78e8876f6da779',1,'mne']]],
-  ['extra_27',['Extra',['../a06367.html#a71a04fc39bf47f101c6bbcf1baf7b7b7ad0068e64cd163eee9944fd1ffdf18612',1,'mne::viz::qt::DigitizerTreeItem']]]
+  ['extra_27',['Extra',['../a06369.html#a71a04fc39bf47f101c6bbcf1baf7b7b7ad0068e64cd163eee9944fd1ffdf18612',1,'mne::viz::qt::DigitizerTreeItem']]]
 ];

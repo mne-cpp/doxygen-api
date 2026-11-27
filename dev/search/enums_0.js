@@ -22,5 +22,5 @@ var searchData=
   ['acqvaluetype_19',['AcqValueType',['../a03332.html#a03b4514a19b1eee384d45b83a47726fe',1,'mne']]],
   ['acqwait_20',['AcqWait',['../a03332.html#ab9163cf6bfac605fe4a4ddb618241a85',1,'mne']]],
   ['align_21',['Align',['../a03494.html#a77a012feabeef8dedddb1c5f930325e1',1,'mne::viz']]],
-  ['api_22',['Api',['../a06731.html#a8211cf535a797f4bc1690a182036a9d7',1,'mne::viz::qt::ChannelWindow']]]
+  ['api_22',['Api',['../a06737.html#a8211cf535a797f4bc1690a182036a9d7',1,'mne::viz::qt::ChannelWindow']]]
 ];

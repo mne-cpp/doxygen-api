@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['baseline_0',['Baseline',['../a05299.html#a35cad6d1c10dc8fa3799418c60433a4d',1,'mne::FiffEvoked']]],
+  ['baseline_0',['Baseline',['../a05301.html#a35cad6d1c10dc8fa3799418c60433a4d',1,'mne::FiffEvoked']]],
   ['bidstsvrow_1',['BidsTsvRow',['../a03332.html#a42f2ccb60c54ae7bdbc08038783480d1',1,'mne']]],
-  ['boundsfn_2',['BoundsFn',['../a07047.html#a59f5a0eb425bc3ed933ed1421af56e64',1,'mne::viz::SceneState']]]
+  ['boundsfn_2',['BoundsFn',['../a07053.html#a59f5a0eb425bc3ed933ed1421af56e64',1,'mne::viz::SceneState']]]
 ];

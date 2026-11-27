@@ -9,11 +9,11 @@ var searchData=
   ['mne_3a_3adetail_3a_3aft_6',['ft',['../a03366.html',1,'mne::detail']]],
   ['mne_3a_3adetail_3a_3art_7',['rt',['../a03383.html',1,'mne::detail']]],
   ['mne_3a_3aviz_8',['viz',['../a03494.html',1,'mne']]],
-  ['mne_3a_3aviz_3a_3adetail_9',['detail',['../a03535.html',1,'mne::viz']]],
+  ['mne_3a_3aviz_3a_3adetail_9',['detail',['../a03537.html',1,'mne::viz']]],
   ['mne_3a_3aviz_3a_3aqt_10',['qt',['../a03495.html',1,'mne::viz']]],
-  ['mne_3a_3aviz_3a_3aqt_3a_3achannelinfomodelroles_11',['ChannelInfoModelRoles',['../a03513.html',1,'mne::viz::qt']]],
+  ['mne_3a_3aviz_3a_3aqt_3a_3achannelinfomodelroles_11',['ChannelInfoModelRoles',['../a03514.html',1,'mne::viz::qt']]],
   ['mne_3a_3aviz_3a_3aqt_3a_3adetail_12',['detail',['../a03501.html',1,'mne::viz::qt']]],
-  ['mne_3a_3aviz_3a_3aqt_3a_3aevokedsetmodelroles_13',['EvokedSetModelRoles',['../a03517.html',1,'mne::viz::qt']]],
-  ['mne_3a_3aviz_3a_3asdl_14',['sdl',['../a03524.html',1,'mne::viz']]],
-  ['mne_3a_3aviz_3a_3asurface_5fkeys_15',['surface_keys',['../a03533.html',1,'mne::viz']]]
+  ['mne_3a_3aviz_3a_3aqt_3a_3aevokedsetmodelroles_13',['EvokedSetModelRoles',['../a03518.html',1,'mne::viz::qt']]],
+  ['mne_3a_3aviz_3a_3asdl_14',['sdl',['../a03526.html',1,'mne::viz']]],
+  ['mne_3a_3aviz_3a_3asurface_5fkeys_15',['surface_keys',['../a03535.html',1,'mne::viz']]]
 ];
