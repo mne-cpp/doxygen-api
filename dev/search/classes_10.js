@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['qtsettingsstore_0',['QtSettingsStore',['../a06621.html',1,'mne::viz::qt']]],
-  ['qttextmetrics_1',['QtTextMetrics',['../a06589.html',1,'mne::viz::qt']]],
-  ['quickcontrolview_2',['QuickControlView',['../a06861.html',1,'mne::viz::qt']]]
+  ['qtsettingsstore_0',['QtSettingsStore',['../a06667.html',1,'mne::viz::qt']]],
+  ['qttextmetrics_1',['QtTextMetrics',['../a06635.html',1,'mne::viz::qt']]],
+  ['quickcontrolview_2',['QuickControlView',['../a06907.html',1,'mne::viz::qt']]]
 ];

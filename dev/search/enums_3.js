@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['designmethod_0',['DesignMethod',['../a05069.html#aa9613ccfa4e9f75b732cf84599383fa0',1,'mne::FirFilter']]],
-  ['detrend_1',['Detrend',['../a03518.html#a852c86238adb1081ccb09ce9401645fc',1,'mne::viz']]],
-  ['detrendmode_2',['DetrendMode',['../a03519.html#aeadbc753cb20e5ba821fb9ffd75b04b3',1,'mne::viz::qt']]],
-  ['direction_3',['Direction',['../a03356.html#a7bec239a5f57a0a6211044ac960432a8',1,'mne']]]
+  ['designmethod_0',['DesignMethod',['../a05115.html#aa9613ccfa4e9f75b732cf84599383fa0',1,'mne::FirFilter']]],
+  ['detrend_1',['Detrend',['../a03560.html#a852c86238adb1081ccb09ce9401645fc',1,'mne::viz']]],
+  ['detrendmode_2',['DetrendMode',['../a03561.html#aeadbc753cb20e5ba821fb9ffd75b04b3',1,'mne::viz::qt']]],
+  ['direction_3',['Direction',['../a03398.html#a7bec239a5f57a0a6211044ac960432a8',1,'mne']]]
 ];

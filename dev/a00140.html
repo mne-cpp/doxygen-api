@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/dsp/firfilter.cpp File Reference</title>
+    <title>MNE-CPP: src/libs/mne/acq/devices/neuromag/neuromag_dacq_posix.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,94 +250,145 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_b79f7367980074b5febc9da517d2cbd5.html">dsp</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_2f854a5406f32ee7c498289ae3ba87e9.html">acq</a></li><li class="navelem"><a href="dir_d04c415f36cd683ca3ab3757f9800cb7.html">devices</a></li><li class="navelem"><a href="dir_baecc8fc94f15e4f3cd1f6084cbc0dd9.html">neuromag</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">firfilter.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">neuromag_dacq_posix.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of <a class="el" href="a05069.html" title="Discoverable façade over the FilterKernel FIR-filter engine.">FirFilter</a>.  
+<p>A client of the Neuromag data acquisition: its data server and its collector.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a00320_source.html">firfilter.h</a>&quot;</code><br />
-<code>#include &lt;Eigen/Core&gt;</code><br />
-<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
-<code>#include &lt;complex&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00146_source.html">neuromag_transport.h</a>&quot;</code><br />
+<code>#include &lt;arpa/inet.h&gt;</code><br />
+<code>#include &lt;netdb.h&gt;</code><br />
+<code>#include &lt;netinet/in.h&gt;</code><br />
+<code>#include &lt;poll.h&gt;</code><br />
+<code>#include &lt;sys/ipc.h&gt;</code><br />
+<code>#include &lt;sys/shm.h&gt;</code><br />
+<code>#include &lt;sys/socket.h&gt;</code><br />
+<code>#include &lt;sys/stat.h&gt;</code><br />
+<code>#include &lt;sys/un.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cerrno&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
 <code>#include &lt;format&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;numbers&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for firfilter.cpp:</div>
+Include dependency graph for neuromag_dacq_posix.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00141.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2firfilter_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2dsp_2firfilter_8cpp" id="asrc_2libs_2mne_2dsp_2firfilter_8cpp">
-<area shape="rect" title="Implementation of FirFilter." alt="" coords="798,5,999,31"/>
-<area shape="rect" href="a00320.html" title="Discoverable design / apply façade over the mne::FilterKernel FIR engine." alt="" coords="522,79,598,104"/>
-<area shape="poly" title=" " alt="" coords="845,33,612,82,611,77,844,28"/>
-<area shape="rect" title=" " alt="" coords="5,372,64,397"/>
-<area shape="poly" title=" " alt="" coords="798,29,594,48,359,77,252,96,165,117,106,140,90,152,85,164,85,239,82,273,73,307,50,361,45,359,68,305,77,272,80,239,80,163,86,149,103,135,163,112,251,91,358,72,594,43,798,24"/>
-<area shape="rect" title=" " alt="" coords="825,372,887,397"/>
-<area shape="poly" title=" " alt="" coords="818,33,769,51,747,64,727,81,712,100,705,117,703,163,703,239,706,261,714,281,742,316,778,344,816,364,813,369,775,348,738,320,709,284,700,262,697,240,697,163,700,116,708,97,723,77,744,60,767,46,816,28"/>
-<area shape="rect" title=" " alt="" coords="167,225,259,251"/>
-<area shape="poly" title=" " alt="" coords="798,31,661,49,585,63,511,81,419,111,332,154,282,187,239,218,236,214,279,182,329,150,417,106,510,76,584,58,660,44,797,26"/>
-<area shape="rect" title=" " alt="" coords="737,79,908,104"/>
-<area shape="poly" title=" " alt="" coords="888,33,847,71,843,67,885,29"/>
-<area shape="rect" title=" " alt="" coords="932,79,1017,104"/>
-<area shape="poly" title=" " alt="" coords="913,29,954,67,950,71,909,33"/>
-<area shape="rect" title=" " alt="" coords="1042,79,1105,104"/>
-<area shape="poly" title=" " alt="" coords="928,28,1033,71,1031,76,926,33"/>
-<area shape="rect" title=" " alt="" coords="1129,79,1207,104"/>
-<area shape="poly" title=" " alt="" coords="943,28,1116,74,1115,79,941,33"/>
-<area shape="rect" title=" " alt="" coords="1232,79,1299,104"/>
-<area shape="poly" title=" " alt="" coords="968,28,1219,76,1218,81,967,33"/>
-<area shape="rect" title=" " alt="" coords="1323,79,1402,104"/>
-<area shape="poly" title=" " alt="" coords="991,28,1137,48,1310,76,1309,81,1136,53,991,33"/>
-<area shape="rect" href="a00041.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="508,225,612,251"/>
-<area shape="poly" title=" " alt="" coords="563,104,563,212,557,212,557,104"/>
-<area shape="poly" title=" " alt="" coords="568,103,627,223,660,288,683,322,733,342,812,368,811,373,731,347,680,326,656,290,622,226,563,105"/>
-<area shape="rect" href="a00185.html" title="Linear&#45;phase FIR filter kernel with overlap&#45;add FFT convolution back&#45;end." alt="" coords="404,152,508,177"/>
-<area shape="poly" title=" " alt="" coords="545,106,486,146,483,142,542,102"/>
-<area shape="poly" title=" " alt="" coords="525,107,393,154,249,222,247,217,391,150,523,102"/>
-<area shape="rect" href="a00917.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="386,299,561,324"/>
-<area shape="poly" title=" " alt="" coords="548,253,500,292,496,288,544,249"/>
-<area shape="rect" href="a00950.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="211,372,323,397"/>
-<area shape="poly" title=" " alt="" coords="441,327,314,370,312,365,439,321"/>
-<area shape="rect" title=" " alt="" coords="347,372,413,397"/>
-<area shape="poly" title=" " alt="" coords="460,326,408,366,404,361,457,322"/>
-<area shape="rect" title=" " alt="" coords="438,372,509,397"/>
-<area shape="poly" title=" " alt="" coords="476,324,476,358,471,358,471,324"/>
-<area shape="rect" title=" " alt="" coords="533,372,624,397"/>
-<area shape="poly" title=" " alt="" coords="492,322,552,362,549,367,489,326"/>
-<area shape="rect" title=" " alt="" coords="648,372,723,397"/>
-<area shape="poly" title=" " alt="" coords="508,321,639,365,637,370,507,327"/>
-<area shape="rect" title=" " alt="" coords="747,372,800,397"/>
-<area shape="poly" title=" " alt="" coords="529,321,734,369,733,374,528,327"/>
-<area shape="poly" title=" " alt="" coords="386,325,245,345,78,375,77,369,245,339,386,320"/>
-<area shape="rect" title=" " alt="" coords="89,372,186,397"/>
-<area shape="poly" title=" " alt="" coords="420,327,200,373,199,368,419,321"/>
-<area shape="poly" title=" " alt="" coords="548,321,668,341,812,369,811,375,667,347,548,327"/>
-<area shape="poly" title=" " alt="" coords="474,175,533,215,530,219,471,180"/>
-<area shape="poly" title=" " alt="" coords="435,180,71,368,68,363,433,175"/>
-<area shape="poly" title=" " alt="" coords="451,179,401,248,362,290,317,326,259,355,200,374,199,369,257,350,315,322,359,286,397,244,447,176"/>
-<area shape="poly" title=" " alt="" coords="462,177,474,212,485,231,498,249,524,269,561,290,632,321,812,369,811,374,630,327,559,294,521,273,494,253,480,234,469,214,456,179"/>
-<area shape="poly" title=" " alt="" coords="418,180,266,224,265,219,416,175"/>
+<div class="center"><img src="a00141.png" border="0" usemap="#asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__dacq__posix_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__dacq__posix_8cpp" id="asrc_2libs_2mne_2acq_2devices_2neuromag_2neuromag__dacq__posix_8cpp">
+<area shape="rect" title="A client of the Neuromag data acquisition: its data server and its collector." alt="" coords="2054,5,2254,60"/>
+<area shape="rect" href="a00146.html" title="The Neuromag (MEGIN) acquisition server as the backend uses it, with a DACQ client and a simulator." alt="" coords="389,108,556,133"/>
+<area shape="poly" title=" " alt="" coords="2054,39,1430,61,1007,82,576,111,570,111,569,106,575,105,1006,77,1430,56,2054,34"/>
+<area shape="rect" title=" " alt="" coords="629,401,695,427"/>
+<area shape="poly" title=" " alt="" coords="2053,36,1680,40,1440,48,1195,61,965,80,863,93,774,108,700,126,644,146,608,169,600,180,597,193,597,269,598,293,603,312,622,352,646,389,641,392,617,355,598,313,593,294,591,269,591,192,595,178,605,165,641,141,698,121,773,103,863,88,965,75,1194,55,1440,43,1680,35,2053,31"/>
+<area shape="rect" title=" " alt="" coords="1509,328,1565,353"/>
+<area shape="poly" title=" " alt="" coords="2053,36,1927,39,1787,50,1721,60,1663,73,1615,89,1582,110,1564,132,1551,157,1541,185,1536,214,1533,269,1536,314,1530,314,1527,269,1531,213,1536,184,1546,155,1560,129,1579,106,1613,85,1661,68,1720,55,1787,45,1927,34,2053,31"/>
+<area shape="rect" title=" " alt="" coords="1592,108,1684,133"/>
+<area shape="poly" title=" " alt="" coords="2054,52,1698,111,1697,105,2053,47"/>
+<area shape="rect" title=" " alt="" coords="1708,108,1779,133"/>
+<area shape="poly" title=" " alt="" coords="2054,56,1793,110,1792,105,2053,51"/>
+<area shape="rect" title=" " alt="" coords="1803,108,1899,133"/>
+<area shape="poly" title=" " alt="" coords="2062,63,1906,107,1904,102,2061,57"/>
+<area shape="rect" title=" " alt="" coords="1923,108,1982,133"/>
+<area shape="poly" title=" " alt="" coords="2094,63,1993,105,1991,100,2091,58"/>
+<area shape="rect" title=" " alt="" coords="2007,108,2085,133"/>
+<area shape="poly" title=" " alt="" coords="2123,62,2073,101,2070,97,2119,58"/>
+<area shape="rect" title=" " alt="" coords="2110,108,2198,133"/>
+<area shape="poly" title=" " alt="" coords="2157,60,2157,94,2151,94,2151,60"/>
+<area shape="rect" title=" " alt="" coords="2223,108,2325,133"/>
+<area shape="poly" title=" " alt="" coords="2192,58,2248,98,2245,102,2189,62"/>
+<area shape="rect" title=" " alt="" coords="2350,108,2435,133"/>
+<area shape="poly" title=" " alt="" coords="2228,58,2349,101,2347,106,2226,63"/>
+<area shape="rect" title=" " alt="" coords="2460,108,2536,133"/>
+<area shape="poly" title=" " alt="" coords="2255,56,2447,104,2446,109,2254,61"/>
+<area shape="rect" title=" " alt="" coords="2561,108,2635,133"/>
+<area shape="poly" title=" " alt="" coords="2255,49,2548,105,2547,110,2254,54"/>
+<area shape="rect" title=" " alt="" coords="2660,108,2723,133"/>
+<area shape="poly" title=" " alt="" coords="2255,43,2433,68,2647,105,2646,111,2432,73,2254,49"/>
+<area shape="rect" title=" " alt="" coords="2747,108,2814,133"/>
+<area shape="poly" title=" " alt="" coords="2255,40,2471,65,2601,83,2734,105,2733,111,2600,88,2470,70,2254,46"/>
+<area shape="rect" title=" " alt="" coords="2838,108,2905,133"/>
+<area shape="poly" title=" " alt="" coords="2254,38,2509,62,2666,81,2825,105,2824,111,2665,86,2509,67,2254,43"/>
+<area shape="rect" title=" " alt="" coords="2929,108,3003,133"/>
+<area shape="poly" title=" " alt="" coords="2255,37,2547,60,2730,79,2916,105,2915,111,2729,85,2547,65,2254,42"/>
+<area shape="rect" href="a00137.html" title="The FIFF tags of the Neuromag (MEGIN) acquisition stream: codes, byte order, channel records and the ..." alt="" coords="999,181,1123,207"/>
+<area shape="poly" title=" " alt="" coords="557,129,985,181,985,186,556,135"/>
+<area shape="rect" href="a00341.html" title="AcqError: catalogued error codes of the acquisition API, and AcqExpected, a value&#45;or&#45;error result." alt="" coords="343,255,461,280"/>
+<area shape="poly" title=" " alt="" coords="464,135,446,156,430,183,418,213,409,242,404,240,412,211,425,180,442,153,460,132"/>
+<area shape="poly" title=" " alt="" coords="393,136,255,163,180,183,111,208,55,237,34,254,19,271,10,289,9,308,16,329,32,351,43,359,61,366,119,378,285,395,470,405,615,409,615,414,470,410,284,400,118,383,60,371,40,363,28,355,11,332,4,309,5,288,14,268,30,250,52,233,109,203,178,178,254,158,392,131"/>
+<area shape="rect" title=" " alt="" coords="42,328,119,353"/>
+<area shape="poly" title=" " alt="" coords="453,136,115,324,112,319,451,131"/>
+<area shape="rect" title=" " alt="" coords="631,328,690,353"/>
+<area shape="poly" title=" " alt="" coords="485,132,644,316,640,319,481,135"/>
+<area shape="rect" title=" " alt="" coords="439,181,506,207"/>
+<area shape="poly" title=" " alt="" coords="475,134,475,168,470,168,470,134"/>
+<area shape="poly" title=" " alt="" coords="998,205,475,261,475,256,998,199"/>
+<area shape="poly" title=" " alt="" coords="1022,209,899,254,825,289,756,330,716,362,684,393,680,390,713,358,752,326,823,284,896,249,1020,204"/>
+<area shape="poly" title=" " alt="" coords="1055,209,1024,245,1002,266,976,282,924,300,850,316,704,337,703,332,849,310,923,295,974,278,998,261,1020,242,1051,205"/>
+<area shape="rect" href="a00308.html" title="AcqStreamInfo: direction, format, layout, rate and per&#45;channel description of one stream." alt="" coords="1039,255,1205,280"/>
+<area shape="poly" title=" " alt="" coords="1073,205,1105,242,1101,246,1069,209"/>
+<area shape="rect" title=" " alt="" coords="1199,401,1269,427"/>
+<area shape="poly" title=" " alt="" coords="1123,192,1202,199,1247,207,1294,219,1339,236,1381,259,1418,289,1448,327,1456,349,1449,368,1432,383,1408,394,1346,408,1284,414,1283,408,1345,402,1406,389,1430,378,1445,365,1450,349,1444,329,1414,293,1378,264,1337,241,1292,224,1246,212,1202,204,1122,197"/>
+<area shape="poly" title=" " alt="" coords="1123,196,1212,203,1313,214,1407,230,1445,240,1473,252,1490,265,1505,281,1527,314,1523,317,1501,285,1487,269,1470,257,1443,245,1406,235,1313,219,1211,208,1123,201"/>
+<area shape="rect" title=" " alt="" coords="1271,328,1346,353"/>
+<area shape="poly" title=" " alt="" coords="1105,204,1161,224,1219,252,1260,284,1292,316,1288,320,1257,288,1217,257,1159,228,1103,209"/>
+<area shape="rect" title=" " alt="" coords="1371,328,1433,353"/>
+<area shape="poly" title=" " alt="" coords="1108,204,1178,224,1254,252,1320,285,1375,318,1372,323,1317,290,1252,257,1176,229,1107,209"/>
+<area shape="rect" title=" " alt="" coords="910,255,963,280"/>
+<area shape="poly" title=" " alt="" coords="1042,209,970,250,967,245,1039,204"/>
+<area shape="rect" href="a00335.html" title="Export macro of mne_acq — Headless acquisition: sources, streams, zero&#45;copy readers and native sample..." alt="" coords="871,401,975,427"/>
+<area shape="poly" title=" " alt="" coords="428,278,512,313,620,351,727,374,858,399,857,404,726,380,619,356,510,318,426,283"/>
+<area shape="rect" title=" " alt="" coords="437,328,506,353"/>
+<area shape="poly" title=" " alt="" coords="415,278,453,316,449,320,412,282"/>
+<area shape="poly" title=" " alt="" coords="373,283,344,296,318,313,304,333,304,342,309,352,329,367,360,379,443,396,536,406,615,409,615,415,535,411,443,402,359,384,327,371,305,355,299,343,299,331,315,310,341,292,370,278"/>
+<area shape="poly" title=" " alt="" coords="351,283,133,330,132,325,350,277"/>
+<area shape="rect" title=" " alt="" coords="195,328,244,353"/>
+<area shape="poly" title=" " alt="" coords="374,283,258,327,256,322,372,278"/>
+<area shape="poly" title=" " alt="" coords="444,277,619,325,617,330,443,283"/>
+<area shape="rect" title=" " alt="" coords="740,401,837,427"/>
+<area shape="poly" title=" " alt="" coords="343,275,277,283,214,297,191,308,177,320,174,334,184,352,195,359,214,365,273,376,438,388,708,399,726,401,726,406,707,404,437,394,272,381,213,370,193,363,180,355,169,335,172,317,188,303,212,292,276,278,342,270"/>
+<area shape="rect" title=" " alt="" coords="320,328,412,353"/>
+<area shape="poly" title=" " alt="" coords="398,282,380,317,376,314,394,279"/>
+<area shape="rect" title=" " alt="" coords="765,328,825,353"/>
+<area shape="poly" title=" " alt="" coords="462,277,753,329,752,334,461,282"/>
+<area shape="poly" title=" " alt="" coords="1121,281,1106,317,1093,337,1077,355,1035,383,990,400,988,396,1032,378,1074,351,1089,334,1101,315,1116,279"/>
+<area shape="poly" title=" " alt="" coords="1064,283,980,302,890,330,864,343,839,356,709,401,708,396,837,351,862,338,888,326,979,297,1062,277"/>
+<area shape="poly" title=" " alt="" coords="1048,283,704,335,704,330,1047,277"/>
+<area shape="poly" title=" " alt="" coords="1068,283,845,331,839,332,838,327,844,325,1067,277"/>
+<area shape="rect" href="a00389.html" title="Native sample formats and memory layouts stored in an acquisition ring." alt="" coords="901,328,1063,353"/>
+<area shape="poly" title=" " alt="" coords="1101,282,1018,324,1016,319,1098,278"/>
+<area shape="poly" title=" " alt="" coords="1149,278,1181,298,1211,326,1226,357,1234,387,1228,388,1221,359,1206,330,1178,302,1146,282"/>
+<area shape="poly" title=" " alt="" coords="1189,277,1496,330,1495,335,1188,283"/>
+<area shape="rect" title=" " alt="" coords="1138,328,1197,353"/>
+<area shape="poly" title=" " alt="" coords="1132,279,1155,315,1150,318,1127,282"/>
+<area shape="poly" title=" " alt="" coords="1153,278,1266,321,1265,325,1151,283"/>
+<area shape="poly" title=" " alt="" coords="1168,277,1358,325,1356,330,1167,283"/>
+<area shape="poly" title=" " alt="" coords="974,355,943,393,939,389,970,352"/>
+<area shape="poly" title=" " alt="" coords="931,356,710,405,708,400,930,351"/>
+<area shape="poly" title=" " alt="" coords="952,356,834,399,832,394,950,351"/>
+<area shape="rect" title=" " alt="" coords="1000,401,1079,427"/>
+<area shape="poly" title=" " alt="" coords="994,352,1023,389,1019,392,989,355"/>
+<area shape="poly" title=" " alt="" coords="1023,351,1186,396,1184,402,1022,356"/>
 </map>
 </div>
 </div>
 <p><a href="a00140_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of <a class="el" href="a05069.html" title="Discoverable façade over the FilterKernel FIR-filter engine.">FirFilter</a>. </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
+<div class="textblock"><p>A client of the Neuromag data acquisition: its data server and its collector. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2012-2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>July, 2012 </dd></dl>
+<p>The data server, on the acquisition computer, sends every client a message per FIFF tag over a UNIX datagram socket. The data follow in a second datagram, lie in a block of the server's shared memory, or are in the file being written (big-endian). The collector, a TCP service, starts and stops measurements and sets the buffer length. </p>
 
-<p class="definition">Definition in file <a class="el" href="a00140_source.html">firfilter.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a00140_source.html">neuromag_dacq_posix.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
