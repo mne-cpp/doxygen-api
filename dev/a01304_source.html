@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/inv/minimum_norm/inv_cmne.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/inv/hpi/inv_sensor_set.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,12 +243,12 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_5a6d90dc1b3ea1100357c6dde41960ba.html">inv</a></li><li class="navelem"><a href="dir_1d24ba8df47f323c62bbce8eecde16a4.html">minimum_norm</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_5a6d90dc1b3ea1100357c6dde41960ba.html">inv</a></li><li class="navelem"><a href="dir_08dd354ca86111ca46f21ca851a50bfd.html">hpi</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">inv_cmne.cpp</div></div>
+  <div class="headertitle"><div class="title">inv_sensor_set.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01304.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
@@ -257,369 +257,142 @@ $(function() {
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="a01310.html">inv_cmne.h</a>&quot;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &quot;<a class="code" href="a01298.html">inv_sensor_set.h</a>&quot;</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="a03200.html">mne/base/log.h</a>&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="a03239.html">mne/base/json.h</a>&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;<a class="code" href="a03257.html">mne/base/string_utils.h</a>&gt;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;<a class="code" href="a00719.html">mne/ml/ml_onnx_model.h</a>&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;<a class="code" href="a00716.html">mne/ml/ml_tensor.h</a>&gt;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#ifndef WASMBUILD</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;<a class="code" href="a00728.html">mne/ml/ml_trainer.h</a>&gt;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// EIGEN INCLUDES</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &lt;Eigen/Eigenvalues&gt;</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">// STL INCLUDES</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;format&gt;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03275.html">mne</a>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="a02930.html">mne/fwd/fwd_coil_set.h</a>&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="a03119.html">mne/fiff/fiff_ch_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">mne/base/string_utils.h</a>&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">// STL INCLUDES</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03278.html">mne</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">// DEFINE GLOBAL METHODS</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a05606.html#a0ed884e7dbffc30913fcad2b96a3073b">   62</a></span><a class="code hl_struct" href="a05602.html">InvCMNEResult</a> <a class="code hl_function" href="a05606.html#a0ed884e7dbffc30913fcad2b96a3073b">InvCMNE::compute</a>(</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> MatrixXd&amp; matEvoked,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">const</span> MatrixXd&amp; matGain,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">const</span> MatrixXd&amp; matNoiseCov,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">const</span> MatrixXd&amp; matSrcCov,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a05610.html">InvCMNESettings</a>&amp; settings)</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_struct" href="a05602.html">InvCMNEResult</a> result;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    result.<a class="code hl_variable" href="a05602.html#a6cbd77d18b5c1a39b5c67fb55b3b98ac">matKernelDspm</a> = computeDspmKernel(matGain, matNoiseCov, matSrcCov, settings.<a class="code hl_variable" href="a05610.html#a073b86f8c0b08934a004f41423ad0a0e">lambda2</a>);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">const</span> MatrixXd matDspm = result.<a class="code hl_variable" href="a05602.html#a6cbd77d18b5c1a39b5c67fb55b3b98ac">matKernelDspm</a> * matEvoked;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> VectorXi vertices = VectorXi::LinSpaced(matDspm.rows(), 0, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(matDspm.rows()) - 1);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    result.<a class="code hl_variable" href="a05602.html#a2f6c62d935606f73bfb2726e7d1e167c">stcDspm</a> = <a class="code hl_class" href="a05578.html">InvSourceEstimate</a>(matDspm, vertices, 0.0f, 1.0f);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><a class="code hl_function" href="a05549.html#a49ab35a77ae5de96fc14a155c8601f7c">InvSensorSet::InvSensorSet</a>(<span class="keyword">const</span> std::shared_ptr&lt;FwdCoilSet&gt;&amp; pFwdSensorSet)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">if</span> (pFwdSensorSet != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        initFromFwdCoilSet(pFwdSensorSet);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keywordtype">void</span> InvSensorSet::initFromFwdCoilSet(<span class="keyword">const</span> std::shared_ptr&lt;mne::FwdCoilSet&gt;&amp; pFwdSensorSet)</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    m_ncoils = pFwdSensorSet-&gt;ncoil();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    m_np = pFwdSensorSet-&gt;coils[0]-&gt;np;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    initMatrices(m_ncoils, m_np);</div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    MatrixXd sensing, prediction, cmne;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">if</span> (settings.<a class="code hl_variable" href="a05610.html#a6e4f8dae0223ad09da2b0528d0e3bb25">onnxModelPath</a>.empty()) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_function" href="a04574.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a>(<span class="stringliteral">&quot;[InvCMNE] No model: control estimate with look-back {}&quot;</span>, settings.<a class="code hl_variable" href="a05610.html#a2e040a023ed84f944343a0faf94339bc">lookBack</a>);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        cmne = <a class="code hl_function" href="a05606.html#a78c6f48fee1cf88b9911b5d27bb3b4b7">controlEstimate</a>(matDspm, settings.<a class="code hl_variable" href="a05610.html#a2e040a023ed84f944343a0faf94339bc">lookBack</a>);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        sensing = <a class="code hl_function" href="a05606.html#a5e19fe6246413584b6e4955c9b48a7ec">zScoreRectify</a>(matDspm);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        prediction = sensing;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!<a class="code hl_function" href="a05606.html#a486ef03c6b1e3b20c6f5ea6d74b4f8fa">applyCmne</a>(matDspm, settings.<a class="code hl_variable" href="a05610.html#a6e4f8dae0223ad09da2b0528d0e3bb25">onnxModelPath</a>, sensing, prediction, cmne)) {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <a class="code hl_function" href="a04574.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a>(<span class="stringliteral">&quot;[InvCMNE] CMNE could not be applied; returning the dSPM estimate only.&quot;</span>);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    result.<a class="code hl_variable" href="a05602.html#a8bde294c086d1bfc3470447cd1137944">stcSensing</a> = <a class="code hl_class" href="a05578.html">InvSourceEstimate</a>(sensing, vertices, 0.0f, 1.0f);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    result.<a class="code hl_variable" href="a05602.html#aa4811f4c8a329b5d26a6e091f9a43a67">stcLstmPredict</a> = <a class="code hl_class" href="a05578.html">InvSourceEstimate</a>(prediction, vertices, 0.0f, 1.0f);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    result.<a class="code hl_variable" href="a05602.html#a354451de8674766a2b23f447a2198b64">stcCmne</a> = <a class="code hl_class" href="a05578.html">InvSourceEstimate</a>(cmne, vertices, 0.0f, 1.0f);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="comment">// get data froms Fwd Coilset</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; m_ncoils; i++) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">const</span> FwdCoil* coil = pFwdSensorSet-&gt;coils[i].get();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        MatrixXd matRmag = MatrixXd::Zero(m_np, 3);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        MatrixXd matCosmag = MatrixXd::Zero(m_np, 3);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        RowVectorXd vecW(m_np);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        m_r0(i, 0) = coil-&gt;<a class="code hl_variable" href="a05389.html#a9833766ac55871f832bd1aefd691eea1">r0</a>[0];</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        m_r0(i, 1) = coil-&gt;<a class="code hl_variable" href="a05389.html#a9833766ac55871f832bd1aefd691eea1">r0</a>[1];</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        m_r0(i, 2) = coil-&gt;<a class="code hl_variable" href="a05389.html#a9833766ac55871f832bd1aefd691eea1">r0</a>[2];</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        m_ez(i, 0) = coil-&gt;<a class="code hl_variable" href="a05389.html#a5ff18fcaabef92de76d74f48274f712a">ez</a>[0];</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        m_ez(i, 1) = coil-&gt;<a class="code hl_variable" href="a05389.html#a5ff18fcaabef92de76d74f48274f712a">ez</a>[1];</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        m_ez(i, 2) = coil-&gt;<a class="code hl_variable" href="a05389.html#a5ff18fcaabef92de76d74f48274f712a">ez</a>[2];</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> p = 0; p &lt; m_np; p++) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            m_w(i * m_np + p) = coil-&gt;<a class="code hl_variable" href="a05389.html#a889d4f33c20cc92cddfeb00b3e3c59dd">w</a>[p];</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; 3; c++) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                matRmag(p, c) = coil-&gt;<a class="code hl_variable" href="a05389.html#a6c6a1b9a34860baa82b7c0821c2c5a23">rmag</a>(p, c);</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                matCosmag(p, c) = coil-&gt;<a class="code hl_variable" href="a05389.html#adfc93ace5d53c9911c10168785843af2">cosmag</a>(p, c);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        m_cosmag.block(i * m_np, 0, m_np, 3) = matCosmag;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        m_rmag.block(i * m_np, 0, m_np, 3) = matRmag;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    m_tra = MatrixXd::Identity(m_ncoils, m_ncoils);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="keywordtype">void</span> InvSensorSet::initMatrices(<span class="keywordtype">int</span> ncoils, <span class="keywordtype">int</span> np)</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>{</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    m_ez = MatrixXd(<a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a>, 3);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    m_r0 = MatrixXd(<a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a>, 3);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    m_rmag = MatrixXd(<a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a> * <a class="code hl_function" href="a05549.html#ae4649efa8c9f2002475e3026cfe7e40f">np</a>, 3);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    m_cosmag = MatrixXd(<a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a> * <a class="code hl_function" href="a05549.html#ae4649efa8c9f2002475e3026cfe7e40f">np</a>, 3);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    m_cosmag = MatrixXd(<a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a> * <a class="code hl_function" href="a05549.html#ae4649efa8c9f2002475e3026cfe7e40f">np</a>, 3);</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    m_tra = MatrixXd(<a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a>, <a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a>);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    m_w = RowVectorXd(<a class="code hl_function" href="a05549.html#a5f4969a3906650ad7816425aaa2da866">ncoils</a> * <a class="code hl_function" href="a05549.html#ae4649efa8c9f2002475e3026cfe7e40f">np</a>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a05553.html#a44cba93483fcaf8243d1d8e2664b3047">  119</a></span><a class="code hl_function" href="a05553.html#a44cba93483fcaf8243d1d8e2664b3047">InvSensorSetCreator::InvSensorSetCreator</a>()</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    m_pCoilDefinitions = <a class="code hl_function" href="a05393.html#a8d85b6ec62b2e87fa815c293ff63f3bc">FwdCoilSet::read_coil_defs</a>(<a class="code hl_function" href="a03278.html#a6c448cce3cc26fcec0a4f21ade985630">mne::resource_path</a>(<span class="stringliteral">&quot;general/coilDefinitions/coil_def.dat&quot;</span>));</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
 </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>MatrixXd InvCMNE::computeDspmKernel(</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">const</span> MatrixXd&amp; matGain,</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">const</span> MatrixXd&amp; matNoiseCov,</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">const</span> MatrixXd&amp; matSrcCov,</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordtype">double</span> lambda2)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">int</span> nChannels = matGain.rows();</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordtype">int</span> nSources = matGain.cols();</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="comment">// Step 1: Whiten noise covariance via eigendecomposition</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="comment">// C_n = V * D * V^T  -&gt;  C_n^{-1/2} = V * D^{-1/2} * V^T</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_function" href="a04574.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a>(<span class="stringliteral">&quot;  [dSPM kernel] Eigendecomposition of noise covariance ( {} x {} ) …&quot;</span>, nChannels, nChannels);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// Decompose the correlation matrix D^-1/2 C D^-1/2: MEG (T^2) and EEG (V^2) variances differ by 1e13,</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="comment">// so a cutoff relative to the largest eigenvalue of C would drop every MEG component.</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">const</span> VectorXd scale = matNoiseCov.diagonal().cwiseMax(std::numeric_limits&lt;double&gt;::min()).cwiseSqrt();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">const</span> MatrixXd correlation = scale.cwiseInverse().asDiagonal() * matNoiseCov * scale.cwiseInverse().asDiagonal();</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    SelfAdjointEigenSolver&lt;MatrixXd&gt; eigSolver(correlation);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    VectorXd eigVals = eigSolver.eigenvalues();</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    MatrixXd eigVecs = eigSolver.eigenvectors();</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">// Regularize: clamp small eigenvalues</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">double</span> maxEig = eigVals.maxCoeff();</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordtype">double</span> threshold = maxEig * 1e-10;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    VectorXd eigValsInvSqrt(nChannels);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; nChannels; ++i) {</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        eigValsInvSqrt(i) = (eigVals(i) &gt; threshold) ? 1.0 / std::sqrt(eigVals(i)) : 0.0;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="comment">// W = (R^+)^1/2 D^-1/2 satisfies W C W^T = I on the retained subspace.</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    MatrixXd matWhitener = eigVecs * eigValsInvSqrt.asDiagonal() * eigVecs.transpose() * scale.cwiseInverse().asDiagonal();</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">// Step 2: Whiten gain matrix</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <a class="code hl_function" href="a04574.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a>(<span class="stringliteral">&quot;  [dSPM kernel] Whitening gain matrix …&quot;</span>);</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    MatrixXd matGainWhitened = matWhitener * matGain; <span class="comment">// n_channels x n_sources</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="comment">// Step 3: MNE kernel</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <a class="code hl_function" href="a04574.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a>(<span class="stringliteral">&quot;  [dSPM kernel] Computing MNE kernel (LDLT solve, {} x {} ) …&quot;</span>, nChannels, nChannels);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="comment">// K = C_R * G_tilde^T * (G_tilde * C_R * G_tilde^T + lambda2 * I)^{-1}</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    MatrixXd matGCR = matGainWhitened * matSrcCov;        <span class="comment">// n_channels x n_sources</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    MatrixXd matA = matGCR * matGainWhitened.transpose(); <span class="comment">// n_channels x n_channels</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    matA.diagonal().array() += lambda2;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="comment">// Solve once: A^{-1} via LDLT, then K = (C_R * G_tilde^T) * A^{-1}</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">auto</span> ldlt = matA.ldlt();</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    MatrixXd matK = (matSrcCov * matGainWhitened.transpose()) * ldlt.solve(matWhitener);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="comment">// Step 4: dSPM normalization</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="comment">// noise_norm_i = sqrt((K * C_n * K^T)(i,i))</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="comment">// K_dSPM(i,:) = K(i,:) / noise_norm_i</span></div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_function" href="a04574.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a>(<span class="stringliteral">&quot;  [dSPM kernel] Normalizing {} source rows …&quot;</span>, nSources);</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    MatrixXd matKCn = matK * matNoiseCov; <span class="comment">// n_sources x n_channels</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; nSources; ++i) {</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordtype">double</span> noiseNorm = std::sqrt(matKCn.row(i).dot(matK.row(i)));</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">if</span> (noiseNorm &gt; 1e-10) {</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            matK.row(i) /= noiseNorm;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        }</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordflow">return</span> matK; <span class="comment">// n_sources x n_channels (dSPM kernel)</span></div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>}</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>MatrixXd InvCMNE::standardize(<span class="keyword">const</span> MatrixXd&amp; matStcData)</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>{</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="comment">// Constant rows are centred but not scaled, as in cmne.standardize.</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keyword">const</span> VectorXd mean = matStcData.rowwise().mean();</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    MatrixXd result = matStcData.colwise() - mean;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keyword">const</span> VectorXd std = (result.array().square().rowwise().sum() / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(result.cols())).sqrt();</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; result.rows(); ++i) {</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">if</span> (std(i) &gt; 0.0)</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>            result.row(i) /= std(i);</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>}</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="a05606.html#a5e19fe6246413584b6e4955c9b48a7ec">  171</a></span>MatrixXd <a class="code hl_function" href="a05606.html#a5e19fe6246413584b6e4955c9b48a7ec">InvCMNE::zScoreRectify</a>(<span class="keyword">const</span> MatrixXd&amp; matStcData)</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>{</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordflow">return</span> standardize(matStcData.cwiseAbs()); <span class="comment">// Eq. 9</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>}</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a05553.html#a3e66148de441f74ac24cf005c5029828">  126</a></span><a class="code hl_class" href="a05549.html">InvSensorSet</a> <a class="code hl_function" href="a05553.html#a3e66148de441f74ac24cf005c5029828">InvSensorSetCreator::updateSensorSet</a>(<span class="keyword">const</span> std::vector&lt;mne::FiffChInfo&gt;&amp; channelList,</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                                                  <span class="keyword">const</span> <a class="code hl_enumeration" href="a03278.html#ab309424562479fd599ad71c80bf188c6">Accuracy</a>&amp; accuracy)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>{</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">if</span> (channelList.empty()) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a05549.html">InvSensorSet</a>();</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keyword">auto</span> pCoilMeg = std::shared_ptr&lt;FwdCoilSet&gt;(m_pCoilDefinitions-&gt;create_meg_coils(channelList, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(channelList.size()), <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(accuracy)).release());</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="a05549.html">InvSensorSet</a>(pCoilMeg);</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>}</div>
 </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="a05606.html#a78c6f48fee1cf88b9911b5d27bb3b4b7">  178</a></span>MatrixXd <a class="code hl_function" href="a05606.html#a78c6f48fee1cf88b9911b5d27bb3b4b7">InvCMNE::controlEstimate</a>(<span class="keyword">const</span> MatrixXd&amp; matDspmData, <span class="keywordtype">int</span> lookBack)</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>{</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="comment">// Paper&#39;s control: q_t times the mean of the previous k sensing estimates (no LSTM, not recursive).</span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="keyword">const</span> MatrixXd q = <a class="code hl_function" href="a05606.html#a5e19fe6246413584b6e4955c9b48a7ec">zScoreRectify</a>(matDspmData);</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    MatrixXd result = q;</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> t = lookBack; t &lt; q.cols(); ++t)</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        result.col(t) = q.col(t).cwiseProduct(q.middleCols(t - lookBack, lookBack).rowwise().mean());</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
-</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="a05606.html#a486ef03c6b1e3b20c6f5ea6d74b4f8fa">  190</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05606.html#a486ef03c6b1e3b20c6f5ea6d74b4f8fa">InvCMNE::applyCmne</a>(<span class="keyword">const</span> MatrixXd&amp; matDspmData,</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                        <span class="keyword">const</span> std::string&amp; onnxModelPath,</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                        MatrixXd&amp; sensing,</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>                        MatrixXd&amp; prediction,</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                        MatrixXd&amp; cmne)</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>{</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_class" href="a05758.html">mne::MlOnnxModel</a> model;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">if</span> (!model.<a class="code hl_function" href="a05758.html#adf416ed0844688b4032c6527e4820317">load</a>(onnxModelPath)) {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <a class="code hl_function" href="a04574.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a>(<span class="stringliteral">&quot;[InvCMNE] Cannot load CMNE model {}&quot;</span>, onnxModelPath);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    }</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04518.html">mne::JsonDocument</a> metadata = <a class="code hl_function" href="a04518.html#abe04451c01e64262ce3735fec7862058">mne::JsonDocument::from_json</a>(model.<a class="code hl_function" href="a05758.html#a8b294eb32b8c41998ea1837c1e1a31fd">metadata</a>(<span class="stringliteral">&quot;cmne_config&quot;</span>));</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04502.html">mne::JsonObject</a>&amp; config = metadata.<a class="code hl_function" href="a04518.html#a5248bdf5a05a027a30049d1c9448a9b5">object</a>();</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> k = config.<a class="code hl_function" href="a04502.html#a09cf7c505ea7c773b4064eec5446da7b">value</a>(<span class="stringliteral">&quot;look_back&quot;</span>).<a class="code hl_function" href="a04506.html#a0c84fdfe3b66adc79df0f3f14b265f0e">to_int</a>();</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nSources = config.<a class="code hl_function" href="a04502.html#a09cf7c505ea7c773b4064eec5446da7b">value</a>(<span class="stringliteral">&quot;n_sources&quot;</span>).<a class="code hl_function" href="a04506.html#a0c84fdfe3b66adc79df0f3f14b265f0e">to_int</a>();</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">if</span> (k &lt;= 0 || nSources != matDspmData.rows()) {</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        <a class="code hl_function" href="a04574.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a>(<span class="stringliteral">&quot;[InvCMNE] Model {} has no cmne_config for {} sources (look_back {} , n_sources {} ).&quot;</span>, onnxModelPath, matDspmData.rows(), k, nSources);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    }</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">if</span> (matDspmData.cols() &lt;= k) {</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <a class="code hl_function" href="a04574.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a>(<span class="stringliteral">&quot;[InvCMNE] Need more than look_back = {} samples, got {}&quot;</span>, k, matDspmData.cols());</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    }</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    sensing = config.<a class="code hl_function" href="a04502.html#a09cf7c505ea7c773b4064eec5446da7b">value</a>(<span class="stringliteral">&quot;rectify&quot;</span>).<a class="code hl_function" href="a04506.html#a564b9a0434f61362d3ca02f5a8216981">to_bool</a>(<span class="keyword">true</span>) ? <a class="code hl_function" href="a05606.html#a5e19fe6246413584b6e4955c9b48a7ec">zScoreRectify</a>(matDspmData) : standardize(matDspmData);</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">// The network sees float32 time-major windows of the contextual estimate b (Eq. 13).</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keyword">const</span> MatrixXf q = sensing.cast&lt;<span class="keywordtype">float</span>&gt;();</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    MatrixXf b = q;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    MatrixXf pred = q;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    std::vector&lt;float&gt; window(<span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(k) * <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(nSources));</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> t = k; t &lt; q.cols(); ++t) {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        Map&lt;MatrixXf&gt;(window.data(), nSources, k) = b.middleCols(t - k, k);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keyword">const</span> <a class="code hl_class" href="a05762.html">mne::MlTensor</a> <a class="code hl_enumvalue" href="a03275.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a> = model.<a class="code hl_function" href="a05758.html#abd72dedfbc0da4ddd54b20803d35d3ff">predict</a>(<a class="code hl_function" href="a05762.html#a4542f3712a12ef0eccd51547ebeb4a7b">mne::MlTensor::view</a>(window.data(), {1, k, nSources}));</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keyword">const</span> Map&lt;const VectorXf&gt; p(<a class="code hl_enumvalue" href="a03275.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a>.data(), nSources);</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        pred.col(t) = p;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keyword">const</span> VectorXf w = p.cwiseAbs();</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keyword">const</span> <span class="keywordtype">float</span> maxW = std::max(w.maxCoeff(), std::numeric_limits&lt;float&gt;::min());</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        b.col(t) = (w / maxW).cwiseProduct(q.col(t)); <span class="comment">// Eqs. 10-11</span></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    }</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    prediction = pred.cast&lt;<span class="keywordtype">double</span>&gt;();</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    cmne = b.cast&lt;<span class="keywordtype">double</span>&gt;();</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>}</div>
-</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#ifndef WASMBUILD</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
-<div class="foldopen" id="foldopen00238" data-start="{" data-end="}">
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno"><a class="line" href="a05606.html#a5483ab38ee2126d06a9fef6c36b5c099">  238</a></span><a class="code hl_struct" href="a06202.html">mne::PythonRunnerResult</a> <a class="code hl_function" href="a05606.html#a5483ab38ee2126d06a9fef6c36b5c099">InvCMNE::train_lstm</a>(</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keyword">const</span> std::filesystem::path&amp; fwdPath,</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keyword">const</span> std::filesystem::path&amp; covPath,</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keyword">const</span> std::filesystem::path&amp; epochsPath,</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keyword">const</span> std::filesystem::path&amp; outOnnxPath,</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a05610.html">InvCMNESettings</a>&amp; settings,</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keyword">const</span> std::string&amp; gtStcPrefix,</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keywordtype">int</span> hiddenSize,</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordtype">int</span> numLayers,</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keywordtype">int</span> trainEpochs,</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordtype">double</span> learningRate,</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="keywordtype">int</span> batchSize,</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keyword">const</span> std::filesystem::path&amp; finetuneOnnxPath,</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keyword">const</span> std::string&amp; pythonExe)</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>{</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keyword">namespace </span>fs = std::filesystem;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="keyword">using </span><a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">mne::utf8_from_path</a>;</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="comment">// Training package directory (pyproject.toml + script): &lt;app_dir&gt;/../scripts/ml/training/cmne/, with the source</span></div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="comment">// tree relative to the working directory as fallback</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    fs::path cmneDir = <a class="code hl_function" href="a03275.html#ad80b8c7faa91d474499dea5f7a451c8f">mne::executable_dir</a>().parent_path() / <span class="stringliteral">&quot;scripts&quot;</span> / <span class="stringliteral">&quot;ml&quot;</span> / <span class="stringliteral">&quot;training&quot;</span> / <span class="stringliteral">&quot;cmne&quot;</span>;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    std::error_code ec;</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordflow">if</span> (!fs::exists(cmneDir / <span class="stringliteral">&quot;pyproject.toml&quot;</span>, ec)) {</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        cmneDir = fs::path(<span class="stringliteral">&quot;scripts&quot;</span>) / <span class="stringliteral">&quot;ml&quot;</span> / <span class="stringliteral">&quot;training&quot;</span> / <span class="stringliteral">&quot;cmne&quot;</span>;</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    cmneDir = fs::absolute(cmneDir, ec).lexically_normal();</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keyword">const</span> fs::path scriptPath = cmneDir / <span class="stringliteral">&quot;train_cmne_lstm.py&quot;</span>;</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">if</span> (!fs::exists(scriptPath, ec)) {</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        <a class="code hl_struct" href="a06202.html">mne::PythonRunnerResult</a> result;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        result.<a class="code hl_variable" href="a06202.html#ac7138459caa26b38b9357cf2390360ed">std_err</a> = <span class="stringliteral">&quot;Training script not found: &quot;</span> + <a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(scriptPath);</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        <a class="code hl_function" href="a04574.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a>(<span class="stringliteral">&quot;[InvCMNE::train_lstm] {}&quot;</span>, result.<a class="code hl_variable" href="a06202.html#ac7138459caa26b38b9357cf2390360ed">std_err</a>);</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    }</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <a class="code hl_function" href="a04574.html#aaa003eb5f606a912a59341dc484380e9">mne::Log::debug</a>(<span class="stringliteral">&quot;[InvCMNE::train_lstm] Script: {}&quot;</span>, <a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(scriptPath));</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <a class="code hl_function" href="a04574.html#aaa003eb5f606a912a59341dc484380e9">mne::Log::debug</a>(<span class="stringliteral">&quot;[InvCMNE::train_lstm] Package dir: {}&quot;</span>, <a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(cmneDir));</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* method = <span class="stringliteral">&quot;dSPM&quot;</span>;</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keywordflow">switch</span> (settings.<a class="code hl_variable" href="a05610.html#a16d516284dbbf809f94e512f95e57a53">method</a>) {</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        <span class="keywordflow">case</span> 0:</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            method = <span class="stringliteral">&quot;MNE&quot;</span>;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keywordflow">case</span> 2:</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            method = <span class="stringliteral">&quot;sLORETA&quot;</span>;</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        <span class="keywordflow">case</span> 3:</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            method = <span class="stringliteral">&quot;eLORETA&quot;</span>;</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    }</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> snr = 1.0 / std::sqrt(settings.<a class="code hl_variable" href="a05610.html#a073b86f8c0b08934a004f41423ad0a0e">lambda2</a>);</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="comment">// Argument list of the train_cmne_lstm.py command line</span></div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <a class="code hl_typedef" href="a03275.html#a2607bd90112303fcf60abd414f1a4497">mne::StringList</a> args = {</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="stringliteral">&quot;--fwd&quot;</span>, <a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(fwdPath),</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <span class="stringliteral">&quot;--cov&quot;</span>, <a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(covPath),</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        <span class="stringliteral">&quot;--epochs&quot;</span>, <a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(epochsPath),</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <span class="stringliteral">&quot;--out&quot;</span>, <a class="code hl_function" href="a03275.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(outOnnxPath),</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="stringliteral">&quot;--look-back&quot;</span>, std::to_string(settings.<a class="code hl_variable" href="a05610.html#a2e040a023ed84f944343a0faf94339bc">lookBack</a>),</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>        <span class="stringliteral">&quot;--method&quot;</span>, method,</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>        <span class="stringliteral">&quot;--snr&quot;</span>, std::format(<span class="stringliteral">&quot;{:.6g}&quot;</span>, snr),</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>        <span class="stringliteral">&quot;--hidden&quot;</span>, std::to_string(hiddenSize),</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>        <span class="stringliteral">&quot;--layers&quot;</span>, std::to_string(numLayers),</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        <span class="stringliteral">&quot;--train-epochs&quot;</span>, std::to_string(trainEpochs),</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>        <span class="stringliteral">&quot;--lr&quot;</span>, std::format(<span class="stringliteral">&quot;{:.6g}&quot;</span>, learningRate),</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <span class="stringliteral">&quot;--batch&quot;</span>, std::to_string(batchSize)};</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <span class="keywordflow">if</span> (!gtStcPrefix.empty()) {</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        args.insert(args.end(), {<span class="stringliteral">&quot;--gt-stc&quot;</span>, gtStcPrefix});</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    }</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordflow">if</span> (!finetuneOnnxPath.empty()) {</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        args.insert(args.end(), {<span class="stringliteral">&quot;--finetune&quot;</span>, utf8_from_path(finetuneOnnxPath)});</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    }</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <span class="comment">// The venv lives inside the cmne package directory as .venv/</span></div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <a class="code hl_struct" href="a06206.html">mne::PythonRunnerConfig</a> config;</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    config.<a class="code hl_variable" href="a06206.html#a40c5e5396befeffa19389be363917dc8">python_exe</a> = pythonExe;</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    config.<a class="code hl_variable" href="a06206.html#a974077cde65c3ef16bb3ddccfe4fa432">venv_dir</a> = cmneDir / <span class="stringliteral">&quot;.venv&quot;</span>;</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    config.<a class="code hl_variable" href="a06206.html#acdae97207f5b83af2eaaf8563339b429">package_dir</a> = cmneDir;</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <a class="code hl_class" href="a05766.html">mne::MLTrainer</a> trainer(config);</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <span class="keywordflow">return</span> trainer.<a class="code hl_function" href="a05766.html#a92314fc6d54b68f80b4c6c76cf85d93e">run</a>(scriptPath, args);</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>}</div>
-</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span><span class="preprocessor">#endif </span><span class="comment">// !WASMBUILD</span></div>
-<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">ml_tensor.h</a></div><div class="ttdoc">N-dimensional, row-major, reference-counted float32 tensor used as the universal mne_ml data carrier.</div></div>
-<div class="ttc" id="aa00719_html"><div class="ttname"><a href="a00719.html">ml_onnx_model.h</a></div><div class="ttdoc">ONNX Runtime backed mne::MlModel implementation for loading and evaluating .onnx graphs.</div></div>
-<div class="ttc" id="aa00728_html"><div class="ttname"><a href="a00728.html">ml_trainer.h</a></div><div class="ttdoc">mne::MLTrainer convenience wrapper that drives Python training scripts via mne::PythonRunner.</div></div>
-<div class="ttc" id="aa01310_html"><div class="ttname"><a href="a01310.html">inv_cmne.h</a></div><div class="ttdoc">Contextual Minimum-Norm Estimate (CMNE) inverse solver — deep-learning-corrected dSPM (Dinh et al....</div></div>
-<div class="ttc" id="aa03200_html"><div class="ttname"><a href="a03200.html">log.h</a></div><div class="ttdoc">Logging: a std::format facade with a replaceable sink, the console and file writer,...</div></div>
-<div class="ttc" id="aa03239_html"><div class="ttname"><a href="a03239.html">json.h</a></div><div class="ttdoc">JSON values, arrays, objects and documents in standard C++, the counterpart of Qt&#39;s JSON classes.</div></div>
-<div class="ttc" id="aa03257_html"><div class="ttname"><a href="a03257.html">string_utils.h</a></div><div class="ttdoc">Text and path helpers in standard C++ for the QString calls the libraries use most.</div></div>
-<div class="ttc" id="aa03275_html"><div class="ttname"><a href="a03275.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00047">acq_backend.h:48</a></div></div>
-<div class="ttc" id="aa03275_html_a2607bd90112303fcf60abd414f1a4497"><div class="ttname"><a href="a03275.html#a2607bd90112303fcf60abd414f1a4497">mne::StringList</a></div><div class="ttdeci">std::vector&lt; std::string &gt; StringList</div><div class="ttdef"><b>Definition</b> <a href="a03257_source.html#l00046">string_utils.h:46</a></div></div>
-<div class="ttc" id="aa03275_html_a4690000d061f13bc9954f3eceb67af75"><div class="ttname"><a href="a03275.html#a4690000d061f13bc9954f3eceb67af75">mne::utf8_from_path</a></div><div class="ttdeci">BASESHARED_EXPORT std::string utf8_from_path(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> <a href="a03221_source.html#l00254">string_utils.cpp:254</a></div></div>
-<div class="ttc" id="aa03275_html_a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275"><div class="ttname"><a href="a03275.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">mne::Direction::out</a></div><div class="ttdeci">@ out</div><div class="ttdef"><b>Definition</b> <a href="a02756_source.html#l00094">network.h:94</a></div></div>
-<div class="ttc" id="aa03275_html_ad80b8c7faa91d474499dea5f7a451c8f"><div class="ttname"><a href="a03275.html#ad80b8c7faa91d474499dea5f7a451c8f">mne::executable_dir</a></div><div class="ttdeci">BASESHARED_EXPORT std::filesystem::path executable_dir()</div><div class="ttdef"><b>Definition</b> <a href="a03221_source.html#l00451">string_utils.cpp:451</a></div></div>
-<div class="ttc" id="aa04502_html"><div class="ttname"><a href="a04502.html">mne::JsonObject</a></div><div class="ttdoc">A set of JSON values keyed by unique strings, like QJsonObject.</div><div class="ttdef"><b>Definition</b> <a href="a03239_source.html#l00253">json.h:254</a></div></div>
-<div class="ttc" id="aa04502_html_a09cf7c505ea7c773b4064eec5446da7b"><div class="ttname"><a href="a04502.html#a09cf7c505ea7c773b4064eec5446da7b">mne::JsonObject::value</a></div><div class="ttdeci">const JsonValue &amp; value(std::string_view key) const noexcept</div><div class="ttdef"><b>Definition</b> <a href="a03239_source.html#l01102">json.h:1102</a></div></div>
-<div class="ttc" id="aa04506_html_a0c84fdfe3b66adc79df0f3f14b265f0e"><div class="ttname"><a href="a04506.html#a0c84fdfe3b66adc79df0f3f14b265f0e">mne::JsonValue::to_int</a></div><div class="ttdeci">BASESHARED_EXPORT int to_int(int defaultValue=0) const noexcept</div><div class="ttdef"><b>Definition</b> <a href="a03218_source.html#l00379">json.cpp:379</a></div></div>
-<div class="ttc" id="aa04506_html_a564b9a0434f61362d3ca02f5a8216981"><div class="ttname"><a href="a04506.html#a564b9a0434f61362d3ca02f5a8216981">mne::JsonValue::to_bool</a></div><div class="ttdeci">bool to_bool(bool defaultValue=false) const noexcept</div><div class="ttdef"><b>Definition</b> <a href="a03239_source.html#l00877">json.h:877</a></div></div>
-<div class="ttc" id="aa04518_html"><div class="ttname"><a href="a04518.html">mne::JsonDocument</a></div><div class="ttdoc">A JSON document whose root is an array or an object, parsed from or written as UTF-8 text,...</div><div class="ttdef"><b>Definition</b> <a href="a03239_source.html#l00636">json.h:637</a></div></div>
-<div class="ttc" id="aa04518_html_a5248bdf5a05a027a30049d1c9448a9b5"><div class="ttname"><a href="a04518.html#a5248bdf5a05a027a30049d1c9448a9b5">mne::JsonDocument::object</a></div><div class="ttdeci">const JsonObject &amp; object() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="a03239_source.html#l01205">json.h:1205</a></div></div>
-<div class="ttc" id="aa04518_html_abe04451c01e64262ce3735fec7862058"><div class="ttname"><a href="a04518.html#abe04451c01e64262ce3735fec7862058">mne::JsonDocument::from_json</a></div><div class="ttdeci">static JsonDocument from_json(std::string_view json, JsonParseError *error=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="a03218_source.html#l00668">json.cpp:668</a></div></div>
-<div class="ttc" id="aa04574_html_a1c6b65df8614bc1d2be2671ca0e3ff99"><div class="ttname"><a href="a04574.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a></div><div class="ttdeci">static void warning(std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a03200_source.html#l00122">log.h:122</a></div></div>
-<div class="ttc" id="aa04574_html_aaa003eb5f606a912a59341dc484380e9"><div class="ttname"><a href="a04574.html#aaa003eb5f606a912a59341dc484380e9">mne::Log::debug</a></div><div class="ttdeci">static void debug(std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a03200_source.html#l00094">log.h:94</a></div></div>
-<div class="ttc" id="aa04574_html_ad7aa001d6378856052a1ebe982484003"><div class="ttname"><a href="a04574.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a></div><div class="ttdeci">static void info(std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a03200_source.html#l00108">log.h:108</a></div></div>
-<div class="ttc" id="aa05578_html"><div class="ttname"><a href="a05578.html">mne::InvSourceEstimate</a></div><div class="ttdoc">Source-space inverse-solution container with dense grid plus optional focal-dipole,...</div><div class="ttdef"><b>Definition</b> <a href="a01124_source.html#l00081">inv_source_estimate.h:82</a></div></div>
-<div class="ttc" id="aa05602_html"><div class="ttname"><a href="a05602.html">mne::InvCMNEResult</a></div><div class="ttdoc">CMNE result.</div><div class="ttdef"><b>Definition</b> <a href="a01310_source.html#l00078">inv_cmne.h:79</a></div></div>
-<div class="ttc" id="aa05602_html_a2f6c62d935606f73bfb2726e7d1e167c"><div class="ttname"><a href="a05602.html#a2f6c62d935606f73bfb2726e7d1e167c">mne::InvCMNEResult::stcDspm</a></div><div class="ttdeci">InvSourceEstimate stcDspm</div><div class="ttdef"><b>Definition</b> <a href="a01310_source.html#l00080">inv_cmne.h:80</a></div></div>
-<div class="ttc" id="aa05602_html_a354451de8674766a2b23f447a2198b64"><div class="ttname"><a href="a05602.html#a354451de8674766a2b23f447a2198b64">mne::InvCMNEResult::stcCmne</a></div><div class="ttdeci">InvSourceEstimate stcCmne</div><div class="ttdef"><b>Definition</b> <a href="a01310_source.html#l00082">inv_cmne.h:82</a></div></div>
-<div class="ttc" id="aa05602_html_a6cbd77d18b5c1a39b5c67fb55b3b98ac"><div class="ttname"><a href="a05602.html#a6cbd77d18b5c1a39b5c67fb55b3b98ac">mne::InvCMNEResult::matKernelDspm</a></div><div class="ttdeci">Eigen::MatrixXd matKernelDspm</div><div class="ttdef"><b>Definition</b> <a href="a01310_source.html#l00084">inv_cmne.h:84</a></div></div>
-<div class="ttc" id="aa05602_html_a8bde294c086d1bfc3470447cd1137944"><div class="ttname"><a href="a05602.html#a8bde294c086d1bfc3470447cd1137944">mne::InvCMNEResult::stcSensing</a></div><div class="ttdeci">InvSourceEstimate stcSensing</div><div class="ttdef"><b>Definition</b> <a href="a01310_source.html#l00081">inv_cmne.h:81</a></div></div>
-<div class="ttc" id="aa05602_html_aa4811f4c8a329b5d26a6e091f9a43a67"><div class="ttname"><a href="a05602.html#aa4811f4c8a329b5d26a6e091f9a43a67">mne::InvCMNEResult::stcLstmPredict</a></div><div class="ttdeci">InvSourceEstimate stcLstmPredict</div><div class="ttdef"><b>Definition</b> <a href="a01310_source.html#l00083">inv_cmne.h:83</a></div></div>
-<div class="ttc" id="aa05606_html_a0ed884e7dbffc30913fcad2b96a3073b"><div class="ttname"><a href="a05606.html#a0ed884e7dbffc30913fcad2b96a3073b">mne::InvCMNE::compute</a></div><div class="ttdeci">static InvCMNEResult compute(const Eigen::MatrixXd &amp;matEvoked, const Eigen::MatrixXd &amp;matGain, const Eigen::MatrixXd &amp;matNoiseCov, const Eigen::MatrixXd &amp;matSrcCov, const InvCMNESettings &amp;settings)</div><div class="ttdef"><b>Definition</b> <a href="#l00062">inv_cmne.cpp:62</a></div></div>
-<div class="ttc" id="aa05606_html_a486ef03c6b1e3b20c6f5ea6d74b4f8fa"><div class="ttname"><a href="a05606.html#a486ef03c6b1e3b20c6f5ea6d74b4f8fa">mne::InvCMNE::applyCmne</a></div><div class="ttdeci">static bool applyCmne(const Eigen::MatrixXd &amp;matDspmData, const std::string &amp;onnxModelPath, Eigen::MatrixXd &amp;sensing, Eigen::MatrixXd &amp;prediction, Eigen::MatrixXd &amp;cmne)</div><div class="ttdef"><b>Definition</b> <a href="#l00190">inv_cmne.cpp:190</a></div></div>
-<div class="ttc" id="aa05606_html_a5483ab38ee2126d06a9fef6c36b5c099"><div class="ttname"><a href="a05606.html#a5483ab38ee2126d06a9fef6c36b5c099">mne::InvCMNE::train_lstm</a></div><div class="ttdeci">static mne::PythonRunnerResult train_lstm(const std::filesystem::path &amp;fwdPath, const std::filesystem::path &amp;covPath, const std::filesystem::path &amp;epochsPath, const std::filesystem::path &amp;outOnnxPath, const InvCMNESettings &amp;settings, const std::string &amp;gtStcPrefix={}, int hiddenSize=256, int numLayers=1, int trainEpochs=50, double learningRate=1e-3, int batchSize=64, const std::filesystem::path &amp;finetuneOnnxPath={}, const std::string &amp;pythonExe=&quot;python3&quot;)</div><div class="ttdef"><b>Definition</b> <a href="#l00238">inv_cmne.cpp:238</a></div></div>
-<div class="ttc" id="aa05606_html_a5e19fe6246413584b6e4955c9b48a7ec"><div class="ttname"><a href="a05606.html#a5e19fe6246413584b6e4955c9b48a7ec">mne::InvCMNE::zScoreRectify</a></div><div class="ttdeci">static Eigen::MatrixXd zScoreRectify(const Eigen::MatrixXd &amp;matStcData)</div><div class="ttdef"><b>Definition</b> <a href="#l00171">inv_cmne.cpp:171</a></div></div>
-<div class="ttc" id="aa05606_html_a78c6f48fee1cf88b9911b5d27bb3b4b7"><div class="ttname"><a href="a05606.html#a78c6f48fee1cf88b9911b5d27bb3b4b7">mne::InvCMNE::controlEstimate</a></div><div class="ttdeci">static Eigen::MatrixXd controlEstimate(const Eigen::MatrixXd &amp;matDspmData, int lookBack)</div><div class="ttdef"><b>Definition</b> <a href="#l00178">inv_cmne.cpp:178</a></div></div>
-<div class="ttc" id="aa05610_html"><div class="ttname"><a href="a05610.html">mne::InvCMNESettings</a></div><div class="ttdoc">CMNE settings.</div><div class="ttdef"><b>Definition</b> <a href="a01301_source.html#l00051">inv_cmne_settings.h:52</a></div></div>
-<div class="ttc" id="aa05610_html_a073b86f8c0b08934a004f41423ad0a0e"><div class="ttname"><a href="a05610.html#a073b86f8c0b08934a004f41423ad0a0e">mne::InvCMNESettings::lambda2</a></div><div class="ttdeci">double lambda2</div><div class="ttdef"><b>Definition</b> <a href="a01301_source.html#l00056">inv_cmne_settings.h:56</a></div></div>
-<div class="ttc" id="aa05610_html_a16d516284dbbf809f94e512f95e57a53"><div class="ttname"><a href="a05610.html#a16d516284dbbf809f94e512f95e57a53">mne::InvCMNESettings::method</a></div><div class="ttdeci">int method</div><div class="ttdef"><b>Definition</b> <a href="a01301_source.html#l00057">inv_cmne_settings.h:57</a></div></div>
-<div class="ttc" id="aa05610_html_a2e040a023ed84f944343a0faf94339bc"><div class="ttname"><a href="a05610.html#a2e040a023ed84f944343a0faf94339bc">mne::InvCMNESettings::lookBack</a></div><div class="ttdeci">int lookBack</div><div class="ttdef"><b>Definition</b> <a href="a01301_source.html#l00054">inv_cmne_settings.h:54</a></div></div>
-<div class="ttc" id="aa05610_html_a6e4f8dae0223ad09da2b0528d0e3bb25"><div class="ttname"><a href="a05610.html#a6e4f8dae0223ad09da2b0528d0e3bb25">mne::InvCMNESettings::onnxModelPath</a></div><div class="ttdeci">std::string onnxModelPath</div><div class="ttdef"><b>Definition</b> <a href="a01301_source.html#l00053">inv_cmne_settings.h:53</a></div></div>
-<div class="ttc" id="aa05758_html"><div class="ttname"><a href="a05758.html">mne::MlOnnxModel</a></div><div class="ttdoc">MlModel backend that runs .onnx graphs through ONNX Runtime with a cached CPU session.</div><div class="ttdef"><b>Definition</b> <a href="a00719_source.html#l00082">ml_onnx_model.h:83</a></div></div>
-<div class="ttc" id="aa05758_html_a8b294eb32b8c41998ea1837c1e1a31fd"><div class="ttname"><a href="a05758.html#a8b294eb32b8c41998ea1837c1e1a31fd">mne::MlOnnxModel::metadata</a></div><div class="ttdeci">std::string metadata(const std::string &amp;key) const</div><div class="ttdef"><b>Definition</b> <a href="a00725_source.html#l00228">ml_onnx_model.cpp:228</a></div></div>
-<div class="ttc" id="aa05758_html_abd72dedfbc0da4ddd54b20803d35d3ff"><div class="ttname"><a href="a05758.html#abd72dedfbc0da4ddd54b20803d35d3ff">mne::MlOnnxModel::predict</a></div><div class="ttdeci">MlTensor predict(const MlTensor &amp;input) const override</div><div class="ttdef"><b>Definition</b> <a href="a00725_source.html#l00086">ml_onnx_model.cpp:86</a></div></div>
-<div class="ttc" id="aa05758_html_adf416ed0844688b4032c6527e4820317"><div class="ttname"><a href="a05758.html#adf416ed0844688b4032c6527e4820317">mne::MlOnnxModel::load</a></div><div class="ttdeci">bool load(const std::string &amp;path) override</div><div class="ttdef"><b>Definition</b> <a href="a00725_source.html#l00146">ml_onnx_model.cpp:146</a></div></div>
-<div class="ttc" id="aa05762_html"><div class="ttname"><a href="a05762.html">mne::MlTensor</a></div><div class="ttdoc">N-dimensional row-major float32 tensor with shared-buffer storage, Eigen Map accessors and a non-owni...</div><div class="ttdef"><b>Definition</b> <a href="a00716_source.html#l00075">ml_tensor.h:76</a></div></div>
-<div class="ttc" id="aa05762_html_a4542f3712a12ef0eccd51547ebeb4a7b"><div class="ttname"><a href="a05762.html#a4542f3712a12ef0eccd51547ebeb4a7b">mne::MlTensor::view</a></div><div class="ttdeci">static MlTensor view(float *data, std::vector&lt; int64_t &gt; shape)</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00122">ml_tensor.cpp:122</a></div></div>
-<div class="ttc" id="aa05766_html"><div class="ttname"><a href="a05766.html">mne::MLTrainer</a></div><div class="ttdoc">Launches Python training scripts via mne::PythonRunner with automatic venv handling and prerequisite ...</div><div class="ttdef"><b>Definition</b> <a href="a00728_source.html#l00071">ml_trainer.h:72</a></div></div>
-<div class="ttc" id="aa05766_html_a92314fc6d54b68f80b4c6c76cf85d93e"><div class="ttname"><a href="a05766.html#a92314fc6d54b68f80b4c6c76cf85d93e">mne::MLTrainer::run</a></div><div class="ttdeci">mne::PythonRunnerResult run(const std::filesystem::path &amp;scriptPath, const mne::StringList &amp;args={})</div><div class="ttdef"><b>Definition</b> <a href="a00734_source.html#l00069">ml_trainer.cpp:69</a></div></div>
-<div class="ttc" id="aa06202_html"><div class="ttname"><a href="a06202.html">mne::PythonRunnerResult</a></div><div class="ttdoc">Outcome of a Python run.</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00067">python_runner.h:68</a></div></div>
-<div class="ttc" id="aa06202_html_ac7138459caa26b38b9357cf2390360ed"><div class="ttname"><a href="a06202.html#ac7138459caa26b38b9357cf2390360ed">mne::PythonRunnerResult::std_err</a></div><div class="ttdeci">std::string std_err</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00073">python_runner.h:73</a></div></div>
-<div class="ttc" id="aa06206_html"><div class="ttname"><a href="a06206.html">mne::PythonRunnerConfig</a></div><div class="ttdoc">How and where a PythonRunner starts the interpreter.</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00083">python_runner.h:84</a></div></div>
-<div class="ttc" id="aa06206_html_a40c5e5396befeffa19389be363917dc8"><div class="ttname"><a href="a06206.html#a40c5e5396befeffa19389be363917dc8">mne::PythonRunnerConfig::python_exe</a></div><div class="ttdeci">std::string python_exe</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00085">python_runner.h:85</a></div></div>
-<div class="ttc" id="aa06206_html_a974077cde65c3ef16bb3ddccfe4fa432"><div class="ttname"><a href="a06206.html#a974077cde65c3ef16bb3ddccfe4fa432">mne::PythonRunnerConfig::venv_dir</a></div><div class="ttdeci">std::filesystem::path venv_dir</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00090">python_runner.h:90</a></div></div>
-<div class="ttc" id="aa06206_html_acdae97207f5b83af2eaaf8563339b429"><div class="ttname"><a href="a06206.html#acdae97207f5b83af2eaaf8563339b429">mne::PythonRunnerConfig::package_dir</a></div><div class="ttdeci">std::filesystem::path package_dir</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00091">python_runner.h:91</a></div></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="comment">//=============================================================================================================</span></div>
+<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">string_utils.h</a></div><div class="ttdoc">Text and path helpers in standard C++ for the QString calls the libraries use most.</div></div>
+<div class="ttc" id="aa01298_html"><div class="ttname"><a href="a01298.html">inv_sensor_set.h</a></div><div class="ttdoc">Compact MEG sensor-geometry container (positions, orientations, integration weights) used by the HPI ...</div></div>
+<div class="ttc" id="aa02930_html"><div class="ttname"><a href="a02930.html">fwd_coil_set.h</a></div><div class="ttdoc">Container of FwdCoil instances representing either a sensor-type template database or a concrete per-...</div></div>
+<div class="ttc" id="aa03119_html"><div class="ttname"><a href="a03119.html">fiff_ch_info.h</a></div><div class="ttdoc">FIFF channel descriptor record (FIFF_CH_INFO): per-channel logical/scanner numbers,...</div></div>
+<div class="ttc" id="aa03278_html"><div class="ttname"><a href="a03278.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a01487_source.html#l00047">acq_backend.h:48</a></div></div>
+<div class="ttc" id="aa03278_html_a6c448cce3cc26fcec0a4f21ade985630"><div class="ttname"><a href="a03278.html#a6c448cce3cc26fcec0a4f21ade985630">mne::resource_path</a></div><div class="ttdeci">BASESHARED_EXPORT std::filesystem::path resource_path(std::string_view relative)</div><div class="ttdef"><b>Definition</b> <a href="a00938_source.html#l00485">string_utils.cpp:485</a></div></div>
+<div class="ttc" id="aa03278_html_ab309424562479fd599ad71c80bf188c6"><div class="ttname"><a href="a03278.html#ab309424562479fd599ad71c80bf188c6">mne::Accuracy</a></div><div class="ttdeci">Accuracy</div><div class="ttdef"><b>Definition</b> <a href="a01298_source.html#l00071">inv_sensor_set.h:72</a></div></div>
+<div class="ttc" id="aa05389_html_a5ff18fcaabef92de76d74f48274f712a"><div class="ttname"><a href="a05389.html#a5ff18fcaabef92de76d74f48274f712a">mne::FwdCoil::ez</a></div><div class="ttdeci">Eigen::Vector3f ez</div><div class="ttdef"><b>Definition</b> <a href="a02903_source.html#l00174">fwd_coil.h:174</a></div></div>
+<div class="ttc" id="aa05389_html_a6c6a1b9a34860baa82b7c0821c2c5a23"><div class="ttname"><a href="a05389.html#a6c6a1b9a34860baa82b7c0821c2c5a23">mne::FwdCoil::rmag</a></div><div class="ttdeci">Eigen::Matrix&lt; float, Eigen::Dynamic, 3, Eigen::RowMajor &gt; rmag</div><div class="ttdef"><b>Definition</b> <a href="a02903_source.html#l00176">fwd_coil.h:176</a></div></div>
+<div class="ttc" id="aa05389_html_a889d4f33c20cc92cddfeb00b3e3c59dd"><div class="ttname"><a href="a05389.html#a889d4f33c20cc92cddfeb00b3e3c59dd">mne::FwdCoil::w</a></div><div class="ttdeci">Eigen::VectorXf w</div><div class="ttdef"><b>Definition</b> <a href="a02903_source.html#l00178">fwd_coil.h:178</a></div></div>
+<div class="ttc" id="aa05389_html_a9833766ac55871f832bd1aefd691eea1"><div class="ttname"><a href="a05389.html#a9833766ac55871f832bd1aefd691eea1">mne::FwdCoil::r0</a></div><div class="ttdeci">Eigen::Vector3f r0</div><div class="ttdef"><b>Definition</b> <a href="a02903_source.html#l00171">fwd_coil.h:171</a></div></div>
+<div class="ttc" id="aa05389_html_adfc93ace5d53c9911c10168785843af2"><div class="ttname"><a href="a05389.html#adfc93ace5d53c9911c10168785843af2">mne::FwdCoil::cosmag</a></div><div class="ttdeci">Eigen::Matrix&lt; float, Eigen::Dynamic, 3, Eigen::RowMajor &gt; cosmag</div><div class="ttdef"><b>Definition</b> <a href="a02903_source.html#l00177">fwd_coil.h:177</a></div></div>
+<div class="ttc" id="aa05393_html_a8d85b6ec62b2e87fa815c293ff63f3bc"><div class="ttname"><a href="a05393.html#a8d85b6ec62b2e87fa815c293ff63f3bc">mne::FwdCoilSet::read_coil_defs</a></div><div class="ttdeci">static std::unique_ptr&lt; FwdCoilSet &gt; read_coil_defs(const std::filesystem::path &amp;name)</div><div class="ttdef"><b>Definition</b> <a href="a02864_source.html#l00218">fwd_coil_set.cpp:218</a></div></div>
+<div class="ttc" id="aa05549_html"><div class="ttname"><a href="a05549.html">mne::InvSensorSet</a></div><div class="ttdoc">Stores MEG sensor geometry (positions, orientations, weights, coil count) for a single sensor type.</div><div class="ttdef"><b>Definition</b> <a href="a01298_source.html#l00083">inv_sensor_set.h:84</a></div></div>
+<div class="ttc" id="aa05549_html_a49ab35a77ae5de96fc14a155c8601f7c"><div class="ttname"><a href="a05549.html#a49ab35a77ae5de96fc14a155c8601f7c">mne::InvSensorSet::InvSensorSet</a></div><div class="ttdeci">InvSensorSet()=default</div></div>
+<div class="ttc" id="aa05549_html_a5f4969a3906650ad7816425aaa2da866"><div class="ttname"><a href="a05549.html#a5f4969a3906650ad7816425aaa2da866">mne::InvSensorSet::ncoils</a></div><div class="ttdeci">int ncoils() const</div><div class="ttdef"><b>Definition</b> <a href="a01298_source.html#l00161">inv_sensor_set.h:161</a></div></div>
+<div class="ttc" id="aa05549_html_ae4649efa8c9f2002475e3026cfe7e40f"><div class="ttname"><a href="a05549.html#ae4649efa8c9f2002475e3026cfe7e40f">mne::InvSensorSet::np</a></div><div class="ttdeci">int np() const</div><div class="ttdef"><b>Definition</b> <a href="a01298_source.html#l00156">inv_sensor_set.h:156</a></div></div>
+<div class="ttc" id="aa05553_html_a3e66148de441f74ac24cf005c5029828"><div class="ttname"><a href="a05553.html#a3e66148de441f74ac24cf005c5029828">mne::InvSensorSetCreator::updateSensorSet</a></div><div class="ttdeci">InvSensorSet updateSensorSet(const std::vector&lt; mne::FiffChInfo &gt; &amp;channelList, const Accuracy &amp;accuracy)</div><div class="ttdef"><b>Definition</b> <a href="#l00126">inv_sensor_set.cpp:126</a></div></div>
+<div class="ttc" id="aa05553_html_a44cba93483fcaf8243d1d8e2664b3047"><div class="ttname"><a href="a05553.html#a44cba93483fcaf8243d1d8e2664b3047">mne::InvSensorSetCreator::InvSensorSetCreator</a></div><div class="ttdeci">InvSensorSetCreator()</div><div class="ttdef"><b>Definition</b> <a href="#l00119">inv_sensor_set.cpp:119</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

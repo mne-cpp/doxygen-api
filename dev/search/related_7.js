@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tcpserver_0',['TcpServer',['../a04730.html#a3ecf3132e8c4bf890c07853cfab7619c',1,'mne::TcpSocket::TcpServer()'],['../a07600.html#a3ecf3132e8c4bf890c07853cfab7619c',1,'TcpSocket::TcpServer()']]]
+  ['tcpserver_0',['TcpServer',['../a04733.html#a3ecf3132e8c4bf890c07853cfab7619c',1,'mne::TcpSocket::TcpServer()'],['../a07603.html#a3ecf3132e8c4bf890c07853cfab7619c',1,'TcpSocket::TcpServer()']]]
 ];

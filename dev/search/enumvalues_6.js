@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['gammamap_0',['GammaMAP',['../a03275.html#ade8f3f7441faae5bc61b2d7fc499975dab68bd15edce6ca712303f0482213bad7',1,'mne']]],
-  ['garbageatend_1',['GarbageAtEnd',['../a04442.html#a823f472537c744d5669474a47c40367ca858f768398db30d8d4582260f6c0f004',1,'mne::CborParseError::GarbageAtEnd'],['../a04494.html#a1fc193597f99172ff1a7909c0ec8846aa3250dbcd9a7550fbb88dc8bf4eca5580',1,'mne::JsonParseError::GarbageAtEnd']]],
+  ['gammamap_0',['GammaMAP',['../a03278.html#ade8f3f7441faae5bc61b2d7fc499975dab68bd15edce6ca712303f0482213bad7',1,'mne']]],
+  ['garbageatend_1',['GarbageAtEnd',['../a04445.html#a823f472537c744d5669474a47c40367ca858f768398db30d8d4582260f6c0f004',1,'mne::CborParseError::GarbageAtEnd'],['../a04497.html#a1fc193597f99172ff1a7909c0ec8846aa3250dbcd9a7550fbb88dc8bf4eca5580',1,'mne::JsonParseError::GarbageAtEnd']]],
   ['getaveragedata_2',['GetAverageData',['../a03466.html#af7da6cea254dcdc67dbb68bf94d0cec7a41473704a01c5a6421fe7e8a649fb3f9',1,'mne::viz::qt::EvokedSetModelRoles']]],
   ['getchactivefilter_3',['GetChActiveFilter',['../a03462.html#abbfc6b21f364a2bcda4e6cd37c5f1e79ac8134d7abf80762c523e183c39582af9',1,'mne::viz::qt::ChannelInfoModelRoles']]],
   ['getchalias_4',['GetChAlias',['../a03462.html#abbfc6b21f364a2bcda4e6cd37c5f1e79ad91a4a3ad9da5a3bad98f987a02ad3fd',1,'mne::viz::qt::ChannelInfoModelRoles']]],
@@ -15,15 +15,15 @@ var searchData=
   ['getmappedlayoutchname_12',['GetMappedLayoutChName',['../a03462.html#abbfc6b21f364a2bcda4e6cd37c5f1e79adb805175c42c0f4ed054b65e41651845',1,'mne::viz::qt::ChannelInfoModelRoles']]],
   ['getmegtype_13',['GetMEGType',['../a03462.html#abbfc6b21f364a2bcda4e6cd37c5f1e79a1ddf732c96af2ae9ee585c0daf362c48',1,'mne::viz::qt::ChannelInfoModelRoles']]],
   ['getorigchname_14',['GetOrigChName',['../a03462.html#abbfc6b21f364a2bcda4e6cd37c5f1e79a1bd158b7864e624aca7fa9098cd1f25e',1,'mne::viz::qt::ChannelInfoModelRoles']]],
-  ['goodness_15',['Goodness',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a4a09c27a03b8df96510846cd37468079',1,'mne']]],
-  ['grid_16',['Grid',['../a03275.html#a5d1d80ab36e2f502b441d116036b79c3a5174d1309f275ba6f275db3af9eb3e18',1,'mne']]],
-  ['gridbegin_17',['GridBegin',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a40a6c4d8675af1ed396f8b02651b3c03',1,'mne']]],
-  ['gridend_18',['GridEnd',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245ae438bba13a7a24fd4ada1b5b0a1827d1',1,'mne']]],
-  ['gridindex_19',['GridIndex',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245abaef9a52c38b55bd23b69671ecc57744',1,'mne']]],
-  ['gridrow_20',['GridRow',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245aea0170451f8dc65736d6911587777949',1,'mne']]],
-  ['groupbegin_21',['GroupBegin',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a9f6de6b0c88f7e7e76f3c38b1ffde36e',1,'mne']]],
-  ['groupend_22',['GroupEnd',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245ad55e3afc2222bfd63fa7ee6b484c21c8',1,'mne']]],
-  ['gsr_23',['Gsr',['../a03275.html#a496b6599f73118baeac4515fc1b5883caa9997822ce98a9d16120c839fbdbcbb3',1,'mne']]],
-  ['gyroscope_24',['Gyroscope',['../a03275.html#a496b6599f73118baeac4515fc1b5883cabed99e5db57749f375e738c1c0258047',1,'mne::Gyroscope'],['../a03276.html#a2cd19ec92361159b182b6f31b690aaadabed99e5db57749f375e738c1c0258047',1,'mne::detail::Gyroscope']]],
-  ['gzip_25',['Gzip',['../a03275.html#af76048ca5b9e03df48fa1015e66062e3a2548e50da66f41afea53de1cbbf3b30c',1,'mne']]]
+  ['goodness_15',['Goodness',['../a03278.html#a079a81b0acac0fc8d8bd9f9302467245a4a09c27a03b8df96510846cd37468079',1,'mne']]],
+  ['grid_16',['Grid',['../a03278.html#a5d1d80ab36e2f502b441d116036b79c3a5174d1309f275ba6f275db3af9eb3e18',1,'mne']]],
+  ['gridbegin_17',['GridBegin',['../a03278.html#a079a81b0acac0fc8d8bd9f9302467245a40a6c4d8675af1ed396f8b02651b3c03',1,'mne']]],
+  ['gridend_18',['GridEnd',['../a03278.html#a079a81b0acac0fc8d8bd9f9302467245ae438bba13a7a24fd4ada1b5b0a1827d1',1,'mne']]],
+  ['gridindex_19',['GridIndex',['../a03278.html#a079a81b0acac0fc8d8bd9f9302467245abaef9a52c38b55bd23b69671ecc57744',1,'mne']]],
+  ['gridrow_20',['GridRow',['../a03278.html#a079a81b0acac0fc8d8bd9f9302467245aea0170451f8dc65736d6911587777949',1,'mne']]],
+  ['groupbegin_21',['GroupBegin',['../a03278.html#a079a81b0acac0fc8d8bd9f9302467245a9f6de6b0c88f7e7e76f3c38b1ffde36e',1,'mne']]],
+  ['groupend_22',['GroupEnd',['../a03278.html#a079a81b0acac0fc8d8bd9f9302467245ad55e3afc2222bfd63fa7ee6b484c21c8',1,'mne']]],
+  ['gsr_23',['Gsr',['../a03278.html#a496b6599f73118baeac4515fc1b5883caa9997822ce98a9d16120c839fbdbcbb3',1,'mne']]],
+  ['gyroscope_24',['Gyroscope',['../a03278.html#a496b6599f73118baeac4515fc1b5883cabed99e5db57749f375e738c1c0258047',1,'mne::Gyroscope'],['../a03279.html#a2cd19ec92361159b182b6f31b690aaadabed99e5db57749f375e738c1c0258047',1,'mne::detail::Gyroscope']]],
+  ['gzip_25',['Gzip',['../a03278.html#af76048ca5b9e03df48fa1015e66062e3a2548e50da66f41afea53de1cbbf3b30c',1,'mne']]]
 ];
