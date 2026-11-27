@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/viz/backends/qt/3d/core/rendertypes.h File Reference</title>
+    <title>MNE-CPP: src/libs/mne/viz/backends/qt/3d/view/brainviewcore.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -250,188 +250,79 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_7f26cea5f09c0c445243a1d522f12b80.html">viz</a></li><li class="navelem"><a href="dir_e249ecb558b9c6ff32a0705db51bc8c4.html">backends</a></li><li class="navelem"><a href="dir_26819d725eeb66762fb25fcfa305e480.html">qt</a></li><li class="navelem"><a href="dir_e2909a6d23856f39f3caf6b008d0347c.html">3d</a></li><li class="navelem"><a href="dir_fc7b9feb947ff082d56817fd8fabd3a2.html">core</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_7f26cea5f09c0c445243a1d522f12b80.html">viz</a></li><li class="navelem"><a href="dir_e249ecb558b9c6ff32a0705db51bc8c4.html">backends</a></li><li class="navelem"><a href="dir_26819d725eeb66762fb25fcfa305e480.html">qt</a></li><li class="navelem"><a href="dir_e2909a6d23856f39f3caf6b008d0347c.html">3d</a></li><li class="navelem"><a href="dir_7ad307f6a04047bda024a7e8b7d243e6.html">view</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">rendertypes.h File Reference</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">brainviewcore.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Lightweight render-related enums (ShaderMode, VisualizationMode) shared across mne_viz_qt.  
+<p>BrainViewCore definition: scene-model wiring, camera interaction, picking, 2-D overlay and frame recording.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a02030_source.html">../../viz_qt_global.h</a>&quot;</code><br />
-<code>#include &lt;QtGlobal&gt;</code><br />
-<code>#include &lt;cstddef&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a02117_source.html">brainviewcore.h</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="a03200_source.html">mne/base/log.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03257_source.html">mne/base/string_utils.h</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="a02120_source.html">brainrenderer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02249_source.html">../renderable/brainsurface.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02267_source.html">../renderable/dipoleobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02264_source.html">../renderable/electrodeobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02288_source.html">../renderable/networkobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02291_source.html">../renderable/polylineobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02261_source.html">../renderable/videooverlay.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02252_source.html">../renderable/sliceobject.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02150_source.html">../core/surfacekeys.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02153_source.html">../core/dataloader.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02045_source.html">../input/raypicker.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02156_source.html">../core/qteigen_p.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02168_source.html">../geometry/meshfactory.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02111_source.html">../model/braintreemodel.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02087_source.html">../model/items/surfacetreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02090_source.html">../model/items/bemtreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02063_source.html">../model/items/sensortreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02066_source.html">../model/items/dipoletreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02057_source.html">../model/items/sourcespacetreeitem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02084_source.html">../model/items/digitizertreeitem.h</a>&quot;</code><br />
+<code>#include &lt;rhi/qrhi.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02567_source.html">mne/mne/mne_bem.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02423_source.html">mne/mne/mne_source_spaces.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00629_source.html">mne/fiff/fiff_evoked_set.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00623_source.html">mne/fiff/fiff_constants.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02756_source.html">mne/connectivity/network/network.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01997_source.html">mne/viz/backends/qt/plots/helpers/sceneinput.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02009_source.html">mne/viz/backends/qt/plots/helpers/scenepainter.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01517_source.html">mne/viz/views/ray_picking.h</a>&gt;</code><br />
+<code>#include &lt;QKeyEvent&gt;</code><br />
+<code>#include &lt;QMatrix4x4&gt;</code><br />
+<code>#include &lt;QSettings&gt;</code><br />
+<code>#include &lt;QTimer&gt;</code><br />
+<code>#include &lt;QStandardItem&gt;</code><br />
+<code>#include &lt;QCoreApplication&gt;</code><br />
+<code>#include &lt;QFont&gt;</code><br />
+<code>#include &lt;QFontDatabase&gt;</code><br />
+<code>#include &lt;QtMath&gt;</code><br />
+<code>#include &lt;QGuiApplication&gt;</code><br />
+<code>#include &lt;QPainter&gt;</code><br />
+<code>#include &lt;QPalette&gt;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;chrono&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;span&gt;</code><br />
+<code>#include &lt;ctime&gt;</code><br />
+<code>#include &lt;filesystem&gt;</code><br />
+<code>#include &lt;format&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for rendertypes.h:</div>
-<div class="dyncontent">
-<div class="center"><img src="a02136.png" border="0" usemap="#asrc_2libs_2mne_2viz_2backends_2qt_23d_2core_2rendertypes_8h" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2viz_2backends_2qt_23d_2core_2rendertypes_8h" id="asrc_2libs_2mne_2viz_2backends_2qt_23d_2core_2rendertypes_8h">
-<area shape="rect" title="Lightweight render&#45;related enums (ShaderMode, VisualizationMode) shared across mne_viz_qt." alt="" coords="682,5,871,45"/>
-<area shape="rect" href="a02030.html" title="Export macro of mne_viz_qt — the Qt backend of mne_viz: QRhi rendering, windows, widgets and item mod..." alt="" coords="435,93,579,119"/>
-<area shape="poly" title=" " alt="" coords="713,48,560,92,559,87,711,43"/>
-<area shape="rect" title=" " alt="" coords="5,240,76,265"/>
-<area shape="poly" title=" " alt="" coords="682,42,558,63,424,96,324,130,226,169,77,236,75,231,224,164,322,125,423,91,557,58,681,37"/>
-<area shape="rect" title=" " alt="" coords="746,240,799,265"/>
-<area shape="poly" title=" " alt="" coords="772,46,761,94,756,143,761,192,768,226,763,227,755,192,751,143,755,93,767,45"/>
-<area shape="rect" title=" " alt="" coords="824,240,887,265"/>
-<area shape="poly" title=" " alt="" coords="784,45,805,118,847,226,842,228,799,120,779,46"/>
-<area shape="rect" title=" " alt="" coords="815,93,893,119"/>
-<area shape="poly" title=" " alt="" coords="797,44,835,82,831,85,793,47"/>
-<area shape="rect" title=" " alt="" coords="918,93,985,119"/>
-<area shape="poly" title=" " alt="" coords="820,43,914,85,912,90,817,48"/>
-<area shape="rect" title=" " alt="" coords="1009,93,1086,119"/>
-<area shape="poly" title=" " alt="" coords="842,43,996,87,995,92,841,48"/>
-<area shape="rect" href="a03257.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="420,167,595,192"/>
-<area shape="poly" title=" " alt="" coords="510,119,510,153,505,153,505,119"/>
-<area shape="rect" title=" " alt="" coords="265,167,395,192"/>
-<area shape="poly" title=" " alt="" coords="480,121,372,164,370,159,478,116"/>
-<area shape="rect" href="a03224.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="405,240,517,265"/>
-<area shape="poly" title=" " alt="" coords="502,194,478,230,474,227,497,191"/>
-<area shape="rect" title=" " alt="" coords="541,240,607,265"/>
-<area shape="poly" title=" " alt="" coords="520,191,556,228,552,232,516,194"/>
-<area shape="poly" title=" " alt="" coords="420,193,270,213,90,243,89,237,269,208,420,188"/>
-<area shape="rect" title=" " alt="" coords="631,240,722,265"/>
-<area shape="poly" title=" " alt="" coords="536,190,637,232,635,237,534,194"/>
-<area shape="rect" title=" " alt="" coords="101,240,175,265"/>
-<area shape="poly" title=" " alt="" coords="442,195,190,242,189,237,441,189"/>
-<area shape="poly" title=" " alt="" coords="553,190,733,237,732,242,552,195"/>
-<area shape="rect" title=" " alt="" coords="199,240,258,265"/>
-<area shape="poly" title=" " alt="" coords="461,195,272,242,271,237,460,189"/>
-<area shape="rect" title=" " alt="" coords="283,240,380,265"/>
-<area shape="poly" title=" " alt="" coords="480,194,374,237,372,232,478,190"/>
-<area shape="poly" title=" " alt="" coords="572,189,811,237,810,243,571,195"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a02137.png" border="0" usemap="#asrc_2libs_2mne_2viz_2backends_2qt_23d_2core_2rendertypes_8hdep" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2viz_2backends_2qt_23d_2core_2rendertypes_8hdep" id="asrc_2libs_2mne_2viz_2backends_2qt_23d_2core_2rendertypes_8hdep">
-<area shape="rect" title="Lightweight render&#45;related enums (ShaderMode, VisualizationMode) shared across mne_viz_qt." alt="" coords="3409,5,3599,45"/>
-<area shape="rect" href="a02147.html" title="Per&#45;viewport state (camera preset, zoom, pan, visibility filter) and serialisation helpers." alt="" coords="876,93,1065,133"/>
-<area shape="poly" title=" " alt="" coords="3396,33,1066,111,1065,106,3395,28"/>
-<area shape="rect" href="a02129.html" title="Top&#45;level QRhiWidget that hosts the 3&#45;D scene, drives camera interaction and exposes the multi&#45;view +..." alt="" coords="5,357,195,397"/>
-<area shape="poly" title=" " alt="" coords="3396,30,2863,35,2086,47,1293,67,962,80,711,96,618,99,536,96,394,86,329,88,264,103,196,133,123,183,107,201,96,222,90,246,87,270,90,318,97,357,92,358,85,319,82,270,85,245,91,220,103,198,120,179,193,128,262,98,328,83,394,80,536,90,618,94,711,91,961,75,1293,61,2086,42,2863,30,3395,25"/>
-<area shape="rect" href="a02105.html" title="Widgets&#45;free core of the 3&#45;D brain view: scene wiring, camera, multi&#45;view, picking,..." alt="" coords="399,269,601,309"/>
-<area shape="poly" title=" " alt="" coords="3396,30,2839,35,2050,46,1300,66,1026,80,929,87,864,96,794,111,740,126,688,149,625,184,565,228,520,271,516,267,562,224,623,179,686,144,738,121,793,105,864,91,928,82,1026,74,1300,61,2050,41,2839,30,3396,25"/>
-<area shape="rect" href="a02246.html" title="Dense MEG / EEG field&#45;map matrix construction plus iso&#45;contour line&#45;strip generation on the target su..." alt="" coords="1415,269,1667,309"/>
-<area shape="poly" title=" " alt="" coords="3396,44,2999,96,1680,272,1668,274,1667,268,1680,267,2998,91,3395,38"/>
-<area shape="rect" href="a02249.html" title="Renderable cortical / BEM mesh: CPU geometry, colour and annotation streams for the renderer." alt="" coords="2542,181,2773,221"/>
-<area shape="poly" title=" " alt="" coords="3400,51,2750,184,2748,179,3399,45"/>
-<area shape="rect" href="a02285.html" title="STC file loading, per&#45;vertex activation interpolation and colormap packing onto the target cortical m..." alt="" coords="3297,269,3609,309"/>
-<area shape="poly" title=" " alt="" coords="3500,59,3460,270,3454,269,3495,58"/>
-<area shape="rect" href="a02267.html" title="Instanced&#45;arrow renderable for fitted equivalent current dipoles." alt="" coords="3745,181,3975,221"/>
-<area shape="poly" title=" " alt="" coords="3508,58,3516,97,3525,116,3538,131,3571,150,3623,165,3746,186,3745,191,3621,170,3569,155,3534,135,3521,119,3511,99,3503,59"/>
-<area shape="rect" href="a02264.html" title="Renderable view of an sEEG / ECoG implantation: contact spheres and lead bodies." alt="" coords="4072,181,4323,221"/>
-<area shape="poly" title=" " alt="" coords="3521,56,3549,97,3567,116,3588,131,3647,142,3773,157,4072,186,4072,191,3772,162,3647,147,3586,136,3563,120,3544,100,3517,59"/>
-<area shape="rect" href="a02288.html" title="Instanced connectivity&#45;graph renderable: node spheres and edge cylinders coloured by weight through a..." alt="" coords="4669,181,4910,221"/>
-<area shape="poly" title=" " alt="" coords="3556,49,3631,91,3659,114,3671,123,3689,131,3777,151,3888,164,4016,171,4152,173,4417,173,4531,174,4623,179,4669,183,4668,188,4622,184,4531,180,4417,179,4151,179,4016,176,3888,169,3776,156,3687,136,3669,127,3656,118,3628,96,3553,54"/>
-<area shape="rect" href="a02291.html" title="PolylineObject class declaration." alt="" coords="4983,181,5225,221"/>
-<area shape="poly" title=" " alt="" coords="3578,47,3628,67,3679,91,3695,102,3706,113,3718,123,3734,131,3815,145,3954,155,4326,167,4699,173,4923,179,4983,184,4983,189,4923,184,4699,179,4325,173,3953,160,3815,150,3733,136,3715,127,3703,117,3692,106,3676,96,3626,72,3576,52"/>
-<area shape="rect" href="a02108.html" title="Qt&#45;RHI scene renderer: shader pipelines, lighting, dual render targets and per&#45;frame draw orchestrati..." alt="" coords="4413,181,4611,221"/>
-<area shape="poly" title=" " alt="" coords="3538,52,3598,101,3638,131,3703,148,3786,160,3881,167,3982,171,4181,173,4335,179,4413,186,4413,192,4334,184,4181,179,3982,176,3881,172,3785,165,3702,154,3636,136,3594,106,3535,56"/>
-<area shape="rect" href="a02207.html" title="Per&#45;tick dense sensor&#45;to&#45;vertex mat&#45;vec, symmetric normalisation and ABGR colour packing." alt="" coords="3745,93,4015,133"/>
-<area shape="poly" title=" " alt="" coords="3600,46,3798,91,3797,96,3599,51"/>
-<area shape="rect" href="a02183.html" title="Per&#45;tick sparse source&#45;to&#45;vertex mat&#45;vec, colormap mapping and ABGR colour packing per hemisphere." alt="" coords="4039,93,4310,133"/>
-<area shape="poly" title=" " alt="" coords="3612,38,4040,92,4039,97,3612,43"/>
-<area shape="rect" href="a02153.html" title="Implementation of per&#45;viewport SubView / ViewVisibilityProfile state and QSettings round&#45;trip." alt="" coords="3633,269,3823,309"/>
-<area shape="poly" title=" " alt="" coords="1079,113,1374,119,1796,130,2286,150,2786,179,3205,213,3622,267,3634,268,3633,274,3621,272,3204,218,2785,184,2286,155,1795,136,1374,124,1079,119"/>
-<area shape="rect" href="a02036.html" title="Camera state and projection / view / model matrix computation for single&#45; and multi&#45;view layouts." alt="" coords="193,181,415,221"/>
-<area shape="poly" title=" " alt="" coords="863,131,416,188,415,183,862,126"/>
-<area shape="poly" title=" " alt="" coords="862,117,693,119,494,129,398,137,310,149,236,164,181,184,152,200,132,218,117,240,104,270,98,293,96,316,99,357,94,357,91,316,93,292,99,268,113,237,128,214,149,196,179,179,234,159,309,144,397,132,494,123,692,114,862,111"/>
-<area shape="poly" title=" " alt="" coords="872,139,798,159,722,184,619,229,535,272,532,267,617,224,720,179,796,154,871,134"/>
-<area shape="rect" href="a02033.html" title="Mouse&#45;ray vs scene&#45;object intersection for picking dipoles, electrodes and surfaces." alt="" coords="995,181,1184,221"/>
-<area shape="poly" title=" " alt="" coords="1010,139,1065,179,1062,183,1007,144"/>
-<area shape="rect" href="a02234.html" title="Builds the dense sensor&#45;to&#45;surface mapping matrix and the iso&#45;contour overlay for MEG / EEG evoked da..." alt="" coords="733,181,971,221"/>
-<area shape="poly" title=" " alt="" coords="935,144,880,183,877,179,932,139"/>
-<area shape="rect" href="a02225.html" title="Ownership glue between StcLoadingWorker, SourceEstimateOverlay and RtSourceDataController for static ..." alt="" coords="1692,269,1983,309"/>
-<area shape="poly" title=" " alt="" coords="1078,133,1744,267,1743,272,1077,139"/>
-<area shape="rect" href="a02042.html" title="CameraController definition: converts the matrices and drags of viz::OrbitCamera to Qt types." alt="" coords="137,269,375,309"/>
-<area shape="poly" title=" " alt="" coords="289,235,269,270,264,268,284,232"/>
-<area shape="poly" title=" " alt="" coords="192,229,157,246,127,271,115,291,107,314,102,357,97,357,102,313,110,289,123,268,154,242,189,224"/>
-<area shape="poly" title=" " alt="" coords="360,224,458,267,456,272,358,229"/>
-<area shape="rect" href="a02126.html" title="BrainView definition: the QRhiWidget host that forwards events, frames and its API to BrainViewCore." alt="" coords="5,445,195,485"/>
-<area shape="poly" title=" " alt="" coords="103,411,103,445,97,445,97,411"/>
-<area shape="poly" title=" " alt="" coords="400,315,188,360,187,355,398,310"/>
-<area shape="rect" href="a02123.html" title="BrainViewCore definition: scene&#45;model wiring, camera interaction, picking, 2&#45;D overlay and frame reco..." alt="" coords="3911,357,4129,397"/>
-<area shape="poly" title=" " alt="" coords="615,302,664,307,971,322,1376,335,2344,354,3284,367,3911,373,3911,378,3284,372,2344,360,1376,340,970,327,664,312,615,308"/>
-<area shape="rect" href="a02114.html" title="QWindow host of the 3&#45;D brain view that owns its QRhi and swap chain and needs no Qt Widgets." alt="" coords="404,357,596,397"/>
-<area shape="poly" title=" " alt="" coords="503,323,503,357,497,357,497,323"/>
-<area shape="rect" href="a02117.html" title="BrainWindow definition: QRhi and swap&#45;chain management, expose&#45;driven rendering and input forwarding." alt="" coords="397,445,603,485"/>
-<area shape="poly" title=" " alt="" coords="503,411,503,445,497,445,497,411"/>
-<area shape="poly" title=" " alt="" coords="1082,235,1078,274,1083,292,1092,307,1125,316,1205,324,1479,338,1867,349,2323,358,3256,369,3911,373,3911,378,3256,374,2323,363,1867,355,1479,344,1205,329,1124,321,1089,311,1078,294,1073,274,1077,234"/>
-<area shape="rect" href="a02039.html" title="Mouse&#45;ray unprojection plus Moller&#45;Trumbore triangle and sphere / cylinder intersection over all sele..." alt="" coords="3084,269,3273,309"/>
-<area shape="poly" title=" " alt="" coords="1198,202,2132,222,2675,241,2901,253,3072,267,3084,268,3084,273,3072,272,2900,258,2674,247,2132,227,1198,207"/>
-<area shape="poly" title=" " alt="" coords="770,228,717,247,665,272,651,282,641,292,630,302,614,312,580,323,535,333,425,350,195,372,195,367,424,345,534,328,579,318,612,307,627,298,637,288,647,278,663,267,715,242,768,223"/>
-<area shape="poly" title=" " alt="" coords="762,227,578,272,576,267,761,222"/>
-<area shape="rect" href="a02222.html" title="Wiring between the real&#45;time sensor data controller, the field mapper and the bound surface colour bu..." alt="" coords="1103,269,1391,309"/>
-<area shape="poly" title=" " alt="" coords="953,222,1161,267,1160,272,951,227"/>
-<area shape="poly" title=" " alt="" coords="985,219,1403,267,1415,268,1415,274,1402,272,984,224"/>
-<area shape="rect" href="a02171.html" title="Off&#45;thread dense MEG / EEG field&#45;mapping matrix recomputation triggered by configuration changes." alt="" coords="677,269,1027,309"/>
-<area shape="poly" title=" " alt="" coords="855,235,855,269,849,269,849,235"/>
-<area shape="poly" title=" " alt="" coords="2786,205,3162,225,3392,243,3622,267,3634,268,3633,274,3621,272,3391,248,3161,230,2786,210"/>
-<area shape="poly" title=" " alt="" coords="2529,210,2386,218,2235,231,2111,249,2069,259,2047,271,2041,280,2039,290,2041,298,2047,307,2073,319,2128,329,2308,346,2558,358,2851,366,3458,373,3911,374,3911,379,3458,379,2851,371,2558,363,2307,351,2127,334,2072,324,2044,311,2036,301,2034,289,2036,278,2044,267,2067,254,2110,243,2235,226,2385,213,2528,205"/>
-<area shape="poly" title=" " alt="" coords="2787,220,3072,267,3084,269,3083,274,3072,272,2786,226"/>
-<area shape="poly" title=" " alt="" coords="2528,209,2034,230,1720,248,1403,272,1391,273,1390,268,1402,267,1719,243,2034,225,2528,204"/>
-<area shape="poly" title=" " alt="" coords="2528,211,2148,234,1914,251,1680,272,1668,273,1667,268,1680,267,1914,246,2147,228,2528,206"/>
-<area shape="poly" title=" " alt="" coords="2529,218,2002,272,1983,274,1983,269,2001,267,2528,213"/>
-<area shape="rect" href="a02150.html" title="Loader implementations for FreeSurfer / MNE source&#45;space, BEM and FIFF inputs feeding the mne_viz_qt ..." alt="" coords="2058,269,2249,309"/>
-<area shape="poly" title=" " alt="" coords="2533,226,2262,272,2249,274,2248,269,2261,267,2532,221"/>
-<area shape="rect" href="a02159.html" title="Procedural construction of icosahedron spheres, oriented plates, barbells, cylinders and batched poin..." alt="" coords="2273,269,2511,309"/>
-<area shape="poly" title=" " alt="" coords="2587,228,2451,272,2449,267,2585,223"/>
-<area shape="rect" href="a02270.html" title="CPU mesh build, per&#45;vertex colour packing and QRhi vertex / index buffer management for cortical and ..." alt="" coords="2535,269,2780,309"/>
-<area shape="poly" title=" " alt="" coords="2660,235,2660,269,2655,269,2655,235"/>
-<area shape="poly" title=" " alt="" coords="2787,214,3286,267,3298,268,3297,273,3285,272,2786,219"/>
-<area shape="rect" href="a02132.html" title="Shader pipeline creation, dual&#45;render&#45;target setup and per&#45;frame QRhi draw orchestration for the mne_..." alt="" coords="4507,269,4719,309"/>
-<area shape="poly" title=" " alt="" coords="2787,203,3652,225,4140,244,4342,255,4496,267,4508,268,4507,273,4496,272,4342,260,4139,249,3652,231,2787,208"/>
-<area shape="rect" href="a02165.html" title="Background STC file parse plus per&#45;hemisphere sparse interpolation matrix construction." alt="" coords="2805,269,3059,309"/>
-<area shape="poly" title=" " alt="" coords="2732,223,2873,267,2871,272,2730,228"/>
-<area shape="poly" title=" " alt="" coords="3864,235,3871,272,3878,291,3889,308,3920,335,3958,355,3955,360,3917,340,3885,311,3874,293,3866,274,3859,236"/>
-<area shape="poly" title=" " alt="" coords="3732,218,3522,241,3286,272,3274,274,3273,268,3285,267,3522,236,3731,213"/>
-<area shape="poly" title=" " alt="" coords="3989,213,4496,267,4508,268,4507,273,4496,272,3988,218"/>
-<area shape="rect" href="a02282.html" title="Instanced&#45;arrow geometry and per&#45;dipole instance buffer construction with goodness&#45;of&#45;fit colour mapp..." alt="" coords="3898,269,4142,309"/>
-<area shape="poly" title=" " alt="" coords="3908,225,3986,267,3984,272,3906,230"/>
-<area shape="poly" title=" " alt="" coords="4193,236,4180,274,4157,311,4121,340,4081,360,4079,355,4118,335,4153,308,4175,272,4188,234"/>
-<area shape="poly" title=" " alt="" coords="4302,222,4523,267,4522,272,4301,227"/>
-<area shape="rect" href="a02273.html" title="Cylinder&#45;shaft and contact&#45;sphere geometry generation plus contact&#45;value colour mapping for sEEG / EC..." alt="" coords="4218,269,4483,309"/>
-<area shape="poly" title=" " alt="" coords="4244,226,4318,267,4316,272,4242,230"/>
-<area shape="poly" title=" " alt="" coords="4791,236,4782,276,4772,295,4758,312,4724,325,4665,337,4497,356,4302,368,4129,375,4129,370,4302,363,4497,350,4665,332,4723,320,4754,307,4768,292,4777,274,4786,235"/>
-<area shape="poly" title=" " alt="" coords="4740,230,4653,272,4651,267,4737,225"/>
-<area shape="rect" href="a02279.html" title="Node&#45;sphere and edge&#45;cylinder instanced geometry construction with colormap&#45;driven weight encoding." alt="" coords="4844,269,5100,309"/>
-<area shape="poly" title=" " alt="" coords="4843,225,4933,267,4931,272,4841,230"/>
-<area shape="poly" title=" " alt="" coords="5120,234,5127,273,5124,294,5114,311,5099,318,5072,325,4982,336,4709,355,4392,368,4129,376,4129,371,4391,363,4709,349,4982,331,5071,319,5098,313,5110,307,5119,292,5122,273,5115,235"/>
-<area shape="poly" title=" " alt="" coords="4984,226,4720,272,4719,267,4983,221"/>
-<area shape="rect" href="a02276.html" title="PolylineObject class definition." alt="" coords="5175,269,5431,309"/>
-<area shape="poly" title=" " alt="" coords="5161,224,5260,267,5258,272,5159,229"/>
-<area shape="poly" title=" " alt="" coords="4400,217,3887,272,3823,279,3822,274,3886,267,4400,212"/>
-<area shape="poly" title=" " alt="" coords="4625,217,4679,232,4723,251,4738,264,4746,278,4745,294,4734,311,4703,327,4648,340,4487,359,4298,370,4129,376,4129,371,4297,365,4486,353,4647,334,4702,322,4730,307,4740,292,4740,279,4733,267,4720,256,4677,237,4624,222"/>
-<area shape="poly" title=" " alt="" coords="4547,228,4593,267,4589,271,4543,232"/>
-</map>
-</div>
 </div>
 <p><a href="a02135_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:mne_3A_3Aviz_3A_3Aqt_3A_3AGpuStream" id="r_mne_3A_3Aviz_3A_3Aqt_3A_3AGpuStream"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a06282.html">mne::viz::qt::GpuStream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPU-side contents of one GPU buffer of a renderable.  <a href="a06282.html#details">More...</a><br /></td></tr>
-<tr class="memitem:mne_3A_3Aviz_3A_3Aqt_3A_3AInstancedStreams" id="r_mne_3A_3Aviz_3A_3Aqt_3A_3AInstancedStreams"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="a06286.html">mne::viz::qt::InstancedStreams</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">CPU streams of an instanced mesh: one shape (vertices, indices) drawn once per instance.  <a href="a06286.html#details">More...</a><br /></td></tr>
-<tr class="memitem:mne_3A_3Aviz_3A_3Aqt_3A_3ARenderKey" id="r_mne_3A_3Aviz_3A_3Aqt_3A_3ARenderKey"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a06290.html">mne::viz::qt::RenderKey</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identity of a renderable in the renderer's GPU resource cache.  <a href="a06290.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a03275.html">mne</a></td></tr>
@@ -440,41 +331,15 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:a03437"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visualization without a GUI toolkit: figures as display lists (figures/), the logic of the trace and brain views (views/), GPU frame descriptions with a software renderer (gpu/), settings panel descriptions (forms/) and view models (models/). Toolkit backends such as mne_viz_qt render them. <br /></td></tr>
 <tr class="memitem:mne_3A_3Aviz_3A_3Aqt" id="r_mne_3A_3Aviz_3A_3Aqt"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a03438.html">mne::viz::qt</a></td></tr>
 <tr class="memdesc:a03438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Qt backend of <a class="el" href="a03437.html" title="Visualization without a GUI toolkit: figures as display lists (figures/), the logic of the trace and ...">mne::viz</a>: QRhi rendering of GPU frames, QWindow hosts, 2-D plots and viewers (plots/, viewers/), the 3-D brain view (3d/) and Qt item models adapting the view models of <a class="el" href="a03437.html" title="Visualization without a GUI toolkit: figures as display lists (figures/), the logic of the trace and ...">mne::viz</a>. <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a609e4b9527ed63e87939b1812c9575e4" id="r_a609e4b9527ed63e87939b1812c9575e4"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4">mne::viz::qt::ShaderMode</a> { <br />
-&#160;&#160;<a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4a02219953401c7bebf2bbba881a3fb3d9">mne::viz::qt::Standard</a>
-, <a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4a3036e2201ffc97496ebdcf75d1216f1a">mne::viz::qt::Holographic</a>
-, <a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4aec746ca3f7653de69d692f586fec4fca">mne::viz::qt::Anatomical</a>
-, <a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4afb5ddb418dbb2ef99500c28cecec380d">mne::viz::qt::Dipole</a>
-, <br />
-&#160;&#160;<a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4ad184694543efa09524c8301111008238">mne::viz::qt::XRay</a>
-, <a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4a70473d8a98d7287b09bd536bc569c263">mne::viz::qt::ShowNormals</a>
-<br />
- }</td></tr>
-<tr class="memitem:acbf0d3f17ae3dc5b3077ffbf972cccea" id="r_acbf0d3f17ae3dc5b3077ffbf972cccea"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="a03438.html#acbf0d3f17ae3dc5b3077ffbf972cccea">mne::viz::qt::VisualizationMode</a> { <a class="el" href="a03438.html#acbf0d3f17ae3dc5b3077ffbf972ccceaa866c3e91a5584cf0ddcfa9b8f1152452">mne::viz::qt::ModeSurface</a>
-, <a class="el" href="a03438.html#acbf0d3f17ae3dc5b3077ffbf972ccceaa62acacebc326bbde58dd57b6a94c0aea">mne::viz::qt::ModeAnnotation</a>
-, <a class="el" href="a03438.html#acbf0d3f17ae3dc5b3077ffbf972ccceaaebd8242a028e91b0768c9a9688435e0b">mne::viz::qt::ModeScientific</a>
-, <a class="el" href="a03438.html#acbf0d3f17ae3dc5b3077ffbf972ccceaaa33e857e44518ec469650f494c14c236">mne::viz::qt::ModeSourceEstimate</a>
- }</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ad33a2a2b36fc3abde5b512f8c0a9d5a3" id="r_ad33a2a2b36fc3abde5b512f8c0a9d5a3"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="a03438.html#ad33a2a2b36fc3abde5b512f8c0a9d5a3">mne::viz::qt::packABGR</a> (uint32_t r, uint32_t g, uint32_t b, uint32_t a=0xFF)</td></tr>
-<tr class="memitem:a55a72a46b827090e506760ccb38a66b0" id="r_a55a72a46b827090e506760ccb38a66b0"><td class="memTemplParams" colspan="2">template&lt;typename T&gt; </td></tr>
-<tr class="memitem:a55a72a46b827090e506760ccb38a66b0 template"><td class="memItemLeft">std::vector&lt; std::byte &gt;&#160;</td><td class="memItemRight"><a class="el" href="a03438.html#a55a72a46b827090e506760ccb38a66b0">mne::viz::qt::toByteBuffer</a> (const std::vector&lt; T &gt; &amp;records)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Lightweight render-related enums (ShaderMode, VisualizationMode) shared across mne_viz_qt. </p>
+<div class="textblock"><p>BrainViewCore definition: scene-model wiring, camera interaction, picking, 2-D overlay and frame recording. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>2.0.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
-<p>Kept QRhi-free and free of heavy Qt includes so it can be pulled in from any mne_viz_qt translation unit without forcing a recompile of every shader pipeline when a new render mode is added.</p>
-<p><a class="el" href="a03438.html#a609e4b9527ed63e87939b1812c9575e4" title="mne::viz::qt::ShaderMode">mne::viz::qt::ShaderMode</a> selects between the Standard Phong lighting model, Holographic (translucent fresnel), Anatomical (matte tissue), Dipole (instanced arrow shader), XRay (additive front-faces) and ShowNormals (debug visualisation of vertex normals). <a class="el" href="a03438.html#acbf0d3f17ae3dc5b3077ffbf972cccea" title="mne::viz::qt::VisualizationMode">mne::viz::qt::VisualizationMode</a> selects how per-vertex colour is computed in the fragment shader: from the base surface tint, from FsAnnotation parcellation, from a scientific (curvature-shaded) palette, or from a source-time-course overlay. </p>
+<dl class="section since"><dt>Since</dt><dd>3.0.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>November 2026 </dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a02135_source.html">rendertypes.h</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a02135_source.html">brainviewcore.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

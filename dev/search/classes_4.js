@@ -8,7 +8,7 @@ var searchData=
   ['eegotransport_5',['EegoTransport',['../a04038.html',1,'mne::detail']]],
   ['effects_6',['Effects',['../a07290.html',1,'mne::viz::BrainViewInteraction::Effects'],['../a07446.html',1,'mne::viz::TraceView::Effects']]],
   ['electrodelayout_7',['ElectrodeLayout',['../a04690.html',1,'mne']]],
-  ['electrodeobject_8',['ElectrodeObject',['../a06402.html',1,'mne::viz::qt']]],
+  ['electrodeobject_8',['ElectrodeObject',['../a06394.html',1,'mne::viz::qt']]],
   ['electrodeposition_9',['ElectrodePosition',['../a04714.html',1,'mne']]],
   ['ellipseshape_10',['EllipseShape',['../a06998.html',1,'mne::viz']]],
   ['entry_11',['Entry',['../a03622.html',1,'mne::AcqDeviceRegistry::Impl::Entry'],['../a04582.html',1,'mne::LogCapture::Entry'],['../a06110.html',1,'mne::RingBuffer::Entry']]],
@@ -17,8 +17,8 @@ var searchData=
   ['epochextractorparams_14',['EpochExtractorParams',['../a04938.html',1,'mne']]],
   ['error_15',['Error',['../a04482.html',1,'mne']]],
   ['event_16',['Event',['../a07394.html',1,'mne::viz::TraceMarkers']]],
-  ['eventmarker_17',['EventMarker',['../a06782.html',1,'mne::viz::qt::ChannelRhiRenderer']]],
-  ['evokedsetmodel_18',['EvokedSetModel',['../a06810.html',1,'mne::viz::qt']]],
+  ['eventmarker_17',['EventMarker',['../a06774.html',1,'mne::viz::qt::ChannelRhiRenderer']]],
+  ['evokedsetmodel_18',['EvokedSetModel',['../a06802.html',1,'mne::viz::qt']]],
   ['expected_19',['Expected',['../a07612.html',1,'Expected&lt; T &gt;'],['../a04486.html',1,'mne::Expected&lt; T &gt;']]],
   ['extendedinfomax_20',['ExtendedInfomax',['../a04950.html',1,'mne']]]
 ];

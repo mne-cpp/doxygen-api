@@ -11,7 +11,7 @@ var searchData=
   ['batch_8',['Batch',['../a03275.html#acb2db7a9b3b965fbf54448bb6960e42aa51ffe9dd1b1e143c1b9f1144d040e454',1,'mne']]],
   ['beforestart_9',['BeforeStart',['../a03275.html#a431575bc664b471e7206a28da35727d3aaf5ccb388f6eddf4561308071e39ab2f',1,'mne']]],
   ['bem_10',['Bem',['../a03275.html#accef4ea64353452ed841fd92fe9562a3a98f4c83065b02e8d4aa61c4949906fdf',1,'mne::Bem'],['../a03275.html#a6f0f13b39e92820eda555f21cc0c104ca98f4c83065b02e8d4aa61c4949906fdf',1,'mne::Bem'],['../a03438.html#adbb0c4e1ebb40d1f72ce79bbfed66690a98f4c83065b02e8d4aa61c4949906fdf',1,'mne::viz::qt::Bem']]],
-  ['bemitem_11',['BemItem',['../a06334.html#a3278f14fab14f2142afabb22ee203d83a608e49cc34092d6770d34c1af471a008',1,'mne::viz::qt::AbstractTreeItem']]],
+  ['bemitem_11',['BemItem',['../a06326.html#a3278f14fab14f2142afabb22ee203d83a608e49cc34092d6770d34c1af471a008',1,'mne::viz::qt::AbstractTreeItem']]],
   ['bevel_12',['Bevel',['../a03437.html#a7a26c473b994ea579c1e390de60bb5cca1b9ae4ca6d43fc984af318046e1e7bb5',1,'mne::viz']]],
   ['bip_13',['Bip',['../a03276.html#a7a14068808b9e155e5ae7798d9feab79ae70473d27df1c71feffe4d8042492b3f',1,'mne::detail']]],
   ['bipolar_14',['Bipolar',['../a03276.html#a2cd19ec92361159b182b6f31b690aaadaf0ae7e31b94062dbc375e39d7d212460',1,'mne::detail']]],

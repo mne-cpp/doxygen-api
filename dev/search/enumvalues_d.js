@@ -8,7 +8,7 @@ var searchData=
   ['negativelycorrelated_5',['NegativelyCorrelated',['../a06238.html#aae3946955f15c6a2b20fbcffb35221fcae4b4a23bd6ee91070d877ecc0bf6f83d',1,'mne::StatsMcCorrection']]],
   ['nestingtoodeep_6',['NestingTooDeep',['../a04442.html#a823f472537c744d5669474a47c40367ca9f89bb3471ddeb57ac823caf9a8aef0e',1,'mne::CborParseError']]],
   ['network_7',['Network',['../a03438.html#a237fd0a3650cd6056b9ea8c38283734eaeec89088ee408b80387155272b113256',1,'mne::viz::qt']]],
-  ['networkitem_8',['NetworkItem',['../a06334.html#a3278f14fab14f2142afabb22ee203d83a365bb58fe62c711476bac5b98e7f9328',1,'mne::viz::qt::AbstractTreeItem']]],
+  ['networkitem_8',['NetworkItem',['../a06326.html#a3278f14fab14f2142afabb22ee203d83a365bb58fe62c711476bac5b98e7f9328',1,'mne::viz::qt::AbstractTreeItem']]],
   ['nfreedof_9',['NFreeDof',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a01cada1e4353a4fcfbe729987eedf895',1,'mne']]],
   ['ngroups_10',['NGroups',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a644ccfa6e26f26b567de5981fe3e954c',1,'mne']]],
   ['nindices_11',['NIndices',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a046184cf17e06370d626b19848920d54',1,'mne']]],
@@ -24,7 +24,7 @@ var searchData=
   ['notsynchronized_21',['NotSynchronized',['../a03275.html#a431575bc664b471e7206a28da35727d3abc0b106630f37bdf1d1990b2c6a155c1',1,'mne']]],
   ['nsources_22',['NSources',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245ac2a8ff38ec547d6ddcf211c02860447e',1,'mne']]],
   ['ntimes_23',['NTimes',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a8a0b0bbf94535a750058e201c4dc212e',1,'mne']]],
-  ['null_24',['Null',['../a04454.html#a0e07625ba9a409d1da50a57d488784afa095a0af7186122a535124fd918d7c152',1,'mne::CborValue::Null'],['../a04506.html#afca5a0638bed22a52fcb5d0397109df9a650b13bbcf4a537da3090873dbb4357a',1,'mne::JsonValue::Null'],['../a06530.html#a48a6db3ac79c39e3f160d7312c18ee57abbb93ef26e3c101ff11cdd21cab08a94',1,'mne::viz::qt::BrainWindow::Null'],['../a06802.html#a8211cf535a797f4bc1690a182036a9d7abbb93ef26e3c101ff11cdd21cab08a94',1,'mne::viz::qt::ChannelWindow::Null']]],
+  ['null_24',['Null',['../a04454.html#a0e07625ba9a409d1da50a57d488784afa095a0af7186122a535124fd918d7c152',1,'mne::CborValue::Null'],['../a04506.html#afca5a0638bed22a52fcb5d0397109df9a650b13bbcf4a537da3090873dbb4357a',1,'mne::JsonValue::Null'],['../a06522.html#a48a6db3ac79c39e3f160d7312c18ee57abbb93ef26e3c101ff11cdd21cab08a94',1,'mne::viz::qt::BrainWindow::Null'],['../a06794.html#a8211cf535a797f4bc1690a182036a9d7abbb93ef26e3c101ff11cdd21cab08a94',1,'mne::viz::qt::ChannelWindow::Null']]],
   ['number_25',['Number',['../a07278.html#a646f927574e5cf79f358f858bc1a680eab2ee912b91d69b435159c7c3f6df7f5f',1,'mne::viz::ChannelTable']]],
   ['nv100_26',['Nv100',['../a03276.html#aee4fb95188d5477d9344f7470011931baead9c90acb5835b19f8b74a7299eb2d6',1,'mne::detail']]],
   ['nv500_27',['Nv500',['../a03276.html#aee4fb95188d5477d9344f7470011931baecc255947bc3784f668dfd87337f5565',1,'mne::detail']]]

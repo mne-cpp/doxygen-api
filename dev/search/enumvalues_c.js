@@ -26,7 +26,7 @@ var searchData=
   ['meta_23',['Meta',['../a03437.html#a5b252f77d2c76fbbdafc1986641299fbab6755d218d5f4e1cef9cce9cc39aeda9',1,'mne::viz']]],
   ['metabegin_24',['MetaBegin',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a6cc21c0efa221d129c50ae5833db783a',1,'mne']]],
   ['metaend_25',['MetaEnd',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a71476c6f0373db538015497289618c90',1,'mne']]],
-  ['metal_26',['Metal',['../a06530.html#a48a6db3ac79c39e3f160d7312c18ee57aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::BrainWindow::Metal'],['../a06802.html#a8211cf535a797f4bc1690a182036a9d7aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::ChannelWindow::Metal']]],
+  ['metal_26',['Metal',['../a06522.html#a48a6db3ac79c39e3f160d7312c18ee57aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::BrainWindow::Metal'],['../a06794.html#a8211cf535a797f4bc1690a182036a9d7aeaa57a9b4248ce3968e718895e1c2f04',1,'mne::viz::qt::ChannelWindow::Metal']]],
   ['meter_27',['Meter',['../a03275.html#a382e1ee6b528a86ac795fa4e0e5e5bbca17c9c40b9db5a0983d1075a012c1f90a',1,'mne']]],
   ['meterpersecondsquared_28',['MeterPerSecondSquared',['../a03275.html#a382e1ee6b528a86ac795fa4e0e5e5bbca962bb5fe343e038406c7f05b9ba40fa8',1,'mne']]],
   ['methoddics_29',['MethodDICS',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a33f004e8feb883d262dadb9d6a1e7046',1,'mne']]],
@@ -69,6 +69,6 @@ var searchData=
   ['mrreceive_66',['MrReceive',['../a03275.html#a496b6599f73118baeac4515fc1b5883ca66103f1c2ca4e1d1c504b6cf8ed3dc61',1,'mne']]],
   ['mrtransmit_67',['MrTransmit',['../a03275.html#a496b6599f73118baeac4515fc1b5883ca5502639f4fa2b633d009acedbacfa765',1,'mne']]],
   ['multiplexed_68',['MULTIPLEXED',['../a03275.html#a793daedadf0453e5877021d329bfd281a4dff0567344b9a5b1504eec1b6b545ca',1,'mne']]],
-  ['multiview_69',['MultiView',['../a06506.html#aa1e9c55394631154459dba155b8e27d6a7d247816495c647f8635f31974671dbd',1,'mne::viz::qt::BrainView::MultiView'],['../a06518.html#a383ee5eb7f2903cf9dadcb7f57da9c71aa0b41508431833364fc70d6b66d38559',1,'mne::viz::qt::BrainViewCore::MultiView']]],
+  ['multiview_69',['MultiView',['../a06498.html#aa1e9c55394631154459dba155b8e27d6a7d247816495c647f8635f31974671dbd',1,'mne::viz::qt::BrainView::MultiView'],['../a06510.html#a383ee5eb7f2903cf9dadcb7f57da9c71aa0b41508431833364fc70d6b66d38559',1,'mne::viz::qt::BrainViewCore::MultiView']]],
   ['muscle_70',['Muscle',['../a03275.html#ab4754a4f8fc104bef90cbc8223a21618a36143fa4f2c24dd4816fd6e238cfd5e3',1,'mne']]]
 ];

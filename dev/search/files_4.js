@@ -14,10 +14,10 @@ var searchData=
   ['epoch_5fextractor_2ecpp_11',['epoch_extractor.cpp',['../a03020.html',1,'']]],
   ['epoch_5fextractor_2eh_12',['epoch_extractor.h',['../a02969.html',1,'']]],
   ['error_2eh_13',['error.h',['../a03266.html',1,'']]],
-  ['evoked_5fconditions_2ecpp_14',['evoked_conditions.cpp',['../a01565.html',1,'']]],
-  ['evoked_5fconditions_2eh_15',['evoked_conditions.h',['../a01568.html',1,'']]],
-  ['evokedsetmodel_2ecpp_16',['evokedsetmodel.cpp',['../a01829.html',1,'']]],
-  ['evokedsetmodel_2eh_17',['evokedsetmodel.h',['../a01772.html',1,'']]],
+  ['evoked_5fconditions_2ecpp_14',['evoked_conditions.cpp',['../a01577.html',1,'']]],
+  ['evoked_5fconditions_2eh_15',['evoked_conditions.h',['../a01580.html',1,'']]],
+  ['evokedsetmodel_2ecpp_16',['evokedsetmodel.cpp',['../a01841.html',1,'']]],
+  ['evokedsetmodel_2eh_17',['evokedsetmodel.h',['../a01784.html',1,'']]],
   ['extended_5finfomax_2ecpp_18',['extended_infomax.cpp',['../a02972.html',1,'']]],
   ['extended_5finfomax_2eh_19',['extended_infomax.h',['../a03083.html',1,'']]]
 ];

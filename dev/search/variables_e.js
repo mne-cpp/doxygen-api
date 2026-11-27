@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['objectid_0',['objectId',['../a06454.html#a1f982ea7f9e68d8c0e8b5135dce38414',1,'mne::viz::qt::PickResult']]],
+  ['objectid_0',['objectId',['../a06446.html#a1f982ea7f9e68d8c0e8b5135dce38414',1,'mne::viz::qt::PickResult']]],
   ['off_1',['off',['../a05426.html#ac8db47e400014b2eb0dbbaee9fdd8cd5',1,'mne::FwdThreadArg']]],
   ['offset_2',['offset',['../a03722.html#af98ff9c214c20e134e25b4dc513d7b9b',1,'mne::AcqChannelInfo::offset'],['../a04326.html#aeb8654cd64c6f96b6018617f5b2b4eef',1,'mne::detail::TmsiChannel::offset'],['../a04374.html#ae9c8e5064174194c1cd572893f18d691',1,'mne::AcqRecorder::Impl::offset'],['../a04442.html#aa1122d77cad839ceb112a85b8bc1dda0',1,'mne::CborParseError::offset'],['../a04494.html#a3026d27f8e054d5e319bf9da87651af3',1,'mne::JsonParseError::offset'],['../a05194.html#ac1a1a4e111d760a84580e236fe616cae',1,'mne::FiffDataRef::offset'],['../a07150.html#a54a5bbc3d41afaf497bb6ff971e1dd9b',1,'mne::viz::GpuVertexAttribute::offset']]],
   ['offsets_3',['offsets',['../a03842.html#acd3f692a260baacb2761a46f8fd0ced6',1,'mne::detail::InfoVersion::offsets'],['../a06118.html#a57f981c4833227cf0833f03b5bc5f730',1,'mne::MNERawData::offsets']]],
@@ -16,7 +16,7 @@ var searchData=
   ['onset_13',['onset',['../a04642.html#a87dfd7f2946491f919b9bbc5db864e02',1,'mne::BidsEvent::onset'],['../a05162.html#aa4048c1a5acc1c6a17901d7f49e98087',1,'mne::FiffAnnotation::onset']]],
   ['op_14',['op',['../a05994.html#a195b360b32f38792504aba6562096613',1,'mne::MNEMeasData']]],
   ['op_5ftype_15',['op_type',['../a05798.html#a6f4afe9258759e1f7e4c235159f1770f',1,'mne::MnaNode::op_type'],['../a05814.html#a5e429a19a5e470933a55c1943703077b',1,'mne::MnaOpSchema::op_type']]],
-  ['opacity_16',['opacity',['../a06446.html#ab4eb18ccbef97b5ad626c33973af06d5',1,'mne::viz::qt::SceneLayer::opacity'],['../a06486.html#a195e24c953379c59a372c986beab6f6f',1,'mne::viz::qt::BrainRenderer::Impl::SliceSlot::opacity'],['../a07014.html#afb6424c4abf11b081ad9f80949767b6f',1,'mne::viz::Command::opacity']]],
+  ['opacity_16',['opacity',['../a06438.html#ab4eb18ccbef97b5ad626c33973af06d5',1,'mne::viz::qt::SceneLayer::opacity'],['../a06478.html#a195e24c953379c59a372c986beab6f6f',1,'mne::viz::qt::BrainRenderer::Impl::SliceSlot::opacity'],['../a07014.html#afb6424c4abf11b081ad9f80949767b6f',1,'mne::viz::Command::opacity']]],
   ['optical_5fcalibration_5fchanged_17',['optical_calibration_changed',['../a04250.html#aa3b19a2f8c632fd2f9efdfe96db5070d',1,'mne::PolhemusCoregistration::Listener']]],
   ['options_18',['options',['../a03542.html#aff879af8c523ce0386de4a5ecca25f9e',1,'mne::AcqControlInfo::options'],['../a03846.html#a64d7a83399ccfa07d7b520aab82f9d7c',1,'mne::detail::ReaderSlot::options'],['../a04374.html#aa199be683d6c72aadd7d927dc9d0abb0',1,'mne::AcqRecorder::Impl::options']]],
   ['orient_5fprior_19',['orient_prior',['../a05982.html#acb6d91d9dd28aa167c1dc651a41ad2b4',1,'mne::MNEInverseOperator']]],
@@ -35,16 +35,16 @@ var searchData=
   ['outputcommits_32',['outputCommits',['../a03850.html#a37b4f78c17a0dd2ad5b2f15ac331443a',1,'mne::detail::AcqStreamCore']]],
   ['outputname_33',['outputName',['../a04898.html#ad2d15cd0bdde0e4d836ab69923ba2c76',1,'mne::DerivationRule']]],
   ['outputs_34',['outputs',['../a05798.html#ad0b8fed5892c86ab0df4329f156ed9dc',1,'mne::MnaNode']]],
-  ['overflowreported_35',['overflowReported',['../a06470.html#aece1def508163ff6f2970fd23751e11a',1,'mne::viz::qt::BrainRenderer::Impl']]],
+  ['overflowreported_35',['overflowReported',['../a06462.html#aece1def508163ff6f2970fd23751e11a',1,'mne::viz::qt::BrainRenderer::Impl']]],
   ['overlay_5fcolor_5fmode_36',['overlay_color_mode',['../a06030.html#a5424a0e822fe363001359ad7d9b806c2',1,'mne::MNEMshDisplaySurface']]],
   ['overlay_5ffirst_5fsample_37',['overlay_first_sample',['../a07242.html#a92763480b22b872a941f4a44cb3bb5c5',1,'mne::viz::TraceOverlayUniforms']]],
   ['overlay_5fmode_38',['overlay_mode',['../a07122.html#af674011299c05ac94966a1c9c379734a',1,'mne::viz::BrainSurfaceUniforms']]],
   ['overlay_5ftotal_5fsamples_39',['overlay_total_samples',['../a07242.html#a4293e6bf47d98d376500dd6ea96bb707',1,'mne::viz::TraceOverlayUniforms']]],
   ['overlay_5ftype_40',['overlay_type',['../a06030.html#ab7f7ec6d1d79202fd3ad59a6b6a65048',1,'mne::MNEMshDisplaySurface']]],
   ['overlay_5fvalues_41',['overlay_values',['../a06030.html#a4e1fa56950a6572ceedd53f9e5fff299',1,'mne::MNEMshDisplaySurface']]],
-  ['overlaymode_42',['overlayMode',['../a06298.html#a25d92123a6b6399970a70c98e100294a',1,'mne::viz::qt::SubView::overlayMode'],['../a06498.html#aae0d977ae7c922c4b1563dc1e9d74d65',1,'mne::viz::qt::BrainRenderer::SceneData::overlayMode']]],
+  ['overlaymode_42',['overlayMode',['../a06298.html#a25d92123a6b6399970a70c98e100294a',1,'mne::viz::qt::SubView::overlayMode'],['../a06490.html#aae0d977ae7c922c4b1563dc1e9d74d65',1,'mne::viz::qt::BrainRenderer::SceneData::overlayMode']]],
   ['overruns_43',['overruns',['../a03674.html#a2c23e86ea48035be2cdf32210a8adc4b',1,'mne::AcqReaderStats::overruns'],['../a03846.html#a1b0434f2a46a91a2d78e79ba40c25820',1,'mne::detail::ReaderSlot::overruns']]],
   ['overwrite_44',['overwrite',['../a04658.html#a4cd0425938029f3027b4535515764fe4',1,'mne::BidsRawData::WriteOptions']]],
   ['ownedmemory_45',['ownedMemory',['../a03850.html#ae6ff1a397f34e8327f7a027be752e8f6',1,'mne::detail::AcqStreamCore']]],
-  ['owner_46',['owner',['../a06474.html#a59a0f26c95198be1839aa1b680821491',1,'mne::viz::qt::BrainRenderer::Impl::GpuMesh']]]
+  ['owner_46',['owner',['../a06466.html#a59a0f26c95198be1839aa1b680821491',1,'mne::viz::qt::BrainRenderer::Impl::GpuMesh']]]
 ];

@@ -9,6 +9,6 @@ var searchData=
   ['invsourcespacetype_6',['InvSourceSpaceType',['../a03275.html#ab9e2fdfa7fbe410d7e61a85d018752f0',1,'mne']]],
   ['invtokenid_7',['InvTokenId',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245',1,'mne']]],
   ['item_8',['Item',['../a07294.html#a21b6d5217566bb2f2deebd043f3e7879',1,'mne::viz::BrainViewOverlay']]],
-  ['itemrole_9',['ItemRole',['../a06334.html#a2a50b79fc69c28e957f6ee4db3b46286',1,'mne::viz::qt::AbstractTreeItem::ItemRole'],['../a03462.html#abbfc6b21f364a2bcda4e6cd37c5f1e79',1,'mne::viz::qt::ChannelInfoModelRoles::ItemRole'],['../a03466.html#af7da6cea254dcdc67dbb68bf94d0cec7',1,'mne::viz::qt::EvokedSetModelRoles::ItemRole']]],
-  ['itemtype_10',['ItemType',['../a06334.html#a3278f14fab14f2142afabb22ee203d83',1,'mne::viz::qt::AbstractTreeItem']]]
+  ['itemrole_9',['ItemRole',['../a06326.html#a2a50b79fc69c28e957f6ee4db3b46286',1,'mne::viz::qt::AbstractTreeItem::ItemRole'],['../a03462.html#abbfc6b21f364a2bcda4e6cd37c5f1e79',1,'mne::viz::qt::ChannelInfoModelRoles::ItemRole'],['../a03466.html#af7da6cea254dcdc67dbb68bf94d0cec7',1,'mne::viz::qt::EvokedSetModelRoles::ItemRole']]],
+  ['itemtype_10',['ItemType',['../a06326.html#a3278f14fab14f2142afabb22ee203d83',1,'mne::viz::qt::AbstractTreeItem']]]
 ];

@@ -12,7 +12,7 @@ var searchData=
   ['holographic_9',['Holographic',['../a03438.html#a609e4b9527ed63e87939b1812c9575e4a3036e2201ffc97496ebdcf75d1216f1a',1,'mne::viz::qt::Holographic'],['../a03437.html#a2569ded8f17cbc076a8f7772b03ebfeaa2de33b48acaeae4662afb601a4e87ed7',1,'mne::viz::Holographic']]],
   ['home_10',['Home',['../a03437.html#a9d5d7c1338420e8576b84e4dafc17d64a8cf04a9734132302f96da8e113e80ce5',1,'mne::viz']]],
   ['horizontal_11',['Horizontal',['../a07418.html#a424734884528c34212cc220ad3818488ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'mne::viz::TraceView::Horizontal'],['../a03437.html#a0792cfcd38f6be7695a0c8e59231b560ac1b5fa03ecdb95d4a45dd1c40b02527f',1,'mne::viz::Horizontal']]],
-  ['horizontalseparator_12',['HorizontalSeparator',['../a06518.html#ac395923c7327af7e865616a5c86ac1a2adf391b1ddd5e9eeb93f17a8e16ac6577',1,'mne::viz::qt::BrainViewCore::HorizontalSeparator'],['../a07294.html#a21b6d5217566bb2f2deebd043f3e7879ad07ac30643a6fb2006363679305e33d4',1,'mne::viz::BrainViewOverlay::HorizontalSeparator']]],
+  ['horizontalseparator_12',['HorizontalSeparator',['../a06510.html#ac395923c7327af7e865616a5c86ac1a2adf391b1ddd5e9eeb93f17a8e16ac6577',1,'mne::viz::qt::BrainViewCore::HorizontalSeparator'],['../a07294.html#a21b6d5217566bb2f2deebd043f3e7879ad07ac30643a6fb2006363679305e33d4',1,'mne::viz::BrainViewOverlay::HorizontalSeparator']]],
   ['host_13',['Host',['../a03275.html#a00c2b6f9b43b3645b9bf44059e993e4dac2ca16d048ec66e04bca283eab048ec2',1,'mne::Host'],['../a03275.html#acc49cc3c01ca09669f647fcb41a4a12fac2ca16d048ec66e04bca283eab048ec2',1,'mne::Host']]],
   ['hostpinned_14',['HostPinned',['../a03275.html#acc49cc3c01ca09669f647fcb41a4a12fa81ae3c08d52b8047dba72e9b68a940dd',1,'mne']]],
   ['hot_15',['Hot',['../a03438.html#a6bca2699f357389e4256282f7ea5739ea184f9aff6d7f63fe8b055118db79c9b5',1,'mne::viz::qt::Hot'],['../a03437.html#a7cbeb20bec9f748eb04ca15024b0c2caa4194726ee334e1085d93e002837b73f0',1,'mne::viz::Hot']]],
@@ -21,5 +21,5 @@ var searchData=
   ['hotnegative1_18',['HotNegative1',['../a03437.html#a7cbeb20bec9f748eb04ca15024b0c2caacb8a8fb7fe40aaab81764f028164d597',1,'mne::viz']]],
   ['hotnegative2_19',['HotNegative2',['../a03437.html#a7cbeb20bec9f748eb04ca15024b0c2caa7f905f22caedc35342176fbdd508d6d3',1,'mne::viz']]],
   ['hpf_20',['HPF',['../a04910.html#a55771ac39315d25f772c9145cfde2ccba6d1f862e1168a3eadedb89c2efdfe2ed',1,'mne::CosineFilter::HPF'],['../a05038.html#ab8f715a67206b5954bd539fc6adf6647aea498d558f3212d51000182b76219a60',1,'mne::ParksMcClellan::HPF']]],
-  ['hpi_21',['HPI',['../a06346.html#a71a04fc39bf47f101c6bbcf1baf7b7b7a0a21ba9e25406ae2a2c483e4da951bfd',1,'mne::viz::qt::DigitizerTreeItem']]]
+  ['hpi_21',['HPI',['../a06338.html#a71a04fc39bf47f101c6bbcf1baf7b7b7a0a21ba9e25406ae2a2c483e4da951bfd',1,'mne::viz::qt::DigitizerTreeItem']]]
 ];

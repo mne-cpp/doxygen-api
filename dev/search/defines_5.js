@@ -53,7 +53,7 @@ var searchData=
   ['fiffv_5fxfit_5fproj_5fitem_5fhomog_5ffield_50',['FIFFV_XFIT_PROJ_ITEM_HOMOG_FIELD',['../a00476.html#a8b0da4613d65dcbca0cc7f33f1f26130',1,'fiff_file.h']]],
   ['fiffv_5fxfit_5fproj_5fitem_5fhomog_5fgrad_51',['FIFFV_XFIT_PROJ_ITEM_HOMOG_GRAD',['../a00476.html#aadff894090096855d099718254e031fc',1,'fiff_file.h']]],
   ['fiffv_5fxfit_5fproj_5fitem_5fnone_52',['FIFFV_XFIT_PROJ_ITEM_NONE',['../a00476.html#af48303b81a68a03de88a5439255f4303',1,'fiff_file.h']]],
-  ['float_5finfinity_53',['FLOAT_INFINITY',['../a02216.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;geometryinfo.h'],['../a02213.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;interpolation.h']]],
+  ['float_5finfinity_53',['FLOAT_INFINITY',['../a01352.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;geometryinfo.h'],['../a01349.html#a16654486a4acbb970d7b973582297ce8',1,'FLOAT_INFINITY:&#160;interpolation.h']]],
   ['fsshared_5fexport_54',['FSSHARED_EXPORT',['../a00710.html#a8e4f08d490ea850b4b6631d7772df965',1,'fs_global.h']]],
   ['fwdshared_5fexport_55',['FWDSHARED_EXPORT',['../a02699.html#afebf4f70aabc292859032d979c8db2a3',1,'fwd_global.h']]]
 ];

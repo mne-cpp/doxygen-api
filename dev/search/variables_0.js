@@ -9,7 +9,7 @@ var searchData=
   ['acq_5fpars_6',['acq_pars',['../a05278.html#a4254178d7dd612702966b7a701073e35',1,'mne::FiffInfo']]],
   ['acq_5fstim_7',['acq_stim',['../a05278.html#aedfb80d435361c49dfba53146053658c',1,'mne::FiffInfo']]],
   ['act_8',['act',['../a06086.html#ac28b0499cc847903677baa6d5c363cda',1,'mne::MNEProjData']]],
-  ['active_9',['active',['../a05214.html#ad5bf85a12822b45e055c8ff7f9acd4ed',1,'mne::FiffDigitizerData::active'],['../a05294.html#a7953a891f40177f6255e95be67cb0dda',1,'mne::FiffProj::active'],['../a06034.html#ae35c4262d27fa609ea6e6235f4712edb',1,'mne::MNEMshDisplaySurfaceSet::active'],['../a06090.html#ab4c81a146b12e65aa2d106855b42c483',1,'mne::MNEProjItem::active'],['../a06478.html#a4bd737f339a1c1e97f9591e57fccdde8',1,'mne::viz::qt::BrainRenderer::Impl::ScreenOverlayResources::active'],['../a07438.html#a638ca5bafc0a0021f9b8b3d74e935358',1,'mne::viz::TraceView::Ruler::active'],['../a07442.html#a43e4662e1c2be0086ca75da498b31e19',1,'mne::viz::TraceView::Selection::active']]],
+  ['active_9',['active',['../a05214.html#ad5bf85a12822b45e055c8ff7f9acd4ed',1,'mne::FiffDigitizerData::active'],['../a05294.html#a7953a891f40177f6255e95be67cb0dda',1,'mne::FiffProj::active'],['../a06034.html#ae35c4262d27fa609ea6e6235f4712edb',1,'mne::MNEMshDisplaySurfaceSet::active'],['../a06090.html#ab4c81a146b12e65aa2d106855b42c483',1,'mne::MNEProjItem::active'],['../a06470.html#a4bd737f339a1c1e97f9591e57fccdde8',1,'mne::viz::qt::BrainRenderer::Impl::ScreenOverlayResources::active'],['../a07438.html#a638ca5bafc0a0021f9b8b3d74e935358',1,'mne::viz::TraceView::Ruler::active'],['../a07442.html#a43e4662e1c2be0086ca75da498b31e19',1,'mne::viz::TraceView::Selection::active']]],
   ['active_5ffile_10',['active_file',['../a06090.html#ad24ca60f2866ae9827183c0986e8f041',1,'mne::MNEProjItem']]],
   ['activereaders_11',['activeReaders',['../a03706.html#a167b416bc7b605abc6bf6d40a83e7e20',1,'mne::AcqStreamStats']]],
   ['activevertices_12',['activeVertices',['../a05650.html#a1866bacf7730277403e1196e0b46bb15',1,'mne::InvGammaMapResult::activeVertices'],['../a05658.html#ae138539a329f6372feec8b60fb385a01',1,'mne::InvMxneResult::activeVertices'],['../a05666.html#aec367ec55a265cdaca797371523ec7b2',1,'mne::InvTfMxneResult::activeVertices']]],
@@ -27,7 +27,7 @@ var searchData=
   ['amplifiers_24',['amplifiers',['../a03930.html#a706d94b6d9b67426beaf93f765e5647b',1,'mne::detail::BrainAmpSimulation']]],
   ['amplitude_25',['amplitude',['../a07434.html#a794465f84da0b532fdd2deaa97ce89d9',1,'mne::viz::TraceView::CursorData']]],
   ['amplitude_5fmax_26',['amplitude_max',['../a07374.html#a320681ed639bb1214c48331f1a2dbd8b',1,'mne::viz::TraceUniforms::amplitude_max'],['../a07406.html#a201c83a28f3bdb4a657ea0d92306c04b',1,'mne::viz::TraceSource::Channel::amplitude_max'],['../a07410.html#afef66a266b8d832fc00772646b1116c8',1,'mne::viz::TraceSource::Group::amplitude_max']]],
-  ['amplitudemax_27',['amplitudeMax',['../a06754.html#ad2d3f8eef7ab27c932071249eaa52886',1,'mne::viz::qt::ChannelDisplayInfo']]],
+  ['amplitudemax_27',['amplitudeMax',['../a06746.html#ad2d3f8eef7ab27c932071249eaa52886',1,'mne::viz::qt::ChannelDisplayInfo']]],
   ['anatomical_28',['Anatomical',['../a07266.html#a26c83e36a44691f540c41801314fc3a4',1,'mne::viz::BidsTree::Anatomical'],['../a07628.html#a26c83e36a44691f540c41801314fc3a4',1,'BidsTree::Anatomical']]],
   ['anchorhostns_29',['anchorHostNs',['../a03538.html#a4befb45ea11bccafc6bde74d364ca867',1,'mne::AcqClockModel']]],
   ['anchorsample_30',['anchorSample',['../a03538.html#a5d31d54819810266e217c02326d53280',1,'mne::AcqClockModel']]],
@@ -50,5 +50,5 @@ var searchData=
   ['available_47',['available',['../a03638.html#a3c034112a7725f9e2c5b3b18ac4c6722',1,'mne::AcqDiscoveredDevice']]],
   ['ave_5fnn_48',['ave_nn',['../a06066.html#a4350196d9acb76c70682ec55eeb0588b',1,'mne::MNEPatchInfo']]],
   ['avefiles_49',['aveFiles',['../a06082.html#ad0df65ae7a60d6c7b847f54c7b8339e3',1,'mne::ProcessingSettings']]],
-  ['averages_50',['averages',['../a05058.html#ae8ac819cfb8fb3172083f7c0b9048421',1,'mne::RtAveraging::Settings::averages'],['../a06746.html#a65dcca72597d60865145ec040448a13a',1,'mne::viz::qt::AverageLayoutWidget::Channel::averages']]]
+  ['averages_50',['averages',['../a05058.html#ae8ac819cfb8fb3172083f7c0b9048421',1,'mne::RtAveraging::Settings::averages'],['../a06738.html#a65dcca72597d60865145ec040448a13a',1,'mne::viz::qt::AverageLayoutWidget::Channel::averages']]]
 ];

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['cardinal_0',['Cardinal',['../a06346.html#a71a04fc39bf47f101c6bbcf1baf7b7b7a59671f3f435b8485f5817c8d2c088da2',1,'mne::viz::qt::DigitizerTreeItem']]],
+  ['cardinal_0',['Cardinal',['../a06338.html#a71a04fc39bf47f101c6bbcf1baf7b7b7a59671f3f435b8485f5817c8d2c088da2',1,'mne::viz::qt::DigitizerTreeItem']]],
   ['cbor_1',['Cbor',['../a03275.html#ac9ce59c74eaf69e01e6f1d416520fa8ca557356e51ca8db6162aef4f8c36440ed',1,'mne']]],
   ['ceil_2',['Ceil',['../a03275.html#ad0ef45a5e6079b7f13cdbb814beb9bbcab95a01ffffa8fcdd2a9af961937c097c',1,'mne']]],
   ['center_3',['Center',['../a03437.html#a77a012feabeef8dedddb1c5f930325e1a4f1f6016fc9f3f2353c0cc7c67b292bd',1,'mne::viz']]],
@@ -11,7 +11,7 @@ var searchData=
   ['choice_8',['Choice',['../a07114.html#abeb22bd79bc4c1822b9122f849d6ab20a458b9dcc0921f46b1192427426d59c10',1,'mne::viz::SettingField']]],
   ['cityblock_9',['CityBlock',['../a03275.html#ae6c7dc2878b8ee8eb00246d01ea291c7a28845b89c7cab4d654718cb953dd1f87',1,'mne']]],
   ['classification_10',['Classification',['../a03275.html#a7b950f1700b38ebc969776769fb324d7a5c9335b28e6277ddbe0137f04e5e58a7',1,'mne']]],
-  ['clinical_11',['Clinical',['../a06654.html#a5881f822132ea9683121a1a0f3d714e8a7175f1396059066162c23b7d9e973d11',1,'mne::viz::qt::AbstractView']]],
+  ['clinical_11',['Clinical',['../a06646.html#a5881f822132ea9683121a1a0f3d714e8a7175f1396059066162c23b7d9e973d11',1,'mne::viz::qt::AbstractView']]],
   ['clocksync_12',['ClockSync',['../a03275.html#a496b6599f73118baeac4515fc1b5883ca6c3015c025a0901dd0aa880459593257',1,'mne']]],
   ['closed_13',['Closed',['../a03275.html#a3931e4e917b19bf8fd2f4e05ebc9f22fa03f4a47830f97377a35321051685071e',1,'mne']]],
   ['cluster_14',['Cluster',['../a03275.html#a7510e6c912dac872fe220790fa7c7ee1a249694a485fc5d3289c38986b4f8e887',1,'mne']]],
@@ -19,7 +19,7 @@ var searchData=
   ['coiltype_16',['CoilType',['../a07278.html#a646f927574e5cf79f358f858bc1a680ea79a52e27101d98b2906bb36383ba59db',1,'mne::viz::ChannelTable']]],
   ['collecting_17',['Collecting',['../a04246.html#a6466e354268a4d65888db2122d65ec7fa7063194175c59222cd3ae177ad3bfafd',1,'mne::PolhemusCoregistration']]],
   ['colormap_18',['colormap',['../a04814.html#aeaa9001a38db29710a8adc61f58373c3a8f034d787679e7c8ac7bb767c54a3c3b',1,'mne::VisualizationInfo']]],
-  ['colorrole_19',['ColorRole',['../a06334.html#a2a50b79fc69c28e957f6ee4db3b46286a28414b964cdf8b95962ae0c44ed535da',1,'mne::viz::qt::AbstractTreeItem']]],
+  ['colorrole_19',['ColorRole',['../a06326.html#a2a50b79fc69c28e957f6ee4db3b46286a28414b964cdf8b95962ae0c44ed535da',1,'mne::viz::qt::AbstractTreeItem']]],
   ['command_20',['Command',['../a03275.html#ac398ec329b0b9529ef7ab5b08ce02c95aee97be03cb04119af45014d815621ce1',1,'mne']]],
   ['commanddone_21',['CommandDone',['../a03275.html#ac24ea8385fb5076d61eb56100eb4a689a4a417df39a6ced1ccdb6914c7f607bc8',1,'mne']]],
   ['compact_22',['Compact',['../a04518.html#aa775c098dbd4e263ae9ed23b7bfc2467ac230a3168148213c53c222146ef30cf4',1,'mne::JsonDocument']]],

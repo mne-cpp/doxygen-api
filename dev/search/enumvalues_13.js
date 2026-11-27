@@ -12,15 +12,15 @@ var searchData=
   ['timeout_9',['Timeout',['../a03275.html#a431575bc664b471e7206a28da35727d3ac85a251cc457840f1e032f1b733e9398',1,'mne']]],
   ['timestamp_10',['Timestamp',['../a03275.html#a496b6599f73118baeac4515fc1b5883caa3d5de3eac8bb00ae86fd1a1005f1500',1,'mne']]],
   ['timeval_11',['TimeVal',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245a916620bb555f75cd292c68bc73b0fb63',1,'mne']]],
-  ['tissuebrain_12',['TissueBrain',['../a06382.html#a5b069f6a213bf8d1f366f62da8b2e2fea8e074413a0765ad7877d98b3cd405bb5',1,'mne::viz::qt::BrainSurface']]],
-  ['tissueinnerskull_13',['TissueInnerSkull',['../a06382.html#a5b069f6a213bf8d1f366f62da8b2e2fea5bc592d787df099f735b62bb6b616dd5',1,'mne::viz::qt::BrainSurface']]],
-  ['tissueouterskull_14',['TissueOuterSkull',['../a06382.html#a5b069f6a213bf8d1f366f62da8b2e2feafddd896a2a1ab7e6b43e536a1dd94737',1,'mne::viz::qt::BrainSurface']]],
-  ['tissueskin_15',['TissueSkin',['../a06382.html#a5b069f6a213bf8d1f366f62da8b2e2feac22f1e398a19402a57d97ac3881750a3',1,'mne::viz::qt::BrainSurface']]],
-  ['tissueunknown_16',['TissueUnknown',['../a06382.html#a5b069f6a213bf8d1f366f62da8b2e2fea3a92f5287e73cfcd40ce73cf1b775f81',1,'mne::viz::qt::BrainSurface']]],
+  ['tissuebrain_12',['TissueBrain',['../a06374.html#a5b069f6a213bf8d1f366f62da8b2e2fea8e074413a0765ad7877d98b3cd405bb5',1,'mne::viz::qt::BrainSurface']]],
+  ['tissueinnerskull_13',['TissueInnerSkull',['../a06374.html#a5b069f6a213bf8d1f366f62da8b2e2fea5bc592d787df099f735b62bb6b616dd5',1,'mne::viz::qt::BrainSurface']]],
+  ['tissueouterskull_14',['TissueOuterSkull',['../a06374.html#a5b069f6a213bf8d1f366f62da8b2e2feafddd896a2a1ab7e6b43e536a1dd94737',1,'mne::viz::qt::BrainSurface']]],
+  ['tissueskin_15',['TissueSkin',['../a06374.html#a5b069f6a213bf8d1f366f62da8b2e2feac22f1e398a19402a57d97ac3881750a3',1,'mne::viz::qt::BrainSurface']]],
+  ['tissueunknown_16',['TissueUnknown',['../a06374.html#a5b069f6a213bf8d1f366f62da8b2e2fea3a92f5287e73cfcd40ce73cf1b775f81',1,'mne::viz::qt::BrainSurface']]],
   ['toomanyreaders_17',['TooManyReaders',['../a03275.html#a431575bc664b471e7206a28da35727d3a752c04a769d8f00068d77edec9d9d41f',1,'mne']]],
   ['top_18',['Top',['../a03437.html#a77a012feabeef8dedddb1c5f930325e1aa4ffdcf0dc1f31b9acaf295d75b51d00',1,'mne::viz::Top'],['../a03437.html#a78e5550c483ccead78325cd49b7dcf4aaa4ffdcf0dc1f31b9acaf295d75b51d00',1,'mne::viz::Top']]],
   ['transform_19',['Transform',['../a03275.html#accef4ea64353452ed841fd92fe9562a3a2ff4148554480a37f85efd299df04850',1,'mne']]],
-  ['transformrole_20',['TransformRole',['../a06334.html#a2a50b79fc69c28e957f6ee4db3b46286a79ff059bcacde4135f19b9ae97ca9d84',1,'mne::viz::qt::AbstractTreeItem']]],
+  ['transformrole_20',['TransformRole',['../a06326.html#a2a50b79fc69c28e957f6ee4db3b46286a79ff059bcacde4135f19b9ae97ca9d84',1,'mne::viz::qt::AbstractTreeItem']]],
   ['triangles_21',['Triangles',['../a03437.html#a557a8bdb856acdaf7b8c6d3b07a4be7fa7ca66fdfaad3eb33fc65d7490178f856',1,'mne::viz']]],
   ['trianglestrip_22',['TriangleStrip',['../a03437.html#a557a8bdb856acdaf7b8c6d3b07a4be7fa1da0b9ead8b051940a89214bae22831c',1,'mne::viz']]],
   ['trigger_23',['Trigger',['../a03276.html#a2cd19ec92361159b182b6f31b690aaadaf698f67f5666aff10729d8a1cb1c14d2',1,'mne::detail']]],
@@ -28,5 +28,5 @@ var searchData=
   ['triggerout_25',['TriggerOut',['../a03275.html#a496b6599f73118baeac4515fc1b5883ca2c0f741d5e54a03052a7baeb8cefa690',1,'mne']]],
   ['true_26',['True',['../a04454.html#a0e07625ba9a409d1da50a57d488784afae121f1b08f1f138efffa5871dd2d17a2',1,'mne::CborValue']]],
   ['tstep_27',['TStep',['../a03275.html#a079a81b0acac0fc8d8bd9f9302467245ac25a602c722ade2e78a499bb490b10ed',1,'mne']]],
-  ['typerole_28',['TypeRole',['../a06334.html#a2a50b79fc69c28e957f6ee4db3b46286a24fa57ca10c1367e7b84859f8473d59e',1,'mne::viz::qt::AbstractTreeItem']]]
+  ['typerole_28',['TypeRole',['../a06326.html#a2a50b79fc69c28e957f6ee4db3b46286a24fa57ca10c1367e7b84859f8473d59e',1,'mne::viz::qt::AbstractTreeItem']]]
 ];

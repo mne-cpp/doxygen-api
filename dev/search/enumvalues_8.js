@@ -30,7 +30,7 @@ var searchData=
   ['integer_27',['Integer',['../a04454.html#a0e07625ba9a409d1da50a57d488784afaf7086bd80e0a1068a78799bbdbd2af61',1,'mne::CborValue']]],
   ['interleaved_28',['Interleaved',['../a03275.html#aa3eb919c9a6517cceb0aada09ce2d56ea07b7759dc5a12afc0c49d26bc6a401dd',1,'mne']]],
   ['internal_29',['Internal',['../a03275.html#a431575bc664b471e7206a28da35727d3aafbf0897a5a83fdd873dfb032ec695d3',1,'mne']]],
-  ['interpolationbased_30',['InterpolationBased',['../a06562.html#a98e526327d06f8f9f4b3184a13bae881aa9fd49d996843851b4aa0e9ad45b709e',1,'mne::viz::qt::RtSourceInterpolationMatWorker']]],
+  ['interpolationbased_30',['InterpolationBased',['../a06554.html#a98e526327d06f8f9f4b3184a13bae881aa9fd49d996843851b4aa0e9ad45b709e',1,'mne::viz::qt::RtSourceInterpolationMatWorker']]],
   ['invalidbuffer_31',['InvalidBuffer',['../a03275.html#a431575bc664b471e7206a28da35727d3a0676b1e074023ee54a0ff8d897dbf56c',1,'mne']]],
   ['invalidparameter_32',['InvalidParameter',['../a03275.html#a431575bc664b471e7206a28da35727d3a627251310d3384b591e4138be21145d5',1,'mne']]],
   ['invalidstate_33',['InvalidState',['../a03275.html#a431575bc664b471e7206a28da35727d3aedf260198e4d75d1cb3c7588f7380120',1,'mne']]],

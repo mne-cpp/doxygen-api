@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tissuetype_0',['TissueType',['../a06382.html#a5b069f6a213bf8d1f366f62da8b2e2fe',1,'mne::viz::qt::BrainSurface']]],
+  ['tissuetype_0',['TissueType',['../a06374.html#a5b069f6a213bf8d1f366f62da8b2e2fe',1,'mne::viz::qt::BrainSurface']]],
   ['tmsichanneltype_1',['TmsiChannelType',['../a03276.html#a7a14068808b9e155e5ae7798d9feab79',1,'mne::detail']]],
   ['tmsiunit_2',['TmsiUnit',['../a03276.html#a044cdb532e852d8ce0e9aca6f716bf04',1,'mne::detail']]],
   ['tpasstype_3',['TPassType',['../a04910.html#a55771ac39315d25f772c9145cfde2ccb',1,'mne::CosineFilter::TPassType'],['../a05038.html#ab8f715a67206b5954bd539fc6adf6647',1,'mne::ParksMcClellan::TPassType']]],
