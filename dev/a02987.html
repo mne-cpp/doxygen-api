@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/dsp/extended_infomax.cpp File Reference</title>
+    <title>MNE-CPP: src/libs/mne/dsp/multitaper_tfr.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -255,68 +255,77 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">extended_infomax.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">multitaper_tfr.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a04967.html">ExtendedInfomax</a> class definition.  
+<p>Implementation of <a class="el" href="a05088.html" title="Sliding-window multitaper time-frequency representation.">MultitaperTfr</a>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a03098_source.html">extended_infomax.h</a>&quot;</code><br />
-<code>#include &lt;Eigen/Eigenvalues&gt;</code><br />
-<code>#include &lt;random&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a03032_source.html">multitaper_tfr.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a03089_source.html">dpss.h</a>&quot;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
+<code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
 <code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;complex&gt;</code><br />
+<code>#include &lt;numbers&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for extended_infomax.cpp:</div>
+Include dependency graph for multitaper_tfr.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a02988.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2extended__infomax_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2dsp_2extended__infomax_8cpp" id="asrc_2libs_2mne_2dsp_2extended__infomax_8cpp">
-<area shape="rect" title="ExtendedInfomax class definition." alt="" coords="745,5,938,45"/>
-<area shape="rect" href="a03098.html" title="Extended Infomax independent component analysis (super&#45; and sub&#45;Gaussian sources)." alt="" coords="525,93,681,119"/>
-<area shape="poly" title=" " alt="" coords="785,48,651,92,650,87,783,43"/>
-<area shape="rect" title=" " alt="" coords="705,93,847,119"/>
-<area shape="poly" title=" " alt="" coords="828,47,796,84,792,81,823,44"/>
-<area shape="rect" title=" " alt="" coords="871,93,943,119"/>
-<area shape="poly" title=" " alt="" coords="859,44,890,81,886,84,855,47"/>
-<area shape="rect" title=" " alt="" coords="967,93,1030,119"/>
-<area shape="poly" title=" " alt="" coords="880,43,964,85,962,89,878,48"/>
-<area shape="rect" href="a03086.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="428,167,532,192"/>
-<area shape="poly" title=" " alt="" coords="584,121,513,162,510,157,582,116"/>
-<area shape="rect" title=" " alt="" coords="557,167,649,192"/>
-<area shape="poly" title=" " alt="" coords="605,119,605,153,600,153,600,119"/>
-<area shape="rect" title=" " alt="" coords="673,167,775,192"/>
-<area shape="poly" title=" " alt="" coords="624,116,694,157,691,162,621,121"/>
-<area shape="rect" href="a03272.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="393,240,567,265"/>
-<area shape="poly" title=" " alt="" coords="483,192,483,226,477,226,477,192"/>
-<area shape="rect" href="a03239.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="5,313,117,339"/>
-<area shape="poly" title=" " alt="" coords="413,268,132,315,131,310,412,263"/>
-<area shape="rect" title=" " alt="" coords="141,313,208,339"/>
-<area shape="poly" title=" " alt="" coords="429,268,222,316,221,310,428,263"/>
-<area shape="rect" title=" " alt="" coords="233,313,303,339"/>
-<area shape="poly" title=" " alt="" coords="447,268,316,311,314,306,445,263"/>
-<area shape="rect" title=" " alt="" coords="328,313,419,339"/>
-<area shape="poly" title=" " alt="" coords="464,268,404,308,401,303,461,263"/>
-<area shape="rect" title=" " alt="" coords="443,313,517,339"/>
-<area shape="poly" title=" " alt="" coords="483,266,483,300,477,300,477,266"/>
-<area shape="rect" title=" " alt="" coords="541,313,595,339"/>
-<area shape="poly" title=" " alt="" coords="496,263,545,302,541,307,492,267"/>
-<area shape="rect" title=" " alt="" coords="619,313,677,339"/>
-<area shape="poly" title=" " alt="" coords="508,263,609,305,607,310,506,268"/>
-<area shape="rect" title=" " alt="" coords="702,313,799,339"/>
-<area shape="poly" title=" " alt="" coords="524,263,694,307,693,312,523,268"/>
-<area shape="rect" title=" " alt="" coords="823,313,886,339"/>
-<area shape="poly" title=" " alt="" coords="554,263,671,283,810,310,809,316,670,288,553,268"/>
+<div class="center"><img src="a02988.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2multitaper__tfr_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2dsp_2multitaper__tfr_8cpp" id="asrc_2libs_2mne_2dsp_2multitaper__tfr_8cpp">
+<area shape="rect" title="Implementation of MultitaperTfr." alt="" coords="446,5,646,45"/>
+<area shape="rect" href="a03032.html" title="Sliding&#45;window multitaper time&#45;frequency representation." alt="" coords="175,93,298,119"/>
+<area shape="poly" title=" " alt="" coords="473,48,296,92,295,87,471,43"/>
+<area shape="rect" title=" " alt="" coords="345,167,437,192"/>
+<area shape="poly" title=" " alt="" coords="514,48,482,69,451,95,425,126,406,156,402,153,421,123,447,91,478,65,511,43"/>
+<area shape="rect" href="a03089.html" title="Discrete Prolate Spheroidal Sequences (Slepian tapers) for multitaper spectral estimation." alt="" coords="322,93,386,119"/>
+<area shape="poly" title=" " alt="" coords="501,48,396,91,394,86,499,43"/>
+<area shape="rect" title=" " alt="" coords="461,93,631,119"/>
+<area shape="poly" title=" " alt="" coords="549,46,549,79,543,79,543,46"/>
+<area shape="rect" title=" " alt="" coords="656,93,719,119"/>
+<area shape="poly" title=" " alt="" coords="581,43,655,84,653,89,579,48"/>
+<area shape="rect" title=" " alt="" coords="743,93,821,119"/>
+<area shape="poly" title=" " alt="" coords="603,43,736,87,734,92,602,48"/>
+<area shape="rect" title=" " alt="" coords="845,93,924,119"/>
+<area shape="poly" title=" " alt="" coords="628,43,832,90,831,95,627,48"/>
+<area shape="rect" href="a03122.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="217,167,321,192"/>
+<area shape="poly" title=" " alt="" coords="244,118,260,153,256,155,240,120"/>
+<area shape="rect" title=" " alt="" coords="5,313,68,339"/>
+<area shape="poly" title=" " alt="" coords="228,121,59,304,55,301,224,117"/>
+<area shape="poly" title=" " alt="" coords="263,116,355,158,353,163,260,121"/>
+<area shape="rect" href="a03308.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="285,240,460,265"/>
+<area shape="poly" title=" " alt="" coords="287,190,346,230,343,234,284,194"/>
+<area shape="rect" href="a03275.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="589,313,701,339"/>
+<area shape="poly" title=" " alt="" coords="417,263,588,307,587,312,416,268"/>
+<area shape="rect" title=" " alt="" coords="725,313,791,339"/>
+<area shape="poly" title=" " alt="" coords="447,263,567,283,712,311,711,316,566,288,446,268"/>
+<area shape="rect" title=" " alt="" coords="816,313,887,339"/>
+<area shape="poly" title=" " alt="" coords="460,261,616,281,803,311,802,316,615,286,460,266"/>
+<area shape="rect" title=" " alt="" coords="93,313,183,339"/>
+<area shape="poly" title=" " alt="" coords="336,268,190,312,188,307,334,263"/>
+<area shape="rect" title=" " alt="" coords="207,313,282,339"/>
+<area shape="poly" title=" " alt="" coords="353,268,279,309,277,304,351,263"/>
+<area shape="rect" title=" " alt="" coords="306,313,359,339"/>
+<area shape="poly" title=" " alt="" coords="368,267,348,303,344,300,364,264"/>
+<area shape="rect" title=" " alt="" coords="383,313,442,339"/>
+<area shape="poly" title=" " alt="" coords="382,264,402,300,397,303,377,267"/>
+<area shape="rect" title=" " alt="" coords="467,313,564,339"/>
+<area shape="poly" title=" " alt="" coords="397,263,481,305,479,309,394,268"/>
+<area shape="poly" title=" " alt="" coords="313,268,82,316,81,311,312,263"/>
+<area shape="poly" title=" " alt="" coords="342,121,295,160,291,156,339,117"/>
+<area shape="poly" title=" " alt="" coords="363,118,381,153,377,156,358,120"/>
 </map>
 </div>
 </div>
 <p><a href="a02987_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a04967.html">ExtendedInfomax</a> class definition. </p>
+<div class="textblock"><p>Implementation of <a class="el" href="a05088.html" title="Sliding-window multitaper time-frequency representation.">MultitaperTfr</a>. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>2.2.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>April 2026 </dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a02987_source.html">extended_infomax.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a02987_source.html">multitaper_tfr.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

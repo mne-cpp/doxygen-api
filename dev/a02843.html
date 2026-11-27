@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/connectivity/metrics/mvar_model.cpp File Reference</title>
+    <title>MNE-CPP: src/libs/mne/connectivity/metrics/granger_causality.h File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -255,70 +255,73 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">mvar_model.cpp File Reference</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">granger_causality.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of <a class="el" href="a04807.html" title="mne::MvarModel">mne::MvarModel</a> - Yule-Walker / Levinson-Durbin MVAR fit and frequency-domain decomposition into H(f) and <a class="el" href="a00533.html#abf0ab34206186176842dbc1e16b000fe">S(f)</a>; backbone of the directed-connectivity metrics.  
+<p>Spectral Granger Causality (Geweke 1982, Bressler &amp; Seth 2011) between every channel pair, computed from a fitted MVAR model.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a02879_source.html">mvar_model.h</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a03215_source.html">mne/base/log.h</a>&gt;</code><br />
-<code>#include &lt;Eigen/Dense&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;numbers&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a02834_source.html">../connectivity_global.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a02855_source.html">abstractmetric.h</a>&quot;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for mvar_model.cpp:</div>
+Include dependency graph for granger_causality.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a02844.png" border="0" usemap="#asrc_2libs_2mne_2connectivity_2metrics_2mvar__model_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2connectivity_2metrics_2mvar__model_8cpp" id="asrc_2libs_2mne_2connectivity_2metrics_2mvar__model_8cpp">
-<area shape="rect" title="Implementation of mne::MvarModel &#45; Yule&#45;Walker / Levinson&#45;Durbin MVAR fit and frequency&#45;domain decomp..." alt="" coords="665,5,853,45"/>
-<area shape="rect" href="a02879.html" title="Multivariate autoregressive (MVAR) model fit and its frequency&#45;domain decomposition; backbone of the ..." alt="" coords="242,93,358,119"/>
-<area shape="poly" title=" " alt="" coords="665,45,372,95,371,90,664,40"/>
-<area shape="rect" title=" " alt="" coords="319,167,382,192"/>
-<area shape="poly" title=" " alt="" coords="709,48,396,164,394,159,707,43"/>
-<area shape="rect" href="a03215.html" title="Logging: a std::format facade with a replaceable sink, the console and file writer,..." alt="" coords="629,93,752,119"/>
-<area shape="poly" title=" " alt="" coords="744,47,712,84,708,81,740,44"/>
-<area shape="rect" title=" " alt="" coords="777,93,879,119"/>
-<area shape="poly" title=" " alt="" coords="777,44,810,81,806,84,773,47"/>
-<area shape="rect" title=" " alt="" coords="904,93,989,119"/>
-<area shape="poly" title=" " alt="" coords="805,43,907,85,905,90,803,48"/>
-<area shape="rect" title=" " alt="" coords="1014,93,1093,119"/>
-<area shape="poly" title=" " alt="" coords="830,43,1001,88,1000,93,829,48"/>
-<area shape="rect" href="a02798.html" title="Export macro of mne_connectivity — Functional connectivity metrics (coherence, PLV,..." alt="" coords="5,167,179,192"/>
-<area shape="poly" title=" " alt="" coords="267,121,140,165,138,160,266,116"/>
-<area shape="rect" title=" " alt="" coords="203,167,295,192"/>
-<area shape="poly" title=" " alt="" coords="294,121,268,157,263,154,289,117"/>
-<area shape="poly" title=" " alt="" coords="311,117,337,154,332,157,306,121"/>
-<area shape="poly" title=" " alt="" coords="630,121,396,169,395,164,629,116"/>
-<area shape="rect" href="a03239.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="407,167,519,192"/>
-<area shape="poly" title=" " alt="" coords="655,121,514,165,512,160,653,116"/>
-<area shape="rect" title=" " alt="" coords="543,167,633,192"/>
-<area shape="poly" title=" " alt="" coords="676,121,618,161,615,156,673,116"/>
-<area shape="rect" title=" " alt="" coords="657,167,724,192"/>
-<area shape="poly" title=" " alt="" coords="693,119,693,153,688,153,688,119"/>
-<area shape="rect" title=" " alt="" coords="749,167,835,192"/>
-<area shape="poly" title=" " alt="" coords="708,116,766,156,763,161,705,121"/>
-<area shape="rect" title=" " alt="" coords="860,167,937,192"/>
-<area shape="poly" title=" " alt="" coords="725,116,853,160,851,165,723,121"/>
-<area shape="rect" title=" " alt="" coords="961,167,1020,192"/>
-<area shape="poly" title=" " alt="" coords="744,116,948,164,947,169,743,121"/>
-<area shape="rect" title=" " alt="" coords="1045,167,1142,192"/>
-<area shape="poly" title=" " alt="" coords="753,115,1031,164,1030,169,752,120"/>
-<area shape="rect" title=" " alt="" coords="1166,167,1226,192"/>
-<area shape="poly" title=" " alt="" coords="753,114,766,116,873,129,958,136,1044,146,1153,164,1152,169,1043,151,958,141,873,134,765,121,752,119"/>
+<div class="center"><img src="a02844.png" border="0" usemap="#asrc_2libs_2mne_2connectivity_2metrics_2granger__causality_8h" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2connectivity_2metrics_2granger__causality_8h" id="asrc_2libs_2mne_2connectivity_2metrics_2granger__causality_8h">
+<area shape="rect" title="Spectral Granger Causality (Geweke 1982, Bressler &amp; Seth 2011) between every channel pair,..." alt="" coords="68,5,273,45"/>
+<area shape="rect" href="a02834.html" title="Export macro of mne_connectivity — Functional connectivity metrics (coherence, PLV,..." alt="" coords="5,167,179,192"/>
+<area shape="poly" title=" " alt="" coords="140,47,115,68,96,94,89,124,90,153,85,153,84,123,91,92,111,64,136,43"/>
+<area shape="rect" href="a02855.html" title="Common base of the functional&#45;connectivity estimators in mne_connectivity." alt="" coords="106,93,235,119"/>
+<area shape="poly" title=" " alt="" coords="173,46,173,79,168,79,168,46"/>
+<area shape="rect" title=" " alt="" coords="215,167,307,192"/>
+<area shape="poly" title=" " alt="" coords="203,44,228,65,249,92,260,122,264,152,259,153,255,124,244,95,224,68,199,48"/>
+<area shape="poly" title=" " alt="" coords="160,121,117,159,113,156,156,117"/>
+<area shape="poly" title=" " alt="" coords="187,117,237,156,234,160,184,121"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a02845.png" border="0" usemap="#asrc_2libs_2mne_2connectivity_2metrics_2granger__causality_8hdep" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2connectivity_2metrics_2granger__causality_8hdep" id="asrc_2libs_2mne_2connectivity_2metrics_2granger__causality_8hdep">
+<area shape="rect" title="Spectral Granger Causality (Geweke 1982, Bressler &amp; Seth 2011) between every channel pair,..." alt="" coords="215,5,420,45"/>
+<area shape="rect" href="a02828.html" title="Implementation of mne::compute_connectivity, the dispatcher that runs the requested functional&#45;connec..." alt="" coords="5,93,200,133"/>
+<area shape="poly" title=" " alt="" coords="259,53,151,96,149,91,257,48"/>
+<area shape="rect" href="a02822.html" title="Umbrella include header that exposes the full mne_connectivity public surface in a single include." alt="" coords="225,93,410,133"/>
+<area shape="poly" title=" " alt="" coords="320,59,320,93,315,93,315,59"/>
+<area shape="rect" href="a02870.html" title="Implementation of mne::GrangerCausality &#45; spectral Granger Causality (Geweke 1982 formulation) betwee..." alt="" coords="434,93,654,133"/>
+<area shape="poly" title=" " alt="" coords="381,48,495,91,493,96,379,53"/>
 </map>
 </div>
 </div>
 <p><a href="a02843_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:mne_3A_3AGrangerCausality" id="r_mne_3A_3AGrangerCausality"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a04836.html">mne::GrangerCausality</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05792.html" title="Static multi-taper spectra, PSD and CSD estimator for MEG/EEG time series.">Spectral</a> Granger Causality estimator; directional, MVAR-based.  <a href="a04836.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:mne" id="r_mne"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a03326.html">mne</a></td></tr>
+<tr class="memdesc:a03326"><td class="mdescLeft">&#160;</td><td class="mdescRight">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++. <br /></td></tr>
+</table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of <a class="el" href="a04807.html" title="mne::MvarModel">mne::MvarModel</a> - Yule-Walker / Levinson-Durbin MVAR fit and frequency-domain decomposition into H(f) and <a class="el" href="a00533.html#abf0ab34206186176842dbc1e16b000fe">S(f)</a>; backbone of the directed-connectivity metrics. </p>
+<div class="textblock"><p>Spectral Granger Causality (Geweke 1982, Bressler &amp; Seth 2011) between every channel pair, computed from a fitted MVAR model. </p>
 <p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
 <dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
 <dl class="section since"><dt>Since</dt><dd>2.2.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>April 2026 </dd></dl>
+<p>Granger's idea (Granger, Econometrica 1969) is that a process <code>X_j</code> "causes" <code>X_i</code> if the past of <code>X_j</code> helps predict <code>X_i</code> beyond what the past of <code>X_i</code> alone already does. Geweke (JASA 1982) gave the frequency-resolved version used here:</p>
+<p>GC_{j-&gt;i}(f) = ln( S_{ii}(f) / ( S_{ii}(f) - ( Sigma_{jj} - Sigma_{ij}^2 / Sigma_{ii} ) * |H_{ij}(f)|^2 ) )</p>
+<p>with <code>H</code> the MVAR transfer function and <code>Sigma</code> the innovation covariance, both supplied by <a class="el" href="a04844.html" title="mne::MvarModel">mne::MvarModel</a>. The output is non-negative and asymmetric (<code>GC_{j-&gt;i}</code> != GC_{i-&gt;j} in general), so the resulting <a class="el" href="a04872.html" title="mne::Network">mne::Network</a> is directional. Spectral GC is the standard reference directed measure for stationary linear systems and is the metric most directly comparable to the <code>spectral_connectivity_epochs</code>(method='gc') output produced by MNE-Python's mne-connectivity.</p>
+<p>Practical caveats are well known (Bressler &amp; Seth, NeuroImage 2011): the estimate is sensitive to MVAR model order, requires reasonably stationary trial segments, and is biased by observation noise. The complementary <a class="el" href="a04832.html" title="mne::DirectedTransferFunction">mne::DirectedTransferFunction</a> and <a class="el" href="a04848.html" title="mne::PartialDirectedCoherence">mne::PartialDirectedCoherence</a> metrics in this library are derived from the same MVAR fit and are usually reported together. </p>
 
-<p class="definition">Definition in file <a class="el" href="a02843_source.html">mvar_model.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a02843_source.html">granger_causality.h</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

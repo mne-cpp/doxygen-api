@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['baseline_0',['Baseline',['../a05255.html#a35cad6d1c10dc8fa3799418c60433a4d',1,'mne::FiffEvoked']]],
-  ['bidstsvrow_1',['BidsTsvRow',['../a03290.html#a42f2ccb60c54ae7bdbc08038783480d1',1,'mne']]],
-  ['boundsfn_2',['BoundsFn',['../a06359.html#adad9b8718255ba6d0e88e7296c7a22dd',1,'mne::viz::qt::MultimodalScene']]]
+  ['baseline_0',['Baseline',['../a05292.html#a35cad6d1c10dc8fa3799418c60433a4d',1,'mne::FiffEvoked']]],
+  ['bidstsvrow_1',['BidsTsvRow',['../a03326.html#a42f2ccb60c54ae7bdbc08038783480d1',1,'mne']]],
+  ['boundsfn_2',['BoundsFn',['../a07004.html#a59f5a0eb425bc3ed933ed1421af56e64',1,'mne::viz::SceneState']]]
 ];

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/dsp/fine_calibration.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/dsp/eog_regression.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -248,7 +248,7 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">fine_calibration.cpp</div></div>
+  <div class="headertitle"><div class="title">eog_regression.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a03077.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
@@ -257,169 +257,164 @@ $(function() {
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a02924.html">fine_calibration.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a02969.html">eog_regression.h</a>&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a03260.html">mne/base/byte_stream.h</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a03272.html">mne/base/string_utils.h</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">// STL INCLUDES</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00545.html">mne/fiff/fiff_ch_name.h</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a03251.html">mne/base/log.h</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a03308.html">mne/base/string_utils.h</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a00596.html">mne/fiff/fiff_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a00608.html">mne/fiff/fiff_ch_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a00623.html">mne/fiff/fiff_constants.h</a>&gt;</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;format&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;iterator&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03290.html">mne</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;Eigen/Cholesky&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// STL INCLUDES</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// USED NAMESPACES</span></div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04991.html#a509420656ac77bddb7dc0e294216a341">   44</a></span><a class="code hl_class" href="a04503.html">Expected&lt;FineCalibration&gt;</a> <a class="code hl_function" href="a04991.html#a509420656ac77bddb7dc0e294216a341">FineCalibration::read</a>(<span class="keyword">const</span> std::filesystem::path&amp; path)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04503.html">Expected&lt;std::string&gt;</a> text = <a class="code hl_function" href="a03290.html#a203564622e85001950da97638b736768">read_text_file</a>(path);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (!text) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> std::unexpected(text.error());</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_function" href="a04991.html#ad862cf905652c72c96c113f04d9a75fa">FineCalibration</a> cal;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    std::string_view rest = *text;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">while</span> (!rest.empty()) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">const</span> std::size_t end = rest.find(<span class="charliteral">&#39;\n&#39;</span>);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">const</span> std::string_view line = rest.substr(0, end);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        rest = end == std::string_view::npos ? std::string_view() : rest.substr(end + 1);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">const</span> std::vector&lt;std::string_view&gt; parts = <a class="code hl_function" href="a03290.html#abb20e094a9342d811c23d9956d9db413">split_whitespace</a>(line);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span> (parts.empty() || parts.front().starts_with(<span class="charliteral">&#39;#&#39;</span>)) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        std::string_view name = parts.front();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">if</span> (name.starts_with(<span class="stringliteral">&quot;MEG&quot;</span>)) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            name.remove_prefix(3);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <a class="code hl_struct" href="a04987.html">FineCalEntry</a> entry;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        VectorXd values(std::ssize(parts) - 1);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        std::optional&lt;int&gt; number = <a class="code hl_function" href="a03290.html#afe91952db567200bcdea766f30eefe85">to_int</a>(name);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordtype">bool</span> ok = number.has_value() &amp;&amp; (parts.size() == 14 || parts.size() == 16);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">for</span> (Index k = 0; ok &amp;&amp; k &lt; values.size(); ++k) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keyword">const</span> std::optional&lt;double&gt; value = <a class="code hl_function" href="a03290.html#ac5d73fcc6e495b09ef432f1e4e5cbe9e">to_double</a>(parts[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(k) + 1]);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            ok = value.has_value();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            values(k) = value.value_or(0.0);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">if</span> (!ok) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="a03290.html#a4ce7cb5349788479279e6a563864dc66">fail</a>(<a class="code hl_enumvalue" href="a03290.html#aa655a189d0c15115d4f48b3f664b864da520d0db389f362bf79ef56ca0af3dcab">ErrorCode::Format</a>, <span class="stringliteral">&quot;{} has no fine calibration of 14 or 16 values in line \&quot;{}\&quot;&quot;</span>,</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                        <a class="code hl_function" href="a03290.html#a4690000d061f13bc9954f3eceb67af75">utf8_from_path</a>(path), line);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        }</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        entry.<a class="code hl_variable" href="a04987.html#aea8a788fb823200b1f991b3390679ebe">chNumber</a> = *number;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        entry.<a class="code hl_variable" href="a04987.html#a28361978be125ba8b2178d10de6beabe">position</a> = values.head&lt;3&gt;();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        entry.<a class="code hl_variable" href="a04987.html#a0addfd85ab911e471e346c9af53dc481">orientation</a> = Map&lt;const Matrix&lt;double, 3, 3, RowMajor&gt;&gt;(values.data() + 3);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        entry.<a class="code hl_variable" href="a04987.html#aaa731c0964ea1057bbd16c3922801bf5">imbalance</a> = values.tail(values.size() - 12);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        cal.<a class="code hl_function" href="a04991.html#a3da16de5872222eb1409046a85618206">push_back</a>(entry);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">return</span> cal;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03326.html">mne</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// STATIC HELPERS</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>{</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>MatrixXd demeanedRows(<span class="keyword">const</span> MatrixXd&amp; data, <span class="keyword">const</span> std::vector&lt;int&gt;&amp; rows)</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    MatrixXd <a class="code hl_enumvalue" href="a03326.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a>(rows.size(), data.cols());</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::ssize(rows); ++i)</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_enumvalue" href="a03326.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a>.row(i) = data.row(rows[i]).array() - data.row(rows[i]).mean();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03326.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a04988.html#a33b38727b3f91c96e7fd2650bf07bb3b">   66</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04988.html#a33b38727b3f91c96e7fd2650bf07bb3b">EogRegression::fit</a>(<span class="keyword">const</span> MatrixXd&amp; data,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                        <span class="keyword">const</span> <a class="code hl_class" href="a05332.html">FiffInfo</a>&amp; info,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                        <span class="keyword">const</span> <a class="code hl_typedef" href="a03326.html#a2607bd90112303fcf60abd414f1a4497">StringList</a>&amp; eogChannels)</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    m_bFitted = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    m_eogNames.clear();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    m_targetNames.clear();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    std::vector&lt;int&gt; eog;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::vector&lt;int&gt; targets;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">if</span> (eogChannels.empty()) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::ssize(info.<a class="code hl_variable" href="a05336.html#a3e9601c677f4797049fe64f060559746">chs</a>); ++i) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="a05336.html#a3e9601c677f4797049fe64f060559746">chs</a>[i].kind == <a class="code hl_variable" href="a00623.html#af5c32c2ac1a0c11263b020fe23a52d93">FIFFV_EOG_CH</a> &amp;&amp; !<a class="code hl_function" href="a03326.html#a5b6c130c2861934d818f8897b3e6336e">mne::has_channel</a>(info.<a class="code hl_variable" href="a05336.html#af97c9b09b1943a396f6c76f16d312359">bads</a>, info.<a class="code hl_variable" href="a05336.html#ae518b642149bc173139225dbd96e70be">ch_names</a>[i]))</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                eog.push_back(i);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; name : eogChannels) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="keyword">const</span> <span class="keywordtype">int</span> idx = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_function" href="a03326.html#a9ab2c969109b79045b630681bd921c4a">mne::channel_index</a>(info.<a class="code hl_variable" href="a05336.html#ae518b642149bc173139225dbd96e70be">ch_names</a>, name));</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordflow">if</span> (idx &gt;= 0)</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                eog.push_back(idx);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                <a class="code hl_function" href="a04628.html#a1c6b65df8614bc1d2be2671ca0e3ff99">Log::warning</a>(<span class="stringliteral">&quot;[EogRegression::fit] EOG channel not found: {}&quot;</span>, name);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">if</span> (eog.empty()) {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <a class="code hl_function" href="a04628.html#a1c6b65df8614bc1d2be2671ca0e3ff99">Log::warning</a>(<span class="stringliteral">&quot;[EogRegression::fit] No EOG channels found. Data will not be modified.&quot;</span>);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">// mne&#39;s default picks: the good data channels</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">int</span> i : info.<a class="code hl_function" href="a05336.html#a2b3f7276fbf5b29abecc73ea8c59fe5b">pick_data_channels</a>(info.<a class="code hl_variable" href="a05336.html#af97c9b09b1943a396f6c76f16d312359">bads</a>))</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        targets.push_back(i);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// Least squares on the time-demeaned signals, as mne.preprocessing.EOGRegression</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">const</span> MatrixXd E = demeanedRows(data, eog);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">const</span> MatrixXd T = demeanedRows(data, targets);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    m_matBeta = (E * E.transpose()).ldlt().solve(E * T.transpose()).transpose();</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">int</span> i : eog)</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        m_eogNames.push_back(info.<a class="code hl_variable" href="a05336.html#ae518b642149bc173139225dbd96e70be">ch_names</a>[i]);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">int</span> i : targets)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        m_targetNames.push_back(info.<a class="code hl_variable" href="a05336.html#ae518b642149bc173139225dbd96e70be">ch_names</a>[i]);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    m_bFitted = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
 </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a04991.html#a1eb165ebead62e77256502228fe97049">   88</a></span><a class="code hl_class" href="a04503.html">Expected&lt;void&gt;</a> <a class="code hl_function" href="a04991.html#a1eb165ebead62e77256502228fe97049">FineCalibration::write</a>(<span class="keyword">const</span> std::filesystem::path&amp; path)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    std::string text;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_struct" href="a04987.html">FineCalEntry</a>&amp; entry : m_entries) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        std::format_to(std::back_inserter(text), <span class="stringliteral">&quot;{}&quot;</span>, entry.chNumber);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keyword">const</span> <a class="code hl_enumvalue" href="a03290.html#a41b953755a2fde5ce34aa659deb8c6bbaf53df0293e169f562bc1d9a20e1d2589">Matrix&lt;double, 3, 3, RowMajor&gt;</a> axes = entry.orientation;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keyword">const</span> <span class="keyword">auto</span> put = [&amp;text](<span class="keywordtype">double</span> value) {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            std::format_to(std::back_inserter(text), <span class="stringliteral">&quot; {:.6f}&quot;</span>, value);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        };</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">for</span> (Index k = 0; k &lt; 3; ++k) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>            put(entry.position(k));</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">for</span> (Index k = 0; k &lt; 9; ++k) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            put(axes.data()[k]);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">for</span> (Index k = 0; k &lt; entry.imbalance.size(); ++k) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            put(entry.imbalance(k));</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        text += <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a03290.html#a166355f708606bde652376a4e5847680">write_text_file</a>(path, text);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>}</div>
-</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a04991.html#a9e7a0e0a0168213fd0a13ca9cff1b7f4">  113</a></span><span class="keyword">const</span> <a class="code hl_struct" href="a04987.html">FineCalEntry</a>* <a class="code hl_function" href="a04991.html#a9e7a0e0a0168213fd0a13ca9cff1b7f4">FineCalibration::find</a>(<span class="keywordtype">int</span> chNumber)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a04988.html#af5b2b2a79ef4040238b87439c9fed7f3">  112</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04988.html#af5b2b2a79ef4040238b87439c9fed7f3">EogRegression::apply</a>(MatrixXd&amp; data,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                          <span class="keyword">const</span> <a class="code hl_class" href="a05332.html">FiffInfo</a>&amp; info)<span class="keyword"> const</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = std::ranges::find(m_entries, chNumber, &amp;<a class="code hl_variable" href="a04987.html#aea8a788fb823200b1f991b3390679ebe">FineCalEntry::chNumber</a>);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> it == m_entries.end() ? nullptr : &amp;*it;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">if</span> (!m_bFitted) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <a class="code hl_function" href="a04628.html#a1c6b65df8614bc1d2be2671ca0e3ff99">Log::warning</a>(<span class="stringliteral">&quot;[EogRegression::apply] Not fitted yet. Call fit() first.&quot;</span>);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    std::vector&lt;int&gt; eog;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    std::vector&lt;int&gt; targets;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [names, rows] : {std::pair(&amp;m_eogNames, &amp;eog), std::pair(&amp;m_targetNames, &amp;targets)}) {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; name : *names) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            <span class="keyword">const</span> <span class="keywordtype">int</span> row = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_function" href="a03326.html#a9ab2c969109b79045b630681bd921c4a">mne::channel_index</a>(info.<a class="code hl_variable" href="a05336.html#ae518b642149bc173139225dbd96e70be">ch_names</a>, name));</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            <span class="keywordflow">if</span> (row &lt; 0 || row &gt;= data.rows()) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>                <a class="code hl_function" href="a04628.html#a1c6b65df8614bc1d2be2671ca0e3ff99">Log::warning</a>(<span class="stringliteral">&quot;[EogRegression::apply] The fitted channel {} is missing from the data.&quot;</span>, name);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            rows-&gt;push_back(row);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keyword">const</span> MatrixXd E = demeanedRows(data, eog);</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::ssize(targets); ++i)</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        data.row(targets[i]) -= m_matBeta.row(i) * E;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}</div>
 </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="foldopen" id="foldopen00121" data-start="{" data-end="}">
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno"><a class="line" href="a04991.html#ac4929f145292a346c158598102ac94a5">  121</a></span>VectorXd <a class="code hl_function" href="a04991.html#ac4929f145292a346c158598102ac94a5">FineCalibration::gain_vector</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    VectorXd gains = VectorXd::Ones(m_entries.size());</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::ssize(m_entries); ++i) {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">if</span> (m_entries[i].chNumber % 10 == 1) {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            gains(i) = m_entries[i].imbalance(0);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        }</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">return</span> gains;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>}</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="foldopen" id="foldopen00138" data-start="{" data-end="}">
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="a04988.html#a1e4acbc39737ac0ca7ead081138b8a8d">  138</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04988.html#a1e4acbc39737ac0ca7ead081138b8a8d">EogRegression::fitApply</a>(MatrixXd&amp; data,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                             <span class="keyword">const</span> <a class="code hl_class" href="a05332.html">FiffInfo</a>&amp; info,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                             <span class="keyword">const</span> <a class="code hl_typedef" href="a03326.html#a2607bd90112303fcf60abd414f1a4497">StringList</a>&amp; eogChannels)</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>{</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <a class="code hl_function" href="a04988.html#a25b78002ced987b79e91650e75bdd8e4">EogRegression</a> reg;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    reg.<a class="code hl_function" href="a04988.html#a33b38727b3f91c96e7fd2650bf07bb3b">fit</a>(data, info, eogChannels);</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    reg.<a class="code hl_function" href="a04988.html#af5b2b2a79ef4040238b87439c9fed7f3">apply</a>(data, info);</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>}</div>
 </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="a04991.html#a537b0f031b503555001aff4887424c77">  134</a></span>MatrixXd <a class="code hl_function" href="a04991.html#a537b0f031b503555001aff4887424c77">FineCalibration::imbalance_matrix</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    MatrixXd imb = MatrixXd::Zero(m_entries.size(), 3);</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::ssize(m_entries); ++i) {</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">if</span> (m_entries[i].chNumber % 10 != 1) {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            imb.row(i).head(m_entries[i].imbalance.size()) = m_entries[i].imbalance.transpose();</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        }</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    }</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">return</span> imb;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
-</div>
-<div class="ttc" id="aa02924_html"><div class="ttname"><a href="a02924.html">fine_calibration.h</a></div><div class="ttdoc">Fine calibration data for SSS.</div></div>
-<div class="ttc" id="aa03260_html"><div class="ttname"><a href="a03260.html">byte_stream.h</a></div><div class="ttdoc">Seekable byte streams over memory and files, with big-endian value I/O, in standard C++.</div></div>
-<div class="ttc" id="aa03272_html"><div class="ttname"><a href="a03272.html">string_utils.h</a></div><div class="ttdoc">Text and path helpers in standard C++ for the QString calls the libraries use most.</div></div>
-<div class="ttc" id="aa03290_html"><div class="ttname"><a href="a03290.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00047">acq_backend.h:48</a></div></div>
-<div class="ttc" id="aa03290_html_a166355f708606bde652376a4e5847680"><div class="ttname"><a href="a03290.html#a166355f708606bde652376a4e5847680">mne::write_text_file</a></div><div class="ttdeci">BASESHARED_EXPORT Expected&lt; void &gt; write_text_file(const std::filesystem::path &amp;path, std::string_view text)</div><div class="ttdef"><b>Definition</b> <a href="a03263_source.html#l00383">byte_stream.cpp:383</a></div></div>
-<div class="ttc" id="aa03290_html_a203564622e85001950da97638b736768"><div class="ttname"><a href="a03290.html#a203564622e85001950da97638b736768">mne::read_text_file</a></div><div class="ttdeci">BASESHARED_EXPORT Expected&lt; std::string &gt; read_text_file(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> <a href="a03263_source.html#l00368">byte_stream.cpp:368</a></div></div>
-<div class="ttc" id="aa03290_html_a41b953755a2fde5ce34aa659deb8c6bbaf53df0293e169f562bc1d9a20e1d2589"><div class="ttname"><a href="a03290.html#a41b953755a2fde5ce34aa659deb8c6bbaf53df0293e169f562bc1d9a20e1d2589">mne::BeamformerInversion::Matrix</a></div><div class="ttdeci">@ Matrix</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00068">inv_beamformer_settings.h:68</a></div></div>
-<div class="ttc" id="aa03290_html_a4690000d061f13bc9954f3eceb67af75"><div class="ttname"><a href="a03290.html#a4690000d061f13bc9954f3eceb67af75">mne::utf8_from_path</a></div><div class="ttdeci">BASESHARED_EXPORT std::string utf8_from_path(const std::filesystem::path &amp;path)</div><div class="ttdef"><b>Definition</b> <a href="a03236_source.html#l00254">string_utils.cpp:254</a></div></div>
-<div class="ttc" id="aa03290_html_a4ce7cb5349788479279e6a563864dc66"><div class="ttname"><a href="a03290.html#a4ce7cb5349788479279e6a563864dc66">mne::fail</a></div><div class="ttdeci">std::unexpected&lt; Error &gt; fail(ErrorCode code, std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a03281_source.html#l00126">error.h:126</a></div></div>
-<div class="ttc" id="aa03290_html_aa655a189d0c15115d4f48b3f664b864da520d0db389f362bf79ef56ca0af3dcab"><div class="ttname"><a href="a03290.html#aa655a189d0c15115d4f48b3f664b864da520d0db389f362bf79ef56ca0af3dcab">mne::ErrorCode::Format</a></div><div class="ttdeci">@ Format</div><div class="ttdef"><b>Definition</b> <a href="a03281_source.html#l00045">error.h:45</a></div></div>
-<div class="ttc" id="aa03290_html_abb20e094a9342d811c23d9956d9db413"><div class="ttname"><a href="a03290.html#abb20e094a9342d811c23d9956d9db413">mne::split_whitespace</a></div><div class="ttdeci">BASESHARED_EXPORT std::vector&lt; std::string_view &gt; split_whitespace(std::string_view text)</div><div class="ttdef"><b>Definition</b> <a href="a03236_source.html#l00147">string_utils.cpp:147</a></div></div>
-<div class="ttc" id="aa03290_html_ac5d73fcc6e495b09ef432f1e4e5cbe9e"><div class="ttname"><a href="a03290.html#ac5d73fcc6e495b09ef432f1e4e5cbe9e">mne::to_double</a></div><div class="ttdeci">BASESHARED_EXPORT std::optional&lt; double &gt; to_double(std::string_view text)</div><div class="ttdef"><b>Definition</b> <a href="a03236_source.html#l00205">string_utils.cpp:205</a></div></div>
-<div class="ttc" id="aa03290_html_afe91952db567200bcdea766f30eefe85"><div class="ttname"><a href="a03290.html#afe91952db567200bcdea766f30eefe85">mne::to_int</a></div><div class="ttdeci">BASESHARED_EXPORT std::optional&lt; int &gt; to_int(std::string_view text)</div><div class="ttdef"><b>Definition</b> <a href="a03236_source.html#l00234">string_utils.cpp:234</a></div></div>
-<div class="ttc" id="aa04503_html"><div class="ttname"><a href="a04503.html">mne::Expected</a></div><div class="ttdoc">A value or the Error why there is none; std::expected whose value() throws that Error.</div><div class="ttdef"><b>Definition</b> <a href="a03281_source.html#l00076">error.h:77</a></div></div>
-<div class="ttc" id="aa04987_html"><div class="ttname"><a href="a04987.html">mne::FineCalEntry</a></div><div class="ttdoc">Per-sensor fine calibration entry.</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00053">fine_calibration.h:54</a></div></div>
-<div class="ttc" id="aa04987_html_a0addfd85ab911e471e346c9af53dc481"><div class="ttname"><a href="a04987.html#a0addfd85ab911e471e346c9af53dc481">mne::FineCalEntry::orientation</a></div><div class="ttdeci">Eigen::Matrix3d orientation</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00057">fine_calibration.h:57</a></div></div>
-<div class="ttc" id="aa04987_html_a28361978be125ba8b2178d10de6beabe"><div class="ttname"><a href="a04987.html#a28361978be125ba8b2178d10de6beabe">mne::FineCalEntry::position</a></div><div class="ttdeci">Eigen::Vector3d position</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00056">fine_calibration.h:56</a></div></div>
-<div class="ttc" id="aa04987_html_aaa731c0964ea1057bbd16c3922801bf5"><div class="ttname"><a href="a04987.html#aaa731c0964ea1057bbd16c3922801bf5">mne::FineCalEntry::imbalance</a></div><div class="ttdeci">Eigen::VectorXd imbalance</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00058">fine_calibration.h:58</a></div></div>
-<div class="ttc" id="aa04987_html_aea8a788fb823200b1f991b3390679ebe"><div class="ttname"><a href="a04987.html#aea8a788fb823200b1f991b3390679ebe">mne::FineCalEntry::chNumber</a></div><div class="ttdeci">int chNumber</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00055">fine_calibration.h:55</a></div></div>
-<div class="ttc" id="aa04991_html_a1eb165ebead62e77256502228fe97049"><div class="ttname"><a href="a04991.html#a1eb165ebead62e77256502228fe97049">mne::FineCalibration::write</a></div><div class="ttdeci">Expected&lt; void &gt; write(const std::filesystem::path &amp;path) const</div><div class="ttdoc">Writes a .dat file like MaxFilter: bare channel numbers and values with six decimals.</div><div class="ttdef"><b>Definition</b> <a href="#l00088">fine_calibration.cpp:88</a></div></div>
-<div class="ttc" id="aa04991_html_a3da16de5872222eb1409046a85618206"><div class="ttname"><a href="a04991.html#a3da16de5872222eb1409046a85618206">mne::FineCalibration::push_back</a></div><div class="ttdeci">void push_back(const FineCalEntry &amp;entry)</div><div class="ttdoc">Add an entry.</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00146">fine_calibration.h:146</a></div></div>
-<div class="ttc" id="aa04991_html_a509420656ac77bddb7dc0e294216a341"><div class="ttname"><a href="a04991.html#a509420656ac77bddb7dc0e294216a341">mne::FineCalibration::read</a></div><div class="ttdeci">static Expected&lt; FineCalibration &gt; read(const std::filesystem::path &amp;path)</div><div class="ttdoc">Read a fine calibration file (.dat format).</div><div class="ttdef"><b>Definition</b> <a href="#l00044">fine_calibration.cpp:44</a></div></div>
-<div class="ttc" id="aa04991_html_a537b0f031b503555001aff4887424c77"><div class="ttname"><a href="a04991.html#a537b0f031b503555001aff4887424c77">mne::FineCalibration::imbalance_matrix</a></div><div class="ttdeci">Eigen::MatrixXd imbalance_matrix() const</div><div class="ttdoc">Gradiometer imbalance terms.</div><div class="ttdef"><b>Definition</b> <a href="#l00134">fine_calibration.cpp:134</a></div></div>
-<div class="ttc" id="aa04991_html_a9e7a0e0a0168213fd0a13ca9cff1b7f4"><div class="ttname"><a href="a04991.html#a9e7a0e0a0168213fd0a13ca9cff1b7f4">mne::FineCalibration::find</a></div><div class="ttdeci">const FineCalEntry * find(int chNumber) const</div><div class="ttdef"><b>Definition</b> <a href="#l00113">fine_calibration.cpp:113</a></div></div>
-<div class="ttc" id="aa04991_html_ac4929f145292a346c158598102ac94a5"><div class="ttname"><a href="a04991.html#ac4929f145292a346c158598102ac94a5">mne::FineCalibration::gain_vector</a></div><div class="ttdeci">Eigen::VectorXd gain_vector() const</div><div class="ttdoc">Magnetometer calibration factors.</div><div class="ttdef"><b>Definition</b> <a href="#l00121">fine_calibration.cpp:121</a></div></div>
-<div class="ttc" id="aa04991_html_ad862cf905652c72c96c113f04d9a75fa"><div class="ttname"><a href="a04991.html#ad862cf905652c72c96c113f04d9a75fa">mne::FineCalibration::FineCalibration</a></div><div class="ttdeci">FineCalibration()=default</div></div>
+<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">fiff_ch_name.h</a></div><div class="ttdoc">Matching of channel names across naming conventions.</div></div>
+<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">fiff_info.h</a></div><div class="ttdoc">Full FIFF measurement metadata: everything from FIFFB_MEAS / FIFFB_MEAS_INFO needed to interpret a re...</div></div>
+<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">fiff_ch_info.h</a></div><div class="ttdoc">FIFF channel descriptor record (FIFF_CH_INFO): per-channel logical/scanner numbers,...</div></div>
+<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">fiff_constants.h</a></div><div class="ttdoc">Symbolic FIFF tag, block, value, unit and channel-type constants shared across mne_fiff.</div></div>
+<div class="ttc" id="aa00623_html_af5c32c2ac1a0c11263b020fe23a52d93"><div class="ttname"><a href="a00623.html#af5c32c2ac1a0c11263b020fe23a52d93">FIFFV_EOG_CH</a></div><div class="ttdeci">constexpr auto FIFFV_EOG_CH</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00269">fiff_constants.h:269</a></div></div>
+<div class="ttc" id="aa02969_html"><div class="ttname"><a href="a02969.html">eog_regression.h</a></div><div class="ttdoc">Declaration of EogRegression — EOG artifact removal via linear regression.</div></div>
+<div class="ttc" id="aa03251_html"><div class="ttname"><a href="a03251.html">log.h</a></div><div class="ttdoc">Logging: a std::format facade with a replaceable sink, the console and file writer,...</div></div>
+<div class="ttc" id="aa03308_html"><div class="ttname"><a href="a03308.html">string_utils.h</a></div><div class="ttdoc">Text and path helpers in standard C++ for the QString calls the libraries use most.</div></div>
+<div class="ttc" id="aa03326_html"><div class="ttname"><a href="a03326.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00047">acq_backend.h:48</a></div></div>
+<div class="ttc" id="aa03326_html_a2607bd90112303fcf60abd414f1a4497"><div class="ttname"><a href="a03326.html#a2607bd90112303fcf60abd414f1a4497">mne::StringList</a></div><div class="ttdeci">std::vector&lt; std::string &gt; StringList</div><div class="ttdef"><b>Definition</b> <a href="a03308_source.html#l00046">string_utils.h:46</a></div></div>
+<div class="ttc" id="aa03326_html_a5b6c130c2861934d818f8897b3e6336e"><div class="ttname"><a href="a03326.html#a5b6c130c2861934d818f8897b3e6336e">mne::has_channel</a></div><div class="ttdeci">bool has_channel(const mne::StringList &amp;names, std::string_view name) noexcept</div><div class="ttdef"><b>Definition</b> <a href="a00545_source.html#l00063">fiff_ch_name.h:63</a></div></div>
+<div class="ttc" id="aa03326_html_a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275"><div class="ttname"><a href="a03326.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">mne::Direction::out</a></div><div class="ttdeci">@ out</div><div class="ttdef"><b>Definition</b> <a href="a02807_source.html#l00094">network.h:94</a></div></div>
+<div class="ttc" id="aa03326_html_a9ab2c969109b79045b630681bd921c4a"><div class="ttname"><a href="a03326.html#a9ab2c969109b79045b630681bd921c4a">mne::channel_index</a></div><div class="ttdeci">int channel_index(const mne::StringList &amp;names, std::string_view name) noexcept</div><div class="ttdef"><b>Definition</b> <a href="a00494_source.html#l00066">fiff_ch_name.cpp:66</a></div></div>
+<div class="ttc" id="aa04628_html_a1c6b65df8614bc1d2be2671ca0e3ff99"><div class="ttname"><a href="a04628.html#a1c6b65df8614bc1d2be2671ca0e3ff99">mne::Log::warning</a></div><div class="ttdeci">static void warning(std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a03251_source.html#l00122">log.h:122</a></div></div>
+<div class="ttc" id="aa04988_html_a1e4acbc39737ac0ca7ead081138b8a8d"><div class="ttname"><a href="a04988.html#a1e4acbc39737ac0ca7ead081138b8a8d">mne::EogRegression::fitApply</a></div><div class="ttdeci">static void fitApply(Eigen::MatrixXd &amp;data, const mne::FiffInfo &amp;info, const mne::StringList &amp;eogChannels={})</div><div class="ttdoc">Convenience: fit and apply in one step.</div><div class="ttdef"><b>Definition</b> <a href="#l00138">eog_regression.cpp:138</a></div></div>
+<div class="ttc" id="aa04988_html_a25b78002ced987b79e91650e75bdd8e4"><div class="ttname"><a href="a04988.html#a25b78002ced987b79e91650e75bdd8e4">mne::EogRegression::EogRegression</a></div><div class="ttdeci">EogRegression()=default</div></div>
+<div class="ttc" id="aa04988_html_a33b38727b3f91c96e7fd2650bf07bb3b"><div class="ttname"><a href="a04988.html#a33b38727b3f91c96e7fd2650bf07bb3b">mne::EogRegression::fit</a></div><div class="ttdeci">void fit(const Eigen::MatrixXd &amp;data, const mne::FiffInfo &amp;info, const mne::StringList &amp;eogChannels={})</div><div class="ttdoc">Fit regression coefficients from EOG to all other channels.</div><div class="ttdef"><b>Definition</b> <a href="#l00066">eog_regression.cpp:66</a></div></div>
+<div class="ttc" id="aa04988_html_af5b2b2a79ef4040238b87439c9fed7f3"><div class="ttname"><a href="a04988.html#af5b2b2a79ef4040238b87439c9fed7f3">mne::EogRegression::apply</a></div><div class="ttdeci">void apply(Eigen::MatrixXd &amp;data, const mne::FiffInfo &amp;info) const</div><div class="ttdoc">Apply the fitted regression to remove EOG artifacts in-place.</div><div class="ttdef"><b>Definition</b> <a href="#l00112">eog_regression.cpp:112</a></div></div>
+<div class="ttc" id="aa05332_html"><div class="ttname"><a href="a05332.html">mne::FiffInfo</a></div><div class="ttdoc">Full FIFF measurement info: per-channel descriptors, sampling and filter setup, projectors,...</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00107">fiff_info.h:108</a></div></div>
+<div class="ttc" id="aa05336_html_a2b3f7276fbf5b29abecc73ea8c59fe5b"><div class="ttname"><a href="a05336.html#a2b3f7276fbf5b29abecc73ea8c59fe5b">mne::FiffInfoBase::pick_data_channels</a></div><div class="ttdeci">Eigen::RowVectorXi pick_data_channels(const StringList &amp;exclude={}) const</div><div class="ttdef"><b>Definition</b> <a href="a00635_source.html#l00165">fiff_info_base.cpp:165</a></div></div>
+<div class="ttc" id="aa05336_html_a3e9601c677f4797049fe64f060559746"><div class="ttname"><a href="a05336.html#a3e9601c677f4797049fe64f060559746">mne::FiffInfoBase::chs</a></div><div class="ttdeci">std::vector&lt; FiffChInfo &gt; chs</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00319">fiff_info_base.h:319</a></div></div>
+<div class="ttc" id="aa05336_html_ae518b642149bc173139225dbd96e70be"><div class="ttname"><a href="a05336.html#ae518b642149bc173139225dbd96e70be">mne::FiffInfoBase::ch_names</a></div><div class="ttdeci">StringList ch_names</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00320">fiff_info_base.h:320</a></div></div>
+<div class="ttc" id="aa05336_html_af97c9b09b1943a396f6c76f16d312359"><div class="ttname"><a href="a05336.html#af97c9b09b1943a396f6c76f16d312359">mne::FiffInfoBase::bads</a></div><div class="ttdeci">StringList bads</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00316">fiff_info_base.h:316</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
