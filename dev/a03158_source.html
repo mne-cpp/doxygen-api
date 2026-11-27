@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/dsp/bad_channels_lof.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/dsp/resample.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -248,136 +248,76 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">bad_channels_lof.cpp</div></div>
+  <div class="headertitle"><div class="title">resample.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a03158.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a02993.html">bad_channels_lof.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00596.html">mne/fiff/fiff_info.h</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a00608.html">mne/fiff/fiff_ch_info.h</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a00623.html">mne/fiff/fiff_constants.h</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment">// STL INCLUDES</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;numeric&gt;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#ifndef RESAMPLE_DSP_H</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define RESAMPLE_DSP_H</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03326.html">mne</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">using namespace </span>Eigen;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// DEFINE FUNCTIONS</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>VectorXd <a class="code hl_function" href="a03326.html#ac17b7cbe748082a19c459e65dd240394">mne::computeLofScores</a>(<span class="keyword">const</span> MatrixXd&amp; features, <span class="keywordtype">int</span> k)</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a03326.html#ab0774d9556736d48f9b565f197b43f08">local_outlier_factor</a>(features, k);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &quot;<a class="code" href="a03128.html">dsp_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">// EIGEN INCLUDES</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;Eigen/Core&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">// DEFINE NAMESPACE mne</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><a class="code hl_typedef" href="a03326.html#a2607bd90112303fcf60abd414f1a4497">mne::StringList</a> <a class="code hl_function" href="a03326.html#ad760a737b1d3218bb0d7dd9f0175338d">mne::findBadChannelsLof</a>(<span class="keyword">const</span> MatrixXd&amp; data,</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                        <span class="keyword">const</span> <a class="code hl_class" href="a05332.html">FiffInfo</a>&amp; info,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                                        <span class="keyword">const</span> <a class="code hl_struct" href="a04936.html">LofBadChannelParams</a>&amp; params)</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// Select channel indices based on type filter</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    std::vector&lt;int&gt; chIdx;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::ssize(info.<a class="code hl_variable" href="a05336.html#a3e9601c677f4797049fe64f060559746">chs</a>); ++i) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span> (params.<a class="code hl_variable" href="a04936.html#ad9538df725ea97e0513a7ab17f08867b">bMegOnly</a> &amp;&amp; info.<a class="code hl_variable" href="a05336.html#a3e9601c677f4797049fe64f060559746">chs</a>[i].kind != <a class="code hl_define" href="a00623.html#a82bbc561af8dabd8aeaa1c389be791fd">FIFFV_MEG_CH</a>)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">if</span> (params.<a class="code hl_variable" href="a04936.html#a51ab50732c3d32cd2c188f1573730a9f">bEegOnly</a> &amp;&amp; info.<a class="code hl_variable" href="a05336.html#a3e9601c677f4797049fe64f060559746">chs</a>[i].kind != <a class="code hl_define" href="a00623.html#a2ef31ccf077b04b15aaa090b0ed1b9bd">FIFFV_EEG_CH</a>)</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">if</span> (!params.<a class="code hl_variable" href="a04936.html#ad9538df725ea97e0513a7ab17f08867b">bMegOnly</a> &amp;&amp; !params.<a class="code hl_variable" href="a04936.html#a51ab50732c3d32cd2c188f1573730a9f">bEegOnly</a>) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">if</span> (info.<a class="code hl_variable" href="a05336.html#a3e9601c677f4797049fe64f060559746">chs</a>[i].kind != <a class="code hl_define" href="a00623.html#a82bbc561af8dabd8aeaa1c389be791fd">FIFFV_MEG_CH</a> &amp;&amp; info.<a class="code hl_variable" href="a05336.html#a3e9601c677f4797049fe64f060559746">chs</a>[i].kind != <a class="code hl_define" href="a00623.html#a2ef31ccf077b04b15aaa090b0ed1b9bd">FIFFV_EEG_CH</a>)</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        chIdx.push_back(i);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nCh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(chIdx.size());</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span> (nCh &lt; 3) {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">return</span> <a class="code hl_typedef" href="a03326.html#a2607bd90112303fcf60abd414f1a4497">StringList</a>();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// Compute features: [std_dev, kurtosis, max_abs]</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> nFeatures = 3;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    MatrixXd features(nCh, nFeatures);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; nCh; ++i) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keyword">const</span> RowVectorXd row = data.row(chIdx[i]);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> nTimes = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(row.size());</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> mean = row.mean();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="comment">// Standard deviation</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordtype">double</span> variance = (row.array() - mean).square().sum() / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(nTimes);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordtype">double</span> stdDev = std::sqrt(variance);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        features(i, 0) = stdDev;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="comment">// Kurtosis (excess)</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordtype">double</span> m4 = (row.array() - mean).pow(4.0).sum() / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(nTimes);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordtype">double</span> kurt = (variance &gt; 1e-30) ? m4 / (variance * variance) - 3.0 : 0.0;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        features(i, 1) = kurt;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="comment">// Max absolute value</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        features(i, 2) = row.array().abs().maxCoeff();</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// Normalise features to zero mean, unit variance</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; nFeatures; ++f) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordtype">double</span> fMean = features.col(f).mean();</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">double</span> fStd = std::sqrt((features.col(f).array() - fMean).square().mean());</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">if</span> (fStd &gt; 1e-30) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            features.col(f) = (features.col(f).array() - fMean) / fStd;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="comment">// Compute LOF scores</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordtype">int</span> k = std::min(params.<a class="code hl_variable" href="a04936.html#ab7a0dca23225a8e2819590def11fea61">iNNeighbors</a>, nCh - 1);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    VectorXd lof = <a class="code hl_function" href="a03326.html#ac17b7cbe748082a19c459e65dd240394">computeLofScores</a>(features, k);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">// Flag channels above threshold</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_typedef" href="a03326.html#a2607bd90112303fcf60abd414f1a4497">StringList</a> badChannels;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; nCh; ++i) {</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">if</span> (lof(i) &gt; params.<a class="code hl_variable" href="a04936.html#a1cf73d8646c65be78727cbe094b91f07">dThreshold</a>) {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            badChannels.push_back(info.<a class="code hl_variable" href="a05336.html#ae518b642149bc173139225dbd96e70be">ch_names</a>[chIdx[i]]);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">return</span> badChannels;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
-<div class="ttc" id="aa00596_html"><div class="ttname"><a href="a00596.html">fiff_info.h</a></div><div class="ttdoc">Full FIFF measurement metadata: everything from FIFFB_MEAS / FIFFB_MEAS_INFO needed to interpret a re...</div></div>
-<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">fiff_ch_info.h</a></div><div class="ttdoc">FIFF channel descriptor record (FIFF_CH_INFO): per-channel logical/scanner numbers,...</div></div>
-<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">fiff_constants.h</a></div><div class="ttdoc">Symbolic FIFF tag, block, value, unit and channel-type constants shared across mne_fiff.</div></div>
-<div class="ttc" id="aa00623_html_a2ef31ccf077b04b15aaa090b0ed1b9bd"><div class="ttname"><a href="a00623.html#a2ef31ccf077b04b15aaa090b0ed1b9bd">FIFFV_EEG_CH</a></div><div class="ttdeci">#define FIFFV_EEG_CH</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00266">fiff_constants.h:266</a></div></div>
-<div class="ttc" id="aa00623_html_a82bbc561af8dabd8aeaa1c389be791fd"><div class="ttname"><a href="a00623.html#a82bbc561af8dabd8aeaa1c389be791fd">FIFFV_MEG_CH</a></div><div class="ttdeci">#define FIFFV_MEG_CH</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00263">fiff_constants.h:263</a></div></div>
-<div class="ttc" id="aa02993_html"><div class="ttname"><a href="a02993.html">bad_channels_lof.h</a></div><div class="ttdoc">Bad-channel detection via the Local Outlier Factor (LOF) algorithm.</div></div>
-<div class="ttc" id="aa03326_html"><div class="ttname"><a href="a03326.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00047">acq_backend.h:48</a></div></div>
-<div class="ttc" id="aa03326_html_a2607bd90112303fcf60abd414f1a4497"><div class="ttname"><a href="a03326.html#a2607bd90112303fcf60abd414f1a4497">mne::StringList</a></div><div class="ttdeci">std::vector&lt; std::string &gt; StringList</div><div class="ttdef"><b>Definition</b> <a href="a03308_source.html#l00046">string_utils.h:46</a></div></div>
-<div class="ttc" id="aa03326_html_ab0774d9556736d48f9b565f197b43f08"><div class="ttname"><a href="a03326.html#ab0774d9556736d48f9b565f197b43f08">mne::local_outlier_factor</a></div><div class="ttdeci">Eigen::Matrix&lt; typename Derived::Scalar, Eigen::Dynamic, 1 &gt; local_outlier_factor(const Eigen::MatrixBase&lt; Derived &gt; &amp;features, int n_neighbors)</div><div class="ttdoc">Local Outlier Factor of every sample, as scikit-learn&#39;s LocalOutlierFactor computes it.</div><div class="ttdef"><b>Definition</b> <a href="a02993_source.html#l00118">bad_channels_lof.h:118</a></div></div>
-<div class="ttc" id="aa03326_html_ac17b7cbe748082a19c459e65dd240394"><div class="ttname"><a href="a03326.html#ac17b7cbe748082a19c459e65dd240394">mne::computeLofScores</a></div><div class="ttdeci">DSPSHARED_EXPORT Eigen::VectorXd computeLofScores(const Eigen::MatrixXd &amp;features, int k)</div><div class="ttdoc">Compute LOF scores for a feature matrix.</div></div>
-<div class="ttc" id="aa03326_html_ad760a737b1d3218bb0d7dd9f0175338d"><div class="ttname"><a href="a03326.html#ad760a737b1d3218bb0d7dd9f0175338d">mne::findBadChannelsLof</a></div><div class="ttdeci">DSPSHARED_EXPORT mne::StringList findBadChannelsLof(const Eigen::MatrixXd &amp;data, const mne::FiffInfo &amp;info, const LofBadChannelParams &amp;params=LofBadChannelParams())</div><div class="ttdoc">Detect bad channels using Local Outlier Factor (LOF).</div></div>
-<div class="ttc" id="aa04936_html"><div class="ttname"><a href="a04936.html">mne::LofBadChannelParams</a></div><div class="ttdef"><b>Definition</b> <a href="a02993_source.html#l00076">bad_channels_lof.h:77</a></div></div>
-<div class="ttc" id="aa04936_html_a1cf73d8646c65be78727cbe094b91f07"><div class="ttname"><a href="a04936.html#a1cf73d8646c65be78727cbe094b91f07">mne::LofBadChannelParams::dThreshold</a></div><div class="ttdeci">double dThreshold</div><div class="ttdef"><b>Definition</b> <a href="a02993_source.html#l00079">bad_channels_lof.h:79</a></div></div>
-<div class="ttc" id="aa04936_html_a51ab50732c3d32cd2c188f1573730a9f"><div class="ttname"><a href="a04936.html#a51ab50732c3d32cd2c188f1573730a9f">mne::LofBadChannelParams::bEegOnly</a></div><div class="ttdeci">bool bEegOnly</div><div class="ttdef"><b>Definition</b> <a href="a02993_source.html#l00081">bad_channels_lof.h:81</a></div></div>
-<div class="ttc" id="aa04936_html_ab7a0dca23225a8e2819590def11fea61"><div class="ttname"><a href="a04936.html#ab7a0dca23225a8e2819590def11fea61">mne::LofBadChannelParams::iNNeighbors</a></div><div class="ttdeci">int iNNeighbors</div><div class="ttdef"><b>Definition</b> <a href="a02993_source.html#l00078">bad_channels_lof.h:78</a></div></div>
-<div class="ttc" id="aa04936_html_ad9538df725ea97e0513a7ab17f08867b"><div class="ttname"><a href="a04936.html#ad9538df725ea97e0513a7ab17f08867b">mne::LofBadChannelParams::bMegOnly</a></div><div class="ttdeci">bool bMegOnly</div><div class="ttdef"><b>Definition</b> <a href="a02993_source.html#l00080">bad_channels_lof.h:80</a></div></div>
-<div class="ttc" id="aa05332_html"><div class="ttname"><a href="a05332.html">mne::FiffInfo</a></div><div class="ttdoc">Full FIFF measurement info: per-channel descriptors, sampling and filter setup, projectors,...</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00107">fiff_info.h:108</a></div></div>
-<div class="ttc" id="aa05336_html_a3e9601c677f4797049fe64f060559746"><div class="ttname"><a href="a05336.html#a3e9601c677f4797049fe64f060559746">mne::FiffInfoBase::chs</a></div><div class="ttdeci">std::vector&lt; FiffChInfo &gt; chs</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00319">fiff_info_base.h:319</a></div></div>
-<div class="ttc" id="aa05336_html_ae518b642149bc173139225dbd96e70be"><div class="ttname"><a href="a05336.html#ae518b642149bc173139225dbd96e70be">mne::FiffInfoBase::ch_names</a></div><div class="ttdeci">StringList ch_names</div><div class="ttdef"><b>Definition</b> <a href="a00575_source.html#l00320">fiff_info_base.h:320</a></div></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03332.html">mne</a></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="};">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a05111.html">   57</a></span><span class="keyword">class </span><a class="code hl_define" href="a03128.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a> <a class="code hl_class" href="a05111.html">Resample</a></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">static</span> Eigen::RowVectorXd <a class="code hl_function" href="a05111.html#a50405f7a3c0448336ef8aacc3ce4e265">resample</a>(<span class="keyword">const</span> Eigen::RowVectorXd&amp; vecData,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                                       <span class="keywordtype">double</span> dNewSFreq,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                                       <span class="keywordtype">double</span> dOldSFreq,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                                       <span class="keywordtype">int</span> iNZeros = 10);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">static</span> Eigen::MatrixXd <a class="code hl_function" href="a05111.html#a933be60dcd3d591a86b558003560bc6a">resampleMatrix</a>(<span class="keyword">const</span> Eigen::MatrixXd&amp; matData,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                          <span class="keywordtype">double</span> dNewSFreq,</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                          <span class="keywordtype">double</span> dOldSFreq,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                                          <span class="keyword">const</span> Eigen::RowVectorXi&amp; vecPicks = Eigen::RowVectorXi(),</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                                          <span class="keywordtype">int</span> iNZeros = 10);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">static</span> <span class="keywordtype">int</span> gcd(<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keyword">static</span> Eigen::RowVectorXd buildKernel(<span class="keywordtype">int</span> p, <span class="keywordtype">int</span> q, <span class="keywordtype">int</span> iNZeros);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">static</span> Eigen::RowVectorXd polyphaseConv(<span class="keyword">const</span> Eigen::RowVectorXd&amp; vecX,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                                            <span class="keyword">const</span> Eigen::RowVectorXd&amp; vecH,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                                            <span class="keywordtype">int</span> p,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                            <span class="keywordtype">int</span> q,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                                            <span class="keywordtype">int</span> halfLen);</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>};</div>
+</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>} <span class="comment">// namespace mne</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="preprocessor">#endif </span><span class="comment">// RESAMPLE_DSP_H</span></div>
+<div class="ttc" id="aa03128_html"><div class="ttname"><a href="a03128.html">dsp_global.h</a></div><div class="ttdoc">Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real-time averaging,...</div></div>
+<div class="ttc" id="aa03128_html_abb361459cf37ec31dad972356041a014"><div class="ttname"><a href="a03128.html#abb361459cf37ec31dad972356041a014">DSPSHARED_EXPORT</a></div><div class="ttdeci">#define DSPSHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a03128_source.html#l00032">dsp_global.h:32</a></div></div>
+<div class="ttc" id="aa03332_html"><div class="ttname"><a href="a03332.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00047">acq_backend.h:48</a></div></div>
+<div class="ttc" id="aa05111_html"><div class="ttname"><a href="a05111.html">mne::Resample</a></div><div class="ttdoc">Polyphase anti-aliased rational resampling for MEG/EEG data.</div><div class="ttdef"><b>Definition</b> <a href="#l00057">resample.h:58</a></div></div>
+<div class="ttc" id="aa05111_html_a50405f7a3c0448336ef8aacc3ce4e265"><div class="ttname"><a href="a05111.html#a50405f7a3c0448336ef8aacc3ce4e265">mne::Resample::resample</a></div><div class="ttdeci">static Eigen::RowVectorXd resample(const Eigen::RowVectorXd &amp;vecData, double dNewSFreq, double dOldSFreq, int iNZeros=10)</div><div class="ttdef"><b>Definition</b> <a href="a03032_source.html#l00139">resample.cpp:139</a></div></div>
+<div class="ttc" id="aa05111_html_a933be60dcd3d591a86b558003560bc6a"><div class="ttname"><a href="a05111.html#a933be60dcd3d591a86b558003560bc6a">mne::Resample::resampleMatrix</a></div><div class="ttdeci">static Eigen::MatrixXd resampleMatrix(const Eigen::MatrixXd &amp;matData, double dNewSFreq, double dOldSFreq, const Eigen::RowVectorXi &amp;vecPicks=Eigen::RowVectorXi(), int iNZeros=10)</div><div class="ttdef"><b>Definition</b> <a href="a03032_source.html#l00174">resample.cpp:174</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

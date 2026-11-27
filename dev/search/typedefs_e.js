@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['rejectmask_0',['RejectMask',['../a06292.html#a5c58591b2430253993874941fb65e4cb',1,'mne::StatsMcCorrection']]],
-  ['rowmajormatrixmap_1',['RowMajorMatrixMap',['../a05816.html#a33a209cbabfb37d8f9cd7c9806a12d2c',1,'mne::MlTensor']]],
-  ['rowmajormatrixxf_2',['RowMajorMatrixXf',['../a05816.html#a034ff7e17990eaf0fd2d1d3220b5bf41',1,'mne::MlTensor::RowMajorMatrixXf'],['../a06172.html#a3ae9a84f2afa87a09e55fc92a8bc5967',1,'mne::MNERawData::RowMajorMatrixXf'],['../a03326.html#abe13ef35e7daa6fb0d6f18b6a412888d',1,'mne::RowMajorMatrixXf']]],
-  ['rowvectorpair_3',['RowVectorPair',['../a03489.html#a55ba0a13e0da6c246c37daacf8b6491f',1,'mne::viz::qt']]]
+  ['rejectmask_0',['RejectMask',['../a06299.html#a5c58591b2430253993874941fb65e4cb',1,'mne::StatsMcCorrection']]],
+  ['rowmajormatrixmap_1',['RowMajorMatrixMap',['../a05823.html#a33a209cbabfb37d8f9cd7c9806a12d2c',1,'mne::MlTensor']]],
+  ['rowmajormatrixxf_2',['RowMajorMatrixXf',['../a05823.html#a034ff7e17990eaf0fd2d1d3220b5bf41',1,'mne::MlTensor::RowMajorMatrixXf'],['../a06179.html#a3ae9a84f2afa87a09e55fc92a8bc5967',1,'mne::MNERawData::RowMajorMatrixXf'],['../a03332.html#abe13ef35e7daa6fb0d6f18b6a412888d',1,'mne::RowMajorMatrixXf']]],
+  ['rowvectorpair_3',['RowVectorPair',['../a03495.html#a55ba0a13e0da6c246c37daacf8b6491f',1,'mne::viz::qt']]]
 ];

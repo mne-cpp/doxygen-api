@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/dsp/filterkernel.cpp File Reference</title>
+    <title>MNE-CPP: src/libs/mne/dsp/firfilter.cpp File Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -255,112 +255,89 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">filterkernel.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">firfilter.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains all <a class="el" href="a05020.html" title="The FilterKernel class provides methods to create/design a FIR filter kernel.">FilterKernel</a>.  
+<p>Implementation of <a class="el" href="a05039.html" title="Discoverable façade over the FilterKernel FIR-filter engine.">FirFilter</a>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="a03104_source.html">filterkernel.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a03086_source.html">parksmcclellan.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a02966_source.html">cosinefilter.h</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a03251_source.html">mne/base/log.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01031_source.html">mne/math/numerics.h</a>&gt;</code><br />
-<code>#include &lt;Eigen/SparseCore&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a03146_source.html">firfilter.h</a>&quot;</code><br />
+<code>#include &lt;Eigen/Core&gt;</code><br />
 <code>#include &lt;unsupported/Eigen/FFT&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;complex&gt;</code><br />
 <code>#include &lt;format&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;numbers&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for filterkernel.cpp:</div>
+Include dependency graph for firfilter.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a03081.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2filterkernel_8cpp" loading="lazy" alt=""/></div>
-<map name="asrc_2libs_2mne_2dsp_2filterkernel_8cpp" id="asrc_2libs_2mne_2dsp_2filterkernel_8cpp">
-<area shape="rect" title="Contains all FilterKernel." alt="" coords="1149,5,1379,31"/>
-<area shape="rect" href="a03104.html" title="Linear&#45;phase FIR filter kernel with overlap&#45;add FFT convolution back&#45;end." alt="" coords="660,79,764,104"/>
-<area shape="poly" title=" " alt="" coords="1163,33,783,81,778,82,777,77,782,76,1163,28"/>
-<area shape="rect" title=" " alt="" coords="1038,299,1101,324"/>
-<area shape="poly" title=" " alt="" coords="1262,32,1235,96,1214,138,1190,179,1141,242,1093,291,1090,287,1137,238,1186,176,1210,136,1230,94,1257,30"/>
-<area shape="rect" href="a03086.html" title="Parks–McClellan equiripple FIR design via the Remez exchange algorithm." alt="" coords="503,79,636,104"/>
-<area shape="poly" title=" " alt="" coords="1149,31,923,52,650,81,650,76,922,47,1149,26"/>
-<area shape="rect" href="a02966.html" title="Frequency&#45;domain cosine&#45;tapered (raised&#45;cosine) FIR filter design." alt="" coords="373,79,478,104"/>
-<area shape="poly" title=" " alt="" coords="1149,27,855,46,676,62,492,81,491,76,675,56,855,41,1149,22"/>
-<area shape="rect" href="a03251.html" title="Logging: a std::format facade with a replaceable sink, the console and file writer,..." alt="" coords="800,225,923,251"/>
-<area shape="poly" title=" " alt="" coords="1149,31,1024,50,970,64,935,81,908,110,888,146,875,182,868,213,863,211,870,180,883,144,903,107,932,77,969,59,1022,45,1149,26"/>
-<area shape="rect" title=" " alt="" coords="1300,299,1367,324"/>
-<area shape="poly" title=" " alt="" coords="1277,29,1293,51,1308,78,1324,134,1333,192,1337,285,1332,285,1328,192,1319,135,1303,80,1289,54,1273,33"/>
-<area shape="rect" title=" " alt="" coords="1183,299,1243,324"/>
-<area shape="poly" title=" " alt="" coords="1271,30,1284,69,1297,125,1300,189,1295,221,1285,252,1269,275,1248,293,1244,289,1265,272,1280,249,1290,220,1295,189,1292,126,1279,70,1266,32"/>
-<area shape="rect" href="a01031.html" title="General numerical helpers: GCD, log2, histogram binning, baseline rescaling, sparsity tests." alt="" coords="945,79,1111,104"/>
-<area shape="poly" title=" " alt="" coords="1227,33,1080,77,1079,72,1225,28"/>
-<area shape="rect" title=" " alt="" coords="1403,79,1539,104"/>
-<area shape="poly" title=" " alt="" coords="1298,28,1425,72,1423,77,1296,33"/>
-<area shape="rect" title=" " alt="" coords="1563,79,1733,104"/>
-<area shape="poly" title=" " alt="" coords="1326,28,1573,73,1572,79,1325,33"/>
-<area shape="rect" title=" " alt="" coords="1757,79,1843,104"/>
-<area shape="poly" title=" " alt="" coords="1378,28,1547,48,1744,76,1743,81,1546,53,1377,33"/>
-<area shape="rect" href="a03122.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="392,152,496,177"/>
-<area shape="poly" title=" " alt="" coords="670,107,501,151,500,146,668,101"/>
-<area shape="rect" title=" " alt="" coords="741,299,800,324"/>
-<area shape="poly" title=" " alt="" coords="716,104,726,167,747,250,761,285,756,287,741,251,721,168,711,105"/>
-<area shape="rect" title=" " alt="" coords="369,299,466,324"/>
-<area shape="poly" title=" " alt="" coords="704,106,672,140,630,179,580,219,527,253,454,294,451,290,524,248,577,214,626,175,668,136,700,102"/>
-<area shape="poly" title=" " alt="" coords="733,102,936,223,1042,289,1039,294,933,228,730,107"/>
-<area shape="rect" title=" " alt="" coords="525,152,617,177"/>
-<area shape="poly" title=" " alt="" coords="690,106,607,148,605,143,688,102"/>
-<area shape="rect" href="a03308.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="339,225,514,251"/>
-<area shape="poly" title=" " alt="" coords="444,178,435,213,430,212,439,177"/>
-<area shape="rect" href="a03275.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="605,299,717,324"/>
-<area shape="poly" title=" " alt="" coords="465,248,611,292,610,297,464,253"/>
-<area shape="rect" title=" " alt="" coords="5,299,72,324"/>
-<area shape="poly" title=" " alt="" coords="352,253,231,273,86,301,85,296,230,268,351,248"/>
-<area shape="rect" title=" " alt="" coords="97,299,167,324"/>
-<area shape="poly" title=" " alt="" coords="380,253,181,301,180,296,379,248"/>
-<area shape="rect" title=" " alt="" coords="491,299,581,324"/>
-<area shape="poly" title=" " alt="" coords="446,248,508,289,505,293,443,253"/>
-<area shape="rect" title=" " alt="" coords="192,299,267,324"/>
-<area shape="poly" title=" " alt="" coords="396,253,275,296,274,291,394,248"/>
-<area shape="rect" title=" " alt="" coords="291,299,344,324"/>
-<area shape="poly" title=" " alt="" coords="411,253,348,293,345,289,408,248"/>
-<area shape="poly" title=" " alt="" coords="492,248,728,296,727,301,491,253"/>
-<area shape="poly" title=" " alt="" coords="428,251,423,286,418,285,422,251"/>
-<area shape="poly" title=" " alt="" coords="515,241,742,259,881,275,1025,296,1024,301,881,280,741,264,514,246"/>
-<area shape="poly" title=" " alt="" coords="551,106,478,147,475,143,548,102"/>
-<area shape="poly" title=" " alt="" coords="572,104,573,138,568,139,567,104"/>
-<area shape="poly" title=" " alt="" coords="431,104,440,138,435,140,426,105"/>
-<area shape="poly" title=" " alt="" coords="450,102,536,144,534,148,448,106"/>
-<area shape="poly" title=" " alt="" coords="830,253,708,296,706,291,828,248"/>
-<area shape="poly" title=" " alt="" coords="810,253,596,300,595,295,808,248"/>
-<area shape="poly" title=" " alt="" coords="848,253,798,292,795,288,845,249"/>
-<area shape="poly" title=" " alt="" coords="800,251,480,301,479,296,799,246"/>
-<area shape="poly" title=" " alt="" coords="896,248,1026,292,1024,297,894,253"/>
-<area shape="poly" title=" " alt="" coords="923,246,1287,300,1286,306,923,251"/>
-<area shape="rect" title=" " alt="" coords="825,299,911,324"/>
-<area shape="poly" title=" " alt="" coords="865,251,868,285,863,285,860,251"/>
-<area shape="rect" title=" " alt="" coords="936,299,1013,324"/>
-<area shape="poly" title=" " alt="" coords="881,248,946,289,943,294,878,253"/>
-<area shape="poly" title=" " alt="" coords="918,248,1170,299,1169,304,917,253"/>
-<area shape="poly" title=" " alt="" coords="986,107,940,123,886,148,834,183,810,203,790,227,777,255,773,285,768,284,772,254,786,224,806,200,830,178,883,144,937,118,985,102"/>
-<area shape="poly" title=" " alt="" coords="1008,106,982,126,961,153,958,165,961,176,978,210,1000,241,1046,288,1042,292,996,244,973,213,956,178,953,165,956,151,978,122,1005,102"/>
-<area shape="poly" title=" " alt="" coords="955,107,630,157,630,152,954,101"/>
-<area shape="poly" title=" " alt="" coords="1106,102,1151,119,1172,133,1190,150,1208,183,1218,220,1220,255,1219,285,1214,285,1215,255,1212,220,1204,185,1186,154,1169,137,1149,124,1104,107"/>
-<area shape="rect" href="a01028.html" title="Export macro of mne_math — Mathematical algorithms and geometry (linear algebra, optimization,..." alt="" coords="971,152,1085,177"/>
-<area shape="poly" title=" " alt="" coords="1031,104,1031,138,1025,138,1025,104"/>
-<area shape="rect" title=" " alt="" coords="1109,152,1176,177"/>
-<area shape="poly" title=" " alt="" coords="1048,102,1114,142,1111,147,1045,106"/>
+<div class="center"><img src="a03081.png" border="0" usemap="#asrc_2libs_2mne_2dsp_2firfilter_8cpp" loading="lazy" alt=""/></div>
+<map name="asrc_2libs_2mne_2dsp_2firfilter_8cpp" id="asrc_2libs_2mne_2dsp_2firfilter_8cpp">
+<area shape="rect" title="Implementation of FirFilter." alt="" coords="798,5,999,31"/>
+<area shape="rect" href="a03146.html" title="Discoverable design / apply façade over the mne::FilterKernel FIR engine." alt="" coords="522,79,598,104"/>
+<area shape="poly" title=" " alt="" coords="845,33,612,82,611,77,844,28"/>
+<area shape="rect" title=" " alt="" coords="5,372,64,397"/>
+<area shape="poly" title=" " alt="" coords="798,29,594,48,359,77,252,96,165,117,106,140,90,152,85,164,85,239,82,273,73,307,50,361,45,359,68,305,77,272,80,239,80,163,86,149,103,135,163,112,251,91,358,72,594,43,798,24"/>
+<area shape="rect" title=" " alt="" coords="825,372,887,397"/>
+<area shape="poly" title=" " alt="" coords="818,33,769,51,747,64,727,81,712,100,705,117,703,163,703,239,706,261,714,281,742,316,778,344,816,364,813,369,775,348,738,320,709,284,700,262,697,240,697,163,700,116,708,97,723,77,744,60,767,46,816,28"/>
+<area shape="rect" title=" " alt="" coords="167,225,259,251"/>
+<area shape="poly" title=" " alt="" coords="798,31,661,49,585,63,511,81,419,111,332,154,282,187,239,218,236,214,279,182,329,150,417,106,510,76,584,58,660,44,797,26"/>
+<area shape="rect" title=" " alt="" coords="737,79,908,104"/>
+<area shape="poly" title=" " alt="" coords="888,33,847,71,843,67,885,29"/>
+<area shape="rect" title=" " alt="" coords="932,79,1017,104"/>
+<area shape="poly" title=" " alt="" coords="913,29,954,67,950,71,909,33"/>
+<area shape="rect" title=" " alt="" coords="1042,79,1105,104"/>
+<area shape="poly" title=" " alt="" coords="928,28,1033,71,1031,76,926,33"/>
+<area shape="rect" title=" " alt="" coords="1129,79,1207,104"/>
+<area shape="poly" title=" " alt="" coords="943,28,1116,74,1115,79,941,33"/>
+<area shape="rect" title=" " alt="" coords="1232,79,1299,104"/>
+<area shape="poly" title=" " alt="" coords="968,28,1219,76,1218,81,967,33"/>
+<area shape="rect" title=" " alt="" coords="1323,79,1402,104"/>
+<area shape="poly" title=" " alt="" coords="991,28,1137,48,1310,76,1309,81,1136,53,991,33"/>
+<area shape="rect" href="a03128.html" title="Export macro of mne_dsp — Digital signal processing (filtering, spectrograms, real&#45;time averaging,..." alt="" coords="508,225,612,251"/>
+<area shape="poly" title=" " alt="" coords="563,104,563,212,557,212,557,104"/>
+<area shape="poly" title=" " alt="" coords="568,103,627,223,660,288,683,322,733,342,812,368,811,373,731,347,680,326,656,290,622,226,563,105"/>
+<area shape="rect" href="a03110.html" title="Linear&#45;phase FIR filter kernel with overlap&#45;add FFT convolution back&#45;end." alt="" coords="404,152,508,177"/>
+<area shape="poly" title=" " alt="" coords="545,106,486,146,483,142,542,102"/>
+<area shape="poly" title=" " alt="" coords="525,107,393,154,249,222,247,217,391,150,523,102"/>
+<area shape="rect" href="a03314.html" title="Text and path helpers in standard C++ for the QString calls the libraries use most." alt="" coords="386,299,561,324"/>
+<area shape="poly" title=" " alt="" coords="548,253,500,292,496,288,544,249"/>
+<area shape="rect" href="a03281.html" title="Export macro and build&#45;info accessors of mne_base." alt="" coords="211,372,323,397"/>
+<area shape="poly" title=" " alt="" coords="441,327,314,370,312,365,439,321"/>
+<area shape="rect" title=" " alt="" coords="347,372,413,397"/>
+<area shape="poly" title=" " alt="" coords="460,326,408,366,404,361,457,322"/>
+<area shape="rect" title=" " alt="" coords="438,372,509,397"/>
+<area shape="poly" title=" " alt="" coords="476,324,476,358,471,358,471,324"/>
+<area shape="rect" title=" " alt="" coords="533,372,624,397"/>
+<area shape="poly" title=" " alt="" coords="492,322,552,362,549,367,489,326"/>
+<area shape="rect" title=" " alt="" coords="648,372,723,397"/>
+<area shape="poly" title=" " alt="" coords="508,321,639,365,637,370,507,327"/>
+<area shape="rect" title=" " alt="" coords="747,372,800,397"/>
+<area shape="poly" title=" " alt="" coords="529,321,734,369,733,374,528,327"/>
+<area shape="poly" title=" " alt="" coords="386,325,245,345,78,375,77,369,245,339,386,320"/>
+<area shape="rect" title=" " alt="" coords="89,372,186,397"/>
+<area shape="poly" title=" " alt="" coords="420,327,200,373,199,368,419,321"/>
+<area shape="poly" title=" " alt="" coords="548,321,668,341,812,369,811,375,667,347,548,327"/>
+<area shape="poly" title=" " alt="" coords="474,175,533,215,530,219,471,180"/>
+<area shape="poly" title=" " alt="" coords="435,180,71,368,68,363,433,175"/>
+<area shape="poly" title=" " alt="" coords="451,179,401,248,362,290,317,326,259,355,200,374,199,369,257,350,315,322,359,286,397,244,447,176"/>
+<area shape="poly" title=" " alt="" coords="462,177,474,212,485,231,498,249,524,269,561,290,632,321,812,369,811,374,630,327,559,294,521,273,494,253,480,234,469,214,456,179"/>
+<area shape="poly" title=" " alt="" coords="418,180,266,224,265,219,416,175"/>
 </map>
 </div>
 </div>
 <p><a href="a03080_source.html">Go to the source code of this file.</a></p>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains all <a class="el" href="a05020.html" title="The FilterKernel class provides methods to create/design a FIR filter kernel.">FilterKernel</a>. </p>
-<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2014-2026 MNE-CPP Authors</p>
-<dl class="section author"><dt>Author</dt><dd>Lorenz Esch <a href="#" onclick="location.href='mai'+'lto:'+'lor'+'en'+'z.e'+'sc'+'h@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">loren<span class="obfuscator">.nosp@m.</span>z.es<span class="obfuscator">.nosp@m.</span>ch@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a>; Florian Schlembach <a href="#" onclick="location.href='mai'+'lto:'+'fsc'+'hl'+'emb'+'ac'+'h@w'+'eb'+'.de'; return false;">fschl<span class="obfuscator">.nosp@m.</span>emba<span class="obfuscator">.nosp@m.</span>ch@we<span class="obfuscator">.nosp@m.</span>b.de</a>; Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a>; Matti Hamalainen <a href="#" onclick="location.href='mai'+'lto:'+'msh'+'@n'+'mr.'+'mg'+'h.h'+'ar'+'var'+'d.'+'edu'; return false;">msh@n<span class="obfuscator">.nosp@m.</span>mr.m<span class="obfuscator">.nosp@m.</span>gh.ha<span class="obfuscator">.nosp@m.</span>rvar<span class="obfuscator">.nosp@m.</span>d.edu</a>; Jens Haueisen <a href="#" onclick="location.href='mai'+'lto:'+'jen'+'s.'+'hau'+'ei'+'sen'+'@t'+'u-i'+'lm'+'ena'+'u.'+'de'; return false;">jens.<span class="obfuscator">.nosp@m.</span>haue<span class="obfuscator">.nosp@m.</span>isen@<span class="obfuscator">.nosp@m.</span>tu-i<span class="obfuscator">.nosp@m.</span>lmena<span class="obfuscator">.nosp@m.</span>u.de</a>; Ruben Doerfel <a href="#" onclick="location.href='mai'+'lto:'+'doe'+'rf'+'elr'+'ub'+'en@'+'ao'+'l.c'+'om'; return false;">doerf<span class="obfuscator">.nosp@m.</span>elru<span class="obfuscator">.nosp@m.</span>ben@a<span class="obfuscator">.nosp@m.</span>ol.c<span class="obfuscator">.nosp@m.</span>om</a>; Gabriel Motta <a href="#" onclick="location.href='mai'+'lto:'+'gab'+'ri'+'elb'+'en'+'mot'+'ta'+'@gm'+'ai'+'l.c'+'om'; return false;">gabri<span class="obfuscator">.nosp@m.</span>elbe<span class="obfuscator">.nosp@m.</span>nmott<span class="obfuscator">.nosp@m.</span>a@gm<span class="obfuscator">.nosp@m.</span>ail.c<span class="obfuscator">.nosp@m.</span>om</a>; Juan GPC <a href="#" onclick="location.href='mai'+'lto:'+'jga'+'rc'+'iap'+'ri'+'eto'+'@m'+'gh.'+'ha'+'rva'+'rd'+'.ed'+'u'; return false;">jgarc<span class="obfuscator">.nosp@m.</span>iapr<span class="obfuscator">.nosp@m.</span>ieto@<span class="obfuscator">.nosp@m.</span>mgh.<span class="obfuscator">.nosp@m.</span>harva<span class="obfuscator">.nosp@m.</span>rd.e<span class="obfuscator">.nosp@m.</span>du</a>; Felix Arndt <a href="#" onclick="location.href='mai'+'lto:'+'Fel'+'ix'+'.Ar'+'nd'+'t@t'+'u-'+'ilm'+'en'+'au.'+'de'; return false;">Felix<span class="obfuscator">.nosp@m.</span>.Arn<span class="obfuscator">.nosp@m.</span>dt@tu<span class="obfuscator">.nosp@m.</span>-ilm<span class="obfuscator">.nosp@m.</span>enau.<span class="obfuscator">.nosp@m.</span>de</a> </dd></dl>
-<dl class="section since"><dt>Since</dt><dd>0.1.0 </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>February 2014 </dd></dl>
+<div class="textblock"><p>Implementation of <a class="el" href="a05039.html" title="Discoverable façade over the FilterKernel FIR-filter engine.">FirFilter</a>. </p>
+<p>SPDX-License-Identifier: BSD-3-Clause Copyright (c) 2026 MNE-CPP Authors</p>
+<dl class="section author"><dt>Author</dt><dd>Christoph Dinh <a href="#" onclick="location.href='mai'+'lto:'+'chr'+'is'+'top'+'h.'+'din'+'h@'+'mne'+'-c'+'pp.'+'or'+'g'; return false;">chris<span class="obfuscator">.nosp@m.</span>toph<span class="obfuscator">.nosp@m.</span>.dinh<span class="obfuscator">.nosp@m.</span>@mne<span class="obfuscator">.nosp@m.</span>-cpp.<span class="obfuscator">.nosp@m.</span>org</a> </dd></dl>
+<dl class="section since"><dt>Since</dt><dd>2.1.0 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>March 2026 </dd></dl>
 
-<p class="definition">Definition in file <a class="el" href="a03080_source.html">filterkernel.cpp</a>.</p>
+<p class="definition">Definition in file <a class="el" href="a03080_source.html">firfilter.cpp</a>.</p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

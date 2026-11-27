@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['level_0',['Level',['../a04628.html#a603a466753ec43535c05610a75199d32',1,'mne::Log::Level'],['../a07710.html#a603a466753ec43535c05610a75199d32',1,'Log::Level']]],
-  ['linecap_1',['LineCap',['../a03488.html#a30174489cf322930c35e985f9ec5dac0',1,'mne::viz']]],
-  ['linejoin_2',['LineJoin',['../a03488.html#a7a26c473b994ea579c1e390de60bb5cc',1,'mne::viz']]],
-  ['linestyle_3',['LineStyle',['../a03488.html#ab20608809be64d90b668f8a68fa32275',1,'mne::viz']]]
+  ['level_0',['Level',['../a04635.html#a603a466753ec43535c05610a75199d32',1,'mne::Log::Level'],['../a07773.html#a603a466753ec43535c05610a75199d32',1,'Log::Level']]],
+  ['linecap_1',['LineCap',['../a03494.html#a30174489cf322930c35e985f9ec5dac0',1,'mne::viz']]],
+  ['linejoin_2',['LineJoin',['../a03494.html#a7a26c473b994ea579c1e390de60bb5cc',1,'mne::viz']]],
+  ['linestyle_3',['LineStyle',['../a03494.html#ab20608809be64d90b668f8a68fa32275',1,'mne::viz']]]
 ];

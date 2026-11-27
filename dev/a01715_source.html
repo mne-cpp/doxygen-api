@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/viz/models/evoked_conditions.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/viz/gpu/gpu_frame.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,12 +243,12 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_7f26cea5f09c0c445243a1d522f12b80.html">viz</a></li><li class="navelem"><a href="dir_9d3ba2352e0165c00c0e67c385b38b47.html">models</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_7f26cea5f09c0c445243a1d522f12b80.html">viz</a></li><li class="navelem"><a href="dir_19c641b27a129b6539e59d7af492747c.html">gpu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">evoked_conditions.cpp</div></div>
+  <div class="headertitle"><div class="title">gpu_frame.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a01715.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
@@ -257,21 +257,144 @@ $(function() {
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a01718.html">evoked_conditions.h</a>&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a01694.html">gpu_frame.h</a>&quot;</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">// DEFINE GLOBAL METHODS</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">// USED NAMESPACES</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03488.html#ae41953174a820366c1d2fa6a1e5b1845">   23</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a03488.html#ae41953174a820366c1d2fa6a1e5b1845">mne::viz::pre_stimulus_samples</a>(std::span&lt;const float&gt; times)</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> <span class="keyword">auto</span> onset = std::ranges::find(times, 0.0f);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(onset - times.begin());</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03494.html">mne::viz</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Resources&gt;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">auto</span> find(Resources&amp; resources, <a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> handle) -&gt; <span class="keyword">decltype</span>(std::get_if&lt;T&gt;(resources.data()))</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (handle == 0 || handle &gt; resources.size()) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">return</span> std::get_if&lt;T&gt;(&amp;resources[handle - 1]);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a07315.html#aaa451c683075c13aab23fa224b9fd9fc">   46</a></span><a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> <a class="code hl_function" href="a07315.html#aaa451c683075c13aab23fa224b9fd9fc">GpuResources::create_buffer</a>(<a class="code hl_enumeration" href="a03494.html#ac1fd56dd58d4d1eada72749f21a2c7ff">GpuBufferUsage</a> usage)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_struct" href="a07307.html">GpuBuffer</a> <a class="code hl_function" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">buffer</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_function" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">buffer</a>.usage = usage;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_function" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">buffer</a>.revision = ++m_revision;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    m_resources.emplace_back(std::move(<a class="code hl_function" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">buffer</a>));</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a><span class="keyword">&gt;</span>(m_resources.size());</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 </div>
-<div class="ttc" id="aa01718_html"><div class="ttname"><a href="a01718.html">evoked_conditions.h</a></div><div class="ttdoc">Bookkeeping of the conditions (averages) an evoked view shows.</div></div>
-<div class="ttc" id="aa03488_html_ae41953174a820366c1d2fa6a1e5b1845"><div class="ttname"><a href="a03488.html#ae41953174a820366c1d2fa6a1e5b1845">mne::viz::pre_stimulus_samples</a></div><div class="ttdeci">VIZSHARED_EXPORT int pre_stimulus_samples(std::span&lt; const float &gt; times)</div><div class="ttdef"><b>Definition</b> <a href="#l00023">evoked_conditions.cpp:23</a></div></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a07315.html#a397d393a068e892d4b20569ea8484544">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07315.html#a397d393a068e892d4b20569ea8484544">GpuResources::set_buffer_data</a>(<a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> <a class="code hl_function" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">buffer</a>, std::span&lt;const std::byte&gt; bytes)</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="a07307.html">GpuBuffer</a>* target = find&lt;GpuBuffer&gt;(m_resources, <a class="code hl_function" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">buffer</a>)) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        target-&gt;data.assign(bytes.begin(), bytes.end());</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        target-&gt;revision = ++m_revision;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a07315.html#a4abc0d5398dd5d4de6826c0b468d2dc7">   67</a></span><a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> <a class="code hl_function" href="a07315.html#a4abc0d5398dd5d4de6826c0b468d2dc7">GpuResources::create_texture</a>(<a class="code hl_struct" href="a07311.html">GpuTexture</a> <a class="code hl_function" href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">texture</a>)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>{</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_function" href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">texture</a>.revision = ++m_revision;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    m_resources.emplace_back(std::move(<a class="code hl_function" href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">texture</a>));</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a><span class="keyword">&gt;</span>(m_resources.size());</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a07315.html#a872a8ef0f7140c1de16909b069151863">   76</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07315.html#a872a8ef0f7140c1de16909b069151863">GpuResources::set_texture</a>(<a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> <a class="code hl_function" href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">texture</a>, std::variant&lt;Image, DisplayList&gt; content, <span class="keywordtype">double</span> scale)</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>{</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (<a class="code hl_struct" href="a07311.html">GpuTexture</a>* target = find&lt;GpuTexture&gt;(m_resources, <a class="code hl_function" href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">texture</a>)) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        target-&gt;content = std::move(content);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        target-&gt;scale = scale;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        target-&gt;revision = ++m_revision;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a07315.html#a7c518d14d515958b9283a54452d7a154">   87</a></span><a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> <a class="code hl_function" href="a07315.html#a7c518d14d515958b9283a54452d7a154">GpuResources::create_pipeline</a>(<a class="code hl_struct" href="a07303.html">GpuPipeline</a> <a class="code hl_function" href="a07315.html#a10fabd5c9c1923aaffb2749c0f2cb62e">pipeline</a>)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>{</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    m_resources.emplace_back(std::move(<a class="code hl_function" href="a07315.html#a10fabd5c9c1923aaffb2749c0f2cb62e">pipeline</a>));</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a><span class="keyword">&gt;</span>(m_resources.size());</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
+</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a07315.html#afaa7c5ff7a8a031718d6fdcea0f2551b">   95</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07315.html#afaa7c5ff7a8a031718d6fdcea0f2551b">GpuResources::release</a>(<a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> handle)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>{</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (handle != 0 &amp;&amp; handle &lt;= m_resources.size()) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        m_resources[handle - 1] = std::monostate{};</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="}">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">  104</a></span><span class="keyword">const</span> <a class="code hl_struct" href="a07307.html">GpuBuffer</a>* <a class="code hl_function" href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">GpuResources::buffer</a>(<a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> handle)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> find&lt;GpuBuffer&gt;(m_resources, handle);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">  111</a></span><span class="keyword">const</span> <a class="code hl_struct" href="a07311.html">GpuTexture</a>* <a class="code hl_function" href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">GpuResources::texture</a>(<a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> handle)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">return</span> find&lt;GpuTexture&gt;(m_resources, handle);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a07315.html#a10fabd5c9c1923aaffb2749c0f2cb62e">  118</a></span><span class="keyword">const</span> <a class="code hl_struct" href="a07303.html">GpuPipeline</a>* <a class="code hl_function" href="a07315.html#a10fabd5c9c1923aaffb2749c0f2cb62e">GpuResources::pipeline</a>(<a class="code hl_typedef" href="a03494.html#a010106defed3bd9d118cb8834037c987">GpuHandle</a> handle)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">return</span> find&lt;GpuPipeline&gt;(m_resources, handle);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>}</div>
+</div>
+<div class="ttc" id="aa01694_html"><div class="ttname"><a href="a01694.html">gpu_frame.h</a></div><div class="ttdoc">GpuFrame describes what a view draws on a GPU (buffers, pipelines, passes, draws) without a graphics ...</div></div>
+<div class="ttc" id="aa03494_html"><div class="ttname"><a href="a03494.html">mne::viz</a></div><div class="ttdoc">Visualization without a GUI toolkit: figures as display lists (figures/), the logic of the trace and ...</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00021">cameracontroller.cpp:22</a></div></div>
+<div class="ttc" id="aa03494_html_a010106defed3bd9d118cb8834037c987"><div class="ttname"><a href="a03494.html#a010106defed3bd9d118cb8834037c987">mne::viz::GpuHandle</a></div><div class="ttdeci">std::uint32_t GpuHandle</div><div class="ttdef"><b>Definition</b> <a href="a01694_source.html#l00057">gpu_frame.h:57</a></div></div>
+<div class="ttc" id="aa03494_html_ac1fd56dd58d4d1eada72749f21a2c7ff"><div class="ttname"><a href="a03494.html#ac1fd56dd58d4d1eada72749f21a2c7ff">mne::viz::GpuBufferUsage</a></div><div class="ttdeci">GpuBufferUsage</div><div class="ttdef"><b>Definition</b> <a href="a01694_source.html#l00157">gpu_frame.h:158</a></div></div>
+<div class="ttc" id="aa07303_html"><div class="ttname"><a href="a07303.html">mne::viz::GpuPipeline</a></div><div class="ttdoc">A graphics pipeline: shader, vertex layout and fixed-function state.</div><div class="ttdef"><b>Definition</b> <a href="a01694_source.html#l00139">gpu_frame.h:140</a></div></div>
+<div class="ttc" id="aa07307_html"><div class="ttname"><a href="a07307.html">mne::viz::GpuBuffer</a></div><div class="ttdoc">The contents of a buffer and a revision that changes with them.</div><div class="ttdef"><b>Definition</b> <a href="a01694_source.html#l00169">gpu_frame.h:170</a></div></div>
+<div class="ttc" id="aa07311_html"><div class="ttname"><a href="a07311.html">mne::viz::GpuTexture</a></div><div class="ttdoc">A texture: RGBA pixels or a figure the backend rasterizes, and a revision that changes with it.</div><div class="ttdef"><b>Definition</b> <a href="a01694_source.html#l00184">gpu_frame.h:185</a></div></div>
+<div class="ttc" id="aa07315_html_a10fabd5c9c1923aaffb2749c0f2cb62e"><div class="ttname"><a href="a07315.html#a10fabd5c9c1923aaffb2749c0f2cb62e">mne::viz::GpuResources::pipeline</a></div><div class="ttdeci">const GpuPipeline * pipeline(GpuHandle handle) const</div><div class="ttdef"><b>Definition</b> <a href="#l00118">gpu_frame.cpp:118</a></div></div>
+<div class="ttc" id="aa07315_html_a397d393a068e892d4b20569ea8484544"><div class="ttname"><a href="a07315.html#a397d393a068e892d4b20569ea8484544">mne::viz::GpuResources::set_buffer_data</a></div><div class="ttdeci">void set_buffer_data(GpuHandle buffer, std::span&lt; const std::byte &gt; bytes)</div><div class="ttdef"><b>Definition</b> <a href="#l00057">gpu_frame.cpp:57</a></div></div>
+<div class="ttc" id="aa07315_html_a4abc0d5398dd5d4de6826c0b468d2dc7"><div class="ttname"><a href="a07315.html#a4abc0d5398dd5d4de6826c0b468d2dc7">mne::viz::GpuResources::create_texture</a></div><div class="ttdeci">GpuHandle create_texture(GpuTexture texture)</div><div class="ttdef"><b>Definition</b> <a href="#l00067">gpu_frame.cpp:67</a></div></div>
+<div class="ttc" id="aa07315_html_a4bff8d7aa27483bf2800ce33d0a518a6"><div class="ttname"><a href="a07315.html#a4bff8d7aa27483bf2800ce33d0a518a6">mne::viz::GpuResources::buffer</a></div><div class="ttdeci">const GpuBuffer * buffer(GpuHandle handle) const</div><div class="ttdef"><b>Definition</b> <a href="#l00104">gpu_frame.cpp:104</a></div></div>
+<div class="ttc" id="aa07315_html_a7c518d14d515958b9283a54452d7a154"><div class="ttname"><a href="a07315.html#a7c518d14d515958b9283a54452d7a154">mne::viz::GpuResources::create_pipeline</a></div><div class="ttdeci">GpuHandle create_pipeline(GpuPipeline pipeline)</div><div class="ttdef"><b>Definition</b> <a href="#l00087">gpu_frame.cpp:87</a></div></div>
+<div class="ttc" id="aa07315_html_a872a8ef0f7140c1de16909b069151863"><div class="ttname"><a href="a07315.html#a872a8ef0f7140c1de16909b069151863">mne::viz::GpuResources::set_texture</a></div><div class="ttdeci">void set_texture(GpuHandle texture, std::variant&lt; Image, DisplayList &gt; content, double scale=1.0)</div><div class="ttdef"><b>Definition</b> <a href="#l00076">gpu_frame.cpp:76</a></div></div>
+<div class="ttc" id="aa07315_html_aaa451c683075c13aab23fa224b9fd9fc"><div class="ttname"><a href="a07315.html#aaa451c683075c13aab23fa224b9fd9fc">mne::viz::GpuResources::create_buffer</a></div><div class="ttdeci">GpuHandle create_buffer(GpuBufferUsage usage)</div><div class="ttdef"><b>Definition</b> <a href="#l00046">gpu_frame.cpp:46</a></div></div>
+<div class="ttc" id="aa07315_html_ad8e7321e7e09160b1d15b0b54039f359"><div class="ttname"><a href="a07315.html#ad8e7321e7e09160b1d15b0b54039f359">mne::viz::GpuResources::texture</a></div><div class="ttdeci">const GpuTexture * texture(GpuHandle handle) const</div><div class="ttdef"><b>Definition</b> <a href="#l00111">gpu_frame.cpp:111</a></div></div>
+<div class="ttc" id="aa07315_html_afaa7c5ff7a8a031718d6fdcea0f2551b"><div class="ttname"><a href="a07315.html#afaa7c5ff7a8a031718d6fdcea0f2551b">mne::viz::GpuResources::release</a></div><div class="ttdeci">void release(GpuHandle handle)</div><div class="ttdef"><b>Definition</b> <a href="#l00095">gpu_frame.cpp:95</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

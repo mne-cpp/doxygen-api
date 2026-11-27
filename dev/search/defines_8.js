@@ -5,7 +5,7 @@ var searchData=
   ['mnashared_5fexport_2',['MNASHARED_EXPORT',['../a00875.html#aa52813e09e18551761f22a00649666a5',1,'mna_global.h']]],
   ['mne_5fgit_5fhash_5flong_3',['MNE_GIT_HASH_LONG',['../a00404.html#a93a93d9bba20d507c03f17aee40fad80',1,'acq_global.cpp']]],
   ['mne_5fgit_5fhash_5fshort_4',['MNE_GIT_HASH_SHORT',['../a00404.html#a9bffaf0242a8b81dac20142ef67e0db6',1,'acq_global.cpp']]],
-  ['mnefilterdef_5',['MNEFILTERDEF',['../a02387.html#a8fe4a4f0a745fc5034257e89e2ab14d0',1,'mne_filter_def.h']]],
-  ['mneshared_5fexport_6',['MNESHARED_EXPORT',['../a02375.html#ae182e5976a87d895a5eecf737aafefc3',1,'mne_global.h']]],
+  ['mnefilterdef_5',['MNEFILTERDEF',['../a02393.html#a8fe4a4f0a745fc5034257e89e2ab14d0',1,'mne_filter_def.h']]],
+  ['mneshared_5fexport_6',['MNESHARED_EXPORT',['../a02381.html#ae182e5976a87d895a5eecf737aafefc3',1,'mne_global.h']]],
   ['mrishared_5fexport_7',['MRISHARED_EXPORT',['../a00764.html#ade1e3b49d4525d9ae7247550c0a5ad9d',1,'mri_global.h']]]
 ];

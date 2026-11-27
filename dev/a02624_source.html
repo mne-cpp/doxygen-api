@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/mne/mne_ch_selection.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/mne/mne_bem.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -248,149 +248,187 @@ $(function() {
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">mne_ch_selection.cpp</div></div>
+  <div class="headertitle"><div class="title">mne_bem.h</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a02624.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// INCLUDES</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="a02405.html">mne_ch_selection.h</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &quot;<a class="code" href="a02651.html">mne_deriv.h</a>&quot;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &quot;<a class="code" href="a02594.html">mne_sparse_named_matrix.h</a>&quot;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &quot;<a class="code" href="a02537.html">mne_types.h</a>&quot;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a03251.html">mne/base/log.h</a>&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a03308.html">mne/base/string_utils.h</a>&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="a00608.html">mne/fiff/fiff_ch_info.h</a>&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// STL INCLUDES</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#ifndef MNE_BEM_H</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#define MNE_BEM_H</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03326.html">mne</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a05944.html#a5b8eed5f072b79b5ebd10cdbb092c51f">   44</a></span><a class="code hl_function" href="a05944.html#a5a68b13d1f7c9a1fe349c9e021b380a2">MNEChSelection</a> <a class="code hl_function" href="a05944.html#a5b8eed5f072b79b5ebd10cdbb092c51f">MNEChSelection::these</a>(std::string selname, std::span&lt;const std::string&gt; names)</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_function" href="a05944.html#a5a68b13d1f7c9a1fe349c9e021b380a2">MNEChSelection</a> sel;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    sel.<a class="code hl_variable" href="a05944.html#a783d0e9b0ed345dc4e85f3d9e268dd86">name</a> = std::move(selname);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    sel.<a class="code hl_variable" href="a05944.html#af1de909dc1bc01673404fd6b9fb76f90">chdef</a>.assign(names.begin(), names.end());</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    sel.<a class="code hl_variable" href="a05944.html#a8fd01e77de920fdbee0ff9ba9fd26100">kind</a> = <a class="code hl_variable" href="a03326.html#a4bfac211798b177406ad2c15aa5a906a">MNE_CH_SELECTION_USER</a>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> sel;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
-</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// INCLUDES</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &quot;<a class="code" href="a02381.html">mne_global.h</a>&quot;</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &quot;<a class="code" href="a02558.html">mne_bem_surface.h</a>&quot;</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;<a class="code" href="a00605.html">mne/fiff/fiff_coord_trans.h</a>&gt;</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;<a class="code" href="a00638.html">mne/fiff/fiff_stream.h</a>&gt;</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;<a class="code" href="a03323.html">mne/base/error.h</a>&gt;</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">// STL INCLUDES</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;span&gt;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// DEFINE NAMESPACE mne</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03332.html">mne</a></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05944.html#a22334b68a93c20a920096c0b3b384bb4">   55</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a05944.html#a22334b68a93c20a920096c0b3b384bb4">MNEChSelection::assign_channels</a>(std::span&lt;const FiffChInfo&gt; chs, <span class="keyword">const</span> <a class="code hl_class" href="a05972.html">MNEDeriv</a>* deriv)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_variable" href="a05944.html#a3775e2695668acc548d03e183a6508db">chspick</a> = <a class="code hl_variable" href="a05944.html#af1de909dc1bc01673404fd6b9fb76f90">chdef</a>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_variable" href="a05944.html#a2866ff8a9e0113e548c6c2e2416ad4b9">chspick_nospace</a> = <a class="code hl_variable" href="a05944.html#af1de909dc1bc01673404fd6b9fb76f90">chdef</a>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; channel : <a class="code hl_variable" href="a05944.html#a2866ff8a9e0113e548c6c2e2416ad4b9">chspick_nospace</a>)</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        std::erase(channel, <span class="charliteral">&#39; &#39;</span>);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a> = this-&gt;<a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a>();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_variable" href="a05944.html#a9543ddaf2a15c5a5c28f937b4f9dfeb5">pick</a>.setConstant(<a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a>, -1);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_variable" href="a05944.html#aeed23a56bcf244ca47265d4a514c600b">pick_deriv</a>.setConstant(<a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a>, -1);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_variable" href="a05944.html#a466d878d1dec54b404d23a71a180d2b6">ch_kind</a>.setConstant(<a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a>, -1);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">const</span> <span class="keyword">auto</span> matches = [<span class="keyword">this</span>](<span class="keywordtype">int</span> c, std::string_view ch_name) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="a03326.html#aa1c6cfb31db99ae305b4da7b29c7ab97">mne::iequals</a>(<a class="code hl_variable" href="a05944.html#a3775e2695668acc548d03e183a6508db">chspick</a>[c], ch_name) || <a class="code hl_function" href="a03326.html#aa1c6cfb31db99ae305b4da7b29c7ab97">mne::iequals</a>(<a class="code hl_variable" href="a05944.html#a2866ff8a9e0113e548c6c2e2416ad4b9">chspick_nospace</a>[c], ch_name);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    };</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">const</span> <span class="keyword">auto</span> assign = [<span class="keyword">this</span>, &amp;chs](<span class="keywordtype">int</span> c, std::size_t rc) {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_variable" href="a05944.html#a9543ddaf2a15c5a5c28f937b4f9dfeb5">pick</a>[c] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(rc);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_variable" href="a05944.html#a466d878d1dec54b404d23a71a180d2b6">ch_kind</a>[c] = chs[rc].kind;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    };</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; <a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a>; c++) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">for</span> (std::size_t rc = 0; rc &lt; chs.size(); rc++) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">if</span> (matches(c, chs[rc].ch_name)) {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                assign(c, rc);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">/*</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">     * Maybe the derivations will help</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">if</span> (deriv &amp;&amp; deriv-&gt;<a class="code hl_variable" href="a05972.html#a23cfd0ba116b2f13157aa2288f2d7a38">deriv_data</a>) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a03326.html#a2607bd90112303fcf60abd414f1a4497">StringList</a>&amp; deriv_names = deriv-&gt;<a class="code hl_variable" href="a05972.html#a23cfd0ba116b2f13157aa2288f2d7a38">deriv_data</a>-&gt;rowlist;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; <a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a>; c++) {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">if</span> (<a class="code hl_variable" href="a05944.html#a9543ddaf2a15c5a5c28f937b4f9dfeb5">pick</a>[c] != -1)</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">for</span> (std::size_t d = 0; d &lt; deriv_names.size(); d++) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                <span class="keywordflow">if</span> (<a class="code hl_function" href="a03326.html#aa1c6cfb31db99ae305b4da7b29c7ab97">mne::iequals</a>(<a class="code hl_variable" href="a05944.html#a3775e2695668acc548d03e183a6508db">chspick</a>[c], deriv_names[d]) &amp;&amp; d &lt; <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(deriv-&gt;<a class="code hl_variable" href="a05972.html#a31ba6cef612101b0bbbfad5d7110ade6">valid</a>.size()) &amp;&amp; deriv-&gt;<a class="code hl_variable" href="a05972.html#a31ba6cef612101b0bbbfad5d7110ade6">valid</a>[<span class="keyword">static_cast&lt;</span>Eigen::Index<span class="keyword">&gt;</span>(d)]) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                    <a class="code hl_variable" href="a05944.html#aeed23a56bcf244ca47265d4a514c600b">pick_deriv</a>[c] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(d);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                    <a class="code hl_variable" href="a05944.html#a466d878d1dec54b404d23a71a180d2b6">ch_kind</a>[c] = deriv-&gt;<a class="code hl_variable" href="a05972.html#ae4f310295188cd266da2fe78e65d1f70">chs</a>[d].kind;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                }</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="comment">/*</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="comment">     * Try simple channels again without the part after dashes</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">     */</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; <a class="code hl_function" href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">nchan</a>; c++) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="a05944.html#a9543ddaf2a15c5a5c28f937b4f9dfeb5">pick</a>[c] != -1 || <a class="code hl_variable" href="a05944.html#aeed23a56bcf244ca47265d4a514c600b">pick_deriv</a>[c] != -1)</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">for</span> (std::size_t rc = 0; rc &lt; chs.size(); rc++) {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            <span class="keyword">const</span> std::string_view ch_name = chs[rc].ch_name;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            <span class="keyword">const</span> <span class="keyword">auto</span> dash = ch_name.find(<span class="charliteral">&#39;-&#39;</span>);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">if</span> (dash != std::string_view::npos &amp;&amp; matches(c, ch_name.substr(0, dash))) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                assign(c, rc);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            }</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        }</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keywordtype">int</span> matched = <a class="code hl_function" href="a05944.html#a927751e6e248786c7ea8b026f2990500">nderiv</a>(); matched &gt; 0)</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <a class="code hl_function" href="a04628.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a>(<span class="stringliteral">&quot;Selection \&quot;{}\&quot; has {} matched derived channels.&quot;</span>, <a class="code hl_variable" href="a05944.html#a783d0e9b0ed345dc4e85f3d9e268dd86">name</a>, matched);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::ranges::count_if(<a class="code hl_variable" href="a05944.html#a9543ddaf2a15c5a5c28f937b4f9dfeb5">pick</a>, [](<span class="keywordtype">int</span> p) { <span class="keywordflow">return</span> p &gt;= 0; }));</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="comment">//=============================================================================================================</span></div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="};">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a05943.html">   64</a></span><span class="keyword">class </span><a class="code hl_define" href="a02381.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a> <a class="code hl_function" href="a05943.html#a5436859831449b992148b676bda7a30d">MNEBem</a></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>{</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a05943.html#a1c4cb0367ebadca3664e4ad1ac935c4d">   67</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a05943.html#a1c4cb0367ebadca3664e4ad1ac935c4d">iterator</a> = std::vector&lt;MNEBemSurface&gt;::iterator;             </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a05943.html#a4ab146558c3a1512d8734fd6de21fd99">   68</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a05943.html#a4ab146558c3a1512d8734fd6de21fd99">const_iterator</a> = std::vector&lt;MNEBemSurface&gt;::const_iterator; </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a05943.html#a5436859831449b992148b676bda7a30d">   71</a></span>    <a class="code hl_function" href="a05943.html#a5436859831449b992148b676bda7a30d">MNEBem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">explicit</span> <a class="code hl_function" href="a05943.html#a5436859831449b992148b676bda7a30d">MNEBem</a>(<span class="keyword">const</span> std::filesystem::path&amp; path);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_class" href="a04547.html">mne::Expected&lt;MNEBem&gt;</a> <a class="code hl_function" href="a05943.html#ad5dfd230ea4e7d15445631665ced773a">read</a>(<span class="keyword">const</span> std::filesystem::path&amp; path, <span class="keywordtype">bool</span> patch_stats = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    [[nodiscard]] <span class="keyword">static</span> <a class="code hl_class" href="a04547.html">mne::Expected&lt;MNEBem&gt;</a> <a class="code hl_function" href="a05943.html#ad5dfd230ea4e7d15445631665ced773a">read</a>(<a class="code hl_class" href="a05371.html">mne::FiffStream</a>&amp; stream, <span class="keywordtype">bool</span> patch_stats = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    [[nodiscard]] <a class="code hl_class" href="a04547.html">mne::Expected&lt;void&gt;</a> <a class="code hl_function" href="a05943.html#a4e1459ee11e7bffaa5b1370a859a20bf">write</a>(<span class="keyword">const</span> std::filesystem::path&amp; path) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05943.html#ac78ab369339f0717cee4e8f96de5db8d">write_to_stream</a>(<a class="code hl_class" href="a05371.html">mne::FiffStream</a>&amp; stream) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a05943.html#a327d4faeb0a66df1d8e9f36904abdca1">  123</a></span>    std::size_t <a class="code hl_function" href="a05943.html#a327d4faeb0a66df1d8e9f36904abdca1">size</a>() const noexcept</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">return</span> m_surfaces.size();</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
 </div>
-<div class="ttc" id="aa00608_html"><div class="ttname"><a href="a00608.html">fiff_ch_info.h</a></div><div class="ttdoc">FIFF channel descriptor record (FIFF_CH_INFO): per-channel logical/scanner numbers,...</div></div>
-<div class="ttc" id="aa02405_html"><div class="ttname"><a href="a02405.html">mne_ch_selection.h</a></div><div class="ttdoc">Named subset of channels (e.g. &quot;Left-temporal&quot;) loaded from an MNE .sel file.</div></div>
-<div class="ttc" id="aa02537_html"><div class="ttname"><a href="a02537.html">mne_types.h</a></div><div class="ttdoc">Legacy MNE-C constants and shared typedefs used across mne_mne structures.</div></div>
-<div class="ttc" id="aa02594_html"><div class="ttname"><a href="a02594.html">mne_sparse_named_matrix.h</a></div><div class="ttdoc">Sparse variant of mne::MNENamedMatrix, i.e. a sparse matrix with row and column name lists.</div></div>
-<div class="ttc" id="aa02651_html"><div class="ttname"><a href="a02651.html">mne_deriv.h</a></div><div class="ttdoc">One channel derivation: a sparse matrix whose rows define virtual channels as weighted sums of record...</div></div>
-<div class="ttc" id="aa03251_html"><div class="ttname"><a href="a03251.html">log.h</a></div><div class="ttdoc">Logging: a std::format facade with a replaceable sink, the console and file writer,...</div></div>
-<div class="ttc" id="aa03308_html"><div class="ttname"><a href="a03308.html">string_utils.h</a></div><div class="ttdoc">Text and path helpers in standard C++ for the QString calls the libraries use most.</div></div>
-<div class="ttc" id="aa03326_html"><div class="ttname"><a href="a03326.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00047">acq_backend.h:48</a></div></div>
-<div class="ttc" id="aa03326_html_a2607bd90112303fcf60abd414f1a4497"><div class="ttname"><a href="a03326.html#a2607bd90112303fcf60abd414f1a4497">mne::StringList</a></div><div class="ttdeci">std::vector&lt; std::string &gt; StringList</div><div class="ttdef"><b>Definition</b> <a href="a03308_source.html#l00046">string_utils.h:46</a></div></div>
-<div class="ttc" id="aa03326_html_a4bfac211798b177406ad2c15aa5a906a"><div class="ttname"><a href="a03326.html#a4bfac211798b177406ad2c15aa5a906a">mne::MNE_CH_SELECTION_USER</a></div><div class="ttdeci">constexpr auto MNE_CH_SELECTION_USER</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00066">mne_types.h:66</a></div></div>
-<div class="ttc" id="aa03326_html_aa1c6cfb31db99ae305b4da7b29c7ab97"><div class="ttname"><a href="a03326.html#aa1c6cfb31db99ae305b4da7b29c7ab97">mne::iequals</a></div><div class="ttdeci">BASESHARED_EXPORT bool iequals(std::string_view a, std::string_view b)</div><div class="ttdef"><b>Definition</b> <a href="a03272_source.html#l00198">string_utils.cpp:198</a></div></div>
-<div class="ttc" id="aa04628_html_ad7aa001d6378856052a1ebe982484003"><div class="ttname"><a href="a04628.html#ad7aa001d6378856052a1ebe982484003">mne::Log::info</a></div><div class="ttdeci">static void info(std::format_string&lt; Args... &gt; format, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a03251_source.html#l00108">log.h:108</a></div></div>
-<div class="ttc" id="aa05944_html_a22334b68a93c20a920096c0b3b384bb4"><div class="ttname"><a href="a05944.html#a22334b68a93c20a920096c0b3b384bb4">mne::MNEChSelection::assign_channels</a></div><div class="ttdeci">int assign_channels(std::span&lt; const mne::FiffChInfo &gt; chs, const MNEDeriv *deriv=nullptr)</div><div class="ttdef"><b>Definition</b> <a href="#l00055">mne_ch_selection.cpp:55</a></div></div>
-<div class="ttc" id="aa05944_html_a2866ff8a9e0113e548c6c2e2416ad4b9"><div class="ttname"><a href="a05944.html#a2866ff8a9e0113e548c6c2e2416ad4b9">mne::MNEChSelection::chspick_nospace</a></div><div class="ttdeci">StringList chspick_nospace</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00115">mne_ch_selection.h:115</a></div></div>
-<div class="ttc" id="aa05944_html_a3775e2695668acc548d03e183a6508db"><div class="ttname"><a href="a05944.html#a3775e2695668acc548d03e183a6508db">mne::MNEChSelection::chspick</a></div><div class="ttdeci">StringList chspick</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00114">mne_ch_selection.h:114</a></div></div>
-<div class="ttc" id="aa05944_html_a466d878d1dec54b404d23a71a180d2b6"><div class="ttname"><a href="a05944.html#a466d878d1dec54b404d23a71a180d2b6">mne::MNEChSelection::ch_kind</a></div><div class="ttdeci">Eigen::VectorXi ch_kind</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00118">mne_ch_selection.h:118</a></div></div>
-<div class="ttc" id="aa05944_html_a5a23b6934d958b17ba223d028fe1b743"><div class="ttname"><a href="a05944.html#a5a23b6934d958b17ba223d028fe1b743">mne::MNEChSelection::nchan</a></div><div class="ttdeci">int nchan() const</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00098">mne_ch_selection.h:98</a></div></div>
-<div class="ttc" id="aa05944_html_a5a68b13d1f7c9a1fe349c9e021b380a2"><div class="ttname"><a href="a05944.html#a5a68b13d1f7c9a1fe349c9e021b380a2">mne::MNEChSelection::MNEChSelection</a></div><div class="ttdeci">MNEChSelection()=default</div></div>
-<div class="ttc" id="aa05944_html_a5b8eed5f072b79b5ebd10cdbb092c51f"><div class="ttname"><a href="a05944.html#a5b8eed5f072b79b5ebd10cdbb092c51f">mne::MNEChSelection::these</a></div><div class="ttdeci">static MNEChSelection these(std::string selname, std::span&lt; const std::string &gt; names)</div><div class="ttdef"><b>Definition</b> <a href="#l00044">mne_ch_selection.cpp:44</a></div></div>
-<div class="ttc" id="aa05944_html_a783d0e9b0ed345dc4e85f3d9e268dd86"><div class="ttname"><a href="a05944.html#a783d0e9b0ed345dc4e85f3d9e268dd86">mne::MNEChSelection::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00112">mne_ch_selection.h:112</a></div></div>
-<div class="ttc" id="aa05944_html_a8fd01e77de920fdbee0ff9ba9fd26100"><div class="ttname"><a href="a05944.html#a8fd01e77de920fdbee0ff9ba9fd26100">mne::MNEChSelection::kind</a></div><div class="ttdeci">int kind</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00119">mne_ch_selection.h:119</a></div></div>
-<div class="ttc" id="aa05944_html_a927751e6e248786c7ea8b026f2990500"><div class="ttname"><a href="a05944.html#a927751e6e248786c7ea8b026f2990500">mne::MNEChSelection::nderiv</a></div><div class="ttdeci">int nderiv() const</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00107">mne_ch_selection.h:107</a></div></div>
-<div class="ttc" id="aa05944_html_a9543ddaf2a15c5a5c28f937b4f9dfeb5"><div class="ttname"><a href="a05944.html#a9543ddaf2a15c5a5c28f937b4f9dfeb5">mne::MNEChSelection::pick</a></div><div class="ttdeci">Eigen::VectorXi pick</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00116">mne_ch_selection.h:116</a></div></div>
-<div class="ttc" id="aa05944_html_aeed23a56bcf244ca47265d4a514c600b"><div class="ttname"><a href="a05944.html#aeed23a56bcf244ca47265d4a514c600b">mne::MNEChSelection::pick_deriv</a></div><div class="ttdeci">Eigen::VectorXi pick_deriv</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00117">mne_ch_selection.h:117</a></div></div>
-<div class="ttc" id="aa05944_html_af1de909dc1bc01673404fd6b9fb76f90"><div class="ttname"><a href="a05944.html#af1de909dc1bc01673404fd6b9fb76f90">mne::MNEChSelection::chdef</a></div><div class="ttdeci">StringList chdef</div><div class="ttdef"><b>Definition</b> <a href="a02405_source.html#l00113">mne_ch_selection.h:113</a></div></div>
-<div class="ttc" id="aa05972_html"><div class="ttname"><a href="a05972.html">mne::MNEDeriv</a></div><div class="ttdoc">One item in a derivation data set.</div><div class="ttdef"><b>Definition</b> <a href="a02651_source.html#l00063">mne_deriv.h:64</a></div></div>
-<div class="ttc" id="aa05972_html_a23cfd0ba116b2f13157aa2288f2d7a38"><div class="ttname"><a href="a05972.html#a23cfd0ba116b2f13157aa2288f2d7a38">mne::MNEDeriv::deriv_data</a></div><div class="ttdeci">std::unique_ptr&lt; MNESparseNamedMatrix &gt; deriv_data</div><div class="ttdef"><b>Definition</b> <a href="a02651_source.html#l00102">mne_deriv.h:102</a></div></div>
-<div class="ttc" id="aa05972_html_a31ba6cef612101b0bbbfad5d7110ade6"><div class="ttname"><a href="a05972.html#a31ba6cef612101b0bbbfad5d7110ade6">mne::MNEDeriv::valid</a></div><div class="ttdeci">Eigen::VectorXi valid</div><div class="ttdef"><b>Definition</b> <a href="a02651_source.html#l00104">mne_deriv.h:104</a></div></div>
-<div class="ttc" id="aa05972_html_ae4f310295188cd266da2fe78e65d1f70"><div class="ttname"><a href="a05972.html#ae4f310295188cd266da2fe78e65d1f70">mne::MNEDeriv::chs</a></div><div class="ttdeci">std::vector&lt; mne::FiffChInfo &gt; chs</div><div class="ttdef"><b>Definition</b> <a href="a02651_source.html#l00105">mne_deriv.h:105</a></div></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
+<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="a05943.html#a9465eb52f99dfe769f5c80b5673eaf72">  129</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05943.html#a9465eb52f99dfe769f5c80b5673eaf72">empty</a>() const noexcept</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">return</span> m_surfaces.empty();</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
+</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span></div>
+<div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="a05943.html#ab2ae6d2dedcf8b20f0d79421dbe7277e">  135</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05943.html#ab2ae6d2dedcf8b20f0d79421dbe7277e">clear</a>() noexcept</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        m_surfaces.clear();</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
+</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span></div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="a05943.html#a801d3d48c5a5331953bd302a5c5bde1d">  143</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05943.html#a801d3d48c5a5331953bd302a5c5bde1d">push_back</a>(<a class="code hl_class" href="a05947.html">MNEBemSurface</a> surface)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        m_surfaces.push_back(std::move(surface));</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    }</div>
+</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span></div>
+<div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="a05943.html#a3580550248db7043b53081e122e2a4c7">  153</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a05947.html">MNEBemSurface</a>&amp; <a class="code hl_function" href="a05943.html#a3580550248db7043b53081e122e2a4c7">operator[]</a>(std::size_t idx)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keyword">    </span>{</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">return</span> m_surfaces[idx];</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="foldopen" id="foldopen00163" data-start="{" data-end="}">
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="a05943.html#a45a916d8265f68697841ef7da53f8147">  163</a></span>    <a class="code hl_class" href="a05947.html">MNEBemSurface</a>&amp; <a class="code hl_function" href="a05943.html#a45a916d8265f68697841ef7da53f8147">operator[]</a>(std::size_t idx)</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    {</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <span class="keywordflow">return</span> m_surfaces[idx];</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    }</div>
+</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span></div>
+<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="a05943.html#a8383b92fc4bffca4d1781add8c866943">  169</a></span>    std::span&lt;const MNEBemSurface&gt; <a class="code hl_function" href="a05943.html#a8383b92fc4bffca4d1781add8c866943">surfaces</a>() const noexcept</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordflow">return</span> m_surfaces;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    }</div>
+</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span></div>
+<div class="foldopen" id="foldopen00175" data-start="{" data-end="}">
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="a05943.html#ab2eea5f2d3d5b6eb0dcd64624113d8cb">  175</a></span>    <a class="code hl_typedef" href="a05943.html#a1c4cb0367ebadca3664e4ad1ac935c4d">iterator</a> <a class="code hl_function" href="a05943.html#ab2eea5f2d3d5b6eb0dcd64624113d8cb">begin</a>() noexcept</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">return</span> m_surfaces.begin();</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
+</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span></div>
+<div class="foldopen" id="foldopen00181" data-start="{" data-end="}">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="a05943.html#abdef4e46543a9ac2994bfb5e84c1030f">  181</a></span>    <a class="code hl_typedef" href="a05943.html#a1c4cb0367ebadca3664e4ad1ac935c4d">iterator</a> <a class="code hl_function" href="a05943.html#abdef4e46543a9ac2994bfb5e84c1030f">end</a>() noexcept</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>        <span class="keywordflow">return</span> m_surfaces.end();</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    }</div>
+</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span></div>
+<div class="foldopen" id="foldopen00187" data-start="{" data-end="}">
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="a05943.html#a7c351ce7ddd23036674098dc3307eff9">  187</a></span>    <a class="code hl_typedef" href="a05943.html#a4ab146558c3a1512d8734fd6de21fd99">const_iterator</a> <a class="code hl_function" href="a05943.html#a7c351ce7ddd23036674098dc3307eff9">begin</a>() const noexcept</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">return</span> m_surfaces.begin();</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    }</div>
+</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span></div>
+<div class="foldopen" id="foldopen00193" data-start="{" data-end="}">
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="a05943.html#afe2680c2028d62f47fa27959fed2de3d">  193</a></span>    <a class="code hl_typedef" href="a05943.html#a4ab146558c3a1512d8734fd6de21fd99">const_iterator</a> <a class="code hl_function" href="a05943.html#afe2680c2028d62f47fa27959fed2de3d">end</a>() const noexcept</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordflow">return</span> m_surfaces.end();</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    }</div>
+</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">void</span> warp(<span class="keyword">const</span> Eigen::MatrixXf&amp; sLm, <span class="keyword">const</span> Eigen::MatrixXf&amp; dLm);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordtype">void</span> transform(<span class="keyword">const</span> <a class="code hl_class" href="a05239.html">mne::FiffCoordTrans</a>&amp; trans);</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    <span class="comment">//=========================================================================================================</span></div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    <span class="keywordtype">void</span> inverse_transform(<span class="keyword">const</span> <a class="code hl_class" href="a05239.html">mne::FiffCoordTrans</a>&amp; trans);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    std::vector&lt;MNEBemSurface&gt; m_surfaces; </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>};</div>
+</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>} <span class="comment">// NAMESPACE</span></div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span><span class="preprocessor">#endif </span><span class="comment">// MNE_BEM_H</span></div>
+<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">fiff_coord_trans.h</a></div><div class="ttdoc">4x4 affine FIFF coordinate transform (FIFF_COORD_TRANS) annotated with source/destination coordinate-...</div></div>
+<div class="ttc" id="aa00638_html"><div class="ttname"><a href="a00638.html">fiff_stream.h</a></div><div class="ttdoc">FIFF binary tag-stream layer: reads and writes FIFF tags, directories, blocks and the structured reco...</div></div>
+<div class="ttc" id="aa02381_html"><div class="ttname"><a href="a02381.html">mne_global.h</a></div><div class="ttdoc">Export macro of mne_mne — Core MNE data structures (source spaces, source estimates,...</div></div>
+<div class="ttc" id="aa02381_html_ae182e5976a87d895a5eecf737aafefc3"><div class="ttname"><a href="a02381.html#ae182e5976a87d895a5eecf737aafefc3">MNESHARED_EXPORT</a></div><div class="ttdeci">#define MNESHARED_EXPORT</div><div class="ttdef"><b>Definition</b> <a href="a02381_source.html#l00033">mne_global.h:33</a></div></div>
+<div class="ttc" id="aa02558_html"><div class="ttname"><a href="a02558.html">mne_bem_surface.h</a></div><div class="ttdoc">Single closed BEM surface (triangulation, normals, conductivity).</div></div>
+<div class="ttc" id="aa03323_html"><div class="ttname"><a href="a03323.html">error.h</a></div><div class="ttdoc">Error and Expected: why a reader or writer failed, as a value or as an exception.</div></div>
+<div class="ttc" id="aa03332_html"><div class="ttname"><a href="a03332.html">mne</a></div><div class="ttdoc">MNE-CPP: reading, processing, source estimation and acquisition of MEG/EEG data in standard C++.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00047">acq_backend.h:48</a></div></div>
+<div class="ttc" id="aa04547_html"><div class="ttname"><a href="a04547.html">mne::Expected</a></div><div class="ttdoc">A value or the Error why there is none; std::expected whose value() throws that Error.</div><div class="ttdef"><b>Definition</b> <a href="a03323_source.html#l00076">error.h:77</a></div></div>
+<div class="ttc" id="aa05239_html"><div class="ttname"><a href="a05239.html">mne::FiffCoordTrans</a></div><div class="ttdoc">Labelled 4x4 FIFF affine: source frame, destination frame, rotation, translation and cached inverse.</div><div class="ttdef"><b>Definition</b> <a href="a00605_source.html#l00086">fiff_coord_trans.h:87</a></div></div>
+<div class="ttc" id="aa05371_html"><div class="ttname"><a href="a05371.html">mne::FiffStream</a></div><div class="ttdoc">FIFF tag-stream reader/writer: exposes typed read_* / write_* methods for every FIFF block and record...</div><div class="ttdef"><b>Definition</b> <a href="a00638_source.html#l00114">fiff_stream.h:115</a></div></div>
+<div class="ttc" id="aa05943_html_a1c4cb0367ebadca3664e4ad1ac935c4d"><div class="ttname"><a href="a05943.html#a1c4cb0367ebadca3664e4ad1ac935c4d">mne::MNEBem::iterator</a></div><div class="ttdeci">std::vector&lt; MNEBemSurface &gt;::iterator iterator</div><div class="ttdef"><b>Definition</b> <a href="#l00067">mne_bem.h:67</a></div></div>
+<div class="ttc" id="aa05943_html_a327d4faeb0a66df1d8e9f36904abdca1"><div class="ttname"><a href="a05943.html#a327d4faeb0a66df1d8e9f36904abdca1">mne::MNEBem::size</a></div><div class="ttdeci">std::size_t size() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00123">mne_bem.h:123</a></div></div>
+<div class="ttc" id="aa05943_html_a3580550248db7043b53081e122e2a4c7"><div class="ttname"><a href="a05943.html#a3580550248db7043b53081e122e2a4c7">mne::MNEBem::operator[]</a></div><div class="ttdeci">const MNEBemSurface &amp; operator[](std::size_t idx) const</div><div class="ttdef"><b>Definition</b> <a href="#l00153">mne_bem.h:153</a></div></div>
+<div class="ttc" id="aa05943_html_a45a916d8265f68697841ef7da53f8147"><div class="ttname"><a href="a05943.html#a45a916d8265f68697841ef7da53f8147">mne::MNEBem::operator[]</a></div><div class="ttdeci">MNEBemSurface &amp; operator[](std::size_t idx)</div><div class="ttdef"><b>Definition</b> <a href="#l00163">mne_bem.h:163</a></div></div>
+<div class="ttc" id="aa05943_html_a4ab146558c3a1512d8734fd6de21fd99"><div class="ttname"><a href="a05943.html#a4ab146558c3a1512d8734fd6de21fd99">mne::MNEBem::const_iterator</a></div><div class="ttdeci">std::vector&lt; MNEBemSurface &gt;::const_iterator const_iterator</div><div class="ttdef"><b>Definition</b> <a href="#l00068">mne_bem.h:68</a></div></div>
+<div class="ttc" id="aa05943_html_a4e1459ee11e7bffaa5b1370a859a20bf"><div class="ttname"><a href="a05943.html#a4e1459ee11e7bffaa5b1370a859a20bf">mne::MNEBem::write</a></div><div class="ttdeci">mne::Expected&lt; void &gt; write(const std::filesystem::path &amp;path) const</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00187">mne_bem.cpp:187</a></div></div>
+<div class="ttc" id="aa05943_html_a5436859831449b992148b676bda7a30d"><div class="ttname"><a href="a05943.html#a5436859831449b992148b676bda7a30d">mne::MNEBem::MNEBem</a></div><div class="ttdeci">MNEBem()=default</div></div>
+<div class="ttc" id="aa05943_html_a7c351ce7ddd23036674098dc3307eff9"><div class="ttname"><a href="a05943.html#a7c351ce7ddd23036674098dc3307eff9">mne::MNEBem::begin</a></div><div class="ttdeci">const_iterator begin() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00187">mne_bem.h:187</a></div></div>
+<div class="ttc" id="aa05943_html_a801d3d48c5a5331953bd302a5c5bde1d"><div class="ttname"><a href="a05943.html#a801d3d48c5a5331953bd302a5c5bde1d">mne::MNEBem::push_back</a></div><div class="ttdeci">void push_back(MNEBemSurface surface)</div><div class="ttdef"><b>Definition</b> <a href="#l00143">mne_bem.h:143</a></div></div>
+<div class="ttc" id="aa05943_html_a8383b92fc4bffca4d1781add8c866943"><div class="ttname"><a href="a05943.html#a8383b92fc4bffca4d1781add8c866943">mne::MNEBem::surfaces</a></div><div class="ttdeci">std::span&lt; const MNEBemSurface &gt; surfaces() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00169">mne_bem.h:169</a></div></div>
+<div class="ttc" id="aa05943_html_a9465eb52f99dfe769f5c80b5673eaf72"><div class="ttname"><a href="a05943.html#a9465eb52f99dfe769f5c80b5673eaf72">mne::MNEBem::empty</a></div><div class="ttdeci">bool empty() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00129">mne_bem.h:129</a></div></div>
+<div class="ttc" id="aa05943_html_ab2ae6d2dedcf8b20f0d79421dbe7277e"><div class="ttname"><a href="a05943.html#ab2ae6d2dedcf8b20f0d79421dbe7277e">mne::MNEBem::clear</a></div><div class="ttdeci">void clear() noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00135">mne_bem.h:135</a></div></div>
+<div class="ttc" id="aa05943_html_ab2eea5f2d3d5b6eb0dcd64624113d8cb"><div class="ttname"><a href="a05943.html#ab2eea5f2d3d5b6eb0dcd64624113d8cb">mne::MNEBem::begin</a></div><div class="ttdeci">iterator begin() noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00175">mne_bem.h:175</a></div></div>
+<div class="ttc" id="aa05943_html_abdef4e46543a9ac2994bfb5e84c1030f"><div class="ttname"><a href="a05943.html#abdef4e46543a9ac2994bfb5e84c1030f">mne::MNEBem::end</a></div><div class="ttdeci">iterator end() noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00181">mne_bem.h:181</a></div></div>
+<div class="ttc" id="aa05943_html_ac78ab369339f0717cee4e8f96de5db8d"><div class="ttname"><a href="a05943.html#ac78ab369339f0717cee4e8f96de5db8d">mne::MNEBem::write_to_stream</a></div><div class="ttdeci">void write_to_stream(mne::FiffStream &amp;stream) const</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00200">mne_bem.cpp:200</a></div></div>
+<div class="ttc" id="aa05943_html_ad5dfd230ea4e7d15445631665ced773a"><div class="ttname"><a href="a05943.html#ad5dfd230ea4e7d15445631665ced773a">mne::MNEBem::read</a></div><div class="ttdeci">static mne::Expected&lt; MNEBem &gt; read(const std::filesystem::path &amp;path, bool patch_stats=true)</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00143">mne_bem.cpp:143</a></div></div>
+<div class="ttc" id="aa05943_html_afe2680c2028d62f47fa27959fed2de3d"><div class="ttname"><a href="a05943.html#afe2680c2028d62f47fa27959fed2de3d">mne::MNEBem::end</a></div><div class="ttdeci">const_iterator end() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00193">mne_bem.h:193</a></div></div>
+<div class="ttc" id="aa05947_html"><div class="ttname"><a href="a05947.html">mne::MNEBemSurface</a></div><div class="ttdoc">BEM surface provides geometry information.</div><div class="ttdef"><b>Definition</b> <a href="a02558_source.html#l00074">mne_bem_surface.h:75</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

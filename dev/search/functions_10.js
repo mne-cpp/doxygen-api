@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['qtsettingsstore_0',['QtSettingsStore',['../a06564.html#a2dad4aca89feaba1d64c90e7f27c0bcf',1,'mne::viz::qt::QtSettingsStore']]],
-  ['qttextmetrics_1',['QtTextMetrics',['../a06532.html#aed230d539d7647a3b5f48008e05694b9',1,'mne::viz::qt::QtTextMetrics']]],
-  ['queueddispatcher_2',['queuedDispatcher',['../a03489.html#a70dcb0fa87fd9cc257ca0a722e779916',1,'mne::viz::qt']]],
-  ['quickcontrolview_3',['QuickControlView',['../a06812.html#a3b1f4032f5fe698fd855e97a1157162e',1,'mne::viz::qt::QuickControlView']]]
+  ['qtsettingsstore_0',['QtSettingsStore',['../a06579.html#a2dad4aca89feaba1d64c90e7f27c0bcf',1,'mne::viz::qt::QtSettingsStore']]],
+  ['qttextmetrics_1',['QtTextMetrics',['../a06547.html#aed230d539d7647a3b5f48008e05694b9',1,'mne::viz::qt::QtTextMetrics']]],
+  ['queueddispatcher_2',['queuedDispatcher',['../a03495.html#a70dcb0fa87fd9cc257ca0a722e779916',1,'mne::viz::qt']]],
+  ['quickcontrolview_3',['QuickControlView',['../a06827.html#a3b1f4032f5fe698fd855e97a1157162e',1,'mne::viz::qt::QuickControlView']]]
 ];
