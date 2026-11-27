@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=11" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MNE-CPP: src/libs/mne/viz/models/spectrum_table.cpp Source File</title>
+    <title>MNE-CPP: src/libs/mne/viz/panels/projectors_panel.cpp Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="jquery.js"></script>
     <script type="text/javascript" src="dynsections.js"></script>
@@ -243,12 +243,12 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_7f26cea5f09c0c445243a1d522f12b80.html">viz</a></li><li class="navelem"><a href="dir_9d3ba2352e0165c00c0e67c385b38b47.html">models</a></li>  </ul>
+<li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="dir_87a455bccb09a92130c26a11a880c98a.html">libs</a></li><li class="navelem"><a href="dir_de8d7b2be0853d2f0086a3319b31e7e9.html">mne</a></li><li class="navelem"><a href="dir_7f26cea5f09c0c445243a1d522f12b80.html">viz</a></li><li class="navelem"><a href="dir_f64214c4723465cedec5fe9c7de42b31.html">panels</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">spectrum_table.cpp</div></div>
+  <div class="headertitle"><div class="title">projectors_panel.cpp</div></div>
 </div><!--header-->
 <div class="contents">
 <a href="a02834.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//=============================================================================================================</span></div>
@@ -257,192 +257,265 @@ $(function() {
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">// INCLUDES</span></div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a02816.html">spectrum_table.h</a>&quot;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a03185.html">mne/fiff/fiff_info.h</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;<a class="code" href="a02816.html">projectors_panel.h</a>&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="a02411.html">../host/settings_store.h</a>&quot;</span></div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// STL INCLUDES</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="comment">// USED NAMESPACES</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03494.html">mne::viz</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">using namespace </span>Eigen;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;charconv&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;system_error&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">// USED NAMESPACES</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a03518.html">mne::viz</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a07441.html#a7ebd714ad5ebf793b2fb3c30c496e602">   38</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07441.html#a7ebd714ad5ebf793b2fb3c30c496e602">SpectrumTable::set_info</a>(std::shared_ptr&lt;FiffInfo&gt; <a class="code hl_function" href="a07441.html#ad3bbf2c82b2e577262b55be54829f5ad">info</a>)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    m_info = std::move(<a class="code hl_function" href="a07441.html#ad3bbf2c82b2e577262b55be54829f5ad">info</a>);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_function" href="a07441.html#ad9f6c2463f5c0dbb0c55c0715dca96e3">reset_selection</a>();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
-</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">// DEFINE STATIC FUNCTIONS</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">constexpr</span> <span class="keywordtype">int</span> kPanelWidth = 330;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* kFieldPrefix = <span class="stringliteral">&quot;proj_&quot;</span>;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a07441.html#adea3690de3773fb69a8981504b365f07">   46</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07441.html#adea3690de3773fb69a8981504b365f07">SpectrumTable::set_data</a>(<span class="keyword">const</span> MatrixXd&amp; data)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    m_data = data;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span> (m_freqScale.size() == m_data.cols() || !m_info) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> freqRes = (m_info-&gt;sfreq / 2.0) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(m_data.cols());</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    m_freqScale.resize(m_data.cols());</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">double</span> freq = 0.0;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">for</span> (Index i = 0; i &lt; m_data.cols(); ++i) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        m_freqScale[i] = m_scale == <a class="code hl_enumvalue" href="a07441.html#a5c2340fd7251406c1f2b8e7d867120ceace0be71e33226e4c1db2bcea5959f16b">Scale::Log</a> ? std::log10(freq + 1.0) : freq;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        freq += freqRes;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    m_freqScale /= m_freqScale.maxCoeff();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment">// Descriptions may contain anything but the separators, which are escaped</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>std::string escape(<span class="keyword">const</span> std::string&amp; text)</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    std::string <a class="code hl_enumvalue" href="a03356.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keywordtype">char</span> c : text) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">if</span> (c == <span class="charliteral">&#39;\\&#39;</span> || c == <span class="charliteral">&#39;\n&#39;</span> || c == <span class="charliteral">&#39;=&#39;</span>) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_enumvalue" href="a03356.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a> += <span class="charliteral">&#39;\\&#39;</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_enumvalue" href="a03356.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a> += c == <span class="charliteral">&#39;\n&#39;</span> ? <span class="charliteral">&#39;n&#39;</span> : c;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03356.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">out</a>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">// DEFINE MEMBER METHODS</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">//=============================================================================================================</span></div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    m_freqScaleBound = m_freqScale;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    m_lowerBin = 0;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    m_upperBin = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_freqScale.size()) - 1;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    m_initialized = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a07493.html#aa99217b0a63a7adf31bd519ab08584c4">   65</a></span><a class="code hl_function" href="a07493.html#aa99217b0a63a7adf31bd519ab08584c4">ProjectorsPanel::ProjectorsPanel</a>()</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>: <a class="code hl_function" href="a07489.html#aba28b9a36a434836b2965e3c411991be">Panel</a>(<span class="stringliteral">&quot;ProjectorsView&quot;</span>, <span class="stringliteral">&quot;Projectors&quot;</span>)</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_function" href="a07489.html#aa33e4c9ec92e8dbe168249081cc15fa3">set_width</a>(kPanelWidth);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    m_listener = <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#a0e9639a6c610577cec573fdba4caeec4">add_listener</a>([<span class="keyword">this</span>](<span class="keyword">const</span> std::string&amp; key, <span class="keyword">const</span> std::optional&lt;SettingValue&gt;&amp; value) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span>* on = value ? std::get_if&lt;bool&gt;(&amp;*value) : <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">if</span> (m_updating || !on || !key.starts_with(kFieldPrefix)) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">if</span> (key == <a class="code hl_variable" href="a07493.html#ad808aad42e243190cc20673afef64ba8">kAllKey</a>) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <a class="code hl_function" href="a07493.html#ab8ff1d1233d723e18756a99c7ad8d515">set_all_active</a>(*on);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        std::size_t index = 0;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* first = key.data() + std::char_traits&lt;char&gt;::length(kFieldPrefix);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">if</span> (std::from_chars(first, key.data() + key.size(), index).ec == std::errc()) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <a class="code hl_function" href="a07493.html#ad2c73c2017346487a61b9e38bba26f7b">set_active</a>(index, *on);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    });</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
 </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a07441.html#aba59dfef2a843f7831c1e2f563f91bd3">   73</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a07441.html#aba59dfef2a843f7831c1e2f563f91bd3">SpectrumTable::channel</a>(<span class="keywordtype">int</span> row)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = m_selection.find(row);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">return</span> it == m_selection.end() ? 0 : it-&gt;second;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a07493.html#a949edf90aa95b2d6f7885ac2474c6cd6">   88</a></span><a class="code hl_function" href="a07493.html#a949edf90aa95b2d6f7885ac2474c6cd6">ProjectorsPanel::~ProjectorsPanel</a>()</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>{</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#aa7c82caf6ea38509e0ffb3f45a0aa64d">remove_listener</a>(m_listener);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>}</div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a07441.html#af55e1ca07e17cb10b00b9b0a788d513a">   81</a></span>std::string <a class="code hl_function" href="a07441.html#af55e1ca07e17cb10b00b9b0a788d513a">SpectrumTable::channel_name</a>(<span class="keywordtype">int</span> row)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> ch = <a class="code hl_function" href="a07441.html#aba59dfef2a843f7831c1e2f563f91bd3">channel</a>(row);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">if</span> (!m_info || ch &lt; 0 || ch &gt;= std::ssize(m_info-&gt;chs)) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> m_info-&gt;chs[<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(ch)].ch_name;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a07493.html#ac1fdd051c5d4ab593a42e1748809f48b">   95</a></span>std::string <a class="code hl_function" href="a07493.html#ac1fdd051c5d4ab593a42e1748809f48b">ProjectorsPanel::field_key</a>(std::size_t index)</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>{</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">return</span> kFieldPrefix + std::to_string(index);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
 </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a07441.html#a59e584ee2f53b17297d9b17c960144d2">   92</a></span>std::optional&lt;RowVectorXd&gt; <a class="code hl_function" href="a07441.html#a59e584ee2f53b17297d9b17c960144d2">SpectrumTable::spectrum</a>(<span class="keywordtype">int</span> row)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">const</span> MatrixXd&amp; data = m_frozen ? m_frozenData : m_data;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> ch = <a class="code hl_function" href="a07441.html#aba59dfef2a843f7831c1e2f563f91bd3">channel</a>(row);</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">// Rows exist from set_info() on; the spectrum only once data has arrived</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (ch &lt; 0 || ch &gt;= data.rows()) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">return</span> RowVectorXd(data.row(ch));</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>}</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a07493.html#a159ae66fa67c0cebe1755684d0daee5d">  102</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07493.html#a159ae66fa67c0cebe1755684d0daee5d">ProjectorsPanel::set_projectors</a>(<span class="keyword">const</span> std::vector&lt;mne::FiffProj&gt;&amp; projs)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    m_updating = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; m_projs.size(); ++i) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#a2acd1514901225a3a327c8d12c54f1b1">remove</a>(<a class="code hl_function" href="a07493.html#ac1fdd051c5d4ab593a42e1748809f48b">field_key</a>(i));</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#a2acd1514901225a3a327c8d12c54f1b1">remove</a>(<a class="code hl_variable" href="a07493.html#ad808aad42e243190cc20673afef64ba8">kAllKey</a>);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    m_projs = projs;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; m_projs.size(); ++i) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <a class="code hl_class" href="a05385.html">mne::FiffProj</a>&amp; proj = m_projs[i];</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        proj.<a class="code hl_variable" href="a05385.html#a7953a891f40177f6255e95be67cb0dda">active</a> = m_active.try_emplace(proj.<a class="code hl_variable" href="a05385.html#a18022afa119da9200c0b6bd33fbbb926">desc</a>, proj.<a class="code hl_variable" href="a05385.html#a7953a891f40177f6255e95be67cb0dda">active</a>).first-&gt;second;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <a class="code hl_struct" href="a07269.html">SettingField</a> field;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        field.<a class="code hl_variable" href="a07269.html#a206b05d7f1e3a23b3035b1e53f0d1ce3">key</a> = <a class="code hl_function" href="a07493.html#ac1fdd051c5d4ab593a42e1748809f48b">field_key</a>(i);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        field.<a class="code hl_variable" href="a07269.html#ae1e654529f64d9a229e7de1ecf32e229">kind</a> = <a class="code hl_enumvalue" href="a07269.html#abeb22bd79bc4c1822b9122f849d6ab20ac26f15e86e3de4c398a8273272aba034">SettingField::Kind::Bool</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        field.<a class="code hl_variable" href="a07269.html#af6c847b31d97ac5501bc450002cd0b8f">label</a> = proj.<a class="code hl_variable" href="a05385.html#a18022afa119da9200c0b6bd33fbbb926">desc</a>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        field.<a class="code hl_variable" href="a07269.html#abd1bf66a0e729d613c8eeb3147a72330">default_value</a> = proj.<a class="code hl_variable" href="a05385.html#a7953a891f40177f6255e95be67cb0dda">active</a>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        field.<a class="code hl_variable" href="a07269.html#a3592ddb4fcc6f725fd96d615090ea696">persistent</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#a26357c120cf3160e7d88fd20110b1cad">add</a>(std::move(field));</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (!m_projs.empty()) {</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <a class="code hl_struct" href="a07269.html">SettingField</a> all;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        all.<a class="code hl_variable" href="a07269.html#a206b05d7f1e3a23b3035b1e53f0d1ce3">key</a> = <a class="code hl_variable" href="a07493.html#ad808aad42e243190cc20673afef64ba8">kAllKey</a>;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        all.<a class="code hl_variable" href="a07269.html#ae1e654529f64d9a229e7de1ecf32e229">kind</a> = <a class="code hl_enumvalue" href="a07269.html#abeb22bd79bc4c1822b9122f849d6ab20ac26f15e86e3de4c398a8273272aba034">SettingField::Kind::Bool</a>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        all.<a class="code hl_variable" href="a07269.html#af6c847b31d97ac5501bc450002cd0b8f">label</a> = <span class="stringliteral">&quot;Enable all&quot;</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        all.<a class="code hl_variable" href="a07269.html#abd1bf66a0e729d613c8eeb3147a72330">default_value</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        all.<a class="code hl_variable" href="a07269.html#a3592ddb4fcc6f725fd96d615090ea696">persistent</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#a26357c120cf3160e7d88fd20110b1cad">add</a>(std::move(all));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    m_updating = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    changed();</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}</div>
 </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a07441.html#a97d89b70bc615d4454ab534bd83e6750">  105</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07441.html#a97d89b70bc615d4454ab534bd83e6750">SpectrumTable::select</a>(<span class="keyword">const</span> std::vector&lt;int&gt;&amp; channels)</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>{</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    m_selection.clear();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">const</span> <span class="keyword">auto</span> available = m_info ? std::ssize(m_info-&gt;chs) : 0;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordtype">int</span> row = 0;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ch : channels) {</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">if</span> (ch &lt; available) {</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            m_selection.insert_or_assign(row++, ch);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="a07493.html#ad2c73c2017346487a61b9e38bba26f7b">  136</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07493.html#ad2c73c2017346487a61b9e38bba26f7b">ProjectorsPanel::set_active</a>(std::size_t index, <span class="keywordtype">bool</span> active)</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>{</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keywordflow">if</span> (index &gt;= m_projs.size()) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    apply(index, active);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    changed();</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>}</div>
 </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="a07441.html#ad9f6c2463f5c0dbb0c55c0715dca96e3">  120</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07441.html#ad9f6c2463f5c0dbb0c55c0715dca96e3">SpectrumTable::reset_selection</a>()</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>{</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    m_selection.clear();</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">if</span> (!m_info) {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    }</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; std::ssize(m_info-&gt;chs); ++i) {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        m_selection.insert_or_assign(i, i);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="a07493.html#ab8ff1d1233d723e18756a99c7ad8d515">  147</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07493.html#ab8ff1d1233d723e18756a99c7ad8d515">ProjectorsPanel::set_all_active</a>(<span class="keywordtype">bool</span> active)</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>{</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; m_projs.size(); ++i) {</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        apply(i, active);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    changed();</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
 </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="a07441.html#a551e78b001d3a2687798d8172250f6f7">  133</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07441.html#a551e78b001d3a2687798d8172250f6f7">SpectrumTable::toggle_frozen</a>()</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    m_frozen = !m_frozen;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">if</span> (m_frozen) {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        m_frozenData = m_data;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    }</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="keywordtype">void</span> ProjectorsPanel::apply(std::size_t index, <span class="keywordtype">bool</span> active)</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>{</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    m_projs[index].active = active;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    m_active[m_projs[index].desc] = active;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    m_updating = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#a4f177181dff84c022ce99c60eb764ede">set_value</a>(<a class="code hl_function" href="a07493.html#ac1fdd051c5d4ab593a42e1748809f48b">field_key</a>(index), active);</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    m_updating = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>}</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keywordtype">void</span> ProjectorsPanel::changed()</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>{</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">if</span> (m_projs.empty()) {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    }</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> all = std::all_of(m_projs.begin(), m_projs.end(), [](<span class="keyword">const</span> <a class="code hl_class" href="a05385.html">mne::FiffProj</a>&amp; proj) {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        return proj.active;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    });</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    m_updating = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <a class="code hl_function" href="a07489.html#a967b9036eed424b2610ac500b6da2c52">form</a>().<a class="code hl_function" href="a07273.html#a4f177181dff84c022ce99c60eb764ede">set_value</a>(<a class="code hl_variable" href="a07493.html#ad808aad42e243190cc20673afef64ba8">kAllKey</a>, all);</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    m_updating = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">if</span> (m_callback) {</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>        m_callback(m_projs);</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    }</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>}</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="a07493.html#ac7cfd6b9d7906e5829667ce23e80afb0">  186</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07493.html#ac7cfd6b9d7906e5829667ce23e80afb0">ProjectorsPanel::load</a>(<span class="keyword">const</span> <a class="code hl_class" href="a07425.html">SettingsStore</a>&amp; store, <span class="keyword">const</span> std::string&amp; path)</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>{</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">if</span> (path.empty()) {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    }</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="comment">// One &quot;description=0|1&quot; per line, with &#39;\&#39;, &#39;=&#39; and line breaks escaped</span></div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keyword">const</span> std::string stored = store.<a class="code hl_function" href="a07425.html#a902cb8a4dc36e127f4439264e64c2714">read_string</a>(<a class="code hl_function" href="a07489.html#a9e58c835ac9477736b26db6dbcb34646">settings_key</a>(path, <span class="stringliteral">&quot;active&quot;</span>), {});</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    std::string desc;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keywordtype">bool</span> escaped = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; stored.size(); ++i) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> c = stored[i];</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">if</span> (escaped) {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            desc += c == <span class="charliteral">&#39;n&#39;</span> ? <span class="charliteral">&#39;\n&#39;</span> : c;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            escaped = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (c == <span class="charliteral">&#39;\\&#39;</span>) {</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            escaped = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (c == <span class="charliteral">&#39;=&#39;</span> &amp;&amp; i + 1 &lt; stored.size()) {</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            m_active[desc] = stored[i + 1] == <span class="charliteral">&#39;1&#39;</span>;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>            desc.clear();</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>            i = std::min(stored.find(<span class="charliteral">&#39;\n&#39;</span>, i), stored.size());</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>            desc += c;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        }</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>}</div>
 </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="comment">//=============================================================================================================</span></div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="a07441.html#a60763e2a034b3697854a812b9b8e1602">  143</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a07441.html#a60763e2a034b3697854a812b9b8e1602">SpectrumTable::set_bounds</a>(<span class="keywordtype">float</span> lower, <span class="keywordtype">float</span> upper)</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>{</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordflow">if</span> (!m_initialized || !m_info) {</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    }</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> nyquist = m_info-&gt;sfreq / 2.0;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    m_lowerBin = 0;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    m_upperBin = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(m_freqScale.size()) - 1;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">for</span> (Index i = 0; i &lt; m_freqScale.size(); ++i) {</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keyword">const</span> <span class="keyword">auto</span> freq = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(m_freqScale[i] * nyquist);</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">if</span> (freq &lt; lower) {</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            m_lowerBin = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(i);</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        }</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">if</span> (freq &gt; upper) {</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            m_upperBin = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(i);</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    }</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_enumvalue" href="a03332.html#ab309424562479fd599ad71c80bf188c6a53cced8d281a1a0ace3cb6594daaa4f7">low</a> = m_freqScale[m_lowerBin];</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> span = m_freqScale[m_upperBin] - <a class="code hl_enumvalue" href="a03332.html#ab309424562479fd599ad71c80bf188c6a53cced8d281a1a0ace3cb6594daaa4f7">low</a>;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    m_freqScaleBound = (m_freqScale.array() - <a class="code hl_enumvalue" href="a03332.html#ab309424562479fd599ad71c80bf188c6a53cced8d281a1a0ace3cb6594daaa4f7">low</a>) / span;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>}</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="comment">//=============================================================================================================</span></div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
+<div class="foldopen" id="foldopen00214" data-start="{" data-end="}">
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno"><a class="line" href="a07493.html#ad8f915dd2869e965ff87dc4d954b1128">  214</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a07493.html#ad8f915dd2869e965ff87dc4d954b1128">ProjectorsPanel::save</a>(<a class="code hl_class" href="a07425.html">SettingsStore</a>&amp; store, <span class="keyword">const</span> std::string&amp; path)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">if</span> (path.empty()) {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    }</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    std::string stored;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [desc, on] : m_active) {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        stored += escape(desc) + (on ? <span class="stringliteral">&quot;=1\n&quot;</span> : <span class="stringliteral">&quot;=0\n&quot;</span>);</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    store.<a class="code hl_function" href="a07425.html#a2b700606ae8d4671530e764327677480">set_value</a>(<a class="code hl_function" href="a07489.html#a9e58c835ac9477736b26db6dbcb34646">settings_key</a>(path, <span class="stringliteral">&quot;active&quot;</span>), stored);</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>}</div>
 </div>
-<div class="ttc" id="aa02816_html"><div class="ttname"><a href="a02816.html">spectrum_table.h</a></div><div class="ttdoc">SpectrumTable is the view model of a frequency spectrum viewer: channel rows, spectra and frequency a...</div></div>
-<div class="ttc" id="aa03185_html"><div class="ttname"><a href="a03185.html">fiff_info.h</a></div><div class="ttdoc">Full FIFF measurement metadata: everything from FIFFB_MEAS / FIFFB_MEAS_INFO needed to interpret a re...</div></div>
-<div class="ttc" id="aa03332_html_ab309424562479fd599ad71c80bf188c6a53cced8d281a1a0ace3cb6594daaa4f7"><div class="ttname"><a href="a03332.html#ab309424562479fd599ad71c80bf188c6a53cced8d281a1a0ace3cb6594daaa4f7">mne::Accuracy::low</a></div><div class="ttdeci">@ low</div><div class="ttdef"><b>Definition</b> <a href="a01298_source.html#l00075">inv_sensor_set.h:75</a></div></div>
-<div class="ttc" id="aa03494_html"><div class="ttname"><a href="a03494.html">mne::viz</a></div><div class="ttdoc">Visualization without a GUI toolkit: figures as display lists (figures/), the logic of the trace and ...</div><div class="ttdef"><b>Definition</b> <a href="a02408_source.html#l00021">cameracontroller.cpp:22</a></div></div>
-<div class="ttc" id="aa07441_html_a551e78b001d3a2687798d8172250f6f7"><div class="ttname"><a href="a07441.html#a551e78b001d3a2687798d8172250f6f7">mne::viz::SpectrumTable::toggle_frozen</a></div><div class="ttdeci">void toggle_frozen()</div><div class="ttdef"><b>Definition</b> <a href="#l00133">spectrum_table.cpp:133</a></div></div>
-<div class="ttc" id="aa07441_html_a59e584ee2f53b17297d9b17c960144d2"><div class="ttname"><a href="a07441.html#a59e584ee2f53b17297d9b17c960144d2">mne::viz::SpectrumTable::spectrum</a></div><div class="ttdeci">std::optional&lt; Eigen::RowVectorXd &gt; spectrum(int row) const</div><div class="ttdef"><b>Definition</b> <a href="#l00092">spectrum_table.cpp:92</a></div></div>
-<div class="ttc" id="aa07441_html_a5c2340fd7251406c1f2b8e7d867120ceace0be71e33226e4c1db2bcea5959f16b"><div class="ttname"><a href="a07441.html#a5c2340fd7251406c1f2b8e7d867120ceace0be71e33226e4c1db2bcea5959f16b">mne::viz::SpectrumTable::Scale::Log</a></div><div class="ttdeci">@ Log</div><div class="ttdef"><b>Definition</b> <a href="a02816_source.html#l00071">spectrum_table.h:71</a></div></div>
-<div class="ttc" id="aa07441_html_a60763e2a034b3697854a812b9b8e1602"><div class="ttname"><a href="a07441.html#a60763e2a034b3697854a812b9b8e1602">mne::viz::SpectrumTable::set_bounds</a></div><div class="ttdeci">bool set_bounds(float lower, float upper)</div><div class="ttdef"><b>Definition</b> <a href="#l00143">spectrum_table.cpp:143</a></div></div>
-<div class="ttc" id="aa07441_html_a7ebd714ad5ebf793b2fb3c30c496e602"><div class="ttname"><a href="a07441.html#a7ebd714ad5ebf793b2fb3c30c496e602">mne::viz::SpectrumTable::set_info</a></div><div class="ttdeci">void set_info(std::shared_ptr&lt; FiffInfo &gt; info)</div><div class="ttdef"><b>Definition</b> <a href="#l00038">spectrum_table.cpp:38</a></div></div>
-<div class="ttc" id="aa07441_html_a97d89b70bc615d4454ab534bd83e6750"><div class="ttname"><a href="a07441.html#a97d89b70bc615d4454ab534bd83e6750">mne::viz::SpectrumTable::select</a></div><div class="ttdeci">void select(const std::vector&lt; int &gt; &amp;channels)</div><div class="ttdef"><b>Definition</b> <a href="#l00105">spectrum_table.cpp:105</a></div></div>
-<div class="ttc" id="aa07441_html_aba59dfef2a843f7831c1e2f563f91bd3"><div class="ttname"><a href="a07441.html#aba59dfef2a843f7831c1e2f563f91bd3">mne::viz::SpectrumTable::channel</a></div><div class="ttdeci">int channel(int row) const</div><div class="ttdef"><b>Definition</b> <a href="#l00073">spectrum_table.cpp:73</a></div></div>
-<div class="ttc" id="aa07441_html_ad3bbf2c82b2e577262b55be54829f5ad"><div class="ttname"><a href="a07441.html#ad3bbf2c82b2e577262b55be54829f5ad">mne::viz::SpectrumTable::info</a></div><div class="ttdeci">const std::shared_ptr&lt; FiffInfo &gt; &amp; info() const</div><div class="ttdef"><b>Definition</b> <a href="a02816_source.html#l00090">spectrum_table.h:90</a></div></div>
-<div class="ttc" id="aa07441_html_ad9f6c2463f5c0dbb0c55c0715dca96e3"><div class="ttname"><a href="a07441.html#ad9f6c2463f5c0dbb0c55c0715dca96e3">mne::viz::SpectrumTable::reset_selection</a></div><div class="ttdeci">void reset_selection()</div><div class="ttdef"><b>Definition</b> <a href="#l00120">spectrum_table.cpp:120</a></div></div>
-<div class="ttc" id="aa07441_html_adea3690de3773fb69a8981504b365f07"><div class="ttname"><a href="a07441.html#adea3690de3773fb69a8981504b365f07">mne::viz::SpectrumTable::set_data</a></div><div class="ttdeci">void set_data(const Eigen::MatrixXd &amp;data)</div><div class="ttdef"><b>Definition</b> <a href="#l00046">spectrum_table.cpp:46</a></div></div>
-<div class="ttc" id="aa07441_html_af55e1ca07e17cb10b00b9b0a788d513a"><div class="ttname"><a href="a07441.html#af55e1ca07e17cb10b00b9b0a788d513a">mne::viz::SpectrumTable::channel_name</a></div><div class="ttdeci">std::string channel_name(int row) const</div><div class="ttdef"><b>Definition</b> <a href="#l00081">spectrum_table.cpp:81</a></div></div>
+<div class="ttc" id="aa02411_html"><div class="ttname"><a href="a02411.html">settings_store.h</a></div><div class="ttdoc">SettingsStore persists view state as key/value pairs in whatever storage a backend provides.</div></div>
+<div class="ttc" id="aa02816_html"><div class="ttname"><a href="a02816.html">projectors_panel.h</a></div><div class="ttdoc">ProjectorsPanel: switch the SSP projectors of the data on and off.</div></div>
+<div class="ttc" id="aa03356_html_a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275"><div class="ttname"><a href="a03356.html#a7bec239a5f57a0a6211044ac960432a8ac68271a63ddbc431c307beb7d2918275">mne::Direction::out</a></div><div class="ttdeci">@ out</div><div class="ttdef"><b>Definition</b> <a href="a00698_source.html#l00094">network.h:94</a></div></div>
+<div class="ttc" id="aa03518_html"><div class="ttname"><a href="a03518.html">mne::viz</a></div><div class="ttdoc">Visualization without a GUI toolkit: figures as display lists (figures/), the logic of the trace and ...</div><div class="ttdef"><b>Definition</b> <a href="a02396_source.html#l00021">cameracontroller.cpp:22</a></div></div>
+<div class="ttc" id="aa05385_html"><div class="ttname"><a href="a05385.html">mne::FiffProj</a></div><div class="ttdoc">Single SSP projection item: kind, active flag, desired flag and the named projection vector matrix.</div><div class="ttdef"><b>Definition</b> <a href="a03080_source.html#l00081">fiff_proj.h:82</a></div></div>
+<div class="ttc" id="aa05385_html_a18022afa119da9200c0b6bd33fbbb926"><div class="ttname"><a href="a05385.html#a18022afa119da9200c0b6bd33fbbb926">mne::FiffProj::desc</a></div><div class="ttdeci">std::string desc</div><div class="ttdef"><b>Definition</b> <a href="a03080_source.html#l00221">fiff_proj.h:221</a></div></div>
+<div class="ttc" id="aa05385_html_a7953a891f40177f6255e95be67cb0dda"><div class="ttname"><a href="a05385.html#a7953a891f40177f6255e95be67cb0dda">mne::FiffProj::active</a></div><div class="ttdeci">bool active</div><div class="ttdef"><b>Definition</b> <a href="a03080_source.html#l00220">fiff_proj.h:220</a></div></div>
+<div class="ttc" id="aa07269_html"><div class="ttname"><a href="a07269.html">mne::viz::SettingField</a></div><div class="ttdoc">A field of a settings panel.</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00067">settings_form.h:68</a></div></div>
+<div class="ttc" id="aa07269_html_a206b05d7f1e3a23b3035b1e53f0d1ce3"><div class="ttname"><a href="a07269.html#a206b05d7f1e3a23b3035b1e53f0d1ce3">mne::viz::SettingField::key</a></div><div class="ttdeci">std::string key</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00108">settings_form.h:108</a></div></div>
+<div class="ttc" id="aa07269_html_a3592ddb4fcc6f725fd96d615090ea696"><div class="ttname"><a href="a07269.html#a3592ddb4fcc6f725fd96d615090ea696">mne::viz::SettingField::persistent</a></div><div class="ttdeci">bool persistent</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00127">settings_form.h:127</a></div></div>
+<div class="ttc" id="aa07269_html_abd1bf66a0e729d613c8eeb3147a72330"><div class="ttname"><a href="a07269.html#abd1bf66a0e729d613c8eeb3147a72330">mne::viz::SettingField::default_value</a></div><div class="ttdeci">SettingValue default_value</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00112">settings_form.h:112</a></div></div>
+<div class="ttc" id="aa07269_html_abeb22bd79bc4c1822b9122f849d6ab20ac26f15e86e3de4c398a8273272aba034"><div class="ttname"><a href="a07269.html#abeb22bd79bc4c1822b9122f849d6ab20ac26f15e86e3de4c398a8273272aba034">mne::viz::SettingField::Kind::Bool</a></div><div class="ttdeci">@ Bool</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00072">settings_form.h:72</a></div></div>
+<div class="ttc" id="aa07269_html_ae1e654529f64d9a229e7de1ecf32e229"><div class="ttname"><a href="a07269.html#ae1e654529f64d9a229e7de1ecf32e229">mne::viz::SettingField::kind</a></div><div class="ttdeci">Kind kind</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00109">settings_form.h:109</a></div></div>
+<div class="ttc" id="aa07269_html_af6c847b31d97ac5501bc450002cd0b8f"><div class="ttname"><a href="a07269.html#af6c847b31d97ac5501bc450002cd0b8f">mne::viz::SettingField::label</a></div><div class="ttdeci">std::string label</div><div class="ttdef"><b>Definition</b> <a href="a02537_source.html#l00110">settings_form.h:110</a></div></div>
+<div class="ttc" id="aa07273_html_a0e9639a6c610577cec573fdba4caeec4"><div class="ttname"><a href="a07273.html#a0e9639a6c610577cec573fdba4caeec4">mne::viz::SettingsForm::add_listener</a></div><div class="ttdeci">int add_listener(Listener listener)</div><div class="ttdef"><b>Definition</b> <a href="a02534_source.html#l00524">settings_form.cpp:524</a></div></div>
+<div class="ttc" id="aa07273_html_a26357c120cf3160e7d88fd20110b1cad"><div class="ttname"><a href="a07273.html#a26357c120cf3160e7d88fd20110b1cad">mne::viz::SettingsForm::add</a></div><div class="ttdeci">const SettingField &amp; add(SettingField field)</div><div class="ttdef"><b>Definition</b> <a href="a02534_source.html#l00065">settings_form.cpp:65</a></div></div>
+<div class="ttc" id="aa07273_html_a2acd1514901225a3a327c8d12c54f1b1"><div class="ttname"><a href="a07273.html#a2acd1514901225a3a327c8d12c54f1b1">mne::viz::SettingsForm::remove</a></div><div class="ttdeci">bool remove(const std::string &amp;key)</div><div class="ttdef"><b>Definition</b> <a href="a02534_source.html#l00268">settings_form.cpp:268</a></div></div>
+<div class="ttc" id="aa07273_html_a4f177181dff84c022ce99c60eb764ede"><div class="ttname"><a href="a07273.html#a4f177181dff84c022ce99c60eb764ede">mne::viz::SettingsForm::set_value</a></div><div class="ttdeci">bool set_value(const std::string &amp;key, const SettingValue &amp;value)</div><div class="ttdef"><b>Definition</b> <a href="a02534_source.html#l00386">settings_form.cpp:386</a></div></div>
+<div class="ttc" id="aa07273_html_aa7c82caf6ea38509e0ffb3f45a0aa64d"><div class="ttname"><a href="a07273.html#aa7c82caf6ea38509e0ffb3f45a0aa64d">mne::viz::SettingsForm::remove_listener</a></div><div class="ttdeci">void remove_listener(int id)</div><div class="ttdef"><b>Definition</b> <a href="a02534_source.html#l00542">settings_form.cpp:542</a></div></div>
+<div class="ttc" id="aa07425_html"><div class="ttname"><a href="a07425.html">mne::viz::SettingsStore</a></div><div class="ttdoc">Key/value storage for the persistent state of views.</div><div class="ttdef"><b>Definition</b> <a href="a02411_source.html#l00058">settings_store.h:59</a></div></div>
+<div class="ttc" id="aa07425_html_a2b700606ae8d4671530e764327677480"><div class="ttname"><a href="a07425.html#a2b700606ae8d4671530e764327677480">mne::viz::SettingsStore::set_value</a></div><div class="ttdeci">virtual void set_value(const std::string &amp;key, const SettingValue &amp;value)=0</div></div>
+<div class="ttc" id="aa07425_html_a902cb8a4dc36e127f4439264e64c2714"><div class="ttname"><a href="a07425.html#a902cb8a4dc36e127f4439264e64c2714">mne::viz::SettingsStore::read_string</a></div><div class="ttdeci">std::string read_string(const std::string &amp;key, const std::string &amp;fallback) const</div><div class="ttdef"><b>Definition</b> <a href="a02429_source.html#l00118">settings_store.cpp:118</a></div></div>
+<div class="ttc" id="aa07489_html_a967b9036eed424b2610ac500b6da2c52"><div class="ttname"><a href="a07489.html#a967b9036eed424b2610ac500b6da2c52">mne::viz::Panel::form</a></div><div class="ttdeci">SettingsForm &amp; form()</div><div class="ttdef"><b>Definition</b> <a href="a02831_source.html#l00094">panel.h:94</a></div></div>
+<div class="ttc" id="aa07489_html_a9e58c835ac9477736b26db6dbcb34646"><div class="ttname"><a href="a07489.html#a9e58c835ac9477736b26db6dbcb34646">mne::viz::Panel::settings_key</a></div><div class="ttdeci">std::string settings_key(const std::string &amp;path, const std::string &amp;name) const</div><div class="ttdef"><b>Definition</b> <a href="a02822_source.html#l00119">panel.cpp:119</a></div></div>
+<div class="ttc" id="aa07489_html_aa33e4c9ec92e8dbe168249081cc15fa3"><div class="ttname"><a href="a07489.html#aa33e4c9ec92e8dbe168249081cc15fa3">mne::viz::Panel::set_width</a></div><div class="ttdeci">void set_width(int width)</div><div class="ttdef"><b>Definition</b> <a href="a02831_source.html#l00171">panel.h:171</a></div></div>
+<div class="ttc" id="aa07489_html_aba28b9a36a434836b2965e3c411991be"><div class="ttname"><a href="a07489.html#aba28b9a36a434836b2965e3c411991be">mne::viz::Panel::Panel</a></div><div class="ttdeci">Panel(std::string id, std::string title)</div><div class="ttdef"><b>Definition</b> <a href="a02822_source.html#l00037">panel.cpp:37</a></div></div>
+<div class="ttc" id="aa07493_html_a159ae66fa67c0cebe1755684d0daee5d"><div class="ttname"><a href="a07493.html#a159ae66fa67c0cebe1755684d0daee5d">mne::viz::ProjectorsPanel::set_projectors</a></div><div class="ttdeci">void set_projectors(const std::vector&lt; mne::FiffProj &gt; &amp;projs)</div><div class="ttdef"><b>Definition</b> <a href="#l00102">projectors_panel.cpp:102</a></div></div>
+<div class="ttc" id="aa07493_html_a949edf90aa95b2d6f7885ac2474c6cd6"><div class="ttname"><a href="a07493.html#a949edf90aa95b2d6f7885ac2474c6cd6">mne::viz::ProjectorsPanel::~ProjectorsPanel</a></div><div class="ttdeci">~ProjectorsPanel() override</div><div class="ttdef"><b>Definition</b> <a href="#l00088">projectors_panel.cpp:88</a></div></div>
+<div class="ttc" id="aa07493_html_aa99217b0a63a7adf31bd519ab08584c4"><div class="ttname"><a href="a07493.html#aa99217b0a63a7adf31bd519ab08584c4">mne::viz::ProjectorsPanel::ProjectorsPanel</a></div><div class="ttdeci">ProjectorsPanel()</div><div class="ttdef"><b>Definition</b> <a href="#l00065">projectors_panel.cpp:65</a></div></div>
+<div class="ttc" id="aa07493_html_ab8ff1d1233d723e18756a99c7ad8d515"><div class="ttname"><a href="a07493.html#ab8ff1d1233d723e18756a99c7ad8d515">mne::viz::ProjectorsPanel::set_all_active</a></div><div class="ttdeci">void set_all_active(bool active)</div><div class="ttdef"><b>Definition</b> <a href="#l00147">projectors_panel.cpp:147</a></div></div>
+<div class="ttc" id="aa07493_html_ac1fdd051c5d4ab593a42e1748809f48b"><div class="ttname"><a href="a07493.html#ac1fdd051c5d4ab593a42e1748809f48b">mne::viz::ProjectorsPanel::field_key</a></div><div class="ttdeci">static std::string field_key(std::size_t index)</div><div class="ttdef"><b>Definition</b> <a href="#l00095">projectors_panel.cpp:95</a></div></div>
+<div class="ttc" id="aa07493_html_ac7cfd6b9d7906e5829667ce23e80afb0"><div class="ttname"><a href="a07493.html#ac7cfd6b9d7906e5829667ce23e80afb0">mne::viz::ProjectorsPanel::load</a></div><div class="ttdeci">void load(const SettingsStore &amp;store, const std::string &amp;path) override</div><div class="ttdef"><b>Definition</b> <a href="#l00186">projectors_panel.cpp:186</a></div></div>
+<div class="ttc" id="aa07493_html_ad2c73c2017346487a61b9e38bba26f7b"><div class="ttname"><a href="a07493.html#ad2c73c2017346487a61b9e38bba26f7b">mne::viz::ProjectorsPanel::set_active</a></div><div class="ttdeci">void set_active(std::size_t index, bool active)</div><div class="ttdef"><b>Definition</b> <a href="#l00136">projectors_panel.cpp:136</a></div></div>
+<div class="ttc" id="aa07493_html_ad808aad42e243190cc20673afef64ba8"><div class="ttname"><a href="a07493.html#ad808aad42e243190cc20673afef64ba8">mne::viz::ProjectorsPanel::kAllKey</a></div><div class="ttdeci">static constexpr const char * kAllKey</div><div class="ttdef"><b>Definition</b> <a href="a02816_source.html#l00057">projectors_panel.h:57</a></div></div>
+<div class="ttc" id="aa07493_html_ad8f915dd2869e965ff87dc4d954b1128"><div class="ttname"><a href="a07493.html#ad8f915dd2869e965ff87dc4d954b1128">mne::viz::ProjectorsPanel::save</a></div><div class="ttdeci">void save(SettingsStore &amp;store, const std::string &amp;path) const override</div><div class="ttdef"><b>Definition</b> <a href="#l00214">projectors_panel.cpp:214</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
