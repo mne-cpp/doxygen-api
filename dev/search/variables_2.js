@@ -101,9 +101,9 @@ var searchData=
   ['colstride_98',['colStride',['../a03727.html#a13012976b3fca07d66237730650b739b',1,'mne::AcqMatrixRef']]],
   ['column_5fcount_99',['column_count',['../a07551.html#a48ff643d9281ded22bc5c73a61af1e97',1,'mne::viz::ChannelTable']]],
   ['column_5fnorm_100',['column_norm',['../a05623.html#a589bb7d7e577210bdbd53e06320bafcb',1,'mne::InvDipoleFitData']]],
-  ['column_5fnorm_5fcomp_101',['COLUMN_NORM_COMP',['../a01223.html#ab57161525a59e616c344cc8753756f52',1,'inv_dipole_fit_data.h']]],
-  ['column_5fnorm_5floc_102',['COLUMN_NORM_LOC',['../a01223.html#ad2cac135d19ab5c31b4441a8cf3376e8',1,'inv_dipole_fit_data.h']]],
-  ['column_5fnorm_5fnone_103',['COLUMN_NORM_NONE',['../a01223.html#a1ebd56693c9e03110076ea3e674aee32',1,'inv_dipole_fit_data.h']]],
+  ['column_5fnorm_5fcomp_101',['COLUMN_NORM_COMP',['../a01124.html#ab57161525a59e616c344cc8753756f52',1,'inv_dipole_fit_data.h']]],
+  ['column_5fnorm_5floc_102',['COLUMN_NORM_LOC',['../a01124.html#ad2cac135d19ab5c31b4441a8cf3376e8',1,'inv_dipole_fit_data.h']]],
+  ['column_5fnorm_5fnone_103',['COLUMN_NORM_NONE',['../a01124.html#a1ebd56693c9e03110076ea3e674aee32',1,'inv_dipole_fit_data.h']]],
   ['columns_104',['columns',['../a07147.html#a57a523ac0a44e6493e7413b3528c953f',1,'mne::viz::AverageTile']]],
   ['command_105',['command',['../a04207.html#a44ed75e16dd453b1823b539ad1dadc2f',1,'mne::detail::FtMessage::command'],['../a05499.html#a1dd1e45286222bb8417e53b6c20540c4',1,'mne::ComputeFwdSettings::command']]],
   ['commands_106',['commands',['../a07215.html#af8b432935322642b5a3cd46e14449f33',1,'mne::viz::DisplayList']]],
@@ -164,7 +164,7 @@ var searchData=
   ['created_161',['created',['../a05971.html#a711b2703888e82acce998811769a62f9',1,'mne::MnaProject']]],
   ['created_5fhere_162',['created_here',['../a06079.html#af4b9d39b0036ae93768d66d5971ce96e',1,'mne::MNEEvent']]],
   ['csdbyfreq_163',['csdByFreq',['../a05051.html#a7ffb015bd8fa86a41549306c8bd0fefb',1,'mne::CsdResult']]],
-  ['ctf_5fcomp_164',['ctf_comp',['../a02744.html#ae7815c89d2887c1b6b261544c9de3e3e',1,'mne_ctf_comp_data_set.cpp']]],
+  ['ctf_5fcomp_164',['ctf_comp',['../a00608.html#ae7815c89d2887c1b6b261544c9de3e3e',1,'mne_ctf_comp_data_set.cpp']]],
   ['ctf_5fhead_5ft_165',['ctf_head_t',['../a05419.html#ab8a25299a9b47bd851b3d140dc485240',1,'mne::FiffInfoBase']]],
   ['ctfkind_166',['ctfkind',['../a05327.html#a20aa15273d1de5ffdda5b5294f17534c',1,'mne::FiffCtfComp']]],
   ['ctrs_167',['ctrs',['../a06091.html#a700eb3f76bbd21f9335f1e73fb3174c5',1,'mne::RegionDataOut::ctrs'],['../a06111.html#a345885c2c574ea44e94528d0418f27b3',1,'mne::RegionMTOut::ctrs']]],
@@ -178,5 +178,5 @@ var searchData=
   ['cursor_5fdata_5fchanged_175',['cursor_data_changed',['../a07747.html#ab9920e5ffb2a4fc63da03236b9705354',1,'mne::viz::TraceView::Effects']]],
   ['curv_176',['curv',['../a06287.html#a1c24e4acb01e2c74c9b0dece9fa240c9',1,'mne::MNESurfaceOrVolume']]],
   ['curvature_5fcolor_5fmode_177',['curvature_color_mode',['../a06167.html#ae55bcc6fc228a7d18f6baabdb592f3f6',1,'mne::MNEMshDisplaySurface']]],
-  ['curvature_5ffile_5fmagic_5fnumber_178',['CURVATURE_FILE_MAGIC_NUMBER',['../a02678.html#a2d0a58187814e2bcff513e8a01e2b4d0',1,'mne_source_space.cpp']]]
+  ['curvature_5ffile_5fmagic_5fnumber_178',['CURVATURE_FILE_MAGIC_NUMBER',['../a00479.html#a2d0a58187814e2bcff513e8a01e2b4d0',1,'mne_source_space.cpp']]]
 ];

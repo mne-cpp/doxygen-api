@@ -17,7 +17,7 @@ var searchData=
   ['fiff_5fulong_5ft_14',['fiff_ulong_t',['../a03398.html#a0809b0ea13f9872551a0a08b70e4ac4b',1,'mne']]],
   ['fiff_5fushort_5ft_15',['fiff_ushort_t',['../a03398.html#a5be381b2e29fc8b8f9f33b9f3e0c6fa3',1,'mne']]],
   ['fituser_16',['fitUser',['../a03398.html#a6fe6d85d6a5e141ba70ae63f9af67880',1,'mne']]],
-  ['fwdfieldfunc_17',['fwdFieldFunc',['../a02840.html#a556bad2e70ba768d4f84fce9be4705ff',1,'fwd_types.h']]],
-  ['fwdfieldgradfunc_18',['fwdFieldGradFunc',['../a02840.html#a218bb0e199f4a9f6b55773a82069c309',1,'fwd_types.h']]],
-  ['fwdvecfieldfunc_19',['fwdVecFieldFunc',['../a02840.html#a482236b16a40c34f155fc8da3d118440',1,'fwd_types.h']]]
+  ['fwdfieldfunc_17',['fwdFieldFunc',['../a03002.html#a556bad2e70ba768d4f84fce9be4705ff',1,'fwd_types.h']]],
+  ['fwdfieldgradfunc_18',['fwdFieldGradFunc',['../a03002.html#a218bb0e199f4a9f6b55773a82069c309',1,'fwd_types.h']]],
+  ['fwdvecfieldfunc_19',['fwdVecFieldFunc',['../a03002.html#a482236b16a40c34f155fc8da3d118440',1,'fwd_types.h']]]
 ];

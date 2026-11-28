@@ -43,7 +43,7 @@ var searchData=
   ['annotations_5fchanged_40',['annotations_changed',['../a07747.html#a0879f55721394259a1418ab3891a21b7',1,'mne::viz::TraceView::Effects']]],
   ['anode_41',['anode',['../a05583.html#a32fa3c6ffb8a11d36530d99aa67f7dce',1,'mne::IeegBipolarPair']]],
   ['antialias_42',['antialias',['../a07211.html#a3a28bb37c00206df09bdfe18a1493ad0',1,'mne::viz::Command']]],
-  ['approx_5fring_5fbuf_5fsize_43',['APPROX_RING_BUF_SIZE',['../a02561.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
+  ['approx_5fring_5fbuf_5fsize_43',['APPROX_RING_BUF_SIZE',['../a00605.html#a839a8d74a82c1aa8f4d47f8a27acd8bb',1,'mne_raw_data.cpp']]],
   ['area_44',['area',['../a06203.html#a46b271f03a7c89f4b7fad089f48be131',1,'mne::MNEPatchInfo::area'],['../a06295.html#a62858efe43df1e554e8c96511784cadb',1,'mne::MNETriangle::area']]],
   ['arguments_45',['arguments',['../a03679.html#a9a8ce86880ce084f3dedd61164fe7392',1,'mne::AcqControlInfo']]],
   ['ascent_46',['ascent',['../a07251.html#a44f3d6570c68b93618d4e06d2feedd37',1,'mne::viz::GlyphRun']]],

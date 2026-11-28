@@ -1,21 +1,21 @@
 var searchData=
 [
   ['q_0',['Q',['../a05635.html#ad3a781c17090cf51cdd584e24df0f9ff',1,'mne::InvEcd::Q'],['../a05639.html#aa975508a89e0872f79365eb3813dad45',1,'mne::bdipEcdRec::Q']]],
-  ['qtconversions_2eh_1',['qtconversions.h',['../a01826.html',1,'']]],
-  ['qtdispatcher_2eh_2',['qtdispatcher.h',['../a02165.html',1,'']]],
+  ['qtconversions_2eh_1',['qtconversions.h',['../a01823.html',1,'']]],
+  ['qtdispatcher_2eh_2',['qtdispatcher.h',['../a01913.html',1,'']]],
   ['qtsettingsstore_3',['QtSettingsStore',['../a06667.html',1,'mne::viz::qt::QtSettingsStore'],['../a06667.html#a2dad4aca89feaba1d64c90e7f27c0bcf',1,'mne::viz::qt::QtSettingsStore::QtSettingsStore()']]],
-  ['qtsettingsstore_2ecpp_4',['qtsettingsstore.cpp',['../a01829.html',1,'']]],
-  ['qtsettingsstore_2eh_5',['qtsettingsstore.h',['../a01832.html',1,'']]],
+  ['qtsettingsstore_2ecpp_4',['qtsettingsstore.cpp',['../a01826.html',1,'']]],
+  ['qtsettingsstore_2eh_5',['qtsettingsstore.h',['../a01817.html',1,'']]],
   ['qttextmetrics_6',['QtTextMetrics',['../a06635.html',1,'mne::viz::qt::QtTextMetrics'],['../a06635.html#aed230d539d7647a3b5f48008e05694b9',1,'mne::viz::qt::QtTextMetrics::QtTextMetrics()']]],
-  ['qttheme_2ecpp_7',['qttheme.cpp',['../a02258.html',1,'']]],
-  ['qttheme_2eh_8',['qttheme.h',['../a02255.html',1,'']]],
+  ['qttheme_2ecpp_7',['qttheme.cpp',['../a01925.html',1,'']]],
+  ['qttheme_2eh_8',['qttheme.h',['../a01928.html',1,'']]],
   ['quad_9',['quad',['../a06951.html#a92472e1bdc87e6a754114a7b9330b1ee',1,'mne::viz::BrainSliceLayer']]],
-  ['quad_5ffile_5fmagic_5fnumber_10',['QUAD_FILE_MAGIC_NUMBER',['../a02510.html#ae073eaf30d93d8ad4b9084547d45646e',1,'mne_surface_or_volume.h']]],
+  ['quad_5ffile_5fmagic_5fnumber_10',['QUAD_FILE_MAGIC_NUMBER',['../a00383.html#ae073eaf30d93d8ad4b9084547d45646e',1,'mne_surface_or_volume.h']]],
   ['quantbinbase_11',['QuantBinBase',['../a03398.html#a079a81b0acac0fc8d8bd9f9302467245af1a72f128bf0ad887a5b1857fb42d03f',1,'mne']]],
   ['queue_12',['queue',['../a04511.html#a528974cbf88ca1ffb3eecc43750ef14c',1,'AcqRecorder::Impl']]],
   ['queued_13',['queued',['../a04511.html#ae320fb28afd5c72f9b267927a015249f',1,'AcqRecorder::Impl']]],
   ['queueddispatcher_14',['queuedDispatcher',['../a03561.html#a70dcb0fa87fd9cc257ca0a722e779916',1,'mne::viz::qt']]],
   ['quickcontrolview_15',['QuickControlView',['../a06907.html',1,'mne::viz::qt::QuickControlView'],['../a06907.html#a3b1f4032f5fe698fd855e97a1157162e',1,'mne::viz::qt::QuickControlView::QuickControlView()']]],
-  ['quickcontrolview_2ecpp_16',['quickcontrolview.cpp',['../a02087.html',1,'']]],
-  ['quickcontrolview_2eh_17',['quickcontrolview.h',['../a02069.html',1,'']]]
+  ['quickcontrolview_2ecpp_16',['quickcontrolview.cpp',['../a02000.html',1,'']]],
+  ['quickcontrolview_2eh_17',['quickcontrolview.h',['../a01994.html',1,'']]]
 ];
