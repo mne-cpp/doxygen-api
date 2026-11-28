@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hpisettingsview_2ecpp_0',['hpisettingsview.cpp',['../a02057.html',1,'']]],
-  ['hpisettingsview_2eh_1',['hpisettingsview.h',['../a02216.html',1,'']]]
+  ['hpi_5fpanel_2ecpp_0',['hpi_panel.cpp',['../a01799.html',1,'']]],
+  ['hpi_5fpanel_2eh_1',['hpi_panel.h',['../a01853.html',1,'']]]
 ];
